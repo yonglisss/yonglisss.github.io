@@ -1,0 +1,35 @@
+<!DOCTYPE html><html lang="zh-CN"> <head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1"><title>Archon：如果你嫌 AI 编程不稳定，可以先看看这个工作流引擎 | 未来观察者</title><meta name="description" content="这两天 GitHub 上热度很高的 Archon，不是再做一个“会写代码的助手”，而是想把 AI 编程从“看模型当天状态”变成“可复用、可审计、可重复执行的流程”。它把规划、实现、测试、评审、发 PR 这些步骤写成 YAML 工作流，再交给 coding agent 执行。对于已"><meta name="generator" content="Astro v5.18.1"><meta property="og:title" content="Archon：如果你嫌 AI 编程不稳定，可以先看看这个工作流引擎 | 未来观察者"><meta property="og:description" content="这两天 GitHub 上热度很高的 Archon，不是再做一个“会写代码的助手”，而是想把 AI 编程从“看模型当天状态”变成“可复用、可审计、可重复执行的流程”。它把规划、实现、测试、评审、发 PR 这些步骤写成 YAML 工作流，再交给 coding agent 执行。对于已"><meta property="og:type" content="website"><meta property="og:url" content="https://yonglisss.github.io/posts/2026-04-11-archon/"><link rel="icon" type="image/svg+xml" href="/favicon.svg"><link rel="alternate" type="application/rss+xml" title="未来观察者" href="/rss.xml"><link rel="stylesheet" href="/_astro/_slug_.Dw7jkfUC.css"></head> <body> <div class="page-bg"></div> <header class="site-header"> <div class="shell header-inner"> <a class="brand" href="/"> <span class="brand-mark">FO</span> <span>未来观察者</span> </a> <nav aria-label="主导航"> <ul class="nav-list"> <li> <a href="/" class="nav-link"> 首页 </a> </li><li> <a href="/posts/" class="nav-link"> 文章 </a> </li><li> <a href="/archive/" class="nav-link"> 归档 </a> </li><li> <a href="/about/" class="nav-link"> 关于 </a> </li> </ul> </nav> </div> </header> <main class="shell page-content">  <div class="post-hero"> <p class="eyebrow">2026年4月11日</p> <h1>Archon：如果你嫌 AI 编程不稳定，可以先看看这个工作流引擎</h1> <p class="post-summary">这两天 GitHub 上热度很高的 Archon，不是再做一个“会写代码的助手”，而是想把 AI 编程从“看模型当天状态”变成“可复用、可审计、可重复执行的流程”。它把规划、实现、测试、评审、发 PR 这些步骤写成 YAML 工作流，再交给 coding agent 执行。对于已</p> <ul class="tag-list"> <li> <a href="/tags/AI%E5%B7%A5%E5%85%B7/" class="tag-link">
+#AI工具 </a> </li><li> <a href="/tags/2026%E5%B9%B404%E6%9C%88/" class="tag-link">
+#2026年04月 </a> </li> </ul> </div> <div class="post-grid"> <article class="prose">  <p>这两天 GitHub 上热度很高的 Archon，不是再做一个“会写代码的助手”，而是想把 AI 编程从“看模型当天状态”变成“可复用、可审计、可重复执行的流程”。它把规划、实现、测试、评审、发 PR 这些步骤写成 YAML 工作流，再交给 coding agent 执行。对于已经在用 Claude Code、Codex 一类工具的人来说，它更像一层流程编排：不是替你写业务代码，而是把团队希望 AI 按什么顺序做事，固定下来。</p>
+<h2 id="-这个项目是干什么的">📌 这个项目是干什么的</h2>
+<ul>
+<li><strong>定位</strong>：面向 AI 编程场景的工作流引擎，用 YAML 定义多步开发流程。</li>
+<li><strong>适合谁</strong>：已经在团队里使用 coding agent，希望把修 bug、做 feature、评审 PR 这些流程标准化的人。</li>
+<li><strong>解决什么问题</strong>：减少 AI 编码过程里的随机性，比如跳过测试、漏掉评审、流程顺序不稳定。</li>
+<li><strong>当前成熟度</strong>：项目提供 CLI、Web UI、默认工作流模板和官方文档；最新 release 已到 <code>v0.3.5</code>。</li>
+</ul>
+<h2 id="-为什么值得关注">🔍 为什么值得关注</h2>
+<ol>
+<li><strong>它抓的是 AI 编程最现实的痛点：流程不稳定。</strong> Archon 的核心不是再堆一个聊天界面，而是把“先规划、再实现、再验证、最后发 PR”写成 DAG 工作流，让同一套流程可以复用到不同仓库里。</li>
+<li><strong>它把 AI 节点和确定性节点混在一个流程里。</strong> README 和官方文档都明确支持把 bash、测试、审批、循环节点放进同一个工作流里。也就是说，AI 负责需要判断的部分，测试和命令仍然走可验证的确定性步骤，这一点对工程团队更实用。</li>
+<li><strong>它的“隔离执行”思路很适合多人协作。</strong> 每次运行使用独立 git worktree，目标就是让多个任务并行推进时少打架。对于经常一边修 bug、一边试新需求的团队，这比单纯让 agent 在当前分支里乱改更靠谱。</li>
+</ol>
+<h2 id="-谁适合试怎么开始">🧪 谁适合试，怎么开始</h2>
+<ul>
+<li><strong>最适合的试用人群</strong>：已经在用 Claude Code 或 Codex，且开始遇到“同样一句话每次做法都不一样”的团队。</li>
+<li><strong>最短尝试路径</strong>：先用官方 Quick Install 装 CLI，再直接跑默认 workflow，感受它对“计划→实现→验证”这类链路的约束能力。</li>
+<li><strong>建议先看</strong>：先看 README 里的 workflow 示例，再看官方文档的 <em>Authoring Workflows</em>，理解节点依赖、循环和条件分支怎么写。</li>
+</ul>
+<h2 id="️-使用提醒">⚠️ 使用提醒</h2>
+<ul>
+<li>Archon 更适合<strong>已有工程流程</strong>的人。若团队本身还没有清晰的开发规范，换成工作流引擎也不会自动变好。</li>
+<li>它解决的是“如何更稳定地驱动 agent 干活”，不是替你判断需求是否正确。工作流写得差，AI 只会更稳定地执行错误流程。</li>
+<li>当前官方材料里强调的主要 provider 是 Claude Code SDK 和 Codex SDK；如果你的环境依赖别的 agent 体系，最好先核对兼容性再投入。</li>
+</ul>
+<h2 id="-参考资源">🔗 参考资源</h2>
+<ul>
+<li>GitHub：<a href="https://github.com/coleam00/Archon">https://github.com/coleam00/Archon</a></li>
+<li>官网 / 文档：<a href="https://archon.diy/">https://archon.diy/</a></li>
+<li>工作流文档：<a href="https://archon.diy/guides/authoring-workflows/">https://archon.diy/guides/authoring-workflows/</a></li>
+<li>最新 release：<a href="https://github.com/coleam00/Archon/releases/latest">https://github.com/coleam00/Archon/releases/latest</a></li>
+</ul>  </article> <aside class="toc"><p class="toc-title">目录</p><ul class="toc-list"><li class="depth-2"><a href="#-这个项目是干什么的">📌 这个项目是干什么的</a></li><li class="depth-2"><a href="#-为什么值得关注">🔍 为什么值得关注</a></li><li class="depth-2"><a href="#-谁适合试怎么开始">🧪 谁适合试，怎么开始</a></li><li class="depth-2"><a href="#️-使用提醒">⚠️ 使用提醒</a></li><li class="depth-2"><a href="#-参考资源">🔗 参考资源</a></li></ul></aside> </div>  </main> <footer class="site-footer"> <div class="shell footer-inner"> <p>© 2026 未来观察者</p> <p>Built with Astro, Markdown/MDX and GitHub Pages.</p> </div> </footer> </body></html>

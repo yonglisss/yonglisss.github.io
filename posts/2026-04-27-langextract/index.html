@@ -1,0 +1,40 @@
+<!DOCTYPE html><html lang="zh-CN"> <head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1"><title>LangExtract：如果你常做信息抽取，这个项目值得先收藏 | 未来观察者</title><meta name="description" content="这两年很多人都在用大模型做“从长文本里抽字段、抽事件、抽实体”的事，但真正难的往往不是调通一次，而是结果能不能回到原文、能不能复核、能不能扩到长文档。Google 开源的 LangExtract 值得关注，就因为它不是只给一个抽取结果，而是强调“结构化输出 + 原文定位 + 可视"><meta name="generator" content="Astro v5.18.1"><meta property="og:title" content="LangExtract：如果你常做信息抽取，这个项目值得先收藏 | 未来观察者"><meta property="og:description" content="这两年很多人都在用大模型做“从长文本里抽字段、抽事件、抽实体”的事，但真正难的往往不是调通一次，而是结果能不能回到原文、能不能复核、能不能扩到长文档。Google 开源的 LangExtract 值得关注，就因为它不是只给一个抽取结果，而是强调“结构化输出 + 原文定位 + 可视"><meta property="og:type" content="website"><meta property="og:url" content="https://yonglisss.github.io/posts/2026-04-27-langextract/"><link rel="icon" type="image/svg+xml" href="/favicon.svg"><link rel="alternate" type="application/rss+xml" title="未来观察者" href="/rss.xml"><link rel="stylesheet" href="/_astro/_slug_.Dw7jkfUC.css"></head> <body> <div class="page-bg"></div> <header class="site-header"> <div class="shell header-inner"> <a class="brand" href="/"> <span class="brand-mark">FO</span> <span>未来观察者</span> </a> <nav aria-label="主导航"> <ul class="nav-list"> <li> <a href="/" class="nav-link"> 首页 </a> </li><li> <a href="/posts/" class="nav-link"> 文章 </a> </li><li> <a href="/archive/" class="nav-link"> 归档 </a> </li><li> <a href="/about/" class="nav-link"> 关于 </a> </li> </ul> </nav> </div> </header> <main class="shell page-content">  <div class="post-hero"> <p class="eyebrow">2026年4月27日</p> <h1>LangExtract：如果你常做信息抽取，这个项目值得先收藏</h1> <p class="post-summary">这两年很多人都在用大模型做“从长文本里抽字段、抽事件、抽实体”的事，但真正难的往往不是调通一次，而是结果能不能回到原文、能不能复核、能不能扩到长文档。Google 开源的 LangExtract 值得关注，就因为它不是只给一个抽取结果，而是强调“结构化输出 + 原文定位 + 可视</p> <ul class="tag-list"> <li> <a href="/tags/AI%E5%B7%A5%E5%85%B7/" class="tag-link">
+#AI工具 </a> </li><li> <a href="/tags/2026%E5%B9%B404%E6%9C%88/" class="tag-link">
+#2026年04月 </a> </li> </ul> </div> <div class="post-grid"> <article class="prose">  <p>这两年很多人都在用大模型做“从长文本里抽字段、抽事件、抽实体”的事，但真正难的往往不是调通一次，而是结果能不能回到原文、能不能复核、能不能扩到长文档。Google 开源的 LangExtract 值得关注，就因为它不是只给一个抽取结果，而是强调“结构化输出 + 原文定位 + 可视化检查”这一整套链路。对做知识整理、文档处理、医疗/法务/研报类文本结构化的人来说，它比单纯的 prompt 脚本更像一个可落地工具。</p>
+<h2 id="-这个项目是干什么的">📌 这个项目是干什么的</h2>
+<ul>
+<li>它是一个 Python 库，用 LLM 按你给定的规则和 few-shot 示例，从非结构化文本里提取结构化信息。</li>
+<li>官方 README 明确强调 grounded extraction：每条抽取结果都尽量映射回原文位置，方便核对，不只是“模型说有”。</li>
+<li>它支持长文档处理，提供分块、并行、多轮抽取等机制，也能直接处理 URL 文本。</li>
+<li>适合需要把文本变成可用数据的人，例如知识库整理、报告结构化、合规审阅、医学文本抽取。</li>
+</ul>
+<h2 id="-为什么值得关注">🔍 为什么值得关注</h2>
+<ul>
+<li>第一，它把“可验证”放在前面。README 提到，无法在原文中定位的抽取结果会显示 <code>char_interval=None</code>，这能帮你快速筛掉不够扎实的内容。</li>
+<li>第二，它不是只做 demo。项目已经给出安装、可视化、长文档示例、OpenAI/Ollama/Vertex AI 等使用路径，资料完整度比较高。</li>
+<li>第三，release 还在持续更新。GitHub releases 显示，3 月和 4 月都还有新版本，最近更新包括跨 chunk 指代处理、解析容错和 OpenAI 参数修复，说明维护还算积极。</li>
+</ul>
+<h2 id="-谁适合试怎么开始">🧪 谁适合试，怎么开始</h2>
+<ul>
+<li>如果你经常要从访谈、报告、病历、客服记录、会议纪要里抽字段或标签，值得试一下。</li>
+<li>最短路径很简单：先 <code>pip install langextract</code>，然后照 README 跑一个最小示例。</li>
+<li>建议第一步不要上复杂业务，先拿一段你熟悉的文本，定义 2~3 类抽取目标，验证它的 grounded 输出和可视化效果。</li>
+<li>如果文本很长，再看官方的长文档示例，理解它的多轮抽取和并行策略。</li>
+</ul>
+<h2 id="️-使用提醒">⚠️ 使用提醒</h2>
+<ul>
+<li>它不是“零配置自动抽取器”。效果很大程度取决于你写的提示词、few-shot 示例质量，以及选用的模型。</li>
+<li>官方也提醒，云端模型通常需要 API Key；如果想控成本或本地化，可以考虑 Ollama 路径。</li>
+<li>另外，LangExtract 更适合“需要可追溯”的抽取任务；如果你只是临时总结一段短文本，它未必比直接调用模型更省事。</li>
+</ul>
+<h2 id="-参考资源">🔗 参考资源</h2>
+<ul>
+<li>GitHub：<a href="https://github.com/google/langextract">https://github.com/google/langextract</a></li>
+<li>README：<a href="https://raw.githubusercontent.com/google/langextract/main/README.md">https://raw.githubusercontent.com/google/langextract/main/README.md</a></li>
+<li>长文档示例：<a href="https://github.com/google/langextract/blob/main/docs/examples/longer_text_example.md">https://github.com/google/langextract/blob/main/docs/examples/longer_text_example.md</a></li>
+<li>Releases：<a href="https://github.com/google/langextract/releases">https://github.com/google/langextract/releases</a></li>
+<li>License：<a href="https://raw.githubusercontent.com/google/langextract/main/LICENSE">https://raw.githubusercontent.com/google/langextract/main/LICENSE</a></li>
+</ul>
+<blockquote>
+<p>供 AI工具公众号人工审阅，不自动发布。</p>
+</blockquote>  </article> <aside class="toc"><p class="toc-title">目录</p><ul class="toc-list"><li class="depth-2"><a href="#-这个项目是干什么的">📌 这个项目是干什么的</a></li><li class="depth-2"><a href="#-为什么值得关注">🔍 为什么值得关注</a></li><li class="depth-2"><a href="#-谁适合试怎么开始">🧪 谁适合试，怎么开始</a></li><li class="depth-2"><a href="#️-使用提醒">⚠️ 使用提醒</a></li><li class="depth-2"><a href="#-参考资源">🔗 参考资源</a></li></ul></aside> </div>  </main> <footer class="site-footer"> <div class="shell footer-inner"> <p>© 2026 未来观察者</p> <p>Built with Astro, Markdown/MDX and GitHub Pages.</p> </div> </footer> </body></html>

@@ -1,0 +1,35 @@
+<!DOCTYPE html><html lang="zh-CN"> <head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1"><title>LiteRT-LM：想把大模型真正跑到设备侧，可以先看它 | 未来观察者</title><meta name="description" content="这两天值得关注的一个 GitHub 开源项目，是 Google 开源的 LiteRT-LM。简单说，它不是新的聊天壳子，而是一套把大语言模型部署到手机、桌面端和 IoT 设备上的推理框架。最近项目刚把 Gemma 4 支持放到显眼位置，仓库、官方博客和 release 说明也比较"><meta name="generator" content="Astro v5.18.1"><meta property="og:title" content="LiteRT-LM：想把大模型真正跑到设备侧，可以先看它 | 未来观察者"><meta property="og:description" content="这两天值得关注的一个 GitHub 开源项目，是 Google 开源的 LiteRT-LM。简单说，它不是新的聊天壳子，而是一套把大语言模型部署到手机、桌面端和 IoT 设备上的推理框架。最近项目刚把 Gemma 4 支持放到显眼位置，仓库、官方博客和 release 说明也比较"><meta property="og:type" content="website"><meta property="og:url" content="https://yonglisss.github.io/posts/2026-04-06-litert-lm/"><link rel="icon" type="image/svg+xml" href="/favicon.svg"><link rel="alternate" type="application/rss+xml" title="未来观察者" href="/rss.xml"><link rel="stylesheet" href="/_astro/_slug_.Dw7jkfUC.css"></head> <body> <div class="page-bg"></div> <header class="site-header"> <div class="shell header-inner"> <a class="brand" href="/"> <span class="brand-mark">FO</span> <span>未来观察者</span> </a> <nav aria-label="主导航"> <ul class="nav-list"> <li> <a href="/" class="nav-link"> 首页 </a> </li><li> <a href="/posts/" class="nav-link"> 文章 </a> </li><li> <a href="/archive/" class="nav-link"> 归档 </a> </li><li> <a href="/about/" class="nav-link"> 关于 </a> </li> </ul> </nav> </div> </header> <main class="shell page-content">  <div class="post-hero"> <p class="eyebrow">2026年4月6日</p> <h1>LiteRT-LM：想把大模型真正跑到设备侧，可以先看它</h1> <p class="post-summary">这两天值得关注的一个 GitHub 开源项目，是 Google 开源的 LiteRT-LM。简单说，它不是新的聊天壳子，而是一套把大语言模型部署到手机、桌面端和 IoT 设备上的推理框架。最近项目刚把 Gemma 4 支持放到显眼位置，仓库、官方博客和 release 说明也比较</p> <ul class="tag-list"> <li> <a href="/tags/AI%E5%B7%A5%E5%85%B7/" class="tag-link">
+#AI工具 </a> </li><li> <a href="/tags/2026%E5%B9%B404%E6%9C%88/" class="tag-link">
+#2026年04月 </a> </li> </ul> </div> <div class="post-grid"> <article class="prose">  <p>这两天值得关注的一个 GitHub 开源项目，是 Google 开源的 LiteRT-LM。简单说，它不是新的聊天壳子，而是一套把大语言模型部署到手机、桌面端和 IoT 设备上的推理框架。最近项目刚把 Gemma 4 支持放到显眼位置，仓库、官方博客和 release 说明也比较完整。对想做端侧 AI、离线能力、低时延应用的团队来说，这类基础设施比“又一个 Agent 壳”更值得认真看一眼。</p>
+<h2 id="-这个项目是干什么的">📌 这个项目是干什么的</h2>
+<ul>
+<li>它的定位是 <strong>端侧大模型推理框架</strong>，目标是在设备本地运行 LLM，而不是把请求全丢到云端。</li>
+<li>官方给出的覆盖范围比较广：Android、iOS、Web、桌面端，以及 Raspberry Pi 这类 IoT 设备。</li>
+<li>项目强调 GPU / NPU 加速、多模态输入，以及 function calling / tool use 这类 agent 工作流能力。</li>
+<li>如果你想做的是“设备内可运行、可离线、响应更快”的 AI 功能，而不是通用大模型平台，这个方向就比较对口。</li>
+</ul>
+<h2 id="-为什么值得关注">🔍 为什么值得关注</h2>
+<p>LiteRT-LM 最值得看的，不只是“Google 出品”，而是它把端侧大模型这件事做成了更接近产品化的路径。README 里明确写到，它已经用于 Chrome、Chromebook Plus、Pixel Watch 等 Google 产品场景，这说明它不是停留在 demo 层。</p>
+<p>第二个值得关注的点，是上手门槛在下降。仓库给了 CLI 入口，可以直接用 <code>uv tool install litert-lm</code> 安装，再通过 <code>litert-lm run</code> 拉起模型；而且最新 release 里继续补了 Hugging Face 导入、CLI 迁移和性能相关更新，说明项目仍在快速推进。</p>
+<p>如果你最近在看“端侧 Agent”“本地多模态”或“隐私敏感场景下的 AI 功能”，它比单纯追逐模型榜单更有实践价值，因为它解决的是落地层的问题。</p>
+<h2 id="-谁适合试怎么开始">🧪 谁适合试，怎么开始</h2>
+<p>如果你是移动端工程师、边缘设备开发者，或者正在评估“哪些 AI 能留在本地跑”，可以优先试一下。</p>
+<p>最短路径建议：</p>
+<ol>
+<li>先看 GitHub README，确认支持的平台和模型范围。</li>
+<li>再看最新 release，了解最近更新是否涉及你关心的设备或能力。</li>
+<li>如果只是快速试跑，不必急着从源码编译，项目文档已经明确提醒：大多数应用开发者优先用预构建 SDK 或 CLI 即可。</li>
+</ol>
+<h2 id="️-使用提醒">⚠️ 使用提醒</h2>
+<ul>
+<li>它适合的是“端侧部署”问题，不是通用的云端 LLM 编排平台。</li>
+<li>虽然官方强调多平台，但不同设备的可用模型、加速能力和效果会有明显差异，不能把 README 中的能力默认等同于所有硬件都能稳定复现。</li>
+<li>如果你需要的是最快上线业务，而不是深入做端侧优化，这类框架仍然有一定工程门槛，尤其会碰到模型格式、硬件适配和性能调优问题。</li>
+</ul>
+<p>可以先记住一个小结：如果你关心的是“怎样把模型真正放到设备里跑起来”，LiteRT-LM 比单看模型发布新闻更值得花时间。</p>
+<h2 id="-参考资源">🔗 参考资源</h2>
+<ul>
+<li>GitHub 仓库：<a href="https://github.com/google-ai-edge/LiteRT-LM">https://github.com/google-ai-edge/LiteRT-LM</a></li>
+<li>GitHub Releases：<a href="https://github.com/google-ai-edge/LiteRT-LM/releases">https://github.com/google-ai-edge/LiteRT-LM/releases</a></li>
+<li>官方博客（Gemma 4 支持）：<a href="https://developers.googleblog.com/bring-state-of-the-art-agentic-skills-to-the-edge-with-gemma-4/">https://developers.googleblog.com/bring-state-of-the-art-agentic-skills-to-the-edge-with-gemma-4/</a></li>
+</ul>  </article> <aside class="toc"><p class="toc-title">目录</p><ul class="toc-list"><li class="depth-2"><a href="#-这个项目是干什么的">📌 这个项目是干什么的</a></li><li class="depth-2"><a href="#-为什么值得关注">🔍 为什么值得关注</a></li><li class="depth-2"><a href="#-谁适合试怎么开始">🧪 谁适合试，怎么开始</a></li><li class="depth-2"><a href="#️-使用提醒">⚠️ 使用提醒</a></li><li class="depth-2"><a href="#-参考资源">🔗 参考资源</a></li></ul></aside> </div>  </main> <footer class="site-footer"> <div class="shell footer-inner"> <p>© 2026 未来观察者</p> <p>Built with Astro, Markdown/MDX and GitHub Pages.</p> </div> </footer> </body></html>

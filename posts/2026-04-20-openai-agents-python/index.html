@@ -1,0 +1,34 @@
+<!DOCTYPE html><html lang="zh-CN"> <head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1"><title>OpenAI Agents SDK：如果你想认真做多智能体，这个 Python 框架值得先看 | 未来观察者</title><meta name="description" content="Agent 框架很多，但真正适合工程团队上手的并不多。openai-agents-python 值得关注，不是因为它又把“多智能体”包装了一遍，而是它把常见需求拆成了几块清晰能力：Agent、Tools、Handoffs、Guardrails、Sessions、Tracing，以"><meta name="generator" content="Astro v5.18.1"><meta property="og:title" content="OpenAI Agents SDK：如果你想认真做多智能体，这个 Python 框架值得先看 | 未来观察者"><meta property="og:description" content="Agent 框架很多，但真正适合工程团队上手的并不多。openai-agents-python 值得关注，不是因为它又把“多智能体”包装了一遍，而是它把常见需求拆成了几块清晰能力：Agent、Tools、Handoffs、Guardrails、Sessions、Tracing，以"><meta property="og:type" content="website"><meta property="og:url" content="https://yonglisss.github.io/posts/2026-04-20-openai-agents-python/"><link rel="icon" type="image/svg+xml" href="/favicon.svg"><link rel="alternate" type="application/rss+xml" title="未来观察者" href="/rss.xml"><link rel="stylesheet" href="/_astro/_slug_.Dw7jkfUC.css"></head> <body> <div class="page-bg"></div> <header class="site-header"> <div class="shell header-inner"> <a class="brand" href="/"> <span class="brand-mark">FO</span> <span>未来观察者</span> </a> <nav aria-label="主导航"> <ul class="nav-list"> <li> <a href="/" class="nav-link"> 首页 </a> </li><li> <a href="/posts/" class="nav-link"> 文章 </a> </li><li> <a href="/archive/" class="nav-link"> 归档 </a> </li><li> <a href="/about/" class="nav-link"> 关于 </a> </li> </ul> </nav> </div> </header> <main class="shell page-content">  <div class="post-hero"> <p class="eyebrow">2026年4月20日</p> <h1>OpenAI Agents SDK：如果你想认真做多智能体，这个 Python 框架值得先看</h1> <p class="post-summary">Agent 框架很多，但真正适合工程团队上手的并不多。openai-agents-python 值得关注，不是因为它又把“多智能体”包装了一遍，而是它把常见需求拆成了几块清晰能力：Agent、Tools、Handoffs、Guardrails、Sessions、Tracing，以</p> <ul class="tag-list"> <li> <a href="/tags/AI%E5%B7%A5%E5%85%B7/" class="tag-link">
+#AI工具 </a> </li><li> <a href="/tags/2026%E5%B9%B404%E6%9C%88/" class="tag-link">
+#2026年04月 </a> </li> </ul> </div> <div class="post-grid"> <article class="prose">  <p>Agent 框架很多，但真正适合工程团队上手的并不多。<code>openai-agents-python</code> 值得关注，不是因为它又把“多智能体”包装了一遍，而是它把常见需求拆成了几块清晰能力：Agent、Tools、Handoffs、Guardrails、Sessions、Tracing，以及最近新增的 Sandbox Agents。对想把 LLM 从“能回答”推进到“能持续完成任务”的团队来说，这比堆提示词更接近可维护的工程方案。</p>
+<h2 id="-这个项目是干什么的">📌 这个项目是干什么的</h2>
+<ul>
+<li>它是 OpenAI 开源的 Python SDK，用来构建多智能体工作流。</li>
+<li>官方文档强调它默认基于 Responses API，但在上层补了运行时：工具调用、状态管理、交接、校验、追踪等能力。</li>
+<li>适合已经在做 AI 应用、内部助手、流程自动化、代码/文档代理的开发团队。</li>
+<li>当前上手门槛不高：官方要求 Python 3.10+，安装命令就是 <code>pip install openai-agents</code>。</li>
+</ul>
+<h2 id="-为什么值得关注">🔍 为什么值得关注</h2>
+<ul>
+<li><strong>抽象少，工程味更强。</strong> 官方把核心能力压缩到少数几个 primitives，学习成本比很多“大而全”框架低。</li>
+<li><strong>不是只会聊天。</strong> 文档里已经把函数工具、MCP server、会话记忆、人工介入、Tracing 接好了，适合从 demo 走向真实流程。</li>
+<li><strong>Sandbox Agents 很关键。</strong> 官方 release 显示，0.14.0 开始加入可持久化、隔离工作区的 Sandbox Agents，代理可以真正处理文件、仓库和命令行任务，而不只是文本往返。</li>
+</ul>
+<h2 id="-谁适合试怎么开始">🧪 谁适合试，怎么开始</h2>
+<ul>
+<li>如果你正在评估“要不要自己搭 agent runtime”，这个项目值得先试。</li>
+<li>最短路径很简单：先按官方 quickstart 跑一个单 Agent 示例，再加一个函数工具，最后再看 handoff 或 sessions。</li>
+<li>如果你的任务依赖真实文件、代码仓库或长时执行，再继续看 Sandbox Agents 文档，会更有判断价值。</li>
+</ul>
+<h2 id="️-使用提醒">⚠️ 使用提醒</h2>
+<ul>
+<li>它更适合有 Python 工程能力的团队，不是零代码工具。</li>
+<li>SDK 帮你管运行时，但业务边界、权限控制和成本控制仍要自己设计。</li>
+<li>多智能体并不天然更强，很多场景先把单 Agent + tools 跑顺，再决定是否拆分角色，通常更稳。</li>
+</ul>
+<h2 id="-参考资源">🔗 参考资源</h2>
+<ul>
+<li>GitHub：<a href="https://github.com/openai/openai-agents-python">https://github.com/openai/openai-agents-python</a></li>
+<li>官方文档：<a href="https://openai.github.io/openai-agents-python/">https://openai.github.io/openai-agents-python/</a></li>
+<li>Releases：<a href="https://github.com/openai/openai-agents-python/releases">https://github.com/openai/openai-agents-python/releases</a></li>
+</ul>  </article> <aside class="toc"><p class="toc-title">目录</p><ul class="toc-list"><li class="depth-2"><a href="#-这个项目是干什么的">📌 这个项目是干什么的</a></li><li class="depth-2"><a href="#-为什么值得关注">🔍 为什么值得关注</a></li><li class="depth-2"><a href="#-谁适合试怎么开始">🧪 谁适合试，怎么开始</a></li><li class="depth-2"><a href="#️-使用提醒">⚠️ 使用提醒</a></li><li class="depth-2"><a href="#-参考资源">🔗 参考资源</a></li></ul></aside> </div>  </main> <footer class="site-footer"> <div class="shell footer-inner"> <p>© 2026 未来观察者</p> <p>Built with Astro, Markdown/MDX and GitHub Pages.</p> </div> </footer> </body></html>

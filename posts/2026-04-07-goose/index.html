@@ -1,0 +1,27 @@
+<!DOCTYPE html><html lang="zh-CN"> <head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1"><title>goose：如果你想让 AI 真正接手工程任务，可以先看它 | 未来观察者</title><meta name="description" content="goose 是 Block 开源的本地 AI agent，定位不是“补全几行代码”，而是把安装、改代码、执行、调试、接入外部工具这些动作串起来，直接帮你推进完整工程任务。它这两天在 GitHub Trending 上升很快，值得看的原因也很直接：产品定位清楚，官方文档完整，而且对"><meta name="generator" content="Astro v5.18.1"><meta property="og:title" content="goose：如果你想让 AI 真正接手工程任务，可以先看它 | 未来观察者"><meta property="og:description" content="goose 是 Block 开源的本地 AI agent，定位不是“补全几行代码”，而是把安装、改代码、执行、调试、接入外部工具这些动作串起来，直接帮你推进完整工程任务。它这两天在 GitHub Trending 上升很快，值得看的原因也很直接：产品定位清楚，官方文档完整，而且对"><meta property="og:type" content="website"><meta property="og:url" content="https://yonglisss.github.io/posts/2026-04-07-goose/"><link rel="icon" type="image/svg+xml" href="/favicon.svg"><link rel="alternate" type="application/rss+xml" title="未来观察者" href="/rss.xml"><link rel="stylesheet" href="/_astro/_slug_.Dw7jkfUC.css"></head> <body> <div class="page-bg"></div> <header class="site-header"> <div class="shell header-inner"> <a class="brand" href="/"> <span class="brand-mark">FO</span> <span>未来观察者</span> </a> <nav aria-label="主导航"> <ul class="nav-list"> <li> <a href="/" class="nav-link"> 首页 </a> </li><li> <a href="/posts/" class="nav-link"> 文章 </a> </li><li> <a href="/archive/" class="nav-link"> 归档 </a> </li><li> <a href="/about/" class="nav-link"> 关于 </a> </li> </ul> </nav> </div> </header> <main class="shell page-content">  <div class="post-hero"> <p class="eyebrow">2026年4月7日</p> <h1>goose：如果你想让 AI 真正接手工程任务，可以先看它</h1> <p class="post-summary">goose 是 Block 开源的本地 AI agent，定位不是“补全几行代码”，而是把安装、改代码、执行、调试、接入外部工具这些动作串起来，直接帮你推进完整工程任务。它这两天在 GitHub Trending 上升很快，值得看的原因也很直接：产品定位清楚，官方文档完整，而且对</p> <ul class="tag-list"> <li> <a href="/tags/AI%E5%B7%A5%E5%85%B7/" class="tag-link">
+#AI工具 </a> </li><li> <a href="/tags/2026%E5%B9%B404%E6%9C%88/" class="tag-link">
+#2026年04月 </a> </li> </ul> </div> <div class="post-grid"> <article class="prose">  <p><code>goose</code> 是 Block 开源的本地 AI agent，定位不是“补全几行代码”，而是把安装、改代码、执行、调试、接入外部工具这些动作串起来，直接帮你推进完整工程任务。它这两天在 GitHub Trending 上升很快，值得看的原因也很直接：产品定位清楚，官方文档完整，而且对开发者的上手路径足够短。</p>
+<h2 id="-这个项目是干什么的">📌 这个项目是干什么的</h2>
+<ul>
+<li>一个面向开发者的本地 AI agent，提供 Desktop 和 CLI 两种入口</li>
+<li>可以读写代码、执行命令、调试失败任务，并接入 MCP server 扩展能力</li>
+<li>支持多种 LLM provider，不绑定单一模型供应商</li>
+<li>更适合“做事流”，而不只是聊天或代码补全</li>
+</ul>
+<h2 id="-为什么值得关注">🔍 为什么值得关注</h2>
+<ul>
+<li>它把 AI 编程工具从“建议型助手”往“执行型助手”再推了一步，强调能完成端到端工程任务。</li>
+<li>官方 quickstart 很清楚：安装、配置模型、创建小项目、再接 MCP 扩展，路径自然，读者容易实际试起来。</li>
+<li>项目维护状态也不错，GitHub latest release 目前是 <code>v1.29.1</code>（2026-04-03），不是只靠热度的新仓库。</li>
+</ul>
+<h2 id="-谁适合试怎么开始">🧪 谁适合试，怎么开始</h2>
+<p>如果你经常要搭 demo、改脚手架、连 API、修小型项目，或者想给团队找一个可扩展的 AI agent 框架，可以优先试一下。最短路径是：先看官方 Quickstart，选一个支持的模型 provider，直接让它完成一个小任务，比如做一个浏览器小游戏或改一个现成项目；第二步再接 MCP server，看它怎么把外部工具纳入工作流。</p>
+<h2 id="️-使用提醒">⚠️ 使用提醒</h2>
+<p><code>goose</code> 的价值在“可执行”，这也意味着权限边界、外部工具接入和成本控制要一起看。它适合有一定工程判断能力的开发者，不太适合把所有动作无脑放权给 agent。真正落地前，最好先在小任务和隔离环境里试。</p>
+<h2 id="-参考资源">🔗 参考资源</h2>
+<ul>
+<li>GitHub：<a href="https://github.com/block/goose">https://github.com/block/goose</a></li>
+<li>Quickstart：<a href="https://goose-docs.ai/docs/quickstart/">https://goose-docs.ai/docs/quickstart/</a></li>
+<li>Documentation：<a href="https://block.github.io/goose/docs/category/getting-started">https://block.github.io/goose/docs/category/getting-started</a></li>
+<li>Releases：<a href="https://github.com/block/goose/releases/latest">https://github.com/block/goose/releases/latest</a></li>
+</ul>  </article> <aside class="toc"><p class="toc-title">目录</p><ul class="toc-list"><li class="depth-2"><a href="#-这个项目是干什么的">📌 这个项目是干什么的</a></li><li class="depth-2"><a href="#-为什么值得关注">🔍 为什么值得关注</a></li><li class="depth-2"><a href="#-谁适合试怎么开始">🧪 谁适合试，怎么开始</a></li><li class="depth-2"><a href="#️-使用提醒">⚠️ 使用提醒</a></li><li class="depth-2"><a href="#-参考资源">🔗 参考资源</a></li></ul></aside> </div>  </main> <footer class="site-footer"> <div class="shell footer-inner"> <p>© 2026 未来观察者</p> <p>Built with Astro, Markdown/MDX and GitHub Pages.</p> </div> </footer> </body></html>

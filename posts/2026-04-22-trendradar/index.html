@@ -1,0 +1,36 @@
+<!DOCTYPE html><html lang="zh-CN"> <head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1"><title>TrendRadar：比“刷热搜”更有用的开源热点雷达 | 未来观察者</title><meta name="description" content="如果你每天都要盯新闻、看舆情、找选题，TrendRadar 值得放进工具箱。它不是又一个简单的“热榜聚合页”，而是把多平台热榜、RSS 订阅、关键词过滤、AI 筛选、AI 分析和多渠道推送打通成一套可部署的工作流。更重要的是，项目文档足够完整，支持 Docker 与 MCP 接入"><meta name="generator" content="Astro v5.18.1"><meta property="og:title" content="TrendRadar：比“刷热搜”更有用的开源热点雷达 | 未来观察者"><meta property="og:description" content="如果你每天都要盯新闻、看舆情、找选题，TrendRadar 值得放进工具箱。它不是又一个简单的“热榜聚合页”，而是把多平台热榜、RSS 订阅、关键词过滤、AI 筛选、AI 分析和多渠道推送打通成一套可部署的工作流。更重要的是，项目文档足够完整，支持 Docker 与 MCP 接入"><meta property="og:type" content="website"><meta property="og:url" content="https://yonglisss.github.io/posts/2026-04-22-trendradar/"><link rel="icon" type="image/svg+xml" href="/favicon.svg"><link rel="alternate" type="application/rss+xml" title="未来观察者" href="/rss.xml"><link rel="stylesheet" href="/_astro/_slug_.Dw7jkfUC.css"></head> <body> <div class="page-bg"></div> <header class="site-header"> <div class="shell header-inner"> <a class="brand" href="/"> <span class="brand-mark">FO</span> <span>未来观察者</span> </a> <nav aria-label="主导航"> <ul class="nav-list"> <li> <a href="/" class="nav-link"> 首页 </a> </li><li> <a href="/posts/" class="nav-link"> 文章 </a> </li><li> <a href="/archive/" class="nav-link"> 归档 </a> </li><li> <a href="/about/" class="nav-link"> 关于 </a> </li> </ul> </nav> </div> </header> <main class="shell page-content">  <div class="post-hero"> <p class="eyebrow">2026年4月22日</p> <h1>TrendRadar：比“刷热搜”更有用的开源热点雷达</h1> <p class="post-summary">如果你每天都要盯新闻、看舆情、找选题，TrendRadar 值得放进工具箱。它不是又一个简单的“热榜聚合页”，而是把多平台热榜、RSS 订阅、关键词过滤、AI 筛选、AI 分析和多渠道推送打通成一套可部署的工作流。更重要的是，项目文档足够完整，支持 Docker 与 MCP 接入</p> <ul class="tag-list"> <li> <a href="/tags/AI%E5%B7%A5%E5%85%B7/" class="tag-link">
+#AI工具 </a> </li><li> <a href="/tags/2026%E5%B9%B404%E6%9C%88/" class="tag-link">
+#2026年04月 </a> </li> </ul> </div> <div class="post-grid"> <article class="prose">  <p>如果你每天都要盯新闻、看舆情、找选题，TrendRadar 值得放进工具箱。它不是又一个简单的“热榜聚合页”，而是把多平台热榜、RSS 订阅、关键词过滤、AI 筛选、AI 分析和多渠道推送打通成一套可部署的工作流。更重要的是，项目文档足够完整，支持 Docker 与 MCP 接入，已经能让个人或小团队比较低成本地搭一个“自己的热点监控系统”。</p>
+<h2 id="-这个项目是干什么的">📌 这个项目是干什么的</h2>
+<ul>
+<li>聚合多个热榜平台与 RSS 源，减少来回切站看信息的时间。</li>
+<li>支持关键词规则和 AI 兴趣过滤两种模式，适合做行业监测、品牌舆情、选题雷达。</li>
+<li>可把结果推送到飞书、钉钉、Telegram、邮件、Slack 等渠道。</li>
+<li>还提供 MCP 服务，方便在支持 MCP 的客户端里直接做新闻搜索、聚合、趋势分析和摘要生成。</li>
+</ul>
+<h2 id="-为什么值得关注">🔍 为什么值得关注</h2>
+<p>先记住一个小结：TrendRadar 真正有价值的，不是“抓热点”，而是把“抓到之后怎么筛、怎么看、怎么发”一起做了。</p>
+<p>第一，它的上手门槛比很多舆情系统低。README 明确给出 Docker 部署路径，仓库还把 <code>config.yaml</code>、<code>frequency_words.txt</code>、<code>timeline.yaml</code> 等配置职责拆得比较清楚，适合边跑边改。</p>
+<p>第二，它不是只做通知。README-MCP-FAQ 里可以看到，项目已经提供搜索新闻、查 RSS、聚合去重、趋势分析、情感分析、生成摘要等工具，更接近“可被 AI 调用的热点数据层”。</p>
+<p>第三，它更新节奏还比较活跃。仓库近期仍在迭代，README 展示的版本为 v6.6.1，GitHub 仓库最近一次提交时间也较新，说明不是只靠一波热度冲上来。</p>
+<h2 id="-谁适合试怎么开始">🧪 谁适合试，怎么开始</h2>
+<ul>
+<li>做公众号、短视频、行业研究的人，适合用它盯选题。</li>
+<li>做品牌、公关、市场的人，适合拿它做轻量舆情监控。</li>
+<li>做 AI Agent、MCP 工具链的人，适合把它当成新闻与趋势数据源。</li>
+</ul>
+<p>最短尝试路径可以这样走：先看仓库 README 的 Docker 部署章节，按文档 <code>git clone</code> 后，用 <code>docker compose</code> 跑起来；然后只改三个地方：<code>config/config.yaml</code>、<code>config/frequency_words.txt</code>、<code>docker/.env</code>。如果你本来就在用 Cursor、Cherry Studio 等支持 MCP 的客户端，可以再接上它的 MCP 服务，直接在聊天里查热点和做分析。</p>
+<h2 id="️-使用提醒">⚠️ 使用提醒</h2>
+<ul>
+<li>它更像“开源工作流组件”，不是开箱即用的商业 SaaS，还是需要自己配环境与推送渠道。</li>
+<li>README 说明项目会使用外部数据源与 AI 接口，实际稳定性、成本和频率控制要自己评估。</li>
+<li>许可证为 GPL-3.0，团队二次开发或嵌入现有产品前，最好先看清合规边界。</li>
+<li>如果你只是想“偶尔看看今天热搜”，它可能偏重；但如果你已经有持续监测需求，它的性价比会明显更高。</li>
+</ul>
+<h2 id="-参考资源">🔗 参考资源</h2>
+<ul>
+<li>GitHub 仓库：<a href="https://github.com/sansan0/TrendRadar">https://github.com/sansan0/TrendRadar</a></li>
+<li>官方 README：<a href="https://raw.githubusercontent.com/sansan0/TrendRadar/master/README.md">https://raw.githubusercontent.com/sansan0/TrendRadar/master/README.md</a></li>
+<li>MCP FAQ：<a href="https://raw.githubusercontent.com/sansan0/TrendRadar/master/README-MCP-FAQ.md">https://raw.githubusercontent.com/sansan0/TrendRadar/master/README-MCP-FAQ.md</a></li>
+<li>示例配置：<a href="https://raw.githubusercontent.com/sansan0/TrendRadar/master/config/config.yaml">https://raw.githubusercontent.com/sansan0/TrendRadar/master/config/config.yaml</a></li>
+</ul>  </article> <aside class="toc"><p class="toc-title">目录</p><ul class="toc-list"><li class="depth-2"><a href="#-这个项目是干什么的">📌 这个项目是干什么的</a></li><li class="depth-2"><a href="#-为什么值得关注">🔍 为什么值得关注</a></li><li class="depth-2"><a href="#-谁适合试怎么开始">🧪 谁适合试，怎么开始</a></li><li class="depth-2"><a href="#️-使用提醒">⚠️ 使用提醒</a></li><li class="depth-2"><a href="#-参考资源">🔗 参考资源</a></li></ul></aside> </div>  </main> <footer class="site-footer"> <div class="shell footer-inner"> <p>© 2026 未来观察者</p> <p>Built with Astro, Markdown/MDX and GitHub Pages.</p> </div> </footer> </body></html>

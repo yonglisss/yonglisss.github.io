@@ -1,0 +1,32 @@
+<!DOCTYPE html><html lang="zh-CN"> <head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1"><title>QMD：如果你想把笔记、文档和会议记录变成可检索的本地知识库，可以先看它 | 未来观察者</title><meta name="description" content="很多团队现在的问题不是“没有资料”，而是资料散在 Markdown 笔记、会议纪要、项目文档里，关键词搜不到、语义搜不准，交给 AI 又常常上下文不完整。QMD 想解决的就是这件事：它把本地文档索引成一个可查询的知识库，同时把 BM25、向量检索和 LLM rerank 放在同一"><meta name="generator" content="Astro v5.18.1"><meta property="og:title" content="QMD：如果你想把笔记、文档和会议记录变成可检索的本地知识库，可以先看它 | 未来观察者"><meta property="og:description" content="很多团队现在的问题不是“没有资料”，而是资料散在 Markdown 笔记、会议纪要、项目文档里，关键词搜不到、语义搜不准，交给 AI 又常常上下文不完整。QMD 想解决的就是这件事：它把本地文档索引成一个可查询的知识库，同时把 BM25、向量检索和 LLM rerank 放在同一"><meta property="og:type" content="website"><meta property="og:url" content="https://yonglisss.github.io/posts/2026-04-08-qmd/"><link rel="icon" type="image/svg+xml" href="/favicon.svg"><link rel="alternate" type="application/rss+xml" title="未来观察者" href="/rss.xml"><link rel="stylesheet" href="/_astro/_slug_.Dw7jkfUC.css"></head> <body> <div class="page-bg"></div> <header class="site-header"> <div class="shell header-inner"> <a class="brand" href="/"> <span class="brand-mark">FO</span> <span>未来观察者</span> </a> <nav aria-label="主导航"> <ul class="nav-list"> <li> <a href="/" class="nav-link"> 首页 </a> </li><li> <a href="/posts/" class="nav-link"> 文章 </a> </li><li> <a href="/archive/" class="nav-link"> 归档 </a> </li><li> <a href="/about/" class="nav-link"> 关于 </a> </li> </ul> </nav> </div> </header> <main class="shell page-content">  <div class="post-hero"> <p class="eyebrow">2026年4月8日</p> <h1>QMD：如果你想把笔记、文档和会议记录变成可检索的本地知识库，可以先看它</h1> <p class="post-summary">很多团队现在的问题不是“没有资料”，而是资料散在 Markdown 笔记、会议纪要、项目文档里，关键词搜不到、语义搜不准，交给 AI 又常常上下文不完整。QMD 想解决的就是这件事：它把本地文档索引成一个可查询的知识库，同时把 BM25、向量检索和 LLM rerank 放在同一</p> <ul class="tag-list"> <li> <a href="/tags/AI%E5%B7%A5%E5%85%B7/" class="tag-link">
+#AI工具 </a> </li><li> <a href="/tags/2026%E5%B9%B404%E6%9C%88/" class="tag-link">
+#2026年04月 </a> </li> </ul> </div> <div class="post-grid"> <article class="prose">  <p>很多团队现在的问题不是“没有资料”，而是资料散在 Markdown 笔记、会议纪要、项目文档里，关键词搜不到、语义搜不准，交给 AI 又常常上下文不完整。QMD 想解决的就是这件事：它把本地文档索引成一个可查询的知识库，同时把 BM25、向量检索和 LLM rerank 放在同一条链路里，而且默认走本地运行。对想给自己或团队补一层“文档检索基础设施”的开发者来说，这个项目值得记一下。</p>
+<h2 id="-这个项目是干什么的">📌 这个项目是干什么的</h2>
+<ul>
+<li>它是一个面向 Markdown 文档的本地搜索引擎，适合笔记、知识库、会议记录和项目文档。</li>
+<li>检索链路是 BM25 全文搜索 + 向量语义搜索 + LLM rerank，不只是简单关键词匹配。</li>
+<li>它既能当 CLI 工具用，也能通过 MCP 暴露给 Claude、Cursor 一类代理系统使用。</li>
+<li>对“个人知识库增强”和“给 AI 补文档上下文”这两类场景都比较直接。</li>
+</ul>
+<h2 id="-为什么值得关注">🔍 为什么值得关注</h2>
+<p>第一，它不是泛泛讲 RAG，而是把“本地文档怎么被代理稳定调用”做成了可落地工具。README 里直接给了 collection、context、embed、query、get 这一整套最短路径。</p>
+<p>第二，它对 agent 工作流比较友好。QMD 提供 <code>--json</code>、<code>--files</code> 输出，也支持 MCP server；这意味着你可以先把文档索引好，再让代理按需取结果，而不是每次把整份资料硬塞进上下文。</p>
+<p>第三，它最近还在持续进化。官方 CHANGELOG 显示，<code>2.1.0</code> 在 2026-04-05 发布，新增了基于 tree-sitter 的代码分块、可点击编辑器链接、按 collection 配模型等能力，说明项目不只是概念演示，而是在往可长期使用的工具打磨。</p>
+<h2 id="-谁适合试怎么开始">🧪 谁适合试，怎么开始</h2>
+<p>如果你经常维护 Obsidian、项目文档库、研究资料库，或者正在给 AI 编码/研究代理准备知识底座，可以先试一下。</p>
+<p>最短路径也不复杂：先全局安装 <code>@tobilu/qmd</code>，再把你的 notes、docs、meetings 目录加成 collection，随后执行 <code>qmd embed</code> 建索引，最后用 <code>qmd query "你的问题"</code> 试检索效果。若你已经在用 Claude Desktop 或 Claude Code，也可以直接把它接成 MCP 服务。</p>
+<h2 id="️-使用提醒">⚠️ 使用提醒</h2>
+<ul>
+<li>它的价值高度依赖你的文档质量；源文档越乱，结果越难稳定。</li>
+<li>语义检索和 rerank 依赖本地模型，机器资源和模型选择会影响体验。</li>
+<li>它更适合“已有文档资产的人”，如果你的知识还没沉淀成 Markdown，收益不会立刻最大化。</li>
+<li>虽然是 MIT 许可证，但真正落到团队内部，还要先考虑索引更新、目录规范和权限边界。</li>
+</ul>
+<h2 id="-参考资源">🔗 参考资源</h2>
+<ul>
+<li>GitHub：<a href="https://github.com/tobi/qmd">https://github.com/tobi/qmd</a></li>
+<li>README：<a href="https://raw.githubusercontent.com/tobi/qmd/main/README.md">https://raw.githubusercontent.com/tobi/qmd/main/README.md</a></li>
+<li>CHANGELOG：<a href="https://raw.githubusercontent.com/tobi/qmd/main/CHANGELOG.md">https://raw.githubusercontent.com/tobi/qmd/main/CHANGELOG.md</a></li>
+<li>License：<a href="https://raw.githubusercontent.com/tobi/qmd/main/LICENSE">https://raw.githubusercontent.com/tobi/qmd/main/LICENSE</a></li>
+<li>npm registry：<a href="https://registry.npmjs.org/@tobilu/qmd">https://registry.npmjs.org/@tobilu/qmd</a></li>
+</ul>  </article> <aside class="toc"><p class="toc-title">目录</p><ul class="toc-list"><li class="depth-2"><a href="#-这个项目是干什么的">📌 这个项目是干什么的</a></li><li class="depth-2"><a href="#-为什么值得关注">🔍 为什么值得关注</a></li><li class="depth-2"><a href="#-谁适合试怎么开始">🧪 谁适合试，怎么开始</a></li><li class="depth-2"><a href="#️-使用提醒">⚠️ 使用提醒</a></li><li class="depth-2"><a href="#-参考资源">🔗 参考资源</a></li></ul></aside> </div>  </main> <footer class="site-footer"> <div class="shell footer-inner"> <p>© 2026 未来观察者</p> <p>Built with Astro, Markdown/MDX and GitHub Pages.</p> </div> </footer> </body></html>

@@ -1,0 +1,34 @@
+<!DOCTYPE html><html lang="zh-CN"> <head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1"><title>Open Agents：如果你想把“云端编码 Agent”搭起来，这个项目值得先看 | 未来观察者</title><meta name="description" content="这两天 GitHub 上涨得很快的 Open Agents，不是又一个“会聊天的 AI 壳子”，而是一个把云端编码 Agent 基础设施拆清楚的开源参考实现。它把 Web 界面、Agent 工作流、隔离沙箱三层分开：前端负责会话与流式反馈，Agent 作为可恢复的工作流运行，真正"><meta name="generator" content="Astro v5.18.1"><meta property="og:title" content="Open Agents：如果你想把“云端编码 Agent”搭起来，这个项目值得先看 | 未来观察者"><meta property="og:description" content="这两天 GitHub 上涨得很快的 Open Agents，不是又一个“会聊天的 AI 壳子”，而是一个把云端编码 Agent 基础设施拆清楚的开源参考实现。它把 Web 界面、Agent 工作流、隔离沙箱三层分开：前端负责会话与流式反馈，Agent 作为可恢复的工作流运行，真正"><meta property="og:type" content="website"><meta property="og:url" content="https://yonglisss.github.io/posts/2026-04-16-open-agents/"><link rel="icon" type="image/svg+xml" href="/favicon.svg"><link rel="alternate" type="application/rss+xml" title="未来观察者" href="/rss.xml"><link rel="stylesheet" href="/_astro/_slug_.Dw7jkfUC.css"></head> <body> <div class="page-bg"></div> <header class="site-header"> <div class="shell header-inner"> <a class="brand" href="/"> <span class="brand-mark">FO</span> <span>未来观察者</span> </a> <nav aria-label="主导航"> <ul class="nav-list"> <li> <a href="/" class="nav-link"> 首页 </a> </li><li> <a href="/posts/" class="nav-link"> 文章 </a> </li><li> <a href="/archive/" class="nav-link"> 归档 </a> </li><li> <a href="/about/" class="nav-link"> 关于 </a> </li> </ul> </nav> </div> </header> <main class="shell page-content">  <div class="post-hero"> <p class="eyebrow">2026年4月16日</p> <h1>Open Agents：如果你想把“云端编码 Agent”搭起来，这个项目值得先看</h1> <p class="post-summary">这两天 GitHub 上涨得很快的 Open Agents，不是又一个“会聊天的 AI 壳子”，而是一个把云端编码 Agent 基础设施拆清楚的开源参考实现。它把 Web 界面、Agent 工作流、隔离沙箱三层分开：前端负责会话与流式反馈，Agent 作为可恢复的工作流运行，真正</p> <ul class="tag-list"> <li> <a href="/tags/AI%E5%B7%A5%E5%85%B7/" class="tag-link">
+#AI工具 </a> </li><li> <a href="/tags/2026%E5%B9%B404%E6%9C%88/" class="tag-link">
+#2026年04月 </a> </li> </ul> </div> <div class="post-grid"> <article class="prose">  <p>这两天 GitHub 上涨得很快的 <code>Open Agents</code>，不是又一个“会聊天的 AI 壳子”，而是一个把<strong>云端编码 Agent 基础设施</strong>拆清楚的开源参考实现。它把 Web 界面、Agent 工作流、隔离沙箱三层分开：前端负责会话与流式反馈，Agent 作为可恢复的工作流运行，真正执行代码和命令的部分则放进独立 Sandbox。对想做 AI 编程产品、内部研发助手，或者研究 Agent 工程落地的人来说，这个项目的价值不只是能跑起来，而是把“怎么长期跑、怎么恢复、怎么接 GitHub”讲明白了。</p>
+<h2 id="-这个项目是干什么的">📌 这个项目是干什么的</h2>
+<ul>
+<li><strong>定位</strong>：一个用于构建云端后台编码 Agent 的开源参考应用，不是单一 SDK。</li>
+<li><strong>适合谁</strong>：想做 AI 编程产品、企业内部开发助手、代码自动化平台的团队。</li>
+<li><strong>解决什么问题</strong>：让 Agent 不再绑死在单次请求或本地电脑上，而是能在云端持续执行、多步推进、断线恢复。</li>
+<li><strong>当前成熟度</strong>：更像“可 fork 的工程骨架”，适合二次开发，不是开箱即用的零配置成品。</li>
+</ul>
+<h2 id="-为什么值得关注">🔍 为什么值得关注</h2>
+<ol>
+<li><strong>它把 Agent 和执行环境分开了。</strong> 这是整个项目最值得看的地方：Agent 不直接跑在 VM 里，而是通过读文件、改文件、执行 shell 等工具去控制 Sandbox。这样做的好处是，工作流生命周期、模型选择、沙箱实现可以分别演进，不容易把系统做成一坨。</li>
+<li><strong>它考虑的是“持续运行”而不是“单轮演示”。</strong> README 和官网都明确写了 durable workflow、resume、hibernate 等机制。换句话说，它面向的是会跨很多步、可能中断、还需要恢复的任务，这比 demo 型 Agent 更接近真实生产场景。</li>
+<li><strong>GitHub 集成路径写得比较实。</strong> 仓库把从 repo 克隆、分支操作，到可选自动 commit、push、PR 的链路都说明了，也把 Vercel OAuth、GitHub App、数据库等依赖讲清楚，适合团队拿来评估实现成本。</li>
+</ol>
+<h2 id="-谁适合试怎么开始">🧪 谁适合试，怎么开始</h2>
+<ul>
+<li><strong>最适合的试用人群</strong>：有一定工程能力的开发团队、做 AI Coding / Agent 平台的产品技术负责人。</li>
+<li><strong>最短尝试路径</strong>：先读 GitHub README，再看官网 <code>open-agents.dev</code> 对架构的概述；如果只是理解思路，先别急着完整部署，先把三层结构和依赖项看透。</li>
+<li><strong>建议先看</strong>：README 里的 <code>What it is</code>、<code>Current capabilities</code>、<code>What is actually required today</code> 三部分，这三段基本决定你是否值得继续投入部署时间。</li>
+</ul>
+<h2 id="️-使用提醒">⚠️ 使用提醒</h2>
+<ul>
+<li>这不是“几分钟装完就能替代 Cursor”的桌面工具。它依赖 PostgreSQL、Vercel OAuth、可选 GitHub App 等配置，更适合团队化搭建。</li>
+<li>项目强调的是参考实现与可 fork 性，不宜把它误判成稳定 SaaS 成品。你更应该关注它的架构取舍，而不是指望它直接覆盖所有编码 Agent 场景。</li>
+</ul>
+<h2 id="-参考资源">🔗 参考资源</h2>
+<ul>
+<li>GitHub：<a href="https://github.com/vercel-labs/open-agents">https://github.com/vercel-labs/open-agents</a></li>
+<li>官网：<a href="https://open-agents.dev/">https://open-agents.dev/</a></li>
+<li>README（原始文档）：<a href="https://raw.githubusercontent.com/vercel-labs/open-agents/main/README.md">https://raw.githubusercontent.com/vercel-labs/open-agents/main/README.md</a></li>
+<li>Releases：当前仓库暂无正式 release 页面内容，可按主分支文档理解当前状态</li>
+</ul>  </article> <aside class="toc"><p class="toc-title">目录</p><ul class="toc-list"><li class="depth-2"><a href="#-这个项目是干什么的">📌 这个项目是干什么的</a></li><li class="depth-2"><a href="#-为什么值得关注">🔍 为什么值得关注</a></li><li class="depth-2"><a href="#-谁适合试怎么开始">🧪 谁适合试，怎么开始</a></li><li class="depth-2"><a href="#️-使用提醒">⚠️ 使用提醒</a></li><li class="depth-2"><a href="#-参考资源">🔗 参考资源</a></li></ul></aside> </div>  </main> <footer class="site-footer"> <div class="shell footer-inner"> <p>© 2026 未来观察者</p> <p>Built with Astro, Markdown/MDX and GitHub Pages.</p> </div> </footer> </body></html>
