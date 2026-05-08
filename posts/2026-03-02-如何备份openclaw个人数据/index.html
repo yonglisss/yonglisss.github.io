@@ -1,0 +1,302 @@
+<!DOCTYPE html><html lang="zh-CN"> <head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1"><title>如何备份 OpenClaw 个人数据：从零到 GitHub 自动化的完整方案 | 未来观察者</title><meta name="description" content="发布时间： 2026-03-02 分类： 工具使用 阅读时间： 8 分钟"><meta name="generator" content="Astro v5.18.1"><meta property="og:title" content="如何备份 OpenClaw 个人数据：从零到 GitHub 自动化的完整方案 | 未来观察者"><meta property="og:description" content="发布时间： 2026-03-02 分类： 工具使用 阅读时间： 8 分钟"><meta property="og:type" content="website"><meta property="og:url" content="https://future.lifestudylab.com/posts/2026-03-02-%E5%A6%82%E4%BD%95%E5%A4%87%E4%BB%BDopenclaw%E4%B8%AA%E4%BA%BA%E6%95%B0%E6%8D%AE/"><link rel="icon" type="image/svg+xml" href="/favicon.svg"><link rel="alternate" type="application/rss+xml" title="未来观察者" href="/rss.xml"><link rel="stylesheet" href="/_astro/_channel_.Cl0MlA65.css"></head> <body> <div class="page-bg"></div> <header class="site-header"> <div class="shell header-inner"> <div class="header-bar"> <a class="brand" href="/ai-tools/"> <img src="/brand-mark.svg" alt="" class="brand-mark" width="56" height="56"> <span class="brand-text" aria-label="未来观察者">思考未来</span> </a> </div> </div> </header> <aside class="site-rail" aria-label="站点导航"> <div class="site-rail-inner"> <p class="site-rail-label">Channels</p> <nav aria-label="主导航"> <ul class="site-rail-nav"> <li> <a href="/ai-tools/" class="site-rail-link"> AI工具 </a> </li><li> <a href="/future-daily/" class="site-rail-link"> 未来观察者日报 </a> </li> </ul> </nav> </div> </aside> <main class="shell page-content">  <div class="post-hero"> <p class="eyebrow">2026年3月2日</p> <h1>如何备份 OpenClaw 个人数据：从零到 GitHub 自动化的完整方案</h1> <p class="post-summary">发布时间： 2026-03-02 分类： 工具使用 阅读时间： 8 分钟</p> <ul class="tag-list"> <li> <a href="/tags/AI%E5%B7%A5%E5%85%B7/" class="tag-link">
+#AI工具 </a> </li><li> <a href="/tags/2026%E5%B9%B403%E6%9C%88/" class="tag-link">
+#2026年03月 </a> </li> </ul> </div> <div class="post-grid"> <article class="prose">  <p><strong>发布时间：</strong> 2026-03-02<br>
+<strong>分类：</strong> 工具使用<br>
+<strong>阅读时间：</strong> 8 分钟</p>
+<hr>
+<h2 id="为什么要备份-openclaw-数据">为什么要备份 OpenClaw 数据？</h2>
+<p>OpenClaw 是一个强大的 AI 助手平台，它存储了大量个人数据：</p>
+<ul>
+<li><strong>记忆文件：</strong> <code>MEMORY.md</code>、<code>AGENTS.md</code> 等</li>
+<li><strong>身份信息：</strong> AI 助手的”灵魂”和配置</li>
+<li><strong>认证凭证：</strong> GitHub Token、API Keys 等</li>
+<li><strong>会话历史：</strong> 对话记录和状态</li>
+<li><strong>通道状态：</strong> WhatsApp、Feishu 等登录信息</li>
+</ul>
+<p>这些数据一旦丢失，需要重新配置所有连接，恢复成本很高。因此，<strong>定期备份是必需的</strong>。</p>
+<hr>
+<h2 id="openclaw-的数据结构">OpenClaw 的数据结构</h2>
+<p>首先，让我们了解 OpenClaw 的数据存储位置：</p>
+<pre class="astro-code github-light" style="background-color:#fff;color:#24292e; overflow-x: auto;" tabindex="0" data-language="plaintext"><code><span class="line"><span>~/.openclaw/                    # OpenClaw State Directory</span></span>
+<span class="line"><span>├── openclaw.json              # Gateway 配置</span></span>
+<span class="line"><span>├── workspace/                   # 个人工作空间</span></span>
+<span class="line"><span>│   ├── MEMORY.md             # 长期记忆</span></span>
+<span class="line"><span>│   ├── AGENTS.md             # 行为准则</span></span>
+<span class="line"><span>│   ├── SOUL.md               # 灵魂文件</span></span>
+<span class="line"><span>│   └── skills/               # 技能集合</span></span>
+<span class="line"><span>├── credentials/                  # 认证凭证（敏感！）</span></span>
+<span class="line"><span>├── agents/                     # Agent 配置和会话</span></span>
+<span class="line"><span>├── feishu/                     # Feishu 通道状态</span></span>
+<span class="line"><span>├── devices/                     # 设备配对</span></span>
+<span class="line"><span>└── extensions/                  # 插件</span></span>
+<span class="line"><span>    └── qqbot/              # 示例：QQ Bot 插件</span></span>
+<span class="line"><span>        └── node_modules/     # npm 依赖（1.4GB！）</span></span></code></pre>
+<p><strong>关键发现：</strong> <code>extensions/node_modules/</code> 目录通常超过 1GB，但这些都是可重新安装的依赖，<strong>不需要备份</strong>。</p>
+<hr>
+<h2 id="备份方案设计">备份方案设计</h2>
+<h3 id="核心思路">核心思路</h3>
+<ol>
+<li><strong>排除冗余：</strong> 不备份 <code>node_modules</code>，可通过 <code>npm install</code> 恢复</li>
+<li><strong>隔离备份：</strong> 不在生产目录中混入 Git 仓库，避免冲突</li>
+<li><strong>自动化：</strong> 使用 cron 定时任务，自动同步到 GitHub</li>
+<li><strong>安全存储：</strong> GitHub 私有仓库，保护敏感数据</li>
+</ol>
+<hr>
+<h2 id="完整实施步骤">完整实施步骤</h2>
+<h3 id="第一步创建-git-仓库">第一步：创建 Git 仓库</h3>
+<p><strong>不要在 <code>~/.openclaw/</code> 中初始化 Git！</strong> 原因：</p>
+<ul>
+<li>Git 的 <code>.git</code> 目录会混入 OpenClaw 的运行时文件</li>
+<li>OpenClaw 可能修改或删除 <code>.git</code>，导致版本控制混乱</li>
+<li>生产目录应该保持”干净”，Git 仓库应该独立</li>
+</ul>
+<p><strong>正确做法：在临时在目录创建 Git 仓库</strong></p>
+<pre class="astro-code github-light" style="background-color:#fff;color:#24292e; overflow-x: auto;" tabindex="0" data-language="bash"><code><span class="line"><span style="color:#6A737D"># 创建备份目录</span></span>
+<span class="line"><span style="color:#6F42C1">mkdir</span><span style="color:#005CC5"> -p</span><span style="color:#032F62"> /tmp/openclaw-backup</span></span>
+<span class="line"><span style="color:#005CC5">cd</span><span style="color:#032F62"> /tmp/openclaw-backup</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#6A737D"># 初始化 Git 仓库</span></span>
+<span class="line"><span style="color:#6F42C1">git</span><span style="color:#032F62"> init</span></span>
+<span class="line"><span style="color:#6F42C1">git</span><span style="color:#032F62"> config</span><span style="color:#032F62"> user.email</span><span style="color:#032F62"> "your-email@example.com"</span></span>
+<span class="line"><span style="color:#6F42C1">git</span><span style="color:#032F62"> config</span><span style="color:#032F62"> user.name</span><span style="color:#032F62"> "Your Name"</span></span></code></pre>
+<hr>
+<h3 id="第二步创建-gitignore">第二步：创建 .gitignore</h3>
+<p>这是最关键的一步！<code>.gitignore</code> 决定了什么文件会被排除：</p>
+<pre class="astro-code github-light" style="background-color:#fff;color:#24292e; overflow-x: auto;" tabindex="0" data-language="bash"><code><span class="line"><span style="color:#6A737D"># OpenClaw Backup - .gitignore</span></span>
+<span class="line"><span style="color:#6A737D"># ============================</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#6A737D"># 排除 extensions 目录（包含大量 node_modules）</span></span>
+<span class="line"><span style="color:#6F42C1">extensions/</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#6A737D"># 排除所有 node_modules</span></span>
+<span class="line"><span style="color:#D73A49">**</span><span style="color:#24292E">/node_modules/</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#6A737D"># 排除 package-lock.json 和 yarn.lock</span></span>
+<span class="line"><span style="color:#D73A49">**</span><span style="color:#24292E">/package-lock.json</span></span>
+<span class="line"><span style="color:#D73A49">**</span><span style="color:#24292E">/yarn.lock</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#6A737D"># 排除日志文件</span></span>
+<span class="line"><span style="color:#6F42C1">logs/</span></span>
+<span class="line"><span style="color:#D73A49">*</span><span style="color:#24292E">.log</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#6A737D"># 排除临时文件</span></span>
+<span class="line"><span style="color:#D73A49">*</span><span style="color:#24292E">.tmp</span></span>
+<span class="line"><span style="color:#D73A49">*</span><span style="color:#24292E">.temp</span></span>
+<span class="line"><span style="color:#D73A49">*</span><span style="color:#24292E">.swp</span></span>
+<span class="line"><span style="color:#6F42C1">.cache/</span></span>
+<span class="line"><span style="color:#6F42C1">tmp/</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#6A737D"># 排除编译产物</span></span>
+<span class="line"><span style="color:#6F42C1">dist/</span></span>
+<span class="line"><span style="color:#6F42C1">build/</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#6A737D"># 排除系统文件</span></span>
+<span class="line"><span style="color:#6F42C1">.DS_Store</span></span>
+<span class="line"><span style="color:#6F42C1">Thumbs.db</span></span></code></pre>
+<p><strong>效果：</strong> 备份大小从 1.4GB 降到 2.6MB（减少 99.8%！）</p>
+<hr>
+<h3 id="第三步使用-rsync-同步文件">第三步：使用 rsync 同步文件</h3>
+<p>为什么不直接用 <code>cp</code>？因为 <code>rsync</code> 更强大：</p>
+<pre class="astro-code github-light" style="background-color:#fff;color:#24292e; overflow-x: auto;" tabindex="0" data-language="bash"><code><span class="line"><span style="color:#6F42C1">rsync</span><span style="color:#005CC5"> -av</span><span style="color:#005CC5"> --delete</span><span style="color:#005CC5"> --exclude=</span><span style="color:#032F62">"extensions"</span><span style="color:#005CC5"> \</span></span>
+<span class="line"><span style="color:#032F62">  ~/.openclaw/</span><span style="color:#005CC5"> \</span></span>
+<span class="line"><span style="color:#032F62">  /tmp/openclaw-backup/</span></span></code></pre>
+<p><strong>参数说明：</strong></p>
+<ul>
+<li><code>-a</code>：归档模式，保持权限、时间戳等</li>
+<li><code>-v</code>：详细输出，显示同步的文件</li>
+<li><code>--delete</code>：删除备份中不存在于源的文件（保持同步）</li>
+<li><code>--exclude="extensions"</code>：排除 extensions 目录</li>
+</ul>
+<hr>
+<h3 id="第四步提交到-git">第四步：提交到 Git</h3>
+<pre class="astro-code github-light" style="background-color:#fff;color:#24292e; overflow-x: auto;" tabindex="0" data-language="bash"><code><span class="line"><span style="color:#005CC5">cd</span><span style="color:#032F62"> /tmp/openclaw-backup</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#6A737D"># 添加所有文件</span></span>
+<span class="line"><span style="color:#6F42C1">git</span><span style="color:#032F62"> add</span><span style="color:#005CC5"> -A</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#6A737D"># 提交</span></span>
+<span class="line"><span style="color:#6F42C1">git</span><span style="color:#032F62"> commit</span><span style="color:#005CC5"> -m</span><span style="color:#032F62"> "OpenClaw 备份 - $(</span><span style="color:#6F42C1">date</span><span style="color:#032F62"> '+%Y-%m-%d %H:%M:%S')"</span></span></code></pre>
+<hr>
+<h3 id="第五步关联-github-仓库">第五步：关联 GitHub 仓库</h3>
+<p><strong>创建 GitHub 私有仓库</strong>（必须私有！因为包含凭证）</p>
+<pre class="astro-code github-light" style="background-color:#fff;color:#24292e; overflow-x: auto;" tabindex="0" data-language="bash"><code><span class="line"><span style="color:#6A737D"># 添加远程仓库</span></span>
+<span class="line"><span style="color:#6F42C1">git</span><span style="color:#032F62"> remote</span><span style="color:#032F62"> add</span><span style="color:#032F62"> origin</span><span style="color:#032F62"> https://github.com/username/openclaw-backup.git</span></span></code></pre>
+<p><strong>使用 Personal Access Token（推荐）：</strong></p>
+<ol>
+<li>GitHub 设置 → Developer settings → Personal access tokens</li>
+<li>创建 token，权限选择 <code>repo</code>（完全访问）</li>
+<li>在 URL 中使用包含 token 的地址：</li>
+</ol>
+<pre class="astro-code github-light" style="background-color:#fff;color:#24292e; overflow-x: auto;" tabindex="0" data-language="bash"><code><span class="line"><span style="color:#6F42C1">git</span><span style="color:#032F62"> remote</span><span style="color:#032F62"> set-url</span><span style="color:#032F62"> origin</span><span style="color:#005CC5"> \</span></span>
+<span class="line"><span style="color:#032F62">  https://ghp_YOUR_TOKEN@github.com/username/openclaw-backup.git</span></span></code></pre>
+<p><strong>推送：</strong></p>
+<pre class="astro-code github-light" style="background-color:#fff;color:#24292e; overflow-x: auto;" tabindex="0" data-language="bash"><code><span class="line"><span style="color:#6F42C1">git</span><span style="color:#032F62"> push</span><span style="color:#005CC5"> -u</span><span style="color:#032F62"> origin</span><span style="color:#032F62"> master</span></span></code></pre>
+<hr>
+<h2 id="自动化设置定时备份">自动化：设置定时备份</h2>
+<p>使用 OpenClaw 的 cron 功能，每天自动备份两次。</p>
+<h3 id="创建备份脚本">创建备份脚本</h3>
+<p>将以下步骤封装到脚本中：</p>
+<pre class="astro-code github-light" style="background-color:#fff;color:#24292e; overflow-x: auto;" tabindex="0" data-language="bash"><code><span class="line"><span style="color:#6A737D">#!/bin/bash</span></span>
+<span class="line"><span style="color:#6A737D"># OpenClaw 自动备份脚本</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#24292E">SOURCE_DIR</span><span style="color:#D73A49">=</span><span style="color:#032F62">"~/.openclaw"</span></span>
+<span class="line"><span style="color:#24292E">BACKUP_DIR</span><span style="color:#D73A49">=</span><span style="color:#032F62">"/tmp/openclaw-backup"</span></span>
+<span class="line"><span style="color:#24292E">REMOTE_REPO</span><span style="color:#D73A49">=</span><span style="color:#032F62">"https://ghp_YOUR_TOKEN@github.com/username/repo.git"</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#6A737D"># 同步文件</span></span>
+<span class="line"><span style="color:#6F42C1">rsync</span><span style="color:#005CC5"> -av</span><span style="color:#005CC5"> --delete</span><span style="color:#005CC5"> --exclude=</span><span style="color:#032F62">"extensions"</span><span style="color:#032F62"> "</span><span style="color:#24292E">$SOURCE_DIR</span><span style="color:#032F62">/"</span><span style="color:#032F62"> "</span><span style="color:#24292E">$BACKUP_DIR</span><span style="color:#032F62">/"</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#6A737D"># 提交到 Git</span></span>
+<span class="line"><span style="color:#005CC5">cd</span><span style="color:#032F62"> "</span><span style="color:#24292E">$BACKUP_DIR</span><span style="color:#032F62">"</span></span>
+<span class="line"><span style="color:#6F42C1">git</span><span style="color:#032F62"> add</span><span style="color:#005CC5"> -A</span></span>
+<span class="line"><span style="color:#6F42C1">git</span><span style="color:#032F62"> commit</span><span style="color:#005CC5"> -m</span><span style="color:#032F62"> "自动备份 $(</span><span style="color:#6F42C1">date</span><span style="color:#032F62"> '+%Y-%m-%d %H:%M:%S')"</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#6A737D"># 推送到 GitHub</span></span>
+<span class="line"><span style="color:#6F42C1">git</span><span style="color:#032F62"> push</span></span></code></pre>
+<p><strong>保存为：</strong> <code>~/.openclaw/workspace/backup.sh</code><br>
+<strong>设置权限：</strong> <code>chmod +x ~/.openclaw/workspace/backup.sh</code></p>
+<hr>
+<h3 id="设置-openclaw-cron-任务">设置 OpenClaw Cron 任务</h3>
+<p>OpenClaw 提供了强大的 cron 命令：</p>
+<pre class="astro-code github-light" style="background-color:#fff;color:#24292e; overflow-x: auto;" tabindex="0" data-language="bash"><code><span class="line"><span style="color:#6A737D"># 凌晨 0 点备份</span></span>
+<span class="line"><span style="color:#6F42C1">openclaw</span><span style="color:#032F62"> cron</span><span style="color:#032F62"> add</span><span style="color:#005CC5"> \</span></span>
+<span class="line"><span style="color:#005CC5">  --name</span><span style="color:#032F62"> "OpenClaw 备份-凌晨"</span><span style="color:#005CC5"> \</span></span>
+<span class="line"><span style="color:#005CC5">  --cron</span><span style="color:#032F62"> "0 0 * * *"</span><span style="color:#005CC5"> \</span></span>
+<span class="line"><span style="color:#005CC5">  --message</span><span style="color:#032F62"> "执行 ~/.openclaw/workspace/backup.sh"</span><span style="color:#005CC5"> \</span></span>
+<span class="line"><span style="color:#005CC5">  --session</span><span style="color:#032F62"> isolated</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#6A737D"># 中午 12 点备份</span></span>
+<span class="line"><span style="color:#6F42C1">openclaw</span><span style="color:#032F62"> cron</span><span style="color:#032F62"> add</span><span style="color:#005CC5"> \</span></span>
+<span class="line"><span style="color:#005CC5">  --name</span><span style="color:#032F62"> "OpenClaw 备份-中午"</span><span style="color:#005CC5"> \</span></span>
+<span class="line"><span style="color:#005CC5">  --cron</span><span style="color:#032F62"> "0 12 * * *"</span><span style="color:#005CC5"> \</span></span>
+<span class="line"><span style="color:#005CC5">  --message</span><span style="color:#032F62"> "执行 ~/.openclaw/workspace/backup.sh"</span><span style="color:#005CC5"> \</span></span>
+<span class="line"><span style="color:#005CC5">  --session</span><span style="color:#032F62"> isolated</span></span></code></pre>
+<p><strong>验证：</strong></p>
+<pre class="astro-code github-light" style="background-color:#fff;color:#24292e; overflow-x: auto;" tabindex="0" data-language="bash"><code><span class="line"><span style="color:#6F42C1">openclaw</span><span style="color:#032F62"> cron</span><span style="color:#032F62"> list</span></span></code></pre>
+<p>输出：</p>
+<p>```
+ID                                   Name                     Schedule                   Next       Status
+b023627e-…  OpenClaw 备份-凌晨            cron 0 0 * * *            in 10h      idle
+b0c11dce-…  OpenClaw 备份-中午            cron 0 12 * * *           in 22h      idle
+```</p>
+<hr>
+<h2 id="数据验证">数据验证</h2>
+<h3 id="检查备份大小">检查备份大小</h3>
+<pre class="astro-code github-light" style="background-color:#fff;color:#24292e; overflow-x: auto;" tabindex="0" data-language="bash"><code><span class="line"><span style="color:#005CC5">cd</span><span style="color:#032F62"> /tmp/openclaw-backup</span></span>
+<span class="line"><span style="color:#6F42C1">du</span><span style="color:#005CC5"> -sh</span><span style="color:#032F62"> .</span></span></code></pre>
+<p><strong>预期结果：</strong> 约 2-5MB（取决于个人数据量）</p>
+<p><strong>包含内容：</strong></p>
+<ul>
+<li><code>openclaw.json</code> - Gateway 配置</li>
+<li><code>workspace/</code> - 长期记忆、技能、脚本</li>
+<li><code>credentials/</code> - 认证凭证</li>
+<li><code>agents/</code> - Agent 状态</li>
+<li><code>feishu/</code> - Feishu 通道状态</li>
+</ul>
+<h3 id="验证-git-提交">验证 Git 提交</h3>
+<pre class="astro-code github-light" style="background-color:#fff;color:#24292e; overflow-x: auto;" tabindex="0" data-language="bash"><code><span class="line"><span style="color:#005CC5">cd</span><span style="color:#032F62"> /tmp/openclaw-backup</span></span>
+<span class="line"><span style="color:#6F42C1">git</span><span style="color:#032F62"> log</span><span style="color:#005CC5"> --oneline</span><span style="color:#005CC5"> -5</span></span></code></pre>
+<p>输出示例：</p>
+<pre class="astro-code github-light" style="background-color:#fff;color:#24292e; overflow-x: auto;" tabindex="0" data-language="plaintext"><code><span class="line"><span>6a7e410 - OpenClaw 备份 - 2026-03-02 13:10:03</span></span>
+<span class="line"><span>...</span></span></code></pre>
+<h3 id="验证-github-仓库">验证 GitHub 仓库</h3>
+<p>访问 GitHub 仓库，确认：</p>
+<ul>
+<li>仓库是私有的（至关重要！）</li>
+<li>包含 <code>.gitignore</code> 文件</li>
+<li>没有 <code>node_modules</code> 目录</li>
+<li>所有重要文件都在</li>
+</ul>
+<hr>
+<h2 id="恢复步骤如果需要">恢复步骤（如果需要）</h2>
+<p><strong>在目标机器上：</strong></p>
+<pre class="astro-code github-light" style="background-color:#fff;color:#24292e; overflow-x: auto;" tabindex="0" data-language="bash"><code><span class="line"><span style="color:#6A737D"># 拉取备份仓库</span></span>
+<span class="line"><span style="color:#6F42C1">git</span><span style="color:#032F62"> clone</span><span style="color:#032F62"> https://github.com/username/openclaw-backup.git</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#6A737D"># 安装 OpenClaw</span></span>
+<span class="line"><span style="color:#6F42C1">npm</span><span style="color:#032F62"> install</span><span style="color:#005CC5"> -g</span><span style="color:#032F62"> @openclaw/openclaw</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#6A737D"># 恢复 extensions</span></span>
+<span class="line"><span style="color:#005CC5">cd</span><span style="color:#032F62"> ~/.openclaw/extensions/qqbot</span></span>
+<span class="line"><span style="color:#6F42C1">npm</span><span style="color:#032F62"> install</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#6A737D"># 复制备份到目标目录</span></span>
+<span class="line"><span style="color:#6F42C1">rsync</span><span style="color:#005CC5"> -av</span><span style="color:#032F62"> ~/openclaw-backup/</span><span style="color:#032F62"> ~/.openclaw/</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#6A737D"># 运行 Doctor</span></span>
+<span class="line"><span style="color:#6F42C1">openclaw</span><span style="color:#032F62"> doctor</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#6A737D"># 启动 Gateway</span></span>
+<span class="line"><span style="color:#6F42C1">openclaw</span><span style="color:#032F62"> gateway</span><span style="color:#032F62"> start</span></span></code></pre>
+<hr>
+<h2 id="安全最佳实践">安全最佳实践</h2>
+<h3 id="1-token-管理">1. Token 管理</h3>
+<ul>
+<li>✅ 使用 Personal Access Token，不要用密码</li>
+<li>✅ 定期轮换 Token（每 3-6 个月）</li>
+<li>✅ 如果 Token 泄露，立即撤销并重建</li>
+<li>✅ 在 URL 中使用 token 时，注意不要泄露到日志或公开内容</li>
+</ul>
+<h3 id="2-仓库安全">2. 仓库安全</h3>
+<ul>
+<li>✅ <strong>必须使用私有仓库</strong>（包含 API keys、OAuth tokens）</li>
+<li>✅ 定期检查仓库访问权限</li>
+<li>✅ 不要在公共仓库中提交凭证</li>
+</ul>
+<h3 id="3-备份策略">3. 备份策略</h3>
+<ul>
+<li>✅ 每日备份两次（0:00 和 12:00）</li>
+<li>✅ 验证备份成功（检查 cron 运行日志）</li>
+<li>✅ 定期从 GitHub 拉取并验证恢复流程</li>
+</ul>
+<h3 id="4-监控和维护">4. 监控和维护</h3>
+<pre class="astro-code github-light" style="background-color:#fff;color:#24292e; overflow-x: auto;" tabindex="0" data-language="bash"><code><span class="line"><span style="color:#6A737D"># 查看备份日志</span></span>
+<span class="line"><span style="color:#6F42C1">cat</span><span style="color:#032F62"> /tmp/openclaw-backup.log</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#6A737D"># 查看 cron 任务状态</span></span>
+<span class="line"><span style="color:#6F42C1">openclaw</span><span style="color:#032F62"> cron</span><span style="color:#032F62"> list</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#6A737D"># 手动触发备份</span></span>
+<span class="line"><span style="color:#6F42C1">/root/.openclaw/workspace/backup.sh</span></span></code></pre>
+<hr>
+<h2 id="常见问题">常见问题</h2>
+<h3 id="q1-为什么不直接在生产目录初始化-git">Q1: 为什么不直接在生产目录初始化 Git？</h3>
+<p><strong>A:</strong> 因为 OpenClaw 运行时会动态修改文件，Git 会追踪这些变化，导致版本控制混乱。使用独立的备份目录更安全、可控。</p>
+<h3 id="q2-为什么备份只有-26mb但-openclaw-目录有-14gb">Q2: 为什么备份只有 2.6MB，但 OpenClaw 目录有 1.4GB？</h3>
+<p><strong>A:</strong> 因为排除了 <code>extensions/node_modules/</code>。这些依赖可以通过 <code>npm install</code> 重新安装，不需要备份。</p>
+<h3 id="q3-如何修改备份频率">Q3: 如何修改备份频率？</h3>
+<p><strong>A:</strong> 使用 <code>openclaw cron</code> 命令：</p>
+<pre class="astro-code github-light" style="background-color:#fff;color:#24292e; overflow-x: auto;" tabindex="0" data-language="bash"><code><span class="line"><span style="color:#6A737D"># 删除旧任务</span></span>
+<span class="line"><span style="color:#6F42C1">openclaw</span><span style="color:#032F62"> cron</span><span style="color:#032F62"> rm</span><span style="color:#D73A49"> &#x3C;</span><span style="color:#032F62">任务I</span><span style="color:#24292E">D</span><span style="color:#D73A49">></span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#6A737D"># 创建新任务（例如每 6 小时）</span></span>
+<span class="line"><span style="color:#6F42C1">openclaw</span><span style="color:#032F62"> cron</span><span style="color:#032F62"> add</span><span style="color:#005CC5"> \</span></span>
+<span class="line"><span style="color:#005CC5">  --cron</span><span style="color:#032F62"> "0 */6 * * *"</span><span style="color:#005CC5"> \</span></span>
+<span class="line"><span style="color:#005CC5">  --name</span><span style="color:#032F62"> "OpenClaw 备份-每6小时"</span></span></code></pre>
+<h3 id="q4-备份失败了怎么办">Q4: 备份失败了怎么办？</h3>
+<p><strong>A:</strong> 检查以下几点：</p>
+<ol>
+<li>GitHub Token 是否过期？</li>
+<li>网络连接是否正常？</li>
+<li>磁盘空间是否充足？</li>
+<li>查看备份日志：<code>/tmp/openclaw-backup.log</code></li>
+</ol>
+<hr>
+<h2 id="总结">总结</h2>
+<p>通过本文档，你已经学会了：</p>
+<p>✅ OpenClaw 数据结构分析<br>
+✅ Git 仓库创建和配置<br>
+✅ 智能排除策略（.gitignore）<br>
+✅ rsync 文件同步<br>
+✅ GitHub 私有仓库设置<br>
+✅ OpenClaw Cron 自动化<br>
+✅ 安全最佳实践<br>
+✅ 恢复流程</p>
+<p><strong>从手动备份到自动化定时同步，你的 OpenClaw 数据现在安全了！</strong></p>
+<hr>
+<p><strong>相关资源：</strong></p>
+<ul>
+<li><a href="https://docs.openclaw.ai/install/migrating">OpenClaw 官方文档 - 迁移指南</a></li>
+<li><a href="https://github.com/settings/tokens">GitHub Personal Access Tokens</a></li>
+<li><a href="https://linux.die.net/man/1/rsync">rsync 手册</a></li>
+</ul>  </article> <aside class="toc"><p class="toc-title">目录</p><ul class="toc-list"><li class="depth-2"><a href="#为什么要备份-openclaw-数据">为什么要备份 OpenClaw 数据？</a></li><li class="depth-2"><a href="#openclaw-的数据结构">OpenClaw 的数据结构</a></li><li class="depth-2"><a href="#备份方案设计">备份方案设计</a></li><li class="depth-3"><a href="#核心思路">核心思路</a></li><li class="depth-2"><a href="#完整实施步骤">完整实施步骤</a></li><li class="depth-3"><a href="#第一步创建-git-仓库">第一步：创建 Git 仓库</a></li><li class="depth-3"><a href="#第二步创建-gitignore">第二步：创建 .gitignore</a></li><li class="depth-3"><a href="#第三步使用-rsync-同步文件">第三步：使用 rsync 同步文件</a></li><li class="depth-3"><a href="#第四步提交到-git">第四步：提交到 Git</a></li><li class="depth-3"><a href="#第五步关联-github-仓库">第五步：关联 GitHub 仓库</a></li><li class="depth-2"><a href="#自动化设置定时备份">自动化：设置定时备份</a></li><li class="depth-3"><a href="#创建备份脚本">创建备份脚本</a></li><li class="depth-3"><a href="#设置-openclaw-cron-任务">设置 OpenClaw Cron 任务</a></li><li class="depth-2"><a href="#数据验证">数据验证</a></li><li class="depth-3"><a href="#检查备份大小">检查备份大小</a></li><li class="depth-3"><a href="#验证-git-提交">验证 Git 提交</a></li><li class="depth-3"><a href="#验证-github-仓库">验证 GitHub 仓库</a></li><li class="depth-2"><a href="#恢复步骤如果需要">恢复步骤（如果需要）</a></li><li class="depth-2"><a href="#安全最佳实践">安全最佳实践</a></li><li class="depth-3"><a href="#1-token-管理">1. Token 管理</a></li><li class="depth-3"><a href="#2-仓库安全">2. 仓库安全</a></li><li class="depth-3"><a href="#3-备份策略">3. 备份策略</a></li><li class="depth-3"><a href="#4-监控和维护">4. 监控和维护</a></li><li class="depth-2"><a href="#常见问题">常见问题</a></li><li class="depth-3"><a href="#q1-为什么不直接在生产目录初始化-git">Q1: 为什么不直接在生产目录初始化 Git？</a></li><li class="depth-3"><a href="#q2-为什么备份只有-26mb但-openclaw-目录有-14gb">Q2: 为什么备份只有 2.6MB，但 OpenClaw 目录有 1.4GB？</a></li><li class="depth-3"><a href="#q3-如何修改备份频率">Q3: 如何修改备份频率？</a></li><li class="depth-3"><a href="#q4-备份失败了怎么办">Q4: 备份失败了怎么办？</a></li><li class="depth-2"><a href="#总结">总结</a></li></ul></aside> </div>  </main> <footer class="site-footer"> <div class="shell footer-inner"> <p>© 2026 未来观察者</p> </div> </footer> </body></html>

@@ -1,0 +1,336 @@
+<!DOCTYPE html><html lang="zh-CN"> <head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1"><title>如何创建Claude Skills？实用指南帮你成为技能专家 | 未来观察者</title><meta name="description" content="本文基于Anthropic官方32页详细指南和社区最佳实践整理，帮你避开常见陷阱，快速掌握技能创建核心方法。"><meta name="generator" content="Astro v5.18.1"><meta property="og:title" content="如何创建Claude Skills？实用指南帮你成为技能专家 | 未来观察者"><meta property="og:description" content="本文基于Anthropic官方32页详细指南和社区最佳实践整理，帮你避开常见陷阱，快速掌握技能创建核心方法。"><meta property="og:type" content="website"><meta property="og:url" content="https://future.lifestudylab.com/posts/2026-03-09-%E5%A6%82%E4%BD%95%E5%88%9B%E5%BB%BAclaude-skills-%E5%AE%9E%E7%94%A8%E6%8C%87%E5%8D%97/"><link rel="icon" type="image/svg+xml" href="/favicon.svg"><link rel="alternate" type="application/rss+xml" title="未来观察者" href="/rss.xml"><link rel="stylesheet" href="/_astro/_channel_.Cl0MlA65.css"></head> <body> <div class="page-bg"></div> <header class="site-header"> <div class="shell header-inner"> <div class="header-bar"> <a class="brand" href="/ai-tools/"> <img src="/brand-mark.svg" alt="" class="brand-mark" width="56" height="56"> <span class="brand-text" aria-label="未来观察者">思考未来</span> </a> </div> </div> </header> <aside class="site-rail" aria-label="站点导航"> <div class="site-rail-inner"> <p class="site-rail-label">Channels</p> <nav aria-label="主导航"> <ul class="site-rail-nav"> <li> <a href="/ai-tools/" class="site-rail-link"> AI工具 </a> </li><li> <a href="/future-daily/" class="site-rail-link"> 未来观察者日报 </a> </li> </ul> </nav> </div> </aside> <main class="shell page-content">  <div class="post-hero"> <p class="eyebrow">2026年3月9日</p> <h1>如何创建Claude Skills？实用指南帮你成为技能专家</h1> <p class="post-summary">本文基于Anthropic官方32页详细指南和社区最佳实践整理，帮你避开常见陷阱，快速掌握技能创建核心方法。</p> <ul class="tag-list"> <li> <a href="/tags/AI%E5%B7%A5%E5%85%B7/" class="tag-link">
+#AI工具 </a> </li><li> <a href="/tags/2026%E5%B9%B403%E6%9C%88/" class="tag-link">
+#2026年03月 </a> </li> </ul> </div> <div class="post-grid"> <article class="prose">  <blockquote>
+<p>本文基于Anthropic官方32页详细指南和社区最佳实践整理，帮你避开常见陷阱，快速掌握技能创建核心方法。</p>
+</blockquote>
+<h2 id="-为什么你需要创建claude-skills">📌 为什么你需要创建Claude Skills？</h2>
+<p><strong>技能（Skills）</strong> 是Claude AI的”专业技能包”，它能将通用AI助手转变为特定领域的专家。简单来说：</p>
+<ul>
+<li>如果你想让Claude帮你<strong>写技术文档</strong>，你需要一个文档写作技能</li>
+<li>如果你想让Claude<strong>分析数据</strong>，你需要一个数据分析技能</li>
+<li>如果你想让Claude<strong>集成第三方服务</strong>，你需要一个API集成技能</li>
+</ul>
+<p><strong>想象一下：</strong> 你每次都要重复告诉Claude”请按公司格式写报告”、“请用Markdown语法”、“请参考我们项目规范”。而有了Skills，这些知识会变成Claude的”肌肉记忆”。</p>
+<h2 id="-技能创建的核心思想来自官方指南">🎯 技能创建的核心思想（来自官方指南）</h2>
+<p>在开始写代码之前，先理解这3个核心理念：</p>
+<h3 id="1-微服务思维">1. <strong>微服务思维</strong></h3>
+<blockquote>
+<p>“每个技能只做一件事，并且做好它”</p>
+</blockquote>
+<p>Anthropic官方建议采用<strong>微服务风格</strong>的架构，而不是创建”巨型技能”。这意味着：</p>
+<ul>
+<li>一个技能负责<strong>数据清洗</strong></li>
+<li>一个技能负责<strong>格式转换</strong></li>
+<li>一个技能负责<strong>API调用</strong></li>
+</ul>
+<p>多个小技能可以组合成复杂工作流，这比一个”全能”技能更容易维护和调试。</p>
+<h3 id="2-工具优先原则">2. <strong>工具优先原则</strong></h3>
+<blockquote>
+<p>“用户拥有访问权限；技能提供专业知识”</p>
+</blockquote>
+<p>如果你的用户已经连接了Notion、Jira、GitHub等工具，你的技能应该<strong>教会Claude如何使用这些工具的最佳实践</strong>，而不是重新实现功能。</p>
+<h3 id="3-三层渐进式披露">3. <strong>三层渐进式披露</strong></h3>
+<p>这是Claude Skills最独特的设计：</p>
+<ol>
+<li><strong>摘要层</strong>（几行描述）：Claude快速判断是否适用</li>
+<li><strong>详情层</strong>（几段说明）：了解技能的能力范围</li>
+<li><strong>完整层</strong>（完整文档）：深入的技术细节和执行步骤</li>
+</ol>
+<p>这样设计确保了Claude不会在每次对话中都加载所有信息，提高效率。</p>
+<h2 id="️-创建你的第一个技能实战步骤">🛠️ 创建你的第一个技能（实战步骤）</h2>
+<h3 id="步骤1确定技能类型">步骤1：确定技能类型</h3>
+<p>根据官方指南，技能主要分为两大类：</p>
+<p><strong>A. 工作流技能</strong>（用户拥有工具）</p>
+<ul>
+<li><strong>场景</strong>：用户已有工具，需要最佳实践指导</li>
+<li><strong>示例</strong>：Notion项目管理技能、GitHub代码审查技能</li>
+<li><strong>模式</strong>：<code>当用户说X时，执行Y步骤，使用Z工具</code></li>
+</ul>
+<p><strong>B. 工具技能</strong>（技能提供实现）</p>
+<ul>
+<li><strong>场景</strong>：用户需要特定功能</li>
+<li><strong>示例</strong>：数据可视化技能、文件格式转换技能</li>
+<li><strong>模式</strong>：<code>这里有一个API/脚本，可以帮你做X</code></li>
+</ul>
+<p><strong>建议新手从工作流技能开始</strong>，因为它们更容易测试和验证。</p>
+<h3 id="步骤2创建skillmd文件结构">步骤2：创建SKILL.md文件结构</h3>
+<p>这是技能的核心文件，必须包含YAML frontmatter：</p>
+<pre class="astro-code github-light" style="background-color:#fff;color:#24292e; overflow-x: auto;" tabindex="0" data-language="yaml"><code><span class="line"><span style="color:#6F42C1">---</span></span>
+<span class="line"><span style="color:#22863A">name</span><span style="color:#24292E">: </span><span style="color:#032F62">doc-reviewer</span></span>
+<span class="line"><span style="color:#22863A">description</span><span style="color:#24292E">: </span><span style="color:#032F62">为技术文档提供专业审查和建议</span></span>
+<span class="line"><span style="color:#22863A">tags</span><span style="color:#24292E">:</span></span>
+<span class="line"><span style="color:#24292E">  - </span><span style="color:#032F62">文档</span></span>
+<span class="line"><span style="color:#24292E">  - </span><span style="color:#032F62">审查</span></span>
+<span class="line"><span style="color:#24292E">  - </span><span style="color:#032F62">技术写作</span></span>
+<span class="line"><span style="color:#22863A">author</span><span style="color:#24292E">: </span><span style="color:#032F62">你的名字</span></span>
+<span class="line"><span style="color:#22863A">version</span><span style="color:#24292E">: </span><span style="color:#005CC5">1.0.0</span></span>
+<span class="line"><span style="color:#6F42C1">---</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#6A737D"># 文档审查技能</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#6A737D">## 摘要</span></span>
+<span class="line"><span style="color:#032F62">当Claude需要审查技术文档时使用此技能，包括结构检查、术语一致性、技术准确性评估。</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#6A737D">## 详细说明</span></span>
+<span class="line"><span style="color:#032F62">此技能适用于：</span></span>
+<span class="line"><span style="color:#24292E">- </span><span style="color:#032F62">API文档审查</span></span>
+<span class="line"><span style="color:#24292E">- </span><span style="color:#032F62">技术规范审查</span></span>
+<span class="line"><span style="color:#24292E">- </span><span style="color:#032F62">用户手册审查</span></span>
+<span class="line"><span style="color:#24292E">- </span><span style="color:#032F62">开发文档审查</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#6A737D">## 执行步骤</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#6A737D">### 1. 文档结构分析</span></span>
+<span class="line"><span style="color:#032F62">检查文档是否包含：</span></span>
+<span class="line"><span style="color:#24292E">- </span><span style="color:#032F62">清晰的标题层级</span></span>
+<span class="line"><span style="color:#24292E">- </span><span style="color:#032F62">必要的章节（概述、安装、使用、API参考、故障排除）</span></span>
+<span class="line"><span style="color:#24292E">- </span><span style="color:#032F62">适当的代码示例位置</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#6A737D">### 2. 技术准确性验证</span></span>
+<span class="line"><span style="color:#24292E">- </span><span style="color:#032F62">确保API端点描述准确</span></span>
+<span class="line"><span style="color:#24292E">- </span><span style="color:#032F62">验证代码示例可运行</span></span>
+<span class="line"><span style="color:#24292E">- </span><span style="color:#032F62">检查版本号一致性</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#6A737D">### 3. 可读性优化</span></span>
+<span class="line"><span style="color:#24292E">- </span><span style="color:#032F62">建议简化复杂句子</span></span>
+<span class="line"><span style="color:#24292E">- </span><span style="color:#032F62">添加必要的图表说明</span></span>
+<span class="line"><span style="color:#24292E">- </span><span style="color:#032F62">确保术语一致</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#6A737D">## 示例对话</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#D73A49">*</span><span style="color:#24292E">*用户**: </span><span style="color:#032F62">请帮我审查这段API文档</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#D73A49">*</span><span style="color:#24292E">*Claude </span><span style="color:#22863A">(使用技能)**</span><span style="color:#24292E">: </span></span>
+<span class="line"><span style="color:#032F62">我将使用文档审查技能来分析这段API文档。首先检查文档结构...</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#6A737D">## 参考资源</span></span>
+<span class="line"><span style="color:#24292E">- [</span><span style="color:#032F62">公司技术文档规范</span><span style="color:#24292E">]</span><span style="color:#032F62">(https://internal.company.com/docs/guidelines)</span></span>
+<span class="line"><span style="color:#24292E">- [</span><span style="color:#032F62">API文档最佳实践</span><span style="color:#24292E">]</span><span style="color:#032F62">(https://swagger.io/resources/best-practices/)</span></span></code></pre>
+<h3 id="步骤3添加必要的脚本和资源">步骤3：添加必要的脚本和资源</h3>
+<p>如果需要，创建<code>scripts/</code>目录存放辅助脚本：</p>
+<pre class="astro-code github-light" style="background-color:#fff;color:#24292e; overflow-x: auto;" tabindex="0" data-language="python"><code><span class="line"><span style="color:#6A737D"># scripts/doc_analyzer.py</span></span>
+<span class="line"><span style="color:#032F62">"""</span></span>
+<span class="line"><span style="color:#032F62">文档结构分析工具</span></span>
+<span class="line"><span style="color:#032F62">"""</span></span>
+<span class="line"><span style="color:#D73A49">import</span><span style="color:#24292E"> re</span></span>
+<span class="line"><span style="color:#D73A49">from</span><span style="color:#24292E"> typing </span><span style="color:#D73A49">import</span><span style="color:#24292E"> Dict, List</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#D73A49">class</span><span style="color:#6F42C1"> DocAnalyzer</span><span style="color:#24292E">:</span></span>
+<span class="line"><span style="color:#D73A49">    def</span><span style="color:#6F42C1"> analyze_structure</span><span style="color:#24292E">(self, content: </span><span style="color:#005CC5">str</span><span style="color:#24292E">) -> Dict:</span></span>
+<span class="line"><span style="color:#032F62">        """分析文档结构"""</span></span>
+<span class="line"><span style="color:#6A737D">        # 提取标题层级</span></span>
+<span class="line"><span style="color:#24292E">        headings </span><span style="color:#D73A49">=</span><span style="color:#24292E"> re.findall(</span><span style="color:#D73A49">r</span><span style="color:#032F62">'</span><span style="color:#005CC5">^(</span><span style="color:#032F62">#</span><span style="color:#D73A49">+</span><span style="color:#005CC5">)\s</span><span style="color:#D73A49">+</span><span style="color:#005CC5">(.</span><span style="color:#D73A49">+</span><span style="color:#005CC5">)$</span><span style="color:#032F62">'</span><span style="color:#24292E">, content, re.</span><span style="color:#005CC5">MULTILINE</span><span style="color:#24292E">)</span></span>
+<span class="line"><span style="color:#24292E">        </span></span>
+<span class="line"><span style="color:#6A737D">        # 检查必要章节</span></span>
+<span class="line"><span style="color:#24292E">        required_sections </span><span style="color:#D73A49">=</span><span style="color:#24292E"> [</span><span style="color:#032F62">"概述"</span><span style="color:#24292E">, </span><span style="color:#032F62">"安装"</span><span style="color:#24292E">, </span><span style="color:#032F62">"使用"</span><span style="color:#24292E">, </span><span style="color:#032F62">"API参考"</span><span style="color:#24292E">, </span><span style="color:#032F62">"故障排除"</span><span style="color:#24292E">]</span></span>
+<span class="line"><span style="color:#24292E">        found_sections </span><span style="color:#D73A49">=</span><span style="color:#24292E"> []</span></span>
+<span class="line"><span style="color:#24292E">        </span></span>
+<span class="line"><span style="color:#D73A49">        for</span><span style="color:#24292E"> _, title </span><span style="color:#D73A49">in</span><span style="color:#24292E"> headings:</span></span>
+<span class="line"><span style="color:#D73A49">            for</span><span style="color:#24292E"> section </span><span style="color:#D73A49">in</span><span style="color:#24292E"> required_sections:</span></span>
+<span class="line"><span style="color:#D73A49">                if</span><span style="color:#24292E"> section </span><span style="color:#D73A49">in</span><span style="color:#24292E"> title:</span></span>
+<span class="line"><span style="color:#24292E">                    found_sections.append(section)</span></span>
+<span class="line"><span style="color:#24292E">        </span></span>
+<span class="line"><span style="color:#D73A49">        return</span><span style="color:#24292E"> {</span></span>
+<span class="line"><span style="color:#032F62">            "heading_count"</span><span style="color:#24292E">: </span><span style="color:#005CC5">len</span><span style="color:#24292E">(headings),</span></span>
+<span class="line"><span style="color:#032F62">            "max_depth"</span><span style="color:#24292E">: </span><span style="color:#005CC5">max</span><span style="color:#24292E">([</span><span style="color:#005CC5">len</span><span style="color:#24292E">(level) </span><span style="color:#D73A49">for</span><span style="color:#24292E"> level, _ </span><span style="color:#D73A49">in</span><span style="color:#24292E"> headings]) </span><span style="color:#D73A49">if</span><span style="color:#24292E"> headings </span><span style="color:#D73A49">else</span><span style="color:#005CC5"> 0</span><span style="color:#24292E">,</span></span>
+<span class="line"><span style="color:#032F62">            "required_sections_found"</span><span style="color:#24292E">: found_sections,</span></span>
+<span class="line"><span style="color:#032F62">            "missing_sections"</span><span style="color:#24292E">: [s </span><span style="color:#D73A49">for</span><span style="color:#24292E"> s </span><span style="color:#D73A49">in</span><span style="color:#24292E"> required_sections </span><span style="color:#D73A49">if</span><span style="color:#24292E"> s </span><span style="color:#D73A49">not</span><span style="color:#D73A49"> in</span><span style="color:#24292E"> found_sections]</span></span>
+<span class="line"><span style="color:#24292E">        }</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#6A737D"># 测试代码</span></span>
+<span class="line"><span style="color:#D73A49">if</span><span style="color:#005CC5"> __name__</span><span style="color:#D73A49"> ==</span><span style="color:#032F62"> "__main__"</span><span style="color:#24292E">:</span></span>
+<span class="line"><span style="color:#24292E">    analyzer </span><span style="color:#D73A49">=</span><span style="color:#24292E"> DocAnalyzer()</span></span>
+<span class="line"><span style="color:#24292E">    sample_doc </span><span style="color:#D73A49">=</span><span style="color:#032F62"> "# 概述</span><span style="color:#005CC5">\n</span><span style="color:#032F62">这是概述</span><span style="color:#005CC5">\n</span><span style="color:#032F62">## 安装</span><span style="color:#005CC5">\n</span><span style="color:#032F62">安装步骤</span><span style="color:#005CC5">\n</span><span style="color:#032F62"># API参考</span><span style="color:#005CC5">\n</span><span style="color:#032F62">API信息"</span></span>
+<span class="line"><span style="color:#005CC5">    print</span><span style="color:#24292E">(analyzer.analyze_structure(sample_doc))</span></span></code></pre>
+<h3 id="步骤4创建readmemd可选但推荐">步骤4：创建README.md（可选但推荐）</h3>
+<pre class="astro-code github-light" style="background-color:#fff;color:#24292e; overflow-x: auto;" tabindex="0" data-language="markdown"><code><span class="line"><span style="color:#005CC5;font-weight:bold"># 文档审查技能</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#005CC5;font-weight:bold">## 功能概述</span></span>
+<span class="line"><span style="color:#24292E">为Claude提供专业的技术文档审查能力。</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#005CC5;font-weight:bold">## 安装部署</span></span>
+<span class="line"><span style="color:#E36209">1.</span><span style="color:#24292E"> 将整个技能目录复制到Claude的skills目录</span></span>
+<span class="line"><span style="color:#E36209">2.</span><span style="color:#24292E"> 确保Python环境已安装所需依赖</span></span>
+<span class="line"><span style="color:#E36209">3.</span><span style="color:#24292E"> 运行测试脚本验证功能</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#005CC5;font-weight:bold">## 测试方法</span></span>
+<span class="line"><span style="color:#24292E">```bash</span></span>
+<span class="line"><span style="color:#6F42C1">python</span><span style="color:#032F62"> scripts/doc_analyzer.py</span></span></code></pre>
+<h2 id="维护说明">维护说明</h2>
+<ul>
+<li>定期更新公司文档规范链接</li>
+<li>根据反馈调整审查标准</li>
+<li>保持与最新技术标准同步</li>
+</ul>
+<pre class="astro-code github-light" style="background-color:#fff;color:#24292e; overflow-x: auto;" tabindex="0" data-language="plaintext"><code><span class="line"><span></span></span>
+<span class="line"><span>## 💡 实战技巧（来自社区经验）</span></span>
+<span class="line"><span></span></span>
+<span class="line"><span>### 技巧1：如何让Claude"记住"你的技能</span></span>
+<span class="line"><span></span></span>
+<span class="line"><span>**错误做法**：把技能写成冗长的操作手册</span></span>
+<span class="line"><span></span></span>
+<span class="line"><span>**正确做法**：使用"触发词"+"示例对话"的组合</span></span>
+<span class="line"><span></span></span>
+<span class="line"><span>```yaml</span></span>
+<span class="line"><span># 在SKILL.md中</span></span>
+<span class="line"><span>---</span></span>
+<span class="line"><span>name: code-reviewer</span></span>
+<span class="line"><span>description: 当用户说"请审查这段代码"时，提供专业代码审查</span></span>
+<span class="line"><span>---</span></span>
+<span class="line"><span></span></span>
+<span class="line"><span>## 触发场景</span></span>
+<span class="line"><span>当用户说以下任何短语时使用此技能：</span></span>
+<span class="line"><span>- "请审查这段代码"</span></span>
+<span class="line"><span>- "帮我看看代码质量"</span></span>
+<span class="line"><span>- "代码审查一下"</span></span>
+<span class="line"><span>- "review this code"</span></span>
+<span class="line"><span></span></span>
+<span class="line"><span>## 示例对话</span></span>
+<span class="line"><span>用户: 请审查这段Python代码</span></span>
+<span class="line"><span>Claude: 我将使用代码审查技能分析这段代码。首先检查PEP8规范...</span></span></code></pre>
+<h3 id="技巧2处理复杂工作流">技巧2：处理复杂工作流</h3>
+<p>对于多步骤工作流，使用<strong>编号步骤</strong>而不是段落描述：</p>
+<pre class="astro-code github-light" style="background-color:#fff;color:#24292e; overflow-x: auto;" tabindex="0" data-language="markdown"><code><span class="line"><span style="color:#005CC5;font-weight:bold">## 新员工入职工作流</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#005CC5;font-weight:bold">### 第1步：创建账户</span></span>
+<span class="line"><span style="color:#24292E">调用MCP工具：</span><span style="color:#005CC5">`create_employee_account`</span></span>
+<span class="line"><span style="color:#24292E">参数：姓名、邮箱、部门</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#005CC5;font-weight:bold">### 第2步：分配权限  </span></span>
+<span class="line"><span style="color:#24292E">调用工具：</span><span style="color:#005CC5">`assign_permissions`</span></span>
+<span class="line"><span style="color:#24292E">参数：员工ID、角色列表、访问级别</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#005CC5;font-weight:bold">### 第3步：发送欢迎邮件</span></span>
+<span class="line"><span style="color:#24292E">调用工具：</span><span style="color:#005CC5">`send_welcome_email`</span></span>
+<span class="line"><span style="color:#24292E">参数：员工邮箱、入职日期、导师信息</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#005CC5;font-weight:bold">### 第4步：设置培训计划</span></span>
+<span class="line"><span style="color:#24292E">调用工具：</span><span style="color:#005CC5">`setup_training`</span></span>
+<span class="line"><span style="color:#24292E">参数：员工ID、岗位要求、培训周期</span></span></code></pre>
+<h3 id="技巧3技能测试与验证">技巧3：技能测试与验证</h3>
+<p><strong>重要提示</strong>：所有技能都必须经过实际测试</p>
+<pre class="astro-code github-light" style="background-color:#fff;color:#24292e; overflow-x: auto;" tabindex="0" data-language="python"><code><span class="line"><span style="color:#6A737D"># tests/test_skill_integration.py</span></span>
+<span class="line"><span style="color:#032F62">"""</span></span>
+<span class="line"><span style="color:#032F62">技能集成测试</span></span>
+<span class="line"><span style="color:#032F62">"""</span></span>
+<span class="line"><span style="color:#D73A49">import</span><span style="color:#24292E"> pytest</span></span>
+<span class="line"><span style="color:#D73A49">from</span><span style="color:#24292E"> scripts.doc_analyzer </span><span style="color:#D73A49">import</span><span style="color:#24292E"> DocAnalyzer</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#D73A49">def</span><span style="color:#6F42C1"> test_doc_structure_analysis</span><span style="color:#24292E">():</span></span>
+<span class="line"><span style="color:#032F62">    """测试文档结构分析"""</span></span>
+<span class="line"><span style="color:#24292E">    analyzer </span><span style="color:#D73A49">=</span><span style="color:#24292E"> DocAnalyzer()</span></span>
+<span class="line"><span style="color:#24292E">    result </span><span style="color:#D73A49">=</span><span style="color:#24292E"> analyzer.analyze_structure(</span><span style="color:#032F62">"# 标题</span><span style="color:#005CC5">\n</span><span style="color:#032F62">内容"</span><span style="color:#24292E">)</span></span>
+<span class="line"><span style="color:#D73A49">    assert</span><span style="color:#032F62"> "heading_count"</span><span style="color:#D73A49"> in</span><span style="color:#24292E"> result</span></span>
+<span class="line"><span style="color:#D73A49">    assert</span><span style="color:#24292E"> result[</span><span style="color:#032F62">"heading_count"</span><span style="color:#24292E">] </span><span style="color:#D73A49">==</span><span style="color:#005CC5"> 1</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#D73A49">def</span><span style="color:#6F42C1"> test_missing_sections</span><span style="color:#24292E">():</span></span>
+<span class="line"><span style="color:#032F62">    """测试缺失章节检测"""</span></span>
+<span class="line"><span style="color:#24292E">    analyzer </span><span style="color:#D73A49">=</span><span style="color:#24292E"> DocAnalyzer()</span></span>
+<span class="line"><span style="color:#24292E">    doc </span><span style="color:#D73A49">=</span><span style="color:#032F62"> "# 概述</span><span style="color:#005CC5">\n</span><span style="color:#032F62">只有概述"</span></span>
+<span class="line"><span style="color:#24292E">    result </span><span style="color:#D73A49">=</span><span style="color:#24292E"> analyzer.analyze_structure(doc)</span></span>
+<span class="line"><span style="color:#D73A49">    assert</span><span style="color:#032F62"> "安装"</span><span style="color:#D73A49"> in</span><span style="color:#24292E"> result[</span><span style="color:#032F62">"missing_sections"</span><span style="color:#24292E">]</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#6A737D"># 运行测试：pytest tests/test_skill_integration.py -v</span></span></code></pre>
+<h2 id="-高级模式技能组合">🚀 高级模式：技能组合</h2>
+<p>单个技能能力有限，但组合起来就能创造奇迹：</p>
+<h3 id="场景技术博客写作">场景：技术博客写作</h3>
+<pre class="astro-code github-light" style="background-color:#fff;color:#24292e; overflow-x: auto;" tabindex="0" data-language="yaml"><code><span class="line"><span style="color:#6A737D"># 技能组合：技术博客写作工作流</span></span>
+<span class="line"><span style="color:#032F62">1. 使用 `topic-researcher` 技能：研究主题和关键词</span></span>
+<span class="line"><span style="color:#032F62">2. 使用 `outline-generator` 技能：生成文章大纲</span></span>
+<span class="line"><span style="color:#032F62">3. 使用 `code-example-generator` 技能：创建代码示例</span></span>
+<span class="line"><span style="color:#032F62">4. 使用 `doc-reviewer` 技能：审查和完善文章</span></span>
+<span class="line"><span style="color:#032F62">5. 使用 `seo-optimizer` 技能：优化SEO元素</span></span></code></pre>
+<h3 id="实现方式技能间通信">实现方式：技能间通信</h3>
+<pre class="astro-code github-light" style="background-color:#fff;color:#24292e; overflow-x: auto;" tabindex="0" data-language="python"><code><span class="line"><span style="color:#6A737D"># 技能编排脚本</span></span>
+<span class="line"><span style="color:#D73A49">import</span><span style="color:#24292E"> json</span></span>
+<span class="line"><span style="color:#D73A49">from</span><span style="color:#24292E"> skills.topic_researcher </span><span style="color:#D73A49">import</span><span style="color:#24292E"> TopicResearcher</span></span>
+<span class="line"><span style="color:#D73A49">from</span><span style="color:#24292E"> skills.outline_generator </span><span style="color:#D73A49">import</span><span style="color:#24292E"> OutlineGenerator</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#D73A49">class</span><span style="color:#6F42C1"> SkillOrchestrator</span><span style="color:#24292E">:</span></span>
+<span class="line"><span style="color:#D73A49">    def</span><span style="color:#6F42C1"> write_tech_blog</span><span style="color:#24292E">(self, topic: </span><span style="color:#005CC5">str</span><span style="color:#24292E">):</span></span>
+<span class="line"><span style="color:#032F62">        """协调多个技能完成博客写作"""</span></span>
+<span class="line"><span style="color:#24292E">        </span></span>
+<span class="line"><span style="color:#6A737D">        # 1. 主题研究</span></span>
+<span class="line"><span style="color:#24292E">        researcher </span><span style="color:#D73A49">=</span><span style="color:#24292E"> TopicResearcher()</span></span>
+<span class="line"><span style="color:#24292E">        research_result </span><span style="color:#D73A49">=</span><span style="color:#24292E"> researcher.research(topic)</span></span>
+<span class="line"><span style="color:#24292E">        </span></span>
+<span class="line"><span style="color:#6A737D">        # 2. 生成大纲</span></span>
+<span class="line"><span style="color:#24292E">        outline_gen </span><span style="color:#D73A49">=</span><span style="color:#24292E"> OutlineGenerator()</span></span>
+<span class="line"><span style="color:#24292E">        outline </span><span style="color:#D73A49">=</span><span style="color:#24292E"> outline_gen.generate(</span></span>
+<span class="line"><span style="color:#E36209">            topic</span><span style="color:#D73A49">=</span><span style="color:#24292E">topic,</span></span>
+<span class="line"><span style="color:#E36209">            keywords</span><span style="color:#D73A49">=</span><span style="color:#24292E">research_result[</span><span style="color:#032F62">"keywords"</span><span style="color:#24292E">],</span></span>
+<span class="line"><span style="color:#E36209">            target_audience</span><span style="color:#D73A49">=</span><span style="color:#24292E">research_result[</span><span style="color:#032F62">"audience"</span><span style="color:#24292E">]</span></span>
+<span class="line"><span style="color:#24292E">        )</span></span>
+<span class="line"><span style="color:#24292E">        </span></span>
+<span class="line"><span style="color:#6A737D">        # 3. 返回协调结果</span></span>
+<span class="line"><span style="color:#D73A49">        return</span><span style="color:#24292E"> {</span></span>
+<span class="line"><span style="color:#032F62">            "research"</span><span style="color:#24292E">: research_result,</span></span>
+<span class="line"><span style="color:#032F62">            "outline"</span><span style="color:#24292E">: outline,</span></span>
+<span class="line"><span style="color:#032F62">            "next_steps"</span><span style="color:#24292E">: [</span><span style="color:#032F62">"生成内容"</span><span style="color:#24292E">, </span><span style="color:#032F62">"添加代码示例"</span><span style="color:#24292E">, </span><span style="color:#032F62">"SEO优化"</span><span style="color:#24292E">]</span></span>
+<span class="line"><span style="color:#24292E">        }</span></span></code></pre>
+<h2 id="-常见问题与解决方案">🔍 常见问题与解决方案</h2>
+<h3 id="q1claude忘记了技能怎么办">Q1：Claude忘记了技能怎么办？</h3>
+<p><strong>原因</strong>：技能描述不够清晰，或触发条件太宽泛
+<strong>解决</strong>：在SKILL.md开头添加明确的触发词和场景描述</p>
+<h3 id="q2技能执行结果不稳定">Q2：技能执行结果不稳定？</h3>
+<p><strong>原因</strong>：技能逻辑有歧义，或示例不够具体
+<strong>解决</strong>：增加更多具体示例，减少抽象描述</p>
+<h3 id="q3如何确保技能符合公司价值观">Q3：如何确保技能符合公司价值观？</h3>
+<p><strong>检查清单</strong>：</p>
+<ul class="contains-task-list">
+<li class="task-list-item"><input type="checkbox" disabled> 技能描述中明确公司标准</li>
+<li class="task-list-item"><input type="checkbox" disabled> 示例对话体现公司文化</li>
+<li class="task-list-item"><input type="checkbox" disabled> 工作流程符合公司规范</li>
+<li class="task-list-item"><input type="checkbox" disabled> 输出格式符合公司要求</li>
+</ul>
+<h3 id="q4技能需要更新怎么办">Q4：技能需要更新怎么办？</h3>
+<p><strong>最佳实践</strong>：</p>
+<ol>
+<li>保持版本控制（在YAML中记录版本号）</li>
+<li>创建CHANGELOG.md记录变更</li>
+<li>提供向后兼容性</li>
+<li>通知用户技能更新</li>
+</ol>
+<h2 id="-学习资源推荐">📚 学习资源推荐</h2>
+<h3 id="官方资源">官方资源</h3>
+<ul>
+<li><strong>Anthropic官方32页技能指南</strong>（必读）</li>
+<li><strong>Claude Skills GitHub仓库</strong>（查看官方示例）</li>
+<li><strong>MCP（Model Context Protocol）文档</strong>（了解工具集成）</li>
+</ul>
+<h3 id="社区资源">社区资源</h3>
+<ul>
+<li><strong>知乎专栏</strong>：Claude Skills实战经验分享</li>
+<li><strong>Reddit r/ClaudeAI</strong>：社区讨论和问题解答</li>
+<li><strong>技术博客</strong>：开发者分享的具体案例</li>
+</ul>
+<h3 id="实践建议">实践建议</h3>
+<ol>
+<li><strong>从模仿开始</strong>：找一个官方示例技能，理解其结构</li>
+<li><strong>小步快跑</strong>：先创建简单技能，逐步增加复杂度</li>
+<li><strong>测试驱动</strong>：每写一个功能，都写对应的测试</li>
+<li><strong>文档先行</strong>：先写SKILL.md，再写代码</li>
+<li><strong>持续改进</strong>：根据使用反馈不断优化技能</li>
+</ol>
+<h2 id="-开始你的技能创建之旅">🎉 开始你的技能创建之旅</h2>
+<p>记住，创建Claude Skills不是写代码比赛，而是<strong>知识封装的艺术</strong>。最好的技能往往不是最复杂的，而是<strong>最懂用户需求</strong>的。</p>
+<p><strong>今天就可以开始</strong>：</p>
+<ol>
+<li>选择一个你熟悉的领域</li>
+<li>思考”我经常让Claude做什么重复工作？”</li>
+<li>按照本文步骤创建第一个技能</li>
+<li>分享给同事，收集反馈</li>
+</ol>
+<p>技能创建不是终点，而是<strong>让AI真正为你工作的起点</strong>。当你把专业知识转化为Claude Skills时，你不仅提升了工作效率，还创造了一个可以复用的知识资产。</p>
+<p><strong>最后提醒</strong>：保持技能简单、专注、实用。一个解决实际问题的简单技能，远比一个”全能”但复杂的技能更有价值。</p>
+<hr>
+<p><strong>文章要点总结</strong>：</p>
+<ul>
+<li>✅ 理解微服务思维：一个技能做好一件事</li>
+<li>✅ 掌握三层结构：摘要→详情→完整</li>
+<li>✅ 明确技能类型：工作流技能 vs 工具技能</li>
+<li>✅ 写好SKILL.md：YAML frontmatter + 清晰结构</li>
+<li>✅ 实际测试验证：确保技能可靠可用</li>
+<li>✅ 持续优化改进：根据反馈迭代更新</li>
+</ul>
+<p>现在，去创建你的第一个Claude Skill吧！🚀</p>  </article> <aside class="toc"><p class="toc-title">目录</p><ul class="toc-list"><li class="depth-2"><a href="#-为什么你需要创建claude-skills">📌 为什么你需要创建Claude Skills？</a></li><li class="depth-2"><a href="#-技能创建的核心思想来自官方指南">🎯 技能创建的核心思想（来自官方指南）</a></li><li class="depth-3"><a href="#1-微服务思维">1. 微服务思维</a></li><li class="depth-3"><a href="#2-工具优先原则">2. 工具优先原则</a></li><li class="depth-3"><a href="#3-三层渐进式披露">3. 三层渐进式披露</a></li><li class="depth-2"><a href="#️-创建你的第一个技能实战步骤">🛠️ 创建你的第一个技能（实战步骤）</a></li><li class="depth-3"><a href="#步骤1确定技能类型">步骤1：确定技能类型</a></li><li class="depth-3"><a href="#步骤2创建skillmd文件结构">步骤2：创建SKILL.md文件结构</a></li><li class="depth-3"><a href="#步骤3添加必要的脚本和资源">步骤3：添加必要的脚本和资源</a></li><li class="depth-3"><a href="#步骤4创建readmemd可选但推荐">步骤4：创建README.md（可选但推荐）</a></li><li class="depth-2"><a href="#维护说明">维护说明</a></li><li class="depth-3"><a href="#技巧2处理复杂工作流">技巧2：处理复杂工作流</a></li><li class="depth-3"><a href="#技巧3技能测试与验证">技巧3：技能测试与验证</a></li><li class="depth-2"><a href="#-高级模式技能组合">🚀 高级模式：技能组合</a></li><li class="depth-3"><a href="#场景技术博客写作">场景：技术博客写作</a></li><li class="depth-3"><a href="#实现方式技能间通信">实现方式：技能间通信</a></li><li class="depth-2"><a href="#-常见问题与解决方案">🔍 常见问题与解决方案</a></li><li class="depth-3"><a href="#q1claude忘记了技能怎么办">Q1：Claude忘记了技能怎么办？</a></li><li class="depth-3"><a href="#q2技能执行结果不稳定">Q2：技能执行结果不稳定？</a></li><li class="depth-3"><a href="#q3如何确保技能符合公司价值观">Q3：如何确保技能符合公司价值观？</a></li><li class="depth-3"><a href="#q4技能需要更新怎么办">Q4：技能需要更新怎么办？</a></li><li class="depth-2"><a href="#-学习资源推荐">📚 学习资源推荐</a></li><li class="depth-3"><a href="#官方资源">官方资源</a></li><li class="depth-3"><a href="#社区资源">社区资源</a></li><li class="depth-3"><a href="#实践建议">实践建议</a></li><li class="depth-2"><a href="#-开始你的技能创建之旅">🎉 开始你的技能创建之旅</a></li></ul></aside> </div>  </main> <footer class="site-footer"> <div class="shell footer-inner"> <p>© 2026 未来观察者</p> </div> </footer> </body></html>

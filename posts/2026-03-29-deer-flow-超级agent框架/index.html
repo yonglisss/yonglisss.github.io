@@ -1,0 +1,219 @@
+<!DOCTYPE html><html lang="zh-CN"> <head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1"><title>Deer-Flow：字节跳动开源的能执行代码的AI助手 | 未来观察者</title><meta name="description" content="本文介绍字节跳动开源的AI Agent框架Deer-Flow 2.0，它能让AI真正执行代码、处理复杂任务。适合需要自动化研究、数据分析、内容创作的开发者和团队。"><meta name="generator" content="Astro v5.18.1"><meta property="og:title" content="Deer-Flow：字节跳动开源的能执行代码的AI助手 | 未来观察者"><meta property="og:description" content="本文介绍字节跳动开源的AI Agent框架Deer-Flow 2.0，它能让AI真正执行代码、处理复杂任务。适合需要自动化研究、数据分析、内容创作的开发者和团队。"><meta property="og:type" content="website"><meta property="og:url" content="https://future.lifestudylab.com/posts/2026-03-29-deer-flow-%E8%B6%85%E7%BA%A7agent%E6%A1%86%E6%9E%B6/"><link rel="icon" type="image/svg+xml" href="/favicon.svg"><link rel="alternate" type="application/rss+xml" title="未来观察者" href="/rss.xml"><link rel="stylesheet" href="/_astro/_channel_.Cl0MlA65.css"></head> <body> <div class="page-bg"></div> <header class="site-header"> <div class="shell header-inner"> <div class="header-bar"> <a class="brand" href="/ai-tools/"> <img src="/brand-mark.svg" alt="" class="brand-mark" width="56" height="56"> <span class="brand-text" aria-label="未来观察者">思考未来</span> </a> </div> </div> </header> <aside class="site-rail" aria-label="站点导航"> <div class="site-rail-inner"> <p class="site-rail-label">Channels</p> <nav aria-label="主导航"> <ul class="site-rail-nav"> <li> <a href="/ai-tools/" class="site-rail-link"> AI工具 </a> </li><li> <a href="/future-daily/" class="site-rail-link"> 未来观察者日报 </a> </li> </ul> </nav> </div> </aside> <main class="shell page-content">  <div class="post-hero"> <p class="eyebrow">2026年3月29日</p> <h1>Deer-Flow：字节跳动开源的能执行代码的AI助手</h1> <p class="post-summary">本文介绍字节跳动开源的AI Agent框架Deer-Flow 2.0，它能让AI真正执行代码、处理复杂任务。适合需要自动化研究、数据分析、内容创作的开发者和团队。</p> <ul class="tag-list"> <li> <a href="/tags/AI%E5%B7%A5%E5%85%B7/" class="tag-link">
+#AI工具 </a> </li><li> <a href="/tags/2026%E5%B9%B403%E6%9C%88/" class="tag-link">
+#2026年03月 </a> </li> </ul> </div> <div class="post-grid"> <article class="prose">  <p>本文介绍字节跳动开源的AI Agent框架Deer-Flow 2.0，它能让AI真正执行代码、处理复杂任务。适合需要自动化研究、数据分析、内容创作的开发者和团队。</p>
+<blockquote>
+<p><strong>信息验证状态</strong>：本文中的技术细节基于2026年3月搜索结果，部分信息（如GitHub地址、安装命令）已根据多源信息交叉验证，但建议读者在实际使用前访问官方渠道确认最新信息。</p>
+</blockquote>
+<h2 id="-工具介绍">📌 工具介绍</h2>
+<p><strong>Deer-Flow</strong> 是字节跳动在2026年2月开源的多Agent框架，24小时内登顶GitHub Trending榜首，目前已有超过45,000个star。</p>
+<p><strong>核心特点：</strong></p>
+<ul>
+<li>✅ <strong>真正执行代码</strong>：不只是代码建议，而是实际运行</li>
+<li>✅ <strong>多Agent协作</strong>：主Agent分解任务，子Agent并行执行</li>
+<li>✅ <strong>本地化部署</strong>：数据不出本地，保护隐私</li>
+<li>✅ <strong>企业级设计</strong>：支持生产环境部署</li>
+</ul>
+<p><strong>与普通AI工具的差异：</strong></p>
+<ul>
+<li><strong>GitHub Copilot</strong> → 代码补全建议</li>
+<li><strong>Cursor</strong> → AI优先编辑</li>
+<li><strong>Deer-Flow</strong> → 实际执行代码、完成任务</li>
+</ul>
+<h2 id="-快速上手">⚡ 快速上手</h2>
+<h3 id="环境要求">环境要求</h3>
+<pre class="astro-code github-light" style="background-color:#fff;color:#24292e; overflow-x: auto;" tabindex="0" data-language="bash"><code><span class="line"><span style="color:#6A737D"># 必需组件</span></span>
+<span class="line"><span style="color:#6F42C1">-</span><span style="color:#032F62"> Python</span><span style="color:#032F62"> 3.11+</span></span>
+<span class="line"><span style="color:#6F42C1">-</span><span style="color:#032F62"> Docker（用于沙盒环境）</span></span>
+<span class="line"><span style="color:#6F42C1">-</span><span style="color:#032F62"> Node.js（用于前端界面）</span></span></code></pre>
+<h3 id="5分钟安装步骤">5分钟安装步骤</h3>
+<ol>
+<li><strong>克隆仓库</strong></li>
+</ol>
+<pre class="astro-code github-light" style="background-color:#fff;color:#24292e; overflow-x: auto;" tabindex="0" data-language="bash"><code><span class="line"><span style="color:#6F42C1">git</span><span style="color:#032F62"> clone</span><span style="color:#032F62"> https://github.com/bytedance/deer-flow.git</span></span>
+<span class="line"><span style="color:#005CC5">cd</span><span style="color:#032F62"> deer-flow</span></span></code></pre>
+<ol start="2">
+<li><strong>生成配置</strong></li>
+</ol>
+<pre class="astro-code github-light" style="background-color:#fff;color:#24292e; overflow-x: auto;" tabindex="0" data-language="bash"><code><span class="line"><span style="color:#6F42C1">make</span><span style="color:#032F62"> config</span></span>
+<span class="line"><span style="color:#6A737D"># 这会创建.env.example等配置文件</span></span></code></pre>
+<ol start="3">
+<li><strong>配置环境</strong></li>
+</ol>
+<pre class="astro-code github-light" style="background-color:#fff;color:#24292e; overflow-x: auto;" tabindex="0" data-language="bash"><code><span class="line"><span style="color:#6A737D"># 复制并编辑配置文件</span></span>
+<span class="line"><span style="color:#6F42C1">cp</span><span style="color:#032F62"> .env.example</span><span style="color:#032F62"> .env</span></span>
+<span class="line"><span style="color:#6A737D"># 编辑.env文件，填入OpenAI/Anthropic/Ollama的API密钥</span></span></code></pre>
+<ol start="4">
+<li><strong>启动服务</strong></li>
+</ol>
+<pre class="astro-code github-light" style="background-color:#fff;color:#24292e; overflow-x: auto;" tabindex="0" data-language="bash"><code><span class="line"><span style="color:#6A737D"># 根据官方文档启动</span></span>
+<span class="line"><span style="color:#6F42C1">python</span><span style="color:#032F62"> app.py</span></span>
+<span class="line"><span style="color:#6A737D"># 或使用make命令</span></span>
+<span class="line"><span style="color:#6F42C1">make</span><span style="color:#032F62"> run</span></span></code></pre>
+<p>访问 <a href="http://localhost:3000">http://localhost:3000</a> 即可开始使用。</p>
+<h2 id="-实战技巧">💡 实战技巧</h2>
+<h3 id="场景1自动生成技术研究报告">场景1：自动生成技术研究报告</h3>
+<p><strong>需求</strong>：分析”量子计算在药物发现中的应用”</p>
+<p><strong>配置工作流</strong>：</p>
+<pre class="astro-code github-light" style="background-color:#fff;color:#24292e; overflow-x: auto;" tabindex="0" data-language="yaml"><code><span class="line"><span style="color:#6A737D"># config/research_workflow.yaml</span></span>
+<span class="line"><span style="color:#22863A">agents</span><span style="color:#24292E">:</span></span>
+<span class="line"><span style="color:#24292E">  - </span><span style="color:#22863A">name</span><span style="color:#24292E">: </span><span style="color:#032F62">"资料收集"</span></span>
+<span class="line"><span style="color:#22863A">    task</span><span style="color:#24292E">: </span><span style="color:#032F62">"搜索量子计算药物发现的最新论文"</span></span>
+<span class="line"><span style="color:#24292E">    </span></span>
+<span class="line"><span style="color:#24292E">  - </span><span style="color:#22863A">name</span><span style="color:#24292E">: </span><span style="color:#032F62">"内容分析"</span></span>
+<span class="line"><span style="color:#22863A">    task</span><span style="color:#24292E">: </span><span style="color:#032F62">"提取关键技术、难点、趋势"</span></span>
+<span class="line"><span style="color:#24292E">    </span></span>
+<span class="line"><span style="color:#24292E">  - </span><span style="color:#22863A">name</span><span style="color:#24292E">: </span><span style="color:#032F62">"报告生成"</span></span>
+<span class="line"><span style="color:#22863A">    task</span><span style="color:#24292E">: </span><span style="color:#032F62">"生成结构化研究报告"</span></span></code></pre>
+<p><strong>执行命令</strong>：</p>
+<pre class="astro-code github-light" style="background-color:#fff;color:#24292e; overflow-x: auto;" tabindex="0" data-language="bash"><code><span class="line"><span style="color:#6F42C1">python</span><span style="color:#032F62"> deerflow.py</span><span style="color:#005CC5"> --config</span><span style="color:#032F62"> research_workflow.yaml</span><span style="color:#005CC5"> --topic</span><span style="color:#032F62"> "量子计算药物发现"</span></span></code></pre>
+<h3 id="场景2自动化数据处理">场景2：自动化数据处理</h3>
+<p><strong>需求</strong>：每天自动分析业务数据并生成报表</p>
+<pre class="astro-code github-light" style="background-color:#fff;color:#24292e; overflow-x: auto;" tabindex="0" data-language="python"><code><span class="line"><span style="color:#6A737D"># 创建数据处理Agent</span></span>
+<span class="line"><span style="color:#D73A49">from</span><span style="color:#24292E"> deerflow </span><span style="color:#D73A49">import</span><span style="color:#24292E"> DataAnalystAgent</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#24292E">agent </span><span style="color:#D73A49">=</span><span style="color:#24292E"> DataAnalystAgent(</span></span>
+<span class="line"><span style="color:#E36209">    data_source</span><span style="color:#D73A49">=</span><span style="color:#032F62">"mysql://user:pass@localhost/db"</span><span style="color:#24292E">,</span></span>
+<span class="line"><span style="color:#E36209">    analysis_tasks</span><span style="color:#D73A49">=</span><span style="color:#24292E">[</span><span style="color:#032F62">"trends"</span><span style="color:#24292E">, </span><span style="color:#032F62">"anomalies"</span><span style="color:#24292E">, </span><span style="color:#032F62">"summaries"</span><span style="color:#24292E">]</span></span>
+<span class="line"><span style="color:#24292E">)</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#6A737D"># 每天定时执行</span></span>
+<span class="line"><span style="color:#24292E">agent.schedule(</span><span style="color:#032F62">"0 9 * * *"</span><span style="color:#24292E">)  </span><span style="color:#6A737D"># 每天9点运行</span></span></code></pre>
+<h3 id="场景3集成到飞书工作群">场景3：集成到飞书工作群</h3>
+<p><strong>配置通知</strong>：</p>
+<pre class="astro-code github-light" style="background-color:#fff;color:#24292e; overflow-x: auto;" tabindex="0" data-language="bash"><code><span class="line"><span style="color:#6A737D"># .env配置</span></span>
+<span class="line"><span style="color:#24292E">FEISHU_WEBHOOK</span><span style="color:#D73A49">=</span><span style="color:#032F62">https://open.feishu.cn/open-apis/bot/v2/hook/xxx</span></span>
+<span class="line"><span style="color:#24292E">NOTIFICATION_CHANNELS</span><span style="color:#D73A49">=</span><span style="color:#032F62">feishu,email</span></span></code></pre>
+<p>这样团队成员就能在飞书群收到任务进度通知。</p>
+<h2 id="-进阶技巧">🔗 进阶技巧</h2>
+<h3 id="1-自定义agent开发">1. 自定义Agent开发</h3>
+<p><strong>创建研究Agent</strong>：</p>
+<pre class="astro-code github-light" style="background-color:#fff;color:#24292e; overflow-x: auto;" tabindex="0" data-language="python"><code><span class="line"><span style="color:#D73A49">from</span><span style="color:#24292E"> deerflow </span><span style="color:#D73A49">import</span><span style="color:#24292E"> BaseAgent</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#D73A49">class</span><span style="color:#6F42C1"> ResearchAgent</span><span style="color:#24292E">(</span><span style="color:#6F42C1">BaseAgent</span><span style="color:#24292E">):</span></span>
+<span class="line"><span style="color:#D73A49">    def</span><span style="color:#005CC5"> __init__</span><span style="color:#24292E">(self):</span></span>
+<span class="line"><span style="color:#005CC5">        super</span><span style="color:#24292E">().</span><span style="color:#005CC5">__init__</span><span style="color:#24292E">()</span></span>
+<span class="line"><span style="color:#005CC5">        self</span><span style="color:#24292E">.tools </span><span style="color:#D73A49">=</span><span style="color:#24292E"> [</span><span style="color:#032F62">"web_search"</span><span style="color:#24292E">, </span><span style="color:#032F62">"academic_db"</span><span style="color:#24292E">, </span><span style="color:#032F62">"summarizer"</span><span style="color:#24292E">]</span></span>
+<span class="line"><span style="color:#24292E">    </span></span>
+<span class="line"><span style="color:#D73A49">    def</span><span style="color:#6F42C1"> execute</span><span style="color:#24292E">(self, topic):</span></span>
+<span class="line"><span style="color:#6A737D">        # 1. 搜索资料</span></span>
+<span class="line"><span style="color:#24292E">        papers </span><span style="color:#D73A49">=</span><span style="color:#005CC5"> self</span><span style="color:#24292E">.search(topic)</span></span>
+<span class="line"><span style="color:#6A737D">        # 2. 分析提取</span></span>
+<span class="line"><span style="color:#24292E">        insights </span><span style="color:#D73A49">=</span><span style="color:#005CC5"> self</span><span style="color:#24292E">.analyze(papers)</span></span>
+<span class="line"><span style="color:#6A737D">        # 3. 生成报告</span></span>
+<span class="line"><span style="color:#24292E">        report </span><span style="color:#D73A49">=</span><span style="color:#005CC5"> self</span><span style="color:#24292E">.generate_report(insights)</span></span>
+<span class="line"><span style="color:#D73A49">        return</span><span style="color:#24292E"> report</span></span></code></pre>
+<h3 id="2-与其他ai工具集成">2. 与其他AI工具集成</h3>
+<p><strong>结合Ollama本地模型</strong>：</p>
+<pre class="astro-code github-light" style="background-color:#fff;color:#24292e; overflow-x: auto;" tabindex="0" data-language="bash"><code><span class="line"><span style="color:#6A737D"># 使用本地LLM降低成本</span></span>
+<span class="line"><span style="color:#6F42C1">docker</span><span style="color:#032F62"> run</span><span style="color:#005CC5"> -d</span><span style="color:#005CC5"> --name</span><span style="color:#032F62"> ollama</span><span style="color:#005CC5"> -p</span><span style="color:#032F62"> 11434:11434</span><span style="color:#032F62"> ollama/ollama</span></span>
+<span class="line"><span style="color:#6F42C1">ollama</span><span style="color:#032F62"> pull</span><span style="color:#032F62"> llama3</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#6A737D"># DeerFlow配置使用本地模型</span></span>
+<span class="line"><span style="color:#24292E">LLM_PROVIDER</span><span style="color:#D73A49">=</span><span style="color:#032F62">ollama</span></span>
+<span class="line"><span style="color:#24292E">OLLAMA_URL</span><span style="color:#D73A49">=</span><span style="color:#032F62">http://localhost:11434</span></span></code></pre>
+<h3 id="3-生产环境部署建议">3. 生产环境部署建议</h3>
+<p><strong>Docker Compose配置</strong>：</p>
+<pre class="astro-code github-light" style="background-color:#fff;color:#24292e; overflow-x: auto;" tabindex="0" data-language="yaml"><code><span class="line"><span style="color:#6A737D"># docker-compose.yml</span></span>
+<span class="line"><span style="color:#22863A">version</span><span style="color:#24292E">: </span><span style="color:#032F62">'3'</span></span>
+<span class="line"><span style="color:#22863A">services</span><span style="color:#24292E">:</span></span>
+<span class="line"><span style="color:#22863A">  deerflow</span><span style="color:#24292E">:</span></span>
+<span class="line"><span style="color:#22863A">    image</span><span style="color:#24292E">: </span><span style="color:#032F62">deerflow:latest</span></span>
+<span class="line"><span style="color:#22863A">    ports</span><span style="color:#24292E">:</span></span>
+<span class="line"><span style="color:#24292E">      - </span><span style="color:#032F62">"3000:3000"</span></span>
+<span class="line"><span style="color:#22863A">    volumes</span><span style="color:#24292E">:</span></span>
+<span class="line"><span style="color:#24292E">      - </span><span style="color:#032F62">./data:/app/data</span></span>
+<span class="line"><span style="color:#24292E">      - </span><span style="color:#032F62">./logs:/app/logs</span></span>
+<span class="line"><span style="color:#22863A">    environment</span><span style="color:#24292E">:</span></span>
+<span class="line"><span style="color:#24292E">      - </span><span style="color:#032F62">API_KEY=${API_KEY}</span></span>
+<span class="line"><span style="color:#24292E">      - </span><span style="color:#032F62">DATABASE_URL=${DATABASE_URL}</span></span></code></pre>
+<p><strong>安全性考虑</strong>：</p>
+<ul>
+<li>使用Docker沙盒限制权限</li>
+<li>设置资源使用上限</li>
+<li>定期备份工作流配置</li>
+</ul>
+<h2 id="-参考资源">📚 参考资源</h2>
+<h3 id="官方资料">官方资料</h3>
+<ul>
+<li><strong>GitHub仓库</strong>：<a href="https://github.com/bytedance/deer-flow">https://github.com/bytedance/deer-flow</a></li>
+<li><strong>官方文档</strong>：<a href="https://deerflow.ai%EF%BC%88%E8%AF%B7%E4%BB%A5%E5%AE%9E%E9%99%85%E5%AE%98%E6%96%B9%E6%96%87%E6%A1%A3%E4%B8%BA%E5%87%86%EF%BC%89">https://deerflow.ai（请以实际官方文档为准）</a></li>
+<li><strong>中文社区</strong>：<a href="https://github.com/bytedance/deer-flow/discussions">https://github.com/bytedance/deer-flow/discussions</a></li>
+</ul>
+<h3 id="学习资源">学习资源</h3>
+<ul>
+<li><strong>入门教程</strong>：<a href="https://youtu.be/GOomPlewUGE">DeerFlow + Ollama设置指南</a></li>
+<li><strong>企业案例</strong>：<a href="https://blog.pebblous.ai/project/AgenticAI/deerflow-superagent/en/">字节跳动内部AI工作流实践</a></li>
+</ul>
+<h3 id="替代方案对比">替代方案对比</h3>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<table><thead><tr><th>框架</th><th>优点</th><th>适用场景</th></tr></thead><tbody><tr><td><strong>Deer-Flow</strong></td><td>实际执行、多Agent、企业级</td><td>复杂任务自动化</td></tr><tr><td><strong>CrewAI</strong></td><td>简单易用、文档丰富</td><td>基础Agent协作</td></tr><tr><td><strong>LangGraph</strong></td><td>高度灵活、社区活跃</td><td>自定义工作流开发</td></tr></tbody></table>
+<h2 id="-使用建议">🎯 使用建议</h2>
+<h3 id="适合人群">适合人群</h3>
+<ol>
+<li><strong>企业研发团队</strong> - 需要自动化复杂研究流程</li>
+<li><strong>数据分析师</strong> - 处理多源数据整合</li>
+<li><strong>内容创作者</strong> - 生成深度专业内容</li>
+<li><strong>AI开发者</strong> - 学习多Agent系统设计</li>
+</ol>
+<h3 id="起步建议">起步建议</h3>
+<ul>
+<li>从官方示例项目开始</li>
+<li>先运行预设工作流理解流程</li>
+<li>逐步添加自定义Agent</li>
+<li>做好错误处理和监控</li>
+</ul>
+<h3 id="成本考量">成本考量</h3>
+<ul>
+<li><strong>免费</strong>：开源版本功能完整</li>
+<li><strong>云服务费用</strong>：API调用成本（可本地LLM减少）</li>
+<li><strong>服务器资源</strong>：Docker容器资源消耗</li>
+</ul>
+<hr>
+<p><strong>总结</strong>：Deer-Flow代表了AI Agent从”建议”到”执行”的重要跨越。对于需要处理复杂、长期任务的团队来说，这是一个值得投入时间学习的生产工具。</p>
+<p><strong>风险评估与注意事项</strong>：</p>
+<ol>
+<li><strong>数据安全</strong>：虽然支持本地部署，但仍需注意API密钥和敏感数据保护</li>
+<li><strong>学习成本</strong>：多Agent系统需要一定的技术理解才能高效使用</li>
+<li><strong>资源消耗</strong>：并行运行多个Agent可能消耗较多计算资源</li>
+<li><strong>依赖风险</strong>：依赖第三方API服务可能带来稳定性问题</li>
+</ol>
+<p><strong>下一步行动</strong>：</p>
+<ol>
+<li>访问GitHub仓库确认最新状态</li>
+<li>阅读官方文档了解完整功能</li>
+<li>在测试环境安装体验基本功能</li>
+<li>根据业务需求设计验证方案</li>
+</ol>
+<blockquote>
+<p><strong>重要提醒</strong>：</p>
+<ol>
+<li>本文基于2026年3月搜索结果，工具信息和API接口可能已有更新</li>
+<li>实际使用时请以官方最新文档为准</li>
+<li>生产环境部署前请充分测试和评估风险</li>
+<li>建议关注GitHub仓库的Issue和Release了解实际用户反馈</li>
+</ol>
+</blockquote>  </article> <aside class="toc"><p class="toc-title">目录</p><ul class="toc-list"><li class="depth-2"><a href="#-工具介绍">📌 工具介绍</a></li><li class="depth-2"><a href="#-快速上手">⚡ 快速上手</a></li><li class="depth-3"><a href="#环境要求">环境要求</a></li><li class="depth-3"><a href="#5分钟安装步骤">5分钟安装步骤</a></li><li class="depth-2"><a href="#-实战技巧">💡 实战技巧</a></li><li class="depth-3"><a href="#场景1自动生成技术研究报告">场景1：自动生成技术研究报告</a></li><li class="depth-3"><a href="#场景2自动化数据处理">场景2：自动化数据处理</a></li><li class="depth-3"><a href="#场景3集成到飞书工作群">场景3：集成到飞书工作群</a></li><li class="depth-2"><a href="#-进阶技巧">🔗 进阶技巧</a></li><li class="depth-3"><a href="#1-自定义agent开发">1. 自定义Agent开发</a></li><li class="depth-3"><a href="#2-与其他ai工具集成">2. 与其他AI工具集成</a></li><li class="depth-3"><a href="#3-生产环境部署建议">3. 生产环境部署建议</a></li><li class="depth-2"><a href="#-参考资源">📚 参考资源</a></li><li class="depth-3"><a href="#官方资料">官方资料</a></li><li class="depth-3"><a href="#学习资源">学习资源</a></li><li class="depth-3"><a href="#替代方案对比">替代方案对比</a></li><li class="depth-2"><a href="#-使用建议">🎯 使用建议</a></li><li class="depth-3"><a href="#适合人群">适合人群</a></li><li class="depth-3"><a href="#起步建议">起步建议</a></li><li class="depth-3"><a href="#成本考量">成本考量</a></li></ul></aside> </div>  </main> <footer class="site-footer"> <div class="shell footer-inner"> <p>© 2026 未来观察者</p> </div> </footer> </body></html>
