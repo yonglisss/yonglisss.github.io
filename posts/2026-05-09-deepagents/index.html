@@ -1,0 +1,34 @@
+<!DOCTYPE html><html lang="zh-CN"> <head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1"><title>deepagents：如果你想做“能拆任务、会用文件、还能分身”的 Agent，可以先看它 | 未来观察者</title><meta name="description" content="这两天值得关注的一个 AI 开源项目，是 LangChain 团队推出的 deepagents。它不是又一个“聊天壳”，而是把近一年大家反复验证有效的 Agent 结构，直接做成了可复用的 harness：内置任务拆解、文件系统、子代理、上下文管理，还提供 CLI 形态。对想做研"><meta name="generator" content="Astro v5.18.1"><meta property="og:title" content="deepagents：如果你想做“能拆任务、会用文件、还能分身”的 Agent，可以先看它 | 未来观察者"><meta property="og:description" content="这两天值得关注的一个 AI 开源项目，是 LangChain 团队推出的 deepagents。它不是又一个“聊天壳”，而是把近一年大家反复验证有效的 Agent 结构，直接做成了可复用的 harness：内置任务拆解、文件系统、子代理、上下文管理，还提供 CLI 形态。对想做研"><meta property="og:type" content="website"><meta property="og:url" content="https://future.lifestudylab.com/posts/2026-05-09-deepagents/"><link rel="icon" type="image/svg+xml" href="/favicon.svg"><link rel="alternate" type="application/rss+xml" title="未来观察者" href="/rss.xml"><link rel="stylesheet" href="/_astro/_channel_.Cl0MlA65.css"></head> <body> <div class="page-bg"></div> <header class="site-header"> <div class="shell header-inner"> <div class="header-bar"> <a class="brand" href="/ai-tools/"> <img src="/brand-mark.svg" alt="" class="brand-mark" width="56" height="56"> <span class="brand-text" aria-label="未来观察者">思考未来</span> </a> </div> </div> </header> <aside class="site-rail" aria-label="站点导航"> <div class="site-rail-inner"> <p class="site-rail-label">Channels</p> <nav aria-label="主导航"> <ul class="site-rail-nav"> <li> <a href="/ai-tools/" class="site-rail-link"> AI工具 </a> </li><li> <a href="/future-daily/" class="site-rail-link"> 未来观察者日报 </a> </li> </ul> </nav> </div> </aside> <main class="shell page-content">  <div class="post-hero"> <p class="eyebrow">2026年5月9日</p> <h1>deepagents：如果你想做“能拆任务、会用文件、还能分身”的 Agent，可以先看它</h1> <p class="post-summary">这两天值得关注的一个 AI 开源项目，是 LangChain 团队推出的 deepagents。它不是又一个“聊天壳”，而是把近一年大家反复验证有效的 Agent 结构，直接做成了可复用的 harness：内置任务拆解、文件系统、子代理、上下文管理，还提供 CLI 形态。对想做研</p> <ul class="tag-list"> <li> <a href="/tags/AI%E5%B7%A5%E5%85%B7/" class="tag-link">
+#AI工具 </a> </li><li> <a href="/tags/2026%E5%B9%B405%E6%9C%88/" class="tag-link">
+#2026年05月 </a> </li> </ul> </div> <div class="post-grid"> <article class="prose">  <p>这两天值得关注的一个 AI 开源项目，是 LangChain 团队推出的 <code>deepagents</code>。它不是又一个“聊天壳”，而是把近一年大家反复验证有效的 Agent 结构，直接做成了可复用的 harness：内置任务拆解、文件系统、子代理、上下文管理，还提供 CLI 形态。对想做研究型助手、内容工作流、编码代理的人来说，它比从零拼 prompt 和 tool loop 更省事，也更容易做出可维护的原型。</p>
+<h2 id="-这个项目是干什么的">📌 这个项目是干什么的</h2>
+<ul>
+<li><strong>定位</strong>：一个用来搭建通用 Agent 的 Python 库，也带终端 CLI。</li>
+<li><strong>适合谁</strong>：AI 应用开发者、Agent 产品原型团队、想把多步任务做深的人。</li>
+<li><strong>解决什么问题</strong>：把“规划 + 文件操作 + 子代理协作 + 长上下文处理”这些常见能力一次性打包。</li>
+<li><strong>当前成熟度</strong>：文档完整、示例清楚，PyPI 在 2026-05-05 仍有新版本发布，项目活跃度不错。</li>
+</ul>
+<h2 id="-为什么值得关注">🔍 为什么值得关注</h2>
+<ol>
+<li><strong>它抓住了 Agent 真正难的部分。</strong> 不是再包一层聊天接口，而是把多步任务里的规划、落盘、分工这些骨架先搭好。</li>
+<li><strong>上手路径短。</strong> 官方给出 <code>pip install deepagents</code> / <code>uv add deepagents</code>，再用 <code>create_deep_agent()</code> 就能跑起来，适合快速验证想法。</li>
+<li><strong>示例不是玩具。</strong> 官方示例里已经演示了内容写作 agent：用 <code>AGENTS.md</code> 放长期规则，用 <code>skills/</code> 放工作流，用 subagents 做研究分工，这个结构对团队落地很有借鉴意义。</li>
+</ol>
+<h2 id="-谁适合试怎么开始">🧪 谁适合试，怎么开始</h2>
+<ul>
+<li><strong>最适合的试用人群</strong>：正在做内部知识助手、研究助手、内容生产助手，或想自建 coding agent 的团队。</li>
+<li><strong>最短尝试路径</strong>：先按官方文档安装 <code>deepagents</code>，用 <code>create_deep_agent()</code> 跑一个最小示例；如果你更关心终端体验，再看它的 CLI。</li>
+<li><strong>建议先看</strong>：先看 overview 文档理解它的“agent harness”定位，再看 GitHub 示例目录，尤其是 content-builder-agent。</li>
+</ul>
+<h2 id="️-使用提醒">⚠️ 使用提醒</h2>
+<ul>
+<li>它默认思路是“把能力交给 Agent”，所以安全边界要靠你配置的工具和沙箱来兜底，不能只指望模型自觉。</li>
+<li><code>deepagents</code> 更适合已经明确要做复杂任务编排的人；如果你只是想接几个 API 做简单问答，它反而可能偏重。</li>
+</ul>
+<h2 id="-参考资源">🔗 参考资源</h2>
+<ul>
+<li>GitHub：<a href="https://github.com/langchain-ai/deepagents">https://github.com/langchain-ai/deepagents</a></li>
+<li>官方文档：<a href="https://docs.langchain.com/oss/python/deepagents/overview">https://docs.langchain.com/oss/python/deepagents/overview</a></li>
+<li>官方示例：<a href="https://github.com/langchain-ai/deepagents/tree/main/examples/content-builder-agent">https://github.com/langchain-ai/deepagents/tree/main/examples/content-builder-agent</a></li>
+<li>PyPI：<a href="https://pypi.org/project/deepagents/">https://pypi.org/project/deepagents/</a></li>
+</ul>  </article> <aside class="toc"><p class="toc-title">目录</p><ul class="toc-list"><li class="depth-2"><a href="#-这个项目是干什么的">📌 这个项目是干什么的</a></li><li class="depth-2"><a href="#-为什么值得关注">🔍 为什么值得关注</a></li><li class="depth-2"><a href="#-谁适合试怎么开始">🧪 谁适合试，怎么开始</a></li><li class="depth-2"><a href="#️-使用提醒">⚠️ 使用提醒</a></li><li class="depth-2"><a href="#-参考资源">🔗 参考资源</a></li></ul></aside> </div>  </main> <footer class="site-footer"> <div class="shell footer-inner"> <p>© 2026 未来观察者</p> </div> </footer> </body></html>
