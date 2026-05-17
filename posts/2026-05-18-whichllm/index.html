@@ -1,0 +1,39 @@
+<!DOCTYPE html><html lang="zh-CN"> <head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1"><title>whichllm：本地模型太多不知道该下哪个？这个工具把选择过程做成了一条命令 | 未来观察者</title><meta name="description" content="这两年本地跑大模型最大的噪音，不是“模型不够多”，而是选择成本太高：显卡够不够、量化版本怎么挑、同样能装下的几个模型到底谁更值得跑。GitHub 这两天热起来的 whichllm，就是专门解决这个问题的。它会识别当前机器的 GPU、CPU 和内存，再结合 Hugging Face"><meta name="generator" content="Astro v5.18.1"><meta property="og:title" content="whichllm：本地模型太多不知道该下哪个？这个工具把选择过程做成了一条命令 | 未来观察者"><meta property="og:description" content="这两年本地跑大模型最大的噪音，不是“模型不够多”，而是选择成本太高：显卡够不够、量化版本怎么挑、同样能装下的几个模型到底谁更值得跑。GitHub 这两天热起来的 whichllm，就是专门解决这个问题的。它会识别当前机器的 GPU、CPU 和内存，再结合 Hugging Face"><meta property="og:type" content="website"><meta property="og:url" content="https://future.lifestudylab.com/posts/2026-05-18-whichllm/"><link rel="icon" type="image/svg+xml" href="/favicon.svg"><link rel="alternate" type="application/rss+xml" title="未来观察者" href="/rss.xml"><link rel="stylesheet" href="/_astro/_channel_.Cl0MlA65.css"></head> <body> <div class="page-bg"></div> <header class="site-header"> <div class="shell header-inner"> <div class="header-bar"> <a class="brand" href="/ai-tools/"> <img src="/brand-mark.svg" alt="" class="brand-mark" width="56" height="56"> <span class="brand-text" aria-label="未来观察者">思考未来</span> </a> </div> </div> </header> <aside class="site-rail" aria-label="站点导航"> <div class="site-rail-inner"> <p class="site-rail-label">Channels</p> <nav aria-label="主导航"> <ul class="site-rail-nav"> <li> <a href="/ai-tools/" class="site-rail-link"> AI工具 </a> </li><li> <a href="/future-daily/" class="site-rail-link"> 未来观察者日报 </a> </li> </ul> </nav> </div> </aside> <main class="shell page-content">  <div class="post-hero"> <p class="eyebrow">2026年5月18日</p> <h1>whichllm：本地模型太多不知道该下哪个？这个工具把选择过程做成了一条命令</h1> <p class="post-summary">这两年本地跑大模型最大的噪音，不是“模型不够多”，而是选择成本太高：显卡够不够、量化版本怎么挑、同样能装下的几个模型到底谁更值得跑。GitHub 这两天热起来的 whichllm，就是专门解决这个问题的。它会识别当前机器的 GPU、CPU 和内存，再结合 Hugging Face</p> <ul class="tag-list"> <li> <a href="/tags/AI%E5%B7%A5%E5%85%B7/" class="tag-link">
+#AI工具 </a> </li><li> <a href="/tags/2026%E5%B9%B405%E6%9C%88/" class="tag-link">
+#2026年05月 </a> </li> </ul> </div> <div class="post-grid"> <article class="prose">  <p>这两年本地跑大模型最大的噪音，不是“模型不够多”，而是<strong>选择成本太高</strong>：显卡够不够、量化版本怎么挑、同样能装下的几个模型到底谁更值得跑。GitHub 这两天热起来的 <strong>whichllm</strong>，就是专门解决这个问题的。它会识别当前机器的 GPU、CPU 和内存，再结合 Hugging Face 模型数据与多路基准评测，给出“这台机器更适合先试哪个模型”的排序结果。对刚开始折腾本地 LLM，或准备升级硬件的人来说，这类工具比又一个聊天壳子更有实际价值。</p>
+<h2 id="-这个项目是干什么的">📌 这个项目是干什么的</h2>
+<ul>
+<li>它不是推理框架，也不是聊天 UI，而是一个<strong>本地模型选型工具</strong>。</li>
+<li>核心能力是根据硬件条件，推荐真正“能跑且值得跑”的模型，而不是只看参数量。</li>
+<li>官方提供 <code>whichllm</code>、<code>whichllm plan</code>、<code>whichllm upgrade</code>、<code>whichllm run</code>、<code>whichllm snippet</code> 等命令，覆盖选型、购机规划、直接试跑和生成示例代码几类场景。</li>
+<li>适合本地 AI 初学者、Ollama/llama.cpp 用户、准备买卡或换卡的开发者，以及需要给团队做硬件选型的人。</li>
+</ul>
+<h2 id="-为什么值得关注">🔍 为什么值得关注</h2>
+<ul>
+<li><strong>它解决的是高频真实问题。</strong> 很多人能装下模型，但不知道装下之后该选哪个；whichllm 把这个判断前移了。</li>
+<li><strong>判断逻辑比“显存能放下就行”更细。</strong> README 和 CLI 文档里写得很清楚：它会综合 benchmark、模型新旧、证据置信度、量化方式和速度估算，而不是简单把“大模型”排第一。</li>
+<li><strong>上手路径短。</strong> 官方推荐直接 <code>uvx whichllm</code>，不想长期安装也能先试；如果只想看答案，跑完主命令就有结果。</li>
+</ul>
+<h2 id="-谁适合试怎么开始">🧪 谁适合试，怎么开始</h2>
+<p>如果你常见的问题是“24GB 显存现在先下 Qwen 还是别的模型”“8GB 显卡到底还有没有能用的选择”，可以优先试一下。</p>
+<p>最短路径很简单：</p>
+<ul>
+<li>先用 <code>uvx whichllm</code> 直接看当前机器推荐结果</li>
+<li>想模拟别的硬件，可试 <code>whichllm --gpu "RTX 4090"</code></li>
+<li>想反推某个模型需要什么配置，用 <code>whichllm plan "llama 3 70b"</code></li>
+<li>想直接试跑，则看 <code>whichllm run</code></li>
+</ul>
+<p>如果你已经有 Ollama 或自建下载流程，更实用的用法反而是先拿它做筛选，再决定拉哪个模型。</p>
+<h2 id="️-使用提醒">⚠️ 使用提醒</h2>
+<ul>
+<li>它给的是<strong>估算与排序</strong>，不是你机器上的实时基准测试，最终速度仍要看驱动、后端和具体量化版本。</li>
+<li><code>run</code> 命令依赖 <code>uv</code>，首次实际试跑还会涉及依赖和模型下载，别把“一条命令”理解成零等待。</li>
+<li>文档也明确提到，部分 Hugging Face 模型可能有访问限制；另外生成的 Transformers 示例会使用 <code>trust_remote_code=True</code>，正式环境要先审仓库来源。</li>
+</ul>
+<h2 id="-参考资源">🔗 参考资源</h2>
+<ul>
+<li>GitHub：<a href="https://github.com/Andyyyy64/whichllm">https://github.com/Andyyyy64/whichllm</a></li>
+<li>CLI 文档：<a href="https://github.com/Andyyyy64/whichllm/blob/main/docs/cli.md">https://github.com/Andyyyy64/whichllm/blob/main/docs/cli.md</a></li>
+<li>Run / Snippet 文档：<a href="https://github.com/Andyyyy64/whichllm/blob/main/docs/run-snippet.md">https://github.com/Andyyyy64/whichllm/blob/main/docs/run-snippet.md</a></li>
+<li>Releases：<a href="https://github.com/Andyyyy64/whichllm/releases">https://github.com/Andyyyy64/whichllm/releases</a></li>
+</ul>  </article> <aside class="toc"><p class="toc-title">目录</p><ul class="toc-list"><li class="depth-2"><a href="#-这个项目是干什么的">📌 这个项目是干什么的</a></li><li class="depth-2"><a href="#-为什么值得关注">🔍 为什么值得关注</a></li><li class="depth-2"><a href="#-谁适合试怎么开始">🧪 谁适合试，怎么开始</a></li><li class="depth-2"><a href="#️-使用提醒">⚠️ 使用提醒</a></li><li class="depth-2"><a href="#-参考资源">🔗 参考资源</a></li></ul></aside> </div>  </main> <footer class="site-footer"> <div class="shell footer-inner"> <p>© 2026 未来观察者</p> </div> </footer> </body></html>
