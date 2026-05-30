@@ -1,0 +1,38 @@
+<!DOCTYPE html><html lang="zh-CN"> <head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1"><title>LiteParse：如果你想把文档快速喂给 AI，这个开源解析器值得先记住 | 未来观察者</title><meta name="description" content="很多 AI 工作流卡住，不是因为模型不够强，而是文档输入太脏：PDF 版式乱、扫描件要 OCR、Office 文件格式不统一，最后很难稳定进入 RAG、Agent 或自动化流水线。今天筛下来更值得写给 AI 工具读者的是 LiteParse。它是 run-llama 开源的本地文"><meta name="generator" content="Astro v5.18.1"><meta property="og:title" content="LiteParse：如果你想把文档快速喂给 AI，这个开源解析器值得先记住 | 未来观察者"><meta property="og:description" content="很多 AI 工作流卡住，不是因为模型不够强，而是文档输入太脏：PDF 版式乱、扫描件要 OCR、Office 文件格式不统一，最后很难稳定进入 RAG、Agent 或自动化流水线。今天筛下来更值得写给 AI 工具读者的是 LiteParse。它是 run-llama 开源的本地文"><meta property="og:type" content="website"><meta property="og:url" content="https://future.lifestudylab.com/posts/2026-05-31-liteparse/"><link rel="icon" type="image/svg+xml" href="/favicon.svg"><link rel="alternate" type="application/rss+xml" title="未来观察者" href="/rss.xml"><link rel="stylesheet" href="/_astro/_channel_.Cl0MlA65.css"></head> <body> <div class="page-bg"></div> <header class="site-header"> <div class="shell header-inner"> <div class="header-bar"> <a class="brand" href="/ai-tools/"> <img src="/brand-mark.svg" alt="" class="brand-mark" width="56" height="56"> <span class="brand-text" aria-label="未来观察者">思考未来</span> </a> </div> </div> </header> <aside class="site-rail" aria-label="站点导航"> <div class="site-rail-inner"> <p class="site-rail-label">Channels</p> <nav aria-label="主导航"> <ul class="site-rail-nav"> <li> <a href="/ai-tools/" class="site-rail-link"> AI工具 </a> </li><li> <a href="/future-daily/" class="site-rail-link"> 未来观察者日报 </a> </li> </ul> </nav> </div> </aside> <main class="shell page-content">  <div class="post-hero"> <p class="eyebrow">2026年5月31日</p> <h1>LiteParse：如果你想把文档快速喂给 AI，这个开源解析器值得先记住</h1> <p class="post-summary">很多 AI 工作流卡住，不是因为模型不够强，而是文档输入太脏：PDF 版式乱、扫描件要 OCR、Office 文件格式不统一，最后很难稳定进入 RAG、Agent 或自动化流水线。今天筛下来更值得写给 AI 工具读者的是 LiteParse。它是 run-llama 开源的本地文</p> <ul class="tag-list"> <li> <a href="/tags/AI%E5%B7%A5%E5%85%B7/" class="tag-link">
+#AI工具 </a> </li><li> <a href="/tags/2026%E5%B9%B405%E6%9C%88/" class="tag-link">
+#2026年05月 </a> </li> </ul> </div> <div class="post-grid"> <article class="prose">  <p>很多 AI 工作流卡住，不是因为模型不够强，而是文档输入太脏：PDF 版式乱、扫描件要 OCR、Office 文件格式不统一，最后很难稳定进入 RAG、Agent 或自动化流水线。今天筛下来更值得写给 AI 工具读者的是 <strong>LiteParse</strong>。它是 run-llama 开源的本地文档解析工具，主打 <strong>速度、轻量、可本地运行</strong>，把 PDF、Office 文档和图片转成带版面信息的文本或 JSON。对希望自己掌握文档入口、又不想一开始就接云端解析服务的团队，这个项目很值得关注。</p>
+<h2 id="-这个项目是干什么的">📌 这个项目是干什么的</h2>
+<ul>
+<li>官方把它定位为一个开源文档解析库，核心能力是提取文本、保留空间布局，并输出 bounding boxes。</li>
+<li>它支持 PDF，也支持通过转换处理 DOCX、XLSX、PPTX 以及常见图片格式，适合多来源文档入口。</li>
+<li>OCR 默认可用，内置 Tesseract，也支持接外部 OCR 服务。</li>
+<li>提供 CLI、Python、Node.js/TypeScript、Rust 和 WASM 版本，适合脚本、后端服务和浏览器侧场景。</li>
+</ul>
+<h2 id="-为什么值得关注">🔍 为什么值得关注</h2>
+<ol>
+<li><strong>它解决的是“文档进入 AI 前的预处理”问题。</strong> 很多项目只讲检索和生成，但真正影响效果的往往是解析层。LiteParse 把文本、版面位置和截图能力一起提供，更适合接到后续 Agent 或 RAG 流程里。</li>
+<li><strong>本地运行边界清楚。</strong> 官方文档明确强调它没有云依赖、没有 API Key，也不夹带专有 LLM 功能，适合对隐私、成本和可控性更敏感的场景。</li>
+<li><strong>资料完整、近期活跃。</strong> GitHub README、官方文档、CLI 说明、PyPI 包信息和 release 页面都能对上；PyPI 显示 2026-05-30 发布了 <code>liteparse 2.0.4</code>，说明项目仍在快速迭代。</li>
+</ol>
+<h2 id="-谁适合试怎么开始">🧪 谁适合试，怎么开始</h2>
+<ul>
+<li>如果你在做知识库导入、合同/报告解析、AI 助手读文档，或者要给模型补截图上下文，可以优先试一下。</li>
+<li>最短路径很直接：Python 用 <code>pip install liteparse</code>，Node 用 <code>npm i -g @llamaindex/liteparse</code>，安装后直接执行 <code>lit parse document.pdf</code>。</li>
+<li>第一次体验建议先试两步：先用 <code>lit parse document.pdf --format json -o output.json</code> 看结构化输出，再用 <code>lit screenshot document.pdf -o ./screenshots</code> 看页面截图是否满足后续流程需要。</li>
+</ul>
+<h2 id="️-使用提醒">⚠️ 使用提醒</h2>
+<ul>
+<li>它更适合 <strong>轻量、本地、可控</strong> 的文档解析需求。官方也明确提示，遇到复杂表格、多栏排版、手写内容或高难扫描件时，效果边界会比不上更重型的云端解析服务。</li>
+<li>处理 Office 文档和图片时，README 与文档提到会依赖 LibreOffice、ImageMagick 这类转换能力，落地前最好先在你的运行环境验证。</li>
+<li>项目采用 <strong>Apache License 2.0</strong>，适合集成和二次开发；但如果你要直接接生产数据，仍建议先跑一轮真实样本，确认 OCR 语言、页数限制和输出质量。</li>
+</ul>
+<h2 id="-参考资源">🔗 参考资源</h2>
+<ul>
+<li>GitHub：<a href="https://github.com/run-llama/liteparse">https://github.com/run-llama/liteparse</a></li>
+<li>README：<a href="https://github.com/run-llama/liteparse/blob/main/README.md">https://github.com/run-llama/liteparse/blob/main/README.md</a></li>
+<li>官方文档：<a href="https://developers.llamaindex.ai/liteparse/">https://developers.llamaindex.ai/liteparse/</a></li>
+<li>Getting Started：<a href="https://developers.llamaindex.ai/liteparse/getting_started/">https://developers.llamaindex.ai/liteparse/getting_started/</a></li>
+<li>PyPI：<a href="https://pypi.org/project/liteparse/">https://pypi.org/project/liteparse/</a></li>
+<li>Releases：<a href="https://github.com/run-llama/liteparse/releases">https://github.com/run-llama/liteparse/releases</a></li>
+<li>License：<a href="https://raw.githubusercontent.com/run-llama/liteparse/main/LICENSE">https://raw.githubusercontent.com/run-llama/liteparse/main/LICENSE</a></li>
+</ul>  </article> <aside class="toc"><p class="toc-title">目录</p><ul class="toc-list"><li class="depth-2"><a href="#-这个项目是干什么的">📌 这个项目是干什么的</a></li><li class="depth-2"><a href="#-为什么值得关注">🔍 为什么值得关注</a></li><li class="depth-2"><a href="#-谁适合试怎么开始">🧪 谁适合试，怎么开始</a></li><li class="depth-2"><a href="#️-使用提醒">⚠️ 使用提醒</a></li><li class="depth-2"><a href="#-参考资源">🔗 参考资源</a></li></ul></aside> </div>  </main> <footer class="site-footer"> <div class="shell footer-inner"> <p>© 2026 未来观察者</p> </div> </footer> </body></html>
