@@ -1,0 +1,36 @@
+<!DOCTYPE html><html lang="zh-CN"> <head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1"><title>FunASR：想自建语音转写服务，可以先看这个开源工具箱 | 未来观察者</title><meta name="description" content="如果你最近在做会议纪要、语音录入、客服质检，或者想把音频能力接进 Agent 工作流，今天更值得关注的项目是 FunASR。它不是单一模型，而是一套开源语音理解工具链：把语音识别、VAD、标点、说话人分离、情绪识别和流式服务放到同一个 Python 接口里。更关键的是，项目最近把"><meta name="generator" content="Astro v5.18.1"><meta property="og:title" content="FunASR：想自建语音转写服务，可以先看这个开源工具箱 | 未来观察者"><meta property="og:description" content="如果你最近在做会议纪要、语音录入、客服质检，或者想把音频能力接进 Agent 工作流，今天更值得关注的项目是 FunASR。它不是单一模型，而是一套开源语音理解工具链：把语音识别、VAD、标点、说话人分离、情绪识别和流式服务放到同一个 Python 接口里。更关键的是，项目最近把"><meta property="og:type" content="website"><meta property="og:url" content="https://future.lifestudylab.com/posts/2026-06-04-funasr/"><link rel="icon" type="image/svg+xml" href="/favicon.svg"><link rel="alternate" type="application/rss+xml" title="未来观察者" href="/rss.xml"><link rel="stylesheet" href="/_astro/_channel_.Cl0MlA65.css"></head> <body> <div class="page-bg"></div> <header class="site-header"> <div class="shell header-inner"> <div class="header-bar"> <a class="brand" href="/ai-tools/"> <img src="/brand-mark.svg" alt="" class="brand-mark" width="56" height="56"> <span class="brand-text" aria-label="未来观察者">思考未来</span> </a> </div> </div> </header> <aside class="site-rail" aria-label="站点导航"> <div class="site-rail-inner"> <p class="site-rail-label">Channels</p> <nav aria-label="主导航"> <ul class="site-rail-nav"> <li> <a href="/ai-tools/" class="site-rail-link"> AI工具 </a> </li><li> <a href="/future-daily/" class="site-rail-link"> 未来观察者日报 </a> </li> </ul> </nav> </div> </aside> <main class="shell page-content">  <div class="post-hero"> <p class="eyebrow">2026年6月4日</p> <h1>FunASR：想自建语音转写服务，可以先看这个开源工具箱</h1> <p class="post-summary">如果你最近在做会议纪要、语音录入、客服质检，或者想把音频能力接进 Agent 工作流，今天更值得关注的项目是 FunASR。它不是单一模型，而是一套开源语音理解工具链：把语音识别、VAD、标点、说话人分离、情绪识别和流式服务放到同一个 Python 接口里。更关键的是，项目最近把</p> <ul class="tag-list"> <li> <a href="/tags/AI%E5%B7%A5%E5%85%B7/" class="tag-link">
+#AI工具 </a> </li><li> <a href="/tags/2026%E5%B9%B406%E6%9C%88/" class="tag-link">
+#2026年06月 </a> </li> </ul> </div> <div class="post-grid"> <article class="prose">  <p>如果你最近在做会议纪要、语音录入、客服质检，或者想把音频能力接进 Agent 工作流，今天更值得关注的项目是 <code>FunASR</code>。它不是单一模型，而是一套开源语音理解工具链：把语音识别、VAD、标点、说话人分离、情绪识别和流式服务放到同一个 Python 接口里。更关键的是，项目最近把本地转写服务做成了 OpenAI 兼容 API，这让它从“研究工具”更接近可落地的工程组件。</p>
+<h2 id="-这个项目是干什么的">📌 这个项目是干什么的</h2>
+<ul>
+<li><strong>定位</strong>：面向生产场景的开源语音识别与语音理解工具包。</li>
+<li><strong>适合谁</strong>：做会议转写、字幕、语音 Agent、私有化 ASR 服务的开发者和技术团队。</li>
+<li><strong>解决什么问题</strong>：把长音频转写、多说话人区分、标点补全、流式识别和本地 API 服务整合到一套接口里。</li>
+<li><strong>当前成熟度</strong>：README、文档站、示例和 release 更新都比较完整，适合工程试用，不只是论文仓库。</li>
+</ul>
+<h2 id="-为什么值得关注">🔍 为什么值得关注</h2>
+<ol>
+<li><strong>它把“能识别”推进到了“能部署”</strong>。官方最近新增 <code>funasr-server</code>，可以直接暴露 OpenAI 兼容的 <code>/v1/audio/transcriptions</code> 接口，这对已经有 Agent、工作流或内部服务框架的团队很友好。</li>
+<li><strong>模型选择比较清楚</strong>。如果你要高吞吐转写，可以先看 <code>SenseVoice-Small</code> 或 <code>Paraformer-Large</code>；如果你更在意多语言、时间戳和上下文能力，可以试 <code>Fun-ASR-Nano</code>。官方 benchmark 页面也给了 GPU 和 CPU 的参考速度，不是只谈概念。</li>
+<li><strong>实用功能比很多同类项目更完整</strong>。除了 ASR，它还把 VAD、说话人分离、情绪识别、热词和流式能力串在一起，比较适合直接拼进会议纪要、坐席分析、语音输入等真实流程。</li>
+</ol>
+<h2 id="-谁适合试怎么开始">🧪 谁适合试，怎么开始</h2>
+<ul>
+<li><strong>最适合的试用人群</strong>：已经在用 Whisper 或云端语音 API，但开始关心成本、隐私或响应速度的团队。</li>
+<li><strong>最短尝试路径</strong>：先 <code>pip install funasr</code>，用 README 里的 <code>AutoModel</code> 示例跑一段真实会议录音；如果你需要服务化，再安装 <code>fastapi</code>、<code>uvicorn</code> 等依赖，启动 <code>funasr-server</code> 做本地接口验证。</li>
+<li><strong>建议先看</strong>：官方文档里的 <code>Model Selection</code>、<code>Deployment Matrix</code> 和 <code>Migration Guide</code>，这三块最能帮你少走弯路。</li>
+</ul>
+<h2 id="️-使用提醒">⚠️ 使用提醒</h2>
+<ul>
+<li><strong>别只看峰值速度</strong>。官方 benchmark 很亮眼，但实际效果仍然受音频质量、语言、batch 策略和部署硬件影响，最好拿自己的样本做对比。</li>
+<li><strong>模型能力差异明显</strong>。<code>SenseVoice</code>、<code>Paraformer</code>、<code>Fun-ASR-Nano</code> 各自偏向速度、多语言或功能完整度，选型前先明确场景，不要默认“参数越大越好”。</li>
+<li><strong>开源许可证是 MIT，但部分预训练模型还要看模型侧授权说明</strong>，落到商用前最好把仓库和模型来源一起核验一遍。</li>
+</ul>
+<h2 id="-参考资源">🔗 参考资源</h2>
+<ul>
+<li>GitHub：<a href="https://github.com/modelscope/FunASR">https://github.com/modelscope/FunASR</a></li>
+<li>文档 / 官网：<a href="https://modelscope.github.io/FunASR/">https://modelscope.github.io/FunASR/</a></li>
+<li>Benchmark：<a href="https://modelscope.github.io/FunASR/benchmark.html">https://modelscope.github.io/FunASR/benchmark.html</a></li>
+<li>Releases：<a href="https://github.com/modelscope/FunASR/releases">https://github.com/modelscope/FunASR/releases</a></li>
+<li>License（MIT）：<a href="https://raw.githubusercontent.com/modelscope/FunASR/main/LICENSE">https://raw.githubusercontent.com/modelscope/FunASR/main/LICENSE</a></li>
+</ul>  </article> <aside class="toc"><p class="toc-title">目录</p><ul class="toc-list"><li class="depth-2"><a href="#-这个项目是干什么的">📌 这个项目是干什么的</a></li><li class="depth-2"><a href="#-为什么值得关注">🔍 为什么值得关注</a></li><li class="depth-2"><a href="#-谁适合试怎么开始">🧪 谁适合试，怎么开始</a></li><li class="depth-2"><a href="#️-使用提醒">⚠️ 使用提醒</a></li><li class="depth-2"><a href="#-参考资源">🔗 参考资源</a></li></ul></aside> </div>  </main> <footer class="site-footer"> <div class="shell footer-inner"> <p>© 2026 未来观察者</p> </div> </footer> </body></html>
