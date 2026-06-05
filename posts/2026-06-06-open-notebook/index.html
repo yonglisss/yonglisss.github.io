@@ -1,0 +1,35 @@
+<!DOCTYPE html><html lang="zh-CN"> <head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1"><title>Open Notebook：如果你想要一个可自托管的 NotebookLM 替代品，可以先看它 | 未来观察者</title><meta name="description" content="这两天 GitHub 上热度很高的 open-notebook，本质上是在做一个开源版的“个人研究工作台”。它把 PDF、网页、音频、视频、Office 文档等内容统一收进笔记本，再用大模型做检索、问答、摘要、播客生成和内容转换。它今天值得看，不是因为又多了一个“AI 笔记”项目"><meta name="generator" content="Astro v5.18.1"><meta property="og:title" content="Open Notebook：如果你想要一个可自托管的 NotebookLM 替代品，可以先看它 | 未来观察者"><meta property="og:description" content="这两天 GitHub 上热度很高的 open-notebook，本质上是在做一个开源版的“个人研究工作台”。它把 PDF、网页、音频、视频、Office 文档等内容统一收进笔记本，再用大模型做检索、问答、摘要、播客生成和内容转换。它今天值得看，不是因为又多了一个“AI 笔记”项目"><meta property="og:type" content="website"><meta property="og:url" content="https://future.lifestudylab.com/posts/2026-06-06-open-notebook/"><link rel="icon" type="image/svg+xml" href="/favicon.svg"><link rel="alternate" type="application/rss+xml" title="未来观察者" href="/rss.xml"><link rel="stylesheet" href="/_astro/_channel_.Cl0MlA65.css"></head> <body> <div class="page-bg"></div> <header class="site-header"> <div class="shell header-inner"> <div class="header-bar"> <a class="brand" href="/ai-tools/"> <img src="/brand-mark.svg" alt="" class="brand-mark" width="56" height="56"> <span class="brand-text" aria-label="未来观察者">思考未来</span> </a> </div> </div> </header> <aside class="site-rail" aria-label="站点导航"> <div class="site-rail-inner"> <p class="site-rail-label">Channels</p> <nav aria-label="主导航"> <ul class="site-rail-nav"> <li> <a href="/ai-tools/" class="site-rail-link"> AI工具 </a> </li><li> <a href="/future-daily/" class="site-rail-link"> 未来观察者日报 </a> </li> </ul> </nav> </div> </aside> <main class="shell page-content">  <div class="post-hero"> <p class="eyebrow">2026年6月6日</p> <h1>Open Notebook：如果你想要一个可自托管的 NotebookLM 替代品，可以先看它</h1> <p class="post-summary">这两天 GitHub 上热度很高的 open-notebook，本质上是在做一个开源版的“个人研究工作台”。它把 PDF、网页、音频、视频、Office 文档等内容统一收进笔记本，再用大模型做检索、问答、摘要、播客生成和内容转换。它今天值得看，不是因为又多了一个“AI 笔记”项目</p> <ul class="tag-list"> <li> <a href="/tags/AI%E5%B7%A5%E5%85%B7/" class="tag-link">
+#AI工具 </a> </li><li> <a href="/tags/2026%E5%B9%B406%E6%9C%88/" class="tag-link">
+#2026年06月 </a> </li> </ul> </div> <div class="post-grid"> <article class="prose">  <p>这两天 GitHub 上热度很高的 <code>open-notebook</code>，本质上是在做一个开源版的“个人研究工作台”。它把 PDF、网页、音频、视频、Office 文档等内容统一收进笔记本，再用大模型做检索、问答、摘要、播客生成和内容转换。它今天值得看，不是因为又多了一个“AI 笔记”项目，而是因为它把很多人对 NotebookLM 的几个现实诉求一次性补上了：可自托管、可换模型、可控数据边界、还能接 API 和 MCP。</p>
+<h2 id="-这个项目是干什么的">📌 这个项目是干什么的</h2>
+<ul>
+<li>定位：一个面向研究、学习和知识整理场景的开源 AI 笔记与资料库平台。</li>
+<li>适合谁：需要长期积累资料的开发者、研究员、学生、内容创作者，以及希望私有化部署知识助手的团队。</li>
+<li>解决什么问题：把分散在网页、PDF、视频、音频里的资料收进同一个知识容器，再基于上下文做问答、搜索、笔记和二次加工。</li>
+<li>当前成熟度：不是概念 demo，已经有官网、完整文档、Docker 部署方式、REST API 和持续 release 记录。</li>
+</ul>
+<h2 id="-为什么值得关注">🔍 为什么值得关注</h2>
+<ol>
+<li>它不是单纯复刻 NotebookLM，而是把“可控性”做成了主卖点。官方 README 明确支持 18+ 模型提供方，包括 OpenAI、Anthropic、Ollama、LM Studio 等，意味着你可以按预算、隐私要求和推理能力自由切换。</li>
+<li>它的输入和输出都更适合做长期知识库。项目支持 PDF、网页、音频、视频、Office 文档等多种资料源，也支持全文与向量搜索、上下文聊天、引用和内容转换，不只是“一次性总结工具”。</li>
+<li>最近更新节奏也说明它不是一波流项目。6 月 2 日的 <code>v1.9.0</code> 还在继续补音频能力、Ollama 配置和 API 侧细节；4 月 release 里还公开修过高危安全问题，这反而说明维护者在认真处理生产可用性。</li>
+</ol>
+<h2 id="-谁适合试怎么开始">🧪 谁适合试，怎么开始</h2>
+<ul>
+<li>最适合的试用人群：经常收集资料、做研究笔记、搭 RAG 工作台，或者想给团队做私有知识助手的人。</li>
+<li>最短尝试路径：先按 README 的 Docker 方式起一个本地实例，再在设置页接入一个模型提供方；如果你想压低成本，可以直接走 Ollama 本地模型。</li>
+<li>建议先看：官网的产品定位页、GitHub README 的 provider 支持矩阵，以及 release 说明里的升级注意项，能更快判断它适不适合你的环境。</li>
+</ul>
+<h2 id="️-使用提醒">⚠️ 使用提醒</h2>
+<ul>
+<li>它的优势在“可控”和“可扩展”，代价是部署和模型配置要自己负责，不适合只想开箱即用的人。</li>
+<li>官方 release 在 4 月修过远程代码执行、任意文件读写等安全问题。如果你要公网部署，不要只看功能，至少把版本升级到较新的 release，并认真看安全配置和跨域设置。</li>
+<li>如果你打算用本地模型处理大文档，要注意 release 提到的 Ollama 默认 <code>num_ctx</code> 已从 128000 调整到 8192，长上下文场景需要按硬件情况手动调回去。</li>
+</ul>
+<h2 id="-参考资源">🔗 参考资源</h2>
+<ul>
+<li>GitHub：<a href="https://github.com/lfnovo/open-notebook">https://github.com/lfnovo/open-notebook</a></li>
+<li>官网：<a href="https://www.open-notebook.ai">https://www.open-notebook.ai</a></li>
+<li>Releases：<a href="https://github.com/lfnovo/open-notebook/releases">https://github.com/lfnovo/open-notebook/releases</a></li>
+<li>Changelog：<a href="https://raw.githubusercontent.com/lfnovo/open-notebook/main/CHANGELOG.md">https://raw.githubusercontent.com/lfnovo/open-notebook/main/CHANGELOG.md</a></li>
+</ul>  </article> <aside class="toc"><p class="toc-title">目录</p><ul class="toc-list"><li class="depth-2"><a href="#-这个项目是干什么的">📌 这个项目是干什么的</a></li><li class="depth-2"><a href="#-为什么值得关注">🔍 为什么值得关注</a></li><li class="depth-2"><a href="#-谁适合试怎么开始">🧪 谁适合试，怎么开始</a></li><li class="depth-2"><a href="#️-使用提醒">⚠️ 使用提醒</a></li><li class="depth-2"><a href="#-参考资源">🔗 参考资源</a></li></ul></aside> </div>  </main> <footer class="site-footer"> <div class="shell footer-inner"> <p>© 2026 未来观察者</p> </div> </footer> </body></html>
