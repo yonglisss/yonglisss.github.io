@@ -1,0 +1,38 @@
+<!DOCTYPE html><html lang="zh-CN"> <head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1"><title>PaddleOCR：如果你想把 PDF 和图片真正喂给大模型，这个项目值得先看 | 未来观察者</title><meta name="description" content="这两天 GitHub 热门里，PaddleOCR 又冲了上来。它今天值得看，不是因为“OCR”这个词本身新鲜，而是它已经从传统文字识别工具，进化成了一套更适合大模型时代的文档理解底座：不仅能识别文本，还能把表格、公式、版面结构一起转成 Markdown 或 JSON，直接进入 R"><meta name="generator" content="Astro v5.18.1"><meta property="og:title" content="PaddleOCR：如果你想把 PDF 和图片真正喂给大模型，这个项目值得先看 | 未来观察者"><meta property="og:description" content="这两天 GitHub 热门里，PaddleOCR 又冲了上来。它今天值得看，不是因为“OCR”这个词本身新鲜，而是它已经从传统文字识别工具，进化成了一套更适合大模型时代的文档理解底座：不仅能识别文本，还能把表格、公式、版面结构一起转成 Markdown 或 JSON，直接进入 R"><meta property="og:type" content="website"><meta property="og:url" content="https://future.lifestudylab.com/posts/2026-06-07-paddleocr/"><link rel="icon" type="image/svg+xml" href="/favicon.svg"><link rel="alternate" type="application/rss+xml" title="未来观察者" href="/rss.xml"><link rel="stylesheet" href="/_astro/_channel_.Cl0MlA65.css"></head> <body> <div class="page-bg"></div> <header class="site-header"> <div class="shell header-inner"> <div class="header-bar"> <a class="brand" href="/ai-tools/"> <img src="/brand-mark.svg" alt="" class="brand-mark" width="56" height="56"> <span class="brand-text" aria-label="未来观察者">思考未来</span> </a> </div> </div> </header> <aside class="site-rail" aria-label="站点导航"> <div class="site-rail-inner"> <p class="site-rail-label">Channels</p> <nav aria-label="主导航"> <ul class="site-rail-nav"> <li> <a href="/ai-tools/" class="site-rail-link"> AI工具 </a> </li><li> <a href="/future-daily/" class="site-rail-link"> 未来观察者日报 </a> </li> </ul> </nav> </div> </aside> <main class="shell page-content">  <div class="post-hero"> <p class="eyebrow">2026年6月7日</p> <h1>PaddleOCR：如果你想把 PDF 和图片真正喂给大模型，这个项目值得先看</h1> <p class="post-summary">这两天 GitHub 热门里，PaddleOCR 又冲了上来。它今天值得看，不是因为“OCR”这个词本身新鲜，而是它已经从传统文字识别工具，进化成了一套更适合大模型时代的文档理解底座：不仅能识别文本，还能把表格、公式、版面结构一起转成 Markdown 或 JSON，直接进入 R</p> <ul class="tag-list"> <li> <a href="/tags/AI%E5%B7%A5%E5%85%B7/" class="tag-link">
+#AI工具 </a> </li><li> <a href="/tags/2026%E5%B9%B406%E6%9C%88/" class="tag-link">
+#2026年06月 </a> </li> </ul> </div> <div class="post-grid"> <article class="prose">  <p>这两天 GitHub 热门里，<strong>PaddleOCR</strong> 又冲了上来。它今天值得看，不是因为“OCR”这个词本身新鲜，而是它已经从传统文字识别工具，进化成了一套更适合大模型时代的文档理解底座：不仅能识别文本，还能把表格、公式、版面结构一起转成 Markdown 或 JSON，直接进入 RAG、知识库和 Agent 工作流。对经常处理 PDF、扫描件、截图和表格文档的团队来说，它比“再找一个聊天入口”更接近生产价值。</p>
+<h2 id="-这个项目是干什么的">📌 这个项目是干什么的</h2>
+<ul>
+<li>定位：面向文档 AI 的开源 OCR 与解析引擎，核心目标是把图片、PDF、Office 文档转成结构化数据。</li>
+<li>适合谁：做 RAG、知识库、合同/票据/报表处理、内容归档，或者需要把非结构化文档接进大模型流程的开发者和团队。</li>
+<li>能处理什么：官方资料明确覆盖文本识别、表格、公式、版面分析，以及 Markdown / JSON / DOCX 等输出。</li>
+<li>当前成熟度：不是实验性 demo。仓库 7 万+ Star，官方文档、Release、官网 API 和多语言文档都比较完整。</li>
+</ul>
+<h2 id="-为什么值得关注">🔍 为什么值得关注</h2>
+<ul>
+<li>第一，它解决的不是“识别出字”这么简单，而是<strong>把文档变成 LLM 可消费的数据</strong>。这对 RAG 和 Agent 特别关键，因为真正难的是结构还原，不只是 OCR 本身。</li>
+<li>第二，它最近更新很实。5 月 28 日发布的 <code>v3.6.0</code> 引入了 <code>PaddleOCR-VL-1.6</code>，官方给出的信息是：在 OmniDocBench v1.6 上达到 96.33%，并继续强化表格、公式、古籍、生僻字和图表等复杂场景。</li>
+<li>第三，它的集成路径比很多研究型项目更友好。官方已经给出 Python、Go、TypeScript SDK，以及浏览器侧的 PaddleOCR.js，说明它不是只面向论文复现，而是奔着落地去的。</li>
+</ul>
+<h2 id="-谁适合试怎么开始">🧪 谁适合试，怎么开始</h2>
+<ul>
+<li>如果你手里经常有扫描 PDF、截图、报销单、合同、论文或知识库资料，PaddleOCR 很值得先试。</li>
+<li>最短路径不是一上来自己训模型，而是先看官方文档里的 Quick Start，直接用现成模型跑一遍文档解析，先验证你自己的文档类型效果。</li>
+<li>如果你的目标是接入应用，而不是研究模型本身，可以优先看官方 API / SDK 和 <code>PP-StructureV3</code>、<code>PaddleOCR-VL</code> 相关说明，先确定输出结构能不能接你的下游系统。</li>
+</ul>
+<h2 id="️-使用提醒">⚠️ 使用提醒</h2>
+<ul>
+<li>它强在文档解析，但不是所有场景都该默认上最重模型；如果只是普通截图文字提取，先用轻量方案更划算。</li>
+<li>官方 release 说明里更新很快，近几个月连推多个 3.x 版本。真要上线，别只看 README，最好把 release note 和推理后端兼容性一起看完。</li>
+<li>许可证是 <strong>Apache 2.0</strong>，商用友好度较高，但涉及敏感文档时，仍建议先确认本地部署、数据流向和推理资源成本。</li>
+</ul>
+<h2 id="-参考资源">🔗 参考资源</h2>
+<ul>
+<li>GitHub：<a href="https://github.com/PaddlePaddle/PaddleOCR">https://github.com/PaddlePaddle/PaddleOCR</a></li>
+<li>官方文档：<a href="https://www.paddleocr.ai/latest/en/index.html">https://www.paddleocr.ai/latest/en/index.html</a></li>
+<li>Releases：<a href="https://github.com/PaddlePaddle/PaddleOCR/releases">https://github.com/PaddlePaddle/PaddleOCR/releases</a></li>
+<li>License：<a href="https://raw.githubusercontent.com/PaddlePaddle/PaddleOCR/main/LICENSE">https://raw.githubusercontent.com/PaddlePaddle/PaddleOCR/main/LICENSE</a></li>
+</ul>
+<blockquote>
+<p>候选稿说明：该文已进入人工审阅池，未自动发布。</p>
+</blockquote>  </article> <aside class="toc"><p class="toc-title">目录</p><ul class="toc-list"><li class="depth-2"><a href="#-这个项目是干什么的">📌 这个项目是干什么的</a></li><li class="depth-2"><a href="#-为什么值得关注">🔍 为什么值得关注</a></li><li class="depth-2"><a href="#-谁适合试怎么开始">🧪 谁适合试，怎么开始</a></li><li class="depth-2"><a href="#️-使用提醒">⚠️ 使用提醒</a></li><li class="depth-2"><a href="#-参考资源">🔗 参考资源</a></li></ul></aside> </div>  </main> <footer class="site-footer"> <div class="shell footer-inner"> <p>© 2026 未来观察者</p> </div> </footer> </body></html>
