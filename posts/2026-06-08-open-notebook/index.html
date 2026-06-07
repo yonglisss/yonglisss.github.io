@@ -1,0 +1,36 @@
+<!DOCTYPE html><html lang="zh-CN"> <head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1"><title>Open Notebook：想要一个更可控的 NotebookLM 替代品，可以先看它 | 未来观察者</title><meta name="description" content="这两天 GitHub 热门里，Open Notebook 是一个很适合 AI 工具读者关注的项目。它可以把 PDF、网页、音视频、Office 文档等资料收进同一个知识环境，再用你自己选择的模型做检索、对话、笔记生成和播客化处理。和常见“云端黑盒”方案相比，它更值得看的地方不只是"><meta name="generator" content="Astro v5.18.1"><meta property="og:title" content="Open Notebook：想要一个更可控的 NotebookLM 替代品，可以先看它 | 未来观察者"><meta property="og:description" content="这两天 GitHub 热门里，Open Notebook 是一个很适合 AI 工具读者关注的项目。它可以把 PDF、网页、音视频、Office 文档等资料收进同一个知识环境，再用你自己选择的模型做检索、对话、笔记生成和播客化处理。和常见“云端黑盒”方案相比，它更值得看的地方不只是"><meta property="og:type" content="website"><meta property="og:url" content="https://future.lifestudylab.com/posts/2026-06-08-open-notebook/"><link rel="icon" type="image/svg+xml" href="/favicon.svg"><link rel="alternate" type="application/rss+xml" title="未来观察者" href="/rss.xml"><link rel="stylesheet" href="/_astro/_channel_.Cl0MlA65.css"></head> <body> <div class="page-bg"></div> <header class="site-header"> <div class="shell header-inner"> <div class="header-bar"> <a class="brand" href="/ai-tools/"> <img src="/brand-mark.svg" alt="" class="brand-mark" width="56" height="56"> <span class="brand-text" aria-label="未来观察者">思考未来</span> </a> </div> </div> </header> <aside class="site-rail" aria-label="站点导航"> <div class="site-rail-inner"> <p class="site-rail-label">Channels</p> <nav aria-label="主导航"> <ul class="site-rail-nav"> <li> <a href="/ai-tools/" class="site-rail-link"> AI工具 </a> </li><li> <a href="/future-daily/" class="site-rail-link"> 未来观察者日报 </a> </li> </ul> </nav> </div> </aside> <main class="shell page-content">  <div class="post-hero"> <p class="eyebrow">2026年6月8日</p> <h1>Open Notebook：想要一个更可控的 NotebookLM 替代品，可以先看它</h1> <p class="post-summary">这两天 GitHub 热门里，Open Notebook 是一个很适合 AI 工具读者关注的项目。它可以把 PDF、网页、音视频、Office 文档等资料收进同一个知识环境，再用你自己选择的模型做检索、对话、笔记生成和播客化处理。和常见“云端黑盒”方案相比，它更值得看的地方不只是</p> <ul class="tag-list"> <li> <a href="/tags/AI%E5%B7%A5%E5%85%B7/" class="tag-link">
+#AI工具 </a> </li><li> <a href="/tags/2026%E5%B9%B406%E6%9C%88/" class="tag-link">
+#2026年06月 </a> </li> </ul> </div> <div class="post-grid"> <article class="prose">  <p>这两天 GitHub 热门里，<strong>Open Notebook</strong> 是一个很适合 AI 工具读者关注的项目。它可以把 PDF、网页、音视频、Office 文档等资料收进同一个知识环境，再用你自己选择的模型做检索、对话、笔记生成和播客化处理。和常见“云端黑盒”方案相比，它更值得看的地方不只是功能多，而是<strong>数据可控、模型可换、部署更灵活</strong>。如果你一直想要一个更像“私有版 NotebookLM”的方案，它值得先记住。</p>
+<h2 id="-这个项目是干什么的">📌 这个项目是干什么的</h2>
+<ul>
+<li>它的定位是一个开源、可自托管的 AI 研究与笔记平台，面向研究者、学生、知识工作者。</li>
+<li>支持导入 PDF、网页、视频、音频、Markdown、Office 文档等多种内容，再做全文与向量搜索。</li>
+<li>可以基于资料进行上下文对话、生成笔记，也支持多说话人播客生成。</li>
+<li>模型层不绑死单一家：README 列出了 OpenAI、Anthropic、Google、Ollama、LM Studio 等 18+ 提供方。</li>
+</ul>
+<h2 id="-为什么值得关注">🔍 为什么值得关注</h2>
+<ol>
+<li><strong>它解决的是“知识库 + AI 工作台”一体化问题。</strong> 很多工具只做聊天，Open Notebook 更像把资料整理、检索、问答和二次加工串成了完整工作流。</li>
+<li><strong>自托管和可换模型这两点很实用。</strong> 对在意隐私、成本或供应商锁定的团队，这比单纯多几个功能更重要。</li>
+<li><strong>资料链条比较完整。</strong> GitHub README、官网、安装文档、MCP 集成说明、release 记录都能找到，说明项目不是只靠热度撑起来的壳。</li>
+</ol>
+<h2 id="-谁适合试怎么开始">🧪 谁适合试，怎么开始</h2>
+<ul>
+<li>如果你经常做资料消化、行业研究、课程学习、内容选题，或者想搭自己的私有知识助手，可以优先试一下。</li>
+<li>最短路径是按 README 用 Docker Compose 启动：准备 <code>docker-compose.yml</code>，启动后访问 <code>http://localhost:8502</code>，再到设置里添加模型凭证。</li>
+<li>如果你本来就在用 Claude Desktop 或 VS Code，也可以再看它的 MCP 集成文档，把自己的 notebook 直接接进助手工作流。</li>
+</ul>
+<h2 id="️-使用提醒">⚠️ 使用提醒</h2>
+<ul>
+<li>它不是“零门槛即开即用”的纯消费级产品。想稳定用好，还是需要理解部署、存储和模型凭证配置。</li>
+<li>README 里提到引用能力仍会继续改进，所以如果你做高严谨度研究，最好自己复核原文来源。</li>
+<li>release 记录能看到项目迭代较快，也修过安全问题和配置兼容问题，正式用于团队前建议先看版本说明。</li>
+</ul>
+<h2 id="-参考资源">🔗 参考资源</h2>
+<ul>
+<li>GitHub：<a href="https://github.com/lfnovo/open-notebook">https://github.com/lfnovo/open-notebook</a></li>
+<li>官网：<a href="https://www.open-notebook.ai">https://www.open-notebook.ai</a></li>
+<li>README 中安装说明：<a href="https://github.com/lfnovo/open-notebook">https://github.com/lfnovo/open-notebook</a></li>
+<li>MCP 集成文档：<a href="https://github.com/lfnovo/open-notebook/blob/main/docs/5-CONFIGURATION/mcp-integration.md">https://github.com/lfnovo/open-notebook/blob/main/docs/5-CONFIGURATION/mcp-integration.md</a></li>
+<li>Releases：<a href="https://github.com/lfnovo/open-notebook/releases">https://github.com/lfnovo/open-notebook/releases</a></li>
+</ul>  </article> <aside class="toc"><p class="toc-title">目录</p><ul class="toc-list"><li class="depth-2"><a href="#-这个项目是干什么的">📌 这个项目是干什么的</a></li><li class="depth-2"><a href="#-为什么值得关注">🔍 为什么值得关注</a></li><li class="depth-2"><a href="#-谁适合试怎么开始">🧪 谁适合试，怎么开始</a></li><li class="depth-2"><a href="#️-使用提醒">⚠️ 使用提醒</a></li><li class="depth-2"><a href="#-参考资源">🔗 参考资源</a></li></ul></aside> </div>  </main> <footer class="site-footer"> <div class="shell footer-inner"> <p>© 2026 未来观察者</p> </div> </footer> </body></html>
