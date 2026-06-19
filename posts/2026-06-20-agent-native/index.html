@@ -1,0 +1,36 @@
+<!DOCTYPE html><html lang="zh-CN"> <head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1"><title>Agent-Native：把“聊天助手”做成真正可操作应用的一套开源框架 | 未来观察者</title><meta name="description" content="如果你觉得很多 AI 产品还停留在“能聊，但不真正干活”，那今天这个 GitHub 热门项目值得看。Agent-Native 想解决的不是再做一个聊天壳，而是把 Agent、UI、动作能力和应用状态 放进同一套框架里：同一个动作既能被用户点击触发，也能被 Agent 调用，还能通"><meta name="generator" content="Astro v5.18.1"><meta property="og:title" content="Agent-Native：把“聊天助手”做成真正可操作应用的一套开源框架 | 未来观察者"><meta property="og:description" content="如果你觉得很多 AI 产品还停留在“能聊，但不真正干活”，那今天这个 GitHub 热门项目值得看。Agent-Native 想解决的不是再做一个聊天壳，而是把 Agent、UI、动作能力和应用状态 放进同一套框架里：同一个动作既能被用户点击触发，也能被 Agent 调用，还能通"><meta property="og:type" content="website"><meta property="og:url" content="https://future.lifestudylab.com/posts/2026-06-20-agent-native/"><link rel="icon" type="image/svg+xml" href="/favicon.svg"><link rel="alternate" type="application/rss+xml" title="未来观察者" href="/rss.xml"><link rel="stylesheet" href="/_astro/_channel_.Cl0MlA65.css"></head> <body> <div class="page-bg"></div> <header class="site-header"> <div class="shell header-inner"> <div class="header-bar"> <a class="brand" href="/ai-tools/"> <img src="/brand-mark.svg" alt="" class="brand-mark" width="56" height="56"> <span class="brand-text" aria-label="未来观察者">思考未来</span> </a> </div> </div> </header> <aside class="site-rail" aria-label="站点导航"> <div class="site-rail-inner"> <p class="site-rail-label">Channels</p> <nav aria-label="主导航"> <ul class="site-rail-nav"> <li> <a href="/ai-tools/" class="site-rail-link"> AI工具 </a> </li><li> <a href="/future-daily/" class="site-rail-link"> 未来观察者日报 </a> </li> </ul> </nav> </div> </aside> <main class="shell page-content">  <div class="post-hero"> <p class="eyebrow">2026年6月20日</p> <h1>Agent-Native：把“聊天助手”做成真正可操作应用的一套开源框架</h1> <p class="post-summary">如果你觉得很多 AI 产品还停留在“能聊，但不真正干活”，那今天这个 GitHub 热门项目值得看。Agent-Native 想解决的不是再做一个聊天壳，而是把 Agent、UI、动作能力和应用状态 放进同一套框架里：同一个动作既能被用户点击触发，也能被 Agent 调用，还能通</p> <ul class="tag-list"> <li> <a href="/tags/AI%E5%B7%A5%E5%85%B7/" class="tag-link">
+#AI工具 </a> </li><li> <a href="/tags/2026%E5%B9%B406%E6%9C%88/" class="tag-link">
+#2026年06月 </a> </li> </ul> </div> <div class="post-grid"> <article class="prose">  <p>如果你觉得很多 AI 产品还停留在“能聊，但不真正干活”，那今天这个 GitHub 热门项目值得看。<strong>Agent-Native</strong> 想解决的不是再做一个聊天壳，而是把 <strong>Agent、UI、动作能力和应用状态</strong> 放进同一套框架里：同一个动作既能被用户点击触发，也能被 Agent 调用，还能通过 HTTP、CLI、MCP 和 A2A 暴露出去。</p>
+<h2 id="-它适合谁">📌 它适合谁</h2>
+<ul>
+<li>想做 <strong>AI 原生应用</strong>，而不只是做一个聊天窗口的团队</li>
+<li>需要 <strong>Agent + 界面 + 数据状态</strong> 一起工作的开发者</li>
+<li>想把 Claude、Codex、Cursor 这类外部 Agent 接进自己产品的人</li>
+</ul>
+<h2 id="-为什么值得关注">🔍 为什么值得关注</h2>
+<p>第一，它强调 <strong>“动作定义一次，多处复用”</strong>。官方 README 明确写到，一个 action 可以同时服务 UI、Agent、API、MCP、A2A 和 CLI，这比为每个入口分别接一层逻辑更像真正的产品工程。</p>
+<p>第二，它不是只讲概念。官方文档已经给出多种落地形态：<strong>Headless agent、Rich chat、Embedded sidecar、Full application</strong>，还提供 Calendar、Content、Analytics、Slides 等模板，说明它在往“可直接做产品”走，而不是停在 demo。</p>
+<p>第三，它对外部生态比较开放。官方文档写明，应用可通过远程 MCP 连接 Claude、ChatGPT、Codex、Cursor、GitHub Copilot 等宿主；这意味着你做的不是孤立 Agent，而是一个能接入现有 AI 工作流的应用层。</p>
+<h2 id="-怎么开始">⚡ 怎么开始</h2>
+<p>最短路径不是先啃全套概念，而是直接看模板：</p>
+<pre class="astro-code github-light" style="background-color:#fff;color:#24292e; overflow-x: auto;" tabindex="0" data-language="bash"><code><span class="line"><span style="color:#6F42C1">npx</span><span style="color:#032F62"> @agent-native/core@latest</span><span style="color:#032F62"> create</span><span style="color:#032F62"> my-platform</span></span>
+<span class="line"><span style="color:#005CC5">cd</span><span style="color:#032F62"> my-platform</span></span>
+<span class="line"><span style="color:#6F42C1">pnpm</span><span style="color:#032F62"> install</span></span>
+<span class="line"><span style="color:#6F42C1">pnpm</span><span style="color:#032F62"> dev</span></span></code></pre>
+<p>如果你只想先验证思路，也可以走 headless 模式，先定义一个 action，再让 Agent、CLI 或 MCP 去调用它。</p>
+<h2 id="-使用提醒">💡 使用提醒</h2>
+<ul>
+<li>这个项目更适合 <strong>有产品化目标</strong> 的团队；如果你只是给现有网站加一个简单问答框，它可能偏重。</li>
+<li>它把 Agent、状态、权限、协作、连接器揉在一起，能力很强，但也意味着学习曲线不会太低。</li>
+<li>GitHub release 更新频率很高，适合持续关注，但正式用于生产前，最好先评估版本稳定性和数据库/部署约束。</li>
+</ul>
+<h2 id="结论">结论</h2>
+<p>如果你关心的不是“再接一个模型”，而是 <strong>怎样把 Agent 做成真正可操作、可协作、可嵌入业务流程的应用</strong>，Agent-Native 很值得加入观察名单。它未必适合所有人，但对想做 AI 产品而不是 AI 玩具的团队，参考价值不低。</p>
+<h2 id="-参考资源">🔗 参考资源</h2>
+<ul>
+<li>GitHub：<a href="https://github.com/BuilderIO/agent-native">https://github.com/BuilderIO/agent-native</a></li>
+<li>官方文档：<a href="https://agent-native.com">https://agent-native.com</a></li>
+<li>Agent Surfaces：<a href="https://agent-native.com/docs/agent-surfaces">https://agent-native.com/docs/agent-surfaces</a></li>
+<li>External Agents：<a href="https://agent-native.com/docs/external-agents">https://agent-native.com/docs/external-agents</a></li>
+<li>Releases：<a href="https://github.com/BuilderIO/agent-native/releases">https://github.com/BuilderIO/agent-native/releases</a></li>
+</ul>  </article> <aside class="toc"><p class="toc-title">目录</p><ul class="toc-list"><li class="depth-2"><a href="#-它适合谁">📌 它适合谁</a></li><li class="depth-2"><a href="#-为什么值得关注">🔍 为什么值得关注</a></li><li class="depth-2"><a href="#-怎么开始">⚡ 怎么开始</a></li><li class="depth-2"><a href="#-使用提醒">💡 使用提醒</a></li><li class="depth-2"><a href="#结论">结论</a></li><li class="depth-2"><a href="#-参考资源">🔗 参考资源</a></li></ul></aside> </div>  </main> <footer class="site-footer"> <div class="shell footer-inner"> <p>© 2026 未来观察者</p> </div> </footer> </body></html>
