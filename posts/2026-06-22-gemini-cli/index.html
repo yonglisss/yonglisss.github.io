@@ -1,0 +1,35 @@
+<!DOCTYPE html><html lang="zh-CN"> <head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1"><title>Gemini CLI：把 Gemini 放进终端，适合做代码阅读和日常自动化 | 未来观察者</title><meta name="description" content="Gemini CLI 是一个开源的终端式 AI 代理，主打“直接在命令行里用 Gemini”。它不是再包一层聊天框，而是把文件操作、Shell、Web fetch、MCP 扩展这些能力放进同一个工作流里。对经常和代码、仓库、脚本打交道的人来说，这类工具比纯对话更接近真实工作场景。"><meta name="generator" content="Astro v5.18.1"><meta property="og:title" content="Gemini CLI：把 Gemini 放进终端，适合做代码阅读和日常自动化 | 未来观察者"><meta property="og:description" content="Gemini CLI 是一个开源的终端式 AI 代理，主打“直接在命令行里用 Gemini”。它不是再包一层聊天框，而是把文件操作、Shell、Web fetch、MCP 扩展这些能力放进同一个工作流里。对经常和代码、仓库、脚本打交道的人来说，这类工具比纯对话更接近真实工作场景。"><meta property="og:type" content="website"><meta property="og:url" content="https://future.lifestudylab.com/posts/2026-06-22-gemini-cli/"><link rel="icon" type="image/svg+xml" href="/favicon.svg"><link rel="alternate" type="application/rss+xml" title="未来观察者" href="/rss.xml"><link rel="stylesheet" href="/_astro/_channel_.Cl0MlA65.css"></head> <body> <div class="page-bg"></div> <header class="site-header"> <div class="shell header-inner"> <div class="header-bar"> <a class="brand" href="/ai-tools/"> <img src="/brand-mark.svg" alt="" class="brand-mark" width="56" height="56"> <span class="brand-text" aria-label="未来观察者">思考未来</span> </a> </div> </div> </header> <aside class="site-rail" aria-label="站点导航"> <div class="site-rail-inner"> <p class="site-rail-label">Channels</p> <nav aria-label="主导航"> <ul class="site-rail-nav"> <li> <a href="/ai-tools/" class="site-rail-link"> AI工具 </a> </li><li> <a href="/future-daily/" class="site-rail-link"> 未来观察者日报 </a> </li> </ul> </nav> </div> </aside> <main class="shell page-content">  <div class="post-hero"> <p class="eyebrow">2026年6月22日</p> <h1>Gemini CLI：把 Gemini 放进终端，适合做代码阅读和日常自动化</h1> <p class="post-summary">Gemini CLI 是一个开源的终端式 AI 代理，主打“直接在命令行里用 Gemini”。它不是再包一层聊天框，而是把文件操作、Shell、Web fetch、MCP 扩展这些能力放进同一个工作流里。对经常和代码、仓库、脚本打交道的人来说，这类工具比纯对话更接近真实工作场景。</p> <ul class="tag-list"> <li> <a href="/tags/AI%E5%B7%A5%E5%85%B7/" class="tag-link">
+#AI工具 </a> </li><li> <a href="/tags/2026%E5%B9%B406%E6%9C%88/" class="tag-link">
+#2026年06月 </a> </li> </ul> </div> <div class="post-grid"> <article class="prose">  <p>Gemini CLI 是一个开源的终端式 AI 代理，主打“直接在命令行里用 Gemini”。它不是再包一层聊天框，而是把文件操作、Shell、Web fetch、MCP 扩展这些能力放进同一个工作流里。对经常和代码、仓库、脚本打交道的人来说，这类工具比纯对话更接近真实工作场景。</p>
+<h2 id="-这个项目是干什么的">📌 这个项目是干什么的</h2>
+<ul>
+<li>终端里直接提问、改代码、读文件、跑命令。</li>
+<li>适合代码库理解、批量修改、脚本化自动化任务。</li>
+<li>支持 MCP，把外部工具接进来做更复杂的工作流。</li>
+<li>还能做会话 checkpoint，适合长任务中途保存和继续。</li>
+</ul>
+<h2 id="-为什么值得关注">🔍 为什么值得关注</h2>
+<ul>
+<li>这次它的定位很清楚：不是“又一个聊天机器人”，而是面向开发者的 terminal-first agent。</li>
+<li>官方文档把安装、认证、配置、headless、sandbox、MCP、GitHub Action 都写得比较完整，说明项目已经进入可落地阶段。</li>
+<li>对写代码、查仓库、处理 PR、做自动化的人，它的价值在于把“问、查、改、执行”串成一条链。</li>
+</ul>
+<h2 id="-谁适合试怎么开始">🧪 谁适合试，怎么开始</h2>
+<ul>
+<li>适合：日常用终端、需要快速理解代码库、想把 AI 接进脚本或 CI 的开发者。</li>
+<li>最短路径：先用 <code>npx @google/gemini-cli</code> 启动；或者 <code>npm install -g @google/gemini-cli</code> 全局安装。</li>
+<li>安装后先试两件事：让它总结当前项目结构，再让它读取一个小目录并做一次安全修改建议。</li>
+</ul>
+<h2 id="️-使用提醒">⚠️ 使用提醒</h2>
+<ul>
+<li>它依赖 Google 账号或 API / Cloud 配置，先确认你的认证方式。</li>
+<li>官方把 nightly、preview、stable 分了三条线，日常建议优先 stable，别一上来就追最新。</li>
+<li>终端代理会执行文件和命令，第一次用时务必看清权限确认，别把高风险目录直接交出去。</li>
+</ul>
+<h2 id="-参考资源">🔗 参考资源</h2>
+<ul>
+<li>GitHub 仓库：<a href="https://github.com/google-gemini/gemini-cli">https://github.com/google-gemini/gemini-cli</a></li>
+<li>官方文档：<a href="https://geminicli.com/docs/get-started/">https://geminicli.com/docs/get-started/</a></li>
+<li>发布说明：<a href="https://geminicli.com/docs/changelogs/">https://geminicli.com/docs/changelogs/</a></li>
+<li>NPM：<a href="https://www.npmjs.com/package/@google/gemini-cli">https://www.npmjs.com/package/@google/gemini-cli</a></li>
+</ul>  </article> <aside class="toc"><p class="toc-title">目录</p><ul class="toc-list"><li class="depth-2"><a href="#-这个项目是干什么的">📌 这个项目是干什么的</a></li><li class="depth-2"><a href="#-为什么值得关注">🔍 为什么值得关注</a></li><li class="depth-2"><a href="#-谁适合试怎么开始">🧪 谁适合试，怎么开始</a></li><li class="depth-2"><a href="#️-使用提醒">⚠️ 使用提醒</a></li><li class="depth-2"><a href="#-参考资源">🔗 参考资源</a></li></ul></aside> </div>  </main> <footer class="site-footer"> <div class="shell footer-inner"> <p>© 2026 未来观察者</p> </div> </footer> </body></html>
