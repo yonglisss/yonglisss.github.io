@@ -1,0 +1,243 @@
+<!DOCTYPE html><html lang="zh-CN"> <head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1"><title>配置文件：看懂 config.yaml | 技术教程 | 未来观察者</title><meta name="description" content="拆解 DeerFlow 2.0 的核心配置：模型、API key、搜索、沙盒、运行目录、skills 和渠道入口。"><meta name="generator" content="Astro v5.18.1"><meta property="og:title" content="配置文件：看懂 config.yaml | 技术教程 | 未来观察者"><meta property="og:description" content="拆解 DeerFlow 2.0 的核心配置：模型、API key、搜索、沙盒、运行目录、skills 和渠道入口。"><meta property="og:type" content="website"><meta property="og:url" content="https://future.lifestudylab.com/docs/deer-flow/config/"><link rel="icon" type="image/svg+xml" href="/favicon.svg"><link rel="alternate" type="application/rss+xml" title="未来观察者" href="/rss.xml"><link rel="stylesheet" href="/_astro/_channel_.OjG1_-2m.css"></head> <body> <div class="page-bg"></div> <header class="site-header"> <div class="shell header-inner"> <div class="header-bar"> <a class="brand" href="/ai-tools/"> <img src="/brand-mark.svg" alt="" class="brand-mark" width="56" height="56"> <span class="brand-text" aria-label="未来观察者">思考未来</span> </a> </div> <nav class="top-menu" aria-label="顶部菜单"> <a href="/future-daily/" class="top-menu-link"> 每日信息 </a><a href="/docs/deer-flow/" class="top-menu-link active"> DeerFlow教程 </a><a href="/about/" class="top-menu-link"> 关于我 </a> </nav> </div> </header>  <main class="shell page-content page-content--full">  <section class="docs-shell"> <aside class="docs-sidebar" aria-label="技术教程目录"> <nav class="docs-nav-block" aria-label="DeerFlow 教程"> <p class="docs-nav-title">DeerFlow 教程</p> <ul class="docs-nav-list"> <li> <a href="/docs/deer-flow/" class="docs-nav-link"> DeerFlow 教程总览 </a> </li><li> <a href="/docs/deer-flow/quickstart/" class="docs-nav-link"> 快速开始：先把 DeerFlow 跑起来 </a> </li><li> <a href="/docs/deer-flow/concepts/" class="docs-nav-link"> 核心概念 </a> </li><li> <a href="/docs/deer-flow/config/" class="docs-nav-link active"> 配置文件：看懂 config.yaml </a> </li><li> <a href="/docs/deer-flow/examples/" class="docs-nav-link"> 实战案例 </a> </li><li> <a href="/docs/deer-flow/faq/" class="docs-nav-link"> 常见问题 </a> </li> </ul> </nav> </aside> <article class="docs-article"> <header class="docs-hero"> <p class="docs-kicker">Technical Guide</p> <h1>配置文件：看懂 config.yaml</h1> <p>拆解 DeerFlow 2.0 的核心配置：模型、API key、搜索、沙盒、运行目录、skills 和渠道入口。</p> </header> <div class="docs-prose">  <h2 id="为什么先看配置">为什么先看配置</h2>
+<p>DeerFlow 很多能力不是写死在代码里的，而是由 <code>config.yaml</code> 决定：用哪个模型、能不能联网搜索、是否启用 sandbox、skills 放在哪里、是否接入飞书或 Slack。</p>
+<p>所以跑起来之后，第一件事不是读源码，而是看懂配置文件。</p>
+<p>这一篇不追求覆盖每个字段，只讲最影响上手的部分。</p>
+<h2 id="配置文件放在哪里">配置文件放在哪里</h2>
+<p>推荐位置：</p>
+<pre class="astro-code github-light" style="background-color:#fff;color:#24292e; overflow-x: auto;" tabindex="0" data-language="text"><code><span class="line"><span>deer-flow/config.yaml</span></span></code></pre>
+<p>也就是项目根目录。</p>
+<p>官方后端查找配置的顺序大致是：</p>
+<ol>
+<li>代码里显式传入的 <code>config_path</code></li>
+<li>环境变量 <code>DEER_FLOW_CONFIG_PATH</code></li>
+<li><code>DEER_FLOW_PROJECT_ROOT</code> 下的 <code>config.yaml</code></li>
+<li>当前工作目录下的 <code>config.yaml</code></li>
+<li>兼容旧版本的 backend / repository root 位置</li>
+</ol>
+<p>日常使用里，最简单的方式就是把它放在项目根目录。</p>
+<p>如果你需要从其他目录启动，可以设置：</p>
+<pre class="astro-code github-light" style="background-color:#fff;color:#24292e; overflow-x: auto;" tabindex="0" data-language="bash"><code><span class="line"><span style="color:#D73A49">export</span><span style="color:#24292E"> DEER_FLOW_PROJECT_ROOT</span><span style="color:#D73A49">=</span><span style="color:#24292E">/path/to/deer-flow</span></span></code></pre>
+<p>如果你想直接指定某个配置文件：</p>
+<pre class="astro-code github-light" style="background-color:#fff;color:#24292e; overflow-x: auto;" tabindex="0" data-language="bash"><code><span class="line"><span style="color:#D73A49">export</span><span style="color:#24292E"> DEER_FLOW_CONFIG_PATH</span><span style="color:#D73A49">=</span><span style="color:#24292E">/path/to/deer-flow/config.yaml</span></span></code></pre>
+<h2 id="env-和-configyaml-怎么分工"><code>.env</code> 和 <code>config.yaml</code> 怎么分工</h2>
+<p>建议这样分：</p>
+<ul>
+<li><code>config.yaml</code>：放结构化配置，比如有哪些模型、使用哪个 provider、sandbox 模式、channels 设置。</li>
+<li><code>.env</code>：放密钥，比如 <code>OPENAI_API_KEY</code>、<code>TAVILY_API_KEY</code>、<code>FEISHU_APP_SECRET</code>。</li>
+</ul>
+<p>不要把真实 key 直接写进 <code>config.yaml</code> 并提交。</p>
+<p>更推荐这种写法：</p>
+<pre class="astro-code github-light" style="background-color:#fff;color:#24292e; overflow-x: auto;" tabindex="0" data-language="yaml"><code><span class="line"><span style="color:#22863A">models</span><span style="color:#24292E">:</span></span>
+<span class="line"><span style="color:#24292E">  - </span><span style="color:#22863A">name</span><span style="color:#24292E">: </span><span style="color:#032F62">gpt-4o</span></span>
+<span class="line"><span style="color:#22863A">    display_name</span><span style="color:#24292E">: </span><span style="color:#032F62">GPT-4o</span></span>
+<span class="line"><span style="color:#22863A">    use</span><span style="color:#24292E">: </span><span style="color:#032F62">langchain_openai:ChatOpenAI</span></span>
+<span class="line"><span style="color:#22863A">    model</span><span style="color:#24292E">: </span><span style="color:#032F62">gpt-4o</span></span>
+<span class="line"><span style="color:#22863A">    api_key</span><span style="color:#24292E">: </span><span style="color:#032F62">$OPENAI_API_KEY</span></span></code></pre>
+<p>然后在 <code>.env</code> 里写：</p>
+<pre class="astro-code github-light" style="background-color:#fff;color:#24292e; overflow-x: auto;" tabindex="0" data-language="bash"><code><span class="line"><span style="color:#24292E">OPENAI_API_KEY</span><span style="color:#D73A49">=</span><span style="color:#032F62">your-o...-key</span></span></code></pre>
+<h2 id="models最核心的配置"><code>models</code>：最核心的配置</h2>
+<p>DeerFlow 至少需要一个可用模型。</p>
+<p>一个典型模型配置长这样：</p>
+<pre class="astro-code github-light" style="background-color:#fff;color:#24292e; overflow-x: auto;" tabindex="0" data-language="yaml"><code><span class="line"><span style="color:#22863A">models</span><span style="color:#24292E">:</span></span>
+<span class="line"><span style="color:#24292E">  - </span><span style="color:#22863A">name</span><span style="color:#24292E">: </span><span style="color:#032F62">gpt-4o</span></span>
+<span class="line"><span style="color:#22863A">    display_name</span><span style="color:#24292E">: </span><span style="color:#032F62">GPT-4o</span></span>
+<span class="line"><span style="color:#22863A">    use</span><span style="color:#24292E">: </span><span style="color:#032F62">langchain_openai:ChatOpenAI</span></span>
+<span class="line"><span style="color:#22863A">    model</span><span style="color:#24292E">: </span><span style="color:#032F62">gpt-4o</span></span>
+<span class="line"><span style="color:#22863A">    api_key</span><span style="color:#24292E">: </span><span style="color:#032F62">$OPENAI_API_KEY</span></span></code></pre>
+<p>几个字段先这样理解：</p>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<table><thead><tr><th>字段</th><th>作用</th></tr></thead><tbody><tr><td><code>name</code></td><td>DeerFlow 内部识别这个模型用的名字</td></tr><tr><td><code>display_name</code></td><td>前端或列表里展示的名字</td></tr><tr><td><code>use</code></td><td>具体使用哪个模型适配类</td></tr><tr><td><code>model</code></td><td>provider 侧真实模型名</td></tr><tr><td><code>api_key</code></td><td>API key，可以引用 <code>.env</code> 变量</td></tr><tr><td><code>base_url</code></td><td>OpenAI 兼容网关地址，可选</td></tr></tbody></table>
+<p>如果你用 OpenRouter 或其他 OpenAI 兼容服务，通常加上 <code>base_url</code>：</p>
+<pre class="astro-code github-light" style="background-color:#fff;color:#24292e; overflow-x: auto;" tabindex="0" data-language="yaml"><code><span class="line"><span style="color:#22863A">models</span><span style="color:#24292E">:</span></span>
+<span class="line"><span style="color:#24292E">  - </span><span style="color:#22863A">name</span><span style="color:#24292E">: </span><span style="color:#032F62">openrouter-gemini-2.5-flash</span></span>
+<span class="line"><span style="color:#22863A">    display_name</span><span style="color:#24292E">: </span><span style="color:#032F62">Gemini 2.5 Flash (OpenRouter)</span></span>
+<span class="line"><span style="color:#22863A">    use</span><span style="color:#24292E">: </span><span style="color:#032F62">langchain_openai:ChatOpenAI</span></span>
+<span class="line"><span style="color:#22863A">    model</span><span style="color:#24292E">: </span><span style="color:#032F62">google/gemini-2.5-flash-preview</span></span>
+<span class="line"><span style="color:#22863A">    api_key</span><span style="color:#24292E">: </span><span style="color:#032F62">$OPENROUTER_API_KEY</span></span>
+<span class="line"><span style="color:#22863A">    base_url</span><span style="color:#24292E">: </span><span style="color:#032F62">https://openrouter.ai/api/v1</span></span></code></pre>
+<p>重点是：<code>use</code> 决定调用方式，<code>model</code> 决定远端具体模型，<code>api_key</code> 和 <code>base_url</code> 决定连到哪里。</p>
+<h2 id="openai-responses-api">OpenAI Responses API</h2>
+<p>如果你想通过 OpenAI 的 <code>/v1/responses</code> 路线调用模型，官方 README 给出的配置思路是：继续使用 <code>langchain_openai:ChatOpenAI</code>，但加上 Responses API 相关字段：</p>
+<pre class="astro-code github-light" style="background-color:#fff;color:#24292e; overflow-x: auto;" tabindex="0" data-language="yaml"><code><span class="line"><span style="color:#22863A">models</span><span style="color:#24292E">:</span></span>
+<span class="line"><span style="color:#24292E">  - </span><span style="color:#22863A">name</span><span style="color:#24292E">: </span><span style="color:#032F62">gpt-5-responses</span></span>
+<span class="line"><span style="color:#22863A">    display_name</span><span style="color:#24292E">: </span><span style="color:#032F62">GPT-5 (Responses API)</span></span>
+<span class="line"><span style="color:#22863A">    use</span><span style="color:#24292E">: </span><span style="color:#032F62">langchain_openai:ChatOpenAI</span></span>
+<span class="line"><span style="color:#22863A">    model</span><span style="color:#24292E">: </span><span style="color:#032F62">gpt-5</span></span>
+<span class="line"><span style="color:#22863A">    api_key</span><span style="color:#24292E">: </span><span style="color:#032F62">$OPENAI_API_KEY</span></span>
+<span class="line"><span style="color:#22863A">    use_responses_api</span><span style="color:#24292E">: </span><span style="color:#005CC5">true</span></span>
+<span class="line"><span style="color:#22863A">    output_version</span><span style="color:#24292E">: </span><span style="color:#032F62">responses/v1</span></span></code></pre>
+<p>这类配置适合你明确知道 provider 支持什么接口。刚入门时，不建议同时尝试太多 provider，先让一个模型稳定可用。</p>
+<h2 id="本地或自托管模型">本地或自托管模型</h2>
+<p>如果你用 vLLM 这类自托管服务，配置会更接近这样：</p>
+<pre class="astro-code github-light" style="background-color:#fff;color:#24292e; overflow-x: auto;" tabindex="0" data-language="yaml"><code><span class="line"><span style="color:#22863A">models</span><span style="color:#24292E">:</span></span>
+<span class="line"><span style="color:#24292E">  - </span><span style="color:#22863A">name</span><span style="color:#24292E">: </span><span style="color:#032F62">qwen3-32b-vllm</span></span>
+<span class="line"><span style="color:#22863A">    display_name</span><span style="color:#24292E">: </span><span style="color:#032F62">Qwen3 32B (vLLM)</span></span>
+<span class="line"><span style="color:#22863A">    use</span><span style="color:#24292E">: </span><span style="color:#032F62">deerflow.models.vllm_provider:VllmChatModel</span></span>
+<span class="line"><span style="color:#22863A">    model</span><span style="color:#24292E">: </span><span style="color:#032F62">Qwen/Qwen3-32B</span></span>
+<span class="line"><span style="color:#22863A">    api_key</span><span style="color:#24292E">: </span><span style="color:#032F62">$VLLM_API_KEY</span></span>
+<span class="line"><span style="color:#22863A">    base_url</span><span style="color:#24292E">: </span><span style="color:#032F62">http://localhost:8000/v1</span></span>
+<span class="line"><span style="color:#22863A">    supports_thinking</span><span style="color:#24292E">: </span><span style="color:#005CC5">true</span></span></code></pre>
+<p>本地模型的关键不是 DeerFlow，而是模型服务本身要先稳定：</p>
+<ul>
+<li>vLLM 服务是否已启动</li>
+<li><code>base_url</code> 是否能访问</li>
+<li>模型名是否和服务端一致</li>
+<li>API key 是否被服务端接受</li>
+<li>reasoning / thinking 字段是否被当前模型和服务支持</li>
+</ul>
+<p>如果只是学习 DeerFlow，不建议一开始就把“部署本地大模型”和“跑通 DeerFlow”绑在一起。变量太多，排错会很慢。</p>
+<h2 id="搜索配置不是必需但很常用">搜索配置：不是必需，但很常用</h2>
+<p>DeerFlow 可以接搜索和抓取能力。研究型任务、资料整理、趋势分析都依赖它。</p>
+<p>常见做法是在 <code>.env</code> 里放搜索 provider 的 key：</p>
+<pre class="astro-code github-light" style="background-color:#fff;color:#24292e; overflow-x: auto;" tabindex="0" data-language="bash"><code><span class="line"><span style="color:#24292E">TAVILY_API_KEY</span><span style="color:#D73A49">=</span><span style="color:#032F62">your-t...-key</span></span>
+<span class="line"><span style="color:#24292E">INFOQUEST_API_KEY</span><span style="color:#D73A49">=</span><span style="color:#032F62">your-i...-key</span></span></code></pre>
+<p>启用哪个 provider，以 <code>make setup</code> 生成的配置或 <code>config.example.yaml</code> 为准。</p>
+<p>这里要注意：模型能回答，不代表搜索已经可用。</p>
+<p>你可以这样分层验证：</p>
+<ol>
+<li>先问一个不需要联网的问题，验证模型链路。</li>
+<li>再问一个必须联网的问题，验证搜索链路。</li>
+<li>如果第 1 步成功、第 2 步失败，优先检查搜索 key 和搜索配置。</li>
+</ol>
+<h2 id="sandbox让执行能力有边界">Sandbox：让执行能力有边界</h2>
+<p>DeerFlow 的重要能力之一是执行任务，而执行就会带来风险。</p>
+<p>Sandbox 配置决定代码、命令、文件写入等能力在哪里运行。官方文档里提到的方式包括：</p>
+<ul>
+<li>本地执行</li>
+<li>Docker / Container sandbox</li>
+<li>Docker + Kubernetes provisioner</li>
+</ul>
+<p>如果配置里使用类似下面的 provider：</p>
+<pre class="astro-code github-light" style="background-color:#fff;color:#24292e; overflow-x: auto;" tabindex="0" data-language="yaml"><code><span class="line"><span style="color:#22863A">sandbox</span><span style="color:#24292E">:</span></span>
+<span class="line"><span style="color:#22863A">  use</span><span style="color:#24292E">: </span><span style="color:#032F62">deerflow.community.aio_sandbox:AioSandboxProvider</span></span></code></pre>
+<p>并且配置了 <code>provisioner_url</code>，Docker 开发启动时会按对应模式拉起 provisioner。</p>
+<p>入门阶段建议：</p>
+<ul>
+<li>能用 Docker sandbox 就不要直接在宿主机裸跑高风险任务。</li>
+<li>第一次使用前可以先执行 <code>make setup-sandbox</code> 拉镜像。</li>
+<li>不确定某个任务会不会写文件、执行命令时，先用低权限、低风险目录测试。</li>
+</ul>
+<p>Sandbox 不是“绝对安全”，但它能把很多误操作挡在宿主机之外。</p>
+<h2 id="运行目录相关环境变量">运行目录相关环境变量</h2>
+<p>除了模型和搜索，几个路径变量也很重要。</p>
+<h3 id="deer_flow_project_root"><code>DEER_FLOW_PROJECT_ROOT</code></h3>
+<p>显式告诉 DeerFlow 项目根目录在哪里：</p>
+<pre class="astro-code github-light" style="background-color:#fff;color:#24292e; overflow-x: auto;" tabindex="0" data-language="bash"><code><span class="line"><span style="color:#D73A49">export</span><span style="color:#24292E"> DEER_FLOW_PROJECT_ROOT</span><span style="color:#D73A49">=</span><span style="color:#24292E">/path/to/deer-flow</span></span></code></pre>
+<p>适合从其他目录启动，或者被脚本 / 服务管理器启动时使用。</p>
+<h3 id="deer_flow_config_path"><code>DEER_FLOW_CONFIG_PATH</code></h3>
+<p>直接指定配置文件：</p>
+<pre class="astro-code github-light" style="background-color:#fff;color:#24292e; overflow-x: auto;" tabindex="0" data-language="bash"><code><span class="line"><span style="color:#D73A49">export</span><span style="color:#24292E"> DEER_FLOW_CONFIG_PATH</span><span style="color:#D73A49">=</span><span style="color:#24292E">/path/to/config.yaml</span></span></code></pre>
+<p>适合多环境配置，例如开发、测试、生产分别使用不同配置。</p>
+<h3 id="deer_flow_home"><code>DEER_FLOW_HOME</code></h3>
+<p>控制运行期状态保存位置。默认通常在项目根目录下的 <code>.deer-flow</code>。</p>
+<p>如果你希望状态数据放到独立磁盘或持久化目录，可以设置：</p>
+<pre class="astro-code github-light" style="background-color:#fff;color:#24292e; overflow-x: auto;" tabindex="0" data-language="bash"><code><span class="line"><span style="color:#D73A49">export</span><span style="color:#24292E"> DEER_FLOW_HOME</span><span style="color:#D73A49">=</span><span style="color:#24292E">/data/deer-flow-state</span></span></code></pre>
+<h3 id="deer_flow_skills_path"><code>DEER_FLOW_SKILLS_PATH</code></h3>
+<p>控制 skills 的目录。默认是项目根目录下的 <code>skills/</code>。</p>
+<pre class="astro-code github-light" style="background-color:#fff;color:#24292e; overflow-x: auto;" tabindex="0" data-language="bash"><code><span class="line"><span style="color:#D73A49">export</span><span style="color:#24292E"> DEER_FLOW_SKILLS_PATH</span><span style="color:#D73A49">=</span><span style="color:#24292E">/data/deer-flow-skills</span></span></code></pre>
+<p>当你要把 skills 当成长期资产管理时，这个变量会很有用。</p>
+<h2 id="skills把可复用能力沉淀下来">Skills：把可复用能力沉淀下来</h2>
+<p>DeerFlow 里的 skills 可以理解成“可复用的工作方法和能力描述”。</p>
+<p>它和一次性 prompt 的区别是：</p>
+<ul>
+<li>prompt 更像临时指令；</li>
+<li>skill 更像长期能力；</li>
+<li>tool 更偏具体可调用动作；</li>
+<li>agent 负责在任务中选择和组合这些能力。</li>
+</ul>
+<p>入门阶段你不需要马上写复杂 skill，但应该知道它默认从哪里加载：</p>
+<pre class="astro-code github-light" style="background-color:#fff;color:#24292e; overflow-x: auto;" tabindex="0" data-language="text"><code><span class="line"><span>deer-flow/skills/</span></span></code></pre>
+<p>或者由 <code>DEER_FLOW_SKILLS_PATH</code> / <code>skills.path</code> 指定。</p>
+<p>后续教程会专门做一篇“改一个能力”，到时再动手写。</p>
+<h2 id="channels把-deerflow-接进聊天入口">Channels：把 DeerFlow 接进聊天入口</h2>
+<p>DeerFlow 支持多个即时通讯入口，例如：</p>
+<ul>
+<li>Telegram</li>
+<li>Slack</li>
+<li>Feishu / Lark</li>
+<li>企业微信</li>
+<li>钉钉</li>
+</ul>
+<p>这类配置通常会出现在 <code>channels</code> 下。</p>
+<p>飞书配置大致会涉及：</p>
+<pre class="astro-code github-light" style="background-color:#fff;color:#24292e; overflow-x: auto;" tabindex="0" data-language="yaml"><code><span class="line"><span style="color:#22863A">channels</span><span style="color:#24292E">:</span></span>
+<span class="line"><span style="color:#22863A">  feishu</span><span style="color:#24292E">:</span></span>
+<span class="line"><span style="color:#22863A">    enabled</span><span style="color:#24292E">: </span><span style="color:#005CC5">true</span></span>
+<span class="line"><span style="color:#22863A">    app_id</span><span style="color:#24292E">: </span><span style="color:#032F62">$FEISHU_APP_ID</span></span>
+<span class="line"><span style="color:#22863A">    app_secret</span><span style="color:#24292E">: </span><span style="color:#032F62">$FEISHU_APP_SECRET</span></span></code></pre>
+<p>对应 <code>.env</code>：</p>
+<pre class="astro-code github-light" style="background-color:#fff;color:#24292e; overflow-x: auto;" tabindex="0" data-language="bash"><code><span class="line"><span style="color:#24292E">FEISHU_APP_ID</span><span style="color:#D73A49">=</span><span style="color:#032F62">cli_xxxx</span></span>
+<span class="line"><span style="color:#24292E">FEISHU_APP_SECRET</span><span style="color:#D73A49">=</span><span style="color:#032F62">***</span></span></code></pre>
+<p>不建议一开始就配 IM 渠道。建议顺序是：</p>
+<ol>
+<li>Web 页面能跑通。</li>
+<li>模型和搜索稳定。</li>
+<li>文件 / sandbox 能力按预期。</li>
+<li>再接飞书、Slack 或其他渠道。</li>
+</ol>
+<p>否则排错时很难判断是 DeerFlow、模型、网络、权限还是 IM 平台的问题。</p>
+<h2 id="修改配置后的验证顺序">修改配置后的验证顺序</h2>
+<p>每次改完配置，建议按这个顺序检查：</p>
+<pre class="astro-code github-light" style="background-color:#fff;color:#24292e; overflow-x: auto;" tabindex="0" data-language="bash"><code><span class="line"><span style="color:#6F42C1">make</span><span style="color:#032F62"> doctor</span></span></code></pre>
+<p>然后启动服务。</p>
+<p>再分别验证三类任务：</p>
+<ol>
+<li><strong>不联网普通对话</strong>：确认模型可用。</li>
+<li><strong>联网研究任务</strong>：确认搜索可用。</li>
+<li><strong>文件 / 执行任务</strong>：确认 sandbox 和文件系统能力可用。</li>
+</ol>
+<p>不要直接上来跑一个复杂长任务。复杂任务失败时，可能是模型、搜索、sandbox、文件权限、工具配置任意一个环节坏了。</p>
+<h2 id="最小可用配置心法">最小可用配置心法</h2>
+<p>刚开始只追求一个目标：<strong>少配，但每一项都能验证</strong>。</p>
+<p>建议最小闭环是：</p>
+<ul>
+<li>一个可用模型</li>
+<li><code>.env</code> 中有对应 API key</li>
+<li><code>make doctor</code> 通过</li>
+<li>Web 页面能打开</li>
+<li>一个不联网任务能完成</li>
+</ul>
+<p>然后再逐步加：</p>
+<ul>
+<li>搜索 provider</li>
+<li>sandbox</li>
+<li>skills</li>
+<li>IM channels</li>
+<li>tracing</li>
+<li>自托管模型</li>
+</ul>
+<p>DeerFlow 的配置能力很多，但不要一次性全开。先让主链路稳定，再增加变量。</p>
+<h2 id="下一步">下一步</h2>
+<p>看懂 <code>config.yaml</code> 后，就可以进入架构主线：一次任务从用户输入到 Agent 执行，再到工具调用和产物返回，中间到底经过了哪些模块。</p>  </div> </article> <aside class="toc"><p class="toc-title">目录</p><ul class="toc-list"><li class="depth-2"><a href="#为什么先看配置">为什么先看配置</a></li><li class="depth-2"><a href="#配置文件放在哪里">配置文件放在哪里</a></li><li class="depth-2"><a href="#env-和-configyaml-怎么分工">.env 和 config.yaml 怎么分工</a></li><li class="depth-2"><a href="#models最核心的配置">models：最核心的配置</a></li><li class="depth-2"><a href="#openai-responses-api">OpenAI Responses API</a></li><li class="depth-2"><a href="#本地或自托管模型">本地或自托管模型</a></li><li class="depth-2"><a href="#搜索配置不是必需但很常用">搜索配置：不是必需，但很常用</a></li><li class="depth-2"><a href="#sandbox让执行能力有边界">Sandbox：让执行能力有边界</a></li><li class="depth-2"><a href="#运行目录相关环境变量">运行目录相关环境变量</a></li><li class="depth-3"><a href="#deer_flow_project_root">DEER_FLOW_PROJECT_ROOT</a></li><li class="depth-3"><a href="#deer_flow_config_path">DEER_FLOW_CONFIG_PATH</a></li><li class="depth-3"><a href="#deer_flow_home">DEER_FLOW_HOME</a></li><li class="depth-3"><a href="#deer_flow_skills_path">DEER_FLOW_SKILLS_PATH</a></li><li class="depth-2"><a href="#skills把可复用能力沉淀下来">Skills：把可复用能力沉淀下来</a></li><li class="depth-2"><a href="#channels把-deerflow-接进聊天入口">Channels：把 DeerFlow 接进聊天入口</a></li><li class="depth-2"><a href="#修改配置后的验证顺序">修改配置后的验证顺序</a></li><li class="depth-2"><a href="#最小可用配置心法">最小可用配置心法</a></li><li class="depth-2"><a href="#下一步">下一步</a></li></ul></aside> </section>  </main> <footer class="site-footer"> <div class="shell footer-inner"> <p>© 2026 未来观察者</p> </div> </footer> </body></html>
