@@ -1,0 +1,45 @@
+<!DOCTYPE html><html lang="zh-CN"> <head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1"><title>Kreuzberg：给 RAG 和 Agent 准备资料，可以少一点“格式地狱” | 未来观察者</title><meta name="description" content="做 RAG、知识库或文档型 Agent 时，真正麻烦的往往不是模型，而是前面那一步：PDF、Office、图片、邮件、音视频、代码仓库各有各的格式，抽出来的文本还要能给 LLM 稳定使用。Kreuzberg 是一个以 Rust 为核心的文档智能框架，目标就是把多种文件转成干净、结"><meta name="generator" content="Astro v5.18.1"><meta property="og:title" content="Kreuzberg：给 RAG 和 Agent 准备资料，可以少一点“格式地狱” | 未来观察者"><meta property="og:description" content="做 RAG、知识库或文档型 Agent 时，真正麻烦的往往不是模型，而是前面那一步：PDF、Office、图片、邮件、音视频、代码仓库各有各的格式，抽出来的文本还要能给 LLM 稳定使用。Kreuzberg 是一个以 Rust 为核心的文档智能框架，目标就是把多种文件转成干净、结"><meta property="og:type" content="website"><meta property="og:url" content="https://future.lifestudylab.com/posts/2026-06-25-kreuzberg/"><link rel="icon" type="image/svg+xml" href="/favicon.svg"><link rel="alternate" type="application/rss+xml" title="未来观察者" href="/rss.xml"><link rel="stylesheet" href="/_astro/_channel_.OjG1_-2m.css"></head> <body> <div class="page-bg"></div> <header class="site-header"> <div class="shell header-inner"> <div class="header-bar"> <a class="brand" href="/ai-tools/"> <img src="/brand-mark.svg" alt="" class="brand-mark" width="56" height="56"> <span class="brand-text" aria-label="未来观察者">思考未来</span> </a> </div> <nav class="top-menu" aria-label="顶部菜单"> <a href="/future-daily/" class="top-menu-link"> 每日信息 </a><a href="/docs/deer-flow/" class="top-menu-link"> DeerFlow教程 </a><a href="/about/" class="top-menu-link"> 关于我 </a> </nav> </div> </header> <aside class="site-rail" aria-label="站点导航"> <div class="site-rail-inner"> <p class="site-rail-label">Channels</p> <nav aria-label="主导航"> <ul class="site-rail-nav"> <li> <a href="/ai-tools/" class="site-rail-link"> AI工具 </a> </li><li> <a href="/future-daily/" class="site-rail-link"> 未来观察者日报 </a> </li> </ul> </nav> </div> </aside> <main class="shell page-content">  <div class="post-hero"> <p class="eyebrow">2026年6月25日</p> <h1>Kreuzberg：给 RAG 和 Agent 准备资料，可以少一点“格式地狱”</h1> <p class="post-summary">做 RAG、知识库或文档型 Agent 时，真正麻烦的往往不是模型，而是前面那一步：PDF、Office、图片、邮件、音视频、代码仓库各有各的格式，抽出来的文本还要能给 LLM 稳定使用。Kreuzberg 是一个以 Rust 为核心的文档智能框架，目标就是把多种文件转成干净、结</p> <ul class="tag-list"> <li> <a href="/tags/AI%E5%B7%A5%E5%85%B7/" class="tag-link">
+#AI工具 </a> </li><li> <a href="/tags/2026%E5%B9%B406%E6%9C%88/" class="tag-link">
+#2026年06月 </a> </li> </ul> </div> <div class="post-grid"> <article class="prose">  <p>做 RAG、知识库或文档型 Agent 时，真正麻烦的往往不是模型，而是前面那一步：PDF、Office、图片、邮件、音视频、代码仓库各有各的格式，抽出来的文本还要能给 LLM 稳定使用。Kreuzberg 是一个以 Rust 为核心的文档智能框架，目标就是把多种文件转成干净、结构化、可用于 AI 流程的内容。它最近更新活跃，已经不只是“文档解析库”，还把 CLI、REST API、MCP Server 和多语言绑定放到了一起，值得做 AI 应用的人关注。</p>
+<h2 id="-这个项目是干什么的">📌 这个项目是干什么的</h2>
+<ul>
+<li>定位：面向 AI / RAG / Agent 流程的文档解析与结构化抽取框架。</li>
+<li>适合谁：做企业知识库、文档问答、资料入库、代码智能分析、多模态资料处理的开发者。</li>
+<li>解决什么问题：把 PDF、Office、图片、网页、邮件、压缩包、音视频和代码等资料，统一抽取成文本、表格、元数据、转写稿或代码结构信息。</li>
+<li>当前成熟度：GitHub 仓库持续更新，最新 release 为 <code>v5.0.0-rc.13</code>；但 5.0 仍处于 RC 阶段，生产环境要先小范围验证。</li>
+</ul>
+<h2 id="-为什么值得关注">🔍 为什么值得关注</h2>
+<ol>
+<li><strong>它把“文档进入 AI 系统”这件事做成基础设施。</strong></li>
+</ol>
+<p>很多团队一开始会用几个独立解析库拼起来：PDF 一个方案，OCR 一个方案，网页再一个方案。Kreuzberg 的思路是用一个 Rust core 承接解析能力，再通过 Python、Node.js、Rust、Go、Java、C# 等绑定给不同工程栈使用。对团队来说，价值不只是“能解析”，而是减少多语言、多服务之间行为不一致的问题。</p>
+<ol start="2">
+<li><strong>不只服务 RAG，也服务 Agent 工作流。</strong></li>
+</ol>
+<p>官方 README 明确提供库、CLI、REST API 和 MCP Server 四种使用方式。也就是说，它既可以嵌进后端文档处理链路，也可以作为 MCP 工具接到 Claude Desktop、Cursor 等客户端里，让 Agent 在需要时调用文档抽取能力。对于正在搭 Agent 工具箱的团队，这比单纯的离线解析脚本更方便。</p>
+<ol start="3">
+<li><strong>格式覆盖面广，但要克制使用。</strong></li>
+</ol>
+<p>项目宣称支持 96 种文件格式、306 种编程语言的代码智能，并包含 OCR、Whisper 转写、chunking、语言检测、embedding、结构化 LLM 抽取等能力。这个覆盖面很诱人，但也意味着真实效果会强依赖你的文件类型、语言、OCR 质量和运行环境。更稳妥的方式，是先拿自己的典型样本测试，而不是直接把它当成万能入口。</p>
+<h2 id="-谁适合试怎么开始">🧪 谁适合试，怎么开始</h2>
+<p>如果你正在做文档问答、企业资料入库、Agent 读文件、AI 搜索或代码仓库分析，可以优先试一下。</p>
+<p>最短路径可以从 Python 或 Node.js 开始：Python 侧官方给出 <code>pip install kreuzberg</code> / <code>uv add kreuzberg</code>，Node.js 侧是 <code>npm install @kreuzberg/node</code>。如果只是验证效果，先用 CLI 或 Docker 跑几类真实文件，看抽取文本、表格和元数据是否稳定；如果准备接 Agent，再看官方 MCP integration guide。</p>
+<p>建议先验证三件事：</p>
+<ul>
+<li>你的核心文件格式是否在支持列表内；</li>
+<li>中文、表格、扫描件、复杂 PDF 的抽取质量是否可接受；</li>
+<li>输出结果是否方便进入后续 chunk、embedding 和检索链路。</li>
+</ul>
+<h2 id="️-使用提醒">⚠️ 使用提醒</h2>
+<ul>
+<li>Kreuzberg 使用 Elastic License 2.0，不是宽松的 MIT / Apache-2.0；如果要做托管服务或商业集成，务必先看许可证限制。</li>
+<li>最新 5.0 release 仍是 RC 标签，适合评估和小范围试点，生产链路不要跳过回归测试。</li>
+<li>OCR、音频转写、VLM OCR 等能力可能引入额外依赖、模型或运行成本，别只看 README 的功能列表，要按自己的数据集测。</li>
+</ul>
+<h2 id="-参考资源">🔗 参考资源</h2>
+<ul>
+<li>GitHub：<a href="https://github.com/xberg-io/kreuzberg">https://github.com/xberg-io/kreuzberg</a></li>
+<li>文档：<a href="https://docs.xberg.io">https://docs.xberg.io</a></li>
+<li>Release：<a href="https://github.com/xberg-io/kreuzberg/releases/tag/v5.0.0-rc.13">https://github.com/xberg-io/kreuzberg/releases/tag/v5.0.0-rc.13</a></li>
+<li>Python 包说明：<a href="https://github.com/xberg-io/kreuzberg/tree/main/packages/python">https://github.com/xberg-io/kreuzberg/tree/main/packages/python</a></li>
+</ul>  </article> <aside class="toc"><p class="toc-title">目录</p><ul class="toc-list"><li class="depth-2"><a href="#-这个项目是干什么的">📌 这个项目是干什么的</a></li><li class="depth-2"><a href="#-为什么值得关注">🔍 为什么值得关注</a></li><li class="depth-2"><a href="#-谁适合试怎么开始">🧪 谁适合试，怎么开始</a></li><li class="depth-2"><a href="#️-使用提醒">⚠️ 使用提醒</a></li><li class="depth-2"><a href="#-参考资源">🔗 参考资源</a></li></ul></aside> </div>  </main> <footer class="site-footer"> <div class="shell footer-inner"> <p>© 2026 未来观察者</p> </div> </footer> </body></html>
