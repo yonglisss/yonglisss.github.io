@@ -1,0 +1,280 @@
+<!DOCTYPE html><html lang="zh-CN"> <head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1"><title>一次任务的完整执行链路 | 技术教程 | 未来观察者</title><meta name="description" content="从用户输入到最终结果，拆解 DeerFlow 2.0 中 Gateway、Agent Runtime、模型、工具、沙盒、子 Agent 和文件产物的协作过程。"><meta name="generator" content="Astro v5.18.1"><meta property="og:title" content="一次任务的完整执行链路 | 技术教程 | 未来观察者"><meta property="og:description" content="从用户输入到最终结果，拆解 DeerFlow 2.0 中 Gateway、Agent Runtime、模型、工具、沙盒、子 Agent 和文件产物的协作过程。"><meta property="og:type" content="website"><meta property="og:url" content="https://future.lifestudylab.com/docs/deer-flow/execution-flow/"><link rel="icon" type="image/svg+xml" href="/favicon.svg"><link rel="alternate" type="application/rss+xml" title="未来观察者" href="/rss.xml"><link rel="stylesheet" href="/_astro/_channel_.OjG1_-2m.css"></head> <body> <div class="page-bg"></div> <header class="site-header"> <div class="shell header-inner"> <div class="header-bar"> <a class="brand" href="/ai-tools/"> <img src="/brand-mark.svg" alt="" class="brand-mark" width="56" height="56"> <span class="brand-text" aria-label="未来观察者">思考未来</span> </a> </div> <nav class="top-menu" aria-label="顶部菜单"> <a href="/future-daily/" class="top-menu-link"> 每日信息 </a><a href="/docs/deer-flow/" class="top-menu-link active"> DeerFlow教程 </a><a href="/about/" class="top-menu-link"> 关于我 </a> </nav> </div> </header>  <main class="shell page-content page-content--full">  <section class="docs-shell"> <aside class="docs-sidebar" aria-label="技术教程目录"> <nav class="docs-nav-block" aria-label="DeerFlow 教程"> <p class="docs-nav-title">DeerFlow 教程</p> <ul class="docs-nav-list"> <li> <a href="/docs/deer-flow/" class="docs-nav-link"> DeerFlow 教程总览 </a> </li><li> <a href="/docs/deer-flow/quickstart/" class="docs-nav-link"> 快速开始：先把 DeerFlow 跑起来 </a> </li><li> <a href="/docs/deer-flow/config/" class="docs-nav-link"> 配置文件：看懂 config.yaml </a> </li><li> <a href="/docs/deer-flow/concepts/" class="docs-nav-link"> 核心概念：DeerFlow 到底在调度什么 </a> </li><li> <a href="/docs/deer-flow/project-structure/" class="docs-nav-link"> 项目结构：从目录看懂 DeerFlow </a> </li><li> <a href="/docs/deer-flow/execution-flow/" class="docs-nav-link active"> 一次任务的完整执行链路 </a> </li><li> <a href="/docs/deer-flow/examples/" class="docs-nav-link"> 实战案例 </a> </li><li> <a href="/docs/deer-flow/faq/" class="docs-nav-link"> 常见问题 </a> </li> </ul> </nav> </aside> <article class="docs-article"> <header class="docs-hero"> <p class="docs-kicker">Technical Guide</p> <h1>一次任务的完整执行链路</h1> <p>从用户输入到最终结果，拆解 DeerFlow 2.0 中 Gateway、Agent Runtime、模型、工具、沙盒、子 Agent 和文件产物的协作过程。</p> </header> <div class="docs-prose">  <h2 id="为什么要看执行链路">为什么要看执行链路</h2>
+<p>前面两篇分别看了核心概念和项目结构。</p>
+<p>但只知道目录还不够。真正理解一个 Agent 系统，要看一次任务是怎么流动的：用户输入从哪里进来，谁负责调度，工具什么时候被调用，文件怎么生成，结果怎么回到页面。</p>
+<p>这一篇不追源码细节，只建立主线。你后面读代码、排错、做二开，都可以拿这条链路当地图。</p>
+<h2 id="先看一张简化图">先看一张简化图</h2>
+<p>可以先把 DeerFlow 的执行链路简化成这样：</p>
+<pre class="astro-code github-light" style="background-color:#fff;color:#24292e; overflow-x: auto;" tabindex="0" data-language="text"><code><span class="line"><span>用户输入</span></span>
+<span class="line"><span>  ↓</span></span>
+<span class="line"><span>Frontend / API / IM Channel</span></span>
+<span class="line"><span>  ↓</span></span>
+<span class="line"><span>Gateway API</span></span>
+<span class="line"><span>  ↓</span></span>
+<span class="line"><span>Agent Runtime</span></span>
+<span class="line"><span>  ↓</span></span>
+<span class="line"><span>Lead Agent</span></span>
+<span class="line"><span>  ↓</span></span>
+<span class="line"><span>模型推理 + 工具选择</span></span>
+<span class="line"><span>  ↓</span></span>
+<span class="line"><span>Tools / Skills / Sub-agents / Sandbox / Memory</span></span>
+<span class="line"><span>  ↓</span></span>
+<span class="line"><span>文件、状态、工具结果回写</span></span>
+<span class="line"><span>  ↓</span></span>
+<span class="line"><span>Gateway 流式返回</span></span>
+<span class="line"><span>  ↓</span></span>
+<span class="line"><span>Frontend 展示最终结果和产物</span></span></code></pre>
+<p>真实实现会更复杂，但这条线足够帮助你定位问题。</p>
+<h2 id="1-用户输入从哪里来">1. 用户输入从哪里来</h2>
+<p>DeerFlow 的用户入口不止一个。</p>
+<p>常见入口包括：</p>
+<ul>
+<li>Web 前端；</li>
+<li>API；</li>
+<li>Telegram、Slack、飞书、企业微信、钉钉等 IM 渠道；</li>
+<li>Python Client 或其他嵌入式调用方式。</li>
+</ul>
+<p>入门阶段最常用的是 Web 前端。</p>
+<p>你在页面里输入一段任务，比如：</p>
+<pre class="astro-code github-light" style="background-color:#fff;color:#24292e; overflow-x: auto;" tabindex="0" data-language="text"><code><span class="line"><span>帮我研究 DeerFlow 2.0 的核心架构，并生成一份 Markdown 报告。</span></span></code></pre>
+<p>前端不会自己执行任务，它会把输入交给后端 Gateway。</p>
+<h2 id="2-gateway-接住请求">2. Gateway 接住请求</h2>
+<p>Gateway 是后端服务入口。</p>
+<p>官方说明里提到，DeerFlow 的 Gateway API 默认运行在 <code>8001</code>，而完整应用会通过 Nginx 提供统一入口，例如：</p>
+<pre class="astro-code github-light" style="background-color:#fff;color:#24292e; overflow-x: auto;" tabindex="0" data-language="text"><code><span class="line"><span>http://localhost:2026</span></span></code></pre>
+<p>Nginx 会把相关 API 请求转到 Gateway。</p>
+<p>Gateway 这层大致负责：</p>
+<ul>
+<li>接收前端或渠道入口的请求；</li>
+<li>管理 thread / run；</li>
+<li>处理上传文件、产物、memory、skills、MCP 等接口；</li>
+<li>把真正的任务交给 Agent runtime；</li>
+<li>把运行过程和最终结果返回给调用方。</li>
+</ul>
+<p>所以如果前端点了发送但没有任何反应，排查顺序通常是：前端请求、Gateway 日志、Agent runtime 日志。</p>
+<h2 id="3-agent-runtime-开始执行">3. Agent Runtime 开始执行</h2>
+<p>DeerFlow 2.0 的运行时不是简单调一个模型接口。</p>
+<p>官方架构说明里提到，Agent runtime 会通过类似 <code>RunManager</code>、<code>run_agent()</code>、<code>StreamBridge</code> 这类组件运行，并通过 Gateway 对外暴露 LangGraph-compatible API。</p>
+<p>这里不需要一开始记住所有类名，只要理解：</p>
+<ul>
+<li>Gateway 负责接请求；</li>
+<li>Agent Runtime 负责跑任务；</li>
+<li>Runtime 运行过程中会不断产生事件；</li>
+<li>这些事件会被桥接成前端能看到的流式输出。</li>
+</ul>
+<p>这也是为什么 DeerFlow 可以展示任务过程，而不只是等最后一句结果。</p>
+<h2 id="4-lead-agent-判断下一步">4. Lead Agent 判断下一步</h2>
+<p>进入 Agent Runtime 后，任务会交给 Lead Agent。</p>
+<p>Lead Agent 首先要做判断：</p>
+<ul>
+<li>用户到底要什么结果；</li>
+<li>任务是否需要联网搜索；</li>
+<li>是否需要读写文件；</li>
+<li>是否需要执行命令；</li>
+<li>是否需要调用子 Agent；</li>
+<li>是否需要使用已有 skill；</li>
+<li>当前上下文是否足够。</li>
+</ul>
+<p>这一步很关键。很多 Agent 失败，第一步就已经走错了。</p>
+<p>比如用户只是问“DeerFlow 是什么”，Lead Agent 不一定需要调用工具。但如果用户问“根据官方 README 总结 DeerFlow 2.0 的安装步骤”，那就应该优先读取官方资料，而不是凭记忆回答。</p>
+<h2 id="5-模型不是直接给最终答案">5. 模型不是直接给最终答案</h2>
+<p>在普通聊天里，模型通常直接生成答案。</p>
+<p>但在 Agent 系统里，模型更像决策器。它可能会先输出一个工具调用意图，比如：</p>
+<ul>
+<li>搜索官方文档；</li>
+<li>读取某个文件；</li>
+<li>创建一个报告文件；</li>
+<li>调用 bash 检查环境；</li>
+<li>分配一个子 Agent 做资料整理。</li>
+</ul>
+<p>这就是 Agent 和普通聊天的重要区别：模型不只是“说”，还会“选择动作”。</p>
+<p>当然，动作是否真的能执行，取决于系统开放了哪些工具、配置了哪些权限，以及 sandbox 是否可用。</p>
+<h2 id="6-tools-被调用">6. Tools 被调用</h2>
+<p>当 Lead Agent 判断需要外部能力时，就会调用 tools。</p>
+<p>常见 tool 类型包括：</p>
+<ul>
+<li>web search；</li>
+<li>web fetch / crawl；</li>
+<li>文件读取；</li>
+<li>文件写入；</li>
+<li>bash 执行；</li>
+<li>图片查看；</li>
+<li>MCP server 暴露的工具。</li>
+</ul>
+<p>工具调用通常会返回结构化结果。模型再根据这些结果继续推理。</p>
+<p>这里有一个重要原则：</p>
+<blockquote>
+<p>工具调用结果不是最终答案，它只是下一步推理的输入。</p>
+</blockquote>
+<p>比如搜索工具返回了 5 个网页，Agent 还要判断哪些来源可信、哪些内容和任务有关、是否需要继续抓取全文。</p>
+<h2 id="7-skills-影响执行方式">7. Skills 影响执行方式</h2>
+<p>如果任务命中了某个 skill，Agent 的执行方式会被 skill 影响。</p>
+<p>Skill 不一定直接执行动作，它更像一套工作方法。例如：</p>
+<ul>
+<li>做开发者教程时，要先确认官方文档；</li>
+<li>修改代码后，要跑真实 build；</li>
+<li>写报告时，要先确认来源完整性；</li>
+<li>做部署时，要先检查配置和日志。</li>
+</ul>
+<p>所以 skill 的作用不是替代 tool，而是指导 Agent 如何组织工具和步骤。</p>
+<p>这也是 DeerFlow 值得关注的点：它不是只靠一次 prompt，而是可以把稳定经验变成系统能力。</p>
+<h2 id="8-sub-agents-处理子任务">8. Sub-agents 处理子任务</h2>
+<p>当任务比较复杂时，Lead Agent 可能会把一部分工作交给子 Agent。</p>
+<p>比如一个研究任务可以拆成：</p>
+<ul>
+<li>子 Agent A：查官方文档；</li>
+<li>子 Agent B：查源码结构；</li>
+<li>子 Agent C：整理竞品对比；</li>
+<li>Lead Agent：汇总结果并写报告。</li>
+</ul>
+<p>子 Agent 的价值在于隔离上下文和分工。但它也有成本：</p>
+<ul>
+<li>子任务描述要清楚；</li>
+<li>子 Agent 可能理解偏；</li>
+<li>汇总时可能丢细节；</li>
+<li>并行执行会增加资源消耗。</li>
+</ul>
+<p>所以不要迷信多 Agent。任务足够复杂时再拆，才有意义。</p>
+<h2 id="9-sandbox-承接高风险执行">9. Sandbox 承接高风险执行</h2>
+<p>如果任务涉及命令执行、代码运行、文件写入，sandbox 就会参与。</p>
+<p>它的作用是给执行能力加边界。</p>
+<p>举几个例子：</p>
+<ul>
+<li>让 Agent 跑一个 Python 脚本；</li>
+<li>生成一个 Markdown 文件；</li>
+<li>读取某个目录下的项目文件；</li>
+<li>执行 bash 命令检查依赖；</li>
+<li>修改代码并运行测试。</li>
+</ul>
+<p>这些动作如果直接在宿主机上裸跑，风险比较高。sandbox 可以把执行范围控制在更可管理的环境里。</p>
+<p>但要注意：sandbox 不是万能保险。你仍然需要限制权限、控制目录、检查输出，并避免让 Agent 执行不可信命令。</p>
+<h2 id="10-memory-提供长期上下文">10. Memory 提供长期上下文</h2>
+<p>Memory 会在合适的时候参与任务。</p>
+<p>它可能提供：</p>
+<ul>
+<li>用户偏好；</li>
+<li>项目固定路径；</li>
+<li>常用模型或工具约定；</li>
+<li>历史沉淀的工作方法。</li>
+</ul>
+<p>但 memory 不应该替代实时检查。</p>
+<p>比如 memory 里写着“项目使用某个路径”，但你要改文件时，仍然应该实际检查仓库当前状态。因为项目可能已经变了。</p>
+<p>长期记忆提供方向，当前工具结果提供事实。这两个要分清。</p>
+<h2 id="11-文件和产物被保存">11. 文件和产物被保存</h2>
+<p>DeerFlow 更像工作台，而不是单纯聊天框，一个重要原因就是它可以生成产物。</p>
+<p>产物可能是：</p>
+<ul>
+<li>Markdown 报告；</li>
+<li>代码文件；</li>
+<li>配置文件；</li>
+<li>图片或图表；</li>
+<li>中间分析结果；</li>
+<li>下载或上传的文件。</li>
+</ul>
+<p>这些产物一般会通过文件系统和 artifacts 相关接口管理，并在前端展示。</p>
+<p>如果你要做“AI 帮我完成任务”，而不是“AI 给我建议”，这一步很关键。真正可复用的是产物，而不是聊天窗口里的一段回答。</p>
+<h2 id="12-结果流式返回">12. 结果流式返回</h2>
+<p>任务执行过程中，Gateway 会把运行事件返回给前端。</p>
+<p>前端可能展示：</p>
+<ul>
+<li>当前正在思考或执行；</li>
+<li>工具调用过程；</li>
+<li>中间状态；</li>
+<li>最终回答；</li>
+<li>生成的文件或 artifact。</li>
+</ul>
+<p>这类流式返回对长任务很重要。否则用户只能等一个黑盒结果，不知道卡在搜索、模型、sandbox 还是文件写入。</p>
+<p>如果你在使用时发现任务“卡住”，要先判断：</p>
+<ul>
+<li>是前端没有收到事件；</li>
+<li>还是 Gateway 没有继续输出；</li>
+<li>还是 Agent 在等待工具；</li>
+<li>还是模型请求超时；</li>
+<li>还是 sandbox 执行慢。</li>
+</ul>
+<h2 id="一个具体例子">一个具体例子</h2>
+<p>假设你给 DeerFlow 一个任务：</p>
+<pre class="astro-code github-light" style="background-color:#fff;color:#24292e; overflow-x: auto;" tabindex="0" data-language="text"><code><span class="line"><span>请基于官方资料整理 DeerFlow 2.0 的快速开始教程，并保存为 Markdown 文件。</span></span></code></pre>
+<p>理想执行链路大概是：</p>
+<ol>
+<li>前端把任务发给 Gateway。</li>
+<li>Gateway 创建或继续一个 thread / run。</li>
+<li>Agent Runtime 启动 Lead Agent。</li>
+<li>Lead Agent 判断需要官方资料。</li>
+<li>调用搜索或抓取工具读取 README / Install / 配置文档。</li>
+<li>模型整理信息，决定输出结构。</li>
+<li>如有写文件权限，通过文件工具生成 Markdown。</li>
+<li>如果启用 sandbox，文件操作在受控环境中完成。</li>
+<li>Gateway 把过程和最终结果返回前端。</li>
+<li>用户在页面看到报告和文件产物。</li>
+</ol>
+<p>这条链路里，任何一环都可能出问题。</p>
+<h2 id="常见失败点">常见失败点</h2>
+<h3 id="模型配置错误">模型配置错误</h3>
+<p>表现：任务一开始就失败，或者模型列表为空。</p>
+<p>优先检查：</p>
+<ul>
+<li><code>config.yaml</code> 中 <code>models</code> 是否存在；</li>
+<li><code>.env</code> 是否有对应 API key；</li>
+<li><code>use</code>、<code>model</code>、<code>base_url</code> 是否匹配；</li>
+<li><code>make doctor</code> 是否通过。</li>
+</ul>
+<h3 id="搜索不可用">搜索不可用</h3>
+<p>表现：普通对话可以，研究任务失败。</p>
+<p>优先检查：</p>
+<ul>
+<li>搜索 provider 是否启用；</li>
+<li><code>.env</code> 是否有搜索 API key；</li>
+<li>当前网络是否能访问 provider；</li>
+<li>工具结果是否真的返回了可用网页。</li>
+</ul>
+<h3 id="文件写入失败">文件写入失败</h3>
+<p>表现：Agent 说要保存文件，但最终没有产物。</p>
+<p>优先检查：</p>
+<ul>
+<li>是否开启文件写入能力；</li>
+<li>sandbox 目录是否可写；</li>
+<li>文件路径是否正确；</li>
+<li>前端 artifacts 是否刷新。</li>
+</ul>
+<h3 id="sandbox-慢或失败">Sandbox 慢或失败</h3>
+<p>表现：执行类任务长时间没有结果，或者第一次运行特别慢。</p>
+<p>优先检查：</p>
+<ul>
+<li>Docker 是否启动；</li>
+<li>sandbox 镜像是否已拉取；</li>
+<li>当前配置使用哪种 sandbox provider；</li>
+<li>是否误启用了 provisioner 模式。</li>
+</ul>
+<h3 id="子-agent-结果跑偏">子 Agent 结果跑偏</h3>
+<p>表现：主任务方向正确，但子任务返回的材料不相关。</p>
+<p>优先检查：</p>
+<ul>
+<li>子任务描述是否清楚；</li>
+<li>是否给了足够上下文；</li>
+<li>是否拆得太碎；</li>
+<li>汇总阶段是否丢失约束。</li>
+</ul>
+<h2 id="排错时怎么定位">排错时怎么定位</h2>
+<p>建议按这条顺序排：</p>
+<ol>
+<li><strong>入口层</strong>：前端请求是否发出，API 是否返回。</li>
+<li><strong>Gateway 层</strong>：后端是否收到请求，thread / run 是否创建。</li>
+<li><strong>模型层</strong>：模型配置和 API key 是否可用。</li>
+<li><strong>工具层</strong>：搜索、文件、bash、MCP 是否返回正常结果。</li>
+<li><strong>Sandbox 层</strong>：执行环境是否启动、是否有权限。</li>
+<li><strong>Agent 层</strong>：任务规划是否走偏，是否需要调整 prompt / skill。</li>
+</ol>
+<p>不要一上来就改源码。很多问题是配置、权限、环境或 provider 差异导致的。</p>
+<h2 id="这一篇的完成标准">这一篇的完成标准</h2>
+<p>读完这一篇，你应该能把一次 DeerFlow 任务拆成几层：</p>
+<ul>
+<li>输入入口；</li>
+<li>Gateway；</li>
+<li>Agent Runtime；</li>
+<li>Lead Agent；</li>
+<li>模型决策；</li>
+<li>tools / skills / sub-agents；</li>
+<li>sandbox 和文件产物；</li>
+<li>流式返回和前端展示。</li>
+</ul>
+<p>后面如果继续写工具、skills、sub-agents、MCP，每一篇都可以放回这条链路里理解。</p>  </div> </article> <aside class="toc"><p class="toc-title">目录</p><ul class="toc-list"><li class="depth-2"><a href="#为什么要看执行链路">为什么要看执行链路</a></li><li class="depth-2"><a href="#先看一张简化图">先看一张简化图</a></li><li class="depth-2"><a href="#1-用户输入从哪里来">1. 用户输入从哪里来</a></li><li class="depth-2"><a href="#2-gateway-接住请求">2. Gateway 接住请求</a></li><li class="depth-2"><a href="#3-agent-runtime-开始执行">3. Agent Runtime 开始执行</a></li><li class="depth-2"><a href="#4-lead-agent-判断下一步">4. Lead Agent 判断下一步</a></li><li class="depth-2"><a href="#5-模型不是直接给最终答案">5. 模型不是直接给最终答案</a></li><li class="depth-2"><a href="#6-tools-被调用">6. Tools 被调用</a></li><li class="depth-2"><a href="#7-skills-影响执行方式">7. Skills 影响执行方式</a></li><li class="depth-2"><a href="#8-sub-agents-处理子任务">8. Sub-agents 处理子任务</a></li><li class="depth-2"><a href="#9-sandbox-承接高风险执行">9. Sandbox 承接高风险执行</a></li><li class="depth-2"><a href="#10-memory-提供长期上下文">10. Memory 提供长期上下文</a></li><li class="depth-2"><a href="#11-文件和产物被保存">11. 文件和产物被保存</a></li><li class="depth-2"><a href="#12-结果流式返回">12. 结果流式返回</a></li><li class="depth-2"><a href="#一个具体例子">一个具体例子</a></li><li class="depth-2"><a href="#常见失败点">常见失败点</a></li><li class="depth-3"><a href="#模型配置错误">模型配置错误</a></li><li class="depth-3"><a href="#搜索不可用">搜索不可用</a></li><li class="depth-3"><a href="#文件写入失败">文件写入失败</a></li><li class="depth-3"><a href="#sandbox-慢或失败">Sandbox 慢或失败</a></li><li class="depth-3"><a href="#子-agent-结果跑偏">子 Agent 结果跑偏</a></li><li class="depth-2"><a href="#排错时怎么定位">排错时怎么定位</a></li><li class="depth-2"><a href="#这一篇的完成标准">这一篇的完成标准</a></li></ul></aside> </section>  </main> <footer class="site-footer"> <div class="shell footer-inner"> <p>© 2026 未来观察者</p> </div> </footer> </body></html>
