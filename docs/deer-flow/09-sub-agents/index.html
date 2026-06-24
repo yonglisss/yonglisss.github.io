@@ -1,0 +1,37 @@
+<!DOCTYPE html><html lang="zh-CN"> <head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1"><title>09. Sub-agents：多智能体是怎么分工的 | 技术教程 | 未来观察者</title><meta name="description" content="理解子 Agent 的作用、适用场景、上下文隔离、结果汇总和常见失控点。"><meta name="generator" content="Astro v5.18.1"><meta property="og:title" content="09. Sub-agents：多智能体是怎么分工的 | 技术教程 | 未来观察者"><meta property="og:description" content="理解子 Agent 的作用、适用场景、上下文隔离、结果汇总和常见失控点。"><meta property="og:type" content="website"><meta property="og:url" content="https://future.lifestudylab.com/docs/deer-flow/09-sub-agents/"><link rel="icon" type="image/svg+xml" href="/favicon.svg"><link rel="alternate" type="application/rss+xml" title="未来观察者" href="/rss.xml"><link rel="stylesheet" href="/_astro/_channel_.OjG1_-2m.css"></head> <body> <div class="page-bg"></div> <header class="site-header"> <div class="shell header-inner"> <div class="header-bar"> <a class="brand" href="/ai-tools/"> <img src="/brand-mark.svg" alt="" class="brand-mark" width="56" height="56"> <span class="brand-text" aria-label="未来观察者">思考未来</span> </a> </div> <nav class="top-menu" aria-label="顶部菜单"> <a href="/future-daily/" class="top-menu-link"> 每日信息 </a><a href="/docs/deer-flow/" class="top-menu-link active"> DeerFlow教程 </a><a href="/about/" class="top-menu-link"> 关于我 </a> </nav> </div> </header>  <main class="shell page-content page-content--full">  <section class="docs-shell"> <aside class="docs-sidebar" aria-label="技术教程目录"> <nav class="docs-nav-block" aria-label="DeerFlow 教程"> <p class="docs-nav-title">DeerFlow 教程</p> <ul class="docs-nav-list"> <li> <a href="/docs/deer-flow/" class="docs-nav-link"> 01. DeerFlow 教程总览 </a> </li><li> <a href="/docs/deer-flow/quickstart/" class="docs-nav-link"> 02. 快速开始：先把 DeerFlow 跑起来 </a> </li><li> <a href="/docs/deer-flow/config/" class="docs-nav-link"> 03. 配置文件：看懂 config.yaml </a> </li><li> <a href="/docs/deer-flow/concepts/" class="docs-nav-link"> 04. 核心概念：DeerFlow 到底在调度什么 </a> </li><li> <a href="/docs/deer-flow/project-structure/" class="docs-nav-link"> 05. 项目结构：从目录看懂 DeerFlow </a> </li><li> <a href="/docs/deer-flow/execution-flow/" class="docs-nav-link"> 06. 一次任务的完整执行链路 </a> </li><li> <a href="/docs/deer-flow/07-tools/" class="docs-nav-link"> 07. Tools：内置工具和自定义工具 </a> </li><li> <a href="/docs/deer-flow/08-skills/" class="docs-nav-link"> 08. Skills：把一次经验沉淀成可复用能力 </a> </li><li> <a href="/docs/deer-flow/09-sub-agents/" class="docs-nav-link active"> 09. Sub-agents：多智能体是怎么分工的 </a> </li><li> <a href="/docs/deer-flow/10-memory/" class="docs-nav-link"> 10. Memory：长期记忆如何参与任务 </a> </li><li> <a href="/docs/deer-flow/11-sandbox/" class="docs-nav-link"> 11. Sandbox：安全执行和文件系统 </a> </li><li> <a href="/docs/deer-flow/12-mcp/" class="docs-nav-link"> 12. MCP：接入外部工具和服务 </a> </li><li> <a href="/docs/deer-flow/13-observability/" class="docs-nav-link"> 13. 可观测性：LangSmith / Langfuse 追踪 </a> </li><li> <a href="/docs/deer-flow/examples/" class="docs-nav-link"> 14. 实战一：用 DeerFlow 做一次深度研究 </a> </li><li> <a href="/docs/deer-flow/15-example-tech-report/" class="docs-nav-link"> 15. 实战二：用 DeerFlow 生成一份技术报告 </a> </li><li> <a href="/docs/deer-flow/16-example-custom-skill/" class="docs-nav-link"> 16. 实战三：给 DeerFlow 增加一个自定义 Skill </a> </li><li> <a href="/docs/deer-flow/17-example-mcp-server/" class="docs-nav-link"> 17. 实战四：接入一个 MCP Server </a> </li><li> <a href="/docs/deer-flow/faq/" class="docs-nav-link"> 18. 部署：从本地跑到可长期使用 </a> </li><li> <a href="/docs/deer-flow/19-advanced-roadmap/" class="docs-nav-link"> 19. 进阶路线：从使用者到改造者 </a> </li> </ul> </nav> </aside> <article class="docs-article"> <header class="docs-hero"> <p class="docs-kicker">Technical Guide</p> <h1>09. Sub-agents：多智能体是怎么分工的</h1> <p>理解子 Agent 的作用、适用场景、上下文隔离、结果汇总和常见失控点。</p> </header> <div class="docs-prose">  <h2 id="多-agent-不是越多越好">多 Agent 不是越多越好</h2>
+<p>多 Agent 更像把复杂任务拆给多个临时同事。拆得好，会加速；拆得差，会制造更多沟通成本。</p>
+<p>学习 DeerFlow 的 Sub-agents，重点不是看能创建几个 Agent，而是看什么时候值得拆、怎么拆、怎么汇总。</p>
+<h2 id="sub-agent-解决什么问题">Sub-agent 解决什么问题</h2>
+<p>主要解决三个问题：上下文隔离、专业分工、并行处理。</p>
+<p>例如一次技术调研可以拆成：一个子 Agent 读官方 README，一个看项目结构，一个找部署文档，主 Agent 合并结论并写教程。</p>
+<h2 id="什么任务适合拆">什么任务适合拆</h2>
+<p>适合拆的任务通常满足：信息源独立、子任务边界清楚、每个子任务有明确产出、主任务需要综合多个视角、单一上下文会太长。</p>
+<p>例如大型代码库阅读、多方案技术选型、长报告资料收集、多模块排错、PR 代码审查。</p>
+<h2 id="什么任务不适合拆">什么任务不适合拆</h2>
+<p>改一行配置、写一个短说明、查一个确定命令、需求还不清楚、子任务之间强依赖，都不适合硬拆。</p>
+<p>这类任务直接做更稳定。</p>
+<h2 id="子任务要怎么写">子任务要怎么写</h2>
+<p>给子 Agent 的任务要具体。</p>
+<p>不好的写法：</p>
+<pre class="astro-code github-light" style="background-color:#fff;color:#24292e; overflow-x: auto;" tabindex="0" data-language="text"><code><span class="line"><span>你去研究一下 DeerFlow。</span></span></code></pre>
+<p>更好的写法：</p>
+<pre class="astro-code github-light" style="background-color:#fff;color:#24292e; overflow-x: auto;" tabindex="0" data-language="text"><code><span class="line"><span>请只阅读 DeerFlow 官方 README 和 config.example.yaml，总结模型 provider、搜索、sandbox 三类配置的关键字段。不要写教程，只返回要点和来源文件。</span></span></code></pre>
+<p>好的子任务应该包括目标、范围、输入材料、输出格式、不要做什么、验证要求。</p>
+<h2 id="主-agent-负责汇总">主 Agent 负责汇总</h2>
+<p>子 Agent 的输出不是最终答案。</p>
+<p>主 Agent 必须去重、判断冲突、过滤无关信息、补齐遗漏、统一风格、给出最终结论。</p>
+<p>如果只是把多个结果拼在一起，多 Agent 反而会降低质量。</p>
+<h2 id="常见失控点">常见失控点</h2>
+<ul>
+<li>子任务太大：子 Agent 也会发散。</li>
+<li>子任务太模糊：输出无法直接使用。</li>
+<li>结果无法验证：没有来源、路径、命令输出。</li>
+<li>汇总阶段丢约束：最终结果不符合用户要求。</li>
+</ul>
+<h2 id="sub-agent-和-tool-的区别">Sub-agent 和 Tool 的区别</h2>
+<p>Tool 是具体动作。Sub-agent 是带上下文的任务执行者。</p>
+<p>读取文件是 Tool；让一个子 Agent 阅读三个文件并总结架构，是 Sub-agent。</p>
+<h2 id="sub-agent-和-skill-的关系">Sub-agent 和 Skill 的关系</h2>
+<p>Skill 可以规定什么时候拆子 Agent、怎么拆、怎么汇总。Sub-agent 是流程中的执行角色。</p>
+<h2 id="完成标准">完成标准</h2>
+<p>读完后，你应该知道多 Agent 不是默认更好，只有任务边界清楚、产出可验证时才值得拆。</p>  </div> </article> <aside class="toc"><p class="toc-title">目录</p><ul class="toc-list"><li class="depth-2"><a href="#多-agent-不是越多越好">多 Agent 不是越多越好</a></li><li class="depth-2"><a href="#sub-agent-解决什么问题">Sub-agent 解决什么问题</a></li><li class="depth-2"><a href="#什么任务适合拆">什么任务适合拆</a></li><li class="depth-2"><a href="#什么任务不适合拆">什么任务不适合拆</a></li><li class="depth-2"><a href="#子任务要怎么写">子任务要怎么写</a></li><li class="depth-2"><a href="#主-agent-负责汇总">主 Agent 负责汇总</a></li><li class="depth-2"><a href="#常见失控点">常见失控点</a></li><li class="depth-2"><a href="#sub-agent-和-tool-的区别">Sub-agent 和 Tool 的区别</a></li><li class="depth-2"><a href="#sub-agent-和-skill-的关系">Sub-agent 和 Skill 的关系</a></li><li class="depth-2"><a href="#完成标准">完成标准</a></li></ul></aside> </section>  </main> <footer class="site-footer"> <div class="shell footer-inner"> <p>© 2026 未来观察者</p> </div> </footer> </body></html>

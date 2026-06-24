@@ -1,0 +1,71 @@
+<!DOCTYPE html><html lang="zh-CN"> <head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1"><title>19. 进阶路线：从使用者到改造者 | 技术教程 | 未来观察者</title><meta name="description" content="给出 DeerFlow 学习和二开路线：会用、会配置、会扩展 Skill / Tool、会接 MCP、会读源码改执行链路。"><meta name="generator" content="Astro v5.18.1"><meta property="og:title" content="19. 进阶路线：从使用者到改造者 | 技术教程 | 未来观察者"><meta property="og:description" content="给出 DeerFlow 学习和二开路线：会用、会配置、会扩展 Skill / Tool、会接 MCP、会读源码改执行链路。"><meta property="og:type" content="website"><meta property="og:url" content="https://future.lifestudylab.com/docs/deer-flow/19-advanced-roadmap/"><link rel="icon" type="image/svg+xml" href="/favicon.svg"><link rel="alternate" type="application/rss+xml" title="未来观察者" href="/rss.xml"><link rel="stylesheet" href="/_astro/_channel_.OjG1_-2m.css"></head> <body> <div class="page-bg"></div> <header class="site-header"> <div class="shell header-inner"> <div class="header-bar"> <a class="brand" href="/ai-tools/"> <img src="/brand-mark.svg" alt="" class="brand-mark" width="56" height="56"> <span class="brand-text" aria-label="未来观察者">思考未来</span> </a> </div> <nav class="top-menu" aria-label="顶部菜单"> <a href="/future-daily/" class="top-menu-link"> 每日信息 </a><a href="/docs/deer-flow/" class="top-menu-link active"> DeerFlow教程 </a><a href="/about/" class="top-menu-link"> 关于我 </a> </nav> </div> </header>  <main class="shell page-content page-content--full">  <section class="docs-shell"> <aside class="docs-sidebar" aria-label="技术教程目录"> <nav class="docs-nav-block" aria-label="DeerFlow 教程"> <p class="docs-nav-title">DeerFlow 教程</p> <ul class="docs-nav-list"> <li> <a href="/docs/deer-flow/" class="docs-nav-link"> 01. DeerFlow 教程总览 </a> </li><li> <a href="/docs/deer-flow/quickstart/" class="docs-nav-link"> 02. 快速开始：先把 DeerFlow 跑起来 </a> </li><li> <a href="/docs/deer-flow/config/" class="docs-nav-link"> 03. 配置文件：看懂 config.yaml </a> </li><li> <a href="/docs/deer-flow/concepts/" class="docs-nav-link"> 04. 核心概念：DeerFlow 到底在调度什么 </a> </li><li> <a href="/docs/deer-flow/project-structure/" class="docs-nav-link"> 05. 项目结构：从目录看懂 DeerFlow </a> </li><li> <a href="/docs/deer-flow/execution-flow/" class="docs-nav-link"> 06. 一次任务的完整执行链路 </a> </li><li> <a href="/docs/deer-flow/07-tools/" class="docs-nav-link"> 07. Tools：内置工具和自定义工具 </a> </li><li> <a href="/docs/deer-flow/08-skills/" class="docs-nav-link"> 08. Skills：把一次经验沉淀成可复用能力 </a> </li><li> <a href="/docs/deer-flow/09-sub-agents/" class="docs-nav-link"> 09. Sub-agents：多智能体是怎么分工的 </a> </li><li> <a href="/docs/deer-flow/10-memory/" class="docs-nav-link"> 10. Memory：长期记忆如何参与任务 </a> </li><li> <a href="/docs/deer-flow/11-sandbox/" class="docs-nav-link"> 11. Sandbox：安全执行和文件系统 </a> </li><li> <a href="/docs/deer-flow/12-mcp/" class="docs-nav-link"> 12. MCP：接入外部工具和服务 </a> </li><li> <a href="/docs/deer-flow/13-observability/" class="docs-nav-link"> 13. 可观测性：LangSmith / Langfuse 追踪 </a> </li><li> <a href="/docs/deer-flow/examples/" class="docs-nav-link"> 14. 实战一：用 DeerFlow 做一次深度研究 </a> </li><li> <a href="/docs/deer-flow/15-example-tech-report/" class="docs-nav-link"> 15. 实战二：用 DeerFlow 生成一份技术报告 </a> </li><li> <a href="/docs/deer-flow/16-example-custom-skill/" class="docs-nav-link"> 16. 实战三：给 DeerFlow 增加一个自定义 Skill </a> </li><li> <a href="/docs/deer-flow/17-example-mcp-server/" class="docs-nav-link"> 17. 实战四：接入一个 MCP Server </a> </li><li> <a href="/docs/deer-flow/faq/" class="docs-nav-link"> 18. 部署：从本地跑到可长期使用 </a> </li><li> <a href="/docs/deer-flow/19-advanced-roadmap/" class="docs-nav-link active"> 19. 进阶路线：从使用者到改造者 </a> </li> </ul> </nav> </aside> <article class="docs-article"> <header class="docs-hero"> <p class="docs-kicker">Technical Guide</p> <h1>19. 进阶路线：从使用者到改造者</h1> <p>给出 DeerFlow 学习和二开路线：会用、会配置、会扩展 Skill / Tool、会接 MCP、会读源码改执行链路。</p> </header> <div class="docs-prose">  <h2 id="不要一开始就冲源码">不要一开始就冲源码</h2>
+<p>DeerFlow 这类项目，最容易陷入“源码焦虑”：还没跑通，就开始读 Agent、LangGraph、middleware、sandbox。</p>
+<p>更好的路线是先建立可运行系统，再逐层深入。</p>
+<p>这篇给一条从使用者到改造者的路线。</p>
+<h2 id="第一阶段会用">第一阶段：会用</h2>
+<p>目标：能把 DeerFlow 跑起来，完成一个简单任务。</p>
+<p>你需要掌握：clone 项目、<code>make setup</code> 或 <code>make config</code>、配置一个模型、<code>make doctor</code>、Docker 或本地启动、跑通一个不联网任务、跑通一个研究任务。</p>
+<p>这一阶段不要追求理解所有模块。先拿到反馈闭环。</p>
+<h2 id="第二阶段会配置">第二阶段：会配置</h2>
+<p>目标：知道 <code>config.yaml</code> 改什么会影响什么。</p>
+<p>重点看：<code>models</code>、API key 和 <code>.env</code>、OpenAI-compatible gateway、search provider、sandbox、skills path、channels、tracing、token budget。</p>
+<p>很多问题不是代码问题，而是配置问题。会配置，排错效率会高很多。</p>
+<h2 id="第三阶段会看架构">第三阶段：会看架构</h2>
+<p>目标：知道一次任务从入口到结果经过哪些层。</p>
+<p>重点理解 Frontend / API / IM Channel、Gateway、Agent Runtime、Lead Agent、Tools、Skills、Sub-agents、Memory、Sandbox、Artifacts。</p>
+<p>能画出执行链路，比背目录更重要。</p>
+<h2 id="第四阶段会扩展-skill">第四阶段：会扩展 Skill</h2>
+<p>目标：把自己的工作方法沉淀进 DeerFlow。</p>
+<p>可以从低风险场景开始：写教程、写报告、排查构建、总结会议、整理资料。</p>
+<p>Skill 是最适合普通使用者改造的入口，因为它不一定需要改源码，但能显著改变 Agent 行为。</p>
+<h2 id="第五阶段会扩展-tool">第五阶段：会扩展 Tool</h2>
+<p>目标：给 DeerFlow 增加一个确定动作。</p>
+<p>适合做成 tool 的能力通常输入输出稳定、经常重复、需要真实执行、prompt 不能可靠完成。</p>
+<p>写 tool 时要考虑参数 schema、错误返回、权限边界、日志和验证。</p>
+<h2 id="第六阶段会接-mcp">第六阶段：会接 MCP</h2>
+<p>目标：把外部系统接进来。</p>
+<p>从只读 MCP 开始，比如查询、读取、搜索。不要一开始接删除、发布、部署类高风险工具。</p>
+<p>掌握 MCP 后，DeerFlow 才能真正进入你的工作流，而不只是独立网页应用。</p>
+<h2 id="第七阶段会读源码和改执行链路">第七阶段：会读源码和改执行链路</h2>
+<p>目标：理解 Agent runtime、middleware、subagents、sandbox lifecycle，并能做较深二开。</p>
+<p>建议读源码顺序：</p>
+<ol>
+<li><code>config.example.yaml</code></li>
+<li><code>backend/CLAUDE.md</code></li>
+<li>Gateway 路由</li>
+<li>Agent runtime</li>
+<li>lead agent</li>
+<li>tools / sandbox</li>
+<li>skills / memory</li>
+<li>subagents</li>
+<li>MCP</li>
+</ol>
+<p>不要按文件名随机读。</p>
+<h2 id="可以做的二开方向">可以做的二开方向</h2>
+<ul>
+<li>增加团队内部 skills；</li>
+<li>接内部知识库 MCP；</li>
+<li>加企业 IM 入口；</li>
+<li>做任务模板；</li>
+<li>做报告生成工作流；</li>
+<li>增加安全审计；</li>
+<li>优化 token budget；</li>
+<li>增加自定义 artifact 展示；</li>
+<li>接自己的产品后台。</li>
+</ul>
+<h2 id="学习路线建议">学习路线建议</h2>
+<p>如果你是开发者：</p>
+<pre class="astro-code github-light" style="background-color:#fff;color:#24292e; overflow-x: auto;" tabindex="0" data-language="text"><code><span class="line"><span>跑通 → 配置 → 任务链路 → Skill → Tool → MCP → Sandbox → 源码二开 → 部署治理</span></span></code></pre>
+<p>如果你只是使用者：</p>
+<pre class="astro-code github-light" style="background-color:#fff;color:#24292e; overflow-x: auto;" tabindex="0" data-language="text"><code><span class="line"><span>跑通 → 配置模型和搜索 → 写清楚任务 → 检查结果 → 沉淀 Skill</span></span></code></pre>
+<p>如果你是团队负责人：</p>
+<pre class="astro-code github-light" style="background-color:#fff;color:#24292e; overflow-x: auto;" tabindex="0" data-language="text"><code><span class="line"><span>跑通 Demo → 选内部场景 → 设计权限 → 接工具 → 做审计和成本控制 → 小范围试用</span></span></code></pre>
+<h2 id="最后一个判断">最后一个判断</h2>
+<p>DeerFlow 值不值得深入，不取决于它是不是“多 Agent”。</p>
+<p>更重要的是：它把模型、工具、沙盒、记忆、skills、sub-agents、Gateway 和 IM 入口放进了一个工程系统里。</p>
+<p>如果你只想要聊天，没必要折腾它。<br>
+如果你想让 Agent 真正执行任务、生成产物、接入团队工具，那它值得继续拆。</p>
+<h2 id="完成标准">完成标准</h2>
+<p>读到这里，这套教程的第一版主线就完整了。</p>
+<p>你应该已经知道怎么跑起来、怎么看配置、核心概念是什么、目录怎么读、一次任务怎么执行，以及 Tools、Skills、Sub-agents、Memory、Sandbox、MCP 分别解决什么。</p>
+<p>后续再深入，就不应该继续泛读，而应该选一个真实任务，把 DeerFlow 改到能稳定完成它。</p>  </div> </article> <aside class="toc"><p class="toc-title">目录</p><ul class="toc-list"><li class="depth-2"><a href="#不要一开始就冲源码">不要一开始就冲源码</a></li><li class="depth-2"><a href="#第一阶段会用">第一阶段：会用</a></li><li class="depth-2"><a href="#第二阶段会配置">第二阶段：会配置</a></li><li class="depth-2"><a href="#第三阶段会看架构">第三阶段：会看架构</a></li><li class="depth-2"><a href="#第四阶段会扩展-skill">第四阶段：会扩展 Skill</a></li><li class="depth-2"><a href="#第五阶段会扩展-tool">第五阶段：会扩展 Tool</a></li><li class="depth-2"><a href="#第六阶段会接-mcp">第六阶段：会接 MCP</a></li><li class="depth-2"><a href="#第七阶段会读源码和改执行链路">第七阶段：会读源码和改执行链路</a></li><li class="depth-2"><a href="#可以做的二开方向">可以做的二开方向</a></li><li class="depth-2"><a href="#学习路线建议">学习路线建议</a></li><li class="depth-2"><a href="#最后一个判断">最后一个判断</a></li><li class="depth-2"><a href="#完成标准">完成标准</a></li></ul></aside> </section>  </main> <footer class="site-footer"> <div class="shell footer-inner"> <p>© 2026 未来观察者</p> </div> </footer> </body></html>

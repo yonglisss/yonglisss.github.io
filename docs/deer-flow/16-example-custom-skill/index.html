@@ -1,0 +1,57 @@
+<!DOCTYPE html><html lang="zh-CN"> <head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1"><title>16. 实战三：给 DeerFlow 增加一个自定义 Skill | 技术教程 | 未来观察者</title><meta name="description" content="用一个真实场景演示如何定义、编写、挂载和验证 DeerFlow 自定义 Skill。"><meta name="generator" content="Astro v5.18.1"><meta property="og:title" content="16. 实战三：给 DeerFlow 增加一个自定义 Skill | 技术教程 | 未来观察者"><meta property="og:description" content="用一个真实场景演示如何定义、编写、挂载和验证 DeerFlow 自定义 Skill。"><meta property="og:type" content="website"><meta property="og:url" content="https://future.lifestudylab.com/docs/deer-flow/16-example-custom-skill/"><link rel="icon" type="image/svg+xml" href="/favicon.svg"><link rel="alternate" type="application/rss+xml" title="未来观察者" href="/rss.xml"><link rel="stylesheet" href="/_astro/_channel_.OjG1_-2m.css"></head> <body> <div class="page-bg"></div> <header class="site-header"> <div class="shell header-inner"> <div class="header-bar"> <a class="brand" href="/ai-tools/"> <img src="/brand-mark.svg" alt="" class="brand-mark" width="56" height="56"> <span class="brand-text" aria-label="未来观察者">思考未来</span> </a> </div> <nav class="top-menu" aria-label="顶部菜单"> <a href="/future-daily/" class="top-menu-link"> 每日信息 </a><a href="/docs/deer-flow/" class="top-menu-link active"> DeerFlow教程 </a><a href="/about/" class="top-menu-link"> 关于我 </a> </nav> </div> </header>  <main class="shell page-content page-content--full">  <section class="docs-shell"> <aside class="docs-sidebar" aria-label="技术教程目录"> <nav class="docs-nav-block" aria-label="DeerFlow 教程"> <p class="docs-nav-title">DeerFlow 教程</p> <ul class="docs-nav-list"> <li> <a href="/docs/deer-flow/" class="docs-nav-link"> 01. DeerFlow 教程总览 </a> </li><li> <a href="/docs/deer-flow/quickstart/" class="docs-nav-link"> 02. 快速开始：先把 DeerFlow 跑起来 </a> </li><li> <a href="/docs/deer-flow/config/" class="docs-nav-link"> 03. 配置文件：看懂 config.yaml </a> </li><li> <a href="/docs/deer-flow/concepts/" class="docs-nav-link"> 04. 核心概念：DeerFlow 到底在调度什么 </a> </li><li> <a href="/docs/deer-flow/project-structure/" class="docs-nav-link"> 05. 项目结构：从目录看懂 DeerFlow </a> </li><li> <a href="/docs/deer-flow/execution-flow/" class="docs-nav-link"> 06. 一次任务的完整执行链路 </a> </li><li> <a href="/docs/deer-flow/07-tools/" class="docs-nav-link"> 07. Tools：内置工具和自定义工具 </a> </li><li> <a href="/docs/deer-flow/08-skills/" class="docs-nav-link"> 08. Skills：把一次经验沉淀成可复用能力 </a> </li><li> <a href="/docs/deer-flow/09-sub-agents/" class="docs-nav-link"> 09. Sub-agents：多智能体是怎么分工的 </a> </li><li> <a href="/docs/deer-flow/10-memory/" class="docs-nav-link"> 10. Memory：长期记忆如何参与任务 </a> </li><li> <a href="/docs/deer-flow/11-sandbox/" class="docs-nav-link"> 11. Sandbox：安全执行和文件系统 </a> </li><li> <a href="/docs/deer-flow/12-mcp/" class="docs-nav-link"> 12. MCP：接入外部工具和服务 </a> </li><li> <a href="/docs/deer-flow/13-observability/" class="docs-nav-link"> 13. 可观测性：LangSmith / Langfuse 追踪 </a> </li><li> <a href="/docs/deer-flow/examples/" class="docs-nav-link"> 14. 实战一：用 DeerFlow 做一次深度研究 </a> </li><li> <a href="/docs/deer-flow/15-example-tech-report/" class="docs-nav-link"> 15. 实战二：用 DeerFlow 生成一份技术报告 </a> </li><li> <a href="/docs/deer-flow/16-example-custom-skill/" class="docs-nav-link active"> 16. 实战三：给 DeerFlow 增加一个自定义 Skill </a> </li><li> <a href="/docs/deer-flow/17-example-mcp-server/" class="docs-nav-link"> 17. 实战四：接入一个 MCP Server </a> </li><li> <a href="/docs/deer-flow/faq/" class="docs-nav-link"> 18. 部署：从本地跑到可长期使用 </a> </li><li> <a href="/docs/deer-flow/19-advanced-roadmap/" class="docs-nav-link"> 19. 进阶路线：从使用者到改造者 </a> </li> </ul> </nav> </aside> <article class="docs-article"> <header class="docs-hero"> <p class="docs-kicker">Technical Guide</p> <h1>16. 实战三：给 DeerFlow 增加一个自定义 Skill</h1> <p>用一个真实场景演示如何定义、编写、挂载和验证 DeerFlow 自定义 Skill。</p> </header> <div class="docs-prose">  <h2 id="实战目标">实战目标</h2>
+<p>这一篇做一个最小自定义 Skill。</p>
+<p>场景选择“写开发者教程”。因为这个场景稳定、重复、有明确流程，也容易验证。</p>
+<p>目标是让 DeerFlow 下次写教程时，自动遵循固定流程：先查官方资料、再写可执行步骤、最后验证构建。</p>
+<h2 id="先定义场景">先定义场景</h2>
+<p>不要一上来就写 skill 文件。</p>
+<p>先回答几个问题：这个 skill 什么时候用？它解决什么问题？标准步骤是什么？最容易踩什么坑？完成后怎么验证？</p>
+<p>对于开发者教程，可以这样定义：</p>
+<pre class="astro-code github-light" style="background-color:#fff;color:#24292e; overflow-x: auto;" tabindex="0" data-language="text"><code><span class="line"><span>当用户要求为开源工具写教程、配置说明、实战文档时使用。</span></span>
+<span class="line"><span>目标是产出可执行、可验证、不过度营销的中文开发者教程。</span></span></code></pre>
+<h2 id="最小-skill-内容">最小 Skill 内容</h2>
+<p>一个最小 Skill 可以包含：</p>
+<pre class="astro-code github-light" style="background-color:#fff;color:#24292e; overflow-x: auto;" tabindex="0" data-language="markdown"><code><span class="line"><span style="color:#005CC5;font-weight:bold"># Developer Tutorial Writer</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#005CC5;font-weight:bold">## When to use</span></span>
+<span class="line"><span style="color:#24292E">当用户要求为开源工具写教程、配置说明、实战文档时使用。</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#005CC5;font-weight:bold">## Steps</span></span>
+<span class="line"><span style="color:#E36209">1.</span><span style="color:#24292E"> 先读取官方 README、安装文档和配置示例。</span></span>
+<span class="line"><span style="color:#E36209">2.</span><span style="color:#24292E"> 检查当前站点或仓库已有文档风格。</span></span>
+<span class="line"><span style="color:#E36209">3.</span><span style="color:#24292E"> 正文按“问题 → 步骤 → 验证 → 常见坑”组织。</span></span>
+<span class="line"><span style="color:#E36209">4.</span><span style="color:#24292E"> 不基于搜索摘要脑补技术细节。</span></span>
+<span class="line"><span style="color:#E36209">5.</span><span style="color:#24292E"> 写完后运行真实检查或构建。</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#005CC5;font-weight:bold">## Pitfalls</span></span>
+<span class="line"><span style="color:#E36209">-</span><span style="color:#24292E"> 不要写成营销稿。</span></span>
+<span class="line"><span style="color:#E36209">-</span><span style="color:#24292E"> 不要复制过期博客命令。</span></span>
+<span class="line"><span style="color:#E36209">-</span><span style="color:#24292E"> 不要跳过验证。</span></span></code></pre>
+<p>具体文件格式和目录，以 DeerFlow 当前官方实现为准。先做最小可用版本，不要一次写太复杂。</p>
+<h2 id="放在哪里">放在哪里</h2>
+<p>通常可以从项目根目录的 <code>skills/</code> 开始。</p>
+<p>如果是个人或团队私有流程，更适合放在 <code>custom/</code>。如果是通用能力，可以考虑放到 <code>public/</code>。</p>
+<p>具体路径也可能通过 <code>DEER_FLOW_SKILLS_PATH</code> 或配置项调整，所以写之前先看当前配置。</p>
+<h2 id="让-deerflow-识别-skill">让 DeerFlow 识别 Skill</h2>
+<p>写好后，需要确认 DeerFlow 能发现它。</p>
+<p>验证顺序：文件路径正确、格式符合要求、skills 加载没有报错、UI 或 API 能看到该 skill、执行相关任务时 Agent 会采用对应流程。</p>
+<p>如果 skill 不生效，先不要改内容，先查加载路径和格式。</p>
+<h2 id="用一个任务验证">用一个任务验证</h2>
+<p>可以用这个任务测试：</p>
+<pre class="astro-code github-light" style="background-color:#fff;color:#24292e; overflow-x: auto;" tabindex="0" data-language="text"><code><span class="line"><span>请为 DeerFlow 的 MCP 配置写一篇入门教程，并保存为 Markdown。要求使用开发者教程写作流程。</span></span></code></pre>
+<p>观察它是否先查官方资料、检查已有文档风格、给出可执行命令、标注常见坑、写完后验证、避免营销表达。</p>
+<h2 id="调整-skill">调整 Skill</h2>
+<p>第一次写的 skill 通常不会完美。</p>
+<p>调整时不要只加长文字，要补行为约束：哪一步必须做、哪一步不能做、哪些情况要停下来、验证失败怎么办、输出应该长什么样。</p>
+<h2 id="常见失败点">常见失败点</h2>
+<ul>
+<li>skill 文件路径不对；</li>
+<li>格式不符合要求；</li>
+<li>内容太空泛；</li>
+<li>没写触发条件；</li>
+<li>没写验证方式；</li>
+<li>和现有 skill 冲突；</li>
+<li>Agent 没有拿到相关上下文。</li>
+</ul>
+<h2 id="复盘">复盘</h2>
+<p>自定义 Skill 的价值，是把一次成功经验变成下次可复用能力。</p>
+<p>不要把 Skill 当成“更多 prompt”。它应该像团队内部 SOP：什么时候用、怎么做、怎么验收、哪些坑不能踩。</p>  </div> </article> <aside class="toc"><p class="toc-title">目录</p><ul class="toc-list"><li class="depth-2"><a href="#实战目标">实战目标</a></li><li class="depth-2"><a href="#先定义场景">先定义场景</a></li><li class="depth-2"><a href="#最小-skill-内容">最小 Skill 内容</a></li><li class="depth-2"><a href="#放在哪里">放在哪里</a></li><li class="depth-2"><a href="#让-deerflow-识别-skill">让 DeerFlow 识别 Skill</a></li><li class="depth-2"><a href="#用一个任务验证">用一个任务验证</a></li><li class="depth-2"><a href="#调整-skill">调整 Skill</a></li><li class="depth-2"><a href="#常见失败点">常见失败点</a></li><li class="depth-2"><a href="#复盘">复盘</a></li></ul></aside> </section>  </main> <footer class="site-footer"> <div class="shell footer-inner"> <p>© 2026 未来观察者</p> </div> </footer> </body></html>

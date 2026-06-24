@@ -1,9 +1,78 @@
-<!DOCTYPE html><html lang="zh-CN"> <head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1"><title>常见问题 | 技术教程 | 未来观察者</title><meta name="description" content="DeerFlow 使用过程中的常见问题占位文档。"><meta name="generator" content="Astro v5.18.1"><meta property="og:title" content="常见问题 | 技术教程 | 未来观察者"><meta property="og:description" content="DeerFlow 使用过程中的常见问题占位文档。"><meta property="og:type" content="website"><meta property="og:url" content="https://future.lifestudylab.com/docs/deer-flow/faq/"><link rel="icon" type="image/svg+xml" href="/favicon.svg"><link rel="alternate" type="application/rss+xml" title="未来观察者" href="/rss.xml"><link rel="stylesheet" href="/_astro/_channel_.OjG1_-2m.css"></head> <body> <div class="page-bg"></div> <header class="site-header"> <div class="shell header-inner"> <div class="header-bar"> <a class="brand" href="/ai-tools/"> <img src="/brand-mark.svg" alt="" class="brand-mark" width="56" height="56"> <span class="brand-text" aria-label="未来观察者">思考未来</span> </a> </div> <nav class="top-menu" aria-label="顶部菜单"> <a href="/future-daily/" class="top-menu-link"> 每日信息 </a><a href="/docs/deer-flow/" class="top-menu-link active"> DeerFlow教程 </a><a href="/about/" class="top-menu-link"> 关于我 </a> </nav> </div> </header>  <main class="shell page-content page-content--full">  <section class="docs-shell"> <aside class="docs-sidebar" aria-label="技术教程目录"> <nav class="docs-nav-block" aria-label="DeerFlow 教程"> <p class="docs-nav-title">DeerFlow 教程</p> <ul class="docs-nav-list"> <li> <a href="/docs/deer-flow/" class="docs-nav-link"> DeerFlow 教程总览 </a> </li><li> <a href="/docs/deer-flow/quickstart/" class="docs-nav-link"> 快速开始：先把 DeerFlow 跑起来 </a> </li><li> <a href="/docs/deer-flow/config/" class="docs-nav-link"> 配置文件：看懂 config.yaml </a> </li><li> <a href="/docs/deer-flow/concepts/" class="docs-nav-link"> 核心概念：DeerFlow 到底在调度什么 </a> </li><li> <a href="/docs/deer-flow/project-structure/" class="docs-nav-link"> 项目结构：从目录看懂 DeerFlow </a> </li><li> <a href="/docs/deer-flow/execution-flow/" class="docs-nav-link"> 一次任务的完整执行链路 </a> </li><li> <a href="/docs/deer-flow/examples/" class="docs-nav-link"> 实战案例 </a> </li><li> <a href="/docs/deer-flow/faq/" class="docs-nav-link active"> 常见问题 </a> </li> </ul> </nav> </aside> <article class="docs-article"> <header class="docs-hero"> <p class="docs-kicker">Technical Guide</p> <h1>常见问题</h1> <p>DeerFlow 使用过程中的常见问题占位文档。</p> </header> <div class="docs-prose">  <h2 id="常见问题">常见问题</h2>
-<h3 id="安装失败怎么办">安装失败怎么办？</h3>
-<p>待补充。</p>
-<h3 id="配置不生效怎么办">配置不生效怎么办？</h3>
-<p>待补充。</p>
-<h3 id="如何定位运行错误">如何定位运行错误？</h3>
-<p>待补充。</p>
-<h3 id="如何扩展自己的工具">如何扩展自己的工具？</h3>
-<p>待补充。</p>  </div> </article> <aside class="toc"><p class="toc-title">目录</p><ul class="toc-list"><li class="depth-2"><a href="#常见问题">常见问题</a></li><li class="depth-3"><a href="#安装失败怎么办">安装失败怎么办？</a></li><li class="depth-3"><a href="#配置不生效怎么办">配置不生效怎么办？</a></li><li class="depth-3"><a href="#如何定位运行错误">如何定位运行错误？</a></li><li class="depth-3"><a href="#如何扩展自己的工具">如何扩展自己的工具？</a></li></ul></aside> </section>  </main> <footer class="site-footer"> <div class="shell footer-inner"> <p>© 2026 未来观察者</p> </div> </footer> </body></html>
+<!DOCTYPE html><html lang="zh-CN"> <head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1"><title>18. 部署：从本地跑到可长期使用 | 技术教程 | 未来观察者</title><meta name="description" content="从资源、Docker、配置、密钥、日志、更新和备份角度梳理 DeerFlow 长期运行部署注意事项。"><meta name="generator" content="Astro v5.18.1"><meta property="og:title" content="18. 部署：从本地跑到可长期使用 | 技术教程 | 未来观察者"><meta property="og:description" content="从资源、Docker、配置、密钥、日志、更新和备份角度梳理 DeerFlow 长期运行部署注意事项。"><meta property="og:type" content="website"><meta property="og:url" content="https://future.lifestudylab.com/docs/deer-flow/faq/"><link rel="icon" type="image/svg+xml" href="/favicon.svg"><link rel="alternate" type="application/rss+xml" title="未来观察者" href="/rss.xml"><link rel="stylesheet" href="/_astro/_channel_.OjG1_-2m.css"></head> <body> <div class="page-bg"></div> <header class="site-header"> <div class="shell header-inner"> <div class="header-bar"> <a class="brand" href="/ai-tools/"> <img src="/brand-mark.svg" alt="" class="brand-mark" width="56" height="56"> <span class="brand-text" aria-label="未来观察者">思考未来</span> </a> </div> <nav class="top-menu" aria-label="顶部菜单"> <a href="/future-daily/" class="top-menu-link"> 每日信息 </a><a href="/docs/deer-flow/" class="top-menu-link active"> DeerFlow教程 </a><a href="/about/" class="top-menu-link"> 关于我 </a> </nav> </div> </header>  <main class="shell page-content page-content--full">  <section class="docs-shell"> <aside class="docs-sidebar" aria-label="技术教程目录"> <nav class="docs-nav-block" aria-label="DeerFlow 教程"> <p class="docs-nav-title">DeerFlow 教程</p> <ul class="docs-nav-list"> <li> <a href="/docs/deer-flow/" class="docs-nav-link"> 01. DeerFlow 教程总览 </a> </li><li> <a href="/docs/deer-flow/quickstart/" class="docs-nav-link"> 02. 快速开始：先把 DeerFlow 跑起来 </a> </li><li> <a href="/docs/deer-flow/config/" class="docs-nav-link"> 03. 配置文件：看懂 config.yaml </a> </li><li> <a href="/docs/deer-flow/concepts/" class="docs-nav-link"> 04. 核心概念：DeerFlow 到底在调度什么 </a> </li><li> <a href="/docs/deer-flow/project-structure/" class="docs-nav-link"> 05. 项目结构：从目录看懂 DeerFlow </a> </li><li> <a href="/docs/deer-flow/execution-flow/" class="docs-nav-link"> 06. 一次任务的完整执行链路 </a> </li><li> <a href="/docs/deer-flow/07-tools/" class="docs-nav-link"> 07. Tools：内置工具和自定义工具 </a> </li><li> <a href="/docs/deer-flow/08-skills/" class="docs-nav-link"> 08. Skills：把一次经验沉淀成可复用能力 </a> </li><li> <a href="/docs/deer-flow/09-sub-agents/" class="docs-nav-link"> 09. Sub-agents：多智能体是怎么分工的 </a> </li><li> <a href="/docs/deer-flow/10-memory/" class="docs-nav-link"> 10. Memory：长期记忆如何参与任务 </a> </li><li> <a href="/docs/deer-flow/11-sandbox/" class="docs-nav-link"> 11. Sandbox：安全执行和文件系统 </a> </li><li> <a href="/docs/deer-flow/12-mcp/" class="docs-nav-link"> 12. MCP：接入外部工具和服务 </a> </li><li> <a href="/docs/deer-flow/13-observability/" class="docs-nav-link"> 13. 可观测性：LangSmith / Langfuse 追踪 </a> </li><li> <a href="/docs/deer-flow/examples/" class="docs-nav-link"> 14. 实战一：用 DeerFlow 做一次深度研究 </a> </li><li> <a href="/docs/deer-flow/15-example-tech-report/" class="docs-nav-link"> 15. 实战二：用 DeerFlow 生成一份技术报告 </a> </li><li> <a href="/docs/deer-flow/16-example-custom-skill/" class="docs-nav-link"> 16. 实战三：给 DeerFlow 增加一个自定义 Skill </a> </li><li> <a href="/docs/deer-flow/17-example-mcp-server/" class="docs-nav-link"> 17. 实战四：接入一个 MCP Server </a> </li><li> <a href="/docs/deer-flow/faq/" class="docs-nav-link active"> 18. 部署：从本地跑到可长期使用 </a> </li><li> <a href="/docs/deer-flow/19-advanced-roadmap/" class="docs-nav-link"> 19. 进阶路线：从使用者到改造者 </a> </li> </ul> </nav> </aside> <article class="docs-article"> <header class="docs-hero"> <p class="docs-kicker">Technical Guide</p> <h1>18. 部署：从本地跑到可长期使用</h1> <p>从资源、Docker、配置、密钥、日志、更新和备份角度梳理 DeerFlow 长期运行部署注意事项。</p> </header> <div class="docs-prose">  <h2 id="本地跑通不等于可以长期运行">本地跑通不等于可以长期运行</h2>
+<p><code>make dev</code> 能跑起来，只说明开发环境可用。</p>
+<p>如果要让 DeerFlow 长期服务自己或团队，还要考虑资源、配置、密钥、安全、日志、升级和备份。</p>
+<p>这一篇不是完整运维手册，只给部署前必须想清楚的主线。</p>
+<h2 id="先选部署形态">先选部署形态</h2>
+<p>常见选择：</p>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<table><thead><tr><th>形态</th><th>适合场景</th></tr></thead><tbody><tr><td>本地开发</td><td>改源码、调试、个人体验</td></tr><tr><td>Docker 开发</td><td>本地稳定体验、接近真实环境</td></tr><tr><td>生产 Docker</td><td>长期运行、固定入口、统一配置</td></tr><tr><td>Kubernetes / Provisioner</td><td>团队共享、多任务、隔离要求高</td></tr></tbody></table>
+<p>个人学习阶段不需要一上来 Kubernetes。先 Docker 跑稳更重要。</p>
+<h2 id="资源规划">资源规划</h2>
+<p>官方 README 给了资源建议。可以按这个思路理解：</p>
+<ul>
+<li>本地体验：至少要能跑前端、后端、nginx 和外部模型调用；</li>
+<li>Docker 开发：还要考虑镜像、容器、sandbox；</li>
+<li>长期服务：要考虑多任务、报告生成、文件产物和日志。</li>
+</ul>
+<p>如果还要本机部署大模型，资源要单独算，不要把模型服务和 DeerFlow 混在一个预算里。</p>
+<h2 id="配置管理">配置管理</h2>
+<p>长期运行时，<code>config.yaml</code> 要当成重要配置资产管理。</p>
+<p>建议：不提交真实密钥，用 <code>.env</code> 或部署平台 secret 管理 key，开发、测试、生产分开，记录配置变更，升级前备份配置，关注 <code>config_version</code>。</p>
+<p>如果官方 <code>config.example.yaml</code> 更新了，应该用 <code>make config-upgrade</code> 或官方推荐方式合并新字段，而不是手工乱补。</p>
+<h2 id="密钥管理">密钥管理</h2>
+<p>不要把 API key 写进仓库。</p>
+<p>常见密钥包括模型 provider key、搜索 provider key、MCP server token、IM 渠道 secret、tracing 平台 key。</p>
+<p>团队环境要控制谁能读取这些 key。Agent 执行环境也不应该默认拿到所有密钥。</p>
+<h2 id="网络和入口">网络和入口</h2>
+<p>如果只是本机访问，默认本地端口就够。</p>
+<p>如果要对外开放，需要考虑 HTTPS、登录认证、访问控制、反向代理、防止公网直接暴露高风险接口、IM channel 的平台权限。</p>
+<p>不要把带 bash、文件写入、MCP 写入工具的 Agent 无认证暴露到公网。</p>
+<h2 id="日志和可观测性">日志和可观测性</h2>
+<p>长期运行必须能查问题。</p>
+<p>至少要能看到 Gateway 日志、Agent runtime 错误、工具调用失败、sandbox 启动失败、模型 provider 报错、token 和成本趋势。</p>
+<p>复杂任务建议配置 LangSmith / Langfuse 之类 tracing。</p>
+<h2 id="文件和状态备份">文件和状态备份</h2>
+<p>DeerFlow 运行期状态默认可能在项目根目录下 <code>.deer-flow</code>，也可以通过 <code>DEER_FLOW_HOME</code> 改位置。</p>
+<p>长期运行时要考虑状态数据放哪里、生成文件放哪里、skills 放哪里、是否需要备份、升级会不会覆盖、多用户是否隔离。</p>
+<p>配置和 skills 都是资产，不要只备份源码。</p>
+<h2 id="更新版本">更新版本</h2>
+<p>升级前建议：备份 <code>config.yaml</code>、<code>.env</code>、skills、运行期数据；阅读官方更新说明；检查 <code>config.example.yaml</code> 的 <code>config_version</code>；在测试环境先跑；运行 <code>make doctor</code>；验证模型、搜索、sandbox、文件写入、MCP。</p>
+<p>不要在生产环境直接拉最新代码重启。</p>
+<h2 id="常见部署问题">常见部署问题</h2>
+<ul>
+<li>Docker daemon 权限不足；</li>
+<li>端口被占用；</li>
+<li><code>.env</code> 没被加载；</li>
+<li>配置文件路径不对；</li>
+<li>sandbox 镜像没拉；</li>
+<li>模型 API key 过期；</li>
+<li>搜索 provider 不可用；</li>
+<li>反向代理路径配置错误。</li>
+</ul>
+<p>排查时按层看：服务是否启动、配置是否加载、模型是否可用、工具是否可用、前端是否能连 Gateway。</p>
+<h2 id="完成标准">完成标准</h2>
+<p>一个可长期使用的部署，至少应该满足：服务可重启、配置可恢复、密钥不入库、日志可查询、文件和状态有备份、高风险工具有权限边界、升级有回滚方案。</p>  </div> </article> <aside class="toc"><p class="toc-title">目录</p><ul class="toc-list"><li class="depth-2"><a href="#本地跑通不等于可以长期运行">本地跑通不等于可以长期运行</a></li><li class="depth-2"><a href="#先选部署形态">先选部署形态</a></li><li class="depth-2"><a href="#资源规划">资源规划</a></li><li class="depth-2"><a href="#配置管理">配置管理</a></li><li class="depth-2"><a href="#密钥管理">密钥管理</a></li><li class="depth-2"><a href="#网络和入口">网络和入口</a></li><li class="depth-2"><a href="#日志和可观测性">日志和可观测性</a></li><li class="depth-2"><a href="#文件和状态备份">文件和状态备份</a></li><li class="depth-2"><a href="#更新版本">更新版本</a></li><li class="depth-2"><a href="#常见部署问题">常见部署问题</a></li><li class="depth-2"><a href="#完成标准">完成标准</a></li></ul></aside> </section>  </main> <footer class="site-footer"> <div class="shell footer-inner"> <p>© 2026 未来观察者</p> </div> </footer> </body></html>

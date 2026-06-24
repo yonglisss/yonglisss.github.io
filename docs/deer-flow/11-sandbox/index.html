@@ -1,0 +1,59 @@
+<!DOCTYPE html><html lang="zh-CN"> <head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1"><title>11. Sandbox：安全执行和文件系统 | 技术教程 | 未来观察者</title><meta name="description" content="理解 sandbox 和文件系统边界：为什么需要隔离、能隔离什么、不能隔离什么，以及本地和 Docker 模式取舍。"><meta name="generator" content="Astro v5.18.1"><meta property="og:title" content="11. Sandbox：安全执行和文件系统 | 技术教程 | 未来观察者"><meta property="og:description" content="理解 sandbox 和文件系统边界：为什么需要隔离、能隔离什么、不能隔离什么，以及本地和 Docker 模式取舍。"><meta property="og:type" content="website"><meta property="og:url" content="https://future.lifestudylab.com/docs/deer-flow/11-sandbox/"><link rel="icon" type="image/svg+xml" href="/favicon.svg"><link rel="alternate" type="application/rss+xml" title="未来观察者" href="/rss.xml"><link rel="stylesheet" href="/_astro/_channel_.OjG1_-2m.css"></head> <body> <div class="page-bg"></div> <header class="site-header"> <div class="shell header-inner"> <div class="header-bar"> <a class="brand" href="/ai-tools/"> <img src="/brand-mark.svg" alt="" class="brand-mark" width="56" height="56"> <span class="brand-text" aria-label="未来观察者">思考未来</span> </a> </div> <nav class="top-menu" aria-label="顶部菜单"> <a href="/future-daily/" class="top-menu-link"> 每日信息 </a><a href="/docs/deer-flow/" class="top-menu-link active"> DeerFlow教程 </a><a href="/about/" class="top-menu-link"> 关于我 </a> </nav> </div> </header>  <main class="shell page-content page-content--full">  <section class="docs-shell"> <aside class="docs-sidebar" aria-label="技术教程目录"> <nav class="docs-nav-block" aria-label="DeerFlow 教程"> <p class="docs-nav-title">DeerFlow 教程</p> <ul class="docs-nav-list"> <li> <a href="/docs/deer-flow/" class="docs-nav-link"> 01. DeerFlow 教程总览 </a> </li><li> <a href="/docs/deer-flow/quickstart/" class="docs-nav-link"> 02. 快速开始：先把 DeerFlow 跑起来 </a> </li><li> <a href="/docs/deer-flow/config/" class="docs-nav-link"> 03. 配置文件：看懂 config.yaml </a> </li><li> <a href="/docs/deer-flow/concepts/" class="docs-nav-link"> 04. 核心概念：DeerFlow 到底在调度什么 </a> </li><li> <a href="/docs/deer-flow/project-structure/" class="docs-nav-link"> 05. 项目结构：从目录看懂 DeerFlow </a> </li><li> <a href="/docs/deer-flow/execution-flow/" class="docs-nav-link"> 06. 一次任务的完整执行链路 </a> </li><li> <a href="/docs/deer-flow/07-tools/" class="docs-nav-link"> 07. Tools：内置工具和自定义工具 </a> </li><li> <a href="/docs/deer-flow/08-skills/" class="docs-nav-link"> 08. Skills：把一次经验沉淀成可复用能力 </a> </li><li> <a href="/docs/deer-flow/09-sub-agents/" class="docs-nav-link"> 09. Sub-agents：多智能体是怎么分工的 </a> </li><li> <a href="/docs/deer-flow/10-memory/" class="docs-nav-link"> 10. Memory：长期记忆如何参与任务 </a> </li><li> <a href="/docs/deer-flow/11-sandbox/" class="docs-nav-link active"> 11. Sandbox：安全执行和文件系统 </a> </li><li> <a href="/docs/deer-flow/12-mcp/" class="docs-nav-link"> 12. MCP：接入外部工具和服务 </a> </li><li> <a href="/docs/deer-flow/13-observability/" class="docs-nav-link"> 13. 可观测性：LangSmith / Langfuse 追踪 </a> </li><li> <a href="/docs/deer-flow/examples/" class="docs-nav-link"> 14. 实战一：用 DeerFlow 做一次深度研究 </a> </li><li> <a href="/docs/deer-flow/15-example-tech-report/" class="docs-nav-link"> 15. 实战二：用 DeerFlow 生成一份技术报告 </a> </li><li> <a href="/docs/deer-flow/16-example-custom-skill/" class="docs-nav-link"> 16. 实战三：给 DeerFlow 增加一个自定义 Skill </a> </li><li> <a href="/docs/deer-flow/17-example-mcp-server/" class="docs-nav-link"> 17. 实战四：接入一个 MCP Server </a> </li><li> <a href="/docs/deer-flow/faq/" class="docs-nav-link"> 18. 部署：从本地跑到可长期使用 </a> </li><li> <a href="/docs/deer-flow/19-advanced-roadmap/" class="docs-nav-link"> 19. 进阶路线：从使用者到改造者 </a> </li> </ul> </nav> </aside> <article class="docs-article"> <header class="docs-hero"> <p class="docs-kicker">Technical Guide</p> <h1>11. Sandbox：安全执行和文件系统</h1> <p>理解 sandbox 和文件系统边界：为什么需要隔离、能隔离什么、不能隔离什么，以及本地和 Docker 模式取舍。</p> </header> <div class="docs-prose">  <h2 id="只要能执行就必须谈边界">只要能执行，就必须谈边界</h2>
+<p>Agent 一旦能执行命令、写文件、运行代码，就不再只是聊天工具。它开始接触真实环境。</p>
+<p>这时最重要的问题不是“能不能做”，而是“在哪里做、能做多大范围、出错后影响什么”。Sandbox 就是为了解决这个问题。</p>
+<h2 id="sandbox-解决什么问题">Sandbox 解决什么问题</h2>
+<p>Sandbox 的作用是隔离执行环境。</p>
+<p>它不能让所有风险消失，但可以降低误改宿主机文件、依赖安装污染环境、脚本副作用、多任务互相影响等风险。</p>
+<p>你可以把 sandbox 理解成 Agent 的工作间。它可以在里面读写、执行、生成产物，但边界要明确。</p>
+<h2 id="deerflow-支持哪些执行模式">DeerFlow 支持哪些执行模式</h2>
+<p>官方文档里提到的 sandbox 思路包括本地执行、Docker / Container sandbox、Docker + Kubernetes provisioner。</p>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<table><thead><tr><th>模式</th><th>适合场景</th><th>风险 / 成本</th></tr></thead><tbody><tr><td>本地执行</td><td>快速开发、低风险任务</td><td>容易影响宿主机</td></tr><tr><td>Docker sandbox</td><td>本地体验、常规执行任务</td><td>首次拉镜像慢，占资源</td></tr><tr><td>Provisioner / Kubernetes</td><td>共享环境、长期服务、团队使用</td><td>配置复杂，运维成本高</td></tr></tbody></table>
+<p>入门阶段推荐先用 Docker 路线。</p>
+<h2 id="sandbox-和-file-system-的关系">Sandbox 和 File System 的关系</h2>
+<p>Agent 可能需要读取输入文件、修改项目代码、保存 Markdown 报告、生成图表、写临时脚本。</p>
+<p>这些文件写在哪里，取决于运行目录、挂载目录和 sandbox 配置。</p>
+<p>如果 Agent 说文件已生成但页面找不到产物，可能是写到 sandbox 临时目录、写到错误工作目录、没有被 artifact 系统收集、权限不足或前端没刷新。</p>
+<h2 id="docker-模式为什么第一次慢">Docker 模式为什么第一次慢</h2>
+<p>Docker 模式第一次启动常见慢点：拉取 sandbox 镜像、构建镜像、安装依赖、挂载源码、启动多个服务。</p>
+<p>可以先执行：</p>
+<pre class="astro-code github-light" style="background-color:#fff;color:#24292e; overflow-x: auto;" tabindex="0" data-language="bash"><code><span class="line"><span style="color:#6F42C1">make</span><span style="color:#032F62"> setup-sandbox</span></span></code></pre>
+<p>或 Docker 开发模式：</p>
+<pre class="astro-code github-light" style="background-color:#fff;color:#24292e; overflow-x: auto;" tabindex="0" data-language="bash"><code><span class="line"><span style="color:#6F42C1">make</span><span style="color:#032F62"> docker-init</span></span>
+<span class="line"><span style="color:#6F42C1">make</span><span style="color:#032F62"> docker-start</span></span></code></pre>
+<p>第一次慢是正常的，第二次通常会快很多。</p>
+<h2 id="本地执行的风险">本地执行的风险</h2>
+<p>本地执行最方便，也最危险。</p>
+<p>建议在干净工作区测试，不给高权限用户运行，修改前先看 diff，写文件后立即验证，对危险命令保持人工确认。</p>
+<h2 id="sandbox-不是绝对安全">Sandbox 不是绝对安全</h2>
+<p>仍然要考虑容器挂载、网络权限、环境变量密钥、文件系统权限、Docker socket 是否暴露、任务是否来自不可信输入。</p>
+<p>如果把 DeerFlow 暴露到公网或团队环境，必须额外做认证、权限、审计和资源限制。</p>
+<h2 id="文件写入怎么控制">文件写入怎么控制</h2>
+<p>至少控制路径、覆盖、验证三件事。</p>
+<p>代码项目写完后看 diff 并运行测试；文档项目写完后跑 build；数据文件检查格式和行数。</p>
+<h2 id="完成标准">完成标准</h2>
+<p>读完后，你应该知道 sandbox 为什么是执行型 Agent 的核心边界，也知道它不能替代权限、认证和审计。</p>  </div> </article> <aside class="toc"><p class="toc-title">目录</p><ul class="toc-list"><li class="depth-2"><a href="#只要能执行就必须谈边界">只要能执行，就必须谈边界</a></li><li class="depth-2"><a href="#sandbox-解决什么问题">Sandbox 解决什么问题</a></li><li class="depth-2"><a href="#deerflow-支持哪些执行模式">DeerFlow 支持哪些执行模式</a></li><li class="depth-2"><a href="#sandbox-和-file-system-的关系">Sandbox 和 File System 的关系</a></li><li class="depth-2"><a href="#docker-模式为什么第一次慢">Docker 模式为什么第一次慢</a></li><li class="depth-2"><a href="#本地执行的风险">本地执行的风险</a></li><li class="depth-2"><a href="#sandbox-不是绝对安全">Sandbox 不是绝对安全</a></li><li class="depth-2"><a href="#文件写入怎么控制">文件写入怎么控制</a></li><li class="depth-2"><a href="#完成标准">完成标准</a></li></ul></aside> </section>  </main> <footer class="site-footer"> <div class="shell footer-inner"> <p>© 2026 未来观察者</p> </div> </footer> </body></html>

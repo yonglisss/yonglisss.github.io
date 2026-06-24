@@ -1,0 +1,35 @@
+<!DOCTYPE html><html lang="zh-CN"> <head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1"><title>10. Memory：长期记忆如何参与任务 | 技术教程 | 未来观察者</title><meta name="description" content="理解长期记忆：哪些信息值得记、哪些不能记、如何避免污染，以及它和上下文、skill 的区别。"><meta name="generator" content="Astro v5.18.1"><meta property="og:title" content="10. Memory：长期记忆如何参与任务 | 技术教程 | 未来观察者"><meta property="og:description" content="理解长期记忆：哪些信息值得记、哪些不能记、如何避免污染，以及它和上下文、skill 的区别。"><meta property="og:type" content="website"><meta property="og:url" content="https://future.lifestudylab.com/docs/deer-flow/10-memory/"><link rel="icon" type="image/svg+xml" href="/favicon.svg"><link rel="alternate" type="application/rss+xml" title="未来观察者" href="/rss.xml"><link rel="stylesheet" href="/_astro/_channel_.OjG1_-2m.css"></head> <body> <div class="page-bg"></div> <header class="site-header"> <div class="shell header-inner"> <div class="header-bar"> <a class="brand" href="/ai-tools/"> <img src="/brand-mark.svg" alt="" class="brand-mark" width="56" height="56"> <span class="brand-text" aria-label="未来观察者">思考未来</span> </a> </div> <nav class="top-menu" aria-label="顶部菜单"> <a href="/future-daily/" class="top-menu-link"> 每日信息 </a><a href="/docs/deer-flow/" class="top-menu-link active"> DeerFlow教程 </a><a href="/about/" class="top-menu-link"> 关于我 </a> </nav> </div> </header>  <main class="shell page-content page-content--full">  <section class="docs-shell"> <aside class="docs-sidebar" aria-label="技术教程目录"> <nav class="docs-nav-block" aria-label="DeerFlow 教程"> <p class="docs-nav-title">DeerFlow 教程</p> <ul class="docs-nav-list"> <li> <a href="/docs/deer-flow/" class="docs-nav-link"> 01. DeerFlow 教程总览 </a> </li><li> <a href="/docs/deer-flow/quickstart/" class="docs-nav-link"> 02. 快速开始：先把 DeerFlow 跑起来 </a> </li><li> <a href="/docs/deer-flow/config/" class="docs-nav-link"> 03. 配置文件：看懂 config.yaml </a> </li><li> <a href="/docs/deer-flow/concepts/" class="docs-nav-link"> 04. 核心概念：DeerFlow 到底在调度什么 </a> </li><li> <a href="/docs/deer-flow/project-structure/" class="docs-nav-link"> 05. 项目结构：从目录看懂 DeerFlow </a> </li><li> <a href="/docs/deer-flow/execution-flow/" class="docs-nav-link"> 06. 一次任务的完整执行链路 </a> </li><li> <a href="/docs/deer-flow/07-tools/" class="docs-nav-link"> 07. Tools：内置工具和自定义工具 </a> </li><li> <a href="/docs/deer-flow/08-skills/" class="docs-nav-link"> 08. Skills：把一次经验沉淀成可复用能力 </a> </li><li> <a href="/docs/deer-flow/09-sub-agents/" class="docs-nav-link"> 09. Sub-agents：多智能体是怎么分工的 </a> </li><li> <a href="/docs/deer-flow/10-memory/" class="docs-nav-link active"> 10. Memory：长期记忆如何参与任务 </a> </li><li> <a href="/docs/deer-flow/11-sandbox/" class="docs-nav-link"> 11. Sandbox：安全执行和文件系统 </a> </li><li> <a href="/docs/deer-flow/12-mcp/" class="docs-nav-link"> 12. MCP：接入外部工具和服务 </a> </li><li> <a href="/docs/deer-flow/13-observability/" class="docs-nav-link"> 13. 可观测性：LangSmith / Langfuse 追踪 </a> </li><li> <a href="/docs/deer-flow/examples/" class="docs-nav-link"> 14. 实战一：用 DeerFlow 做一次深度研究 </a> </li><li> <a href="/docs/deer-flow/15-example-tech-report/" class="docs-nav-link"> 15. 实战二：用 DeerFlow 生成一份技术报告 </a> </li><li> <a href="/docs/deer-flow/16-example-custom-skill/" class="docs-nav-link"> 16. 实战三：给 DeerFlow 增加一个自定义 Skill </a> </li><li> <a href="/docs/deer-flow/17-example-mcp-server/" class="docs-nav-link"> 17. 实战四：接入一个 MCP Server </a> </li><li> <a href="/docs/deer-flow/faq/" class="docs-nav-link"> 18. 部署：从本地跑到可长期使用 </a> </li><li> <a href="/docs/deer-flow/19-advanced-roadmap/" class="docs-nav-link"> 19. 进阶路线：从使用者到改造者 </a> </li> </ul> </nav> </aside> <article class="docs-article"> <header class="docs-hero"> <p class="docs-kicker">Technical Guide</p> <h1>10. Memory：长期记忆如何参与任务</h1> <p>理解长期记忆：哪些信息值得记、哪些不能记、如何避免污染，以及它和上下文、skill 的区别。</p> </header> <div class="docs-prose">  <h2 id="memory-不是聊天记录仓库">Memory 不是聊天记录仓库</h2>
+<p>长期记忆听起来很诱人：Agent 记住用户、项目、偏好，下次自动接上。</p>
+<p>但 Memory 不是越多越好。错误记忆、过期记忆、临时进度一旦被长期保存，会让 Agent 下次继续犯错。</p>
+<p>所以学习 Memory，第一件事不是看怎么存，而是看什么值得存。</p>
+<h2 id="memory-解决什么问题">Memory 解决什么问题</h2>
+<p>模型上下文有限。如果所有历史都靠当前对话传递，用户需要反复说明偏好，项目固定路径每次都要重复，常用流程容易忘。</p>
+<p>Memory 的作用，是保存长期稳定的信息，让 Agent 下次能直接使用。</p>
+<h2 id="适合进入-memory-的信息">适合进入 Memory 的信息</h2>
+<p>适合保存的信息通常长期有效、多次任务会用到、已经被用户确认、不容易从当前环境直接查到、能减少未来沟通成本。</p>
+<p>例如：用户偏好中文短回复、某项目常用路径、代码提交作者邮箱、内容写作不营销、知识库默认目录。</p>
+<h2 id="不适合进入-memory-的信息">不适合进入 Memory 的信息</h2>
+<p>某次任务进度、临时 bug、提交 hash、PR 编号、一周后会过期的数据、未验证猜测，都不适合。</p>
+<p>这些更适合保存在当前会话、项目文档、issue、commit 或任务系统里。</p>
+<h2 id="memory-和当前上下文的区别">Memory 和当前上下文的区别</h2>
+<p>当前上下文是这次任务正在使用的信息。Memory 是长期背景。</p>
+<p>Memory 给方向，工具给事实。如果 Memory 说项目路径是 A，但当前文件系统里路径变成了 B，应该相信当前工具检查结果。</p>
+<h2 id="memory-和-skill-的区别">Memory 和 Skill 的区别</h2>
+<p>Memory 保存事实，Skill 保存流程。</p>
+<p>“用户偏好默认中文沟通”是 Memory。<br>
+“写教程时先查官方文档，再运行构建验证”是 Skill。</p>
+<h2 id="自动记忆的风险">自动记忆的风险</h2>
+<p>如果系统自动把所有对话都提取成记忆，会把临时偏好当成永久偏好，把错误路径保存，把未完成任务当成事实。</p>
+<p>对于技术工作，宁可少记一点，也不要把未验证信息长期保存。</p>
+<h2 id="团队场景里的-memory">团队场景里的 Memory</h2>
+<p>团队环境要考虑 Memory 是个人级还是团队级，谁可以写入，谁可以读取，是否包含敏感信息，是否需要审计。</p>
+<p>不要把密钥、隐私信息或敏感业务数据随意写入长期记忆。</p>
+<h2 id="常见失败点">常见失败点</h2>
+<ul>
+<li>记住了临时状态；</li>
+<li>记住了错误结论；</li>
+<li>记忆过多干扰上下文；</li>
+<li>用 Memory 替代当前检查。</li>
+</ul>
+<h2 id="完成标准">完成标准</h2>
+<p>读完后，你应该能分清什么信息适合长期记忆，什么只属于当前任务，以及为什么错误记忆比没有记忆更危险。</p>  </div> </article> <aside class="toc"><p class="toc-title">目录</p><ul class="toc-list"><li class="depth-2"><a href="#memory-不是聊天记录仓库">Memory 不是聊天记录仓库</a></li><li class="depth-2"><a href="#memory-解决什么问题">Memory 解决什么问题</a></li><li class="depth-2"><a href="#适合进入-memory-的信息">适合进入 Memory 的信息</a></li><li class="depth-2"><a href="#不适合进入-memory-的信息">不适合进入 Memory 的信息</a></li><li class="depth-2"><a href="#memory-和当前上下文的区别">Memory 和当前上下文的区别</a></li><li class="depth-2"><a href="#memory-和-skill-的区别">Memory 和 Skill 的区别</a></li><li class="depth-2"><a href="#自动记忆的风险">自动记忆的风险</a></li><li class="depth-2"><a href="#团队场景里的-memory">团队场景里的 Memory</a></li><li class="depth-2"><a href="#常见失败点">常见失败点</a></li><li class="depth-2"><a href="#完成标准">完成标准</a></li></ul></aside> </section>  </main> <footer class="site-footer"> <div class="shell footer-inner"> <p>© 2026 未来观察者</p> </div> </footer> </body></html>

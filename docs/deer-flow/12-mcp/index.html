@@ -1,0 +1,54 @@
+<!DOCTYPE html><html lang="zh-CN"> <head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1"><title>12. MCP：接入外部工具和服务 | 技术教程 | 未来观察者</title><meta name="description" content="理解 MCP 的作用：什么时候用 MCP、如何配置、如何验证工具可见，以及常见连接和权限问题。"><meta name="generator" content="Astro v5.18.1"><meta property="og:title" content="12. MCP：接入外部工具和服务 | 技术教程 | 未来观察者"><meta property="og:description" content="理解 MCP 的作用：什么时候用 MCP、如何配置、如何验证工具可见，以及常见连接和权限问题。"><meta property="og:type" content="website"><meta property="og:url" content="https://future.lifestudylab.com/docs/deer-flow/12-mcp/"><link rel="icon" type="image/svg+xml" href="/favicon.svg"><link rel="alternate" type="application/rss+xml" title="未来观察者" href="/rss.xml"><link rel="stylesheet" href="/_astro/_channel_.OjG1_-2m.css"></head> <body> <div class="page-bg"></div> <header class="site-header"> <div class="shell header-inner"> <div class="header-bar"> <a class="brand" href="/ai-tools/"> <img src="/brand-mark.svg" alt="" class="brand-mark" width="56" height="56"> <span class="brand-text" aria-label="未来观察者">思考未来</span> </a> </div> <nav class="top-menu" aria-label="顶部菜单"> <a href="/future-daily/" class="top-menu-link"> 每日信息 </a><a href="/docs/deer-flow/" class="top-menu-link active"> DeerFlow教程 </a><a href="/about/" class="top-menu-link"> 关于我 </a> </nav> </div> </header>  <main class="shell page-content page-content--full">  <section class="docs-shell"> <aside class="docs-sidebar" aria-label="技术教程目录"> <nav class="docs-nav-block" aria-label="DeerFlow 教程"> <p class="docs-nav-title">DeerFlow 教程</p> <ul class="docs-nav-list"> <li> <a href="/docs/deer-flow/" class="docs-nav-link"> 01. DeerFlow 教程总览 </a> </li><li> <a href="/docs/deer-flow/quickstart/" class="docs-nav-link"> 02. 快速开始：先把 DeerFlow 跑起来 </a> </li><li> <a href="/docs/deer-flow/config/" class="docs-nav-link"> 03. 配置文件：看懂 config.yaml </a> </li><li> <a href="/docs/deer-flow/concepts/" class="docs-nav-link"> 04. 核心概念：DeerFlow 到底在调度什么 </a> </li><li> <a href="/docs/deer-flow/project-structure/" class="docs-nav-link"> 05. 项目结构：从目录看懂 DeerFlow </a> </li><li> <a href="/docs/deer-flow/execution-flow/" class="docs-nav-link"> 06. 一次任务的完整执行链路 </a> </li><li> <a href="/docs/deer-flow/07-tools/" class="docs-nav-link"> 07. Tools：内置工具和自定义工具 </a> </li><li> <a href="/docs/deer-flow/08-skills/" class="docs-nav-link"> 08. Skills：把一次经验沉淀成可复用能力 </a> </li><li> <a href="/docs/deer-flow/09-sub-agents/" class="docs-nav-link"> 09. Sub-agents：多智能体是怎么分工的 </a> </li><li> <a href="/docs/deer-flow/10-memory/" class="docs-nav-link"> 10. Memory：长期记忆如何参与任务 </a> </li><li> <a href="/docs/deer-flow/11-sandbox/" class="docs-nav-link"> 11. Sandbox：安全执行和文件系统 </a> </li><li> <a href="/docs/deer-flow/12-mcp/" class="docs-nav-link active"> 12. MCP：接入外部工具和服务 </a> </li><li> <a href="/docs/deer-flow/13-observability/" class="docs-nav-link"> 13. 可观测性：LangSmith / Langfuse 追踪 </a> </li><li> <a href="/docs/deer-flow/examples/" class="docs-nav-link"> 14. 实战一：用 DeerFlow 做一次深度研究 </a> </li><li> <a href="/docs/deer-flow/15-example-tech-report/" class="docs-nav-link"> 15. 实战二：用 DeerFlow 生成一份技术报告 </a> </li><li> <a href="/docs/deer-flow/16-example-custom-skill/" class="docs-nav-link"> 16. 实战三：给 DeerFlow 增加一个自定义 Skill </a> </li><li> <a href="/docs/deer-flow/17-example-mcp-server/" class="docs-nav-link"> 17. 实战四：接入一个 MCP Server </a> </li><li> <a href="/docs/deer-flow/faq/" class="docs-nav-link"> 18. 部署：从本地跑到可长期使用 </a> </li><li> <a href="/docs/deer-flow/19-advanced-roadmap/" class="docs-nav-link"> 19. 进阶路线：从使用者到改造者 </a> </li> </ul> </nav> </aside> <article class="docs-article"> <header class="docs-hero"> <p class="docs-kicker">Technical Guide</p> <h1>12. MCP：接入外部工具和服务</h1> <p>理解 MCP 的作用：什么时候用 MCP、如何配置、如何验证工具可见，以及常见连接和权限问题。</p> </header> <div class="docs-prose">  <h2 id="mcp-解决的是工具接入问题">MCP 解决的是工具接入问题</h2>
+<p>Agent 要真正有用，迟早要接外部系统：GitHub、数据库、文档系统、浏览器、内部 API、云服务、企业知识库。</p>
+<p>如果每接一个系统都写一套专用适配，成本会很高。MCP 的价值，是用相对统一的协议把外部能力暴露给 Agent。</p>
+<h2 id="mcp-server-是什么">MCP Server 是什么</h2>
+<p>可以先把 MCP Server 理解成“工具服务”。</p>
+<p>它对外提供一组工具，Agent 通过 MCP Client 发现并调用这些工具。</p>
+<p>例如 GitHub MCP Server 可能提供搜索 issue、读取 PR、创建 comment、查询 workflow、获取文件内容等能力。</p>
+<h2 id="mcp-和内置-tool-的区别">MCP 和内置 Tool 的区别</h2>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<table><thead><tr><th>类型</th><th>适合场景</th></tr></thead><tbody><tr><td>内置 Tool</td><td>通用能力，如文件、bash、搜索、图片</td></tr><tr><td>Community Tool</td><td>常见第三方能力，如 Tavily、Firecrawl</td></tr><tr><td>MCP Tool</td><td>外部服务、企业系统、可独立运行的工具服务</td></tr></tbody></table>
+<p>如果某个能力只在 DeerFlow 内使用，写内置 tool 可能更直接。如果希望多个 Agent 系统都能调用，做成 MCP server 更有复用价值。</p>
+<h2 id="什么时候应该用-mcp">什么时候应该用 MCP</h2>
+<p>适合用 MCP 的场景：已有现成 MCP server、工具需要独立部署、服务需要自己的认证和权限、未来可能被多个 Agent 使用、工具输入输出结构化。</p>
+<p>不适合的场景：一次性脚本、功能很简单、schema 不稳定、服务无法长期运行、权限模型没设计好。</p>
+<h2 id="配置-mcp-的基本思路">配置 MCP 的基本思路</h2>
+<p>具体字段以 DeerFlow 当前官方配置为准。一般会涉及 server 名称、启动方式或 URL、传输方式、token / OAuth、是否启用、工具发现和缓存。</p>
+<p>本地 stdio server 重点看启动命令。HTTP / SSE server 重点看 URL、认证和网络可达性。</p>
+<h2 id="验证-mcp-是否接入成功">验证 MCP 是否接入成功</h2>
+<p>不要一接完就跑复杂任务。</p>
+<p>分层验证：server 能否单独启动、DeerFlow 能否连接、工具列表是否可见、schema 是否正常、用简单参数调用只读工具、再让 Agent 在真实任务中使用。</p>
+<p>如果工具列表不可见，问题不在模型，而在 MCP 配置或连接。</p>
+<h2 id="工具命名很重要">工具命名很重要</h2>
+<p>模型选择工具时，会看工具名和描述。</p>
+<p>不好的命名：<code>do_thing</code>、<code>query</code>、<code>run</code>。</p>
+<p>更好的命名：<code>search_github_issues</code>、<code>read_notion_page</code>、<code>query_customer_orders</code>。</p>
+<p>工具描述要说明做什么、输入字段、返回什么、限制是什么、是否有副作用。</p>
+<h2 id="权限和副作用">权限和副作用</h2>
+<p>MCP 工具可能创建 issue、更新数据库、发送消息、部署服务。</p>
+<p>只读工具可以较宽松；写入工具需要确认或权限；删除、发布、部署工具必须有强约束和审计。</p>
+<h2 id="mcp-和-skills-配合">MCP 和 Skills 配合</h2>
+<p>MCP 提供能力，Skill 提供用法。</p>
+<p>接了 GitHub MCP，最好再有 GitHub 工作流 skill，告诉 Agent 查 issue 前先确认 repo、push 后检查 CI、不要把 PR 创建当成完成交付。</p>
+<h2 id="完成标准">完成标准</h2>
+<p>读完后，你应该知道 MCP 是外部工具接入层，server 要先独立验证，工具 schema 和权限会直接影响 Agent 可用性。</p>  </div> </article> <aside class="toc"><p class="toc-title">目录</p><ul class="toc-list"><li class="depth-2"><a href="#mcp-解决的是工具接入问题">MCP 解决的是工具接入问题</a></li><li class="depth-2"><a href="#mcp-server-是什么">MCP Server 是什么</a></li><li class="depth-2"><a href="#mcp-和内置-tool-的区别">MCP 和内置 Tool 的区别</a></li><li class="depth-2"><a href="#什么时候应该用-mcp">什么时候应该用 MCP</a></li><li class="depth-2"><a href="#配置-mcp-的基本思路">配置 MCP 的基本思路</a></li><li class="depth-2"><a href="#验证-mcp-是否接入成功">验证 MCP 是否接入成功</a></li><li class="depth-2"><a href="#工具命名很重要">工具命名很重要</a></li><li class="depth-2"><a href="#权限和副作用">权限和副作用</a></li><li class="depth-2"><a href="#mcp-和-skills-配合">MCP 和 Skills 配合</a></li><li class="depth-2"><a href="#完成标准">完成标准</a></li></ul></aside> </section>  </main> <footer class="site-footer"> <div class="shell footer-inner"> <p>© 2026 未来观察者</p> </div> </footer> </body></html>

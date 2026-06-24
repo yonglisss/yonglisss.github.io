@@ -1,0 +1,37 @@
+<!DOCTYPE html><html lang="zh-CN"> <head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1"><title>13. 可观测性：LangSmith / Langfuse 追踪 | 技术教程 | 未来观察者</title><meta name="description" content="讲清 Agent 为什么需要 tracing，如何观察模型调用、工具链路、成本、延迟和失败原因。"><meta name="generator" content="Astro v5.18.1"><meta property="og:title" content="13. 可观测性：LangSmith / Langfuse 追踪 | 技术教程 | 未来观察者"><meta property="og:description" content="讲清 Agent 为什么需要 tracing，如何观察模型调用、工具链路、成本、延迟和失败原因。"><meta property="og:type" content="website"><meta property="og:url" content="https://future.lifestudylab.com/docs/deer-flow/13-observability/"><link rel="icon" type="image/svg+xml" href="/favicon.svg"><link rel="alternate" type="application/rss+xml" title="未来观察者" href="/rss.xml"><link rel="stylesheet" href="/_astro/_channel_.OjG1_-2m.css"></head> <body> <div class="page-bg"></div> <header class="site-header"> <div class="shell header-inner"> <div class="header-bar"> <a class="brand" href="/ai-tools/"> <img src="/brand-mark.svg" alt="" class="brand-mark" width="56" height="56"> <span class="brand-text" aria-label="未来观察者">思考未来</span> </a> </div> <nav class="top-menu" aria-label="顶部菜单"> <a href="/future-daily/" class="top-menu-link"> 每日信息 </a><a href="/docs/deer-flow/" class="top-menu-link active"> DeerFlow教程 </a><a href="/about/" class="top-menu-link"> 关于我 </a> </nav> </div> </header>  <main class="shell page-content page-content--full">  <section class="docs-shell"> <aside class="docs-sidebar" aria-label="技术教程目录"> <nav class="docs-nav-block" aria-label="DeerFlow 教程"> <p class="docs-nav-title">DeerFlow 教程</p> <ul class="docs-nav-list"> <li> <a href="/docs/deer-flow/" class="docs-nav-link"> 01. DeerFlow 教程总览 </a> </li><li> <a href="/docs/deer-flow/quickstart/" class="docs-nav-link"> 02. 快速开始：先把 DeerFlow 跑起来 </a> </li><li> <a href="/docs/deer-flow/config/" class="docs-nav-link"> 03. 配置文件：看懂 config.yaml </a> </li><li> <a href="/docs/deer-flow/concepts/" class="docs-nav-link"> 04. 核心概念：DeerFlow 到底在调度什么 </a> </li><li> <a href="/docs/deer-flow/project-structure/" class="docs-nav-link"> 05. 项目结构：从目录看懂 DeerFlow </a> </li><li> <a href="/docs/deer-flow/execution-flow/" class="docs-nav-link"> 06. 一次任务的完整执行链路 </a> </li><li> <a href="/docs/deer-flow/07-tools/" class="docs-nav-link"> 07. Tools：内置工具和自定义工具 </a> </li><li> <a href="/docs/deer-flow/08-skills/" class="docs-nav-link"> 08. Skills：把一次经验沉淀成可复用能力 </a> </li><li> <a href="/docs/deer-flow/09-sub-agents/" class="docs-nav-link"> 09. Sub-agents：多智能体是怎么分工的 </a> </li><li> <a href="/docs/deer-flow/10-memory/" class="docs-nav-link"> 10. Memory：长期记忆如何参与任务 </a> </li><li> <a href="/docs/deer-flow/11-sandbox/" class="docs-nav-link"> 11. Sandbox：安全执行和文件系统 </a> </li><li> <a href="/docs/deer-flow/12-mcp/" class="docs-nav-link"> 12. MCP：接入外部工具和服务 </a> </li><li> <a href="/docs/deer-flow/13-observability/" class="docs-nav-link active"> 13. 可观测性：LangSmith / Langfuse 追踪 </a> </li><li> <a href="/docs/deer-flow/examples/" class="docs-nav-link"> 14. 实战一：用 DeerFlow 做一次深度研究 </a> </li><li> <a href="/docs/deer-flow/15-example-tech-report/" class="docs-nav-link"> 15. 实战二：用 DeerFlow 生成一份技术报告 </a> </li><li> <a href="/docs/deer-flow/16-example-custom-skill/" class="docs-nav-link"> 16. 实战三：给 DeerFlow 增加一个自定义 Skill </a> </li><li> <a href="/docs/deer-flow/17-example-mcp-server/" class="docs-nav-link"> 17. 实战四：接入一个 MCP Server </a> </li><li> <a href="/docs/deer-flow/faq/" class="docs-nav-link"> 18. 部署：从本地跑到可长期使用 </a> </li><li> <a href="/docs/deer-flow/19-advanced-roadmap/" class="docs-nav-link"> 19. 进阶路线：从使用者到改造者 </a> </li> </ul> </nav> </aside> <article class="docs-article"> <header class="docs-hero"> <p class="docs-kicker">Technical Guide</p> <h1>13. 可观测性：LangSmith / Langfuse 追踪</h1> <p>讲清 Agent 为什么需要 tracing，如何观察模型调用、工具链路、成本、延迟和失败原因。</p> </header> <div class="docs-prose">  <h2 id="agent-不可观测就很难排错">Agent 不可观测，就很难排错</h2>
+<p>普通接口失败，通常看日志、状态码、异常栈就能定位。</p>
+<p>Agent 任务失败更复杂。它可能失败在模型理解、工具选择、搜索质量、sandbox 执行、子 Agent 汇总、上下文长度、token 成本等很多层。</p>
+<p>所以 Agent 系统必须有可观测性。否则你只能看到“结果不对”，却不知道是哪一步不对。</p>
+<h2 id="tracing-解决什么问题">Tracing 解决什么问题</h2>
+<p>Tracing 可以把一次任务拆开看：每次模型调用输入了什么，输出了什么，调用了哪些工具，工具参数和返回是什么，哪一步最慢，哪一步 token 最多，失败发生在哪一层。</p>
+<p>这对调 Agent 很关键。</p>
+<h2 id="deerflow-支持哪些-tracing">DeerFlow 支持哪些 tracing</h2>
+<p>官方 README 提到 DeerFlow 支持 LangSmith 和 Langfuse 这类 tracing provider。</p>
+<p>具体配置以 <code>config.example.yaml</code> 和官方文档为准。通常会涉及是否启用 tracing、provider、API key、project / host、环境变量。</p>
+<p>入门阶段不一定马上配置 tracing，但一旦开始做复杂任务、团队服务或二开，它会很有用。</p>
+<h2 id="先看哪些指标">先看哪些指标</h2>
+<h3 id="模型调用">模型调用</h3>
+<p>看模型实际收到了什么。很多问题不是模型不会，而是上下文里没有关键信息，或塞了太多无关内容。</p>
+<h3 id="工具调用">工具调用</h3>
+<p>看 Agent 调用了哪些工具，参数是否正确。它应该读官方 README，却只看了搜索摘要，这种问题 tracing 能看到。</p>
+<h3 id="工具返回">工具返回</h3>
+<p>工具返回空、超时、被截断，都会影响结果。不要只看模型输出，要看工具是否提供了有效输入。</p>
+<h3 id="token-和成本">Token 和成本</h3>
+<p>长任务很容易成本失控。如果一次任务反复调用大模型、抓取长网页，就需要优化流程或限制 token budget。</p>
+<h3 id="延迟">延迟</h3>
+<p>看慢在哪里：模型慢、搜索慢、sandbox 慢，还是前端流式返回慢。</p>
+<h2 id="如何排查一次失败">如何排查一次失败</h2>
+<p>按顺序看：用户原始输入是否清楚，Lead Agent 第一次判断是否正确，是否选对工具，工具参数是否正确，工具返回是否有效，后续模型是否正确使用工具结果，子 Agent 是否跑偏，最终汇总是否丢约束。</p>
+<p>不要只看最后一条输出。Agent 的错误往往发生在中间。</p>
+<h2 id="日志和-tracing-的区别">日志和 tracing 的区别</h2>
+<p>日志偏系统层：服务是否启动、请求是否失败、异常是什么。</p>
+<p>Tracing 偏任务链路：模型和工具之间发生了什么。</p>
+<p>排查服务启动失败，看日志；排查 Agent 为什么答错，看 tracing。</p>
+<h2 id="隐私和安全">隐私和安全</h2>
+<p>Tracing 会记录大量输入输出，可能包含 API key、用户隐私、公司内部文档。</p>
+<p>不要为了调试，把敏感数据无脑送到外部 tracing 平台。团队环境要考虑脱敏、权限和数据保留周期。</p>
+<h2 id="token-budget">Token Budget</h2>
+<p>DeerFlow 配置里有 token budget 相关能力，可以设定单次 run 最大 token，到达阈值时提醒，超过硬限制时强制收束。</p>
+<p>这对长期任务很重要。没有预算控制，Agent 可能在搜索、总结、重试中消耗大量 token。</p>
+<h2 id="完成标准">完成标准</h2>
+<p>读完后，你应该知道 Agent 排错不能只看最终答案，tracing 能看到模型调用、工具调用和中间结果，也知道 tracing 数据可能包含敏感信息。</p>  </div> </article> <aside class="toc"><p class="toc-title">目录</p><ul class="toc-list"><li class="depth-2"><a href="#agent-不可观测就很难排错">Agent 不可观测，就很难排错</a></li><li class="depth-2"><a href="#tracing-解决什么问题">Tracing 解决什么问题</a></li><li class="depth-2"><a href="#deerflow-支持哪些-tracing">DeerFlow 支持哪些 tracing</a></li><li class="depth-2"><a href="#先看哪些指标">先看哪些指标</a></li><li class="depth-3"><a href="#模型调用">模型调用</a></li><li class="depth-3"><a href="#工具调用">工具调用</a></li><li class="depth-3"><a href="#工具返回">工具返回</a></li><li class="depth-3"><a href="#token-和成本">Token 和成本</a></li><li class="depth-3"><a href="#延迟">延迟</a></li><li class="depth-2"><a href="#如何排查一次失败">如何排查一次失败</a></li><li class="depth-2"><a href="#日志和-tracing-的区别">日志和 tracing 的区别</a></li><li class="depth-2"><a href="#隐私和安全">隐私和安全</a></li><li class="depth-2"><a href="#token-budget">Token Budget</a></li><li class="depth-2"><a href="#完成标准">完成标准</a></li></ul></aside> </section>  </main> <footer class="site-footer"> <div class="shell footer-inner"> <p>© 2026 未来观察者</p> </div> </footer> </body></html>

@@ -1,14 +1,58 @@
-<!DOCTYPE html><html lang="zh-CN"> <head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1"><title>实战案例 | 技术教程 | 未来观察者</title><meta name="description" content="DeerFlow 的案例文档占位，后续用于放可复现的技术教程。"><meta name="generator" content="Astro v5.18.1"><meta property="og:title" content="实战案例 | 技术教程 | 未来观察者"><meta property="og:description" content="DeerFlow 的案例文档占位，后续用于放可复现的技术教程。"><meta property="og:type" content="website"><meta property="og:url" content="https://future.lifestudylab.com/docs/deer-flow/examples/"><link rel="icon" type="image/svg+xml" href="/favicon.svg"><link rel="alternate" type="application/rss+xml" title="未来观察者" href="/rss.xml"><link rel="stylesheet" href="/_astro/_channel_.OjG1_-2m.css"></head> <body> <div class="page-bg"></div> <header class="site-header"> <div class="shell header-inner"> <div class="header-bar"> <a class="brand" href="/ai-tools/"> <img src="/brand-mark.svg" alt="" class="brand-mark" width="56" height="56"> <span class="brand-text" aria-label="未来观察者">思考未来</span> </a> </div> <nav class="top-menu" aria-label="顶部菜单"> <a href="/future-daily/" class="top-menu-link"> 每日信息 </a><a href="/docs/deer-flow/" class="top-menu-link active"> DeerFlow教程 </a><a href="/about/" class="top-menu-link"> 关于我 </a> </nav> </div> </header>  <main class="shell page-content page-content--full">  <section class="docs-shell"> <aside class="docs-sidebar" aria-label="技术教程目录"> <nav class="docs-nav-block" aria-label="DeerFlow 教程"> <p class="docs-nav-title">DeerFlow 教程</p> <ul class="docs-nav-list"> <li> <a href="/docs/deer-flow/" class="docs-nav-link"> DeerFlow 教程总览 </a> </li><li> <a href="/docs/deer-flow/quickstart/" class="docs-nav-link"> 快速开始：先把 DeerFlow 跑起来 </a> </li><li> <a href="/docs/deer-flow/config/" class="docs-nav-link"> 配置文件：看懂 config.yaml </a> </li><li> <a href="/docs/deer-flow/concepts/" class="docs-nav-link"> 核心概念：DeerFlow 到底在调度什么 </a> </li><li> <a href="/docs/deer-flow/project-structure/" class="docs-nav-link"> 项目结构：从目录看懂 DeerFlow </a> </li><li> <a href="/docs/deer-flow/execution-flow/" class="docs-nav-link"> 一次任务的完整执行链路 </a> </li><li> <a href="/docs/deer-flow/examples/" class="docs-nav-link active"> 实战案例 </a> </li><li> <a href="/docs/deer-flow/faq/" class="docs-nav-link"> 常见问题 </a> </li> </ul> </nav> </aside> <article class="docs-article"> <header class="docs-hero"> <p class="docs-kicker">Technical Guide</p> <h1>实战案例</h1> <p>DeerFlow 的案例文档占位，后续用于放可复现的技术教程。</p> </header> <div class="docs-prose">  <h2 id="案例列表">案例列表</h2>
-<h3 id="案例-1待补充">案例 1：待补充</h3>
-<p>目标、输入、流程和输出待补充。</p>
-<h3 id="案例-2待补充">案例 2：待补充</h3>
-<p>目标、输入、流程和输出待补充。</p>
-<h2 id="写作要求">写作要求</h2>
-<p>每个案例都应该包含：</p>
-<ol>
-<li>场景</li>
-<li>前置条件</li>
-<li>操作步骤</li>
-<li>验证方式</li>
-<li>常见问题</li>
-</ol>  </div> </article> <aside class="toc"><p class="toc-title">目录</p><ul class="toc-list"><li class="depth-2"><a href="#案例列表">案例列表</a></li><li class="depth-3"><a href="#案例-1待补充">案例 1：待补充</a></li><li class="depth-3"><a href="#案例-2待补充">案例 2：待补充</a></li><li class="depth-2"><a href="#写作要求">写作要求</a></li></ul></aside> </section>  </main> <footer class="site-footer"> <div class="shell footer-inner"> <p>© 2026 未来观察者</p> </div> </footer> </body></html>
+<!DOCTYPE html><html lang="zh-CN"> <head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1"><title>14. 实战一：用 DeerFlow 做一次深度研究 | 技术教程 | 未来观察者</title><meta name="description" content="用一个研究任务串起模型、搜索、抓取、来源检查和报告生成，理解 DeerFlow 如何完成资料型任务。"><meta name="generator" content="Astro v5.18.1"><meta property="og:title" content="14. 实战一：用 DeerFlow 做一次深度研究 | 技术教程 | 未来观察者"><meta property="og:description" content="用一个研究任务串起模型、搜索、抓取、来源检查和报告生成，理解 DeerFlow 如何完成资料型任务。"><meta property="og:type" content="website"><meta property="og:url" content="https://future.lifestudylab.com/docs/deer-flow/examples/"><link rel="icon" type="image/svg+xml" href="/favicon.svg"><link rel="alternate" type="application/rss+xml" title="未来观察者" href="/rss.xml"><link rel="stylesheet" href="/_astro/_channel_.OjG1_-2m.css"></head> <body> <div class="page-bg"></div> <header class="site-header"> <div class="shell header-inner"> <div class="header-bar"> <a class="brand" href="/ai-tools/"> <img src="/brand-mark.svg" alt="" class="brand-mark" width="56" height="56"> <span class="brand-text" aria-label="未来观察者">思考未来</span> </a> </div> <nav class="top-menu" aria-label="顶部菜单"> <a href="/future-daily/" class="top-menu-link"> 每日信息 </a><a href="/docs/deer-flow/" class="top-menu-link active"> DeerFlow教程 </a><a href="/about/" class="top-menu-link"> 关于我 </a> </nav> </div> </header>  <main class="shell page-content page-content--full">  <section class="docs-shell"> <aside class="docs-sidebar" aria-label="技术教程目录"> <nav class="docs-nav-block" aria-label="DeerFlow 教程"> <p class="docs-nav-title">DeerFlow 教程</p> <ul class="docs-nav-list"> <li> <a href="/docs/deer-flow/" class="docs-nav-link"> 01. DeerFlow 教程总览 </a> </li><li> <a href="/docs/deer-flow/quickstart/" class="docs-nav-link"> 02. 快速开始：先把 DeerFlow 跑起来 </a> </li><li> <a href="/docs/deer-flow/config/" class="docs-nav-link"> 03. 配置文件：看懂 config.yaml </a> </li><li> <a href="/docs/deer-flow/concepts/" class="docs-nav-link"> 04. 核心概念：DeerFlow 到底在调度什么 </a> </li><li> <a href="/docs/deer-flow/project-structure/" class="docs-nav-link"> 05. 项目结构：从目录看懂 DeerFlow </a> </li><li> <a href="/docs/deer-flow/execution-flow/" class="docs-nav-link"> 06. 一次任务的完整执行链路 </a> </li><li> <a href="/docs/deer-flow/07-tools/" class="docs-nav-link"> 07. Tools：内置工具和自定义工具 </a> </li><li> <a href="/docs/deer-flow/08-skills/" class="docs-nav-link"> 08. Skills：把一次经验沉淀成可复用能力 </a> </li><li> <a href="/docs/deer-flow/09-sub-agents/" class="docs-nav-link"> 09. Sub-agents：多智能体是怎么分工的 </a> </li><li> <a href="/docs/deer-flow/10-memory/" class="docs-nav-link"> 10. Memory：长期记忆如何参与任务 </a> </li><li> <a href="/docs/deer-flow/11-sandbox/" class="docs-nav-link"> 11. Sandbox：安全执行和文件系统 </a> </li><li> <a href="/docs/deer-flow/12-mcp/" class="docs-nav-link"> 12. MCP：接入外部工具和服务 </a> </li><li> <a href="/docs/deer-flow/13-observability/" class="docs-nav-link"> 13. 可观测性：LangSmith / Langfuse 追踪 </a> </li><li> <a href="/docs/deer-flow/examples/" class="docs-nav-link active"> 14. 实战一：用 DeerFlow 做一次深度研究 </a> </li><li> <a href="/docs/deer-flow/15-example-tech-report/" class="docs-nav-link"> 15. 实战二：用 DeerFlow 生成一份技术报告 </a> </li><li> <a href="/docs/deer-flow/16-example-custom-skill/" class="docs-nav-link"> 16. 实战三：给 DeerFlow 增加一个自定义 Skill </a> </li><li> <a href="/docs/deer-flow/17-example-mcp-server/" class="docs-nav-link"> 17. 实战四：接入一个 MCP Server </a> </li><li> <a href="/docs/deer-flow/faq/" class="docs-nav-link"> 18. 部署：从本地跑到可长期使用 </a> </li><li> <a href="/docs/deer-flow/19-advanced-roadmap/" class="docs-nav-link"> 19. 进阶路线：从使用者到改造者 </a> </li> </ul> </nav> </aside> <article class="docs-article"> <header class="docs-hero"> <p class="docs-kicker">Technical Guide</p> <h1>14. 实战一：用 DeerFlow 做一次深度研究</h1> <p>用一个研究任务串起模型、搜索、抓取、来源检查和报告生成，理解 DeerFlow 如何完成资料型任务。</p> </header> <div class="docs-prose">  <h2 id="实战目标">实战目标</h2>
+<p>这一篇不追求复杂功能，只做一个典型任务：让 DeerFlow 完成一次深度研究，并产出结构化报告。</p>
+<p>示例主题可以是：</p>
+<pre class="astro-code github-light" style="background-color:#fff;color:#24292e; overflow-x: auto;" tabindex="0" data-language="text"><code><span class="line"><span>请研究 DeerFlow 2.0 和普通聊天机器人的区别，要求基于官方资料，输出一份 Markdown 报告。</span></span></code></pre>
+<p>这个任务会用到模型、搜索、抓取、来源判断、报告写作和文件产物，适合检查 DeerFlow 的主链路。</p>
+<h2 id="前置条件">前置条件</h2>
+<p>先确认：</p>
+<ul>
+<li>DeerFlow 已能启动；</li>
+<li>至少有一个可用模型；</li>
+<li>搜索 provider 已配置；</li>
+<li>如果要保存文件，文件写入或 sandbox 能力可用；</li>
+<li><code>make doctor</code> 没有阻塞错误。</li>
+</ul>
+<p>如果搜索还没配置，可以先把任务改成“基于我提供的资料”，不要让模型凭空研究。</p>
+<h2 id="任务提示词">任务提示词</h2>
+<p>可以从这个提示词开始：</p>
+<pre class="astro-code github-light" style="background-color:#fff;color:#24292e; overflow-x: auto;" tabindex="0" data-language="text"><code><span class="line"><span>请基于 DeerFlow 官方 README、配置文档和官网资料，研究 DeerFlow 2.0 和普通聊天机器人的区别。</span></span>
+<span class="line"><span>要求：</span></span>
+<span class="line"><span>1. 不要只基于搜索摘要写结论，先读取官方原文。</span></span>
+<span class="line"><span>2. 报告结构包括：背景、核心差异、关键能力、适合场景、使用风险、下一步学习路线。</span></span>
+<span class="line"><span>3. 每个关键判断后标注依据来自哪个官方资料。</span></span>
+<span class="line"><span>4. 最终输出 Markdown。</span></span></code></pre>
+<p>这个提示词的重点是：要求读取原文、要求标注来源、要求结构化输出。</p>
+<h2 id="观察执行过程">观察执行过程</h2>
+<p>运行时重点看几个点：</p>
+<ul>
+<li>是否真的调用了搜索或抓取工具；</li>
+<li>是否读取了官方 README 或文档；</li>
+<li>是否只停留在搜索摘要；</li>
+<li>是否出现来源不明的判断；</li>
+<li>是否生成了清晰报告结构。</li>
+</ul>
+<p>如果 Agent 没有读取原文，就不要信最终报告。</p>
+<h2 id="检查输出质量">检查输出质量</h2>
+<p>一份合格报告至少要满足：</p>
+<ul>
+<li>关键事实来自官方资料；</li>
+<li>不把营销口号当结论；</li>
+<li>能解释 DeerFlow 的工程价值；</li>
+<li>能区分模型、工具、sandbox、skills、sub-agents；</li>
+<li>对限制和风险有说明。</li>
+</ul>
+<h2 id="如果要保存为文件">如果要保存为文件</h2>
+<p>可以在提示词里加：</p>
+<pre class="astro-code github-light" style="background-color:#fff;color:#24292e; overflow-x: auto;" tabindex="0" data-language="text"><code><span class="line"><span>请把最终报告保存为 deerflow-research-report.md。</span></span></code></pre>
+<p>然后验证文件是否真的存在、内容是否完整、路径是否符合预期、是否能在前端 artifacts 里看到。</p>
+<p>不要只相信“已保存”的文字回复。</p>
+<h2 id="常见失败点">常见失败点</h2>
+<ul>
+<li>搜索不可用：普通问答能跑，研究任务失败，通常是搜索 provider 没配好。</li>
+<li>来源质量差：优先要求官方 README、官网和配置文档。</li>
+<li>报告太空：提示词里要要求结构、来源和边界。</li>
+<li>文件没生成：检查文件工具、sandbox 目录、artifact 展示和实际路径。</li>
+</ul>
+<h2 id="复盘">复盘</h2>
+<p>这类研究任务的核心不是让模型写得漂亮，而是让它先拿到可靠材料，再基于材料整理。</p>
+<p>DeerFlow 的价值在这里体现为：能把搜索、抓取、整理、写作、落盘放到同一条任务链路里。</p>  </div> </article> <aside class="toc"><p class="toc-title">目录</p><ul class="toc-list"><li class="depth-2"><a href="#实战目标">实战目标</a></li><li class="depth-2"><a href="#前置条件">前置条件</a></li><li class="depth-2"><a href="#任务提示词">任务提示词</a></li><li class="depth-2"><a href="#观察执行过程">观察执行过程</a></li><li class="depth-2"><a href="#检查输出质量">检查输出质量</a></li><li class="depth-2"><a href="#如果要保存为文件">如果要保存为文件</a></li><li class="depth-2"><a href="#常见失败点">常见失败点</a></li><li class="depth-2"><a href="#复盘">复盘</a></li></ul></aside> </section>  </main> <footer class="site-footer"> <div class="shell footer-inner"> <p>© 2026 未来观察者</p> </div> </footer> </body></html>

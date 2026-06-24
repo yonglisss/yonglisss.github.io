@@ -1,0 +1,46 @@
+<!DOCTYPE html><html lang="zh-CN"> <head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1"><title>15. 实战二：用 DeerFlow 生成一份技术报告 | 技术教程 | 未来观察者</title><meta name="description" content="用 DeerFlow 把一个技术主题整理成 Markdown 报告，重点控制结构、事实来源、风格和最终落盘。"><meta name="generator" content="Astro v5.18.1"><meta property="og:title" content="15. 实战二：用 DeerFlow 生成一份技术报告 | 技术教程 | 未来观察者"><meta property="og:description" content="用 DeerFlow 把一个技术主题整理成 Markdown 报告，重点控制结构、事实来源、风格和最终落盘。"><meta property="og:type" content="website"><meta property="og:url" content="https://future.lifestudylab.com/docs/deer-flow/15-example-tech-report/"><link rel="icon" type="image/svg+xml" href="/favicon.svg"><link rel="alternate" type="application/rss+xml" title="未来观察者" href="/rss.xml"><link rel="stylesheet" href="/_astro/_channel_.OjG1_-2m.css"></head> <body> <div class="page-bg"></div> <header class="site-header"> <div class="shell header-inner"> <div class="header-bar"> <a class="brand" href="/ai-tools/"> <img src="/brand-mark.svg" alt="" class="brand-mark" width="56" height="56"> <span class="brand-text" aria-label="未来观察者">思考未来</span> </a> </div> <nav class="top-menu" aria-label="顶部菜单"> <a href="/future-daily/" class="top-menu-link"> 每日信息 </a><a href="/docs/deer-flow/" class="top-menu-link active"> DeerFlow教程 </a><a href="/about/" class="top-menu-link"> 关于我 </a> </nav> </div> </header>  <main class="shell page-content page-content--full">  <section class="docs-shell"> <aside class="docs-sidebar" aria-label="技术教程目录"> <nav class="docs-nav-block" aria-label="DeerFlow 教程"> <p class="docs-nav-title">DeerFlow 教程</p> <ul class="docs-nav-list"> <li> <a href="/docs/deer-flow/" class="docs-nav-link"> 01. DeerFlow 教程总览 </a> </li><li> <a href="/docs/deer-flow/quickstart/" class="docs-nav-link"> 02. 快速开始：先把 DeerFlow 跑起来 </a> </li><li> <a href="/docs/deer-flow/config/" class="docs-nav-link"> 03. 配置文件：看懂 config.yaml </a> </li><li> <a href="/docs/deer-flow/concepts/" class="docs-nav-link"> 04. 核心概念：DeerFlow 到底在调度什么 </a> </li><li> <a href="/docs/deer-flow/project-structure/" class="docs-nav-link"> 05. 项目结构：从目录看懂 DeerFlow </a> </li><li> <a href="/docs/deer-flow/execution-flow/" class="docs-nav-link"> 06. 一次任务的完整执行链路 </a> </li><li> <a href="/docs/deer-flow/07-tools/" class="docs-nav-link"> 07. Tools：内置工具和自定义工具 </a> </li><li> <a href="/docs/deer-flow/08-skills/" class="docs-nav-link"> 08. Skills：把一次经验沉淀成可复用能力 </a> </li><li> <a href="/docs/deer-flow/09-sub-agents/" class="docs-nav-link"> 09. Sub-agents：多智能体是怎么分工的 </a> </li><li> <a href="/docs/deer-flow/10-memory/" class="docs-nav-link"> 10. Memory：长期记忆如何参与任务 </a> </li><li> <a href="/docs/deer-flow/11-sandbox/" class="docs-nav-link"> 11. Sandbox：安全执行和文件系统 </a> </li><li> <a href="/docs/deer-flow/12-mcp/" class="docs-nav-link"> 12. MCP：接入外部工具和服务 </a> </li><li> <a href="/docs/deer-flow/13-observability/" class="docs-nav-link"> 13. 可观测性：LangSmith / Langfuse 追踪 </a> </li><li> <a href="/docs/deer-flow/examples/" class="docs-nav-link"> 14. 实战一：用 DeerFlow 做一次深度研究 </a> </li><li> <a href="/docs/deer-flow/15-example-tech-report/" class="docs-nav-link active"> 15. 实战二：用 DeerFlow 生成一份技术报告 </a> </li><li> <a href="/docs/deer-flow/16-example-custom-skill/" class="docs-nav-link"> 16. 实战三：给 DeerFlow 增加一个自定义 Skill </a> </li><li> <a href="/docs/deer-flow/17-example-mcp-server/" class="docs-nav-link"> 17. 实战四：接入一个 MCP Server </a> </li><li> <a href="/docs/deer-flow/faq/" class="docs-nav-link"> 18. 部署：从本地跑到可长期使用 </a> </li><li> <a href="/docs/deer-flow/19-advanced-roadmap/" class="docs-nav-link"> 19. 进阶路线：从使用者到改造者 </a> </li> </ul> </nav> </aside> <article class="docs-article"> <header class="docs-hero"> <p class="docs-kicker">Technical Guide</p> <h1>15. 实战二：用 DeerFlow 生成一份技术报告</h1> <p>用 DeerFlow 把一个技术主题整理成 Markdown 报告，重点控制结构、事实来源、风格和最终落盘。</p> </header> <div class="docs-prose">  <h2 id="实战目标">实战目标</h2>
+<p>这一篇做一个更接近日常工作的任务：输入一个技术主题，让 DeerFlow 生成一份可保存、可继续编辑的技术报告。</p>
+<p>和上一篇深度研究不同，这里更关注报告交付质量：结构、事实、表达、文件落盘。</p>
+<h2 id="示例任务">示例任务</h2>
+<p>可以选择一个具体主题：</p>
+<pre class="astro-code github-light" style="background-color:#fff;color:#24292e; overflow-x: auto;" tabindex="0" data-language="text"><code><span class="line"><span>请生成一份“DeerFlow 2.0 本地部署注意事项”的技术报告。</span></span></code></pre>
+<p>不要让主题太大。太大的主题容易变成泛泛而谈。</p>
+<h2 id="推荐提示词">推荐提示词</h2>
+<pre class="astro-code github-light" style="background-color:#fff;color:#24292e; overflow-x: auto;" tabindex="0" data-language="text"><code><span class="line"><span>请基于 DeerFlow 官方 README、Install.md、config.example.yaml 和 backend/docs/SETUP.md，生成一份“DeerFlow 2.0 本地部署注意事项”的 Markdown 技术报告。</span></span>
+<span class="line"><span></span></span>
+<span class="line"><span>要求：</span></span>
+<span class="line"><span>1. 先读取官方资料，不要基于记忆写。</span></span>
+<span class="line"><span>2. 报告结构包括：环境要求、配置文件、模型配置、搜索配置、Docker 启动、本地开发、常见错误、验证清单。</span></span>
+<span class="line"><span>3. 命令必须使用代码块。</span></span>
+<span class="line"><span>4. 不要写营销表达。</span></span>
+<span class="line"><span>5. 最后保存为 deerflow-deployment-notes.md。</span></span></code></pre>
+<p>这个提示词把来源、结构、风格和文件产物都约束住了。</p>
+<h2 id="控制报告结构">控制报告结构</h2>
+<p>技术报告最怕两种问题：太散，看起来像聊天总结；太满，把所有资料原样堆进去。</p>
+<p>建议固定结构：背景、前置条件、操作步骤、验证方式、常见问题、下一步。</p>
+<p>结构稳定，后续才容易比较质量。</p>
+<h2 id="控制事实来源">控制事实来源</h2>
+<p>让 Agent 写技术报告时，要明确哪些资料是主来源，哪些资料只能作为辅助，不确定的地方要标注，没读取到原文就不要写确定结论。</p>
+<p>这比“写得专业一点”更重要。</p>
+<h2 id="控制风格">控制风格</h2>
+<p>技术报告不需要夸张。</p>
+<p>建议要求：短句、少形容词、多步骤、多验证、少口号，不写“革命性”“颠覆式”这类词。</p>
+<p>真正有用的技术报告，是读者照着能做事。</p>
+<h2 id="验证文件产物">验证文件产物</h2>
+<p>如果要求保存文件，不要只看最终回复。</p>
+<p>要检查文件是否存在、文件名是否正确、Markdown 格式是否正常、代码块是否闭合、命令是否来自官方资料、是否可以继续提交或发布。</p>
+<h2 id="人工介入点">人工介入点</h2>
+<p>即使 Agent 生成了报告，人也应该检查版本是否和官方最新一致、命令是否真实可运行、API key 示例是否泄露真实值、安全建议是否足够、是否有过时信息。</p>
+<p>Agent 适合做初稿和结构化整理，不适合替代最终技术审查。</p>
+<h2 id="常见失败点">常见失败点</h2>
+<ul>
+<li>报告只写概念，没有命令；</li>
+<li>命令来自旧版本文章；</li>
+<li>没有验证步骤；</li>
+<li>代码块格式错误；</li>
+<li>文件路径不明确；</li>
+<li>内容太像营销稿。</li>
+</ul>
+<h2 id="复盘">复盘</h2>
+<p>这个实战的目标不是让 DeerFlow 写一篇好看的文章，而是产出一个能继续使用的工程文档。</p>
+<p>如果报告能被保存、被检查、被修改、被发布，它就从聊天回答变成了工作产物。</p>  </div> </article> <aside class="toc"><p class="toc-title">目录</p><ul class="toc-list"><li class="depth-2"><a href="#实战目标">实战目标</a></li><li class="depth-2"><a href="#示例任务">示例任务</a></li><li class="depth-2"><a href="#推荐提示词">推荐提示词</a></li><li class="depth-2"><a href="#控制报告结构">控制报告结构</a></li><li class="depth-2"><a href="#控制事实来源">控制事实来源</a></li><li class="depth-2"><a href="#控制风格">控制风格</a></li><li class="depth-2"><a href="#验证文件产物">验证文件产物</a></li><li class="depth-2"><a href="#人工介入点">人工介入点</a></li><li class="depth-2"><a href="#常见失败点">常见失败点</a></li><li class="depth-2"><a href="#复盘">复盘</a></li></ul></aside> </section>  </main> <footer class="site-footer"> <div class="shell footer-inner"> <p>© 2026 未来观察者</p> </div> </footer> </body></html>
