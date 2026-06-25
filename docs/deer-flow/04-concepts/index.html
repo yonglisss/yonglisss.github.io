@@ -28,7 +28,7 @@
           if (getStoredMode() === "system") apply("system");
         });
       })();
-    </script><title>04. 核心概念：DeerFlow 到底在调度什么 | 技术教程 | 未来观察者</title><meta name="description" content="理解 DeerFlow 2.0 的核心概念：super agent harness、tools、skills、sub-agents、memory、sandbox 和 context engineering。"><meta name="generator" content="Astro v5.18.1"><meta property="og:title" content="04. 核心概念：DeerFlow 到底在调度什么 | 技术教程 | 未来观察者"><meta property="og:description" content="理解 DeerFlow 2.0 的核心概念：super agent harness、tools、skills、sub-agents、memory、sandbox 和 context engineering。"><meta property="og:type" content="website"><meta property="og:url" content="https://future.lifestudylab.com/docs/deer-flow/04-concepts/"><link rel="icon" type="image/svg+xml" href="/favicon.svg"><link rel="alternate" type="application/rss+xml" title="未来观察者" href="/rss.xml"><link rel="stylesheet" href="/_astro/_channel_.Bh9hp2gc.css"></head> <body> <div class="page-bg"></div> <header class="site-header"> <div class="shell header-inner"> <div class="header-bar"> <a class="brand" href="/ai-tools/"> <img src="/brand-mark.svg" alt="" class="brand-mark" width="56" height="56"> <span class="brand-text" aria-label="未来观察者">思考未来</span> </a> </div> <nav class="top-menu" aria-label="顶部菜单"> <a href="/future-daily/" class="top-menu-link"> 每日信息 </a><a href="/docs/deer-flow/01-index/" class="top-menu-link"> DeerFlow教程 </a><a href="/about/" class="top-menu-link"> 关于我 </a> </nav> <div class="top-actions"> <a class="feedback-link" href="https://github.com/yonglisss/yonglisss.github.io/issues" target="_blank" rel="noopener noreferrer" aria-label="问题反馈"> <svg viewBox="0 0 24 24" aria-hidden="true" class="action-icon"> <path d="M4.75 5.75A2.75 2.75 0 0 1 7.5 3h9A2.75 2.75 0 0 1 19.25 5.75v6.5A2.75 2.75 0 0 1 16.5 15H9.3l-3.55 3.2V15.1a2.75 2.75 0 0 1-1-2.1V5.75Z"></path> <path d="M8 7.75h8M8 11.25h4"></path> </svg> <span>问题反馈</span> </a> <div class="theme-switcher" data-theme-switcher> <button class="theme-trigger" type="button" aria-haspopup="menu" aria-expanded="false" aria-label="切换明暗模式" data-theme-trigger> <svg viewBox="0 0 24 24" aria-hidden="true" class="action-icon theme-trigger-icon theme-trigger-icon--light"> <circle cx="12" cy="12" r="4"></circle> <path d="M12 2.75v2M12 19.25v2M4.75 4.75l1.4 1.4M17.85 17.85l1.4 1.4M2.75 12h2M19.25 12h2M4.75 19.25l1.4-1.4M17.85 6.15l1.4-1.4"></path> </svg> <svg viewBox="0 0 24 24" aria-hidden="true" class="action-icon theme-trigger-icon theme-trigger-icon--dark"> <path d="M20.25 14.2A8 8 0 0 1 9.8 3.75 8.5 8.5 0 1 0 20.25 14.2Z"></path> </svg> <svg viewBox="0 0 24 24" aria-hidden="true" class="action-icon theme-trigger-icon theme-trigger-icon--system"> <rect x="4" y="5" width="16" height="11" rx="1.8"></rect> <path d="M9 20h6M12 16v4"></path> </svg> </button> <div class="theme-menu" role="menu" data-theme-menu hidden> <button class="theme-option" type="button" role="menuitemradio" data-theme-option="light" aria-checked="false"> <svg viewBox="0 0 24 24" aria-hidden="true" class="action-icon"><circle cx="12" cy="12" r="4"></circle><path d="M12 2.75v2M12 19.25v2M4.75 4.75l1.4 1.4M17.85 17.85l1.4 1.4M2.75 12h2M19.25 12h2M4.75 19.25l1.4-1.4M17.85 6.15l1.4-1.4"></path></svg> <span>亮色</span> </button> <button class="theme-option" type="button" role="menuitemradio" data-theme-option="dark" aria-checked="false"> <svg viewBox="0 0 24 24" aria-hidden="true" class="action-icon"><path d="M20.25 14.2A8 8 0 0 1 9.8 3.75 8.5 8.5 0 1 0 20.25 14.2Z"></path></svg> <span>暗色</span> </button> <button class="theme-option" type="button" role="menuitemradio" data-theme-option="system" aria-checked="true"> <svg viewBox="0 0 24 24" aria-hidden="true" class="action-icon"><rect x="4" y="5" width="16" height="11" rx="1.8"></rect><path d="M9 20h6M12 16v4"></path></svg> <span>跟随系统</span> </button> </div> </div> </div> </div> </header> <script>
+    </script><title>04. 整体架构：DeerFlow 到底在调度什么 | 技术教程 | 未来观察者</title><meta name="description" content="从官方后端架构图出发，理解 DeerFlow 的核心组件：Gateway、Lead Agent、middleware、tools、skills、sub-agents、memory、sandbox 和 artifacts。"><meta name="generator" content="Astro v5.18.1"><meta property="og:title" content="04. 整体架构：DeerFlow 到底在调度什么 | 技术教程 | 未来观察者"><meta property="og:description" content="从官方后端架构图出发，理解 DeerFlow 的核心组件：Gateway、Lead Agent、middleware、tools、skills、sub-agents、memory、sandbox 和 artifacts。"><meta property="og:type" content="website"><meta property="og:url" content="https://future.lifestudylab.com/docs/deer-flow/04-concepts/"><link rel="icon" type="image/svg+xml" href="/favicon.svg"><link rel="alternate" type="application/rss+xml" title="未来观察者" href="/rss.xml"><link rel="stylesheet" href="/_astro/_channel_.Bh9hp2gc.css"></head> <body> <div class="page-bg"></div> <header class="site-header"> <div class="shell header-inner"> <div class="header-bar"> <a class="brand" href="/ai-tools/"> <img src="/brand-mark.svg" alt="" class="brand-mark" width="56" height="56"> <span class="brand-text" aria-label="未来观察者">思考未来</span> </a> </div> <nav class="top-menu" aria-label="顶部菜单"> <a href="/future-daily/" class="top-menu-link"> 每日信息 </a><a href="/docs/deer-flow/01-index/" class="top-menu-link"> DeerFlow教程 </a><a href="/about/" class="top-menu-link"> 关于我 </a> </nav> <div class="top-actions"> <a class="feedback-link" href="https://github.com/yonglisss/yonglisss.github.io/issues" target="_blank" rel="noopener noreferrer" aria-label="问题反馈"> <svg viewBox="0 0 24 24" aria-hidden="true" class="action-icon"> <path d="M4.75 5.75A2.75 2.75 0 0 1 7.5 3h9A2.75 2.75 0 0 1 19.25 5.75v6.5A2.75 2.75 0 0 1 16.5 15H9.3l-3.55 3.2V15.1a2.75 2.75 0 0 1-1-2.1V5.75Z"></path> <path d="M8 7.75h8M8 11.25h4"></path> </svg> <span>问题反馈</span> </a> <div class="theme-switcher" data-theme-switcher> <button class="theme-trigger" type="button" aria-haspopup="menu" aria-expanded="false" aria-label="切换明暗模式" data-theme-trigger> <svg viewBox="0 0 24 24" aria-hidden="true" class="action-icon theme-trigger-icon theme-trigger-icon--light"> <circle cx="12" cy="12" r="4"></circle> <path d="M12 2.75v2M12 19.25v2M4.75 4.75l1.4 1.4M17.85 17.85l1.4 1.4M2.75 12h2M19.25 12h2M4.75 19.25l1.4-1.4M17.85 6.15l1.4-1.4"></path> </svg> <svg viewBox="0 0 24 24" aria-hidden="true" class="action-icon theme-trigger-icon theme-trigger-icon--dark"> <path d="M20.25 14.2A8 8 0 0 1 9.8 3.75 8.5 8.5 0 1 0 20.25 14.2Z"></path> </svg> <svg viewBox="0 0 24 24" aria-hidden="true" class="action-icon theme-trigger-icon theme-trigger-icon--system"> <rect x="4" y="5" width="16" height="11" rx="1.8"></rect> <path d="M9 20h6M12 16v4"></path> </svg> </button> <div class="theme-menu" role="menu" data-theme-menu hidden> <button class="theme-option" type="button" role="menuitemradio" data-theme-option="light" aria-checked="false"> <svg viewBox="0 0 24 24" aria-hidden="true" class="action-icon"><circle cx="12" cy="12" r="4"></circle><path d="M12 2.75v2M12 19.25v2M4.75 4.75l1.4 1.4M17.85 17.85l1.4 1.4M2.75 12h2M19.25 12h2M4.75 19.25l1.4-1.4M17.85 6.15l1.4-1.4"></path></svg> <span>亮色</span> </button> <button class="theme-option" type="button" role="menuitemradio" data-theme-option="dark" aria-checked="false"> <svg viewBox="0 0 24 24" aria-hidden="true" class="action-icon"><path d="M20.25 14.2A8 8 0 0 1 9.8 3.75 8.5 8.5 0 1 0 20.25 14.2Z"></path></svg> <span>暗色</span> </button> <button class="theme-option" type="button" role="menuitemradio" data-theme-option="system" aria-checked="true"> <svg viewBox="0 0 24 24" aria-hidden="true" class="action-icon"><rect x="4" y="5" width="16" height="11" rx="1.8"></rect><path d="M9 20h6M12 16v4"></path></svg> <span>跟随系统</span> </button> </div> </div> </div> </div> </header> <script>
   (() => {
     const switcher = document.querySelector("[data-theme-switcher]");
     if (!switcher) return;
@@ -84,78 +84,85 @@
     window.addEventListener("future-observer-theme-change", sync);
     sync();
   })();
-</script>  <main class="shell page-content page-content--full">  <section class="docs-shell"> <aside class="docs-sidebar" aria-label="技术教程目录"> <nav class="docs-nav-block" aria-label="DeerFlow 教程"> <p class="docs-nav-title">DeerFlow 教程</p> <ul class="docs-nav-list"> <li> <a href="/docs/deer-flow/01-index/" class="docs-nav-link"> 01. 教程总览：从跑起来到写一个 Agent </a> </li><li> <a href="/docs/deer-flow/02-quickstart/" class="docs-nav-link"> 02. 快速开始：先把 DeerFlow 跑起来 </a> </li><li> <a href="/docs/deer-flow/03-config/" class="docs-nav-link"> 03. 配置文件：看懂 config.yaml </a> </li><li> <a href="/docs/deer-flow/04-concepts/" class="docs-nav-link active"> 04. 核心概念：DeerFlow 到底在调度什么 </a> </li><li> <a href="/docs/deer-flow/05-project-structure/" class="docs-nav-link"> 05. 项目结构：从目录看懂 DeerFlow </a> </li><li> <a href="/docs/deer-flow/06-execution-flow/" class="docs-nav-link"> 06. 一次任务的完整执行链路 </a> </li><li> <a href="/docs/deer-flow/07-tools/" class="docs-nav-link"> 07. Tools：内置工具和自定义工具 </a> </li><li> <a href="/docs/deer-flow/08-skills/" class="docs-nav-link"> 08. Skills：把一次经验沉淀成可复用能力 </a> </li><li> <a href="/docs/deer-flow/09-sub-agents/" class="docs-nav-link"> 09. Sub-agents：多智能体是怎么分工的 </a> </li><li> <a href="/docs/deer-flow/10-memory/" class="docs-nav-link"> 10. Memory：长期记忆如何参与任务 </a> </li><li> <a href="/docs/deer-flow/11-sandbox/" class="docs-nav-link"> 11. Sandbox：安全执行和文件系统 </a> </li><li> <a href="/docs/deer-flow/12-mcp/" class="docs-nav-link"> 12. MCP：接入外部工具和服务 </a> </li><li> <a href="/docs/deer-flow/13-observability/" class="docs-nav-link"> 13. 可观测性：LangSmith / Langfuse 追踪 </a> </li><li> <a href="/docs/deer-flow/14-examples/" class="docs-nav-link"> 14. 实战一：用 DeerFlow 做一次深度研究 </a> </li><li> <a href="/docs/deer-flow/15-example-tech-report/" class="docs-nav-link"> 15. 实战二：用 DeerFlow 生成一份技术报告 </a> </li><li> <a href="/docs/deer-flow/16-example-custom-skill/" class="docs-nav-link"> 16. 实战三：给 DeerFlow 增加一个自定义 Skill </a> </li><li> <a href="/docs/deer-flow/17-example-mcp-server/" class="docs-nav-link"> 17. 实战四：接入一个 MCP Server </a> </li><li> <a href="/docs/deer-flow/18-faq/" class="docs-nav-link"> 18. 部署：从本地跑到可长期使用 </a> </li><li> <a href="/docs/deer-flow/19-advanced-roadmap/" class="docs-nav-link"> 19. 进阶路线：从使用者到改造者 </a> </li> </ul> </nav> </aside> <article class="docs-article"> <header class="docs-hero"> <p class="docs-kicker">Technical Guide</p> <h1>04. 核心概念：DeerFlow 到底在调度什么</h1> <p>理解 DeerFlow 2.0 的核心概念：super agent harness、tools、skills、sub-agents、memory、sandbox 和 context engineering。</p> </header> <div class="docs-prose">  <h2 id="先不要被名词带偏">先不要被名词带偏</h2>
-<p>DeerFlow 里有很多听起来很大的词：Super Agent、Sub-agents、Memory、Sandbox、Skills、Context Engineering。</p>
-<p>如果一开始就逐个查定义，很容易变成概念堆叠。更实用的理解方式是：DeerFlow 不是在证明“多 Agent 很先进”，它真正做的是把一次复杂任务需要的几个工程能力放在同一个系统里。</p>
-<p>一次长任务通常需要这些东西：</p>
+</script>  <main class="shell page-content page-content--full">  <section class="docs-shell"> <aside class="docs-sidebar" aria-label="技术教程目录"> <nav class="docs-nav-block" aria-label="DeerFlow 教程"> <p class="docs-nav-title">DeerFlow 教程</p> <ul class="docs-nav-list"> <li> <a href="/docs/deer-flow/01-index/" class="docs-nav-link"> 01. 教程总览：从跑起来到写一个 Agent </a> </li><li> <a href="/docs/deer-flow/02-quickstart/" class="docs-nav-link"> 02. 快速开始：先把 DeerFlow 跑起来 </a> </li><li> <a href="/docs/deer-flow/03-config/" class="docs-nav-link"> 03. 配置文件：看懂 config.yaml </a> </li><li> <a href="/docs/deer-flow/04-concepts/" class="docs-nav-link active"> 04. 整体架构：DeerFlow 到底在调度什么 </a> </li><li> <a href="/docs/deer-flow/05-project-structure/" class="docs-nav-link"> 05. 项目结构：从目录看懂 DeerFlow </a> </li><li> <a href="/docs/deer-flow/06-execution-flow/" class="docs-nav-link"> 06. 一次任务的完整执行链路 </a> </li><li> <a href="/docs/deer-flow/07-tools/" class="docs-nav-link"> 07. Tools：内置工具和自定义工具 </a> </li><li> <a href="/docs/deer-flow/08-skills/" class="docs-nav-link"> 08. Skills：把一次经验沉淀成可复用能力 </a> </li><li> <a href="/docs/deer-flow/09-sub-agents/" class="docs-nav-link"> 09. Sub-agents：多智能体是怎么分工的 </a> </li><li> <a href="/docs/deer-flow/10-memory/" class="docs-nav-link"> 10. Memory：长期记忆如何参与任务 </a> </li><li> <a href="/docs/deer-flow/11-sandbox/" class="docs-nav-link"> 11. Sandbox：安全执行和文件系统 </a> </li><li> <a href="/docs/deer-flow/12-mcp/" class="docs-nav-link"> 12. MCP：接入外部工具和服务 </a> </li><li> <a href="/docs/deer-flow/13-observability/" class="docs-nav-link"> 13. 可观测性：LangSmith / Langfuse 追踪 </a> </li><li> <a href="/docs/deer-flow/14-examples/" class="docs-nav-link"> 14. 实战一：用 DeerFlow 做一次深度研究 </a> </li><li> <a href="/docs/deer-flow/15-example-tech-report/" class="docs-nav-link"> 15. 实战二：用 DeerFlow 生成一份技术报告 </a> </li><li> <a href="/docs/deer-flow/16-example-custom-skill/" class="docs-nav-link"> 16. 实战三：给 DeerFlow 增加一个自定义 Skill </a> </li><li> <a href="/docs/deer-flow/17-example-mcp-server/" class="docs-nav-link"> 17. 实战四：接入一个 MCP Server </a> </li><li> <a href="/docs/deer-flow/18-faq/" class="docs-nav-link"> 18. 部署：从本地跑到可长期使用 </a> </li><li> <a href="/docs/deer-flow/19-advanced-roadmap/" class="docs-nav-link"> 19. 进阶路线：从使用者到改造者 </a> </li> </ul> </nav> </aside> <article class="docs-article"> <header class="docs-hero"> <p class="docs-kicker">Technical Guide</p> <h1>04. 整体架构：DeerFlow 到底在调度什么</h1> <p>从官方后端架构图出发，理解 DeerFlow 的核心组件：Gateway、Lead Agent、middleware、tools、skills、sub-agents、memory、sandbox 和 artifacts。</p> </header> <div class="docs-prose">  <h2 id="这一篇先画地图">这一篇先画地图</h2>
+<p>从这一篇开始，教程进入“架构地图”。</p>
+<p>不要急着读每个源码文件。先把 DeerFlow 的主链路看清楚：请求从哪里进来，谁负责调度，工具怎么接入，sandbox 和 memory 在哪里发挥作用，最后结果怎么返回。</p>
+<p>官方后端 README 给出的架构可以简化成这样：</p>
+<pre class="astro-code astro-code-themes github-light github-dark" style="--shiki-light:#24292e;--shiki-dark:#e1e4e8;--shiki-light-bg:#fff;--shiki-dark-bg:#24292e; overflow-x: auto;" tabindex="0" data-language="text"><code><span class="line"><span>用户 / 前端 / IM 入口</span></span>
+<span class="line"><span>  ↓</span></span>
+<span class="line"><span>Nginx</span></span>
+<span class="line"><span>  ↓</span></span>
+<span class="line"><span>Gateway API（FastAPI + agent runtime）</span></span>
+<span class="line"><span>  ↓</span></span>
+<span class="line"><span>Lead Agent</span></span>
+<span class="line"><span>  ↓</span></span>
+<span class="line"><span>Middleware / Tools / Sub-agents / Memory / Sandbox</span></span>
+<span class="line"><span>  ↓</span></span>
+<span class="line"><span>Artifacts / Streaming / Final Response</span></span></code></pre>
+<p>这张图比单独背概念更重要。后面读源码时，每个模块都要放回这条链路里看。</p>
+<h2 id="deerflow-不是一个单点-agent">DeerFlow 不是一个单点 Agent</h2>
+<p>官方 README 把 DeerFlow 2.0 定义为 <strong>super agent harness</strong>。这里的重点是 <code>harness</code>：它不是只提供一个 Agent 函数，而是把 Agent 运行需要的工程能力组装起来。</p>
+<p>官方后端 README 也明确说，DeerFlow backend 是一个基于 LangGraph 的 AI super agent，带有 sandbox execution、persistent memory 和 extensible tool integration。</p>
+<p>所以 DeerFlow 的重点不是“有几个 Agent”，而是这些能力如何协同：</p>
 <ul>
-<li>一个主控，负责理解目标和拆步骤；</li>
-<li>一批工具，负责搜索、读写文件、执行命令；</li>
-<li>一个隔离环境，避免执行代码时污染宿主机；</li>
-<li>一套上下文管理方式，避免模型在长任务中丢失重点；</li>
-<li>一些可复用经验，让同类任务下次不用重新写提示词；</li>
-<li>一个入口，让用户可以从 Web 或 IM 工具发起任务。</li>
+<li>请求入口和路由；</li>
+<li>线程、运行、上传、产物管理；</li>
+<li>模型选择；</li>
+<li>middleware 链；</li>
+<li>tools / MCP / community tools；</li>
+<li>skills 注入；</li>
+<li>sub-agent delegation；</li>
+<li>sandbox 执行；</li>
+<li>memory 上下文；</li>
+<li>streaming 返回。</li>
 </ul>
-<p>DeerFlow 的核心概念，基本都围绕这几件事展开。</p>
-<h2 id="super-agent-harness-是什么">Super Agent Harness 是什么</h2>
-<p>官方把 DeerFlow 定位成 <strong>super agent harness</strong>。</p>
-<p>这里的重点不是“super”，而是 “harness”。它更像一个 Agent 运行框架：把模型、工具、沙盒、记忆、子 Agent、前端和消息入口装配起来，让它们能稳定协作。</p>
-<p>你可以这样理解：</p>
+<p>这也是为什么它更像一个 Agent 运行底座，而不是一个聊天页面。</p>
+<h2 id="第一层入口和-gateway">第一层：入口和 Gateway</h2>
+<p>官方架构里，Nginx 位于最外层，负责统一反向代理。</p>
+<p>常见请求会被分到几类：</p>
+<pre class="astro-code astro-code-themes github-light github-dark" style="--shiki-light:#24292e;--shiki-dark:#e1e4e8;--shiki-light-bg:#fff;--shiki-dark-bg:#24292e; overflow-x: auto;" tabindex="0" data-language="text"><code><span class="line"><span>/api/langgraph/*  → Gateway 的 LangGraph-compatible API</span></span>
+<span class="line"><span>/api/*            → Gateway API 的其他接口</span></span>
+<span class="line"><span>/                 → 前端页面</span></span></code></pre>
+<p>这说明 DeerFlow 对外不是只有网页。它同时要处理：</p>
 <ul>
-<li>普通聊天机器人：用户问一句，模型答一句。</li>
-<li>简单 Agent：模型可以调用几个工具。</li>
-<li>DeerFlow 这类 harness：不仅能调工具，还要管理任务状态、执行环境、文件产物、子任务、长期记忆和外部入口。</li>
+<li>前端发起的对话和任务；</li>
+<li>LangGraph 兼容接口；</li>
+<li>models、MCP、skills、memory、artifacts、uploads 等管理接口；</li>
+<li>后续可能接入的 IM channels。</li>
 </ul>
-<p>所以学习 DeerFlow 时，不要只问“它用了几个 Agent”。更应该问：</p>
+<p>所以看 DeerFlow 架构时，第一层不是 Agent，而是入口层：请求先进入 Gateway，再进入 Agent runtime。</p>
+<h2 id="第二层lead-agent-是运行入口">第二层：Lead Agent 是运行入口</h2>
+<p>官方后端 README 里提到，Lead Agent 是 runtime entry point，由 <code>make_lead_agent(config)</code> 创建。</p>
+<p>可以先把 Lead Agent 理解成“主控”。它负责把用户任务变成一次可执行的 run，并在过程中调用不同能力。</p>
+<p>它不是单独工作，而是组合了几类东西：</p>
 <ul>
-<li>它怎么让任务持续执行？</li>
-<li>它怎么控制工具和文件权限？</li>
-<li>它怎么把上下文传给下一步？</li>
-<li>它怎么让同一套能力可以从 Web、API 或聊天工具入口调用？</li>
+<li>动态模型选择；</li>
+<li>middleware chain；</li>
+<li>tools；</li>
+<li>sub-agent delegation；</li>
+<li>system prompt；</li>
+<li>skills 注入；</li>
+<li>memory context；</li>
+<li>working directory guidance。</li>
 </ul>
-<p>这些才是工程价值。</p>
-<h2 id="lead-agent任务的主控">Lead Agent：任务的主控</h2>
-<p>Lead Agent 可以理解成主控 Agent。</p>
-<p>它通常负责：</p>
+<p>所以后面读源码时，不要只盯着“模型调用”本身。真正重要的是 Lead Agent 周围这一圈运行机制。</p>
+<h2 id="第三层middleware-处理横切逻辑">第三层：Middleware 处理横切逻辑</h2>
+<p>DeerFlow 后端 README 提到 middleware chain，而且是按严格顺序执行。</p>
+<p>这类设计很关键。因为 Agent 任务不是一次普通函数调用，它需要在运行前后处理很多横切逻辑：</p>
 <ul>
-<li>理解用户输入；</li>
-<li>判断任务是否需要工具；</li>
-<li>拆分步骤；</li>
-<li>决定是否调用子 Agent；</li>
-<li>汇总中间结果；</li>
-<li>最后把结果返回给用户。</li>
+<li>为每个 thread 创建隔离目录；</li>
+<li>处理上传文件；</li>
+<li>准备工作目录；</li>
+<li>注入 memory；</li>
+<li>控制 token budget；</li>
+<li>处理 artifacts；</li>
+<li>清理运行状态；</li>
+<li>影响工具和模型上下文。</li>
 </ul>
-<p>如果把 DeerFlow 看成一个团队，Lead Agent 就是项目负责人。它不一定亲自做所有事，但要决定下一步该交给谁、调用什么能力、什么时候收束。</p>
-<p>这也是为什么模型质量很重要。主控模型如果判断能力弱，后面的工具和子 Agent 再多，也容易走偏。</p>
-<h2 id="tools让模型能做事">Tools：让模型能做事</h2>
-<p>Tools 是 Agent 对外部世界的操作接口。</p>
-<p>没有 tools，模型只能生成文本。有了 tools，模型才能做这些事：</p>
-<ul>
-<li>搜索网页；</li>
-<li>抓取网页内容；</li>
-<li>查看文件；</li>
-<li>写入文件；</li>
-<li>执行 bash 命令；</li>
-<li>调用 MCP server；</li>
-<li>读取图片或处理上传文件。</li>
-</ul>
-<p>学习 tools 时，重点不是背有哪些工具，而是理解一个原则：</p>
-<blockquote>
-<p>工具越强，风险越高；工具越弱，任务越难真正完成。</p>
-</blockquote>
-<p>比如搜索工具让研究任务变强，但也会带来来源质量问题。bash 和文件写入让 Agent 能完成真实任务，但也会带来误删、误改、越权执行的风险。</p>
-<p>所以 DeerFlow 才需要配置和 sandbox 来控制边界。</p>
-<h2 id="skills把经验沉淀成能力">Skills：把经验沉淀成能力</h2>
-<p>Skill 可以先理解成“可复用的工作方法”。</p>
-<p>它和 prompt 很像，但不是一次性的聊天指令。一个好的 skill 通常会告诉 Agent：</p>
-<ul>
-<li>什么时候使用这项能力；</li>
-<li>这类任务应该按什么步骤做；</li>
-<li>有哪些常见坑；</li>
-<li>如何验证结果；</li>
-<li>必要时可以附带脚本、模板、参考资料。</li>
-</ul>
-<p>Skill 和 Tool 的区别可以这样看：</p>
+<p>如果没有 middleware，所有逻辑都会堆到 Agent 主流程里，很快失控。</p>
+<p>你可以把 middleware 理解成：在 Agent 真正推理前后，对运行环境和上下文做整理的人。</p>
+<h2 id="第四层tools--skills--sub-agents">第四层：Tools / Skills / Sub-agents</h2>
+<p>这三类能力经常被混在一起，但它们解决的问题不同。</p>
 
 
 
@@ -181,117 +188,63 @@
 
 
 
-<table><thead><tr><th>类型</th><th>更像什么</th><th>解决什么问题</th></tr></thead><tbody><tr><td>Prompt</td><td>临时指令</td><td>这一次怎么做</td></tr><tr><td>Skill</td><td>可复用方法</td><td>同类任务以后怎么做</td></tr><tr><td>Tool</td><td>可调用动作</td><td>具体执行搜索、写文件、跑命令</td></tr></tbody></table>
+<table><thead><tr><th>能力</th><th>解决什么问题</th><th>更像什么</th></tr></thead><tbody><tr><td>Tools</td><td>让 Agent 执行具体动作</td><td>手和工具箱</td></tr><tr><td>Skills</td><td>让 Agent 复用稳定方法</td><td>SOP / 工作流经验</td></tr><tr><td>Sub-agents</td><td>把复杂任务拆出去</td><td>临时协作同事</td></tr></tbody></table>
 <p>举个例子：</p>
 <ul>
-<li>“帮我写一篇 DeerFlow 教程”是 prompt。</li>
-<li>“写开发者教程时先查官方文档、再写可验证步骤、最后跑 build”是 skill。</li>
-<li>“读取文件、搜索网页、执行 npm run build”是 tool。</li>
+<li>搜索网页、读文件、执行命令，是 tool。</li>
+<li>“写技术教程时先查官方文档、再验证构建”，是 skill。</li>
+<li>“让一个子 Agent 查源码，一个子 Agent 查配置文档”，是 sub-agent delegation。</li>
 </ul>
-<p>DeerFlow 把 skills 放进系统，是为了让 Agent 不只靠临时提示词工作，而是能复用稳定流程。</p>
-<h2 id="sub-agents把复杂任务拆出去">Sub-agents：把复杂任务拆出去</h2>
-<p>Sub-agents 是子 Agent。</p>
-<p>它们适合处理相对独立的子任务，比如：</p>
+<p>后面教程会按这个顺序拆：每个能力先讲原理，再看源码，再做一个小实战。</p>
+<h2 id="第五层sandbox-和文件产物">第五层：Sandbox 和文件产物</h2>
+<p>DeerFlow 不是只输出文字。它要执行代码、读写文件、生成报告、处理上传内容。</p>
+<p>只要 Agent 能执行，就必须有边界。Sandbox 的作用就是把执行环境隔离出来，降低误改宿主机、依赖污染和多任务互相影响的风险。</p>
+<p>官方后端 README 也强调 per-thread environments。也就是说，每个 thread / run 不是随便混在一起跑，而是要有自己的工作目录、上传、输出和产物。</p>
+<p>从使用者角度看，sandbox 和 artifacts 最容易影响这些体验：</p>
 <ul>
-<li>一个 Agent 负责搜索资料；</li>
-<li>一个 Agent 负责读源码；</li>
-<li>一个 Agent 负责写报告；</li>
-<li>一个 Agent 负责检查结果。</li>
+<li>文件到底写到哪里；</li>
+<li>上传文件能否被 Agent 看到；</li>
+<li>生成报告能否在前端下载；</li>
+<li>bash / 文件工具是否有权限；</li>
+<li>Docker sandbox 第一次启动为什么慢。</li>
 </ul>
-<p>但多 Agent 不是越多越好。</p>
-<p>拆子 Agent 的前提是任务真的可以并行或分工。如果任务本身很短，硬拆反而会增加沟通成本，让结果更不可控。</p>
-<p>一个简单判断标准是：</p>
-<ul>
-<li>任务需要不同视角，适合拆；</li>
-<li>任务有多个独立资料源，适合拆；</li>
-<li>任务很长，需要分阶段处理，适合拆；</li>
-<li>任务只是改一行配置，不适合拆。</li>
-</ul>
-<p>学习 DeerFlow 的 Sub-agents，重点是看它怎么注册、怎么调用、怎么汇总结果，而不是只看“有几个角色”。</p>
-<h2 id="memory让任务不只活在当前上下文里">Memory：让任务不只活在当前上下文里</h2>
-<p>Memory 解决的是长期上下文问题。</p>
-<p>模型的一轮上下文再长，也不适合塞进所有历史。Memory 的价值是把一些稳定信息保留下来，让后续任务能复用。</p>
-<p>适合进入 memory 的信息通常是：</p>
-<ul>
-<li>用户偏好；</li>
-<li>稳定的项目约定；</li>
-<li>常用路径；</li>
-<li>重复出现的工作流程；</li>
-<li>长期有效的环境事实。</li>
-</ul>
-<p>不适合进入 memory 的信息是：</p>
-<ul>
-<li>临时任务进度；</li>
-<li>某次运行的中间结果；</li>
-<li>很快会过期的链接或数据；</li>
-<li>尚未验证的猜测。</li>
-</ul>
-<p>Memory 很有用，但也容易污染系统。错误记忆比没有记忆更麻烦，所以要谨慎。</p>
-<h2 id="sandbox给执行能力加边界">Sandbox：给执行能力加边界</h2>
-<p>一旦 Agent 能执行命令、写文件、跑代码，就必须考虑安全边界。</p>
-<p>Sandbox 的作用，是把执行环境和宿主机隔开。DeerFlow 支持本地执行、Docker / Container sandbox，以及更复杂的 provisioner 模式。</p>
-<p>入门阶段可以先记住这几点：</p>
-<ul>
-<li>只聊天，不一定需要 sandbox；</li>
-<li>要执行代码、写文件，最好启用 sandbox；</li>
-<li>sandbox 不是绝对安全，但比直接在宿主机裸跑更可控；</li>
-<li>Docker 模式第一次可能慢，主要是镜像拉取和服务启动成本。</li>
-</ul>
-<p>如果你要把 DeerFlow 用在长期运行或团队环境，sandbox 不是可选项，而是必须认真设计的边界。</p>
-<h2 id="context-engineering控制模型看到什么">Context Engineering：控制模型看到什么</h2>
-<p>Context Engineering 可以理解成“上下文工程”。</p>
-<p>很多 Agent 失败，不是因为模型完全不会，而是因为它在某一步看到的信息不对：</p>
-<ul>
-<li>重要约束没带上；</li>
-<li>无关内容太多；</li>
-<li>工具结果没有整理；</li>
-<li>历史消息太长，重点被淹没；</li>
-<li>子任务结果没有正确汇总。</li>
-</ul>
-<p>DeerFlow 这类系统需要处理的不只是 prompt，而是整个任务过程中的信息流。</p>
-<p>所以看它的架构时，要关注：</p>
-<ul>
-<li>用户输入怎么变成任务上下文；</li>
-<li>工具返回结果怎么进入下一轮；</li>
-<li>子 Agent 的结果怎么汇总；</li>
-<li>memory 什么时候被注入；</li>
-<li>文件和产物怎么被引用。</li>
-</ul>
-<p>这部分决定了长任务能不能稳定执行。</p>
-<h2 id="file-system产物要落地">File System：产物要落地</h2>
-<p>很多 AI 应用只停留在聊天窗口里。DeerFlow 更强调任务产物。</p>
-<p>文件系统能力让 Agent 可以：</p>
-<ul>
-<li>读取项目文件；</li>
-<li>生成报告；</li>
-<li>修改代码；</li>
-<li>保存中间产物；</li>
-<li>把输出变成可复用文件。</li>
-</ul>
-<p>这也是为什么 DeerFlow 更接近“工作台”而不是“聊天框”。</p>
-<p>但文件能力同样需要约束。写文件之前要知道写到哪里、会不会覆盖已有内容、是否需要用户确认。</p>
-<h2 id="这些概念之间的关系">这些概念之间的关系</h2>
-<p>可以把 DeerFlow 的核心关系简化成这样：</p>
-<pre class="astro-code astro-code-themes github-light github-dark" style="--shiki-light:#24292e;--shiki-dark:#e1e4e8;--shiki-light-bg:#fff;--shiki-dark-bg:#24292e; overflow-x: auto;" tabindex="0" data-language="text"><code><span class="line"><span>用户任务</span></span>
+<p>这部分后面会单独拆。</p>
+<h2 id="第六层memory-和上下文">第六层：Memory 和上下文</h2>
+<p>Memory 不是聊天记录仓库。它解决的是长期上下文问题。</p>
+<p>在 DeerFlow 这类系统里，memory 通常会和 system prompt、skills、thread data、uploads、tool results 一起影响 Agent 当前看到的信息。</p>
+<p>所以你可以把一次任务的上下文来源看成：</p>
+<pre class="astro-code astro-code-themes github-light github-dark" style="--shiki-light:#24292e;--shiki-dark:#e1e4e8;--shiki-light-bg:#fff;--shiki-dark-bg:#24292e; overflow-x: auto;" tabindex="0" data-language="text"><code><span class="line"><span>用户输入</span></span>
+<span class="line"><span>+ 当前 thread 状态</span></span>
+<span class="line"><span>+ 上传文件</span></span>
+<span class="line"><span>+ skill 指令</span></span>
+<span class="line"><span>+ memory context</span></span>
+<span class="line"><span>+ tool results</span></span>
+<span class="line"><span>+ working directory 信息</span></span></code></pre>
+<p>Agent 效果不稳定，很多时候不是“模型突然变笨”，而是这些上下文没有组织好。</p>
+<h2 id="一个简化执行链路">一个简化执行链路</h2>
+<p>先记住这个版本：</p>
+<pre class="astro-code astro-code-themes github-light github-dark" style="--shiki-light:#24292e;--shiki-dark:#e1e4e8;--shiki-light-bg:#fff;--shiki-dark-bg:#24292e; overflow-x: auto;" tabindex="0" data-language="text"><code><span class="line"><span>用户提交任务</span></span>
 <span class="line"><span>  ↓</span></span>
-<span class="line"><span>Lead Agent 理解目标、规划步骤</span></span>
+<span class="line"><span>Gateway 创建 thread / run</span></span>
 <span class="line"><span>  ↓</span></span>
-<span class="line"><span>按需调用 Tools / Skills / Sub-agents</span></span>
+<span class="line"><span>Middleware 准备目录、上传、memory、上下文</span></span>
 <span class="line"><span>  ↓</span></span>
-<span class="line"><span>在 Sandbox 和 File System 中执行、读写、生成产物</span></span>
+<span class="line"><span>Lead Agent 选择模型并开始推理</span></span>
 <span class="line"><span>  ↓</span></span>
-<span class="line"><span>Memory 和 Context Engineering 维持长期状态和上下文质量</span></span>
+<span class="line"><span>按需调用 tools / MCP / sub-agents</span></span>
 <span class="line"><span>  ↓</span></span>
-<span class="line"><span>通过 Web / API / IM Channels 返回结果</span></span></code></pre>
-<p>这个图不完整，但足够帮助你建立第一层理解。</p>
-<p>后面继续读项目结构和执行链路时，就可以把每个目录、每个配置项放回这张图里，而不是孤立地看源码。</p>
+<span class="line"><span>需要执行时进入 sandbox / 文件系统</span></span>
+<span class="line"><span>  ↓</span></span>
+<span class="line"><span>产物进入 artifacts，结果通过 streaming 返回</span></span></code></pre>
+<p>这不是完整源码级链路，但足够作为阅读地图。</p>
 <h2 id="这一篇的完成标准">这一篇的完成标准</h2>
-<p>读完这一篇，你不需要记住所有实现细节。</p>
-<p>只要能分清下面几组关系，就可以继续往下：</p>
+<p>读完这一篇，你不需要记住所有模块名。</p>
+<p>只要能回答这几个问题就够：</p>
 <ul>
-<li>Tool 负责执行动作，Skill 负责复用方法。</li>
-<li>Lead Agent 负责主控，Sub-agents 负责分工。</li>
-<li>Memory 保存长期信息，Context Engineering 管理当前任务信息流。</li>
-<li>Sandbox 控制执行边界，File System 承载任务产物。</li>
+<li>请求不是直接进模型，而是先经过 Gateway 和运行管理。</li>
+<li>Lead Agent 是主控，但它依赖 middleware、tools、skills、memory 和 sandbox。</li>
+<li>Tools、Skills、Sub-agents 不是一回事。</li>
+<li>Sandbox 和 artifacts 决定了执行边界和任务产物。</li>
+<li>后面读源码时，要把每个文件放回“入口 → runtime → Agent → tool/sandbox/artifact”这条链路里。</li>
 </ul>
-<p>下一篇开始看项目结构：这些概念在 DeerFlow 仓库里分别落在哪些目录和模块里。</p>  </div> </article> <aside class="toc"><p class="toc-title">目录</p><ul class="toc-list"><li class="depth-2"><a href="#先不要被名词带偏">先不要被名词带偏</a></li><li class="depth-2"><a href="#super-agent-harness-是什么">Super Agent Harness 是什么</a></li><li class="depth-2"><a href="#lead-agent任务的主控">Lead Agent：任务的主控</a></li><li class="depth-2"><a href="#tools让模型能做事">Tools：让模型能做事</a></li><li class="depth-2"><a href="#skills把经验沉淀成能力">Skills：把经验沉淀成能力</a></li><li class="depth-2"><a href="#sub-agents把复杂任务拆出去">Sub-agents：把复杂任务拆出去</a></li><li class="depth-2"><a href="#memory让任务不只活在当前上下文里">Memory：让任务不只活在当前上下文里</a></li><li class="depth-2"><a href="#sandbox给执行能力加边界">Sandbox：给执行能力加边界</a></li><li class="depth-2"><a href="#context-engineering控制模型看到什么">Context Engineering：控制模型看到什么</a></li><li class="depth-2"><a href="#file-system产物要落地">File System：产物要落地</a></li><li class="depth-2"><a href="#这些概念之间的关系">这些概念之间的关系</a></li><li class="depth-2"><a href="#这一篇的完成标准">这一篇的完成标准</a></li></ul></aside> </section>  </main> <footer class="site-footer"> <div class="shell footer-inner"> <p>© 2026 未来观察者</p> </div> </footer> </body></html>
+<p>下一篇看项目结构：这些概念在仓库目录里分别落在哪里。</p>  </div> </article> <aside class="toc"><p class="toc-title">目录</p><ul class="toc-list"><li class="depth-2"><a href="#这一篇先画地图">这一篇先画地图</a></li><li class="depth-2"><a href="#deerflow-不是一个单点-agent">DeerFlow 不是一个单点 Agent</a></li><li class="depth-2"><a href="#第一层入口和-gateway">第一层：入口和 Gateway</a></li><li class="depth-2"><a href="#第二层lead-agent-是运行入口">第二层：Lead Agent 是运行入口</a></li><li class="depth-2"><a href="#第三层middleware-处理横切逻辑">第三层：Middleware 处理横切逻辑</a></li><li class="depth-2"><a href="#第四层tools--skills--sub-agents">第四层：Tools / Skills / Sub-agents</a></li><li class="depth-2"><a href="#第五层sandbox-和文件产物">第五层：Sandbox 和文件产物</a></li><li class="depth-2"><a href="#第六层memory-和上下文">第六层：Memory 和上下文</a></li><li class="depth-2"><a href="#一个简化执行链路">一个简化执行链路</a></li><li class="depth-2"><a href="#这一篇的完成标准">这一篇的完成标准</a></li></ul></aside> </section>  </main> <footer class="site-footer"> <div class="shell footer-inner"> <p>© 2026 未来观察者</p> </div> </footer> </body></html>
