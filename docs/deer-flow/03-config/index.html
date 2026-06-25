@@ -28,7 +28,7 @@
           if (getStoredMode() === "system") apply("system");
         });
       })();
-    </script><title>03. 配置文件：看懂 config.yaml | 技术教程 | 未来观察者</title><meta name="description" content="拆解 DeerFlow 2.0 的核心配置：模型、API key、搜索、沙盒、运行目录、skills 和渠道入口。"><meta name="generator" content="Astro v5.18.1"><meta property="og:title" content="03. 配置文件：看懂 config.yaml | 技术教程 | 未来观察者"><meta property="og:description" content="拆解 DeerFlow 2.0 的核心配置：模型、API key、搜索、沙盒、运行目录、skills 和渠道入口。"><meta property="og:type" content="website"><meta property="og:url" content="https://future.lifestudylab.com/docs/deer-flow/03-config/"><link rel="icon" type="image/svg+xml" href="/favicon.svg"><link rel="alternate" type="application/rss+xml" title="未来观察者" href="/rss.xml"><link rel="stylesheet" href="/_astro/_channel_.SRy4AP5z.css"></head> <body> <div class="page-bg"></div> <header class="site-header"> <div class="shell header-inner"> <div class="header-bar"> <a class="brand" href="/ai-tools/"> <img src="/brand-mark.svg" alt="" class="brand-mark" width="56" height="56"> <span class="brand-text" aria-label="未来观察者">思考未来</span> </a> </div> <nav class="top-menu" aria-label="顶部菜单"> <a href="/future-daily/" class="top-menu-link"> 每日信息 </a><a href="/docs/deer-flow/01-index/" class="top-menu-link"> DeerFlow教程 </a><a href="/about/" class="top-menu-link"> 关于我 </a> </nav> <div class="top-actions"> <a class="feedback-link" href="https://github.com/yonglisss/yonglisss.github.io/issues" target="_blank" rel="noopener noreferrer" aria-label="问题反馈"> <svg viewBox="0 0 24 24" aria-hidden="true" class="action-icon"> <path d="M4.75 5.75A2.75 2.75 0 0 1 7.5 3h9A2.75 2.75 0 0 1 19.25 5.75v6.5A2.75 2.75 0 0 1 16.5 15H9.3l-3.55 3.2V15.1a2.75 2.75 0 0 1-1-2.1V5.75Z"></path> <path d="M8 7.75h8M8 11.25h4"></path> </svg> <span>问题反馈</span> </a> <div class="theme-switcher" data-theme-switcher> <button class="theme-trigger" type="button" aria-haspopup="menu" aria-expanded="false" aria-label="切换明暗模式" data-theme-trigger> <svg viewBox="0 0 24 24" aria-hidden="true" class="action-icon theme-trigger-icon theme-trigger-icon--light"> <circle cx="12" cy="12" r="4"></circle> <path d="M12 2.75v2M12 19.25v2M4.75 4.75l1.4 1.4M17.85 17.85l1.4 1.4M2.75 12h2M19.25 12h2M4.75 19.25l1.4-1.4M17.85 6.15l1.4-1.4"></path> </svg> <svg viewBox="0 0 24 24" aria-hidden="true" class="action-icon theme-trigger-icon theme-trigger-icon--dark"> <path d="M20.25 14.2A8 8 0 0 1 9.8 3.75 8.5 8.5 0 1 0 20.25 14.2Z"></path> </svg> <svg viewBox="0 0 24 24" aria-hidden="true" class="action-icon theme-trigger-icon theme-trigger-icon--system"> <rect x="4" y="5" width="16" height="11" rx="1.8"></rect> <path d="M9 20h6M12 16v4"></path> </svg> </button> <div class="theme-menu" role="menu" data-theme-menu hidden> <button class="theme-option" type="button" role="menuitemradio" data-theme-option="light" aria-checked="false"> <svg viewBox="0 0 24 24" aria-hidden="true" class="action-icon"><circle cx="12" cy="12" r="4"></circle><path d="M12 2.75v2M12 19.25v2M4.75 4.75l1.4 1.4M17.85 17.85l1.4 1.4M2.75 12h2M19.25 12h2M4.75 19.25l1.4-1.4M17.85 6.15l1.4-1.4"></path></svg> <span>亮色</span> </button> <button class="theme-option" type="button" role="menuitemradio" data-theme-option="dark" aria-checked="false"> <svg viewBox="0 0 24 24" aria-hidden="true" class="action-icon"><path d="M20.25 14.2A8 8 0 0 1 9.8 3.75 8.5 8.5 0 1 0 20.25 14.2Z"></path></svg> <span>暗色</span> </button> <button class="theme-option" type="button" role="menuitemradio" data-theme-option="system" aria-checked="true"> <svg viewBox="0 0 24 24" aria-hidden="true" class="action-icon"><rect x="4" y="5" width="16" height="11" rx="1.8"></rect><path d="M9 20h6M12 16v4"></path></svg> <span>跟随系统</span> </button> </div> </div> </div> </div> </header> <script>
+    </script><title>03. 配置文件：看懂 config.yaml | 技术教程 | 未来观察者</title><meta name="description" content="拆解 DeerFlow 2.0 的核心配置：模型、API key、搜索、沙盒、运行目录、skills 和渠道入口。"><meta name="generator" content="Astro v5.18.1"><meta property="og:title" content="03. 配置文件：看懂 config.yaml | 技术教程 | 未来观察者"><meta property="og:description" content="拆解 DeerFlow 2.0 的核心配置：模型、API key、搜索、沙盒、运行目录、skills 和渠道入口。"><meta property="og:type" content="website"><meta property="og:url" content="https://future.lifestudylab.com/docs/deer-flow/03-config/"><link rel="icon" type="image/svg+xml" href="/favicon.svg"><link rel="alternate" type="application/rss+xml" title="未来观察者" href="/rss.xml"><link rel="stylesheet" href="/_astro/_channel_.DJG1Tm35.css"></head> <body> <div class="page-bg"></div> <header class="site-header"> <div class="shell header-inner"> <div class="header-bar"> <a class="brand" href="/ai-tools/"> <img src="/brand-mark.svg" alt="" class="brand-mark" width="56" height="56"> <span class="brand-text" aria-label="未来观察者">思考未来</span> </a> </div> <nav class="top-menu" aria-label="顶部菜单"> <a href="/future-daily/" class="top-menu-link"> 每日信息 </a><a href="/docs/deer-flow/01-index/" class="top-menu-link"> DeerFlow教程 </a><a href="/about/" class="top-menu-link"> 关于我 </a> </nav> <div class="top-actions"> <a class="feedback-link" href="https://github.com/yonglisss/yonglisss.github.io/issues" target="_blank" rel="noopener noreferrer" aria-label="问题反馈"> <svg viewBox="0 0 24 24" aria-hidden="true" class="action-icon"> <path d="M4.75 5.75A2.75 2.75 0 0 1 7.5 3h9A2.75 2.75 0 0 1 19.25 5.75v6.5A2.75 2.75 0 0 1 16.5 15H9.3l-3.55 3.2V15.1a2.75 2.75 0 0 1-1-2.1V5.75Z"></path> <path d="M8 7.75h8M8 11.25h4"></path> </svg> <span>问题反馈</span> </a> <div class="theme-switcher" data-theme-switcher> <button class="theme-trigger" type="button" aria-haspopup="menu" aria-expanded="false" aria-label="切换明暗模式" data-theme-trigger> <svg viewBox="0 0 24 24" aria-hidden="true" class="action-icon theme-trigger-icon theme-trigger-icon--light"> <circle cx="12" cy="12" r="4"></circle> <path d="M12 2.75v2M12 19.25v2M4.75 4.75l1.4 1.4M17.85 17.85l1.4 1.4M2.75 12h2M19.25 12h2M4.75 19.25l1.4-1.4M17.85 6.15l1.4-1.4"></path> </svg> <svg viewBox="0 0 24 24" aria-hidden="true" class="action-icon theme-trigger-icon theme-trigger-icon--dark"> <path d="M20.25 14.2A8 8 0 0 1 9.8 3.75 8.5 8.5 0 1 0 20.25 14.2Z"></path> </svg> <svg viewBox="0 0 24 24" aria-hidden="true" class="action-icon theme-trigger-icon theme-trigger-icon--system"> <rect x="4" y="5" width="16" height="11" rx="1.8"></rect> <path d="M9 20h6M12 16v4"></path> </svg> </button> <div class="theme-menu" role="menu" data-theme-menu hidden> <button class="theme-option" type="button" role="menuitemradio" data-theme-option="light" aria-checked="false"> <svg viewBox="0 0 24 24" aria-hidden="true" class="action-icon"><circle cx="12" cy="12" r="4"></circle><path d="M12 2.75v2M12 19.25v2M4.75 4.75l1.4 1.4M17.85 17.85l1.4 1.4M2.75 12h2M19.25 12h2M4.75 19.25l1.4-1.4M17.85 6.15l1.4-1.4"></path></svg> <span>亮色</span> </button> <button class="theme-option" type="button" role="menuitemradio" data-theme-option="dark" aria-checked="false"> <svg viewBox="0 0 24 24" aria-hidden="true" class="action-icon"><path d="M20.25 14.2A8 8 0 0 1 9.8 3.75 8.5 8.5 0 1 0 20.25 14.2Z"></path></svg> <span>暗色</span> </button> <button class="theme-option" type="button" role="menuitemradio" data-theme-option="system" aria-checked="true"> <svg viewBox="0 0 24 24" aria-hidden="true" class="action-icon"><rect x="4" y="5" width="16" height="11" rx="1.8"></rect><path d="M9 20h6M12 16v4"></path></svg> <span>跟随系统</span> </button> </div> </div> </div> </div> </header> <script>
   (() => {
     const switcher = document.querySelector("[data-theme-switcher]");
     if (!switcher) return;
@@ -90,7 +90,7 @@
 <p>这一篇不追求覆盖每个字段，只讲最影响上手的部分。</p>
 <h2 id="配置文件放在哪里">配置文件放在哪里</h2>
 <p>推荐位置：</p>
-<pre class="astro-code github-light" style="background-color:#fff;color:#24292e; overflow-x: auto;" tabindex="0" data-language="text"><code><span class="line"><span>deer-flow/config.yaml</span></span></code></pre>
+<pre class="astro-code astro-code-themes github-light github-dark" style="--shiki-light:#24292e;--shiki-dark:#e1e4e8;--shiki-light-bg:#fff;--shiki-dark-bg:#24292e; overflow-x: auto;" tabindex="0" data-language="text"><code><span class="line"><span>deer-flow/config.yaml</span></span></code></pre>
 <p>也就是项目根目录。</p>
 <p>官方后端查找配置的顺序大致是：</p>
 <ol>
@@ -102,9 +102,9 @@
 </ol>
 <p>日常使用里，最简单的方式就是把它放在项目根目录。</p>
 <p>如果你需要从其他目录启动，可以设置：</p>
-<pre class="astro-code github-light" style="background-color:#fff;color:#24292e; overflow-x: auto;" tabindex="0" data-language="bash"><code><span class="line"><span style="color:#D73A49">export</span><span style="color:#24292E"> DEER_FLOW_PROJECT_ROOT</span><span style="color:#D73A49">=</span><span style="color:#24292E">/path/to/deer-flow</span></span></code></pre>
+<pre class="astro-code astro-code-themes github-light github-dark" style="--shiki-light:#24292e;--shiki-dark:#e1e4e8;--shiki-light-bg:#fff;--shiki-dark-bg:#24292e; overflow-x: auto;" tabindex="0" data-language="bash"><code><span class="line"><span style="--shiki-light:#D73A49;--shiki-dark:#F97583">export</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8"> DEER_FLOW_PROJECT_ROOT</span><span style="--shiki-light:#D73A49;--shiki-dark:#F97583">=</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8">/path/to/deer-flow</span></span></code></pre>
 <p>如果你想直接指定某个配置文件：</p>
-<pre class="astro-code github-light" style="background-color:#fff;color:#24292e; overflow-x: auto;" tabindex="0" data-language="bash"><code><span class="line"><span style="color:#D73A49">export</span><span style="color:#24292E"> DEER_FLOW_CONFIG_PATH</span><span style="color:#D73A49">=</span><span style="color:#24292E">/path/to/deer-flow/config.yaml</span></span></code></pre>
+<pre class="astro-code astro-code-themes github-light github-dark" style="--shiki-light:#24292e;--shiki-dark:#e1e4e8;--shiki-light-bg:#fff;--shiki-dark-bg:#24292e; overflow-x: auto;" tabindex="0" data-language="bash"><code><span class="line"><span style="--shiki-light:#D73A49;--shiki-dark:#F97583">export</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8"> DEER_FLOW_CONFIG_PATH</span><span style="--shiki-light:#D73A49;--shiki-dark:#F97583">=</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8">/path/to/deer-flow/config.yaml</span></span></code></pre>
 <h2 id="env-和-configyaml-怎么分工"><code>.env</code> 和 <code>config.yaml</code> 怎么分工</h2>
 <p>建议这样分：</p>
 <ul>
@@ -113,23 +113,23 @@
 </ul>
 <p>不要把真实 key 直接写进 <code>config.yaml</code> 并提交。</p>
 <p>更推荐这种写法：</p>
-<pre class="astro-code github-light" style="background-color:#fff;color:#24292e; overflow-x: auto;" tabindex="0" data-language="yaml"><code><span class="line"><span style="color:#22863A">models</span><span style="color:#24292E">:</span></span>
-<span class="line"><span style="color:#24292E">  - </span><span style="color:#22863A">name</span><span style="color:#24292E">: </span><span style="color:#032F62">gpt-4o</span></span>
-<span class="line"><span style="color:#22863A">    display_name</span><span style="color:#24292E">: </span><span style="color:#032F62">GPT-4o</span></span>
-<span class="line"><span style="color:#22863A">    use</span><span style="color:#24292E">: </span><span style="color:#032F62">langchain_openai:ChatOpenAI</span></span>
-<span class="line"><span style="color:#22863A">    model</span><span style="color:#24292E">: </span><span style="color:#032F62">gpt-4o</span></span>
-<span class="line"><span style="color:#22863A">    api_key</span><span style="color:#24292E">: </span><span style="color:#032F62">$OPENAI_API_KEY</span></span></code></pre>
+<pre class="astro-code astro-code-themes github-light github-dark" style="--shiki-light:#24292e;--shiki-dark:#e1e4e8;--shiki-light-bg:#fff;--shiki-dark-bg:#24292e; overflow-x: auto;" tabindex="0" data-language="yaml"><code><span class="line"><span style="--shiki-light:#22863A;--shiki-dark:#85E89D">models</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8">:</span></span>
+<span class="line"><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8">  - </span><span style="--shiki-light:#22863A;--shiki-dark:#85E89D">name</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8">: </span><span style="--shiki-light:#032F62;--shiki-dark:#9ECBFF">gpt-4o</span></span>
+<span class="line"><span style="--shiki-light:#22863A;--shiki-dark:#85E89D">    display_name</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8">: </span><span style="--shiki-light:#032F62;--shiki-dark:#9ECBFF">GPT-4o</span></span>
+<span class="line"><span style="--shiki-light:#22863A;--shiki-dark:#85E89D">    use</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8">: </span><span style="--shiki-light:#032F62;--shiki-dark:#9ECBFF">langchain_openai:ChatOpenAI</span></span>
+<span class="line"><span style="--shiki-light:#22863A;--shiki-dark:#85E89D">    model</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8">: </span><span style="--shiki-light:#032F62;--shiki-dark:#9ECBFF">gpt-4o</span></span>
+<span class="line"><span style="--shiki-light:#22863A;--shiki-dark:#85E89D">    api_key</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8">: </span><span style="--shiki-light:#032F62;--shiki-dark:#9ECBFF">$OPENAI_API_KEY</span></span></code></pre>
 <p>然后在 <code>.env</code> 里写：</p>
-<pre class="astro-code github-light" style="background-color:#fff;color:#24292e; overflow-x: auto;" tabindex="0" data-language="bash"><code><span class="line"><span style="color:#24292E">OPENAI_API_KEY</span><span style="color:#D73A49">=</span><span style="color:#032F62">your-o...-key</span></span></code></pre>
+<pre class="astro-code astro-code-themes github-light github-dark" style="--shiki-light:#24292e;--shiki-dark:#e1e4e8;--shiki-light-bg:#fff;--shiki-dark-bg:#24292e; overflow-x: auto;" tabindex="0" data-language="bash"><code><span class="line"><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8">OPENAI_API_KEY</span><span style="--shiki-light:#D73A49;--shiki-dark:#F97583">=</span><span style="--shiki-light:#032F62;--shiki-dark:#9ECBFF">your-o...-key</span></span></code></pre>
 <h2 id="models最核心的配置"><code>models</code>：最核心的配置</h2>
 <p>DeerFlow 至少需要一个可用模型。</p>
 <p>一个典型模型配置长这样：</p>
-<pre class="astro-code github-light" style="background-color:#fff;color:#24292e; overflow-x: auto;" tabindex="0" data-language="yaml"><code><span class="line"><span style="color:#22863A">models</span><span style="color:#24292E">:</span></span>
-<span class="line"><span style="color:#24292E">  - </span><span style="color:#22863A">name</span><span style="color:#24292E">: </span><span style="color:#032F62">gpt-4o</span></span>
-<span class="line"><span style="color:#22863A">    display_name</span><span style="color:#24292E">: </span><span style="color:#032F62">GPT-4o</span></span>
-<span class="line"><span style="color:#22863A">    use</span><span style="color:#24292E">: </span><span style="color:#032F62">langchain_openai:ChatOpenAI</span></span>
-<span class="line"><span style="color:#22863A">    model</span><span style="color:#24292E">: </span><span style="color:#032F62">gpt-4o</span></span>
-<span class="line"><span style="color:#22863A">    api_key</span><span style="color:#24292E">: </span><span style="color:#032F62">$OPENAI_API_KEY</span></span></code></pre>
+<pre class="astro-code astro-code-themes github-light github-dark" style="--shiki-light:#24292e;--shiki-dark:#e1e4e8;--shiki-light-bg:#fff;--shiki-dark-bg:#24292e; overflow-x: auto;" tabindex="0" data-language="yaml"><code><span class="line"><span style="--shiki-light:#22863A;--shiki-dark:#85E89D">models</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8">:</span></span>
+<span class="line"><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8">  - </span><span style="--shiki-light:#22863A;--shiki-dark:#85E89D">name</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8">: </span><span style="--shiki-light:#032F62;--shiki-dark:#9ECBFF">gpt-4o</span></span>
+<span class="line"><span style="--shiki-light:#22863A;--shiki-dark:#85E89D">    display_name</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8">: </span><span style="--shiki-light:#032F62;--shiki-dark:#9ECBFF">GPT-4o</span></span>
+<span class="line"><span style="--shiki-light:#22863A;--shiki-dark:#85E89D">    use</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8">: </span><span style="--shiki-light:#032F62;--shiki-dark:#9ECBFF">langchain_openai:ChatOpenAI</span></span>
+<span class="line"><span style="--shiki-light:#22863A;--shiki-dark:#85E89D">    model</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8">: </span><span style="--shiki-light:#032F62;--shiki-dark:#9ECBFF">gpt-4o</span></span>
+<span class="line"><span style="--shiki-light:#22863A;--shiki-dark:#85E89D">    api_key</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8">: </span><span style="--shiki-light:#032F62;--shiki-dark:#9ECBFF">$OPENAI_API_KEY</span></span></code></pre>
 <p>几个字段先这样理解：</p>
 
 
@@ -166,35 +166,35 @@
 
 <table><thead><tr><th>字段</th><th>作用</th></tr></thead><tbody><tr><td><code>name</code></td><td>DeerFlow 内部识别这个模型用的名字</td></tr><tr><td><code>display_name</code></td><td>前端或列表里展示的名字</td></tr><tr><td><code>use</code></td><td>具体使用哪个模型适配类</td></tr><tr><td><code>model</code></td><td>provider 侧真实模型名</td></tr><tr><td><code>api_key</code></td><td>API key，可以引用 <code>.env</code> 变量</td></tr><tr><td><code>base_url</code></td><td>OpenAI 兼容网关地址，可选</td></tr></tbody></table>
 <p>如果你用 OpenRouter 或其他 OpenAI 兼容服务，通常加上 <code>base_url</code>：</p>
-<pre class="astro-code github-light" style="background-color:#fff;color:#24292e; overflow-x: auto;" tabindex="0" data-language="yaml"><code><span class="line"><span style="color:#22863A">models</span><span style="color:#24292E">:</span></span>
-<span class="line"><span style="color:#24292E">  - </span><span style="color:#22863A">name</span><span style="color:#24292E">: </span><span style="color:#032F62">openrouter-gemini-2.5-flash</span></span>
-<span class="line"><span style="color:#22863A">    display_name</span><span style="color:#24292E">: </span><span style="color:#032F62">Gemini 2.5 Flash (OpenRouter)</span></span>
-<span class="line"><span style="color:#22863A">    use</span><span style="color:#24292E">: </span><span style="color:#032F62">langchain_openai:ChatOpenAI</span></span>
-<span class="line"><span style="color:#22863A">    model</span><span style="color:#24292E">: </span><span style="color:#032F62">google/gemini-2.5-flash-preview</span></span>
-<span class="line"><span style="color:#22863A">    api_key</span><span style="color:#24292E">: </span><span style="color:#032F62">$OPENROUTER_API_KEY</span></span>
-<span class="line"><span style="color:#22863A">    base_url</span><span style="color:#24292E">: </span><span style="color:#032F62">https://openrouter.ai/api/v1</span></span></code></pre>
+<pre class="astro-code astro-code-themes github-light github-dark" style="--shiki-light:#24292e;--shiki-dark:#e1e4e8;--shiki-light-bg:#fff;--shiki-dark-bg:#24292e; overflow-x: auto;" tabindex="0" data-language="yaml"><code><span class="line"><span style="--shiki-light:#22863A;--shiki-dark:#85E89D">models</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8">:</span></span>
+<span class="line"><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8">  - </span><span style="--shiki-light:#22863A;--shiki-dark:#85E89D">name</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8">: </span><span style="--shiki-light:#032F62;--shiki-dark:#9ECBFF">openrouter-gemini-2.5-flash</span></span>
+<span class="line"><span style="--shiki-light:#22863A;--shiki-dark:#85E89D">    display_name</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8">: </span><span style="--shiki-light:#032F62;--shiki-dark:#9ECBFF">Gemini 2.5 Flash (OpenRouter)</span></span>
+<span class="line"><span style="--shiki-light:#22863A;--shiki-dark:#85E89D">    use</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8">: </span><span style="--shiki-light:#032F62;--shiki-dark:#9ECBFF">langchain_openai:ChatOpenAI</span></span>
+<span class="line"><span style="--shiki-light:#22863A;--shiki-dark:#85E89D">    model</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8">: </span><span style="--shiki-light:#032F62;--shiki-dark:#9ECBFF">google/gemini-2.5-flash-preview</span></span>
+<span class="line"><span style="--shiki-light:#22863A;--shiki-dark:#85E89D">    api_key</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8">: </span><span style="--shiki-light:#032F62;--shiki-dark:#9ECBFF">$OPENROUTER_API_KEY</span></span>
+<span class="line"><span style="--shiki-light:#22863A;--shiki-dark:#85E89D">    base_url</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8">: </span><span style="--shiki-light:#032F62;--shiki-dark:#9ECBFF">https://openrouter.ai/api/v1</span></span></code></pre>
 <p>重点是：<code>use</code> 决定调用方式，<code>model</code> 决定远端具体模型，<code>api_key</code> 和 <code>base_url</code> 决定连到哪里。</p>
 <h2 id="openai-responses-api">OpenAI Responses API</h2>
 <p>如果你想通过 OpenAI 的 <code>/v1/responses</code> 路线调用模型，官方 README 给出的配置思路是：继续使用 <code>langchain_openai:ChatOpenAI</code>，但加上 Responses API 相关字段：</p>
-<pre class="astro-code github-light" style="background-color:#fff;color:#24292e; overflow-x: auto;" tabindex="0" data-language="yaml"><code><span class="line"><span style="color:#22863A">models</span><span style="color:#24292E">:</span></span>
-<span class="line"><span style="color:#24292E">  - </span><span style="color:#22863A">name</span><span style="color:#24292E">: </span><span style="color:#032F62">gpt-5-responses</span></span>
-<span class="line"><span style="color:#22863A">    display_name</span><span style="color:#24292E">: </span><span style="color:#032F62">GPT-5 (Responses API)</span></span>
-<span class="line"><span style="color:#22863A">    use</span><span style="color:#24292E">: </span><span style="color:#032F62">langchain_openai:ChatOpenAI</span></span>
-<span class="line"><span style="color:#22863A">    model</span><span style="color:#24292E">: </span><span style="color:#032F62">gpt-5</span></span>
-<span class="line"><span style="color:#22863A">    api_key</span><span style="color:#24292E">: </span><span style="color:#032F62">$OPENAI_API_KEY</span></span>
-<span class="line"><span style="color:#22863A">    use_responses_api</span><span style="color:#24292E">: </span><span style="color:#005CC5">true</span></span>
-<span class="line"><span style="color:#22863A">    output_version</span><span style="color:#24292E">: </span><span style="color:#032F62">responses/v1</span></span></code></pre>
+<pre class="astro-code astro-code-themes github-light github-dark" style="--shiki-light:#24292e;--shiki-dark:#e1e4e8;--shiki-light-bg:#fff;--shiki-dark-bg:#24292e; overflow-x: auto;" tabindex="0" data-language="yaml"><code><span class="line"><span style="--shiki-light:#22863A;--shiki-dark:#85E89D">models</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8">:</span></span>
+<span class="line"><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8">  - </span><span style="--shiki-light:#22863A;--shiki-dark:#85E89D">name</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8">: </span><span style="--shiki-light:#032F62;--shiki-dark:#9ECBFF">gpt-5-responses</span></span>
+<span class="line"><span style="--shiki-light:#22863A;--shiki-dark:#85E89D">    display_name</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8">: </span><span style="--shiki-light:#032F62;--shiki-dark:#9ECBFF">GPT-5 (Responses API)</span></span>
+<span class="line"><span style="--shiki-light:#22863A;--shiki-dark:#85E89D">    use</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8">: </span><span style="--shiki-light:#032F62;--shiki-dark:#9ECBFF">langchain_openai:ChatOpenAI</span></span>
+<span class="line"><span style="--shiki-light:#22863A;--shiki-dark:#85E89D">    model</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8">: </span><span style="--shiki-light:#032F62;--shiki-dark:#9ECBFF">gpt-5</span></span>
+<span class="line"><span style="--shiki-light:#22863A;--shiki-dark:#85E89D">    api_key</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8">: </span><span style="--shiki-light:#032F62;--shiki-dark:#9ECBFF">$OPENAI_API_KEY</span></span>
+<span class="line"><span style="--shiki-light:#22863A;--shiki-dark:#85E89D">    use_responses_api</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8">: </span><span style="--shiki-light:#005CC5;--shiki-dark:#79B8FF">true</span></span>
+<span class="line"><span style="--shiki-light:#22863A;--shiki-dark:#85E89D">    output_version</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8">: </span><span style="--shiki-light:#032F62;--shiki-dark:#9ECBFF">responses/v1</span></span></code></pre>
 <p>这类配置适合你明确知道 provider 支持什么接口。刚入门时，不建议同时尝试太多 provider，先让一个模型稳定可用。</p>
 <h2 id="本地或自托管模型">本地或自托管模型</h2>
 <p>如果你用 vLLM 这类自托管服务，配置会更接近这样：</p>
-<pre class="astro-code github-light" style="background-color:#fff;color:#24292e; overflow-x: auto;" tabindex="0" data-language="yaml"><code><span class="line"><span style="color:#22863A">models</span><span style="color:#24292E">:</span></span>
-<span class="line"><span style="color:#24292E">  - </span><span style="color:#22863A">name</span><span style="color:#24292E">: </span><span style="color:#032F62">qwen3-32b-vllm</span></span>
-<span class="line"><span style="color:#22863A">    display_name</span><span style="color:#24292E">: </span><span style="color:#032F62">Qwen3 32B (vLLM)</span></span>
-<span class="line"><span style="color:#22863A">    use</span><span style="color:#24292E">: </span><span style="color:#032F62">deerflow.models.vllm_provider:VllmChatModel</span></span>
-<span class="line"><span style="color:#22863A">    model</span><span style="color:#24292E">: </span><span style="color:#032F62">Qwen/Qwen3-32B</span></span>
-<span class="line"><span style="color:#22863A">    api_key</span><span style="color:#24292E">: </span><span style="color:#032F62">$VLLM_API_KEY</span></span>
-<span class="line"><span style="color:#22863A">    base_url</span><span style="color:#24292E">: </span><span style="color:#032F62">http://localhost:8000/v1</span></span>
-<span class="line"><span style="color:#22863A">    supports_thinking</span><span style="color:#24292E">: </span><span style="color:#005CC5">true</span></span></code></pre>
+<pre class="astro-code astro-code-themes github-light github-dark" style="--shiki-light:#24292e;--shiki-dark:#e1e4e8;--shiki-light-bg:#fff;--shiki-dark-bg:#24292e; overflow-x: auto;" tabindex="0" data-language="yaml"><code><span class="line"><span style="--shiki-light:#22863A;--shiki-dark:#85E89D">models</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8">:</span></span>
+<span class="line"><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8">  - </span><span style="--shiki-light:#22863A;--shiki-dark:#85E89D">name</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8">: </span><span style="--shiki-light:#032F62;--shiki-dark:#9ECBFF">qwen3-32b-vllm</span></span>
+<span class="line"><span style="--shiki-light:#22863A;--shiki-dark:#85E89D">    display_name</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8">: </span><span style="--shiki-light:#032F62;--shiki-dark:#9ECBFF">Qwen3 32B (vLLM)</span></span>
+<span class="line"><span style="--shiki-light:#22863A;--shiki-dark:#85E89D">    use</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8">: </span><span style="--shiki-light:#032F62;--shiki-dark:#9ECBFF">deerflow.models.vllm_provider:VllmChatModel</span></span>
+<span class="line"><span style="--shiki-light:#22863A;--shiki-dark:#85E89D">    model</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8">: </span><span style="--shiki-light:#032F62;--shiki-dark:#9ECBFF">Qwen/Qwen3-32B</span></span>
+<span class="line"><span style="--shiki-light:#22863A;--shiki-dark:#85E89D">    api_key</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8">: </span><span style="--shiki-light:#032F62;--shiki-dark:#9ECBFF">$VLLM_API_KEY</span></span>
+<span class="line"><span style="--shiki-light:#22863A;--shiki-dark:#85E89D">    base_url</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8">: </span><span style="--shiki-light:#032F62;--shiki-dark:#9ECBFF">http://localhost:8000/v1</span></span>
+<span class="line"><span style="--shiki-light:#22863A;--shiki-dark:#85E89D">    supports_thinking</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8">: </span><span style="--shiki-light:#005CC5;--shiki-dark:#79B8FF">true</span></span></code></pre>
 <p>本地模型的关键不是 DeerFlow，而是模型服务本身要先稳定：</p>
 <ul>
 <li>vLLM 服务是否已启动</li>
@@ -207,8 +207,8 @@
 <h2 id="搜索配置不是必需但很常用">搜索配置：不是必需，但很常用</h2>
 <p>DeerFlow 可以接搜索和抓取能力。研究型任务、资料整理、趋势分析都依赖它。</p>
 <p>常见做法是在 <code>.env</code> 里放搜索 provider 的 key：</p>
-<pre class="astro-code github-light" style="background-color:#fff;color:#24292e; overflow-x: auto;" tabindex="0" data-language="bash"><code><span class="line"><span style="color:#24292E">TAVILY_API_KEY</span><span style="color:#D73A49">=</span><span style="color:#032F62">your-t...-key</span></span>
-<span class="line"><span style="color:#24292E">INFOQUEST_API_KEY</span><span style="color:#D73A49">=</span><span style="color:#032F62">your-i...-key</span></span></code></pre>
+<pre class="astro-code astro-code-themes github-light github-dark" style="--shiki-light:#24292e;--shiki-dark:#e1e4e8;--shiki-light-bg:#fff;--shiki-dark-bg:#24292e; overflow-x: auto;" tabindex="0" data-language="bash"><code><span class="line"><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8">TAVILY_API_KEY</span><span style="--shiki-light:#D73A49;--shiki-dark:#F97583">=</span><span style="--shiki-light:#032F62;--shiki-dark:#9ECBFF">your-t...-key</span></span>
+<span class="line"><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8">INFOQUEST_API_KEY</span><span style="--shiki-light:#D73A49;--shiki-dark:#F97583">=</span><span style="--shiki-light:#032F62;--shiki-dark:#9ECBFF">your-i...-key</span></span></code></pre>
 <p>启用哪个 provider，以 <code>make setup</code> 生成的配置或 <code>config.example.yaml</code> 为准。</p>
 <p>这里要注意：模型能回答，不代表搜索已经可用。</p>
 <p>你可以这样分层验证：</p>
@@ -226,8 +226,8 @@
 <li>Docker + Kubernetes provisioner</li>
 </ul>
 <p>如果配置里使用类似下面的 provider：</p>
-<pre class="astro-code github-light" style="background-color:#fff;color:#24292e; overflow-x: auto;" tabindex="0" data-language="yaml"><code><span class="line"><span style="color:#22863A">sandbox</span><span style="color:#24292E">:</span></span>
-<span class="line"><span style="color:#22863A">  use</span><span style="color:#24292E">: </span><span style="color:#032F62">deerflow.community.aio_sandbox:AioSandboxProvider</span></span></code></pre>
+<pre class="astro-code astro-code-themes github-light github-dark" style="--shiki-light:#24292e;--shiki-dark:#e1e4e8;--shiki-light-bg:#fff;--shiki-dark-bg:#24292e; overflow-x: auto;" tabindex="0" data-language="yaml"><code><span class="line"><span style="--shiki-light:#22863A;--shiki-dark:#85E89D">sandbox</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8">:</span></span>
+<span class="line"><span style="--shiki-light:#22863A;--shiki-dark:#85E89D">  use</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8">: </span><span style="--shiki-light:#032F62;--shiki-dark:#9ECBFF">deerflow.community.aio_sandbox:AioSandboxProvider</span></span></code></pre>
 <p>并且配置了 <code>provisioner_url</code>，Docker 开发启动时会按对应模式拉起 provisioner。</p>
 <p>入门阶段建议：</p>
 <ul>
@@ -240,19 +240,19 @@
 <p>除了模型和搜索，几个路径变量也很重要。</p>
 <h3 id="deer_flow_project_root"><code>DEER_FLOW_PROJECT_ROOT</code></h3>
 <p>显式告诉 DeerFlow 项目根目录在哪里：</p>
-<pre class="astro-code github-light" style="background-color:#fff;color:#24292e; overflow-x: auto;" tabindex="0" data-language="bash"><code><span class="line"><span style="color:#D73A49">export</span><span style="color:#24292E"> DEER_FLOW_PROJECT_ROOT</span><span style="color:#D73A49">=</span><span style="color:#24292E">/path/to/deer-flow</span></span></code></pre>
+<pre class="astro-code astro-code-themes github-light github-dark" style="--shiki-light:#24292e;--shiki-dark:#e1e4e8;--shiki-light-bg:#fff;--shiki-dark-bg:#24292e; overflow-x: auto;" tabindex="0" data-language="bash"><code><span class="line"><span style="--shiki-light:#D73A49;--shiki-dark:#F97583">export</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8"> DEER_FLOW_PROJECT_ROOT</span><span style="--shiki-light:#D73A49;--shiki-dark:#F97583">=</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8">/path/to/deer-flow</span></span></code></pre>
 <p>适合从其他目录启动，或者被脚本 / 服务管理器启动时使用。</p>
 <h3 id="deer_flow_config_path"><code>DEER_FLOW_CONFIG_PATH</code></h3>
 <p>直接指定配置文件：</p>
-<pre class="astro-code github-light" style="background-color:#fff;color:#24292e; overflow-x: auto;" tabindex="0" data-language="bash"><code><span class="line"><span style="color:#D73A49">export</span><span style="color:#24292E"> DEER_FLOW_CONFIG_PATH</span><span style="color:#D73A49">=</span><span style="color:#24292E">/path/to/config.yaml</span></span></code></pre>
+<pre class="astro-code astro-code-themes github-light github-dark" style="--shiki-light:#24292e;--shiki-dark:#e1e4e8;--shiki-light-bg:#fff;--shiki-dark-bg:#24292e; overflow-x: auto;" tabindex="0" data-language="bash"><code><span class="line"><span style="--shiki-light:#D73A49;--shiki-dark:#F97583">export</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8"> DEER_FLOW_CONFIG_PATH</span><span style="--shiki-light:#D73A49;--shiki-dark:#F97583">=</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8">/path/to/config.yaml</span></span></code></pre>
 <p>适合多环境配置，例如开发、测试、生产分别使用不同配置。</p>
 <h3 id="deer_flow_home"><code>DEER_FLOW_HOME</code></h3>
 <p>控制运行期状态保存位置。默认通常在项目根目录下的 <code>.deer-flow</code>。</p>
 <p>如果你希望状态数据放到独立磁盘或持久化目录，可以设置：</p>
-<pre class="astro-code github-light" style="background-color:#fff;color:#24292e; overflow-x: auto;" tabindex="0" data-language="bash"><code><span class="line"><span style="color:#D73A49">export</span><span style="color:#24292E"> DEER_FLOW_HOME</span><span style="color:#D73A49">=</span><span style="color:#24292E">/data/deer-flow-state</span></span></code></pre>
+<pre class="astro-code astro-code-themes github-light github-dark" style="--shiki-light:#24292e;--shiki-dark:#e1e4e8;--shiki-light-bg:#fff;--shiki-dark-bg:#24292e; overflow-x: auto;" tabindex="0" data-language="bash"><code><span class="line"><span style="--shiki-light:#D73A49;--shiki-dark:#F97583">export</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8"> DEER_FLOW_HOME</span><span style="--shiki-light:#D73A49;--shiki-dark:#F97583">=</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8">/data/deer-flow-state</span></span></code></pre>
 <h3 id="deer_flow_skills_path"><code>DEER_FLOW_SKILLS_PATH</code></h3>
 <p>控制 skills 的目录。默认是项目根目录下的 <code>skills/</code>。</p>
-<pre class="astro-code github-light" style="background-color:#fff;color:#24292e; overflow-x: auto;" tabindex="0" data-language="bash"><code><span class="line"><span style="color:#D73A49">export</span><span style="color:#24292E"> DEER_FLOW_SKILLS_PATH</span><span style="color:#D73A49">=</span><span style="color:#24292E">/data/deer-flow-skills</span></span></code></pre>
+<pre class="astro-code astro-code-themes github-light github-dark" style="--shiki-light:#24292e;--shiki-dark:#e1e4e8;--shiki-light-bg:#fff;--shiki-dark-bg:#24292e; overflow-x: auto;" tabindex="0" data-language="bash"><code><span class="line"><span style="--shiki-light:#D73A49;--shiki-dark:#F97583">export</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8"> DEER_FLOW_SKILLS_PATH</span><span style="--shiki-light:#D73A49;--shiki-dark:#F97583">=</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8">/data/deer-flow-skills</span></span></code></pre>
 <p>当你要把 skills 当成长期资产管理时，这个变量会很有用。</p>
 <h2 id="skills把可复用能力沉淀下来">Skills：把可复用能力沉淀下来</h2>
 <p>DeerFlow 里的 skills 可以理解成“可复用的工作方法和能力描述”。</p>
@@ -264,7 +264,7 @@
 <li>agent 负责在任务中选择和组合这些能力。</li>
 </ul>
 <p>入门阶段你不需要马上写复杂 skill，但应该知道它默认从哪里加载：</p>
-<pre class="astro-code github-light" style="background-color:#fff;color:#24292e; overflow-x: auto;" tabindex="0" data-language="text"><code><span class="line"><span>deer-flow/skills/</span></span></code></pre>
+<pre class="astro-code astro-code-themes github-light github-dark" style="--shiki-light:#24292e;--shiki-dark:#e1e4e8;--shiki-light-bg:#fff;--shiki-dark-bg:#24292e; overflow-x: auto;" tabindex="0" data-language="text"><code><span class="line"><span>deer-flow/skills/</span></span></code></pre>
 <p>或者由 <code>DEER_FLOW_SKILLS_PATH</code> / <code>skills.path</code> 指定。</p>
 <p>后续教程会专门做一篇“改一个能力”，到时再动手写。</p>
 <h2 id="channels把-deerflow-接进聊天入口">Channels：把 DeerFlow 接进聊天入口</h2>
@@ -278,14 +278,14 @@
 </ul>
 <p>这类配置通常会出现在 <code>channels</code> 下。</p>
 <p>飞书配置大致会涉及：</p>
-<pre class="astro-code github-light" style="background-color:#fff;color:#24292e; overflow-x: auto;" tabindex="0" data-language="yaml"><code><span class="line"><span style="color:#22863A">channels</span><span style="color:#24292E">:</span></span>
-<span class="line"><span style="color:#22863A">  feishu</span><span style="color:#24292E">:</span></span>
-<span class="line"><span style="color:#22863A">    enabled</span><span style="color:#24292E">: </span><span style="color:#005CC5">true</span></span>
-<span class="line"><span style="color:#22863A">    app_id</span><span style="color:#24292E">: </span><span style="color:#032F62">$FEISHU_APP_ID</span></span>
-<span class="line"><span style="color:#22863A">    app_secret</span><span style="color:#24292E">: </span><span style="color:#032F62">$FEISHU_APP_SECRET</span></span></code></pre>
+<pre class="astro-code astro-code-themes github-light github-dark" style="--shiki-light:#24292e;--shiki-dark:#e1e4e8;--shiki-light-bg:#fff;--shiki-dark-bg:#24292e; overflow-x: auto;" tabindex="0" data-language="yaml"><code><span class="line"><span style="--shiki-light:#22863A;--shiki-dark:#85E89D">channels</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8">:</span></span>
+<span class="line"><span style="--shiki-light:#22863A;--shiki-dark:#85E89D">  feishu</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8">:</span></span>
+<span class="line"><span style="--shiki-light:#22863A;--shiki-dark:#85E89D">    enabled</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8">: </span><span style="--shiki-light:#005CC5;--shiki-dark:#79B8FF">true</span></span>
+<span class="line"><span style="--shiki-light:#22863A;--shiki-dark:#85E89D">    app_id</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8">: </span><span style="--shiki-light:#032F62;--shiki-dark:#9ECBFF">$FEISHU_APP_ID</span></span>
+<span class="line"><span style="--shiki-light:#22863A;--shiki-dark:#85E89D">    app_secret</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8">: </span><span style="--shiki-light:#032F62;--shiki-dark:#9ECBFF">$FEISHU_APP_SECRET</span></span></code></pre>
 <p>对应 <code>.env</code>：</p>
-<pre class="astro-code github-light" style="background-color:#fff;color:#24292e; overflow-x: auto;" tabindex="0" data-language="bash"><code><span class="line"><span style="color:#24292E">FEISHU_APP_ID</span><span style="color:#D73A49">=</span><span style="color:#032F62">cli_xxxx</span></span>
-<span class="line"><span style="color:#24292E">FEISHU_APP_SECRET</span><span style="color:#D73A49">=</span><span style="color:#032F62">***</span></span></code></pre>
+<pre class="astro-code astro-code-themes github-light github-dark" style="--shiki-light:#24292e;--shiki-dark:#e1e4e8;--shiki-light-bg:#fff;--shiki-dark-bg:#24292e; overflow-x: auto;" tabindex="0" data-language="bash"><code><span class="line"><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8">FEISHU_APP_ID</span><span style="--shiki-light:#D73A49;--shiki-dark:#F97583">=</span><span style="--shiki-light:#032F62;--shiki-dark:#9ECBFF">cli_xxxx</span></span>
+<span class="line"><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8">FEISHU_APP_SECRET</span><span style="--shiki-light:#D73A49;--shiki-dark:#F97583">=</span><span style="--shiki-light:#032F62;--shiki-dark:#9ECBFF">***</span></span></code></pre>
 <p>不建议一开始就配 IM 渠道。建议顺序是：</p>
 <ol>
 <li>Web 页面能跑通。</li>
@@ -296,7 +296,7 @@
 <p>否则排错时很难判断是 DeerFlow、模型、网络、权限还是 IM 平台的问题。</p>
 <h2 id="修改配置后的验证顺序">修改配置后的验证顺序</h2>
 <p>每次改完配置，建议按这个顺序检查：</p>
-<pre class="astro-code github-light" style="background-color:#fff;color:#24292e; overflow-x: auto;" tabindex="0" data-language="bash"><code><span class="line"><span style="color:#6F42C1">make</span><span style="color:#032F62"> doctor</span></span></code></pre>
+<pre class="astro-code astro-code-themes github-light github-dark" style="--shiki-light:#24292e;--shiki-dark:#e1e4e8;--shiki-light-bg:#fff;--shiki-dark-bg:#24292e; overflow-x: auto;" tabindex="0" data-language="bash"><code><span class="line"><span style="--shiki-light:#6F42C1;--shiki-dark:#B392F0">make</span><span style="--shiki-light:#032F62;--shiki-dark:#9ECBFF"> doctor</span></span></code></pre>
 <p>然后启动服务。</p>
 <p>再分别验证三类任务：</p>
 <ol>

@@ -28,7 +28,7 @@
           if (getStoredMode() === "system") apply("system");
         });
       })();
-    </script><title>05. 项目结构：从目录看懂 DeerFlow | 技术教程 | 未来观察者</title><meta name="description" content="通过 DeerFlow 2.0 的仓库目录理解前端、Gateway、Agent Runtime、Sandbox、Skills、MCP 和配置系统的分工。"><meta name="generator" content="Astro v5.18.1"><meta property="og:title" content="05. 项目结构：从目录看懂 DeerFlow | 技术教程 | 未来观察者"><meta property="og:description" content="通过 DeerFlow 2.0 的仓库目录理解前端、Gateway、Agent Runtime、Sandbox、Skills、MCP 和配置系统的分工。"><meta property="og:type" content="website"><meta property="og:url" content="https://future.lifestudylab.com/docs/deer-flow/05-project-structure/"><link rel="icon" type="image/svg+xml" href="/favicon.svg"><link rel="alternate" type="application/rss+xml" title="未来观察者" href="/rss.xml"><link rel="stylesheet" href="/_astro/_channel_.SRy4AP5z.css"></head> <body> <div class="page-bg"></div> <header class="site-header"> <div class="shell header-inner"> <div class="header-bar"> <a class="brand" href="/ai-tools/"> <img src="/brand-mark.svg" alt="" class="brand-mark" width="56" height="56"> <span class="brand-text" aria-label="未来观察者">思考未来</span> </a> </div> <nav class="top-menu" aria-label="顶部菜单"> <a href="/future-daily/" class="top-menu-link"> 每日信息 </a><a href="/docs/deer-flow/01-index/" class="top-menu-link"> DeerFlow教程 </a><a href="/about/" class="top-menu-link"> 关于我 </a> </nav> <div class="top-actions"> <a class="feedback-link" href="https://github.com/yonglisss/yonglisss.github.io/issues" target="_blank" rel="noopener noreferrer" aria-label="问题反馈"> <svg viewBox="0 0 24 24" aria-hidden="true" class="action-icon"> <path d="M4.75 5.75A2.75 2.75 0 0 1 7.5 3h9A2.75 2.75 0 0 1 19.25 5.75v6.5A2.75 2.75 0 0 1 16.5 15H9.3l-3.55 3.2V15.1a2.75 2.75 0 0 1-1-2.1V5.75Z"></path> <path d="M8 7.75h8M8 11.25h4"></path> </svg> <span>问题反馈</span> </a> <div class="theme-switcher" data-theme-switcher> <button class="theme-trigger" type="button" aria-haspopup="menu" aria-expanded="false" aria-label="切换明暗模式" data-theme-trigger> <svg viewBox="0 0 24 24" aria-hidden="true" class="action-icon theme-trigger-icon theme-trigger-icon--light"> <circle cx="12" cy="12" r="4"></circle> <path d="M12 2.75v2M12 19.25v2M4.75 4.75l1.4 1.4M17.85 17.85l1.4 1.4M2.75 12h2M19.25 12h2M4.75 19.25l1.4-1.4M17.85 6.15l1.4-1.4"></path> </svg> <svg viewBox="0 0 24 24" aria-hidden="true" class="action-icon theme-trigger-icon theme-trigger-icon--dark"> <path d="M20.25 14.2A8 8 0 0 1 9.8 3.75 8.5 8.5 0 1 0 20.25 14.2Z"></path> </svg> <svg viewBox="0 0 24 24" aria-hidden="true" class="action-icon theme-trigger-icon theme-trigger-icon--system"> <rect x="4" y="5" width="16" height="11" rx="1.8"></rect> <path d="M9 20h6M12 16v4"></path> </svg> </button> <div class="theme-menu" role="menu" data-theme-menu hidden> <button class="theme-option" type="button" role="menuitemradio" data-theme-option="light" aria-checked="false"> <svg viewBox="0 0 24 24" aria-hidden="true" class="action-icon"><circle cx="12" cy="12" r="4"></circle><path d="M12 2.75v2M12 19.25v2M4.75 4.75l1.4 1.4M17.85 17.85l1.4 1.4M2.75 12h2M19.25 12h2M4.75 19.25l1.4-1.4M17.85 6.15l1.4-1.4"></path></svg> <span>亮色</span> </button> <button class="theme-option" type="button" role="menuitemradio" data-theme-option="dark" aria-checked="false"> <svg viewBox="0 0 24 24" aria-hidden="true" class="action-icon"><path d="M20.25 14.2A8 8 0 0 1 9.8 3.75 8.5 8.5 0 1 0 20.25 14.2Z"></path></svg> <span>暗色</span> </button> <button class="theme-option" type="button" role="menuitemradio" data-theme-option="system" aria-checked="true"> <svg viewBox="0 0 24 24" aria-hidden="true" class="action-icon"><rect x="4" y="5" width="16" height="11" rx="1.8"></rect><path d="M9 20h6M12 16v4"></path></svg> <span>跟随系统</span> </button> </div> </div> </div> </div> </header> <script>
+    </script><title>05. 项目结构：从目录看懂 DeerFlow | 技术教程 | 未来观察者</title><meta name="description" content="通过 DeerFlow 2.0 的仓库目录理解前端、Gateway、Agent Runtime、Sandbox、Skills、MCP 和配置系统的分工。"><meta name="generator" content="Astro v5.18.1"><meta property="og:title" content="05. 项目结构：从目录看懂 DeerFlow | 技术教程 | 未来观察者"><meta property="og:description" content="通过 DeerFlow 2.0 的仓库目录理解前端、Gateway、Agent Runtime、Sandbox、Skills、MCP 和配置系统的分工。"><meta property="og:type" content="website"><meta property="og:url" content="https://future.lifestudylab.com/docs/deer-flow/05-project-structure/"><link rel="icon" type="image/svg+xml" href="/favicon.svg"><link rel="alternate" type="application/rss+xml" title="未来观察者" href="/rss.xml"><link rel="stylesheet" href="/_astro/_channel_.DJG1Tm35.css"></head> <body> <div class="page-bg"></div> <header class="site-header"> <div class="shell header-inner"> <div class="header-bar"> <a class="brand" href="/ai-tools/"> <img src="/brand-mark.svg" alt="" class="brand-mark" width="56" height="56"> <span class="brand-text" aria-label="未来观察者">思考未来</span> </a> </div> <nav class="top-menu" aria-label="顶部菜单"> <a href="/future-daily/" class="top-menu-link"> 每日信息 </a><a href="/docs/deer-flow/01-index/" class="top-menu-link"> DeerFlow教程 </a><a href="/about/" class="top-menu-link"> 关于我 </a> </nav> <div class="top-actions"> <a class="feedback-link" href="https://github.com/yonglisss/yonglisss.github.io/issues" target="_blank" rel="noopener noreferrer" aria-label="问题反馈"> <svg viewBox="0 0 24 24" aria-hidden="true" class="action-icon"> <path d="M4.75 5.75A2.75 2.75 0 0 1 7.5 3h9A2.75 2.75 0 0 1 19.25 5.75v6.5A2.75 2.75 0 0 1 16.5 15H9.3l-3.55 3.2V15.1a2.75 2.75 0 0 1-1-2.1V5.75Z"></path> <path d="M8 7.75h8M8 11.25h4"></path> </svg> <span>问题反馈</span> </a> <div class="theme-switcher" data-theme-switcher> <button class="theme-trigger" type="button" aria-haspopup="menu" aria-expanded="false" aria-label="切换明暗模式" data-theme-trigger> <svg viewBox="0 0 24 24" aria-hidden="true" class="action-icon theme-trigger-icon theme-trigger-icon--light"> <circle cx="12" cy="12" r="4"></circle> <path d="M12 2.75v2M12 19.25v2M4.75 4.75l1.4 1.4M17.85 17.85l1.4 1.4M2.75 12h2M19.25 12h2M4.75 19.25l1.4-1.4M17.85 6.15l1.4-1.4"></path> </svg> <svg viewBox="0 0 24 24" aria-hidden="true" class="action-icon theme-trigger-icon theme-trigger-icon--dark"> <path d="M20.25 14.2A8 8 0 0 1 9.8 3.75 8.5 8.5 0 1 0 20.25 14.2Z"></path> </svg> <svg viewBox="0 0 24 24" aria-hidden="true" class="action-icon theme-trigger-icon theme-trigger-icon--system"> <rect x="4" y="5" width="16" height="11" rx="1.8"></rect> <path d="M9 20h6M12 16v4"></path> </svg> </button> <div class="theme-menu" role="menu" data-theme-menu hidden> <button class="theme-option" type="button" role="menuitemradio" data-theme-option="light" aria-checked="false"> <svg viewBox="0 0 24 24" aria-hidden="true" class="action-icon"><circle cx="12" cy="12" r="4"></circle><path d="M12 2.75v2M12 19.25v2M4.75 4.75l1.4 1.4M17.85 17.85l1.4 1.4M2.75 12h2M19.25 12h2M4.75 19.25l1.4-1.4M17.85 6.15l1.4-1.4"></path></svg> <span>亮色</span> </button> <button class="theme-option" type="button" role="menuitemradio" data-theme-option="dark" aria-checked="false"> <svg viewBox="0 0 24 24" aria-hidden="true" class="action-icon"><path d="M20.25 14.2A8 8 0 0 1 9.8 3.75 8.5 8.5 0 1 0 20.25 14.2Z"></path></svg> <span>暗色</span> </button> <button class="theme-option" type="button" role="menuitemradio" data-theme-option="system" aria-checked="true"> <svg viewBox="0 0 24 24" aria-hidden="true" class="action-icon"><rect x="4" y="5" width="16" height="11" rx="1.8"></rect><path d="M9 20h6M12 16v4"></path></svg> <span>跟随系统</span> </button> </div> </div> </div> </div> </header> <script>
   (() => {
     const switcher = document.querySelector("[data-theme-switcher]");
     if (!switcher) return;
@@ -98,7 +98,7 @@
 <p>先把地图看清楚，再读源码会轻很多。</p>
 <h2 id="整体结构">整体结构</h2>
 <p>根据官方仓库当前结构，可以先把 DeerFlow 看成这几块：</p>
-<pre class="astro-code github-light" style="background-color:#fff;color:#24292e; overflow-x: auto;" tabindex="0" data-language="text"><code><span class="line"><span>deer-flow/</span></span>
+<pre class="astro-code astro-code-themes github-light github-dark" style="--shiki-light:#24292e;--shiki-dark:#e1e4e8;--shiki-light-bg:#fff;--shiki-dark-bg:#24292e; overflow-x: auto;" tabindex="0" data-language="text"><code><span class="line"><span>deer-flow/</span></span>
 <span class="line"><span>├── Makefile</span></span>
 <span class="line"><span>├── config.yaml</span></span>
 <span class="line"><span>├── config.example.yaml</span></span>
@@ -150,14 +150,14 @@
 <p>根目录最重要的是两个东西：命令和配置。</p>
 <h3 id="makefile"><code>Makefile</code></h3>
 <p>日常命令基本从这里进：</p>
-<pre class="astro-code github-light" style="background-color:#fff;color:#24292e; overflow-x: auto;" tabindex="0" data-language="bash"><code><span class="line"><span style="color:#6F42C1">make</span><span style="color:#032F62"> check</span></span>
-<span class="line"><span style="color:#6F42C1">make</span><span style="color:#032F62"> install</span></span>
-<span class="line"><span style="color:#6F42C1">make</span><span style="color:#032F62"> dev</span></span>
-<span class="line"><span style="color:#6F42C1">make</span><span style="color:#032F62"> docker-init</span></span>
-<span class="line"><span style="color:#6F42C1">make</span><span style="color:#032F62"> docker-start</span></span>
-<span class="line"><span style="color:#6F42C1">make</span><span style="color:#032F62"> up</span></span>
-<span class="line"><span style="color:#6F42C1">make</span><span style="color:#032F62"> down</span></span>
-<span class="line"><span style="color:#6F42C1">make</span><span style="color:#032F62"> doctor</span></span></code></pre>
+<pre class="astro-code astro-code-themes github-light github-dark" style="--shiki-light:#24292e;--shiki-dark:#e1e4e8;--shiki-light-bg:#fff;--shiki-dark-bg:#24292e; overflow-x: auto;" tabindex="0" data-language="bash"><code><span class="line"><span style="--shiki-light:#6F42C1;--shiki-dark:#B392F0">make</span><span style="--shiki-light:#032F62;--shiki-dark:#9ECBFF"> check</span></span>
+<span class="line"><span style="--shiki-light:#6F42C1;--shiki-dark:#B392F0">make</span><span style="--shiki-light:#032F62;--shiki-dark:#9ECBFF"> install</span></span>
+<span class="line"><span style="--shiki-light:#6F42C1;--shiki-dark:#B392F0">make</span><span style="--shiki-light:#032F62;--shiki-dark:#9ECBFF"> dev</span></span>
+<span class="line"><span style="--shiki-light:#6F42C1;--shiki-dark:#B392F0">make</span><span style="--shiki-light:#032F62;--shiki-dark:#9ECBFF"> docker-init</span></span>
+<span class="line"><span style="--shiki-light:#6F42C1;--shiki-dark:#B392F0">make</span><span style="--shiki-light:#032F62;--shiki-dark:#9ECBFF"> docker-start</span></span>
+<span class="line"><span style="--shiki-light:#6F42C1;--shiki-dark:#B392F0">make</span><span style="--shiki-light:#032F62;--shiki-dark:#9ECBFF"> up</span></span>
+<span class="line"><span style="--shiki-light:#6F42C1;--shiki-dark:#B392F0">make</span><span style="--shiki-light:#032F62;--shiki-dark:#9ECBFF"> down</span></span>
+<span class="line"><span style="--shiki-light:#6F42C1;--shiki-dark:#B392F0">make</span><span style="--shiki-light:#032F62;--shiki-dark:#9ECBFF"> doctor</span></span></code></pre>
 <p>你可以把根目录 <code>Makefile</code> 理解成 DeerFlow 的操作面板。不要一上来自己拼命令，优先看官方 Makefile 暴露了什么入口。</p>
 <h3 id="configyaml"><code>config.yaml</code></h3>
 <p>这是本地实际生效的配置文件。</p>
@@ -189,7 +189,7 @@
 <h2 id="backend核心在这里"><code>backend/</code>：核心在这里</h2>
 <p><code>backend/</code> 是 DeerFlow 最值得看的部分。</p>
 <p>官方开发说明里把它分成两层：</p>
-<pre class="astro-code github-light" style="background-color:#fff;color:#24292e; overflow-x: auto;" tabindex="0" data-language="text"><code><span class="line"><span>backend/</span></span>
+<pre class="astro-code astro-code-themes github-light github-dark" style="--shiki-light:#24292e;--shiki-dark:#e1e4e8;--shiki-light-bg:#fff;--shiki-dark-bg:#24292e; overflow-x: auto;" tabindex="0" data-language="text"><code><span class="line"><span>backend/</span></span>
 <span class="line"><span>├── app/</span></span>
 <span class="line"><span>└── packages/</span></span></code></pre>
 <p>可以先这样理解：</p>
@@ -201,7 +201,7 @@
 <p>Gateway 是 DeerFlow 的后端 API 入口。</p>
 <p>它负责接收前端、API 或部分渠道层的请求，再把任务交给 Agent runtime。</p>
 <p>官方说明里提到，Gateway API 默认端口是 <code>8001</code>。在完整运行时，Nginx 会把统一入口转发到 Gateway，对外常见访问地址是：</p>
-<pre class="astro-code github-light" style="background-color:#fff;color:#24292e; overflow-x: auto;" tabindex="0" data-language="text"><code><span class="line"><span>http://localhost:2026</span></span></code></pre>
+<pre class="astro-code astro-code-themes github-light github-dark" style="--shiki-light:#24292e;--shiki-dark:#e1e4e8;--shiki-light-bg:#fff;--shiki-dark-bg:#24292e; overflow-x: auto;" tabindex="0" data-language="text"><code><span class="line"><span>http://localhost:2026</span></span></code></pre>
 <p>你可以把 Gateway 理解成前端和 Agent runtime 之间的服务层。</p>
 <p>它不是只做转发，通常还会处理：</p>
 <ul>
@@ -223,9 +223,9 @@
 <h2 id="backendpackagesharnessagent-系统本体"><code>backend/packages/harness/</code>：Agent 系统本体</h2>
 <p>这是理解 DeerFlow 的关键目录。</p>
 <p>官方说明里提到，Python 包导入路径主要是：</p>
-<pre class="astro-code github-light" style="background-color:#fff;color:#24292e; overflow-x: auto;" tabindex="0" data-language="text"><code><span class="line"><span>deerflow.*</span></span></code></pre>
+<pre class="astro-code astro-code-themes github-light github-dark" style="--shiki-light:#24292e;--shiki-dark:#e1e4e8;--shiki-light-bg:#fff;--shiki-dark-bg:#24292e; overflow-x: auto;" tabindex="0" data-language="text"><code><span class="line"><span>deerflow.*</span></span></code></pre>
 <p>目录大致长这样：</p>
-<pre class="astro-code github-light" style="background-color:#fff;color:#24292e; overflow-x: auto;" tabindex="0" data-language="text"><code><span class="line"><span>backend/packages/harness/deerflow/</span></span>
+<pre class="astro-code astro-code-themes github-light github-dark" style="--shiki-light:#24292e;--shiki-dark:#e1e4e8;--shiki-light-bg:#fff;--shiki-dark-bg:#24292e; overflow-x: auto;" tabindex="0" data-language="text"><code><span class="line"><span>backend/packages/harness/deerflow/</span></span>
 <span class="line"><span>├── agents/</span></span>
 <span class="line"><span>├── sandbox/</span></span>
 <span class="line"><span>├── subagents/</span></span>
@@ -253,9 +253,9 @@
 <h2 id="models模型适配层"><code>models/</code>：模型适配层</h2>
 <p><code>models/</code> 负责把不同 provider 接进 DeerFlow。</p>
 <p>这也是为什么 <code>config.yaml</code> 里的 <code>use</code> 字段很重要。它通常指向某个模型适配类，例如：</p>
-<pre class="astro-code github-light" style="background-color:#fff;color:#24292e; overflow-x: auto;" tabindex="0" data-language="yaml"><code><span class="line"><span style="color:#22863A">use</span><span style="color:#24292E">: </span><span style="color:#032F62">langchain_openai:ChatOpenAI</span></span></code></pre>
+<pre class="astro-code astro-code-themes github-light github-dark" style="--shiki-light:#24292e;--shiki-dark:#e1e4e8;--shiki-light-bg:#fff;--shiki-dark-bg:#24292e; overflow-x: auto;" tabindex="0" data-language="yaml"><code><span class="line"><span style="--shiki-light:#22863A;--shiki-dark:#85E89D">use</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8">: </span><span style="--shiki-light:#032F62;--shiki-dark:#9ECBFF">langchain_openai:ChatOpenAI</span></span></code></pre>
 <p>或者：</p>
-<pre class="astro-code github-light" style="background-color:#fff;color:#24292e; overflow-x: auto;" tabindex="0" data-language="yaml"><code><span class="line"><span style="color:#22863A">use</span><span style="color:#24292E">: </span><span style="color:#032F62">deerflow.models.vllm_provider:VllmChatModel</span></span></code></pre>
+<pre class="astro-code astro-code-themes github-light github-dark" style="--shiki-light:#24292e;--shiki-dark:#e1e4e8;--shiki-light-bg:#fff;--shiki-dark-bg:#24292e; overflow-x: auto;" tabindex="0" data-language="yaml"><code><span class="line"><span style="--shiki-light:#22863A;--shiki-dark:#85E89D">use</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8">: </span><span style="--shiki-light:#032F62;--shiki-dark:#9ECBFF">deerflow.models.vllm_provider:VllmChatModel</span></span></code></pre>
 <p>不同模型的差异不只是 API key 和 model name。还可能包括：</p>
 <ul>
 <li>是否支持 vision；</li>
@@ -283,7 +283,7 @@
 <h2 id="skills技能加载和解析"><code>skills/</code>：技能加载和解析</h2>
 <p><code>backend/packages/harness/deerflow/skills/</code> 是 skill 的系统逻辑。</p>
 <p>而根目录下的：</p>
-<pre class="astro-code github-light" style="background-color:#fff;color:#24292e; overflow-x: auto;" tabindex="0" data-language="text"><code><span class="line"><span>skills/</span></span></code></pre>
+<pre class="astro-code astro-code-themes github-light github-dark" style="--shiki-light:#24292e;--shiki-dark:#e1e4e8;--shiki-light-bg:#fff;--shiki-dark-bg:#24292e; overflow-x: auto;" tabindex="0" data-language="text"><code><span class="line"><span>skills/</span></span></code></pre>
 <p>通常是具体 skill 文件所在的位置。</p>
 <p>这两个不要混淆：</p>
 <ul>
@@ -294,7 +294,7 @@
 <h2 id="sandbox执行环境边界"><code>sandbox/</code>：执行环境边界</h2>
 <p><code>sandbox/</code> 负责执行环境。</p>
 <p>官方结构里能看到：</p>
-<pre class="astro-code github-light" style="background-color:#fff;color:#24292e; overflow-x: auto;" tabindex="0" data-language="text"><code><span class="line"><span>sandbox/</span></span>
+<pre class="astro-code astro-code-themes github-light github-dark" style="--shiki-light:#24292e;--shiki-dark:#e1e4e8;--shiki-light-bg:#fff;--shiki-dark-bg:#24292e; overflow-x: auto;" tabindex="0" data-language="text"><code><span class="line"><span>sandbox/</span></span>
 <span class="line"><span>├── local/</span></span>
 <span class="line"><span>├── sandbox.py</span></span>
 <span class="line"><span>├── tools.py</span></span>
@@ -310,7 +310,7 @@
 <h2 id="subagents子-agent-系统"><code>subagents/</code>：子 Agent 系统</h2>
 <p><code>subagents/</code> 负责子 Agent 的注册和执行。</p>
 <p>官方结构里包括：</p>
-<pre class="astro-code github-light" style="background-color:#fff;color:#24292e; overflow-x: auto;" tabindex="0" data-language="text"><code><span class="line"><span>subagents/</span></span>
+<pre class="astro-code astro-code-themes github-light github-dark" style="--shiki-light:#24292e;--shiki-dark:#e1e4e8;--shiki-light-bg:#fff;--shiki-dark-bg:#24292e; overflow-x: auto;" tabindex="0" data-language="text"><code><span class="line"><span>subagents/</span></span>
 <span class="line"><span>├── builtins/</span></span>
 <span class="line"><span>├── executor.py</span></span>
 <span class="line"><span>└── registry.py</span></span></code></pre>
