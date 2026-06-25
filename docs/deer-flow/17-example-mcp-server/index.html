@@ -28,7 +28,7 @@
           if (getStoredMode() === "system") apply("system");
         });
       })();
-    </script><title>17. 实战四：接入一个 MCP Server | 技术教程 | 未来观察者</title><meta name="description" content="用最小路径演示 MCP Server 接入思路：选择服务、配置连接、验证工具、执行任务和排错。"><meta name="generator" content="Astro v5.18.1"><meta property="og:title" content="17. 实战四：接入一个 MCP Server | 技术教程 | 未来观察者"><meta property="og:description" content="用最小路径演示 MCP Server 接入思路：选择服务、配置连接、验证工具、执行任务和排错。"><meta property="og:type" content="website"><meta property="og:url" content="https://future.lifestudylab.com/docs/deer-flow/17-example-mcp-server/"><link rel="icon" type="image/svg+xml" href="/favicon.svg"><link rel="alternate" type="application/rss+xml" title="未来观察者" href="/rss.xml"><link rel="stylesheet" href="/_astro/_channel_.Bh9hp2gc.css"></head> <body> <div class="page-bg"></div> <header class="site-header"> <div class="shell header-inner"> <div class="header-bar"> <a class="brand" href="/ai-tools/"> <img src="/brand-mark.svg" alt="" class="brand-mark" width="56" height="56"> <span class="brand-text" aria-label="未来观察者">思考未来</span> </a> </div> <nav class="top-menu" aria-label="顶部菜单"> <a href="/future-daily/" class="top-menu-link"> 每日信息 </a><a href="/docs/deer-flow/01-index/" class="top-menu-link"> DeerFlow教程 </a><a href="/about/" class="top-menu-link"> 关于我 </a> </nav> <div class="top-actions"> <a class="feedback-link" href="https://github.com/yonglisss/yonglisss.github.io/issues" target="_blank" rel="noopener noreferrer" aria-label="问题反馈"> <svg viewBox="0 0 24 24" aria-hidden="true" class="action-icon"> <path d="M4.75 5.75A2.75 2.75 0 0 1 7.5 3h9A2.75 2.75 0 0 1 19.25 5.75v6.5A2.75 2.75 0 0 1 16.5 15H9.3l-3.55 3.2V15.1a2.75 2.75 0 0 1-1-2.1V5.75Z"></path> <path d="M8 7.75h8M8 11.25h4"></path> </svg> <span>问题反馈</span> </a> <div class="theme-switcher" data-theme-switcher> <button class="theme-trigger" type="button" aria-haspopup="menu" aria-expanded="false" aria-label="切换明暗模式" data-theme-trigger> <svg viewBox="0 0 24 24" aria-hidden="true" class="action-icon theme-trigger-icon theme-trigger-icon--light"> <circle cx="12" cy="12" r="4"></circle> <path d="M12 2.75v2M12 19.25v2M4.75 4.75l1.4 1.4M17.85 17.85l1.4 1.4M2.75 12h2M19.25 12h2M4.75 19.25l1.4-1.4M17.85 6.15l1.4-1.4"></path> </svg> <svg viewBox="0 0 24 24" aria-hidden="true" class="action-icon theme-trigger-icon theme-trigger-icon--dark"> <path d="M20.25 14.2A8 8 0 0 1 9.8 3.75 8.5 8.5 0 1 0 20.25 14.2Z"></path> </svg> <svg viewBox="0 0 24 24" aria-hidden="true" class="action-icon theme-trigger-icon theme-trigger-icon--system"> <rect x="4" y="5" width="16" height="11" rx="1.8"></rect> <path d="M9 20h6M12 16v4"></path> </svg> </button> <div class="theme-menu" role="menu" data-theme-menu hidden> <button class="theme-option" type="button" role="menuitemradio" data-theme-option="light" aria-checked="false"> <svg viewBox="0 0 24 24" aria-hidden="true" class="action-icon"><circle cx="12" cy="12" r="4"></circle><path d="M12 2.75v2M12 19.25v2M4.75 4.75l1.4 1.4M17.85 17.85l1.4 1.4M2.75 12h2M19.25 12h2M4.75 19.25l1.4-1.4M17.85 6.15l1.4-1.4"></path></svg> <span>亮色</span> </button> <button class="theme-option" type="button" role="menuitemradio" data-theme-option="dark" aria-checked="false"> <svg viewBox="0 0 24 24" aria-hidden="true" class="action-icon"><path d="M20.25 14.2A8 8 0 0 1 9.8 3.75 8.5 8.5 0 1 0 20.25 14.2Z"></path></svg> <span>暗色</span> </button> <button class="theme-option" type="button" role="menuitemradio" data-theme-option="system" aria-checked="true"> <svg viewBox="0 0 24 24" aria-hidden="true" class="action-icon"><rect x="4" y="5" width="16" height="11" rx="1.8"></rect><path d="M9 20h6M12 16v4"></path></svg> <span>跟随系统</span> </button> </div> </div> </div> </div> </header> <script>
+    </script><title>17. 终局实战四：接入一个只读 MCP 数据源 | 技术教程 | 未来观察者</title><meta name="description" content="给研究型 Agent 增加一个低风险 MCP：先验证 server、配置、工具加载、cache、权限，再把结果并入研究报告。"><meta name="generator" content="Astro v5.18.1"><meta property="og:title" content="17. 终局实战四：接入一个只读 MCP 数据源 | 技术教程 | 未来观察者"><meta property="og:description" content="给研究型 Agent 增加一个低风险 MCP：先验证 server、配置、工具加载、cache、权限，再把结果并入研究报告。"><meta property="og:type" content="website"><meta property="og:url" content="https://future.lifestudylab.com/docs/deer-flow/17-example-mcp-server/"><link rel="icon" type="image/svg+xml" href="/favicon.svg"><link rel="alternate" type="application/rss+xml" title="未来观察者" href="/rss.xml"><link rel="stylesheet" href="/_astro/_channel_.Bh9hp2gc.css"></head> <body> <div class="page-bg"></div> <header class="site-header"> <div class="shell header-inner"> <div class="header-bar"> <a class="brand" href="/ai-tools/"> <img src="/brand-mark.svg" alt="" class="brand-mark" width="56" height="56"> <span class="brand-text" aria-label="未来观察者">思考未来</span> </a> </div> <nav class="top-menu" aria-label="顶部菜单"> <a href="/future-daily/" class="top-menu-link"> 每日信息 </a><a href="/docs/deer-flow/01-index/" class="top-menu-link"> DeerFlow教程 </a><a href="/about/" class="top-menu-link"> 关于我 </a> </nav> <div class="top-actions"> <a class="feedback-link" href="https://github.com/yonglisss/yonglisss.github.io/issues" target="_blank" rel="noopener noreferrer" aria-label="问题反馈"> <svg viewBox="0 0 24 24" aria-hidden="true" class="action-icon"> <path d="M4.75 5.75A2.75 2.75 0 0 1 7.5 3h9A2.75 2.75 0 0 1 19.25 5.75v6.5A2.75 2.75 0 0 1 16.5 15H9.3l-3.55 3.2V15.1a2.75 2.75 0 0 1-1-2.1V5.75Z"></path> <path d="M8 7.75h8M8 11.25h4"></path> </svg> <span>问题反馈</span> </a> <div class="theme-switcher" data-theme-switcher> <button class="theme-trigger" type="button" aria-haspopup="menu" aria-expanded="false" aria-label="切换明暗模式" data-theme-trigger> <svg viewBox="0 0 24 24" aria-hidden="true" class="action-icon theme-trigger-icon theme-trigger-icon--light"> <circle cx="12" cy="12" r="4"></circle> <path d="M12 2.75v2M12 19.25v2M4.75 4.75l1.4 1.4M17.85 17.85l1.4 1.4M2.75 12h2M19.25 12h2M4.75 19.25l1.4-1.4M17.85 6.15l1.4-1.4"></path> </svg> <svg viewBox="0 0 24 24" aria-hidden="true" class="action-icon theme-trigger-icon theme-trigger-icon--dark"> <path d="M20.25 14.2A8 8 0 0 1 9.8 3.75 8.5 8.5 0 1 0 20.25 14.2Z"></path> </svg> <svg viewBox="0 0 24 24" aria-hidden="true" class="action-icon theme-trigger-icon theme-trigger-icon--system"> <rect x="4" y="5" width="16" height="11" rx="1.8"></rect> <path d="M9 20h6M12 16v4"></path> </svg> </button> <div class="theme-menu" role="menu" data-theme-menu hidden> <button class="theme-option" type="button" role="menuitemradio" data-theme-option="light" aria-checked="false"> <svg viewBox="0 0 24 24" aria-hidden="true" class="action-icon"><circle cx="12" cy="12" r="4"></circle><path d="M12 2.75v2M12 19.25v2M4.75 4.75l1.4 1.4M17.85 17.85l1.4 1.4M2.75 12h2M19.25 12h2M4.75 19.25l1.4-1.4M17.85 6.15l1.4-1.4"></path></svg> <span>亮色</span> </button> <button class="theme-option" type="button" role="menuitemradio" data-theme-option="dark" aria-checked="false"> <svg viewBox="0 0 24 24" aria-hidden="true" class="action-icon"><path d="M20.25 14.2A8 8 0 0 1 9.8 3.75 8.5 8.5 0 1 0 20.25 14.2Z"></path></svg> <span>暗色</span> </button> <button class="theme-option" type="button" role="menuitemradio" data-theme-option="system" aria-checked="true"> <svg viewBox="0 0 24 24" aria-hidden="true" class="action-icon"><rect x="4" y="5" width="16" height="11" rx="1.8"></rect><path d="M9 20h6M12 16v4"></path></svg> <span>跟随系统</span> </button> </div> </div> </div> </div> </header> <script>
   (() => {
     const switcher = document.querySelector("[data-theme-switcher]");
     if (!switcher) return;
@@ -84,43 +84,134 @@
     window.addEventListener("future-observer-theme-change", sync);
     sync();
   })();
-</script>  <main class="shell page-content page-content--full">  <section class="docs-shell"> <aside class="docs-sidebar" aria-label="技术教程目录"> <nav class="docs-nav-block" aria-label="DeerFlow 教程"> <p class="docs-nav-title">DeerFlow 教程</p> <ul class="docs-nav-list"> <li> <a href="/docs/deer-flow/01-index/" class="docs-nav-link"> 01. 教程总览：从跑起来到写一个 Agent </a> </li><li> <a href="/docs/deer-flow/02-quickstart/" class="docs-nav-link"> 02. 快速开始：先把 DeerFlow 跑起来 </a> </li><li> <a href="/docs/deer-flow/03-config/" class="docs-nav-link"> 03. 配置文件：看懂 config.yaml </a> </li><li> <a href="/docs/deer-flow/04-concepts/" class="docs-nav-link"> 04. 整体架构：DeerFlow 到底在调度什么 </a> </li><li> <a href="/docs/deer-flow/05-project-structure/" class="docs-nav-link"> 05. 项目结构：从目录看懂 DeerFlow </a> </li><li> <a href="/docs/deer-flow/06-execution-flow/" class="docs-nav-link"> 06. 执行链路：一次任务从入口到结果 </a> </li><li> <a href="/docs/deer-flow/07-tools/" class="docs-nav-link"> 07. Tools 原理：Agent 为什么需要工具 </a> </li><li> <a href="/docs/deer-flow/08-skills/" class="docs-nav-link"> 08. Skills 原理：把经验沉淀成可复用能力 </a> </li><li> <a href="/docs/deer-flow/09-sub-agents/" class="docs-nav-link"> 09. Sub-agents 原理：多智能体什么时候值得拆 </a> </li><li> <a href="/docs/deer-flow/10-memory/" class="docs-nav-link"> 10. Memory 原理：长期上下文该记什么 </a> </li><li> <a href="/docs/deer-flow/11-sandbox/" class="docs-nav-link"> 11. Sandbox 原理：安全执行和文件边界 </a> </li><li> <a href="/docs/deer-flow/12-mcp/" class="docs-nav-link"> 12. MCP 原理：把外部工具接进 Agent </a> </li><li> <a href="/docs/deer-flow/13-observability/" class="docs-nav-link"> 13. 可观测性：看清一次 Agent 为什么失败 </a> </li><li> <a href="/docs/deer-flow/14-examples/" class="docs-nav-link"> 14. 终局实战一：设计一个研究型 Agent </a> </li><li> <a href="/docs/deer-flow/15-example-tech-report/" class="docs-nav-link"> 15. 终局实战二：设计 Agent 任务流 </a> </li><li> <a href="/docs/deer-flow/16-example-custom-skill/" class="docs-nav-link"> 16. 终局实战三：给研究型 Agent 写一个 Skill </a> </li><li> <a href="/docs/deer-flow/17-example-mcp-server/" class="docs-nav-link active"> 17. 实战四：接入一个 MCP Server </a> </li><li> <a href="/docs/deer-flow/18-faq/" class="docs-nav-link"> 18. 部署：从本地跑到可长期使用 </a> </li><li> <a href="/docs/deer-flow/19-advanced-roadmap/" class="docs-nav-link"> 19. 进阶路线：从使用者到改造者 </a> </li> </ul> </nav> </aside> <article class="docs-article"> <header class="docs-hero"> <p class="docs-kicker">Technical Guide</p> <h1>17. 实战四：接入一个 MCP Server</h1> <p>用最小路径演示 MCP Server 接入思路：选择服务、配置连接、验证工具、执行任务和排错。</p> </header> <div class="docs-prose">  <h2 id="实战目标">实战目标</h2>
-<p>这一篇做一个 MCP 接入演练。</p>
-<p>不限定具体 MCP server，因为不同环境可用服务不同。重点是掌握验证顺序：先让 server 单独可用，再让 DeerFlow 发现工具，最后让 Agent 调用。</p>
-<h2 id="选择一个简单-mcp-server">选择一个简单 MCP Server</h2>
-<p>第一次不要选太复杂的服务。</p>
-<p>更适合：只读工具、配置少、不需要复杂 OAuth、工具 schema 清楚、有明确测试命令。</p>
-<p>不建议第一次就接生产数据库、部署系统、消息发送工具。这些副作用太强。</p>
-<h2 id="准备配置">准备配置</h2>
-<p>通常需要确认：server 启动方式、传输方式是 stdio、HTTP 还是 SSE、是否需要 token、环境变量放哪里、DeerFlow 的 MCP 配置文件或 <code>config.yaml</code> 中对应字段怎么写。</p>
-<p>具体字段以官方文档和当前仓库配置为准。</p>
-<h2 id="第一步单独启动-server">第一步：单独启动 Server</h2>
-<p>不要一开始就放进 DeerFlow。</p>
-<p>先确认 MCP server 自己能启动，日志没有报错，依赖安装完整，token 有效。</p>
-<p>如果 server 自己都起不来，DeerFlow 里一定也用不了。</p>
-<h2 id="第二步让-deerflow-发现工具">第二步：让 DeerFlow 发现工具</h2>
-<p>接入配置后，启动 DeerFlow，检查工具列表是否出现。</p>
-<p>这一步只验证“能不能发现工具”，不要马上跑复杂任务。</p>
-<p>如果工具不可见，优先检查配置文件路径、server 命令、URL、token、传输方式和 DeerFlow 日志。</p>
-<h2 id="第三步调用一个只读工具">第三步：调用一个只读工具</h2>
-<p>选择最简单、风险最低的工具。</p>
-<p>例如查询版本、列出资源、搜索一个公开条目、读取一个测试页面。</p>
-<p>确认输入参数和返回结果都正常。</p>
-<h2 id="第四步让-agent-在任务中使用">第四步：让 Agent 在任务中使用</h2>
-<p>工具可用后，再给 Agent 一个明确任务：</p>
-<pre class="astro-code astro-code-themes github-light github-dark" style="--shiki-light:#24292e;--shiki-dark:#e1e4e8;--shiki-light-bg:#fff;--shiki-dark-bg:#24292e; overflow-x: auto;" tabindex="0" data-language="text"><code><span class="line"><span>请使用已配置的 MCP 工具读取测试资源，并总结返回内容。不要调用写入类工具。</span></span></code></pre>
-<p>观察 Agent 是否选择了正确工具，参数是否正确，返回内容是否被正确理解，是否误调用了高风险工具。</p>
-<h2 id="写入类工具要单独控制">写入类工具要单独控制</h2>
-<p>如果 MCP server 暴露了写入能力，比如创建 issue、更新数据库、发送消息，必须单独设计权限。</p>
-<p>建议只读和写入工具分开，写入操作需要用户确认，删除、发布、部署类工具默认关闭，记录调用日志，用测试环境先跑。</p>
-<h2 id="常见失败点">常见失败点</h2>
+</script>  <main class="shell page-content page-content--full">  <section class="docs-shell"> <aside class="docs-sidebar" aria-label="技术教程目录"> <nav class="docs-nav-block" aria-label="DeerFlow 教程"> <p class="docs-nav-title">DeerFlow 教程</p> <ul class="docs-nav-list"> <li> <a href="/docs/deer-flow/01-index/" class="docs-nav-link"> 01. 教程总览：从跑起来到写一个 Agent </a> </li><li> <a href="/docs/deer-flow/02-quickstart/" class="docs-nav-link"> 02. 快速开始：先把 DeerFlow 跑起来 </a> </li><li> <a href="/docs/deer-flow/03-config/" class="docs-nav-link"> 03. 配置文件：看懂 config.yaml </a> </li><li> <a href="/docs/deer-flow/04-concepts/" class="docs-nav-link"> 04. 整体架构：DeerFlow 到底在调度什么 </a> </li><li> <a href="/docs/deer-flow/05-project-structure/" class="docs-nav-link"> 05. 项目结构：从目录看懂 DeerFlow </a> </li><li> <a href="/docs/deer-flow/06-execution-flow/" class="docs-nav-link"> 06. 执行链路：一次任务从入口到结果 </a> </li><li> <a href="/docs/deer-flow/07-tools/" class="docs-nav-link"> 07. Tools 原理：Agent 为什么需要工具 </a> </li><li> <a href="/docs/deer-flow/08-skills/" class="docs-nav-link"> 08. Skills 原理：把经验沉淀成可复用能力 </a> </li><li> <a href="/docs/deer-flow/09-sub-agents/" class="docs-nav-link"> 09. Sub-agents 原理：多智能体什么时候值得拆 </a> </li><li> <a href="/docs/deer-flow/10-memory/" class="docs-nav-link"> 10. Memory 原理：长期上下文该记什么 </a> </li><li> <a href="/docs/deer-flow/11-sandbox/" class="docs-nav-link"> 11. Sandbox 原理：安全执行和文件边界 </a> </li><li> <a href="/docs/deer-flow/12-mcp/" class="docs-nav-link"> 12. MCP 原理：把外部工具接进 Agent </a> </li><li> <a href="/docs/deer-flow/13-observability/" class="docs-nav-link"> 13. 可观测性：看清一次 Agent 为什么失败 </a> </li><li> <a href="/docs/deer-flow/14-examples/" class="docs-nav-link"> 14. 终局实战一：设计一个研究型 Agent </a> </li><li> <a href="/docs/deer-flow/15-example-tech-report/" class="docs-nav-link"> 15. 终局实战二：设计 Agent 任务流 </a> </li><li> <a href="/docs/deer-flow/16-example-custom-skill/" class="docs-nav-link"> 16. 终局实战三：给研究型 Agent 写一个 Skill </a> </li><li> <a href="/docs/deer-flow/17-example-mcp-server/" class="docs-nav-link active"> 17. 终局实战四：接入一个只读 MCP 数据源 </a> </li><li> <a href="/docs/deer-flow/18-faq/" class="docs-nav-link"> 18. 部署：从本地跑到可长期使用 </a> </li><li> <a href="/docs/deer-flow/19-advanced-roadmap/" class="docs-nav-link"> 19. 进阶路线：从使用者到改造者 </a> </li> </ul> </nav> </aside> <article class="docs-article"> <header class="docs-hero"> <p class="docs-kicker">Technical Guide</p> <h1>17. 终局实战四：接入一个只读 MCP 数据源</h1> <p>给研究型 Agent 增加一个低风险 MCP：先验证 server、配置、工具加载、cache、权限，再把结果并入研究报告。</p> </header> <div class="docs-prose">  <h2 id="mcp-不要一上来接高风险系统">MCP 不要一上来接高风险系统</h2>
+<p>研究型 Agent 可以只用公开搜索完成第一版。</p>
+<p>但如果你希望它查询内部知识库、GitHub 仓库、文档系统或本地索引，就需要 MCP。</p>
+<p>这一篇只做低风险设计：接入一个只读 MCP 数据源。</p>
+<p>不要一开始就接能写数据库、发消息、改 issue、操作生产系统的 MCP。先从只读开始。</p>
+<h2 id="推荐接入目标">推荐接入目标</h2>
+<p>适合第一版的 MCP：</p>
 <ul>
-<li>Server 起不来：先看依赖、启动命令和环境变量。</li>
-<li>DeerFlow 连接不上：检查 URL、端口、传输方式、网络、日志。</li>
-<li>工具列表为空：可能是配置没加载、server 没返回 schema、权限不足。</li>
-<li>Agent 不会用：可能是工具命名不清楚、描述太弱、参数 schema 太复杂。</li>
-<li>返回太大：需要分页、摘要或限制字段。</li>
+<li>只读知识库搜索；</li>
+<li>GitHub 仓库只读查询；</li>
+<li>文档系统只读搜索；</li>
+<li>本地资料索引；</li>
+<li>只读数据库查询。</li>
 </ul>
-<h2 id="复盘">复盘</h2>
-<p>MCP 接入的关键不是“配置写上去”，而是分层验证。</p>
-<p>server 可用、工具可见、只读调用成功、真实任务使用成功，这四步都通过，才算接入完成。</p>  </div> </article> <aside class="toc"><p class="toc-title">目录</p><ul class="toc-list"><li class="depth-2"><a href="#实战目标">实战目标</a></li><li class="depth-2"><a href="#选择一个简单-mcp-server">选择一个简单 MCP Server</a></li><li class="depth-2"><a href="#准备配置">准备配置</a></li><li class="depth-2"><a href="#第一步单独启动-server">第一步：单独启动 Server</a></li><li class="depth-2"><a href="#第二步让-deerflow-发现工具">第二步：让 DeerFlow 发现工具</a></li><li class="depth-2"><a href="#第三步调用一个只读工具">第三步：调用一个只读工具</a></li><li class="depth-2"><a href="#第四步让-agent-在任务中使用">第四步：让 Agent 在任务中使用</a></li><li class="depth-2"><a href="#写入类工具要单独控制">写入类工具要单独控制</a></li><li class="depth-2"><a href="#常见失败点">常见失败点</a></li><li class="depth-2"><a href="#复盘">复盘</a></li></ul></aside> </section>  </main> <footer class="site-footer"> <div class="shell footer-inner"> <p>© 2026 未来观察者</p> </div> </footer> </body></html>
+<p>不建议第一版接：</p>
+<ul>
+<li>写数据库；</li>
+<li>发飞书 / Slack；</li>
+<li>修改 GitHub issue；</li>
+<li>删除文件；</li>
+<li>触发部署；</li>
+<li>操作云资源。</li>
+</ul>
+<p>研究型 Agent 的 MCP 目标是补充资料，不是自动执行高风险动作。</p>
+<h2 id="deerflow-的-mcp-接入点">DeerFlow 的 MCP 接入点</h2>
+<p>前面已经看过，官方当前目录里 MCP 相关实现主要在：</p>
+<pre class="astro-code astro-code-themes github-light github-dark" style="--shiki-light:#24292e;--shiki-dark:#e1e4e8;--shiki-light-bg:#fff;--shiki-dark-bg:#24292e; overflow-x: auto;" tabindex="0" data-language="text"><code><span class="line"><span>deerflow/mcp/client.py</span></span>
+<span class="line"><span>deerflow/mcp/session_pool.py</span></span>
+<span class="line"><span>deerflow/mcp/oauth.py</span></span>
+<span class="line"><span>deerflow/mcp/cache.py</span></span>
+<span class="line"><span>deerflow/mcp/tools.py</span></span></code></pre>
+<p>Gateway 层也有：</p>
+<pre class="astro-code astro-code-themes github-light github-dark" style="--shiki-light:#24292e;--shiki-dark:#e1e4e8;--shiki-light-bg:#fff;--shiki-dark-bg:#24292e; overflow-x: auto;" tabindex="0" data-language="text"><code><span class="line"><span>backend/app/gateway/routers/mcp.py</span></span></code></pre>
+<p>后端 README 提到的接口包括：</p>
+<pre class="astro-code astro-code-themes github-light github-dark" style="--shiki-light:#24292e;--shiki-dark:#e1e4e8;--shiki-light-bg:#fff;--shiki-dark-bg:#24292e; overflow-x: auto;" tabindex="0" data-language="text"><code><span class="line"><span>GET/PUT /api/mcp/config</span></span>
+<span class="line"><span>POST /api/mcp/cache/reset</span></span></code></pre>
+<p>这说明 MCP 配置、工具缓存和工具加载都可以通过 Gateway 管理。</p>
+<h2 id="接入前先做-5-个检查">接入前先做 5 个检查</h2>
+<p>在 DeerFlow 里配置 MCP 前，先确认：</p>
+<pre class="astro-code astro-code-themes github-light github-dark" style="--shiki-light:#24292e;--shiki-dark:#e1e4e8;--shiki-light-bg:#fff;--shiki-dark-bg:#24292e; overflow-x: auto;" tabindex="0" data-language="text"><code><span class="line"><span>1. MCP server 能独立启动</span></span>
+<span class="line"><span>2. server 暴露的工具是只读的</span></span>
+<span class="line"><span>3. 需要的 token / OAuth 已准备好</span></span>
+<span class="line"><span>4. 工具 schema 清楚，输入输出稳定</span></span>
+<span class="line"><span>5. 工具返回内容不会过大</span></span></code></pre>
+<p>如果 server 自己都跑不稳，不要先怪 DeerFlow。</p>
+<h2 id="配置后先看工具是否加载">配置后先看工具是否加载</h2>
+<p>配置完成后，不要直接跑复杂研究任务。</p>
+<p>先验证：</p>
+<pre class="astro-code astro-code-themes github-light github-dark" style="--shiki-light:#24292e;--shiki-dark:#e1e4e8;--shiki-light-bg:#fff;--shiki-dark-bg:#24292e; overflow-x: auto;" tabindex="0" data-language="text"><code><span class="line"><span>1. Gateway 能读取 MCP config</span></span>
+<span class="line"><span>2. MCP client 能连接 server</span></span>
+<span class="line"><span>3. tools 能被列出来</span></span>
+<span class="line"><span>4. cache 没有旧数据干扰</span></span>
+<span class="line"><span>5. Agent 能看到工具名</span></span></code></pre>
+<p>如果修改了 MCP server 或工具 schema，记得 reset cache。</p>
+<h2 id="最小调用测试">最小调用测试</h2>
+<p>先让 Agent 做一个非常小的调用：</p>
+<pre class="astro-code astro-code-themes github-light github-dark" style="--shiki-light:#24292e;--shiki-dark:#e1e4e8;--shiki-light-bg:#fff;--shiki-dark-bg:#24292e; overflow-x: auto;" tabindex="0" data-language="text"><code><span class="line"><span>请调用知识库 MCP，搜索 “DeerFlow Gateway”，只返回前 3 条标题和来源，不要写报告。</span></span></code></pre>
+<p>这个测试能验证：</p>
+<ul>
+<li>工具是否可见；</li>
+<li>入参是否正确；</li>
+<li>权限是否够；</li>
+<li>返回结构是否可读；</li>
+<li>Agent 是否会过度发挥。</li>
+</ul>
+<p>如果最小调用不稳定，不要继续做完整报告。</p>
+<h2 id="把-mcp-结果并入研究流程">把 MCP 结果并入研究流程</h2>
+<p>MCP 接入成功后，研究型 Agent 的流程可以变成：</p>
+<pre class="astro-code astro-code-themes github-light github-dark" style="--shiki-light:#24292e;--shiki-dark:#e1e4e8;--shiki-light-bg:#fff;--shiki-dark-bg:#24292e; overflow-x: auto;" tabindex="0" data-language="text"><code><span class="line"><span>解析研究主题</span></span>
+<span class="line"><span>  ↓</span></span>
+<span class="line"><span>公开搜索官方资料</span></span>
+<span class="line"><span>  ↓</span></span>
+<span class="line"><span>抓取正文</span></span>
+<span class="line"><span>  ↓</span></span>
+<span class="line"><span>调用只读 MCP 查询内部资料 / 仓库 / 文档</span></span>
+<span class="line"><span>  ↓</span></span>
+<span class="line"><span>合并证据</span></span>
+<span class="line"><span>  ↓</span></span>
+<span class="line"><span>生成 Markdown 报告</span></span>
+<span class="line"><span>  ↓</span></span>
+<span class="line"><span>保存并验证文件</span></span></code></pre>
+<p>注意：MCP 结果也需要验证。</p>
+<p>它不能因为来自内部系统就自动可信。要记录来源、时间、工具名和关键字段。</p>
+<h2 id="报告中如何标注-mcp-来源">报告中如何标注 MCP 来源</h2>
+<p>建议在报告里把来源分开：</p>
+<pre class="astro-code astro-code-themes github-light github-dark" style="--shiki-light:#24292e;--shiki-dark:#e1e4e8;--shiki-light-bg:#fff;--shiki-dark-bg:#24292e; overflow-x: auto;" tabindex="0" data-language="markdown"><code><span class="line"><span style="--shiki-light:#005CC5;--shiki-light-font-weight:bold;--shiki-dark:#79B8FF;--shiki-dark-font-weight:bold">## 来源</span></span>
+<span class="line"></span>
+<span class="line"><span style="--shiki-light:#005CC5;--shiki-light-font-weight:bold;--shiki-dark:#79B8FF;--shiki-dark-font-weight:bold">### 官方资料</span></span>
+<span class="line"><span style="--shiki-light:#E36209;--shiki-dark:#FFAB70">-</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8"> ...</span></span>
+<span class="line"></span>
+<span class="line"><span style="--shiki-light:#005CC5;--shiki-light-font-weight:bold;--shiki-dark:#79B8FF;--shiki-dark-font-weight:bold">### 外部公开资料</span></span>
+<span class="line"><span style="--shiki-light:#E36209;--shiki-dark:#FFAB70">-</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8"> ...</span></span>
+<span class="line"></span>
+<span class="line"><span style="--shiki-light:#005CC5;--shiki-light-font-weight:bold;--shiki-dark:#79B8FF;--shiki-dark-font-weight:bold">### MCP 查询结果</span></span>
+<span class="line"><span style="--shiki-light:#E36209;--shiki-dark:#FFAB70">-</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8"> 工具：knowledge_search</span></span>
+<span class="line"><span style="--shiki-light:#E36209;--shiki-dark:#FFAB70">-</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8"> 查询：DeerFlow Gateway</span></span>
+<span class="line"><span style="--shiki-light:#E36209;--shiki-dark:#FFAB70">-</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8"> 返回时间：...</span></span>
+<span class="line"><span style="--shiki-light:#E36209;--shiki-dark:#FFAB70">-</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8"> 关键条目：...</span></span></code></pre>
+<p>这样用户能判断哪些结论来自公开资料，哪些来自内部资料。</p>
+<h2 id="常见失败点">常见失败点</h2>
+<p>MCP 接入常见问题：</p>
+<ul>
+<li>server 没启动；</li>
+<li>配置路径错误；</li>
+<li>OAuth / token 无效；</li>
+<li>工具 schema 太复杂；</li>
+<li>工具返回过大；</li>
+<li>cache 没刷新；</li>
+<li>Agent 看得到工具但不会正确调用；</li>
+<li>工具返回字段模型理解错；</li>
+<li>MCP 结果和公开资料冲突。</li>
+</ul>
+<p>排错顺序：</p>
+<pre class="astro-code astro-code-themes github-light github-dark" style="--shiki-light:#24292e;--shiki-dark:#e1e4e8;--shiki-light-bg:#fff;--shiki-dark-bg:#24292e; overflow-x: auto;" tabindex="0" data-language="text"><code><span class="line"><span>server → config → auth → tool list → cache → minimal call → Agent integration → report output</span></span></code></pre>
+<h2 id="和-skill-配合">和 Skill 配合</h2>
+<p>上一篇的 research-report Skill 应该加一条规则：</p>
+<pre class="astro-code astro-code-themes github-light github-dark" style="--shiki-light:#24292e;--shiki-dark:#e1e4e8;--shiki-light-bg:#fff;--shiki-dark-bg:#24292e; overflow-x: auto;" tabindex="0" data-language="text"><code><span class="line"><span>如果使用 MCP 查询内部资料，必须在报告中单独标注 MCP 来源；不要把 MCP 返回内容和公开来源混为一谈。</span></span></code></pre>
+<p>如果 MCP 不可用，Agent 应该降级：</p>
+<pre class="astro-code astro-code-themes github-light github-dark" style="--shiki-light:#24292e;--shiki-dark:#e1e4e8;--shiki-light-bg:#fff;--shiki-dark-bg:#24292e; overflow-x: auto;" tabindex="0" data-language="text"><code><span class="line"><span>MCP 查询失败，本报告仅基于公开资料和官方仓库。</span></span></code></pre>
+<p>不要因为 MCP 挂了就编造内部资料。</p>
+<h2 id="这一篇的完成标准">这一篇的完成标准</h2>
+<p>读完这一篇，你应该知道：</p>
+<ul>
+<li>第一版 MCP 应该选只读、低风险工具；</li>
+<li>接入前要先验证 server；</li>
+<li>配置后要验证 tools 是否加载；</li>
+<li>cache 可能影响工具可见性；</li>
+<li>MCP 结果要单独标注来源；</li>
+<li>MCP 不可用时要降级，而不是脑补。</li>
+</ul>
+<p>下一篇进入部署和排错：让这个研究型 Agent 从本地可用走向长期可用。</p>  </div> </article> <aside class="toc"><p class="toc-title">目录</p><ul class="toc-list"><li class="depth-2"><a href="#mcp-不要一上来接高风险系统">MCP 不要一上来接高风险系统</a></li><li class="depth-2"><a href="#推荐接入目标">推荐接入目标</a></li><li class="depth-2"><a href="#deerflow-的-mcp-接入点">DeerFlow 的 MCP 接入点</a></li><li class="depth-2"><a href="#接入前先做-5-个检查">接入前先做 5 个检查</a></li><li class="depth-2"><a href="#配置后先看工具是否加载">配置后先看工具是否加载</a></li><li class="depth-2"><a href="#最小调用测试">最小调用测试</a></li><li class="depth-2"><a href="#把-mcp-结果并入研究流程">把 MCP 结果并入研究流程</a></li><li class="depth-2"><a href="#报告中如何标注-mcp-来源">报告中如何标注 MCP 来源</a></li><li class="depth-2"><a href="#常见失败点">常见失败点</a></li><li class="depth-2"><a href="#和-skill-配合">和 Skill 配合</a></li><li class="depth-2"><a href="#这一篇的完成标准">这一篇的完成标准</a></li></ul></aside> </section>  </main> <footer class="site-footer"> <div class="shell footer-inner"> <p>© 2026 未来观察者</p> </div> </footer> </body></html>
