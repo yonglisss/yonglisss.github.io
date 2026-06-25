@@ -28,7 +28,7 @@
           if (getStoredMode() === "system") apply("system");
         });
       })();
-    </script><title>16. 实战三：给 DeerFlow 增加一个自定义 Skill | 技术教程 | 未来观察者</title><meta name="description" content="用一个真实场景演示如何定义、编写、挂载和验证 DeerFlow 自定义 Skill。"><meta name="generator" content="Astro v5.18.1"><meta property="og:title" content="16. 实战三：给 DeerFlow 增加一个自定义 Skill | 技术教程 | 未来观察者"><meta property="og:description" content="用一个真实场景演示如何定义、编写、挂载和验证 DeerFlow 自定义 Skill。"><meta property="og:type" content="website"><meta property="og:url" content="https://future.lifestudylab.com/docs/deer-flow/16-example-custom-skill/"><link rel="icon" type="image/svg+xml" href="/favicon.svg"><link rel="alternate" type="application/rss+xml" title="未来观察者" href="/rss.xml"><link rel="stylesheet" href="/_astro/_channel_.Bh9hp2gc.css"></head> <body> <div class="page-bg"></div> <header class="site-header"> <div class="shell header-inner"> <div class="header-bar"> <a class="brand" href="/ai-tools/"> <img src="/brand-mark.svg" alt="" class="brand-mark" width="56" height="56"> <span class="brand-text" aria-label="未来观察者">思考未来</span> </a> </div> <nav class="top-menu" aria-label="顶部菜单"> <a href="/future-daily/" class="top-menu-link"> 每日信息 </a><a href="/docs/deer-flow/01-index/" class="top-menu-link"> DeerFlow教程 </a><a href="/about/" class="top-menu-link"> 关于我 </a> </nav> <div class="top-actions"> <a class="feedback-link" href="https://github.com/yonglisss/yonglisss.github.io/issues" target="_blank" rel="noopener noreferrer" aria-label="问题反馈"> <svg viewBox="0 0 24 24" aria-hidden="true" class="action-icon"> <path d="M4.75 5.75A2.75 2.75 0 0 1 7.5 3h9A2.75 2.75 0 0 1 19.25 5.75v6.5A2.75 2.75 0 0 1 16.5 15H9.3l-3.55 3.2V15.1a2.75 2.75 0 0 1-1-2.1V5.75Z"></path> <path d="M8 7.75h8M8 11.25h4"></path> </svg> <span>问题反馈</span> </a> <div class="theme-switcher" data-theme-switcher> <button class="theme-trigger" type="button" aria-haspopup="menu" aria-expanded="false" aria-label="切换明暗模式" data-theme-trigger> <svg viewBox="0 0 24 24" aria-hidden="true" class="action-icon theme-trigger-icon theme-trigger-icon--light"> <circle cx="12" cy="12" r="4"></circle> <path d="M12 2.75v2M12 19.25v2M4.75 4.75l1.4 1.4M17.85 17.85l1.4 1.4M2.75 12h2M19.25 12h2M4.75 19.25l1.4-1.4M17.85 6.15l1.4-1.4"></path> </svg> <svg viewBox="0 0 24 24" aria-hidden="true" class="action-icon theme-trigger-icon theme-trigger-icon--dark"> <path d="M20.25 14.2A8 8 0 0 1 9.8 3.75 8.5 8.5 0 1 0 20.25 14.2Z"></path> </svg> <svg viewBox="0 0 24 24" aria-hidden="true" class="action-icon theme-trigger-icon theme-trigger-icon--system"> <rect x="4" y="5" width="16" height="11" rx="1.8"></rect> <path d="M9 20h6M12 16v4"></path> </svg> </button> <div class="theme-menu" role="menu" data-theme-menu hidden> <button class="theme-option" type="button" role="menuitemradio" data-theme-option="light" aria-checked="false"> <svg viewBox="0 0 24 24" aria-hidden="true" class="action-icon"><circle cx="12" cy="12" r="4"></circle><path d="M12 2.75v2M12 19.25v2M4.75 4.75l1.4 1.4M17.85 17.85l1.4 1.4M2.75 12h2M19.25 12h2M4.75 19.25l1.4-1.4M17.85 6.15l1.4-1.4"></path></svg> <span>亮色</span> </button> <button class="theme-option" type="button" role="menuitemradio" data-theme-option="dark" aria-checked="false"> <svg viewBox="0 0 24 24" aria-hidden="true" class="action-icon"><path d="M20.25 14.2A8 8 0 0 1 9.8 3.75 8.5 8.5 0 1 0 20.25 14.2Z"></path></svg> <span>暗色</span> </button> <button class="theme-option" type="button" role="menuitemradio" data-theme-option="system" aria-checked="true"> <svg viewBox="0 0 24 24" aria-hidden="true" class="action-icon"><rect x="4" y="5" width="16" height="11" rx="1.8"></rect><path d="M9 20h6M12 16v4"></path></svg> <span>跟随系统</span> </button> </div> </div> </div> </div> </header> <script>
+    </script><title>16. 终局实战三：给研究型 Agent 写一个 Skill | 技术教程 | 未来观察者</title><meta name="description" content="设计一个 research-report Skill，用稳定流程约束 DeerFlow 研究型 Agent 的资料收集、证据判断、报告生成和文件验证。"><meta name="generator" content="Astro v5.18.1"><meta property="og:title" content="16. 终局实战三：给研究型 Agent 写一个 Skill | 技术教程 | 未来观察者"><meta property="og:description" content="设计一个 research-report Skill，用稳定流程约束 DeerFlow 研究型 Agent 的资料收集、证据判断、报告生成和文件验证。"><meta property="og:type" content="website"><meta property="og:url" content="https://future.lifestudylab.com/docs/deer-flow/16-example-custom-skill/"><link rel="icon" type="image/svg+xml" href="/favicon.svg"><link rel="alternate" type="application/rss+xml" title="未来观察者" href="/rss.xml"><link rel="stylesheet" href="/_astro/_channel_.Bh9hp2gc.css"></head> <body> <div class="page-bg"></div> <header class="site-header"> <div class="shell header-inner"> <div class="header-bar"> <a class="brand" href="/ai-tools/"> <img src="/brand-mark.svg" alt="" class="brand-mark" width="56" height="56"> <span class="brand-text" aria-label="未来观察者">思考未来</span> </a> </div> <nav class="top-menu" aria-label="顶部菜单"> <a href="/future-daily/" class="top-menu-link"> 每日信息 </a><a href="/docs/deer-flow/01-index/" class="top-menu-link"> DeerFlow教程 </a><a href="/about/" class="top-menu-link"> 关于我 </a> </nav> <div class="top-actions"> <a class="feedback-link" href="https://github.com/yonglisss/yonglisss.github.io/issues" target="_blank" rel="noopener noreferrer" aria-label="问题反馈"> <svg viewBox="0 0 24 24" aria-hidden="true" class="action-icon"> <path d="M4.75 5.75A2.75 2.75 0 0 1 7.5 3h9A2.75 2.75 0 0 1 19.25 5.75v6.5A2.75 2.75 0 0 1 16.5 15H9.3l-3.55 3.2V15.1a2.75 2.75 0 0 1-1-2.1V5.75Z"></path> <path d="M8 7.75h8M8 11.25h4"></path> </svg> <span>问题反馈</span> </a> <div class="theme-switcher" data-theme-switcher> <button class="theme-trigger" type="button" aria-haspopup="menu" aria-expanded="false" aria-label="切换明暗模式" data-theme-trigger> <svg viewBox="0 0 24 24" aria-hidden="true" class="action-icon theme-trigger-icon theme-trigger-icon--light"> <circle cx="12" cy="12" r="4"></circle> <path d="M12 2.75v2M12 19.25v2M4.75 4.75l1.4 1.4M17.85 17.85l1.4 1.4M2.75 12h2M19.25 12h2M4.75 19.25l1.4-1.4M17.85 6.15l1.4-1.4"></path> </svg> <svg viewBox="0 0 24 24" aria-hidden="true" class="action-icon theme-trigger-icon theme-trigger-icon--dark"> <path d="M20.25 14.2A8 8 0 0 1 9.8 3.75 8.5 8.5 0 1 0 20.25 14.2Z"></path> </svg> <svg viewBox="0 0 24 24" aria-hidden="true" class="action-icon theme-trigger-icon theme-trigger-icon--system"> <rect x="4" y="5" width="16" height="11" rx="1.8"></rect> <path d="M9 20h6M12 16v4"></path> </svg> </button> <div class="theme-menu" role="menu" data-theme-menu hidden> <button class="theme-option" type="button" role="menuitemradio" data-theme-option="light" aria-checked="false"> <svg viewBox="0 0 24 24" aria-hidden="true" class="action-icon"><circle cx="12" cy="12" r="4"></circle><path d="M12 2.75v2M12 19.25v2M4.75 4.75l1.4 1.4M17.85 17.85l1.4 1.4M2.75 12h2M19.25 12h2M4.75 19.25l1.4-1.4M17.85 6.15l1.4-1.4"></path></svg> <span>亮色</span> </button> <button class="theme-option" type="button" role="menuitemradio" data-theme-option="dark" aria-checked="false"> <svg viewBox="0 0 24 24" aria-hidden="true" class="action-icon"><path d="M20.25 14.2A8 8 0 0 1 9.8 3.75 8.5 8.5 0 1 0 20.25 14.2Z"></path></svg> <span>暗色</span> </button> <button class="theme-option" type="button" role="menuitemradio" data-theme-option="system" aria-checked="true"> <svg viewBox="0 0 24 24" aria-hidden="true" class="action-icon"><rect x="4" y="5" width="16" height="11" rx="1.8"></rect><path d="M9 20h6M12 16v4"></path></svg> <span>跟随系统</span> </button> </div> </div> </div> </div> </header> <script>
   (() => {
     const switcher = document.querySelector("[data-theme-switcher]");
     if (!switcher) return;
@@ -84,60 +84,150 @@
     window.addEventListener("future-observer-theme-change", sync);
     sync();
   })();
-</script>  <main class="shell page-content page-content--full">  <section class="docs-shell"> <aside class="docs-sidebar" aria-label="技术教程目录"> <nav class="docs-nav-block" aria-label="DeerFlow 教程"> <p class="docs-nav-title">DeerFlow 教程</p> <ul class="docs-nav-list"> <li> <a href="/docs/deer-flow/01-index/" class="docs-nav-link"> 01. 教程总览：从跑起来到写一个 Agent </a> </li><li> <a href="/docs/deer-flow/02-quickstart/" class="docs-nav-link"> 02. 快速开始：先把 DeerFlow 跑起来 </a> </li><li> <a href="/docs/deer-flow/03-config/" class="docs-nav-link"> 03. 配置文件：看懂 config.yaml </a> </li><li> <a href="/docs/deer-flow/04-concepts/" class="docs-nav-link"> 04. 整体架构：DeerFlow 到底在调度什么 </a> </li><li> <a href="/docs/deer-flow/05-project-structure/" class="docs-nav-link"> 05. 项目结构：从目录看懂 DeerFlow </a> </li><li> <a href="/docs/deer-flow/06-execution-flow/" class="docs-nav-link"> 06. 执行链路：一次任务从入口到结果 </a> </li><li> <a href="/docs/deer-flow/07-tools/" class="docs-nav-link"> 07. Tools 原理：Agent 为什么需要工具 </a> </li><li> <a href="/docs/deer-flow/08-skills/" class="docs-nav-link"> 08. Skills 原理：把经验沉淀成可复用能力 </a> </li><li> <a href="/docs/deer-flow/09-sub-agents/" class="docs-nav-link"> 09. Sub-agents 原理：多智能体什么时候值得拆 </a> </li><li> <a href="/docs/deer-flow/10-memory/" class="docs-nav-link"> 10. Memory 原理：长期上下文该记什么 </a> </li><li> <a href="/docs/deer-flow/11-sandbox/" class="docs-nav-link"> 11. Sandbox 原理：安全执行和文件边界 </a> </li><li> <a href="/docs/deer-flow/12-mcp/" class="docs-nav-link"> 12. MCP 原理：把外部工具接进 Agent </a> </li><li> <a href="/docs/deer-flow/13-observability/" class="docs-nav-link"> 13. 可观测性：看清一次 Agent 为什么失败 </a> </li><li> <a href="/docs/deer-flow/14-examples/" class="docs-nav-link"> 14. 终局实战一：设计一个研究型 Agent </a> </li><li> <a href="/docs/deer-flow/15-example-tech-report/" class="docs-nav-link"> 15. 终局实战二：设计 Agent 任务流 </a> </li><li> <a href="/docs/deer-flow/16-example-custom-skill/" class="docs-nav-link active"> 16. 实战三：给 DeerFlow 增加一个自定义 Skill </a> </li><li> <a href="/docs/deer-flow/17-example-mcp-server/" class="docs-nav-link"> 17. 实战四：接入一个 MCP Server </a> </li><li> <a href="/docs/deer-flow/18-faq/" class="docs-nav-link"> 18. 部署：从本地跑到可长期使用 </a> </li><li> <a href="/docs/deer-flow/19-advanced-roadmap/" class="docs-nav-link"> 19. 进阶路线：从使用者到改造者 </a> </li> </ul> </nav> </aside> <article class="docs-article"> <header class="docs-hero"> <p class="docs-kicker">Technical Guide</p> <h1>16. 实战三：给 DeerFlow 增加一个自定义 Skill</h1> <p>用一个真实场景演示如何定义、编写、挂载和验证 DeerFlow 自定义 Skill。</p> </header> <div class="docs-prose">  <h2 id="实战目标">实战目标</h2>
-<p>这一篇做一个最小自定义 Skill。</p>
-<p>场景选择“写开发者教程”。因为这个场景稳定、重复、有明确流程，也容易验证。</p>
-<p>目标是让 DeerFlow 下次写教程时，自动遵循固定流程：先查官方资料、再写可执行步骤、最后验证构建。</p>
-<h2 id="先定义场景">先定义场景</h2>
-<p>不要一上来就写 skill 文件。</p>
-<p>先回答几个问题：这个 skill 什么时候用？它解决什么问题？标准步骤是什么？最容易踩什么坑？完成后怎么验证？</p>
-<p>对于开发者教程，可以这样定义：</p>
-<pre class="astro-code astro-code-themes github-light github-dark" style="--shiki-light:#24292e;--shiki-dark:#e1e4e8;--shiki-light-bg:#fff;--shiki-dark-bg:#24292e; overflow-x: auto;" tabindex="0" data-language="text"><code><span class="line"><span>当用户要求为开源工具写教程、配置说明、实战文档时使用。</span></span>
-<span class="line"><span>目标是产出可执行、可验证、不过度营销的中文开发者教程。</span></span></code></pre>
-<h2 id="最小-skill-内容">最小 Skill 内容</h2>
-<p>一个最小 Skill 可以包含：</p>
-<pre class="astro-code astro-code-themes github-light github-dark" style="--shiki-light:#24292e;--shiki-dark:#e1e4e8;--shiki-light-bg:#fff;--shiki-dark-bg:#24292e; overflow-x: auto;" tabindex="0" data-language="markdown"><code><span class="line"><span style="--shiki-light:#005CC5;--shiki-light-font-weight:bold;--shiki-dark:#79B8FF;--shiki-dark-font-weight:bold"># Developer Tutorial Writer</span></span>
+</script>  <main class="shell page-content page-content--full">  <section class="docs-shell"> <aside class="docs-sidebar" aria-label="技术教程目录"> <nav class="docs-nav-block" aria-label="DeerFlow 教程"> <p class="docs-nav-title">DeerFlow 教程</p> <ul class="docs-nav-list"> <li> <a href="/docs/deer-flow/01-index/" class="docs-nav-link"> 01. 教程总览：从跑起来到写一个 Agent </a> </li><li> <a href="/docs/deer-flow/02-quickstart/" class="docs-nav-link"> 02. 快速开始：先把 DeerFlow 跑起来 </a> </li><li> <a href="/docs/deer-flow/03-config/" class="docs-nav-link"> 03. 配置文件：看懂 config.yaml </a> </li><li> <a href="/docs/deer-flow/04-concepts/" class="docs-nav-link"> 04. 整体架构：DeerFlow 到底在调度什么 </a> </li><li> <a href="/docs/deer-flow/05-project-structure/" class="docs-nav-link"> 05. 项目结构：从目录看懂 DeerFlow </a> </li><li> <a href="/docs/deer-flow/06-execution-flow/" class="docs-nav-link"> 06. 执行链路：一次任务从入口到结果 </a> </li><li> <a href="/docs/deer-flow/07-tools/" class="docs-nav-link"> 07. Tools 原理：Agent 为什么需要工具 </a> </li><li> <a href="/docs/deer-flow/08-skills/" class="docs-nav-link"> 08. Skills 原理：把经验沉淀成可复用能力 </a> </li><li> <a href="/docs/deer-flow/09-sub-agents/" class="docs-nav-link"> 09. Sub-agents 原理：多智能体什么时候值得拆 </a> </li><li> <a href="/docs/deer-flow/10-memory/" class="docs-nav-link"> 10. Memory 原理：长期上下文该记什么 </a> </li><li> <a href="/docs/deer-flow/11-sandbox/" class="docs-nav-link"> 11. Sandbox 原理：安全执行和文件边界 </a> </li><li> <a href="/docs/deer-flow/12-mcp/" class="docs-nav-link"> 12. MCP 原理：把外部工具接进 Agent </a> </li><li> <a href="/docs/deer-flow/13-observability/" class="docs-nav-link"> 13. 可观测性：看清一次 Agent 为什么失败 </a> </li><li> <a href="/docs/deer-flow/14-examples/" class="docs-nav-link"> 14. 终局实战一：设计一个研究型 Agent </a> </li><li> <a href="/docs/deer-flow/15-example-tech-report/" class="docs-nav-link"> 15. 终局实战二：设计 Agent 任务流 </a> </li><li> <a href="/docs/deer-flow/16-example-custom-skill/" class="docs-nav-link active"> 16. 终局实战三：给研究型 Agent 写一个 Skill </a> </li><li> <a href="/docs/deer-flow/17-example-mcp-server/" class="docs-nav-link"> 17. 实战四：接入一个 MCP Server </a> </li><li> <a href="/docs/deer-flow/18-faq/" class="docs-nav-link"> 18. 部署：从本地跑到可长期使用 </a> </li><li> <a href="/docs/deer-flow/19-advanced-roadmap/" class="docs-nav-link"> 19. 进阶路线：从使用者到改造者 </a> </li> </ul> </nav> </aside> <article class="docs-article"> <header class="docs-hero"> <p class="docs-kicker">Technical Guide</p> <h1>16. 终局实战三：给研究型 Agent 写一个 Skill</h1> <p>设计一个 research-report Skill，用稳定流程约束 DeerFlow 研究型 Agent 的资料收集、证据判断、报告生成和文件验证。</p> </header> <div class="docs-prose">  <h2 id="为什么这一步要写-skill">为什么这一步要写 Skill</h2>
+<p>上一篇已经设计了任务流。</p>
+<p>但如果只靠用户 prompt，Agent 仍然可能每次执行不一致：有时只看搜索摘要，有时忘记抓正文，有时不保存文件，有时不写不确定性。</p>
+<p>Skill 的价值就是把这条研究流程固化下来。</p>
+<p>这篇设计一个最小可用的：</p>
+<pre class="astro-code astro-code-themes github-light github-dark" style="--shiki-light:#24292e;--shiki-dark:#e1e4e8;--shiki-light-bg:#fff;--shiki-dark-bg:#24292e; overflow-x: auto;" tabindex="0" data-language="text"><code><span class="line"><span>research-report Skill</span></span></code></pre>
+<p>目标：约束研究型 Agent 的工作方法。</p>
+<h2 id="skill-的目标">Skill 的目标</h2>
+<p>这个 Skill 要让 Agent 在研究任务中做到：</p>
+<ul>
+<li>先理解研究问题；</li>
+<li>必要时澄清；</li>
+<li>优先查一手资料；</li>
+<li>搜索后抓取正文；</li>
+<li>区分事实、判断和不确定性；</li>
+<li>生成 Markdown 报告；</li>
+<li>保存文件；</li>
+<li>写完后读取验证；</li>
+<li>不在来源不足时脑补。</li>
+</ul>
+<p>这不是让 Agent 更会写漂亮话，而是让它少犯研究任务里的低级错误。</p>
+<h2 id="skill-触发条件">Skill 触发条件</h2>
+<p>Skill 应该在这些任务中触发：</p>
+<pre class="astro-code astro-code-themes github-light github-dark" style="--shiki-light:#24292e;--shiki-dark:#e1e4e8;--shiki-light-bg:#fff;--shiki-dark-bg:#24292e; overflow-x: auto;" tabindex="0" data-language="text"><code><span class="line"><span>研究某个主题</span></span>
+<span class="line"><span>生成研究报告</span></span>
+<span class="line"><span>分析某个开源项目</span></span>
+<span class="line"><span>比较几个技术方案</span></span>
+<span class="line"><span>总结某个框架架构</span></span>
+<span class="line"><span>写一份带来源的 Markdown 报告</span></span></code></pre>
+<p>不应该在这些任务中触发：</p>
+<pre class="astro-code astro-code-themes github-light github-dark" style="--shiki-light:#24292e;--shiki-dark:#e1e4e8;--shiki-light-bg:#fff;--shiki-dark-bg:#24292e; overflow-x: auto;" tabindex="0" data-language="text"><code><span class="line"><span>闲聊</span></span>
+<span class="line"><span>短问答</span></span>
+<span class="line"><span>翻译一句话</span></span>
+<span class="line"><span>改一个 CSS 样式</span></span>
+<span class="line"><span>执行一个明确命令</span></span></code></pre>
+<p>触发条件越清楚，越不容易误用。</p>
+<h2 id="skill-内容草案">Skill 内容草案</h2>
+<p>可以先写成这样：</p>
+<pre class="astro-code astro-code-themes github-light github-dark" style="--shiki-light:#24292e;--shiki-dark:#e1e4e8;--shiki-light-bg:#fff;--shiki-dark-bg:#24292e; overflow-x: auto;" tabindex="0" data-language="markdown"><code><span class="line"><span style="--shiki-light:#005CC5;--shiki-light-font-weight:bold;--shiki-dark:#79B8FF;--shiki-dark-font-weight:bold"># Research Report Skill</span></span>
 <span class="line"></span>
-<span class="line"><span style="--shiki-light:#005CC5;--shiki-light-font-weight:bold;--shiki-dark:#79B8FF;--shiki-dark-font-weight:bold">## When to use</span></span>
-<span class="line"><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8">当用户要求为开源工具写教程、配置说明、实战文档时使用。</span></span>
+<span class="line"><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8">Use this skill when the user asks for a research report, technical investigation, framework analysis, or source-grounded summary.</span></span>
 <span class="line"></span>
-<span class="line"><span style="--shiki-light:#005CC5;--shiki-light-font-weight:bold;--shiki-dark:#79B8FF;--shiki-dark-font-weight:bold">## Steps</span></span>
-<span class="line"><span style="--shiki-light:#E36209;--shiki-dark:#FFAB70">1.</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8"> 先读取官方 README、安装文档和配置示例。</span></span>
-<span class="line"><span style="--shiki-light:#E36209;--shiki-dark:#FFAB70">2.</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8"> 检查当前站点或仓库已有文档风格。</span></span>
-<span class="line"><span style="--shiki-light:#E36209;--shiki-dark:#FFAB70">3.</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8"> 正文按“问题 → 步骤 → 验证 → 常见坑”组织。</span></span>
-<span class="line"><span style="--shiki-light:#E36209;--shiki-dark:#FFAB70">4.</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8"> 不基于搜索摘要脑补技术细节。</span></span>
-<span class="line"><span style="--shiki-light:#E36209;--shiki-dark:#FFAB70">5.</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8"> 写完后运行真实检查或构建。</span></span>
+<span class="line"><span style="--shiki-light:#005CC5;--shiki-light-font-weight:bold;--shiki-dark:#79B8FF;--shiki-dark-font-weight:bold">## Workflow</span></span>
+<span class="line"><span style="--shiki-light:#E36209;--shiki-dark:#FFAB70">1.</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8"> Restate the research question and scope.</span></span>
+<span class="line"><span style="--shiki-light:#E36209;--shiki-dark:#FFAB70">2.</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8"> If the request is ambiguous, ask one clarification question; otherwise proceed with reasonable defaults.</span></span>
+<span class="line"><span style="--shiki-light:#E36209;--shiki-dark:#FFAB70">3.</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8"> Prefer official and primary sources before secondary articles.</span></span>
+<span class="line"><span style="--shiki-light:#E36209;--shiki-dark:#FFAB70">4.</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8"> Use search only to discover candidate sources.</span></span>
+<span class="line"><span style="--shiki-light:#E36209;--shiki-dark:#FFAB70">5.</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8"> Fetch or read the actual source text before using it as evidence.</span></span>
+<span class="line"><span style="--shiki-light:#E36209;--shiki-dark:#FFAB70">6.</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8"> Build an evidence list before writing the report.</span></span>
+<span class="line"><span style="--shiki-light:#E36209;--shiki-dark:#FFAB70">7.</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8"> Separate facts, interpretation, and uncertainty.</span></span>
+<span class="line"><span style="--shiki-light:#E36209;--shiki-dark:#FFAB70">8.</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8"> Write the final report as Markdown.</span></span>
+<span class="line"><span style="--shiki-light:#E36209;--shiki-dark:#FFAB70">9.</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8"> Save the report to a file.</span></span>
+<span class="line"><span style="--shiki-light:#E36209;--shiki-dark:#FFAB70">10.</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8"> Read the file back and verify title, sections, sources, and missing placeholders.</span></span>
+<span class="line"></span>
+<span class="line"><span style="--shiki-light:#005CC5;--shiki-light-font-weight:bold;--shiki-dark:#79B8FF;--shiki-dark-font-weight:bold">## Output structure</span></span>
+<span class="line"><span style="--shiki-light:#E36209;--shiki-dark:#FFAB70">-</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8"> Title</span></span>
+<span class="line"><span style="--shiki-light:#E36209;--shiki-dark:#FFAB70">-</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8"> Executive summary</span></span>
+<span class="line"><span style="--shiki-light:#E36209;--shiki-dark:#FFAB70">-</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8"> Background</span></span>
+<span class="line"><span style="--shiki-light:#E36209;--shiki-dark:#FFAB70">-</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8"> Key findings</span></span>
+<span class="line"><span style="--shiki-light:#E36209;--shiki-dark:#FFAB70">-</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8"> Evidence and sources</span></span>
+<span class="line"><span style="--shiki-light:#E36209;--shiki-dark:#FFAB70">-</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8"> Risks and uncertainties</span></span>
+<span class="line"><span style="--shiki-light:#E36209;--shiki-dark:#FFAB70">-</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8"> Next steps</span></span>
 <span class="line"></span>
 <span class="line"><span style="--shiki-light:#005CC5;--shiki-light-font-weight:bold;--shiki-dark:#79B8FF;--shiki-dark-font-weight:bold">## Pitfalls</span></span>
-<span class="line"><span style="--shiki-light:#E36209;--shiki-dark:#FFAB70">-</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8"> 不要写成营销稿。</span></span>
-<span class="line"><span style="--shiki-light:#E36209;--shiki-dark:#FFAB70">-</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8"> 不要复制过期博客命令。</span></span>
-<span class="line"><span style="--shiki-light:#E36209;--shiki-dark:#FFAB70">-</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8"> 不要跳过验证。</span></span></code></pre>
-<p>具体文件格式和目录，以 DeerFlow 当前官方实现为准。先做最小可用版本，不要一次写太复杂。</p>
-<h2 id="放在哪里">放在哪里</h2>
-<p>通常可以从项目根目录的 <code>skills/</code> 开始。</p>
-<p>如果是个人或团队私有流程，更适合放在 <code>custom/</code>。如果是通用能力，可以考虑放到 <code>public/</code>。</p>
-<p>具体路径也可能通过 <code>DEER_FLOW_SKILLS_PATH</code> 或配置项调整，所以写之前先看当前配置。</p>
-<h2 id="让-deerflow-识别-skill">让 DeerFlow 识别 Skill</h2>
-<p>写好后，需要确认 DeerFlow 能发现它。</p>
-<p>验证顺序：文件路径正确、格式符合要求、skills 加载没有报错、UI 或 API 能看到该 skill、执行相关任务时 Agent 会采用对应流程。</p>
-<p>如果 skill 不生效，先不要改内容，先查加载路径和格式。</p>
-<h2 id="用一个任务验证">用一个任务验证</h2>
-<p>可以用这个任务测试：</p>
-<pre class="astro-code astro-code-themes github-light github-dark" style="--shiki-light:#24292e;--shiki-dark:#e1e4e8;--shiki-light-bg:#fff;--shiki-dark-bg:#24292e; overflow-x: auto;" tabindex="0" data-language="text"><code><span class="line"><span>请为 DeerFlow 的 MCP 配置写一篇入门教程，并保存为 Markdown。要求使用开发者教程写作流程。</span></span></code></pre>
-<p>观察它是否先查官方资料、检查已有文档风格、给出可执行命令、标注常见坑、写完后验证、避免营销表达。</p>
-<h2 id="调整-skill">调整 Skill</h2>
-<p>第一次写的 skill 通常不会完美。</p>
-<p>调整时不要只加长文字，要补行为约束：哪一步必须做、哪一步不能做、哪些情况要停下来、验证失败怎么办、输出应该长什么样。</p>
-<h2 id="常见失败点">常见失败点</h2>
+<span class="line"><span style="--shiki-light:#E36209;--shiki-dark:#FFAB70">-</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8"> Do not write from search snippets only.</span></span>
+<span class="line"><span style="--shiki-light:#E36209;--shiki-dark:#FFAB70">-</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8"> Do not invent sources.</span></span>
+<span class="line"><span style="--shiki-light:#E36209;--shiki-dark:#FFAB70">-</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8"> Do not hide uncertainty.</span></span>
+<span class="line"><span style="--shiki-light:#E36209;--shiki-dark:#FFAB70">-</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8"> Do not claim a file was created without verifying it.</span></span>
+<span class="line"><span style="--shiki-light:#E36209;--shiki-dark:#FFAB70">-</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8"> Do not include secrets or credentials.</span></span></code></pre>
+<p>这个版本已经能约束大多数研究任务。</p>
+<h2 id="配合工具使用">配合工具使用</h2>
+<p>Skill 本身不执行动作，但会指导 Agent 调工具。</p>
+<p>它会影响工具使用顺序：</p>
+<pre class="astro-code astro-code-themes github-light github-dark" style="--shiki-light:#24292e;--shiki-dark:#e1e4e8;--shiki-light-bg:#fff;--shiki-dark-bg:#24292e; overflow-x: auto;" tabindex="0" data-language="text"><code><span class="line"><span>search → fetch/read → evidence list → write_file → read_file → present artifact</span></span></code></pre>
+<p>如果接了 MCP，可以插入：</p>
+<pre class="astro-code astro-code-themes github-light github-dark" style="--shiki-light:#24292e;--shiki-dark:#e1e4e8;--shiki-light-bg:#fff;--shiki-dark-bg:#24292e; overflow-x: auto;" tabindex="0" data-language="text"><code><span class="line"><span>MCP knowledge search → evidence merge</span></span></code></pre>
+<p>如果任务复杂，可以插入：</p>
+<pre class="astro-code astro-code-themes github-light github-dark" style="--shiki-light:#24292e;--shiki-dark:#e1e4e8;--shiki-light-bg:#fff;--shiki-dark-bg:#24292e; overflow-x: auto;" tabindex="0" data-language="text"><code><span class="line"><span>sub-agent delegation → result synthesis</span></span></code></pre>
+<h2 id="skill-和-tool-policy">Skill 和 Tool Policy</h2>
+<p>官方 Skill 实现里有 <code>tool_policy.py</code>，说明 Skill 可能和工具策略有关。</p>
+<p>研究型 Skill 推荐默认允许：</p>
 <ul>
-<li>skill 文件路径不对；</li>
-<li>格式不符合要求；</li>
-<li>内容太空泛；</li>
-<li>没写触发条件；</li>
-<li>没写验证方式；</li>
-<li>和现有 skill 冲突；</li>
-<li>Agent 没有拿到相关上下文。</li>
+<li>search；</li>
+<li>fetch / crawl；</li>
+<li>read_file；</li>
+<li>write_file；</li>
+<li>present_file；</li>
+<li>只读 MCP；</li>
+<li>必要时 sub-agent。</li>
 </ul>
-<h2 id="复盘">复盘</h2>
-<p>自定义 Skill 的价值，是把一次成功经验变成下次可复用能力。</p>
-<p>不要把 Skill 当成“更多 prompt”。它应该像团队内部 SOP：什么时候用、怎么做、怎么验收、哪些坑不能踩。</p>  </div> </article> <aside class="toc"><p class="toc-title">目录</p><ul class="toc-list"><li class="depth-2"><a href="#实战目标">实战目标</a></li><li class="depth-2"><a href="#先定义场景">先定义场景</a></li><li class="depth-2"><a href="#最小-skill-内容">最小 Skill 内容</a></li><li class="depth-2"><a href="#放在哪里">放在哪里</a></li><li class="depth-2"><a href="#让-deerflow-识别-skill">让 DeerFlow 识别 Skill</a></li><li class="depth-2"><a href="#用一个任务验证">用一个任务验证</a></li><li class="depth-2"><a href="#调整-skill">调整 Skill</a></li><li class="depth-2"><a href="#常见失败点">常见失败点</a></li><li class="depth-2"><a href="#复盘">复盘</a></li></ul></aside> </section>  </main> <footer class="site-footer"> <div class="shell footer-inner"> <p>© 2026 未来观察者</p> </div> </footer> </body></html>
+<p>谨慎使用：</p>
+<ul>
+<li>bash；</li>
+<li>写入外部系统的 MCP；</li>
+<li>发消息；</li>
+<li>修改数据库；</li>
+<li>删除文件。</li>
+</ul>
+<p>第一版研究型 Agent 不需要高风险工具。</p>
+<h2 id="skill-的验证标准">Skill 的验证标准</h2>
+<p>这个 Skill 是否有效，可以用几个问题检查：</p>
+<ul>
+<li>Agent 是否先明确研究范围？</li>
+<li>是否优先使用官方来源？</li>
+<li>是否抓取正文，而不是只看搜索摘要？</li>
+<li>是否输出证据和来源？</li>
+<li>是否写出不确定性？</li>
+<li>是否生成文件？</li>
+<li>是否读取文件验证？</li>
+<li>是否避免编造来源？</li>
+</ul>
+<p>如果这些没有做到，说明 Skill 太抽象，需要补具体步骤。</p>
+<h2 id="一个测试任务">一个测试任务</h2>
+<p>可以用这个任务测试：</p>
+<pre class="astro-code astro-code-themes github-light github-dark" style="--shiki-light:#24292e;--shiki-dark:#e1e4e8;--shiki-light-bg:#fff;--shiki-dark-bg:#24292e; overflow-x: auto;" tabindex="0" data-language="text"><code><span class="line"><span>研究 DeerFlow 2.0 的 Agent 架构，输出一份 Markdown 报告。</span></span>
+<span class="line"><span>要求覆盖 Gateway、Lead Agent、Tools、Sandbox、MCP、Memory。</span></span>
+<span class="line"><span>必须基于官方 README、backend README 和当前仓库结构。</span></span></code></pre>
+<p>预期行为：</p>
+<ol>
+<li>Agent 识别这是研究报告任务；</li>
+<li>激活 research-report Skill；</li>
+<li>读取或抓取官方资料；</li>
+<li>查询当前仓库结构；</li>
+<li>生成证据列表；</li>
+<li>写入 Markdown 文件；</li>
+<li>读取文件检查；</li>
+<li>返回文件路径和简短摘要。</li>
+</ol>
+<h2 id="常见问题">常见问题</h2>
+<h3 id="skill-太长怎么办">Skill 太长怎么办？</h3>
+<p>Skill 不是论文。先写最关键流程和坑。</p>
+<h3 id="skill-要不要写很多示例">Skill 要不要写很多示例？</h3>
+<p>可以写 1-2 个高质量示例，不要堆太多。</p>
+<h3 id="skill-能不能替代测试">Skill 能不能替代测试？</h3>
+<p>不能。Skill 只是方法，最终仍要用工具结果、文件检查、build 或 tracing 验证。</p>
+<h3 id="skill-要不要包含真实-api-key">Skill 要不要包含真实 API key？</h3>
+<p>绝对不要。文档、Skill、示例里都只能写占位符。</p>
+<h2 id="这一篇的完成标准">这一篇的完成标准</h2>
+<p>读完这一篇，你应该能做出一个最小 research-report Skill，并知道：</p>
+<ul>
+<li>它什么时候触发；</li>
+<li>它约束什么流程；</li>
+<li>它如何指导工具使用；</li>
+<li>它如何避免搜索摘要写报告；</li>
+<li>它如何验证最终文件产物。</li>
+</ul>
+<p>下一篇给这个 Agent 接一个低风险 MCP，扩展资料来源。</p>  </div> </article> <aside class="toc"><p class="toc-title">目录</p><ul class="toc-list"><li class="depth-2"><a href="#为什么这一步要写-skill">为什么这一步要写 Skill</a></li><li class="depth-2"><a href="#skill-的目标">Skill 的目标</a></li><li class="depth-2"><a href="#skill-触发条件">Skill 触发条件</a></li><li class="depth-2"><a href="#skill-内容草案">Skill 内容草案</a></li><li class="depth-2"><a href="#配合工具使用">配合工具使用</a></li><li class="depth-2"><a href="#skill-和-tool-policy">Skill 和 Tool Policy</a></li><li class="depth-2"><a href="#skill-的验证标准">Skill 的验证标准</a></li><li class="depth-2"><a href="#一个测试任务">一个测试任务</a></li><li class="depth-2"><a href="#常见问题">常见问题</a></li><li class="depth-3"><a href="#skill-太长怎么办">Skill 太长怎么办？</a></li><li class="depth-3"><a href="#skill-要不要写很多示例">Skill 要不要写很多示例？</a></li><li class="depth-3"><a href="#skill-能不能替代测试">Skill 能不能替代测试？</a></li><li class="depth-3"><a href="#skill-要不要包含真实-api-key">Skill 要不要包含真实 API key？</a></li><li class="depth-2"><a href="#这一篇的完成标准">这一篇的完成标准</a></li></ul></aside> </section>  </main> <footer class="site-footer"> <div class="shell footer-inner"> <p>© 2026 未来观察者</p> </div> </footer> </body></html>
