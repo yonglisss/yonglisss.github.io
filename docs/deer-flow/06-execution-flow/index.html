@@ -28,7 +28,7 @@
           if (getStoredMode() === "system") apply("system");
         });
       })();
-    </script><title>06. 执行链路：一次任务从入口到结果 | 技术教程 | 未来观察者</title><meta name="description" content="沿着真实运行路径理解 DeerFlow：入口、Gateway、runtime、Lead Agent、middleware、tools、sandbox、artifacts 和 streaming 如何协作。"><meta name="generator" content="Astro v5.18.1"><meta property="og:title" content="06. 执行链路：一次任务从入口到结果 | 技术教程 | 未来观察者"><meta property="og:description" content="沿着真实运行路径理解 DeerFlow：入口、Gateway、runtime、Lead Agent、middleware、tools、sandbox、artifacts 和 streaming 如何协作。"><meta property="og:type" content="website"><meta property="og:url" content="https://future.lifestudylab.com/docs/deer-flow/06-execution-flow/"><link rel="icon" type="image/svg+xml" href="/favicon.svg"><link rel="alternate" type="application/rss+xml" title="未来观察者" href="/rss.xml"><link rel="stylesheet" href="/_astro/_channel_.Bh9hp2gc.css"></head> <body> <div class="page-bg"></div> <header class="site-header"> <div class="shell header-inner"> <div class="header-bar"> <a class="brand" href="/ai-tools/"> <img src="/brand-mark.svg" alt="" class="brand-mark" width="56" height="56"> <span class="brand-text" aria-label="未来观察者">思考未来</span> </a> </div> <nav class="top-menu" aria-label="顶部菜单"> <a href="/future-daily/" class="top-menu-link"> 每日信息 </a><a href="/docs/deer-flow/01-index/" class="top-menu-link"> DeerFlow教程 </a><a href="/about/" class="top-menu-link"> 关于我 </a> </nav> <div class="top-actions"> <a class="feedback-link" href="https://github.com/yonglisss/yonglisss.github.io/issues" target="_blank" rel="noopener noreferrer" aria-label="问题反馈"> <svg viewBox="0 0 24 24" aria-hidden="true" class="action-icon"> <path d="M4.75 5.75A2.75 2.75 0 0 1 7.5 3h9A2.75 2.75 0 0 1 19.25 5.75v6.5A2.75 2.75 0 0 1 16.5 15H9.3l-3.55 3.2V15.1a2.75 2.75 0 0 1-1-2.1V5.75Z"></path> <path d="M8 7.75h8M8 11.25h4"></path> </svg> <span>问题反馈</span> </a> <div class="theme-switcher" data-theme-switcher> <button class="theme-trigger" type="button" aria-haspopup="menu" aria-expanded="false" aria-label="切换明暗模式" data-theme-trigger> <svg viewBox="0 0 24 24" aria-hidden="true" class="action-icon theme-trigger-icon theme-trigger-icon--light"> <circle cx="12" cy="12" r="4"></circle> <path d="M12 2.75v2M12 19.25v2M4.75 4.75l1.4 1.4M17.85 17.85l1.4 1.4M2.75 12h2M19.25 12h2M4.75 19.25l1.4-1.4M17.85 6.15l1.4-1.4"></path> </svg> <svg viewBox="0 0 24 24" aria-hidden="true" class="action-icon theme-trigger-icon theme-trigger-icon--dark"> <path d="M20.25 14.2A8 8 0 0 1 9.8 3.75 8.5 8.5 0 1 0 20.25 14.2Z"></path> </svg> <svg viewBox="0 0 24 24" aria-hidden="true" class="action-icon theme-trigger-icon theme-trigger-icon--system"> <rect x="4" y="5" width="16" height="11" rx="1.8"></rect> <path d="M9 20h6M12 16v4"></path> </svg> </button> <div class="theme-menu" role="menu" data-theme-menu hidden> <button class="theme-option" type="button" role="menuitemradio" data-theme-option="light" aria-checked="false"> <svg viewBox="0 0 24 24" aria-hidden="true" class="action-icon"><circle cx="12" cy="12" r="4"></circle><path d="M12 2.75v2M12 19.25v2M4.75 4.75l1.4 1.4M17.85 17.85l1.4 1.4M2.75 12h2M19.25 12h2M4.75 19.25l1.4-1.4M17.85 6.15l1.4-1.4"></path></svg> <span>亮色</span> </button> <button class="theme-option" type="button" role="menuitemradio" data-theme-option="dark" aria-checked="false"> <svg viewBox="0 0 24 24" aria-hidden="true" class="action-icon"><path d="M20.25 14.2A8 8 0 0 1 9.8 3.75 8.5 8.5 0 1 0 20.25 14.2Z"></path></svg> <span>暗色</span> </button> <button class="theme-option" type="button" role="menuitemradio" data-theme-option="system" aria-checked="true"> <svg viewBox="0 0 24 24" aria-hidden="true" class="action-icon"><rect x="4" y="5" width="16" height="11" rx="1.8"></rect><path d="M9 20h6M12 16v4"></path></svg> <span>跟随系统</span> </button> </div> </div> </div> </div> </header> <script>
+    </script><title>06. 执行链路：一次任务从入口到结果 | 技术教程 | 未来观察者</title><meta name="description" content="沿着一次 run 追踪 DeerFlow 的真实执行路径。"><meta name="generator" content="Astro v5.18.1"><meta property="og:title" content="06. 执行链路：一次任务从入口到结果 | 技术教程 | 未来观察者"><meta property="og:description" content="沿着一次 run 追踪 DeerFlow 的真实执行路径。"><meta property="og:type" content="website"><meta property="og:url" content="https://future.lifestudylab.com/docs/deer-flow/06-execution-flow/"><link rel="icon" type="image/svg+xml" href="/favicon.svg"><link rel="alternate" type="application/rss+xml" title="未来观察者" href="/rss.xml"><link rel="stylesheet" href="/_astro/_channel_.Bh9hp2gc.css"></head> <body> <div class="page-bg"></div> <header class="site-header"> <div class="shell header-inner"> <div class="header-bar"> <a class="brand" href="/ai-tools/"> <img src="/brand-mark.svg" alt="" class="brand-mark" width="56" height="56"> <span class="brand-text" aria-label="未来观察者">思考未来</span> </a> </div> <nav class="top-menu" aria-label="顶部菜单"> <a href="/future-daily/" class="top-menu-link"> 每日信息 </a><a href="/docs/deer-flow/01-index/" class="top-menu-link"> DeerFlow教程 </a><a href="/about/" class="top-menu-link"> 关于我 </a> </nav> <div class="top-actions"> <a class="feedback-link" href="https://github.com/yonglisss/yonglisss.github.io/issues" target="_blank" rel="noopener noreferrer" aria-label="问题反馈"> <svg viewBox="0 0 24 24" aria-hidden="true" class="action-icon"> <path d="M4.75 5.75A2.75 2.75 0 0 1 7.5 3h9A2.75 2.75 0 0 1 19.25 5.75v6.5A2.75 2.75 0 0 1 16.5 15H9.3l-3.55 3.2V15.1a2.75 2.75 0 0 1-1-2.1V5.75Z"></path> <path d="M8 7.75h8M8 11.25h4"></path> </svg> <span>问题反馈</span> </a> <div class="theme-switcher" data-theme-switcher> <button class="theme-trigger" type="button" aria-haspopup="menu" aria-expanded="false" aria-label="切换明暗模式" data-theme-trigger> <svg viewBox="0 0 24 24" aria-hidden="true" class="action-icon theme-trigger-icon theme-trigger-icon--light"> <circle cx="12" cy="12" r="4"></circle> <path d="M12 2.75v2M12 19.25v2M4.75 4.75l1.4 1.4M17.85 17.85l1.4 1.4M2.75 12h2M19.25 12h2M4.75 19.25l1.4-1.4M17.85 6.15l1.4-1.4"></path> </svg> <svg viewBox="0 0 24 24" aria-hidden="true" class="action-icon theme-trigger-icon theme-trigger-icon--dark"> <path d="M20.25 14.2A8 8 0 0 1 9.8 3.75 8.5 8.5 0 1 0 20.25 14.2Z"></path> </svg> <svg viewBox="0 0 24 24" aria-hidden="true" class="action-icon theme-trigger-icon theme-trigger-icon--system"> <rect x="4" y="5" width="16" height="11" rx="1.8"></rect> <path d="M9 20h6M12 16v4"></path> </svg> </button> <div class="theme-menu" role="menu" data-theme-menu hidden> <button class="theme-option" type="button" role="menuitemradio" data-theme-option="light" aria-checked="false"> <svg viewBox="0 0 24 24" aria-hidden="true" class="action-icon"><circle cx="12" cy="12" r="4"></circle><path d="M12 2.75v2M12 19.25v2M4.75 4.75l1.4 1.4M17.85 17.85l1.4 1.4M2.75 12h2M19.25 12h2M4.75 19.25l1.4-1.4M17.85 6.15l1.4-1.4"></path></svg> <span>亮色</span> </button> <button class="theme-option" type="button" role="menuitemradio" data-theme-option="dark" aria-checked="false"> <svg viewBox="0 0 24 24" aria-hidden="true" class="action-icon"><path d="M20.25 14.2A8 8 0 0 1 9.8 3.75 8.5 8.5 0 1 0 20.25 14.2Z"></path></svg> <span>暗色</span> </button> <button class="theme-option" type="button" role="menuitemradio" data-theme-option="system" aria-checked="true"> <svg viewBox="0 0 24 24" aria-hidden="true" class="action-icon"><rect x="4" y="5" width="16" height="11" rx="1.8"></rect><path d="M9 20h6M12 16v4"></path></svg> <span>跟随系统</span> </button> </div> </div> </div> </div> </header> <script>
   (() => {
     const switcher = document.querySelector("[data-theme-switcher]");
     if (!switcher) return;
@@ -84,228 +84,31 @@
     window.addEventListener("future-observer-theme-change", sync);
     sync();
   })();
-</script>  <main class="shell page-content page-content--full">  <section class="docs-shell"> <aside class="docs-sidebar" aria-label="技术教程目录"> <nav class="docs-nav-block" aria-label="DeerFlow 教程"> <p class="docs-nav-title">DeerFlow 教程</p> <ul class="docs-nav-list"> <li> <a href="/docs/deer-flow/01-index/" class="docs-nav-link"> 01. 教程总览：从跑起来到写一个 Agent </a> </li><li> <a href="/docs/deer-flow/02-quickstart/" class="docs-nav-link"> 02. 快速开始：先把 DeerFlow 跑起来 </a> </li><li> <a href="/docs/deer-flow/03-config/" class="docs-nav-link"> 03. 配置文件：看懂 config.yaml </a> </li><li> <a href="/docs/deer-flow/04-concepts/" class="docs-nav-link"> 04. 整体架构：DeerFlow 到底在调度什么 </a> </li><li> <a href="/docs/deer-flow/05-project-structure/" class="docs-nav-link"> 05. 项目结构：从目录看懂 DeerFlow </a> </li><li> <a href="/docs/deer-flow/06-execution-flow/" class="docs-nav-link active"> 06. 执行链路：一次任务从入口到结果 </a> </li><li> <a href="/docs/deer-flow/07-tools/" class="docs-nav-link"> 07. Tools 原理：Agent 为什么需要工具 </a> </li><li> <a href="/docs/deer-flow/08-skills/" class="docs-nav-link"> 08. Skills 原理：把经验沉淀成可复用能力 </a> </li><li> <a href="/docs/deer-flow/09-sub-agents/" class="docs-nav-link"> 09. Sub-agents 原理：多智能体什么时候值得拆 </a> </li><li> <a href="/docs/deer-flow/10-memory/" class="docs-nav-link"> 10. Memory 原理：长期上下文该记什么 </a> </li><li> <a href="/docs/deer-flow/11-sandbox/" class="docs-nav-link"> 11. Sandbox 原理：安全执行和文件边界 </a> </li><li> <a href="/docs/deer-flow/12-mcp/" class="docs-nav-link"> 12. MCP 原理：把外部工具接进 Agent </a> </li><li> <a href="/docs/deer-flow/13-observability/" class="docs-nav-link"> 13. 可观测性：看清一次 Agent 为什么失败 </a> </li><li> <a href="/docs/deer-flow/14-examples/" class="docs-nav-link"> 14. 终局实战一：设计一个研究型 Agent </a> </li><li> <a href="/docs/deer-flow/15-example-tech-report/" class="docs-nav-link"> 15. 终局实战二：设计 Agent 任务流 </a> </li><li> <a href="/docs/deer-flow/16-example-custom-skill/" class="docs-nav-link"> 16. 终局实战三：给研究型 Agent 写一个 Skill </a> </li><li> <a href="/docs/deer-flow/17-example-mcp-server/" class="docs-nav-link"> 17. 终局实战四：接入一个只读 MCP 数据源 </a> </li><li> <a href="/docs/deer-flow/18-faq/" class="docs-nav-link"> 18. 部署与排错：从本地可用到长期运行 </a> </li><li> <a href="/docs/deer-flow/19-advanced-roadmap/" class="docs-nav-link"> 19. 进阶路线：从使用者到改造者 </a> </li> </ul> </nav> </aside> <article class="docs-article"> <header class="docs-hero"> <p class="docs-kicker">Technical Guide</p> <h1>06. 执行链路：一次任务从入口到结果</h1> <p>沿着真实运行路径理解 DeerFlow：入口、Gateway、runtime、Lead Agent、middleware、tools、sandbox、artifacts 和 streaming 如何协作。</p> </header> <div class="docs-prose">  <h2 id="这一篇追一条主线">这一篇追一条主线</h2>
-<p>前面两篇分别做了两件事：</p>
-<ul>
-<li><code>04</code> 画整体架构图；</li>
-<li><code>05</code> 把架构落到仓库目录。</li>
-</ul>
-<p>这一篇继续往前走：不再列模块，而是追一条任务链路。</p>
-<p>先不用纠结每个函数名。你只要抓住一件事：DeerFlow 不是“前端把消息丢给模型，然后模型回答”。它中间有 Gateway、runtime、middleware、Lead Agent、tools、sandbox、artifacts 和 streaming。</p>
-<h2 id="简化链路">简化链路</h2>
-<p>可以先记住这个版本：</p>
-<pre class="astro-code astro-code-themes github-light github-dark" style="--shiki-light:#24292e;--shiki-dark:#e1e4e8;--shiki-light-bg:#fff;--shiki-dark-bg:#24292e; overflow-x: auto;" tabindex="0" data-language="text"><code><span class="line"><span>用户提交任务</span></span>
+</script>  <main class="shell page-content page-content--full">  <section class="docs-shell"> <aside class="docs-sidebar" aria-label="技术教程目录"> <nav class="docs-nav-block" aria-label="DeerFlow 教程"> <p class="docs-nav-title">DeerFlow 教程</p> <ul class="docs-nav-list"> <li> <a href="/docs/deer-flow/01-index/" class="docs-nav-link"> 01. 教程总览：从跑起来到写一个研究型 Agent </a> </li><li> <a href="/docs/deer-flow/02-quickstart/" class="docs-nav-link"> 02. 快速开始：先把 DeerFlow 跑起来 </a> </li><li> <a href="/docs/deer-flow/03-config/" class="docs-nav-link"> 03. 配置文件：看懂 config.yaml </a> </li><li> <a href="/docs/deer-flow/04-architecture/" class="docs-nav-link"> 04. 整体架构：DeerFlow 到底在调度什么 </a> </li><li> <a href="/docs/deer-flow/05-project-structure/" class="docs-nav-link"> 05. 项目结构：从目录看懂 DeerFlow </a> </li><li> <a href="/docs/deer-flow/06-execution-flow/" class="docs-nav-link active"> 06. 执行链路：一次任务从入口到结果 </a> </li><li> <a href="/docs/deer-flow/07-tools-principles/" class="docs-nav-link"> 07. Tools 原理：Agent 为什么需要工具 </a> </li><li> <a href="/docs/deer-flow/08-tools-source/" class="docs-nav-link"> 08. Tools 源码：工具是怎么注册和调用的 </a> </li><li> <a href="/docs/deer-flow/09-tools-practice/" class="docs-nav-link"> 09. Tools 实战：给研究型 Agent 增加一个工具能力 </a> </li><li> <a href="/docs/deer-flow/10-skills-principles/" class="docs-nav-link"> 10. Skills 原理：把经验沉淀成可复用能力 </a> </li><li> <a href="/docs/deer-flow/11-skills-source/" class="docs-nav-link"> 11. Skills 源码：Skill 是怎么安装、解析和约束工具的 </a> </li><li> <a href="/docs/deer-flow/12-skills-practice/" class="docs-nav-link"> 12. Skills 实战：写 Skill 约束输出质量 </a> </li><li> <a href="/docs/deer-flow/13-subagents-principles/" class="docs-nav-link"> 13. Sub-agents 原理：多智能体什么时候值得拆 </a> </li><li> <a href="/docs/deer-flow/14-subagents-source/" class="docs-nav-link"> 14. Sub-agents 源码：子 Agent 是怎么创建和汇总的 </a> </li><li> <a href="/docs/deer-flow/15-subagents-practice/" class="docs-nav-link"> 15. Sub-agents 实战：把研究任务拆给多个 Agent </a> </li><li> <a href="/docs/deer-flow/16-sandbox-principles/" class="docs-nav-link"> 16. Sandbox 原理：安全执行和文件边界 </a> </li><li> <a href="/docs/deer-flow/17-sandbox-source/" class="docs-nav-link"> 17. Sandbox 源码：执行环境和文件路径怎么管理 </a> </li><li> <a href="/docs/deer-flow/18-mcp-principles/" class="docs-nav-link"> 18. MCP 原理：把外部工具接进 Agent </a> </li><li> <a href="/docs/deer-flow/19-mcp-practice/" class="docs-nav-link"> 19. MCP 实战：接一个只读外部服务 </a> </li><li> <a href="/docs/deer-flow/20-memory-principles/" class="docs-nav-link"> 20. Memory 原理：长期上下文该记什么 </a> </li><li> <a href="/docs/deer-flow/21-observability/" class="docs-nav-link"> 21. 可观测性：看清一次 Agent 为什么失败 </a> </li><li> <a href="/docs/deer-flow/22-troubleshooting-practice/" class="docs-nav-link"> 22. 排错实战：一次任务为什么失败 </a> </li><li> <a href="/docs/deer-flow/23-final-research-agent/" class="docs-nav-link"> 23. 终局实战：自己写一个研究型 Agent </a> </li><li> <a href="/docs/deer-flow/24-agent-workflow/" class="docs-nav-link"> 24. 设计 Agent 任务流 </a> </li><li> <a href="/docs/deer-flow/25-search-and-tools/" class="docs-nav-link"> 25. 接入搜索和工具 </a> </li><li> <a href="/docs/deer-flow/26-quality-skill/" class="docs-nav-link"> 26. 写 Skill 约束输出质量 </a> </li><li> <a href="/docs/deer-flow/27-external-mcp/" class="docs-nav-link"> 27. 接 MCP / 外部服务 </a> </li><li> <a href="/docs/deer-flow/28-report-artifacts/" class="docs-nav-link"> 28. 生成报告和文件产物 </a> </li><li> <a href="/docs/deer-flow/29-acceptance-deploy/" class="docs-nav-link"> 29. 验收与部署 </a> </li> </ul> </nav> </aside> <article class="docs-article"> <header class="docs-hero"> <p class="docs-kicker">Technical Guide</p> <h1>06. 执行链路：一次任务从入口到结果</h1> <p>沿着一次 run 追踪 DeerFlow 的真实执行路径。</p> </header> <div class="docs-prose">  <h2 id="一次任务怎么流动">一次任务怎么流动</h2>
+<pre class="astro-code astro-code-themes github-light github-dark" style="--shiki-light:#24292e;--shiki-dark:#e1e4e8;--shiki-light-bg:#fff;--shiki-dark-bg:#24292e; overflow-x: auto;" tabindex="0" data-language="text"><code><span class="line"><span>用户输入</span></span>
 <span class="line"><span>  ↓</span></span>
-<span class="line"><span>Frontend / API / IM Channel</span></span>
+<span class="line"><span>Frontend / API</span></span>
 <span class="line"><span>  ↓</span></span>
-<span class="line"><span>Nginx / Gateway API</span></span>
+<span class="line"><span>Gateway 创建 thread/run</span></span>
 <span class="line"><span>  ↓</span></span>
-<span class="line"><span>创建 thread / run</span></span>
+<span class="line"><span>runtime 管理执行</span></span>
 <span class="line"><span>  ↓</span></span>
-<span class="line"><span>Runtime 组织执行</span></span>
+<span class="line"><span>middleware 准备上下文</span></span>
 <span class="line"><span>  ↓</span></span>
-<span class="line"><span>Middleware 准备上下文和工作环境</span></span>
+<span class="line"><span>Lead Agent 决策</span></span>
 <span class="line"><span>  ↓</span></span>
-<span class="line"><span>Lead Agent 选择模型、工具和下一步动作</span></span>
+<span class="line"><span>tool / sub-agent / sandbox / MCP</span></span>
 <span class="line"><span>  ↓</span></span>
-<span class="line"><span>Tools / MCP / Sub-agents / Sandbox 执行</span></span>
+<span class="line"><span>artifacts / streaming</span></span>
 <span class="line"><span>  ↓</span></span>
-<span class="line"><span>Artifacts / Memory / Persistence 记录结果</span></span>
-<span class="line"><span>  ↓</span></span>
-<span class="line"><span>Streaming 返回过程和最终结果</span></span></code></pre>
-<p>后面源码篇会把这条链路拆到具体文件。现在先建立运行感觉。</p>
-<h2 id="1-用户入口不止-web">1. 用户入口不止 Web</h2>
-<p>用户任务可以从多个入口进来：</p>
-<ul>
-<li>Web 前端；</li>
-<li>LangGraph-compatible API；</li>
-<li>普通 Gateway API；</li>
-<li>Telegram、Slack、飞书、企业微信、钉钉等 IM channels；</li>
-<li>Python client 或其他嵌入调用。</li>
-</ul>
-<p>入门阶段通常从 Web 页面开始，因为它最直观。但从系统角度看，Web 只是入口之一。</p>
-<p>这也是为什么 DeerFlow 有 Gateway：不同入口最终都要转换成统一的后端任务执行。</p>
-<h2 id="2-nginx-和-gateway-先接住请求">2. Nginx 和 Gateway 先接住请求</h2>
-<p>官方后端架构里，Nginx 位于最外层，常见路径会被路由到 Gateway：</p>
-<pre class="astro-code astro-code-themes github-light github-dark" style="--shiki-light:#24292e;--shiki-dark:#e1e4e8;--shiki-light-bg:#fff;--shiki-dark-bg:#24292e; overflow-x: auto;" tabindex="0" data-language="text"><code><span class="line"><span>/api/langgraph/*  → LangGraph-compatible API</span></span>
-<span class="line"><span>/api/*            → Gateway API 其他接口</span></span>
-<span class="line"><span>/                 → Frontend</span></span></code></pre>
-<p>Gateway 的职责不只是转发。它还要处理：</p>
-<ul>
-<li>thread；</li>
-<li>run；</li>
-<li>streaming；</li>
-<li>models；</li>
-<li>uploads；</li>
-<li>artifacts；</li>
-<li>memory；</li>
-<li>skills；</li>
-<li>MCP；</li>
-<li>thread-local cleanup。</li>
-</ul>
-<p>所以如果页面上点击发送后没反应，排查不要直接跳到模型。更合理的顺序是：前端请求是否发出、Gateway 是否收到、run 是否创建、runtime 是否开始执行。</p>
-<h2 id="3-thread-和-run-是任务容器">3. Thread 和 Run 是任务容器</h2>
-<p>Agent 系统里，一次任务不能只看成一条消息。</p>
-<p>更合理的理解是：</p>
-<pre class="astro-code astro-code-themes github-light github-dark" style="--shiki-light:#24292e;--shiki-dark:#e1e4e8;--shiki-light-bg:#fff;--shiki-dark-bg:#24292e; overflow-x: auto;" tabindex="0" data-language="text"><code><span class="line"><span>thread：一段会话或任务上下文</span></span>
-<span class="line"><span>run：thread 里的某次执行</span></span></code></pre>
-<p>为什么需要这层？因为一次长任务可能包括：</p>
-<ul>
-<li>用户上传的文件；</li>
-<li>多轮消息；</li>
-<li>工具调用结果；</li>
-<li>中间输出；</li>
-<li>最终 artifact；</li>
-<li>可恢复或可观察的运行状态。</li>
-</ul>
-<p>如果没有 thread / run 这样的抽象，所有状态都会混在聊天记录里，很难管理。</p>
-<h2 id="4-runtime-负责把任务跑起来">4. Runtime 负责把任务跑起来</h2>
-<p>Gateway 接到请求后，真正跑任务的是 runtime 层。</p>
-<p>你可以把 runtime 理解成“执行调度层”。它不一定亲自做所有推理，但会组织一次 run：</p>
-<ul>
-<li>初始化运行上下文；</li>
-<li>准备事件流；</li>
-<li>调用 Lead Agent；</li>
-<li>接收工具调用和中间事件；</li>
-<li>把结果桥接回 Gateway；</li>
-<li>必要时处理取消、清理和异常。</li>
-</ul>
-<p>后面源码篇会重点看 <code>deerflow/runtime/</code> 与 Gateway、Agent 之间的关系。</p>
-<h2 id="5-middleware-先整理运行环境">5. Middleware 先整理运行环境</h2>
-<p>在 Lead Agent 真正工作前后，middleware 会处理很多横切逻辑。</p>
-<p>这一步很容易被忽略，但它决定了 Agent 能不能稳定执行。</p>
-<p>典型职责包括：</p>
-<ul>
-<li>创建每个 thread 的工作目录；</li>
-<li>处理用户上传文件；</li>
-<li>注入 memory；</li>
-<li>准备 system prompt；</li>
-<li>注入 skills；</li>
-<li>限制 token budget；</li>
-<li>处理 artifacts；</li>
-<li>维护工作目录说明；</li>
-<li>清理运行状态。</li>
-</ul>
-<p>如果你发现 Agent “看不到上传文件”“写错目录”“没有使用 skill”“上下文丢了”，问题经常不在模型，而在 middleware 准备的上下文和环境。</p>
-<h2 id="6-lead-agent-开始判断下一步">6. Lead Agent 开始判断下一步</h2>
-<p>Lead Agent 是主控。</p>
-<p>它拿到整理后的上下文后，会判断：</p>
-<ul>
-<li>用户到底要什么结果；</li>
-<li>当前信息够不够；</li>
-<li>是否需要搜索；</li>
-<li>是否需要读写文件；</li>
-<li>是否需要执行命令；</li>
-<li>是否需要调用 MCP 工具；</li>
-<li>是否需要拆给子 Agent；</li>
-<li>是否应该直接给最终答案。</li>
-</ul>
-<p>普通聊天模型通常直接回答。Agent 不一样，它更像一个决策器：先决定下一步动作，再根据动作结果继续推理。</p>
-<h2 id="7-模型选择和工具选择发生在一起">7. 模型选择和工具选择发生在一起</h2>
-<p>DeerFlow 不是只固定调用一个模型。</p>
-<p>模型选择可能受配置影响，也可能跟任务能力有关，比如：</p>
-<ul>
-<li>是否需要 vision；</li>
-<li>是否需要 thinking / reasoning；</li>
-<li>是否支持 tool call；</li>
-<li>是否适合快速回复；</li>
-<li>是否适合长任务推理。</li>
-</ul>
-<p>同时，模型会在当前可用工具中选择下一步动作。</p>
-<p>这也是为什么配置很重要：如果模型 provider 不支持工具调用，或者工具没有正确注册，Agent 的能力会明显下降。</p>
-<h2 id="8-tools--mcp-真正执行动作">8. Tools / MCP 真正执行动作</h2>
-<p>当 Lead Agent 判断需要外部能力时，会调用工具。</p>
-<p>常见工具类型包括：</p>
-<ul>
-<li>搜索；</li>
-<li>网页抓取；</li>
-<li>文件读取；</li>
-<li>文件写入；</li>
-<li>bash / Python 执行；</li>
-<li>图片或上传文件处理；</li>
-<li>MCP server 暴露的外部工具。</li>
-</ul>
-<p>这里要记住一句话：</p>
-<blockquote>
-<p>工具结果不是最终答案，而是下一轮推理的输入。</p>
-</blockquote>
-<p>比如搜索返回 5 个链接，Agent 还要判断哪些来源可信、是否需要抓全文、是否和用户任务相关。</p>
-<h2 id="9-sandbox-承接高风险动作">9. Sandbox 承接高风险动作</h2>
-<p>只要任务涉及代码执行、命令执行、文件读写，就要考虑 sandbox。</p>
-<p>Sandbox 的作用不是让 Agent 更聪明，而是让执行更可控。</p>
-<p>它会影响：</p>
-<ul>
-<li>命令在哪里执行；</li>
-<li>文件写到哪里；</li>
-<li>宿主机目录如何挂载；</li>
-<li>多个 thread 是否隔离；</li>
-<li>产物如何从执行环境回到系统；</li>
-<li>失败时如何清理。</li>
-</ul>
-<p>所以当你排查“命令为什么没跑成功”“文件为什么找不到”“生成结果在哪里”时，要把 sandbox 纳入链路，而不是只看工具定义。</p>
-<h2 id="10-sub-agents-处理可拆分任务">10. Sub-agents 处理可拆分任务</h2>
-<p>复杂任务可能会拆给 sub-agents。</p>
-<p>适合拆的情况：</p>
-<ul>
-<li>多个资料源可以并行查；</li>
-<li>不同子问题需要不同视角；</li>
-<li>任务很长，需要隔离上下文；</li>
-<li>需要一个 Agent 做检查或复核。</li>
-</ul>
-<p>不适合拆的情况：</p>
-<ul>
-<li>任务很短；</li>
-<li>步骤强依赖，不能并行；</li>
-<li>子任务描述不清；</li>
-<li>拆分成本大于收益。</li>
-</ul>
-<p>多 Agent 的价值是分工，不是数量。后面 Sub-agents 模块会单独讲原理、源码和一个小实战。</p>
-<h2 id="11-artifacts-把结果变成产物">11. Artifacts 把结果变成产物</h2>
-<p>DeerFlow 更像工作台，不是只在聊天框里回一句话。</p>
-<p>一次任务可能生成：</p>
-<ul>
-<li>Markdown 报告；</li>
-<li>代码文件；</li>
-<li>配置文件；</li>
-<li>图表；</li>
-<li>分析中间结果；</li>
-<li>下载或处理后的文件。</li>
-</ul>
-<p>这些产物会通过 artifacts / uploads / persistence 相关机制被管理，并最终展示给用户。</p>
-<p>如果你要做“AI 帮我完成任务”，这一步很关键。真正有复用价值的是文件和产物，而不只是聊天窗口中的解释。</p>
-<h2 id="12-streaming-让长任务可观察">12. Streaming 让长任务可观察</h2>
-<p>Agent 长任务如果只等最后结果，体验会很差，也很难排错。</p>
-<p>Streaming 的价值是把过程暴露出来：</p>
-<ul>
-<li>当前正在思考；</li>
-<li>正在调用什么工具；</li>
-<li>工具返回了什么；</li>
-<li>是否生成了文件；</li>
-<li>是否遇到错误；</li>
-<li>最终结果是什么。</li>
-</ul>
-<p>如果任务卡住，要判断它卡在哪一层：</p>
-<pre class="astro-code astro-code-themes github-light github-dark" style="--shiki-light:#24292e;--shiki-dark:#e1e4e8;--shiki-light-bg:#fff;--shiki-dark-bg:#24292e; overflow-x: auto;" tabindex="0" data-language="text"><code><span class="line"><span>Frontend 没收到事件？</span></span>
-<span class="line"><span>Gateway 没创建 run？</span></span>
-<span class="line"><span>Runtime 没启动？</span></span>
-<span class="line"><span>Lead Agent 没继续？</span></span>
-<span class="line"><span>Tool / sandbox 卡住？</span></span>
-<span class="line"><span>Streaming 没转发？</span></span></code></pre>
-<p>这比笼统地说“Agent 挂了”更有用。</p>
-<h2 id="一次任务的排错顺序">一次任务的排错顺序</h2>
-<p>遇到问题时，可以按这条顺序查：</p>
-<pre class="astro-code astro-code-themes github-light github-dark" style="--shiki-light:#24292e;--shiki-dark:#e1e4e8;--shiki-light-bg:#fff;--shiki-dark-bg:#24292e; overflow-x: auto;" tabindex="0" data-language="text"><code><span class="line"><span>1. 前端请求是否发出</span></span>
-<span class="line"><span>2. Gateway 是否收到请求</span></span>
-<span class="line"><span>3. thread / run 是否创建</span></span>
-<span class="line"><span>4. runtime 是否开始执行</span></span>
-<span class="line"><span>5. middleware 是否准备好上下文</span></span>
-<span class="line"><span>6. Lead Agent 是否产生下一步动作</span></span>
-<span class="line"><span>7. tool / MCP / sandbox 是否执行成功</span></span>
-<span class="line"><span>8. artifacts 是否生成</span></span>
-<span class="line"><span>9. streaming 是否返回</span></span>
-<span class="line"><span>10. 前端是否正确展示</span></span></code></pre>
-<p>这条顺序后面会反复用到。</p>
-<h2 id="这一篇的完成标准">这一篇的完成标准</h2>
-<p>读完这一篇，你应该能用一条线解释 DeerFlow 的执行过程：</p>
-<pre class="astro-code astro-code-themes github-light github-dark" style="--shiki-light:#24292e;--shiki-dark:#e1e4e8;--shiki-light-bg:#fff;--shiki-dark-bg:#24292e; overflow-x: auto;" tabindex="0" data-language="text"><code><span class="line"><span>入口 → Gateway → thread/run → runtime → middleware → Lead Agent → tools/sandbox/sub-agents → artifacts → streaming</span></span></code></pre>
-<p>下一步开始进入能力模块。建议先从 Tools 开始，因为 Tools 是 Agent 从“会说”变成“会做”的第一层能力。</p>  </div> </article> <aside class="toc"><p class="toc-title">目录</p><ul class="toc-list"><li class="depth-2"><a href="#这一篇追一条主线">这一篇追一条主线</a></li><li class="depth-2"><a href="#简化链路">简化链路</a></li><li class="depth-2"><a href="#1-用户入口不止-web">1. 用户入口不止 Web</a></li><li class="depth-2"><a href="#2-nginx-和-gateway-先接住请求">2. Nginx 和 Gateway 先接住请求</a></li><li class="depth-2"><a href="#3-thread-和-run-是任务容器">3. Thread 和 Run 是任务容器</a></li><li class="depth-2"><a href="#4-runtime-负责把任务跑起来">4. Runtime 负责把任务跑起来</a></li><li class="depth-2"><a href="#5-middleware-先整理运行环境">5. Middleware 先整理运行环境</a></li><li class="depth-2"><a href="#6-lead-agent-开始判断下一步">6. Lead Agent 开始判断下一步</a></li><li class="depth-2"><a href="#7-模型选择和工具选择发生在一起">7. 模型选择和工具选择发生在一起</a></li><li class="depth-2"><a href="#8-tools--mcp-真正执行动作">8. Tools / MCP 真正执行动作</a></li><li class="depth-2"><a href="#9-sandbox-承接高风险动作">9. Sandbox 承接高风险动作</a></li><li class="depth-2"><a href="#10-sub-agents-处理可拆分任务">10. Sub-agents 处理可拆分任务</a></li><li class="depth-2"><a href="#11-artifacts-把结果变成产物">11. Artifacts 把结果变成产物</a></li><li class="depth-2"><a href="#12-streaming-让长任务可观察">12. Streaming 让长任务可观察</a></li><li class="depth-2"><a href="#一次任务的排错顺序">一次任务的排错顺序</a></li><li class="depth-2"><a href="#这一篇的完成标准">这一篇的完成标准</a></li></ul></aside> </section>  </main> <footer class="site-footer"> <div class="shell footer-inner"> <p>© 2026 未来观察者</p> </div> </footer> </body></html>
+<span class="line"><span>用户看到结果</span></span></code></pre>
+<h2 id="thread-和-run">Thread 和 Run</h2>
+<p>Thread 更像会话容器，Run 是一次具体执行。Gateway 有 threads、runs、thread_runs 相关路由；runtime 有 runs manager、worker、schemas、store。</p>
+<h2 id="middleware">Middleware</h2>
+<p>Middleware 负责处理 memory、skill activation、token budget、tool output budget、subagent limit、sandbox audit、clarification 等。</p>
+<h2 id="tool-调用">Tool 调用</h2>
+<p>Lead Agent 选择工具后，工具可能进入内置工具、sandbox 工具、community provider、MCP tool 或 sub-agent task tool。</p>
+<h2 id="streaming">Streaming</h2>
+<p>长期任务需要 streaming。runtime 里有 stream_bridge，Gateway 负责把运行过程返回给前端。</p>
+<h2 id="完成标准">完成标准</h2>
+<p>你能沿着入口、配置、runtime、middleware、Agent、tool、sandbox、MCP、artifact、streaming 定位问题。</p>  </div> </article> <aside class="toc"><p class="toc-title">目录</p><ul class="toc-list"><li class="depth-2"><a href="#一次任务怎么流动">一次任务怎么流动</a></li><li class="depth-2"><a href="#thread-和-run">Thread 和 Run</a></li><li class="depth-2"><a href="#middleware">Middleware</a></li><li class="depth-2"><a href="#tool-调用">Tool 调用</a></li><li class="depth-2"><a href="#streaming">Streaming</a></li><li class="depth-2"><a href="#完成标准">完成标准</a></li></ul></aside> </section>  </main> <footer class="site-footer"> <div class="shell footer-inner"> <p>© 2026 未来观察者</p> </div> </footer> </body></html>
