@@ -1,0 +1,121 @@
+<!DOCTYPE html><html lang="zh-CN"> <head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1"><script>
+      (() => {
+        const storageKey = "future-observer-theme";
+        const root = document.documentElement;
+        const getStoredMode = () => {
+          try {
+            const value = localStorage.getItem(storageKey);
+            return value === "light" || value === "dark" || value === "system" ? value : "system";
+          } catch {
+            return "system";
+          }
+        };
+        const systemDark = () => window.matchMedia?.("(prefers-color-scheme: dark)").matches ?? false;
+        const apply = (mode) => {
+          const resolved = mode === "system" ? (systemDark() ? "dark" : "light") : mode;
+          root.dataset.themeMode = mode;
+          root.dataset.theme = resolved;
+          root.style.colorScheme = resolved;
+        };
+        apply(getStoredMode());
+        window.__setFutureObserverTheme = (mode) => {
+          const next = mode === "light" || mode === "dark" || mode === "system" ? mode : "system";
+          try { localStorage.setItem(storageKey, next); } catch {}
+          apply(next);
+          window.dispatchEvent(new CustomEvent("future-observer-theme-change", { detail: { mode: next } }));
+        };
+        window.matchMedia?.("(prefers-color-scheme: dark)").addEventListener?.("change", () => {
+          if (getStoredMode() === "system") apply("system");
+        });
+      })();
+    </script><title>Memanto：如果你想让 AI 编码助手“记住上下文”，这个开源项目值得先看一眼 | 未来观察者</title><meta name="description" content="很多人已经习惯用 Claude Code、Cursor、Codex 这类工具写代码，但一个常见痛点还是没变：会话一断、上下文一长，助手就容易“失忆”。这也是 Memanto 最近值得关注的原因。它不是再做一个通用聊天壳，而是专门做 AI agent 的持久记忆层：让助手能跨会话记"><meta name="generator" content="Astro v5.18.1"><meta property="og:title" content="Memanto：如果你想让 AI 编码助手“记住上下文”，这个开源项目值得先看一眼 | 未来观察者"><meta property="og:description" content="很多人已经习惯用 Claude Code、Cursor、Codex 这类工具写代码，但一个常见痛点还是没变：会话一断、上下文一长，助手就容易“失忆”。这也是 Memanto 最近值得关注的原因。它不是再做一个通用聊天壳，而是专门做 AI agent 的持久记忆层：让助手能跨会话记"><meta property="og:type" content="website"><meta property="og:url" content="https://future.lifestudylab.com/posts/2026-06-28-memanto/"><link rel="icon" type="image/svg+xml" href="/favicon.svg"><link rel="alternate" type="application/rss+xml" title="未来观察者" href="/rss.xml"><link rel="stylesheet" href="/_astro/_channel_.DM2BjJPY.css"></head> <body> <div class="page-bg"></div> <header class="site-header"> <div class="shell header-inner"> <div class="header-bar"> <a class="brand" href="/ai-tools/"> <img src="/brand-mark.svg" alt="" class="brand-mark" width="56" height="56"> <span class="brand-text" aria-label="未来观察者">思考未来</span> </a> </div> <nav class="top-menu" aria-label="顶部菜单"> <a href="/future-daily/" class="top-menu-link"> 每日信息 </a><a href="/docs/deer-flow/00-overview/" class="top-menu-link"> DeerFlow教程 </a><a href="/about/" class="top-menu-link"> 关于我 </a> </nav> <div class="top-actions"> <a class="feedback-link" href="https://github.com/yonglisss/yonglisss.github.io/issues" target="_blank" rel="noopener noreferrer" aria-label="问题反馈"> <svg viewBox="0 0 24 24" aria-hidden="true" class="action-icon"> <path d="M4.75 5.75A2.75 2.75 0 0 1 7.5 3h9A2.75 2.75 0 0 1 19.25 5.75v6.5A2.75 2.75 0 0 1 16.5 15H9.3l-3.55 3.2V15.1a2.75 2.75 0 0 1-1-2.1V5.75Z"></path> <path d="M8 7.75h8M8 11.25h4"></path> </svg> <span>问题反馈</span> </a> <div class="theme-switcher" data-theme-switcher> <button class="theme-trigger" type="button" aria-haspopup="menu" aria-expanded="false" aria-label="切换明暗模式" data-theme-trigger> <svg viewBox="0 0 24 24" aria-hidden="true" class="action-icon theme-trigger-icon theme-trigger-icon--light"> <circle cx="12" cy="12" r="4"></circle> <path d="M12 2.75v2M12 19.25v2M4.75 4.75l1.4 1.4M17.85 17.85l1.4 1.4M2.75 12h2M19.25 12h2M4.75 19.25l1.4-1.4M17.85 6.15l1.4-1.4"></path> </svg> <svg viewBox="0 0 24 24" aria-hidden="true" class="action-icon theme-trigger-icon theme-trigger-icon--dark"> <path d="M20.25 14.2A8 8 0 0 1 9.8 3.75 8.5 8.5 0 1 0 20.25 14.2Z"></path> </svg> <svg viewBox="0 0 24 24" aria-hidden="true" class="action-icon theme-trigger-icon theme-trigger-icon--system"> <rect x="4" y="5" width="16" height="11" rx="1.8"></rect> <path d="M9 20h6M12 16v4"></path> </svg> </button> <div class="theme-menu" role="menu" data-theme-menu hidden> <button class="theme-option" type="button" role="menuitemradio" data-theme-option="light" aria-checked="false"> <svg viewBox="0 0 24 24" aria-hidden="true" class="action-icon"><circle cx="12" cy="12" r="4"></circle><path d="M12 2.75v2M12 19.25v2M4.75 4.75l1.4 1.4M17.85 17.85l1.4 1.4M2.75 12h2M19.25 12h2M4.75 19.25l1.4-1.4M17.85 6.15l1.4-1.4"></path></svg> <span>亮色</span> </button> <button class="theme-option" type="button" role="menuitemradio" data-theme-option="dark" aria-checked="false"> <svg viewBox="0 0 24 24" aria-hidden="true" class="action-icon"><path d="M20.25 14.2A8 8 0 0 1 9.8 3.75 8.5 8.5 0 1 0 20.25 14.2Z"></path></svg> <span>暗色</span> </button> <button class="theme-option" type="button" role="menuitemradio" data-theme-option="system" aria-checked="true"> <svg viewBox="0 0 24 24" aria-hidden="true" class="action-icon"><rect x="4" y="5" width="16" height="11" rx="1.8"></rect><path d="M9 20h6M12 16v4"></path></svg> <span>跟随系统</span> </button> </div> </div> </div> </div> </header> <script>
+  (() => {
+    const switcher = document.querySelector("[data-theme-switcher]");
+    if (!switcher) return;
+
+    const trigger = switcher.querySelector("[data-theme-trigger]");
+    const menu = switcher.querySelector("[data-theme-menu]");
+    const options = [...switcher.querySelectorAll("[data-theme-option]")];
+    const modes = ["light", "dark", "system"];
+
+    const getMode = () => {
+      const mode = document.documentElement.dataset.themeMode;
+      return modes.includes(mode) ? mode : "system";
+    };
+
+    const closeMenu = () => {
+      menu.hidden = true;
+      trigger.setAttribute("aria-expanded", "false");
+    };
+
+    const openMenu = () => {
+      menu.hidden = false;
+      trigger.setAttribute("aria-expanded", "true");
+    };
+
+    const sync = () => {
+      const mode = getMode();
+      trigger.dataset.themeMode = mode;
+      options.forEach((option) => {
+        option.setAttribute("aria-checked", String(option.dataset.themeOption === mode));
+      });
+    };
+
+    trigger.addEventListener("click", () => {
+      menu.hidden ? openMenu() : closeMenu();
+    });
+
+    options.forEach((option) => {
+      option.addEventListener("click", () => {
+        window.__setFutureObserverTheme?.(option.dataset.themeOption || "system");
+        sync();
+        closeMenu();
+      });
+    });
+
+    document.addEventListener("click", (event) => {
+      if (!switcher.contains(event.target)) closeMenu();
+    });
+
+    document.addEventListener("keydown", (event) => {
+      if (event.key === "Escape") closeMenu();
+    });
+
+    window.addEventListener("future-observer-theme-change", sync);
+    sync();
+  })();
+</script> <aside class="site-rail" aria-label="站点导航"> <div class="site-rail-inner"> <p class="site-rail-label">Channels</p> <nav aria-label="主导航"> <ul class="site-rail-nav"> <li> <a href="/ai-tools/" class="site-rail-link"> AI工具 </a> </li><li> <a href="/future-daily/" class="site-rail-link"> 未来观察者日报 </a> </li> </ul> </nav> </div> </aside> <main class="shell page-content">  <div class="post-hero"> <p class="eyebrow">2026年6月28日</p> <h1>Memanto：如果你想让 AI 编码助手“记住上下文”，这个开源项目值得先看一眼</h1> <p class="post-summary">很多人已经习惯用 Claude Code、Cursor、Codex 这类工具写代码，但一个常见痛点还是没变：会话一断、上下文一长，助手就容易“失忆”。这也是 Memanto 最近值得关注的原因。它不是再做一个通用聊天壳，而是专门做 AI agent 的持久记忆层：让助手能跨会话记</p> <ul class="tag-list"> <li> <a href="/tags/AI%E5%B7%A5%E5%85%B7/" class="tag-link">
+#AI工具 </a> </li><li> <a href="/tags/2026%E5%B9%B406%E6%9C%88/" class="tag-link">
+#2026年06月 </a> </li> </ul> </div> <div class="post-grid"> <article class="prose">  <p>很多人已经习惯用 Claude Code、Cursor、Codex 这类工具写代码，但一个常见痛点还是没变：会话一断、上下文一长，助手就容易“失忆”。这也是 <code>Memanto</code> 最近值得关注的原因。它不是再做一个通用聊天壳，而是专门做 <strong>AI agent 的持久记忆层</strong>：让助手能跨会话记住偏好、决策、目标和项目背景，而且上手门槛不算高。</p>
+<h2 id="-这个项目是干什么的">📌 这个项目是干什么的</h2>
+<ul>
+<li>定位：给 AI 助手和 agent 提供长期记忆能力的开源系统。</li>
+<li>适合谁：高频使用 AI 编码工具的开发者、做 agent 工作流的团队、希望保留项目决策上下文的人。</li>
+<li>解决什么问题：减少重复喂上下文，让助手能记住“你是谁、项目怎么做、之前为什么这么定”。</li>
+<li>当前成熟度：项目资料完整，README、官方文档、集成说明和连续 release 都比较齐全，适合先试用验证。</li>
+</ul>
+<h2 id="-为什么值得关注">🔍 为什么值得关注</h2>
+<ol>
+<li>它讲的不是“大模型更聪明”，而是一个更实际的问题：<strong>怎么让工具持续记住重要信息</strong>。官方把记忆拆成 <code>fact</code>、<code>preference</code>、<code>decision</code>、<code>goal</code> 等 13 类，这比把一堆聊天记录直接塞进上下文更适合长期使用。</li>
+<li>它的接入范围比较广。官方文档明确支持 Claude Code、Cursor、Codex、Windsurf、OpenCode、Gemini CLI、GitHub Copilot 等 13+ 工具，也支持通过 MCP、LangChain、LangGraph、LlamaIndex 这类路径集成。</li>
+<li>最近更新节奏也说明它不是“只会讲故事”的项目。6 月 26 日的 <code>v0.2.4</code> 新增了 TypeScript SDK、<code>memanto edit</code>，同时补了跨 agent 授权、上传路径穿越、配置泄露等安全修复，这对准备真实使用的人比“又多了几个 demo”更重要。</li>
+</ol>
+<h2 id="-谁适合试怎么开始">🧪 谁适合试，怎么开始</h2>
+<ul>
+<li>最适合的试用人群：已经在用 AI 编码助手、并且经常被“上下文丢失”打断的人。</li>
+<li>最短尝试路径：先 <code>pip install memanto</code>，然后运行 <code>memanto</code> 做初始化；如果只想本地跑，官方提供 On-Prem 路径，但需要 Docker；如果想更快体验，也可以先走它的免费云方案。</li>
+<li>建议先看：一是官方 <code>Introduction</code> 和 <code>Integrations Overview</code>，确认它支持你的工具；二是直接试 <code>memanto connect claude-code</code> 或 <code>memanto connect codex</code> 这类连接命令，看它能不能进入你的真实工作流。</li>
+</ul>
+<h2 id="️-使用提醒">⚠️ 使用提醒</h2>
+<ul>
+<li>它解决的是“记忆层”问题，不会自动替你补齐推理能力、工具能力或工作流设计，别把“有记忆”误解成“更全能”。</li>
+<li>本地方案虽然更可控，但官方说明需要 Docker；如果团队环境本身比较严格，最好先评估部署和维护成本。</li>
+<li>官方给出了 LongMemEval、LoCoMo 等基准成绩，但这类指标更适合做方向判断，真正值不值得长期接入，还是要看你自己的项目上下文是否真的能被稳定复用。</li>
+</ul>
+<h2 id="-参考资源">🔗 参考资源</h2>
+<ul>
+<li>GitHub：<a href="https://github.com/moorcheh-ai/memanto">https://github.com/moorcheh-ai/memanto</a></li>
+<li>文档：<a href="https://docs.memanto.ai">https://docs.memanto.ai</a></li>
+<li>集成说明：<a href="https://docs.memanto.ai/integrations/overview">https://docs.memanto.ai/integrations/overview</a></li>
+<li>Release：<a href="https://github.com/moorcheh-ai/memanto/releases">https://github.com/moorcheh-ai/memanto/releases</a></li>
+</ul>  </article> <aside class="toc"><p class="toc-title">目录</p><ul class="toc-list"><li class="depth-2"><a href="#-这个项目是干什么的" data-toc-link="-这个项目是干什么的">📌 这个项目是干什么的</a></li><li class="depth-2"><a href="#-为什么值得关注" data-toc-link="-为什么值得关注">🔍 为什么值得关注</a></li><li class="depth-2"><a href="#-谁适合试怎么开始" data-toc-link="-谁适合试怎么开始">🧪 谁适合试，怎么开始</a></li><li class="depth-2"><a href="#️-使用提醒" data-toc-link="️-使用提醒">⚠️ 使用提醒</a></li><li class="depth-2"><a href="#-参考资源" data-toc-link="-参考资源">🔗 参考资源</a></li></ul></aside><script type="module">const c=()=>{const r=Array.from(document.querySelectorAll(".toc a[data-toc-link]"));if(!r.length)return;const o=r.map(t=>{const e=t.getAttribute("data-toc-link");if(!e)return null;const n=document.getElementById(e);return n?{id:e,heading:n,link:t}:null}).filter(t=>t!==null);if(!o.length)return;const s=t=>{r.forEach(e=>{const n=e.getAttribute("data-toc-link")===t;e.classList.toggle("active",n),n&&e.scrollIntoView({block:"nearest",inline:"nearest"})})},i=()=>{const t=Math.round(window.innerHeight*.28);let e=o[0];for(const n of o)n.heading.getBoundingClientRect().top<=t&&(e=n);s(e.id)};i();const a=new IntersectionObserver(()=>i(),{rootMargin:"-18% 0px -70% 0px",threshold:[0,1]});o.forEach(t=>a.observe(t.heading)),window.addEventListener("scroll",i,{passive:!0})};document.addEventListener("DOMContentLoaded",c);document.addEventListener("astro:page-load",c);</script> </div>  </main> <footer class="site-footer"> <div class="shell footer-inner"> <p>© 2026 未来观察者</p> </div> </footer> </body></html>
