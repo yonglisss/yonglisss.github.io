@@ -1,0 +1,325 @@
+<!DOCTYPE html><html lang="zh-CN"> <head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1"><script>
+      (() => {
+        const storageKey = "future-observer-theme";
+        const root = document.documentElement;
+        const getStoredMode = () => {
+          try {
+            const value = localStorage.getItem(storageKey);
+            return value === "light" || value === "dark" || value === "system" ? value : "system";
+          } catch {
+            return "system";
+          }
+        };
+        const systemDark = () => window.matchMedia?.("(prefers-color-scheme: dark)").matches ?? false;
+        const apply = (mode) => {
+          const resolved = mode === "system" ? (systemDark() ? "dark" : "light") : mode;
+          root.dataset.themeMode = mode;
+          root.dataset.theme = resolved;
+          root.style.colorScheme = resolved;
+        };
+        apply(getStoredMode());
+        window.__setFutureObserverTheme = (mode) => {
+          const next = mode === "light" || mode === "dark" || mode === "system" ? mode : "system";
+          try { localStorage.setItem(storageKey, next); } catch {}
+          apply(next);
+          window.dispatchEvent(new CustomEvent("future-observer-theme-change", { detail: { mode: next } }));
+        };
+        window.matchMedia?.("(prefers-color-scheme: dark)").addEventListener?.("change", () => {
+          if (getStoredMode() === "system") apply("system");
+        });
+      })();
+    </script><title>🦠 美国麻疹病例赔率：公共卫生系统正在被重新定价 | 未来观察者</title><meta name="description" content="🧭 核心观点：Polymarket 对美国 2026 年麻疹病例数的定价，真正反映的不是一次单点疫情，而是疫苗信任、基层公共卫生能力与预测市场对社会系统脆弱性的重新计价。"><meta name="generator" content="Astro v5.18.1"><meta property="og:title" content="🦠 美国麻疹病例赔率：公共卫生系统正在被重新定价 | 未来观察者"><meta property="og:description" content="🧭 核心观点：Polymarket 对美国 2026 年麻疹病例数的定价，真正反映的不是一次单点疫情，而是疫苗信任、基层公共卫生能力与预测市场对社会系统脆弱性的重新计价。"><meta property="og:type" content="website"><meta property="og:url" content="https://future.lifestudylab.com/posts/2026-06-28-%E7%BE%8E%E5%9B%BD%E9%BA%BB%E7%96%B9%E7%97%85%E4%BE%8B%E8%B5%94%E7%8E%87-%E5%85%AC%E5%85%B1%E5%8D%AB%E7%94%9F%E7%B3%BB%E7%BB%9F%E6%AD%A3%E5%9C%A8%E8%A2%AB%E9%87%8D%E6%96%B0%E5%AE%9A%E4%BB%B7/"><link rel="icon" type="image/svg+xml" href="/favicon.svg"><link rel="alternate" type="application/rss+xml" title="未来观察者" href="/rss.xml"><link rel="stylesheet" href="/_astro/_channel_.DM2BjJPY.css"></head> <body> <div class="page-bg"></div> <header class="site-header"> <div class="shell header-inner"> <div class="header-bar"> <a class="brand" href="/ai-tools/"> <img src="/brand-mark.svg" alt="" class="brand-mark" width="56" height="56"> <span class="brand-text" aria-label="未来观察者">思考未来</span> </a> </div> <nav class="top-menu" aria-label="顶部菜单"> <a href="/future-daily/" class="top-menu-link"> 每日信息 </a><a href="/docs/deer-flow/00-overview/" class="top-menu-link"> DeerFlow教程 </a><a href="/about/" class="top-menu-link"> 关于我 </a> </nav> <div class="top-actions"> <a class="feedback-link" href="https://github.com/yonglisss/yonglisss.github.io/issues" target="_blank" rel="noopener noreferrer" aria-label="问题反馈"> <svg viewBox="0 0 24 24" aria-hidden="true" class="action-icon"> <path d="M4.75 5.75A2.75 2.75 0 0 1 7.5 3h9A2.75 2.75 0 0 1 19.25 5.75v6.5A2.75 2.75 0 0 1 16.5 15H9.3l-3.55 3.2V15.1a2.75 2.75 0 0 1-1-2.1V5.75Z"></path> <path d="M8 7.75h8M8 11.25h4"></path> </svg> <span>问题反馈</span> </a> <div class="theme-switcher" data-theme-switcher> <button class="theme-trigger" type="button" aria-haspopup="menu" aria-expanded="false" aria-label="切换明暗模式" data-theme-trigger> <svg viewBox="0 0 24 24" aria-hidden="true" class="action-icon theme-trigger-icon theme-trigger-icon--light"> <circle cx="12" cy="12" r="4"></circle> <path d="M12 2.75v2M12 19.25v2M4.75 4.75l1.4 1.4M17.85 17.85l1.4 1.4M2.75 12h2M19.25 12h2M4.75 19.25l1.4-1.4M17.85 6.15l1.4-1.4"></path> </svg> <svg viewBox="0 0 24 24" aria-hidden="true" class="action-icon theme-trigger-icon theme-trigger-icon--dark"> <path d="M20.25 14.2A8 8 0 0 1 9.8 3.75 8.5 8.5 0 1 0 20.25 14.2Z"></path> </svg> <svg viewBox="0 0 24 24" aria-hidden="true" class="action-icon theme-trigger-icon theme-trigger-icon--system"> <rect x="4" y="5" width="16" height="11" rx="1.8"></rect> <path d="M9 20h6M12 16v4"></path> </svg> </button> <div class="theme-menu" role="menu" data-theme-menu hidden> <button class="theme-option" type="button" role="menuitemradio" data-theme-option="light" aria-checked="false"> <svg viewBox="0 0 24 24" aria-hidden="true" class="action-icon"><circle cx="12" cy="12" r="4"></circle><path d="M12 2.75v2M12 19.25v2M4.75 4.75l1.4 1.4M17.85 17.85l1.4 1.4M2.75 12h2M19.25 12h2M4.75 19.25l1.4-1.4M17.85 6.15l1.4-1.4"></path></svg> <span>亮色</span> </button> <button class="theme-option" type="button" role="menuitemradio" data-theme-option="dark" aria-checked="false"> <svg viewBox="0 0 24 24" aria-hidden="true" class="action-icon"><path d="M20.25 14.2A8 8 0 0 1 9.8 3.75 8.5 8.5 0 1 0 20.25 14.2Z"></path></svg> <span>暗色</span> </button> <button class="theme-option" type="button" role="menuitemradio" data-theme-option="system" aria-checked="true"> <svg viewBox="0 0 24 24" aria-hidden="true" class="action-icon"><rect x="4" y="5" width="16" height="11" rx="1.8"></rect><path d="M9 20h6M12 16v4"></path></svg> <span>跟随系统</span> </button> </div> </div> </div> </div> </header> <script>
+  (() => {
+    const switcher = document.querySelector("[data-theme-switcher]");
+    if (!switcher) return;
+
+    const trigger = switcher.querySelector("[data-theme-trigger]");
+    const menu = switcher.querySelector("[data-theme-menu]");
+    const options = [...switcher.querySelectorAll("[data-theme-option]")];
+    const modes = ["light", "dark", "system"];
+
+    const getMode = () => {
+      const mode = document.documentElement.dataset.themeMode;
+      return modes.includes(mode) ? mode : "system";
+    };
+
+    const closeMenu = () => {
+      menu.hidden = true;
+      trigger.setAttribute("aria-expanded", "false");
+    };
+
+    const openMenu = () => {
+      menu.hidden = false;
+      trigger.setAttribute("aria-expanded", "true");
+    };
+
+    const sync = () => {
+      const mode = getMode();
+      trigger.dataset.themeMode = mode;
+      options.forEach((option) => {
+        option.setAttribute("aria-checked", String(option.dataset.themeOption === mode));
+      });
+    };
+
+    trigger.addEventListener("click", () => {
+      menu.hidden ? openMenu() : closeMenu();
+    });
+
+    options.forEach((option) => {
+      option.addEventListener("click", () => {
+        window.__setFutureObserverTheme?.(option.dataset.themeOption || "system");
+        sync();
+        closeMenu();
+      });
+    });
+
+    document.addEventListener("click", (event) => {
+      if (!switcher.contains(event.target)) closeMenu();
+    });
+
+    document.addEventListener("keydown", (event) => {
+      if (event.key === "Escape") closeMenu();
+    });
+
+    window.addEventListener("future-observer-theme-change", sync);
+    sync();
+  })();
+</script> <aside class="site-rail" aria-label="站点导航"> <div class="site-rail-inner"> <p class="site-rail-label">Channels</p> <nav aria-label="主导航"> <ul class="site-rail-nav"> <li> <a href="/ai-tools/" class="site-rail-link"> AI工具 </a> </li><li> <a href="/future-daily/" class="site-rail-link"> 未来观察者日报 </a> </li> </ul> </nav> </div> </aside> <main class="shell page-content">  <div class="post-hero"> <p class="eyebrow">2026年6月28日</p> <h1>🦠 美国麻疹病例赔率：公共卫生系统正在被重新定价</h1> <p class="post-summary">🧭 核心观点：Polymarket 对美国 2026 年麻疹病例数的定价，真正反映的不是一次单点疫情，而是疫苗信任、基层公共卫生能力与预测市场对社会系统脆弱性的重新计价。</p> <ul class="tag-list"> <li> <a href="/tags/%E6%9C%AA%E6%9D%A5%E8%A7%82%E5%AF%9F%E8%80%85%E6%97%A5%E6%8A%A5/" class="tag-link">
+#未来观察者日报 </a> </li><li> <a href="/tags/2026%E5%B9%B406%E6%9C%88/" class="tag-link">
+#2026年06月 </a> </li> </ul> </div> <div class="post-grid"> <article class="prose">  <blockquote>
+<p>🧭 <strong>核心观点</strong>：Polymarket 对美国 2026 年麻疹病例数的定价，真正反映的不是一次单点疫情，而是疫苗信任、基层公共卫生能力与预测市场对社会系统脆弱性的重新计价。</p>
+</blockquote>
+<p><strong>作者：</strong> 元英<br>
+<strong>时间：</strong> 2026年6月28日<br>
+<strong>标签：</strong> #未来观察者 #公共卫生 #预测市场 #社会系统<br>
+<strong>阅读时间：</strong> 3-5分钟</p>
+<hr>
+<h2 id="-今天看什么投票">🔍 今天看什么投票？</h2>
+<p>今天选择的不是 AI、芯片或资本市场，而是 Polymarket 上一个更像“社会基础设施压力测试”的投票：<strong>美国 2026 年麻疹病例数会达到多少？</strong></p>
+<h3 id="-关键数据卡片">📊 关键数据卡片</h3>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<table><thead><tr><th>项目</th><th>内容</th></tr></thead><tbody><tr><td>Polymarket 事件</td><td>Measles cases in U.S. in 2026?</td></tr><tr><td>原始链接</td><td><a href="https://polymarket.com/event/measles-cases-in-us-in-2026">https://polymarket.com/event/measles-cases-in-us-in-2026</a></td></tr><tr><td>所属领域</td><td>Science / Pandemics / Climate &#x26; Science</td></tr><tr><td>事件总交易量</td><td>约 <strong>773.2万美元</strong></td></tr><tr><td>事件流动性</td><td>约 <strong>2.86万美元</strong></td></tr><tr><td>数据获取时间</td><td>2026-06-28 04:02 CST</td></tr><tr><td>结算依据</td><td>CDC 统计的 2026 年美国境内确诊麻疹病例数</td></tr></tbody></table>
+<h3 id="-主要档位赔率">🧾 主要档位赔率</h3>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<table><thead><tr><th>档位问题</th><th align="right">Yes 概率</th><th align="right">No 概率</th><th align="right">单项交易量</th><th align="right">流动性</th></tr></thead><tbody><tr><td>≥ 3,000 例</td><td align="right">76.5%</td><td align="right">23.5%</td><td align="right">约 6.81万美元</td><td align="right">约 0.28万美元</td></tr><tr><td>≥ 4,000 例</td><td align="right">31.5%</td><td align="right">68.5%</td><td align="right">约 18.12万美元</td><td align="right">约 0.62万美元</td></tr><tr><td>≥ 5,000 例</td><td align="right">17.5%</td><td align="right">82.5%</td><td align="right">约 22.34万美元</td><td align="right">约 0.55万美元</td></tr><tr><td>≥ 7,500 例</td><td align="right">12.5%</td><td align="right">87.5%</td><td align="right">约 17.82万美元</td><td align="right">约 0.53万美元</td></tr><tr><td>≥ 10,000 例</td><td align="right">6.8%</td><td align="right">93.2%</td><td align="right">约 650.77万美元</td><td align="right">约 0.55万美元</td></tr><tr><td>≥ 12,500 例</td><td align="right">4.5%</td><td align="right">95.5%</td><td align="right">约 34.76万美元</td><td align="right">约 0.35万美元</td></tr></tbody></table>
+<p><strong>去重判断：</strong> 最近 7 天已写过美联储、伊朗/霍尔木兹、Tesla、AI 模型、SpaceX IPO 等主题；今日选题避开了宏观利率、地缘能源、AI 模型和电动车主线，转向公共卫生与社会系统韧性，重复度低。</p>
+<hr>
+<h2 id="-为什么今天会有这个投票">🧩 为什么今天会有这个投票？</h2>
+<p>这个投票成立的现实驱动很清楚：美国麻疹病例数已经从“偶发输入病例”变成需要持续跟踪的年度变量。</p>
+<p>根据 CDC 页面在搜索摘要中披露的数据，<strong>截至 2026 年 6 月 25 日，美国 2026 年已报告 2,134 例确诊麻疹病例</strong>，涉及 <strong>41 个司法辖区</strong>。这意味着，Polymarket 上“≥500 / ≥1000 / ≥2000”这几个低档位已经基本失去悬念，而市场真正交易的是：</p>
+<ol>
+<li><strong>下半年是否会继续扩散</strong>；</li>
+<li><strong>是否会突破 3,000 / 4,000 / 5,000 的心理阈值</strong>；</li>
+<li><strong>美国维持麻疹消除状态的公共卫生能力是否正在被市场质疑</strong>。</li>
+</ol>
+<p>这里需要区分三件事：</p>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<table><thead><tr><th>类型</th><th>可以确认的事实</th><th>市场定价</th><th>本文推测</th></tr></thead><tbody><tr><td>事实</td><td>CDC 数据显示 2026 年已超过 2,000 例</td><td>≥3,000 例被定价为 76.5%</td><td>下半年控制能力成为关键变量</td></tr><tr><td>事实</td><td>Polymarket 事件总交易量约 773 万美元</td><td>≥10,000 例仍有 6.8% 概率</td><td>极端情形虽然低概率，但正在被买入尾部风险</td></tr><tr><td>事实</td><td>该事件属于 Science / Pandemics 标签</td><td>≥4,000 例为 31.5%</td><td>市场对“公共卫生退化”的担忧已显性化</td></tr></tbody></table>
+<hr>
+<h2 id="-这个投票真正反映了什么结构变化">🧠 这个投票真正反映了什么结构变化？</h2>
+<h3 id="1-技术层面监测系统更强但不等于防控更稳">1. 技术层面：监测系统更强，但不等于防控更稳</h3>
+<p>今天的公共卫生系统拥有更快的数据上报、更细的病例追踪和更透明的仪表盘。但麻疹这类高传染性疾病的关键，不只是“发现得快”，而是社区免疫屏障是否足够厚。</p>
+<p>技术能提升监测效率，却不能自动修复疫苗接种率下降、地方执行差异和公众信任裂缝。这也是为什么病例数会成为一个可交易变量：数据越透明，社会系统的薄弱点越容易被市场定价。</p>
+<h3 id="2-产业层面公共卫生重新变成长期基础设施议题">2. 产业层面：公共卫生重新变成长期基础设施议题</h3>
+<p>过去几年，资本市场更愿意讨论 AI、算力、能源和芯片。但麻疹病例的重新抬头提醒我们：公共卫生也是基础设施。</p>
+<p>它影响的不只是医院和疫苗企业，还会影响：</p>
+<ul>
+<li>学校停课与儿童照护成本；</li>
+<li>地方卫生部门预算；</li>
+<li>医疗系统应急资源占用；</li>
+<li>疫苗供应链与冷链配送；</li>
+<li>企业用工与社区活动安排。</li>
+</ul>
+<p>如果病例持续上升，公共卫生投入可能从“疫情后的遗留议题”重新变成州和地方政府的预算优先级。</p>
+<h3 id="3-社会--资本层面预测市场开始给信任赤字定价">3. 社会 / 资本层面：预测市场开始给“信任赤字”定价</h3>
+<p>麻疹不是新病，也不是缺少疫苗的病。真正的新变量是：一部分社会群体对疫苗、机构和专家系统的信任下降。</p>
+<p>Polymarket 的赔率本质上在交易一个问题：<strong>美国社会能否用现有制度把一个本可预防的疾病重新压回低水平？</strong></p>
+<p>这类投票的结构意义在于，它把抽象的“社会信任”变成可观察的概率曲线。未来，更多公共议题可能都会以类似方式进入市场定价：不是只问政策是否正确，而是问制度执行能不能穿透到社区。</p>
+<hr>
+<h2 id="-如果趋势继续未来会怎样">⏳ 如果趋势继续，未来会怎样？</h2>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<table><thead><tr><th>时间尺度</th><th>可能变化</th><th>观察指标</th></tr></thead><tbody><tr><td>短期：未来 1-3 个月</td><td>市场重点交易 3,000 与 4,000 例档位，赔率会跟随 CDC 周度数据快速波动</td><td>CDC 新增病例、州级暴发数量、学校/社区暴露事件</td></tr><tr><td>中期：2026 年下半年</td><td>若病例持续跨州扩散，5,000 例档位会成为新的心理分界线</td><td>免疫覆盖率、地方公共卫生响应、媒体关注度</td></tr><tr><td>长期：未来 2-3 年</td><td>公共卫生能力可能重新进入政策、预算和保险定价框架</td><td>疫苗接种率、州级法规、公共卫生预算、消除状态审查</td></tr></tbody></table>
+<p>我更关注的不是 10,000 例这种尾部档位是否兑现，而是 <strong>≥3,000 例已经被市场定价为高概率事件</strong>。这说明市场已经不再把麻疹回潮视作单一异常，而是在评估一种更持久的制度摩擦。</p>
+<hr>
+<h2 id="-对普通人从业者和观察者有什么用">🧭 对普通人、从业者和观察者有什么用？</h2>
+<h3 id="-普通人">👤 普通人</h3>
+<ul>
+<li>检查自己和家人的 MMR 疫苗记录，尤其是儿童、跨州旅行者和医疗/教育相关家庭。</li>
+<li>关注本州卫生部门公告，而不是只看全国数字。</li>
+<li>如果学校、社区或工作场所出现暴露通知，优先按官方流程处理，不靠社交媒体判断风险。</li>
+</ul>
+<h3 id="-公共卫生--医疗从业者">🏥 公共卫生 / 医疗从业者</h3>
+<ul>
+<li>重点观察病例是否从少数聚集区扩散为多州散点传播。</li>
+<li>把沟通策略当作防控技术的一部分：疫苗犹豫不是单纯信息不足，往往是信任问题。</li>
+<li>关注基层资源瓶颈：病例追踪、人手、隔离安排和疫苗可及性。</li>
+</ul>
+<h3 id="-创业者--投资观察者">💼 创业者 / 投资观察者</h3>
+<ul>
+<li>公共卫生数据基础设施、学校健康管理、地方政府 SaaS、冷链与疫苗供应链，可能重新获得现实需求。</li>
+<li>不要把公共卫生只理解为“药企主题”，真正的机会可能在基层执行、数据同步和风险沟通工具。</li>
+<li>预测市场本身也值得观察：它正在把社会系统风险金融化、概率化、可视化。</li>
+</ul>
+<hr>
+<h2 id="️-风险提示">⚠️ 风险提示</h2>
+<ol>
+<li><strong>Polymarket 赔率不是预测真相</strong>：它反映交易者资金与预期，可能受流动性、激励和短期新闻影响。</li>
+<li><strong>部分档位流动性较低</strong>：虽然事件总交易量较高，但多个档位流动性只有数千美元，价格可能波动较大。</li>
+<li><strong>CDC 数据会更新和校正</strong>：病例统计可能随州级上报、复核和口径变化调整。</li>
+<li><strong>本文不是医疗建议</strong>：个人健康决策应参考医生和当地公共卫生部门信息。</li>
+</ol>
+<hr>
+<h2 id="-结语未来不只由新技术决定也由旧系统能否继续工作决定">🌅 结语：未来不只由新技术决定，也由旧系统能否继续工作决定</h2>
+<p>未来观察不应该只盯着 AI 模型、芯片价格和 IPO 日历。麻疹病例这种看似“旧问题”的回潮，恰恰提醒我们：真正的未来风险，常常来自那些被默认会正常运转的系统开始失灵。</p>
+<p>今天这个投票的价值不在于押中最终病例数，而在于它把一个关键问题摆到台面上：<strong>当社会信任下降时，连成熟疫苗和成熟公共卫生流程，也需要重新接受市场定价。</strong></p>
+<hr>
+<h2 id="-参考资源">🔗 参考资源</h2>
+<ul>
+<li>Polymarket：Measles cases in U.S. in 2026?<br>
+<a href="https://polymarket.com/event/measles-cases-in-us-in-2026">https://polymarket.com/event/measles-cases-in-us-in-2026</a></li>
+<li>CDC：Measles Cases and Outbreaks<br>
+<a href="https://www.cdc.gov/measles/data-research/index.html">https://www.cdc.gov/measles/data-research/index.html</a></li>
+<li>Johns Hopkins CORI：2025-2026 US Measles Map<br>
+<a href="https://www.arcgis.com/apps/dashboards/dd314001921f4d2eac160f89ded0b49a">https://www.arcgis.com/apps/dashboards/dd314001921f4d2eac160f89ded0b49a</a></li>
+</ul>  </article> <aside class="toc"><p class="toc-title">目录</p><ul class="toc-list"><li class="depth-2"><a href="#-今天看什么投票" data-toc-link="-今天看什么投票">🔍 今天看什么投票？</a></li><li class="depth-3"><a href="#-关键数据卡片" data-toc-link="-关键数据卡片">📊 关键数据卡片</a></li><li class="depth-3"><a href="#-主要档位赔率" data-toc-link="-主要档位赔率">🧾 主要档位赔率</a></li><li class="depth-2"><a href="#-为什么今天会有这个投票" data-toc-link="-为什么今天会有这个投票">🧩 为什么今天会有这个投票？</a></li><li class="depth-2"><a href="#-这个投票真正反映了什么结构变化" data-toc-link="-这个投票真正反映了什么结构变化">🧠 这个投票真正反映了什么结构变化？</a></li><li class="depth-3"><a href="#1-技术层面监测系统更强但不等于防控更稳" data-toc-link="1-技术层面监测系统更强但不等于防控更稳">1. 技术层面：监测系统更强，但不等于防控更稳</a></li><li class="depth-3"><a href="#2-产业层面公共卫生重新变成长期基础设施议题" data-toc-link="2-产业层面公共卫生重新变成长期基础设施议题">2. 产业层面：公共卫生重新变成长期基础设施议题</a></li><li class="depth-3"><a href="#3-社会--资本层面预测市场开始给信任赤字定价" data-toc-link="3-社会--资本层面预测市场开始给信任赤字定价">3. 社会 / 资本层面：预测市场开始给“信任赤字”定价</a></li><li class="depth-2"><a href="#-如果趋势继续未来会怎样" data-toc-link="-如果趋势继续未来会怎样">⏳ 如果趋势继续，未来会怎样？</a></li><li class="depth-2"><a href="#-对普通人从业者和观察者有什么用" data-toc-link="-对普通人从业者和观察者有什么用">🧭 对普通人、从业者和观察者有什么用？</a></li><li class="depth-3"><a href="#-普通人" data-toc-link="-普通人">👤 普通人</a></li><li class="depth-3"><a href="#-公共卫生--医疗从业者" data-toc-link="-公共卫生--医疗从业者">🏥 公共卫生 / 医疗从业者</a></li><li class="depth-3"><a href="#-创业者--投资观察者" data-toc-link="-创业者--投资观察者">💼 创业者 / 投资观察者</a></li><li class="depth-2"><a href="#️-风险提示" data-toc-link="️-风险提示">⚠️ 风险提示</a></li><li class="depth-2"><a href="#-结语未来不只由新技术决定也由旧系统能否继续工作决定" data-toc-link="-结语未来不只由新技术决定也由旧系统能否继续工作决定">🌅 结语：未来不只由新技术决定，也由旧系统能否继续工作决定</a></li><li class="depth-2"><a href="#-参考资源" data-toc-link="-参考资源">🔗 参考资源</a></li></ul></aside><script type="module">const c=()=>{const r=Array.from(document.querySelectorAll(".toc a[data-toc-link]"));if(!r.length)return;const o=r.map(t=>{const e=t.getAttribute("data-toc-link");if(!e)return null;const n=document.getElementById(e);return n?{id:e,heading:n,link:t}:null}).filter(t=>t!==null);if(!o.length)return;const s=t=>{r.forEach(e=>{const n=e.getAttribute("data-toc-link")===t;e.classList.toggle("active",n),n&&e.scrollIntoView({block:"nearest",inline:"nearest"})})},i=()=>{const t=Math.round(window.innerHeight*.28);let e=o[0];for(const n of o)n.heading.getBoundingClientRect().top<=t&&(e=n);s(e.id)};i();const a=new IntersectionObserver(()=>i(),{rootMargin:"-18% 0px -70% 0px",threshold:[0,1]});o.forEach(t=>a.observe(t.heading)),window.addEventListener("scroll",i,{passive:!0})};document.addEventListener("DOMContentLoaded",c);document.addEventListener("astro:page-load",c);</script> </div>  </main> <footer class="site-footer"> <div class="shell footer-inner"> <p>© 2026 未来观察者</p> </div> </footer> </body></html>

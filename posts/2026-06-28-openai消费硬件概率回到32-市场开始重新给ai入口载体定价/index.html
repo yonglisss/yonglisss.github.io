@@ -1,0 +1,321 @@
+<!DOCTYPE html><html lang="zh-CN"> <head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1"><script>
+      (() => {
+        const storageKey = "future-observer-theme";
+        const root = document.documentElement;
+        const getStoredMode = () => {
+          try {
+            const value = localStorage.getItem(storageKey);
+            return value === "light" || value === "dark" || value === "system" ? value : "system";
+          } catch {
+            return "system";
+          }
+        };
+        const systemDark = () => window.matchMedia?.("(prefers-color-scheme: dark)").matches ?? false;
+        const apply = (mode) => {
+          const resolved = mode === "system" ? (systemDark() ? "dark" : "light") : mode;
+          root.dataset.themeMode = mode;
+          root.dataset.theme = resolved;
+          root.style.colorScheme = resolved;
+        };
+        apply(getStoredMode());
+        window.__setFutureObserverTheme = (mode) => {
+          const next = mode === "light" || mode === "dark" || mode === "system" ? mode : "system";
+          try { localStorage.setItem(storageKey, next); } catch {}
+          apply(next);
+          window.dispatchEvent(new CustomEvent("future-observer-theme-change", { detail: { mode: next } }));
+        };
+        window.matchMedia?.("(prefers-color-scheme: dark)").addEventListener?.("change", () => {
+          if (getStoredMode() === "system") apply("system");
+        });
+      })();
+    </script><title>🎧 OpenAI 消费硬件概率回到 32%：市场开始重新给 AI 入口载体定价 | 未来观察者</title><meta name="description" content="🧭 核心观点：今天真正值得关注的，不是 OpenAI 会不会“再发一个模型”，而是预测市场开始重新定价一件更底层的事——AI 是否需要自己的默认入口载体。如果答案是需要，那么未来最值钱的就不只是模型能力，而是谁握住用户的第一交互界面。"><meta name="generator" content="Astro v5.18.1"><meta property="og:title" content="🎧 OpenAI 消费硬件概率回到 32%：市场开始重新给 AI 入口载体定价 | 未来观察者"><meta property="og:description" content="🧭 核心观点：今天真正值得关注的，不是 OpenAI 会不会“再发一个模型”，而是预测市场开始重新定价一件更底层的事——AI 是否需要自己的默认入口载体。如果答案是需要，那么未来最值钱的就不只是模型能力，而是谁握住用户的第一交互界面。"><meta property="og:type" content="website"><meta property="og:url" content="https://future.lifestudylab.com/posts/2026-06-28-openai%E6%B6%88%E8%B4%B9%E7%A1%AC%E4%BB%B6%E6%A6%82%E7%8E%87%E5%9B%9E%E5%88%B032-%E5%B8%82%E5%9C%BA%E5%BC%80%E5%A7%8B%E9%87%8D%E6%96%B0%E7%BB%99ai%E5%85%A5%E5%8F%A3%E8%BD%BD%E4%BD%93%E5%AE%9A%E4%BB%B7/"><link rel="icon" type="image/svg+xml" href="/favicon.svg"><link rel="alternate" type="application/rss+xml" title="未来观察者" href="/rss.xml"><link rel="stylesheet" href="/_astro/_channel_.DM2BjJPY.css"></head> <body> <div class="page-bg"></div> <header class="site-header"> <div class="shell header-inner"> <div class="header-bar"> <a class="brand" href="/ai-tools/"> <img src="/brand-mark.svg" alt="" class="brand-mark" width="56" height="56"> <span class="brand-text" aria-label="未来观察者">思考未来</span> </a> </div> <nav class="top-menu" aria-label="顶部菜单"> <a href="/future-daily/" class="top-menu-link"> 每日信息 </a><a href="/docs/deer-flow/00-overview/" class="top-menu-link"> DeerFlow教程 </a><a href="/about/" class="top-menu-link"> 关于我 </a> </nav> <div class="top-actions"> <a class="feedback-link" href="https://github.com/yonglisss/yonglisss.github.io/issues" target="_blank" rel="noopener noreferrer" aria-label="问题反馈"> <svg viewBox="0 0 24 24" aria-hidden="true" class="action-icon"> <path d="M4.75 5.75A2.75 2.75 0 0 1 7.5 3h9A2.75 2.75 0 0 1 19.25 5.75v6.5A2.75 2.75 0 0 1 16.5 15H9.3l-3.55 3.2V15.1a2.75 2.75 0 0 1-1-2.1V5.75Z"></path> <path d="M8 7.75h8M8 11.25h4"></path> </svg> <span>问题反馈</span> </a> <div class="theme-switcher" data-theme-switcher> <button class="theme-trigger" type="button" aria-haspopup="menu" aria-expanded="false" aria-label="切换明暗模式" data-theme-trigger> <svg viewBox="0 0 24 24" aria-hidden="true" class="action-icon theme-trigger-icon theme-trigger-icon--light"> <circle cx="12" cy="12" r="4"></circle> <path d="M12 2.75v2M12 19.25v2M4.75 4.75l1.4 1.4M17.85 17.85l1.4 1.4M2.75 12h2M19.25 12h2M4.75 19.25l1.4-1.4M17.85 6.15l1.4-1.4"></path> </svg> <svg viewBox="0 0 24 24" aria-hidden="true" class="action-icon theme-trigger-icon theme-trigger-icon--dark"> <path d="M20.25 14.2A8 8 0 0 1 9.8 3.75 8.5 8.5 0 1 0 20.25 14.2Z"></path> </svg> <svg viewBox="0 0 24 24" aria-hidden="true" class="action-icon theme-trigger-icon theme-trigger-icon--system"> <rect x="4" y="5" width="16" height="11" rx="1.8"></rect> <path d="M9 20h6M12 16v4"></path> </svg> </button> <div class="theme-menu" role="menu" data-theme-menu hidden> <button class="theme-option" type="button" role="menuitemradio" data-theme-option="light" aria-checked="false"> <svg viewBox="0 0 24 24" aria-hidden="true" class="action-icon"><circle cx="12" cy="12" r="4"></circle><path d="M12 2.75v2M12 19.25v2M4.75 4.75l1.4 1.4M17.85 17.85l1.4 1.4M2.75 12h2M19.25 12h2M4.75 19.25l1.4-1.4M17.85 6.15l1.4-1.4"></path></svg> <span>亮色</span> </button> <button class="theme-option" type="button" role="menuitemradio" data-theme-option="dark" aria-checked="false"> <svg viewBox="0 0 24 24" aria-hidden="true" class="action-icon"><path d="M20.25 14.2A8 8 0 0 1 9.8 3.75 8.5 8.5 0 1 0 20.25 14.2Z"></path></svg> <span>暗色</span> </button> <button class="theme-option" type="button" role="menuitemradio" data-theme-option="system" aria-checked="true"> <svg viewBox="0 0 24 24" aria-hidden="true" class="action-icon"><rect x="4" y="5" width="16" height="11" rx="1.8"></rect><path d="M9 20h6M12 16v4"></path></svg> <span>跟随系统</span> </button> </div> </div> </div> </div> </header> <script>
+  (() => {
+    const switcher = document.querySelector("[data-theme-switcher]");
+    if (!switcher) return;
+
+    const trigger = switcher.querySelector("[data-theme-trigger]");
+    const menu = switcher.querySelector("[data-theme-menu]");
+    const options = [...switcher.querySelectorAll("[data-theme-option]")];
+    const modes = ["light", "dark", "system"];
+
+    const getMode = () => {
+      const mode = document.documentElement.dataset.themeMode;
+      return modes.includes(mode) ? mode : "system";
+    };
+
+    const closeMenu = () => {
+      menu.hidden = true;
+      trigger.setAttribute("aria-expanded", "false");
+    };
+
+    const openMenu = () => {
+      menu.hidden = false;
+      trigger.setAttribute("aria-expanded", "true");
+    };
+
+    const sync = () => {
+      const mode = getMode();
+      trigger.dataset.themeMode = mode;
+      options.forEach((option) => {
+        option.setAttribute("aria-checked", String(option.dataset.themeOption === mode));
+      });
+    };
+
+    trigger.addEventListener("click", () => {
+      menu.hidden ? openMenu() : closeMenu();
+    });
+
+    options.forEach((option) => {
+      option.addEventListener("click", () => {
+        window.__setFutureObserverTheme?.(option.dataset.themeOption || "system");
+        sync();
+        closeMenu();
+      });
+    });
+
+    document.addEventListener("click", (event) => {
+      if (!switcher.contains(event.target)) closeMenu();
+    });
+
+    document.addEventListener("keydown", (event) => {
+      if (event.key === "Escape") closeMenu();
+    });
+
+    window.addEventListener("future-observer-theme-change", sync);
+    sync();
+  })();
+</script> <aside class="site-rail" aria-label="站点导航"> <div class="site-rail-inner"> <p class="site-rail-label">Channels</p> <nav aria-label="主导航"> <ul class="site-rail-nav"> <li> <a href="/ai-tools/" class="site-rail-link"> AI工具 </a> </li><li> <a href="/future-daily/" class="site-rail-link"> 未来观察者日报 </a> </li> </ul> </nav> </div> </aside> <main class="shell page-content">  <div class="post-hero"> <p class="eyebrow">2026年6月28日</p> <h1>🎧 OpenAI 消费硬件概率回到 32%：市场开始重新给 AI 入口载体定价</h1> <p class="post-summary">🧭 核心观点：今天真正值得关注的，不是 OpenAI 会不会“再发一个模型”，而是预测市场开始重新定价一件更底层的事——AI 是否需要自己的默认入口载体。如果答案是需要，那么未来最值钱的就不只是模型能力，而是谁握住用户的第一交互界面。</p> <ul class="tag-list"> <li> <a href="/tags/%E6%9C%AA%E6%9D%A5%E8%A7%82%E5%AF%9F%E8%80%85%E6%97%A5%E6%8A%A5/" class="tag-link">
+#未来观察者日报 </a> </li><li> <a href="/tags/2026%E5%B9%B406%E6%9C%88/" class="tag-link">
+#2026年06月 </a> </li> </ul> </div> <div class="post-grid"> <article class="prose">  <blockquote>
+<p>🧭 <strong>核心观点</strong>：今天真正值得关注的，不是 OpenAI 会不会“再发一个模型”，而是预测市场开始重新定价一件更底层的事——AI 是否需要自己的默认入口载体。如果答案是需要，那么未来最值钱的就不只是模型能力，而是谁握住用户的第一交互界面。</p>
+</blockquote>
+<p><strong>作者：</strong> 元英<br>
+<strong>时间：</strong> 2026年6月28日<br>
+<strong>标签：</strong> #未来观察者 #AI硬件 #OpenAI #入口战争<br>
+<strong>阅读时间：</strong> 4分钟</p>
+<hr>
+<h2 id="️-今天看什么投票">🗳️ 今天看什么投票？</h2>
+<h3 id="-关键数据">📊 关键数据</h3>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<table><thead><tr><th>项目</th><th>内容</th></tr></thead><tbody><tr><td>投票主题</td><td>Will OpenAI launch a consumer hardware product by…?</td></tr><tr><td>本次聚焦合约</td><td>Will OpenAI launch a new consumer hardware product by December 31, 2026?</td></tr><tr><td>当前概率</td><td>Yes 32% / No 68%</td></tr><tr><td>事件总成交量</td><td>256,645.90 美元</td></tr><tr><td>本次聚焦子合约成交量</td><td>30,657.99 美元</td></tr><tr><td>事件总未平仓量</td><td>7,086.93 美元</td></tr><tr><td>本次聚焦子合约流动性</td><td>565.15 美元</td></tr><tr><td>数据获取时间</td><td>2026-06-28 04:00 CST</td></tr><tr><td>Polymarket 更新时间</td><td>2026-06-27 20:01 UTC</td></tr><tr><td>所属领域</td><td>AI / 平台入口 / 消费硬件</td></tr><tr><td>投票链接</td><td><a href="https://polymarket.com/event/will-openai-launch-a-consumer-hardware-product-by">https://polymarket.com/event/will-openai-launch-a-consumer-hardware-product-by</a></td></tr></tbody></table>
+<h3 id="-为什么今天选它">✅ 为什么今天选它？</h3>
+<ul>
+<li><strong>结构意义强</strong>：它讨论的不是单一产品发布，而是 AI 公司是否要从“能力供应商”继续下沉到“入口拥有者”。</li>
+<li><strong>与最近 7 天不重复</strong>：最近 7 天已写过中东风险、利率、SpaceX、Tesla、模型榜首等主线，没有连续重复到 AI 硬件入口。</li>
+<li><strong>有明确新增变量</strong>：相较 <code>2026-05-25-OpenAI会做出下一台AI时代的iPhone吗-市场真正押注的是入口争夺战.md:1</code>，这次新增的不是“要不要做硬件”的抽象讨论，而是<strong>市场把 2026 年底前落地概率重新抬到 32%</strong>，代表交易者开始把“入口载体”从远期想象切回中期定价。</li>
+</ul>
+<hr>
+<h2 id="-为什么会有这个投票">🧠 为什么会有这个投票？</h2>
+<p>预测市场不会无缘无故交易一个消费硬件题材。它之所以存在，是因为 AI 行业已经从“谁的模型更强”逐步走向第二阶段：</p>
+<p><strong>如果 AI 真的要变成全天候助手，它最终会停留在手机 App 里，还是会需要一个新的原生载体？</strong></p>
+<p>当前市场给出的答案并不激进，但也明显不是零概率。到 2026 年底前推出消费硬件的概率被定在 <strong>32%</strong>，说明交易者的核心判断是：</p>
+<ol>
+<li><strong>这件事很难，但值得定价</strong>：做模型和做硬件是两种完全不同的组织能力。</li>
+<li><strong>这件事未必近，但战略价值极高</strong>：一旦 AI 进入原生设备层，交互频次、上下文连续性和默认分发权都会发生变化。</li>
+<li><strong>这件事正在从故事变成时间表问题</strong>：市场不再只问“会不会”，而是在问“会不会在一个可交易的时间窗口内发生”。</li>
+</ol>
+<p>换句话说，今天这条市场并不是在赌一个 gadget，而是在提前交易：<strong>下一代 AI 入口会不会脱离现有平台壳层。</strong></p>
+<hr>
+<h2 id="-这个投票真正反映了什么结构变化">🧱 这个投票真正反映了什么结构变化？</h2>
+<h3 id="1️⃣-技术层ai-正从调用工具变成常驻界面">1️⃣ 技术层：AI 正从“调用工具”变成“常驻界面”</h3>
+<p>过去一年，主流 AI 产品仍然以聊天框、插件、工作流和 API 为主。它们已经足够强，但本质上还是“被打开时才存在”。</p>
+<p>如果进入消费硬件，意味着交互范式会变化：</p>
+<ul>
+<li>输入从键盘为主转向语音、视觉、多模态常驻感知</li>
+<li>调用从显式打开转向低摩擦、即时唤起</li>
+<li>记忆从单轮对话转向持续上下文管理</li>
+<li>AI 从工具位，慢慢向“操作层”迁移</li>
+</ul>
+<p>真正的变化不是外形，而是：<strong>AI 是否开始拥有自己的常驻入口。</strong></p>
+<h3 id="2️⃣-产业层平台分工正在被重新切开">2️⃣ 产业层：平台分工正在被重新切开</h3>
+<p>当前格局里：</p>
+<ul>
+<li>苹果控制硬件与系统体验</li>
+<li>谷歌控制搜索、安卓与默认分发</li>
+<li>微软控制办公、企业入口与云层</li>
+<li>OpenAI 最强的是模型品牌、开发者生态与用户心智</li>
+</ul>
+<p>如果 OpenAI 要往消费硬件走，它实际挑战的不是一个单品类，而是整个旧平台秩序：</p>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<table><thead><tr><th>旧分工</th><th>新问题</th></tr></thead><tbody><tr><td>模型公司提供能力</td><td>模型公司会不会直接抢入口？</td></tr><tr><td>手机系统承载 AI</td><td>AI 是否需要专属设备形态？</td></tr><tr><td>平台决定默认分发</td><td>模型厂商能否自建默认界面？</td></tr></tbody></table>
+<p>所以，这个投票本质不是“做不做耳机/眼镜/桌面设备”，而是：<strong>OpenAI 会不会尝试摆脱寄居在别人操作系统里的位置。</strong></p>
+<h3 id="3️⃣-资本层估值逻辑从订阅收入转向入口控制权">3️⃣ 资本层：估值逻辑从订阅收入转向入口控制权</h3>
+<p>只做模型时，市场主要看：</p>
+<ul>
+<li>订阅增长</li>
+<li>API 收入</li>
+<li>企业渗透率</li>
+<li>模型能力领先期</li>
+</ul>
+<p>但一旦涉及硬件与原生入口，资本市场会换一套问题：</p>
+<ul>
+<li>用户是否会形成新的日常调用习惯？</li>
+<li>默认入口是否会从 App 迁移到设备/系统层？</li>
+<li>公司未来更像 SaaS 供应商，还是下一代平台公司？</li>
+</ul>
+<p>这就是为什么 <strong>32%</strong> 这个概率值得观察。它不高，但足以说明市场开始把 <strong>“入口控制权”</strong> 放进估值模型里。</p>
+<hr>
+<h2 id="-如果趋势继续未来会怎样">🔮 如果趋势继续，未来会怎样？</h2>
+<h3 id="️-短期未来-6-12-个月">⏱️ 短期：未来 6-12 个月</h3>
+<ul>
+<li>预测市场大概率还会在较宽区间内波动，因为真正约束落地的是组织与供应链，而不是想象力。</li>
+<li>市场会先关注交互形态验证，而不是出货规模。</li>
+<li>更多公司会测试耳机、眼镜、桌面伴侣、车载入口等轻量形态。</li>
+</ul>
+<h3 id="️-中期未来-1-3-年">🏗️ 中期：未来 1-3 年</h3>
+<ul>
+<li>真正的胜负手不是谁先发，而是谁能把 <strong>模型、账号、记忆、设备、分发</strong> 串成一体。</li>
+<li>如果 OpenAI 进入消费终端，它的意义会先体现在时长和入口，而不是硬件利润本身。</li>
+<li>苹果、谷歌、Meta 这类原有平台会更积极地把 AI 内建成系统默认层，防止入口外流。</li>
+</ul>
+<h3 id="-长期未来-3-5-年">🌍 长期：未来 3-5 年</h3>
+<ul>
+<li>AI 产业会逐步分成三层：
+<ol>
+<li><strong>模型层</strong>：谁更强</li>
+<li><strong>分发层</strong>：谁是默认入口</li>
+<li><strong>设备层</strong>：谁最接近用户场景</li>
+</ol>
+</li>
+<li>最终拥有定价权的，往往不是单一模型冠军，而是<strong>能同时打通三层的公司</strong>。</li>
+</ul>
+<blockquote>
+<p>🔦 <strong>一句话判断</strong>：未来最贵的资产，未必是“最强模型”，更可能是“离用户最近的默认 AI 界面”。</p>
+</blockquote>
+<hr>
+<h2 id="-对谁最重要">👥 对谁最重要？</h2>
+<h3 id="-对普通用户">🙋 对普通用户</h3>
+<ul>
+<li>不要急着赌“AI 硬件爆款”，先看它能不能比手机 App 少一步、快一步、自然一步。</li>
+<li>真正会留下来的产品，不是功能最多，而是最容易变成习惯。</li>
+</ul>
+<h3 id="️-对从业者">🛠️ 对从业者</h3>
+<ul>
+<li>需要把关注点从“功能堆叠”转向“低摩擦常驻交互”。</li>
+<li>语音、多模态状态管理、持续上下文，比单纯做聊天框更重要。</li>
+</ul>
+<h3 id="-对创业者与投资观察者">💼 对创业者与投资观察者</h3>
+<ol>
+<li>关注 <strong>入口型硬件</strong>，不要把所有带 AI 标签的设备都当成同一赛道。</li>
+<li>关注 <strong>账户体系 + 记忆层 + 端侧感知</strong> 的整合能力。</li>
+<li>不要把“做设备”误读成“赚硬件毛利”；它更大的价值是抢占下一轮默认交互界面。</li>
+</ol>
+<hr>
+<h2 id="️-风险提示">⚠️ 风险提示</h2>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<table><thead><tr><th>风险</th><th>说明</th></tr></thead><tbody><tr><td>形态风险</td><td>AI 硬件可能再次陷入“看起来新鲜、实际低频”的陷阱</td></tr><tr><td>组织风险</td><td>模型公司未必具备成熟消费硬件的研发、供应链与渠道能力</td></tr><tr><td>平台反制风险</td><td>现有系统平台可能通过更深整合压缩独立 AI 设备空间</td></tr><tr><td>估值前置风险</td><td>市场容易把长期战略想象，提前当成中短期业绩兑现</td></tr></tbody></table>
+<p>需要明确区分：</p>
+<ul>
+<li><strong>事实</strong>：Polymarket 当前将 OpenAI 在 2026 年底前推出消费硬件的概率定价为 <strong>32%</strong>。</li>
+<li><strong>推测</strong>：这并不证明 OpenAI 一定会推出某种设备，只说明市场承认这件事已进入可持续交易的中期预期区间。</li>
+</ul>
+<hr>
+<h2 id="-结语今天定价的不是设备而是入口所有权">🧾 结语：今天定价的不是设备，而是入口所有权</h2>
+<p>过去几天，预测市场热度集中在利率、中东、SpaceX、模型榜首这些更直接的交易主线。但这条 OpenAI 消费硬件市场的价值在于，它把一个更长期的问题提前显性化了：</p>
+<p><strong>当 AI 从能力层变成环境层，谁来承载它？</strong></p>
+<p>如果答案依然是手机 App，那么模型公司会继续受制于现有平台；如果答案开始转向专属载体、系统级入口或原生设备，那么未来几年最重要的竞争就不只是“谁更聪明”，而是“谁离用户更近”。</p>
+<p>这也是今天这篇相较 5 月同主题文章的新增变量：
+<strong>市场已经不只是在讨论 OpenAI 要不要做硬件，而是在重新给“AI 原生入口”的时间窗口定价。</strong></p>
+<hr>
+<h2 id="-参考资源">🔗 参考资源</h2>
+<ul>
+<li>Polymarket 事件页：<a href="https://polymarket.com/event/will-openai-launch-a-consumer-hardware-product-by">https://polymarket.com/event/will-openai-launch-a-consumer-hardware-product-by</a></li>
+<li>Polymarket Gamma API：<code>https://gamma-api.polymarket.com/events?limit=200&#x26;closed=false&#x26;query=OpenAI</code></li>
+<li>历史对照文章：<code>/root/.openclaw/workspace/own-obsidian-knowledge/企业/work_okr/元英/predict_the_future账号/2026-05/2026-05-25-OpenAI会做出下一台AI时代的iPhone吗-市场真正押注的是入口争夺战.md</code></li>
+</ul>  </article> <aside class="toc"><p class="toc-title">目录</p><ul class="toc-list"><li class="depth-2"><a href="#️-今天看什么投票" data-toc-link="️-今天看什么投票">🗳️ 今天看什么投票？</a></li><li class="depth-3"><a href="#-关键数据" data-toc-link="-关键数据">📊 关键数据</a></li><li class="depth-3"><a href="#-为什么今天选它" data-toc-link="-为什么今天选它">✅ 为什么今天选它？</a></li><li class="depth-2"><a href="#-为什么会有这个投票" data-toc-link="-为什么会有这个投票">🧠 为什么会有这个投票？</a></li><li class="depth-2"><a href="#-这个投票真正反映了什么结构变化" data-toc-link="-这个投票真正反映了什么结构变化">🧱 这个投票真正反映了什么结构变化？</a></li><li class="depth-3"><a href="#1️⃣-技术层ai-正从调用工具变成常驻界面" data-toc-link="1️⃣-技术层ai-正从调用工具变成常驻界面">1️⃣ 技术层：AI 正从“调用工具”变成“常驻界面”</a></li><li class="depth-3"><a href="#2️⃣-产业层平台分工正在被重新切开" data-toc-link="2️⃣-产业层平台分工正在被重新切开">2️⃣ 产业层：平台分工正在被重新切开</a></li><li class="depth-3"><a href="#3️⃣-资本层估值逻辑从订阅收入转向入口控制权" data-toc-link="3️⃣-资本层估值逻辑从订阅收入转向入口控制权">3️⃣ 资本层：估值逻辑从订阅收入转向入口控制权</a></li><li class="depth-2"><a href="#-如果趋势继续未来会怎样" data-toc-link="-如果趋势继续未来会怎样">🔮 如果趋势继续，未来会怎样？</a></li><li class="depth-3"><a href="#️-短期未来-6-12-个月" data-toc-link="️-短期未来-6-12-个月">⏱️ 短期：未来 6-12 个月</a></li><li class="depth-3"><a href="#️-中期未来-1-3-年" data-toc-link="️-中期未来-1-3-年">🏗️ 中期：未来 1-3 年</a></li><li class="depth-3"><a href="#-长期未来-3-5-年" data-toc-link="-长期未来-3-5-年">🌍 长期：未来 3-5 年</a></li><li class="depth-2"><a href="#-对谁最重要" data-toc-link="-对谁最重要">👥 对谁最重要？</a></li><li class="depth-3"><a href="#-对普通用户" data-toc-link="-对普通用户">🙋 对普通用户</a></li><li class="depth-3"><a href="#️-对从业者" data-toc-link="️-对从业者">🛠️ 对从业者</a></li><li class="depth-3"><a href="#-对创业者与投资观察者" data-toc-link="-对创业者与投资观察者">💼 对创业者与投资观察者</a></li><li class="depth-2"><a href="#️-风险提示" data-toc-link="️-风险提示">⚠️ 风险提示</a></li><li class="depth-2"><a href="#-结语今天定价的不是设备而是入口所有权" data-toc-link="-结语今天定价的不是设备而是入口所有权">🧾 结语：今天定价的不是设备，而是入口所有权</a></li><li class="depth-2"><a href="#-参考资源" data-toc-link="-参考资源">🔗 参考资源</a></li></ul></aside><script type="module">const c=()=>{const r=Array.from(document.querySelectorAll(".toc a[data-toc-link]"));if(!r.length)return;const o=r.map(t=>{const e=t.getAttribute("data-toc-link");if(!e)return null;const n=document.getElementById(e);return n?{id:e,heading:n,link:t}:null}).filter(t=>t!==null);if(!o.length)return;const s=t=>{r.forEach(e=>{const n=e.getAttribute("data-toc-link")===t;e.classList.toggle("active",n),n&&e.scrollIntoView({block:"nearest",inline:"nearest"})})},i=()=>{const t=Math.round(window.innerHeight*.28);let e=o[0];for(const n of o)n.heading.getBoundingClientRect().top<=t&&(e=n);s(e.id)};i();const a=new IntersectionObserver(()=>i(),{rootMargin:"-18% 0px -70% 0px",threshold:[0,1]});o.forEach(t=>a.observe(t.heading)),window.addEventListener("scroll",i,{passive:!0})};document.addEventListener("DOMContentLoaded",c);document.addEventListener("astro:page-load",c);</script> </div>  </main> <footer class="site-footer"> <div class="shell footer-inner"> <p>© 2026 未来观察者</p> </div> </footer> </body></html>
