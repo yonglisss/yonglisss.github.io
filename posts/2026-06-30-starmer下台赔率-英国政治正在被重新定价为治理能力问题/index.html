@@ -1,0 +1,261 @@
+<!DOCTYPE html><html lang="zh-CN"> <head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1"><script>
+      (() => {
+        const storageKey = "future-observer-theme";
+        const root = document.documentElement;
+        const getStoredMode = () => {
+          try {
+            const value = localStorage.getItem(storageKey);
+            return value === "light" || value === "dark" || value === "system" ? value : "system";
+          } catch {
+            return "system";
+          }
+        };
+        const systemDark = () => window.matchMedia?.("(prefers-color-scheme: dark)").matches ?? false;
+        const apply = (mode) => {
+          const resolved = mode === "system" ? (systemDark() ? "dark" : "light") : mode;
+          root.dataset.themeMode = mode;
+          root.dataset.theme = resolved;
+          root.style.colorScheme = resolved;
+        };
+        apply(getStoredMode());
+        window.__setFutureObserverTheme = (mode) => {
+          const next = mode === "light" || mode === "dark" || mode === "system" ? mode : "system";
+          try { localStorage.setItem(storageKey, next); } catch {}
+          apply(next);
+          window.dispatchEvent(new CustomEvent("future-observer-theme-change", { detail: { mode: next } }));
+        };
+        window.matchMedia?.("(prefers-color-scheme: dark)").addEventListener?.("change", () => {
+          if (getStoredMode() === "system") apply("system");
+        });
+      })();
+    </script><title>🇬🇧 Starmer 下台赔率：英国政治正在被重新定价为治理能力问题 | 未来观察者</title><meta name="description" content="🧭 核心观点：今天真正值得关注的，不只是“谁会先失去权力”，而是 Polymarket 已经把英国首相更替，定价成一个高概率、短周期的治理失效事件。市场押注的不是新闻噪音，而是英国政治稳定性的折价。"><meta name="generator" content="Astro v5.18.1"><meta property="og:title" content="🇬🇧 Starmer 下台赔率：英国政治正在被重新定价为治理能力问题 | 未来观察者"><meta property="og:description" content="🧭 核心观点：今天真正值得关注的，不只是“谁会先失去权力”，而是 Polymarket 已经把英国首相更替，定价成一个高概率、短周期的治理失效事件。市场押注的不是新闻噪音，而是英国政治稳定性的折价。"><meta property="og:type" content="website"><meta property="og:url" content="https://future.lifestudylab.com/posts/2026-06-30-starmer%E4%B8%8B%E5%8F%B0%E8%B5%94%E7%8E%87-%E8%8B%B1%E5%9B%BD%E6%94%BF%E6%B2%BB%E6%AD%A3%E5%9C%A8%E8%A2%AB%E9%87%8D%E6%96%B0%E5%AE%9A%E4%BB%B7%E4%B8%BA%E6%B2%BB%E7%90%86%E8%83%BD%E5%8A%9B%E9%97%AE%E9%A2%98/"><link rel="icon" type="image/svg+xml" href="/favicon.svg"><link rel="alternate" type="application/rss+xml" title="未来观察者" href="/rss.xml"><link rel="stylesheet" href="/_astro/_channel_.DM2BjJPY.css"></head> <body> <div class="page-bg"></div> <header class="site-header"> <div class="shell header-inner"> <div class="header-bar"> <a class="brand" href="/ai-tools/"> <img src="/brand-mark.svg" alt="" class="brand-mark" width="56" height="56"> <span class="brand-text" aria-label="未来观察者">思考未来</span> </a> </div> <nav class="top-menu" aria-label="顶部菜单"> <a href="/future-daily/" class="top-menu-link"> 每日信息 </a><a href="/docs/deer-flow/00-overview/" class="top-menu-link"> DeerFlow教程 </a><a href="/about/" class="top-menu-link"> 关于我 </a> </nav> <div class="top-actions"> <a class="feedback-link" href="https://github.com/yonglisss/yonglisss.github.io/issues" target="_blank" rel="noopener noreferrer" aria-label="问题反馈"> <svg viewBox="0 0 24 24" aria-hidden="true" class="action-icon"> <path d="M4.75 5.75A2.75 2.75 0 0 1 7.5 3h9A2.75 2.75 0 0 1 19.25 5.75v6.5A2.75 2.75 0 0 1 16.5 15H9.3l-3.55 3.2V15.1a2.75 2.75 0 0 1-1-2.1V5.75Z"></path> <path d="M8 7.75h8M8 11.25h4"></path> </svg> <span>问题反馈</span> </a> <div class="theme-switcher" data-theme-switcher> <button class="theme-trigger" type="button" aria-haspopup="menu" aria-expanded="false" aria-label="切换明暗模式" data-theme-trigger> <svg viewBox="0 0 24 24" aria-hidden="true" class="action-icon theme-trigger-icon theme-trigger-icon--light"> <circle cx="12" cy="12" r="4"></circle> <path d="M12 2.75v2M12 19.25v2M4.75 4.75l1.4 1.4M17.85 17.85l1.4 1.4M2.75 12h2M19.25 12h2M4.75 19.25l1.4-1.4M17.85 6.15l1.4-1.4"></path> </svg> <svg viewBox="0 0 24 24" aria-hidden="true" class="action-icon theme-trigger-icon theme-trigger-icon--dark"> <path d="M20.25 14.2A8 8 0 0 1 9.8 3.75 8.5 8.5 0 1 0 20.25 14.2Z"></path> </svg> <svg viewBox="0 0 24 24" aria-hidden="true" class="action-icon theme-trigger-icon theme-trigger-icon--system"> <rect x="4" y="5" width="16" height="11" rx="1.8"></rect> <path d="M9 20h6M12 16v4"></path> </svg> </button> <div class="theme-menu" role="menu" data-theme-menu hidden> <button class="theme-option" type="button" role="menuitemradio" data-theme-option="light" aria-checked="false"> <svg viewBox="0 0 24 24" aria-hidden="true" class="action-icon"><circle cx="12" cy="12" r="4"></circle><path d="M12 2.75v2M12 19.25v2M4.75 4.75l1.4 1.4M17.85 17.85l1.4 1.4M2.75 12h2M19.25 12h2M4.75 19.25l1.4-1.4M17.85 6.15l1.4-1.4"></path></svg> <span>亮色</span> </button> <button class="theme-option" type="button" role="menuitemradio" data-theme-option="dark" aria-checked="false"> <svg viewBox="0 0 24 24" aria-hidden="true" class="action-icon"><path d="M20.25 14.2A8 8 0 0 1 9.8 3.75 8.5 8.5 0 1 0 20.25 14.2Z"></path></svg> <span>暗色</span> </button> <button class="theme-option" type="button" role="menuitemradio" data-theme-option="system" aria-checked="true"> <svg viewBox="0 0 24 24" aria-hidden="true" class="action-icon"><rect x="4" y="5" width="16" height="11" rx="1.8"></rect><path d="M9 20h6M12 16v4"></path></svg> <span>跟随系统</span> </button> </div> </div> </div> </div> </header> <script>
+  (() => {
+    const switcher = document.querySelector("[data-theme-switcher]");
+    if (!switcher) return;
+
+    const trigger = switcher.querySelector("[data-theme-trigger]");
+    const menu = switcher.querySelector("[data-theme-menu]");
+    const options = [...switcher.querySelectorAll("[data-theme-option]")];
+    const modes = ["light", "dark", "system"];
+
+    const getMode = () => {
+      const mode = document.documentElement.dataset.themeMode;
+      return modes.includes(mode) ? mode : "system";
+    };
+
+    const closeMenu = () => {
+      menu.hidden = true;
+      trigger.setAttribute("aria-expanded", "false");
+    };
+
+    const openMenu = () => {
+      menu.hidden = false;
+      trigger.setAttribute("aria-expanded", "true");
+    };
+
+    const sync = () => {
+      const mode = getMode();
+      trigger.dataset.themeMode = mode;
+      options.forEach((option) => {
+        option.setAttribute("aria-checked", String(option.dataset.themeOption === mode));
+      });
+    };
+
+    trigger.addEventListener("click", () => {
+      menu.hidden ? openMenu() : closeMenu();
+    });
+
+    options.forEach((option) => {
+      option.addEventListener("click", () => {
+        window.__setFutureObserverTheme?.(option.dataset.themeOption || "system");
+        sync();
+        closeMenu();
+      });
+    });
+
+    document.addEventListener("click", (event) => {
+      if (!switcher.contains(event.target)) closeMenu();
+    });
+
+    document.addEventListener("keydown", (event) => {
+      if (event.key === "Escape") closeMenu();
+    });
+
+    window.addEventListener("future-observer-theme-change", sync);
+    sync();
+  })();
+</script> <aside class="site-rail" aria-label="站点导航"> <div class="site-rail-inner"> <p class="site-rail-label">Channels</p> <nav aria-label="主导航"> <ul class="site-rail-nav"> <li> <a href="/ai-tools/" class="site-rail-link"> AI工具 </a> </li><li> <a href="/future-daily/" class="site-rail-link"> 未来观察者日报 </a> </li> </ul> </nav> </div> </aside> <main class="shell page-content">  <div class="post-hero"> <p class="eyebrow">2026年6月30日</p> <h1>🇬🇧 Starmer 下台赔率：英国政治正在被重新定价为治理能力问题</h1> <p class="post-summary">🧭 核心观点：今天真正值得关注的，不只是“谁会先失去权力”，而是 Polymarket 已经把英国首相更替，定价成一个高概率、短周期的治理失效事件。市场押注的不是新闻噪音，而是英国政治稳定性的折价。</p> <ul class="tag-list"> <li> <a href="/tags/%E6%9C%AA%E6%9D%A5%E8%A7%82%E5%AF%9F%E8%80%85%E6%97%A5%E6%8A%A5/" class="tag-link">
+#未来观察者日报 </a> </li><li> <a href="/tags/2026%E5%B9%B406%E6%9C%88/" class="tag-link">
+#2026年06月 </a> </li> </ul> </div> <div class="post-grid"> <article class="prose">  <blockquote>
+<p>🧭 <strong>核心观点</strong>：今天真正值得关注的，不只是“谁会先失去权力”，而是 Polymarket 已经把英国首相更替，定价成一个高概率、短周期的治理失效事件。市场押注的不是新闻噪音，而是英国政治稳定性的折价。</p>
+</blockquote>
+<p><strong>作者：</strong> 元英<br>
+<strong>时间：</strong> 2026年6月30日<br>
+<strong>标签：</strong> #未来观察者 #英国政治 #治理能力 #风险定价 #预测市场<br>
+<strong>阅读时间：</strong> 4分钟</p>
+<hr>
+<h2 id="-今天看什么投票">🎯 今天看什么投票？</h2>
+<p>今天我没有继续写 AI 模型、能源航线、利率路径或加密价格带，而是转向一个近 7 天重复度更低、但结构意义很强的话题：<strong>Polymarket 上“2027 年前哪位领导人会先失去权力”的市场。</strong></p>
+<p>这次聚焦的核心对象是：<strong>Starmer - UK PM</strong>。</p>
+<h3 id="-关键数据卡片">📊 关键数据卡片</h3>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<table><thead><tr><th>项目</th><th>内容</th></tr></thead><tbody><tr><td>投票主题</td><td>Next leader out of power before 2027? (No Orban)</td></tr><tr><td>本次聚焦对象</td><td>Starmer - UK PM</td></tr><tr><td>当前概率</td><td><strong>92%</strong></td></tr><tr><td>其他候选参考</td><td>Petro - Colombia President <strong>3%</strong></td></tr><tr><td>可见事件交易量</td><td><strong>约 800 万美元</strong></td></tr><tr><td>数据获取时间</td><td>2026-06-30 04:00 CST</td></tr><tr><td>数据来源</td><td>Polymarket 首页 Trending 页面</td></tr><tr><td>所属领域</td><td>Politics / Governance / Macro Society</td></tr><tr><td>背景事实</td><td>BBC Politics 页面显示，Keir Starmer 已宣布辞任，Andy Burnham 正在推进接任议程</td></tr><tr><td>Polymarket</td><td><a href="https://polymarket.com/">https://polymarket.com/</a></td></tr></tbody></table>
+<h3 id="-为什么今天选它">✅ 为什么今天选它？</h3>
+<ul>
+<li><strong>和最近 7 天主线不重复</strong>：过去一周已经写过 Bitcoin、OpenAI 硬件、美国麻疹、联储、伊朗、Tesla、AI 榜单、SpaceX，不宜继续在 AI/宏观/能源上打转。</li>
+<li><strong>现实驱动非常强</strong>：这不是一句空口政治判断。BBC Politics 当天已把焦点转向 <strong>Starmer 辞任后的接班安排</strong>、<strong>Andy Burnham 的新执政方案</strong> 与 <strong>英国治理重组</strong>。</li>
+<li><strong>结构意义大于八卦性</strong>：这类投票讨论的不是选举口水，而是一个 G7 国家在增长停滞、财政吃紧、社会不满上升时，执政稳定性能否维持。</li>
+</ul>
+<hr>
+<h2 id="-为什么会有这个投票">🧨 为什么会有这个投票？</h2>
+<p>如果只是普通民调波动，预测市场不会把“某位领导人在 2027 年前失权”的概率顶到 <strong>92%</strong>。</p>
+<p>这背后至少有三层现实驱动：</p>
+<h3 id="1️⃣-政治事件已经从风声变成接班时间表">1️⃣ 政治事件已经从“风声”变成“接班时间表”</h3>
+<p>BBC Politics 页面显示，英国政治叙事已经不再围绕“Starmer 会不会遇到麻烦”，而是转入：</p>
+<ul>
+<li>Starmer 的辞任与其执政记录复盘</li>
+<li>Andy Burnham 的政策蓝图与权力接管预期</li>
+<li>工党内部对继任安排的快速整合</li>
+</ul>
+<p>这意味着，市场交易的不是抽象不满，而是<strong>权力交接已进入可操作阶段</strong>。</p>
+<h3 id="2️⃣-英国被重新定价为治理能力不足而不只是经济不够好">2️⃣ 英国被重新定价为“治理能力不足”而不只是“经济不够好”</h3>
+<p>过去几年市场对英国的担忧，常常集中在增长疲弱、财政紧约束、生产率问题。但当首相更替本身变成高概率事件时，风险含义已经升级：</p>
+<ul>
+<li>不是单一政策失败</li>
+<li>而是<strong>治理系统无法持续输出稳定预期</strong></li>
+<li>投资者、企业与公众开始默认“政策框架可能再次重写”</li>
+</ul>
+<p>这会让政治风险从舆论层面，传导到资本开支、地方投资、住房预期和公共服务改革节奏。</p>
+<h3 id="3️⃣-no-10-north-这类去中心化方案说明英国在找新的治理操作系统">3️⃣ “No 10 North” 这类去中心化方案，说明英国在找新的治理操作系统</h3>
+<p>BBC 报道里，Andy Burnham 提出要通过更强的地方分权与“北方版首相办公室”重构治理能力。这个信号很关键：</p>
+<ul>
+<li>它表明问题不只是换一个人</li>
+<li>而是伦敦中心化治理模式的有效性正在被公开质疑</li>
+<li>英国正在试图把“政治换帅”包装成“国家治理重启”</li>
+</ul>
+<p>换句话说，这个投票真正映射的是：<strong>英国是否需要从权力结构上修复增长与执行能力。</strong></p>
+<hr>
+<h2 id="-这个投票真正反映了什么结构变化">🧭 这个投票真正反映了什么结构变化？</h2>
+<h3 id="️-技术层政治也进入高频定价时代">🏛️ 技术层：政治也进入“高频定价时代”</h3>
+<p>预测市场把原本只存在于评论员专栏里的判断，压缩成一个可以随时重估的概率数字。政治稳定性不再只是媒体叙事，而是像利率、油价一样被实时交易。</p>
+<h3 id="-产业层企业更看重政策连续性而不是单次财政刺激">🏭 产业层：企业更看重政策连续性，而不是单次财政刺激</h3>
+<p>对企业来说，真正重要的不是某项口号式刺激，而是：</p>
+<ul>
+<li>地方政府是否有执行权</li>
+<li>基建与住房政策会不会中途翻案</li>
+<li>劳动力、能源、税收与产业扶持规则能否稳定 3-5 年</li>
+</ul>
+<p>当首相更替概率过高时，企业会天然降低长期承诺，英国的投资折价也会更难消失。</p>
+<h3 id="-资本与社会层市场开始把政治脆弱性当成英国资产的一部分">💷 资本与社会层：市场开始把“政治脆弱性”当成英国资产的一部分</h3>
+<p>这类政治概率如果长期高位，会影响三类预期：</p>
+<ul>
+<li><strong>资本市场</strong>：英国资产估值难以享受稳定政策溢价</li>
+<li><strong>社会层面</strong>：公众对中央治理效率进一步失去耐心</li>
+<li><strong>国际层面</strong>：盟友与跨国企业会更谨慎评估英国的政策兑现能力</li>
+</ul>
+<p>所以今天这个投票，并不是在押“谁赢了宫斗”，而是在押：<strong>英国还能不能恢复一个可信的中期治理框架。</strong></p>
+<hr>
+<h2 id="-如果趋势继续未来会怎样">🔮 如果趋势继续，未来会怎样？</h2>
+<h3 id="️-短期接班叙事会压倒政策叙事">⏱️ 短期：接班叙事会压倒政策叙事</h3>
+<p>未来几周，英国政治重心很可能从“做什么政策”转向“谁来接、如何接、谁能稳住党内外”。这会让市场更关注人事安排与政治联盟，而不是细节法案。</p>
+<h3 id="-中期地方分权和增长议程会成为新合法性来源">📆 中期：地方分权和增长议程会成为新合法性来源</h3>
+<p>如果 Burnham 或类似路线掌权，英国政治的主线很可能变成：</p>
+<ul>
+<li>把地方政府当成增长发动机</li>
+<li>用区域再平衡替代单纯财政许诺</li>
+<li>用执行效率而不是道德表述争取合法性</li>
+</ul>
+<p>也就是说，下一阶段英国政治竞争，不只是左和右，而是谁能证明<strong>国家机器还运转得动</strong>。</p>
+<h3 id="️-长期发达国家政治竞争会越来越像治理能力市场">🛰️ 长期：发达国家政治竞争会越来越像“治理能力市场”</h3>
+<p>英国不是孤例。未来 3-5 年，发达国家政治人物的核心竞争力，可能不再只是立场鲜明，而是：</p>
+<ul>
+<li>能不能协调地方与中央</li>
+<li>能不能维持政策连续性</li>
+<li>能不能在低增长条件下减少系统摩擦</li>
+</ul>
+<p>预测市场会越来越早地把这类能力折算成概率和价格。</p>
+<hr>
+<h2 id="-对谁最重要">👥 对谁最重要？</h2>
+<h3 id="-对普通职场人">🧑‍💼 对普通职场人</h3>
+<ul>
+<li>关注英国政治，不是为了八卦，而是为了理解<strong>全球发达经济体治理难题正在如何影响就业、税收与公共服务</strong>。</li>
+<li>如果你做海外业务、留学或移民相关判断，英国政策连续性值得重新评估。</li>
+</ul>
+<h3 id="-对企业与从业者">🏢 对企业与从业者</h3>
+<ul>
+<li>关注地方分权、住房、基建、制造回流与公共服务数字化，这些方向可能成为下一阶段英国政策资源配置重点。</li>
+<li>不要只看谁上台，更要看<strong>权力是否真正下放、项目是否能执行</strong>。</li>
+</ul>
+<h3 id="-对投资观察者">📈 对投资观察者</h3>
+<ul>
+<li>未来值得看的不是单一选举结果，而是“政治稳定性折价”会不会进入英国资产长期估值。</li>
+<li>如果政治换人但治理逻辑没变，反弹可能只是交易性修复；如果地方治理框架真重组，才可能带来估值体系变化。</li>
+</ul>
+<hr>
+<h2 id="️-风险提示">⚠️ 风险提示</h2>
+<ul>
+<li><strong>事实与概率要区分</strong>：92% 是交易者当前共识，不等于结果已 100% 锁定。</li>
+<li><strong>新闻驱动可能过度集中</strong>：若党内快速统一、继任流程顺利，市场短期可能过度押注混乱。</li>
+<li><strong>英国政治变量很多</strong>：党内整合、议会节奏、舆论情绪和外部冲击，都可能改变路径。</li>
+<li><strong>本篇不构成投资建议</strong>：这里只讨论政治风险如何影响治理与资本定价。</li>
+</ul>
+<hr>
+<h2 id="-结语市场在问的其实不是starmer-会不会下台">🧩 结语：市场在问的，其实不是“Starmer 会不会下台”</h2>
+<p>更底层的问题是：<strong>英国还能不能提供一个让企业、资本与公众都愿意相信的治理框架。</strong></p>
+<p>当一个首相的去留，被市场高概率、短周期地交易时，这说明政治已经不再被看成稳定背景板，而是宏观变量本身。</p>
+<p>对《未来观察者》来说，这类信号比单日情绪更重要——因为它提醒我们，未来几年真正稀缺的，可能不是更激进的口号，而是<strong>可持续的治理能力</strong>。</p>
+<hr>
+<h2 id="-参考资源">🔗 参考资源</h2>
+<ul>
+<li>Polymarket 首页 Trending：<code>Next leader out of power before 2027? (No Orban)</code></li>
+<li>BBC Politics：<code>https://www.bbc.com/news/politics</code></li>
+<li>Polymarket 官网：<code>https://polymarket.com/</code></li>
+</ul>  </article> <aside class="toc"><p class="toc-title">目录</p><ul class="toc-list"><li class="depth-2"><a href="#-今天看什么投票" data-toc-link="-今天看什么投票">🎯 今天看什么投票？</a></li><li class="depth-3"><a href="#-关键数据卡片" data-toc-link="-关键数据卡片">📊 关键数据卡片</a></li><li class="depth-3"><a href="#-为什么今天选它" data-toc-link="-为什么今天选它">✅ 为什么今天选它？</a></li><li class="depth-2"><a href="#-为什么会有这个投票" data-toc-link="-为什么会有这个投票">🧨 为什么会有这个投票？</a></li><li class="depth-3"><a href="#1️⃣-政治事件已经从风声变成接班时间表" data-toc-link="1️⃣-政治事件已经从风声变成接班时间表">1️⃣ 政治事件已经从“风声”变成“接班时间表”</a></li><li class="depth-3"><a href="#2️⃣-英国被重新定价为治理能力不足而不只是经济不够好" data-toc-link="2️⃣-英国被重新定价为治理能力不足而不只是经济不够好">2️⃣ 英国被重新定价为“治理能力不足”而不只是“经济不够好”</a></li><li class="depth-3"><a href="#3️⃣-no-10-north-这类去中心化方案说明英国在找新的治理操作系统" data-toc-link="3️⃣-no-10-north-这类去中心化方案说明英国在找新的治理操作系统">3️⃣ “No 10 North” 这类去中心化方案，说明英国在找新的治理操作系统</a></li><li class="depth-2"><a href="#-这个投票真正反映了什么结构变化" data-toc-link="-这个投票真正反映了什么结构变化">🧭 这个投票真正反映了什么结构变化？</a></li><li class="depth-3"><a href="#️-技术层政治也进入高频定价时代" data-toc-link="️-技术层政治也进入高频定价时代">🏛️ 技术层：政治也进入“高频定价时代”</a></li><li class="depth-3"><a href="#-产业层企业更看重政策连续性而不是单次财政刺激" data-toc-link="-产业层企业更看重政策连续性而不是单次财政刺激">🏭 产业层：企业更看重政策连续性，而不是单次财政刺激</a></li><li class="depth-3"><a href="#-资本与社会层市场开始把政治脆弱性当成英国资产的一部分" data-toc-link="-资本与社会层市场开始把政治脆弱性当成英国资产的一部分">💷 资本与社会层：市场开始把“政治脆弱性”当成英国资产的一部分</a></li><li class="depth-2"><a href="#-如果趋势继续未来会怎样" data-toc-link="-如果趋势继续未来会怎样">🔮 如果趋势继续，未来会怎样？</a></li><li class="depth-3"><a href="#️-短期接班叙事会压倒政策叙事" data-toc-link="️-短期接班叙事会压倒政策叙事">⏱️ 短期：接班叙事会压倒政策叙事</a></li><li class="depth-3"><a href="#-中期地方分权和增长议程会成为新合法性来源" data-toc-link="-中期地方分权和增长议程会成为新合法性来源">📆 中期：地方分权和增长议程会成为新合法性来源</a></li><li class="depth-3"><a href="#️-长期发达国家政治竞争会越来越像治理能力市场" data-toc-link="️-长期发达国家政治竞争会越来越像治理能力市场">🛰️ 长期：发达国家政治竞争会越来越像“治理能力市场”</a></li><li class="depth-2"><a href="#-对谁最重要" data-toc-link="-对谁最重要">👥 对谁最重要？</a></li><li class="depth-3"><a href="#-对普通职场人" data-toc-link="-对普通职场人">🧑‍💼 对普通职场人</a></li><li class="depth-3"><a href="#-对企业与从业者" data-toc-link="-对企业与从业者">🏢 对企业与从业者</a></li><li class="depth-3"><a href="#-对投资观察者" data-toc-link="-对投资观察者">📈 对投资观察者</a></li><li class="depth-2"><a href="#️-风险提示" data-toc-link="️-风险提示">⚠️ 风险提示</a></li><li class="depth-2"><a href="#-结语市场在问的其实不是starmer-会不会下台" data-toc-link="-结语市场在问的其实不是starmer-会不会下台">🧩 结语：市场在问的，其实不是“Starmer 会不会下台”</a></li><li class="depth-2"><a href="#-参考资源" data-toc-link="-参考资源">🔗 参考资源</a></li></ul></aside><script type="module">const c=()=>{const r=Array.from(document.querySelectorAll(".toc a[data-toc-link]"));if(!r.length)return;const o=r.map(t=>{const e=t.getAttribute("data-toc-link");if(!e)return null;const n=document.getElementById(e);return n?{id:e,heading:n,link:t}:null}).filter(t=>t!==null);if(!o.length)return;const s=t=>{r.forEach(e=>{const n=e.getAttribute("data-toc-link")===t;e.classList.toggle("active",n),n&&e.scrollIntoView({block:"nearest",inline:"nearest"})})},i=()=>{const t=Math.round(window.innerHeight*.28);let e=o[0];for(const n of o)n.heading.getBoundingClientRect().top<=t&&(e=n);s(e.id)};i();const a=new IntersectionObserver(()=>i(),{rootMargin:"-18% 0px -70% 0px",threshold:[0,1]});o.forEach(t=>a.observe(t.heading)),window.addEventListener("scroll",i,{passive:!0})};document.addEventListener("DOMContentLoaded",c);document.addEventListener("astro:page-load",c);</script> </div>  </main> <footer class="site-footer"> <div class="shell footer-inner"> <p>© 2026 未来观察者</p> </div> </footer> </body></html>
