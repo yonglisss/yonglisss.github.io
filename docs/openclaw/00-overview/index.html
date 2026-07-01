@@ -1,0 +1,160 @@
+<!DOCTYPE html><html lang="zh-CN"> <head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1"><script>
+      (() => {
+        const storageKey = "future-observer-theme";
+        const root = document.documentElement;
+        const getStoredMode = () => {
+          try {
+            const value = localStorage.getItem(storageKey);
+            return value === "light" || value === "dark" || value === "system" ? value : "system";
+          } catch {
+            return "system";
+          }
+        };
+        const systemDark = () => window.matchMedia?.("(prefers-color-scheme: dark)").matches ?? false;
+        const apply = (mode) => {
+          const resolved = mode === "system" ? (systemDark() ? "dark" : "light") : mode;
+          root.dataset.themeMode = mode;
+          root.dataset.theme = resolved;
+          root.style.colorScheme = resolved;
+        };
+        apply(getStoredMode());
+        window.__setFutureObserverTheme = (mode) => {
+          const next = mode === "light" || mode === "dark" || mode === "system" ? mode : "system";
+          try { localStorage.setItem(storageKey, next); } catch {}
+          apply(next);
+          window.dispatchEvent(new CustomEvent("future-observer-theme-change", { detail: { mode: next } }));
+        };
+        window.matchMedia?.("(prefers-color-scheme: dark)").addEventListener?.("change", () => {
+          if (getStoredMode() === "system") apply("system");
+        });
+      })();
+    </script><title>00. 教程总览 | 技术教程 | 未来观察者</title><meta name="description" content="OpenClaw 源码解读教程怎么读：先会用，再看 Gateway、Agent Runtime、Channels、Tools、Skills、Cron 和插件系统。"><meta name="generator" content="Astro v5.18.1"><meta property="og:title" content="00. 教程总览 | 技术教程 | 未来观察者"><meta property="og:description" content="OpenClaw 源码解读教程怎么读：先会用，再看 Gateway、Agent Runtime、Channels、Tools、Skills、Cron 和插件系统。"><meta property="og:type" content="website"><meta property="og:url" content="https://future.lifestudylab.com/docs/openclaw/00-overview/"><link rel="icon" type="image/svg+xml" href="/favicon.svg"><link rel="alternate" type="application/rss+xml" title="未来观察者" href="/rss.xml"><link rel="stylesheet" href="/_astro/_channel_.DM2BjJPY.css"></head> <body> <div class="page-bg"></div> <header class="site-header"> <div class="shell header-inner"> <div class="header-bar"> <a class="brand" href="/ai-tools/"> <img src="/brand-mark.svg" alt="" class="brand-mark" width="56" height="56"> <span class="brand-text" aria-label="未来观察者">思考未来</span> </a> </div> <nav class="top-menu" aria-label="顶部菜单"> <a href="/future-daily/" class="top-menu-link"> 每日信息 </a><a href="/docs/deer-flow/00-overview/" class="top-menu-link"> DeerFlow教程 </a><a href="/docs/hermes/00-overview/" class="top-menu-link"> Hermes教程 </a><a href="/docs/openclaw/00-overview/" class="top-menu-link active"> OpenClaw教程 </a><a href="/about/" class="top-menu-link"> 关于我 </a> </nav> <div class="top-actions"> <a class="feedback-link" href="https://github.com/yonglisss/yonglisss.github.io/issues" target="_blank" rel="noopener noreferrer" aria-label="问题反馈"> <svg viewBox="0 0 24 24" aria-hidden="true" class="action-icon"> <path d="M4.75 5.75A2.75 2.75 0 0 1 7.5 3h9A2.75 2.75 0 0 1 19.25 5.75v6.5A2.75 2.75 0 0 1 16.5 15H9.3l-3.55 3.2V15.1a2.75 2.75 0 0 1-1-2.1V5.75Z"></path> <path d="M8 7.75h8M8 11.25h4"></path> </svg> <span>问题反馈</span> </a> <div class="theme-switcher" data-theme-switcher> <button class="theme-trigger" type="button" aria-haspopup="menu" aria-expanded="false" aria-label="切换明暗模式" data-theme-trigger> <svg viewBox="0 0 24 24" aria-hidden="true" class="action-icon theme-trigger-icon theme-trigger-icon--light"> <circle cx="12" cy="12" r="4"></circle> <path d="M12 2.75v2M12 19.25v2M4.75 4.75l1.4 1.4M17.85 17.85l1.4 1.4M2.75 12h2M19.25 12h2M4.75 19.25l1.4-1.4M17.85 6.15l1.4-1.4"></path> </svg> <svg viewBox="0 0 24 24" aria-hidden="true" class="action-icon theme-trigger-icon theme-trigger-icon--dark"> <path d="M20.25 14.2A8 8 0 0 1 9.8 3.75 8.5 8.5 0 1 0 20.25 14.2Z"></path> </svg> <svg viewBox="0 0 24 24" aria-hidden="true" class="action-icon theme-trigger-icon theme-trigger-icon--system"> <rect x="4" y="5" width="16" height="11" rx="1.8"></rect> <path d="M9 20h6M12 16v4"></path> </svg> </button> <div class="theme-menu" role="menu" data-theme-menu hidden> <button class="theme-option" type="button" role="menuitemradio" data-theme-option="light" aria-checked="false"> <svg viewBox="0 0 24 24" aria-hidden="true" class="action-icon"><circle cx="12" cy="12" r="4"></circle><path d="M12 2.75v2M12 19.25v2M4.75 4.75l1.4 1.4M17.85 17.85l1.4 1.4M2.75 12h2M19.25 12h2M4.75 19.25l1.4-1.4M17.85 6.15l1.4-1.4"></path></svg> <span>亮色</span> </button> <button class="theme-option" type="button" role="menuitemradio" data-theme-option="dark" aria-checked="false"> <svg viewBox="0 0 24 24" aria-hidden="true" class="action-icon"><path d="M20.25 14.2A8 8 0 0 1 9.8 3.75 8.5 8.5 0 1 0 20.25 14.2Z"></path></svg> <span>暗色</span> </button> <button class="theme-option" type="button" role="menuitemradio" data-theme-option="system" aria-checked="true"> <svg viewBox="0 0 24 24" aria-hidden="true" class="action-icon"><rect x="4" y="5" width="16" height="11" rx="1.8"></rect><path d="M9 20h6M12 16v4"></path></svg> <span>跟随系统</span> </button> </div> </div> </div> </div> </header> <script>
+  (() => {
+    const switcher = document.querySelector("[data-theme-switcher]");
+    if (!switcher) return;
+
+    const trigger = switcher.querySelector("[data-theme-trigger]");
+    const menu = switcher.querySelector("[data-theme-menu]");
+    const options = [...switcher.querySelectorAll("[data-theme-option]")];
+    const modes = ["light", "dark", "system"];
+
+    const getMode = () => {
+      const mode = document.documentElement.dataset.themeMode;
+      return modes.includes(mode) ? mode : "system";
+    };
+
+    const closeMenu = () => {
+      menu.hidden = true;
+      trigger.setAttribute("aria-expanded", "false");
+    };
+
+    const openMenu = () => {
+      menu.hidden = false;
+      trigger.setAttribute("aria-expanded", "true");
+    };
+
+    const sync = () => {
+      const mode = getMode();
+      trigger.dataset.themeMode = mode;
+      options.forEach((option) => {
+        option.setAttribute("aria-checked", String(option.dataset.themeOption === mode));
+      });
+    };
+
+    trigger.addEventListener("click", () => {
+      menu.hidden ? openMenu() : closeMenu();
+    });
+
+    options.forEach((option) => {
+      option.addEventListener("click", () => {
+        window.__setFutureObserverTheme?.(option.dataset.themeOption || "system");
+        sync();
+        closeMenu();
+      });
+    });
+
+    document.addEventListener("click", (event) => {
+      if (!switcher.contains(event.target)) closeMenu();
+    });
+
+    document.addEventListener("keydown", (event) => {
+      if (event.key === "Escape") closeMenu();
+    });
+
+    window.addEventListener("future-observer-theme-change", sync);
+    sync();
+  })();
+</script>  <main class="shell page-content page-content--full">  <section class="docs-shell"> <aside class="docs-sidebar" aria-label="技术教程目录"> <nav class="docs-nav-block" aria-label="DeerFlow 教程"> <p class="docs-nav-title">DeerFlow 教程</p> <ul class="docs-nav-list"> <li> <a href="/docs/deer-flow/00-overview/" class="docs-nav-link"> 00. 教程总览 </a> </li><li> <a href="/docs/deer-flow/01-what-is-deerflow/" class="docs-nav-link"> 01. DeerFlow 是什么：先知道你在学什么 </a> </li><li> <a href="/docs/deer-flow/02-quickstart/" class="docs-nav-link"> 02. 快速开始：先把 DeerFlow 跑起来 </a> </li><li> <a href="/docs/deer-flow/03-config/" class="docs-nav-link"> 03. 配置文件：看懂 config.yaml </a> </li><li> <a href="/docs/deer-flow/04-architecture/" class="docs-nav-link"> 04. 整体架构：DeerFlow 到底在调度什么 </a> </li><li> <a href="/docs/deer-flow/05-project-structure/" class="docs-nav-link"> 05. 项目结构：从目录看懂 DeerFlow </a> </li><li> <a href="/docs/deer-flow/06-execution-flow/" class="docs-nav-link"> 06. 执行链路：一次任务从入口到结果 </a> </li><li> <a href="/docs/deer-flow/07-tools-principles/" class="docs-nav-link"> 07. Tools 原理：Agent 为什么需要工具 </a> </li><li> <a href="/docs/deer-flow/08-tools-source/" class="docs-nav-link"> 08. Tools 源码：工具是怎么注册和调用的 </a> </li><li> <a href="/docs/deer-flow/09-tools-practice/" class="docs-nav-link"> 09. Tools 实战：给研究型 Agent 增加一个工具能力 </a> </li><li> <a href="/docs/deer-flow/10-skills-principles/" class="docs-nav-link"> 10. Skills 原理：把经验沉淀成可复用能力 </a> </li><li> <a href="/docs/deer-flow/11-skills-source/" class="docs-nav-link"> 11. Skills 源码：Skill 是怎么安装、解析和约束工具的 </a> </li><li> <a href="/docs/deer-flow/12-skills-practice/" class="docs-nav-link"> 12. Skills 实战：写 Skill 约束输出质量 </a> </li><li> <a href="/docs/deer-flow/13-subagents-principles/" class="docs-nav-link"> 13. Sub-agents 原理：多智能体什么时候值得拆 </a> </li><li> <a href="/docs/deer-flow/14-subagents-source/" class="docs-nav-link"> 14. Sub-agents 源码：子 Agent 是怎么创建和汇总的 </a> </li><li> <a href="/docs/deer-flow/15-subagents-practice/" class="docs-nav-link"> 15. Sub-agents 实战：把研究任务拆给多个 Agent </a> </li><li> <a href="/docs/deer-flow/16-sandbox-principles/" class="docs-nav-link"> 16. Sandbox 原理：安全执行和文件边界 </a> </li><li> <a href="/docs/deer-flow/17-sandbox-source/" class="docs-nav-link"> 17. Sandbox 源码：执行环境和文件路径怎么管理 </a> </li><li> <a href="/docs/deer-flow/18-mcp-principles/" class="docs-nav-link"> 18. MCP 原理：把外部工具接进 Agent </a> </li><li> <a href="/docs/deer-flow/19-mcp-practice/" class="docs-nav-link"> 19. MCP 实战：接一个只读外部服务 </a> </li><li> <a href="/docs/deer-flow/20-memory-principles/" class="docs-nav-link"> 20. Memory 原理：长期上下文该记什么 </a> </li><li> <a href="/docs/deer-flow/21-observability/" class="docs-nav-link"> 21. 可观测性：看清一次 Agent 为什么失败 </a> </li><li> <a href="/docs/deer-flow/22-troubleshooting-practice/" class="docs-nav-link"> 22. 排错实战：一次任务为什么失败 </a> </li><li> <a href="/docs/deer-flow/23-final-research-agent/" class="docs-nav-link"> 23. 终局实战：自己写一个研究型 Agent </a> </li><li> <a href="/docs/deer-flow/24-agent-workflow/" class="docs-nav-link"> 24. 设计 Agent 任务流 </a> </li><li> <a href="/docs/deer-flow/25-search-and-tools/" class="docs-nav-link"> 25. 接入搜索和工具 </a> </li><li> <a href="/docs/deer-flow/26-quality-skill/" class="docs-nav-link"> 26. 写 Skill 约束输出质量 </a> </li><li> <a href="/docs/deer-flow/27-external-mcp/" class="docs-nav-link"> 27. 接 MCP / 外部服务 </a> </li><li> <a href="/docs/deer-flow/28-report-artifacts/" class="docs-nav-link"> 28. 生成报告和文件产物 </a> </li><li> <a href="/docs/deer-flow/29-acceptance-deploy/" class="docs-nav-link"> 29. 验收与部署 </a> </li> </ul> </nav><nav class="docs-nav-block" aria-label="Hermes教程"> <p class="docs-nav-title">Hermes教程</p> <ul class="docs-nav-list"> <li> <a href="/docs/hermes/00-overview/" class="docs-nav-link"> 00. 教程总览 </a> </li><li> <a href="/docs/hermes/01-what-is-hermes/" class="docs-nav-link"> 01. Hermes 是什么：先知道你在读什么 </a> </li><li> <a href="/docs/hermes/02-quickstart/" class="docs-nav-link"> 02. 快速开始：从安装到第一次对话 </a> </li><li> <a href="/docs/hermes/03-configuration/" class="docs-nav-link"> 03. 配置和模型：config.yaml、.env、provider 怎么配 </a> </li><li> <a href="/docs/hermes/04-project-structure/" class="docs-nav-link"> 04. 项目结构：从目录看懂 Hermes </a> </li><li> <a href="/docs/hermes/05-cli-entry/" class="docs-nav-link"> 05. CLI 入口：hermes 命令怎么启动一次会话 </a> </li><li> <a href="/docs/hermes/06-agent-loop/" class="docs-nav-link"> 06. Agent 主循环：一次消息如何变成模型调用和工具调用 </a> </li><li> <a href="/docs/hermes/07-prompt-context/" class="docs-nav-link"> 07. Prompt 与上下文：系统提示词、项目规则、记忆怎么进上下文 </a> </li><li> <a href="/docs/hermes/08-tools-principles/" class="docs-nav-link"> 08. Tools 原理：工具是怎么注册、筛选和执行的 </a> </li><li> <a href="/docs/hermes/09-tools-source/" class="docs-nav-link"> 09. Tools 源码：registry、toolsets、tool_executor 怎么配合 </a> </li><li> <a href="/docs/hermes/10-skills-principles/" class="docs-nav-link"> 10. Skills 原理：为什么 Hermes 把经验沉淀成 Skill </a> </li><li> <a href="/docs/hermes/11-skills-source/" class="docs-nav-link"> 11. Skills 源码：Skill 如何被发现、加载和写入 </a> </li><li> <a href="/docs/hermes/12-memory-session/" class="docs-nav-link"> 12. Memory 与 Session：长期记忆和历史会话怎么参与下一次任务 </a> </li><li> <a href="/docs/hermes/13-cron/" class="docs-nav-link"> 13. Cron：定时任务怎么保存、触发和投递 </a> </li><li> <a href="/docs/hermes/14-gateway/" class="docs-nav-link"> 14. Gateway：飞书、Telegram、Discord 这类入口怎么接进 Agent </a> </li><li> <a href="/docs/hermes/15-mcp/" class="docs-nav-link"> 15. MCP：外部工具如何变成 Hermes 工具 </a> </li><li> <a href="/docs/hermes/16-delegation/" class="docs-nav-link"> 16. Delegation：子 Agent 和并行任务怎么跑 </a> </li><li> <a href="/docs/hermes/17-security/" class="docs-nav-link"> 17. 安全边界：审批、敏感信息、文件路径和工具限制 </a> </li><li> <a href="/docs/hermes/18-debugging/" class="docs-nav-link"> 18. 调试与排障：日志、doctor、status、常见错误怎么查 </a> </li><li> <a href="/docs/hermes/19-extension-roadmap/" class="docs-nav-link"> 19. 二开路线：想改一个能力时从哪里下手 </a> </li><li> <a href="/docs/hermes/20-summary/" class="docs-nav-link"> 20. 总结：读完后你应该能做什么 </a> </li> </ul> </nav><nav class="docs-nav-block" aria-label="OpenClaw教程"> <p class="docs-nav-title">OpenClaw教程</p> <ul class="docs-nav-list"> <li> <a href="/docs/openclaw/00-overview/" class="docs-nav-link active"> 00. 教程总览 </a> </li><li> <a href="/docs/openclaw/01-what-is-openclaw/" class="docs-nav-link"> 01. OpenClaw 是什么：先知道你在学什么 </a> </li><li> <a href="/docs/openclaw/02-quickstart/" class="docs-nav-link"> 02. 快速开始：安装、onboard、启动 Gateway </a> </li><li> <a href="/docs/openclaw/03-configuration/" class="docs-nav-link"> 03. 配置和模型：openclaw.json、状态目录和 auth profiles </a> </li><li> <a href="/docs/openclaw/04-project-structure/" class="docs-nav-link"> 04. 项目结构：从目录看懂 OpenClaw </a> </li><li> <a href="/docs/openclaw/05-cli-entry/" class="docs-nav-link"> 05. CLI 入口：openclaw 命令怎么启动 </a> </li><li> <a href="/docs/openclaw/06-agent-runtime/" class="docs-nav-link"> 06. Agent Runtime：一次消息如何变成模型和工具调用 </a> </li><li> <a href="/docs/openclaw/07-model-provider-stream/" class="docs-nav-link"> 07. 模型 Provider 与流式响应：OpenClaw 怎么接不同模型 </a> </li><li> <a href="/docs/openclaw/08-tools-principles/" class="docs-nav-link"> 08. Tools 原理：OpenClaw 的工具面是怎么组成的 </a> </li><li> <a href="/docs/openclaw/09-tools-source/" class="docs-nav-link"> 09. Tools 源码：agent-tools.ts 怎么组装工具面 </a> </li><li> <a href="/docs/openclaw/10-gateway/" class="docs-nav-link"> 10. Gateway：常驻控制平面怎么工作 </a> </li><li> <a href="/docs/openclaw/11-channels/" class="docs-nav-link"> 11. Channels：多平台消息入口怎么接入 </a> </li><li> <a href="/docs/openclaw/12-sessions/" class="docs-nav-link"> 12. Sessions：会话、历史和状态怎么保存 </a> </li><li> <a href="/docs/openclaw/13-cron/" class="docs-nav-link"> 13. Cron：定时任务怎么长期运行 </a> </li><li> <a href="/docs/openclaw/14-skills/" class="docs-nav-link"> 14. Skills：过程知识如何沉淀给 Agent </a> </li><li> <a href="/docs/openclaw/15-plugins/" class="docs-nav-link"> 15. Plugins：OpenClaw 的扩展机制 </a> </li><li> <a href="/docs/openclaw/16-mcp/" class="docs-nav-link"> 16. MCP：外部工具如何接进 OpenClaw </a> </li><li> <a href="/docs/openclaw/17-security/" class="docs-nav-link"> 17. 安全边界：DM、Sandbox、工具策略和敏感信息 </a> </li><li> <a href="/docs/openclaw/18-debugging/" class="docs-nav-link"> 18. 调试与排障：从 doctor、gateway status、日志和状态目录开始 </a> </li><li> <a href="/docs/openclaw/19-extension-roadmap/" class="docs-nav-link"> 19. 二开路线：想改 OpenClaw 时从哪里下手 </a> </li><li> <a href="/docs/openclaw/20-summary/" class="docs-nav-link"> 20. 总结：读完后你应该能做什么 </a> </li> </ul> </nav> </aside> <article class="docs-article"> <header class="docs-hero"> <p class="docs-kicker">Technical Guide</p> <h1>00. 教程总览</h1> <p>OpenClaw 源码解读教程怎么读：先会用，再看 Gateway、Agent Runtime、Channels、Tools、Skills、Cron 和插件系统。</p> </header> <div class="docs-prose">  <h2 id="先说这套教程解决什么">先说这套教程解决什么</h2>
+<p>OpenClaw 这类项目，最容易看乱。</p>
+<p>它不是一个单纯的聊天机器人，也不是一个普通 CLI。它更像一个个人 AI 助手运行时：CLI 负责本地操作，Gateway 负责常驻和多渠道消息，Agent Runtime 负责模型与工具循环，Channels 负责 Telegram、Feishu、WhatsApp 等入口，Skills、Cron、Plugins 又把它扩展成长期系统。</p>
+<p>如果只看 README，你能知道怎么安装；但想二开或排障，真正的问题是：一次消息到底从哪里进来，怎么进入 Agent，工具和会话状态又存在哪里。</p>
+<p>这套教程按一条实际路线来写：先跑起来，再看入口，再看核心运行时，最后看扩展和二开。</p>
+<h2 id="这套教程分成五段">这套教程分成五段</h2>
+<pre class="astro-code astro-code-themes github-light github-dark" style="--shiki-light:#24292e;--shiki-dark:#e1e4e8;--shiki-light-bg:#fff;--shiki-dark-bg:#24292e; overflow-x: auto;" tabindex="0" data-language="text"><code><span class="line"><span>00-05 入门和地图</span></span>
+<span class="line"><span>06-09 Agent Runtime 主线</span></span>
+<span class="line"><span>10-14 Gateway / Channels / Sessions / Cron</span></span>
+<span class="line"><span>15-18 Skills / Plugins / MCP / 安全</span></span>
+<span class="line"><span>19-20 排障、二开和总结</span></span></code></pre>
+<p>读者不需要一开始就把所有目录背下来。先知道每一层解决什么问题，后面读源码才不会迷路。</p>
+<h2 id="如果你只是想先用起来">如果你只是想先用起来</h2>
+<p>看这几篇：</p>
+<pre class="astro-code astro-code-themes github-light github-dark" style="--shiki-light:#24292e;--shiki-dark:#e1e4e8;--shiki-light-bg:#fff;--shiki-dark-bg:#24292e; overflow-x: auto;" tabindex="0" data-language="text"><code><span class="line"><span>01. OpenClaw 是什么</span></span>
+<span class="line"><span>02. 快速开始</span></span>
+<span class="line"><span>03. 配置和模型</span></span></code></pre>
+<p>目标是能安装、启动 Gateway、知道状态目录在哪里、能发起一次 agent 消息。</p>
+<h2 id="如果你想二次开发">如果你想二次开发</h2>
+<p>重点看：</p>
+<pre class="astro-code astro-code-themes github-light github-dark" style="--shiki-light:#24292e;--shiki-dark:#e1e4e8;--shiki-light-bg:#fff;--shiki-dark-bg:#24292e; overflow-x: auto;" tabindex="0" data-language="text"><code><span class="line"><span>04. 项目结构</span></span>
+<span class="line"><span>05. CLI 入口</span></span>
+<span class="line"><span>06-09 Agent Runtime</span></span>
+<span class="line"><span>10-14 Gateway 和自动化</span></span>
+<span class="line"><span>15-18 扩展、安全、调试</span></span></code></pre>
+<p>源码篇不要只看概念。OpenClaw 是 TypeScript 大仓库，很多能力分层很细：<code>src/agents/</code>、<code>src/channels/</code>、<code>src/gateway/</code>、<code>src/config/</code>、<code>src/plugins/</code> 都有自己的边界。</p>
+<h2 id="本教程基于哪些资料">本教程基于哪些资料</h2>
+<p>本教程核对了：</p>
+<pre class="astro-code astro-code-themes github-light github-dark" style="--shiki-light:#24292e;--shiki-dark:#e1e4e8;--shiki-light-bg:#fff;--shiki-dark-bg:#24292e; overflow-x: auto;" tabindex="0" data-language="text"><code><span class="line"><span>https://github.com/openclaw/openclaw</span></span>
+<span class="line"><span>README.md</span></span>
+<span class="line"><span>docs/openclaw-agent-runtime.md</span></span>
+<span class="line"><span>docs/agent-runtime-architecture.md</span></span>
+<span class="line"><span>package.json</span></span>
+<span class="line"><span>openclaw.mjs</span></span>
+<span class="line"><span>src/agents/</span></span>
+<span class="line"><span>src/config/</span></span>
+<span class="line"><span>src/gateway/</span></span>
+<span class="line"><span>src/channels/</span></span>
+<span class="line"><span>src/cron/</span></span>
+<span class="line"><span>src/plugins/</span></span>
+<span class="line"><span>src/mcp/</span></span></code></pre>
+<p>如果 OpenClaw 后续版本改目录，优先以官方仓库和官方文档为准。</p>
+<h2 id="完整目录">完整目录</h2>
+<pre class="astro-code astro-code-themes github-light github-dark" style="--shiki-light:#24292e;--shiki-dark:#e1e4e8;--shiki-light-bg:#fff;--shiki-dark-bg:#24292e; overflow-x: auto;" tabindex="0" data-language="text"><code><span class="line"><span>00. 教程总览</span></span>
+<span class="line"><span>01. OpenClaw 是什么</span></span>
+<span class="line"><span>02. 快速开始</span></span>
+<span class="line"><span>03. 配置和模型</span></span>
+<span class="line"><span>04. 项目结构</span></span>
+<span class="line"><span>05. CLI 入口</span></span>
+<span class="line"><span>06. Agent Runtime 主循环</span></span>
+<span class="line"><span>07. 模型 Provider 与流式响应</span></span>
+<span class="line"><span>08. Tools 原理</span></span>
+<span class="line"><span>09. Tools 源码</span></span>
+<span class="line"><span>10. Gateway：常驻控制平面</span></span>
+<span class="line"><span>11. Channels：多平台消息入口</span></span>
+<span class="line"><span>12. Sessions：会话和状态</span></span>
+<span class="line"><span>13. Cron：定时任务</span></span>
+<span class="line"><span>14. Skills：过程知识</span></span>
+<span class="line"><span>15. Plugins：扩展机制</span></span>
+<span class="line"><span>16. MCP：外部工具接入</span></span>
+<span class="line"><span>17. 安全边界</span></span>
+<span class="line"><span>18. 调试与排障</span></span>
+<span class="line"><span>19. 二开路线</span></span>
+<span class="line"><span>20. 总结</span></span></code></pre>
+<h2 id="看到最后应该能做什么">看到最后应该能做什么</h2>
+<p>读完后，至少应该能做到：</p>
+<ul>
+<li>知道 OpenClaw 适合解决什么问题；</li>
+<li>在本地安装并启动 Gateway；</li>
+<li>找到配置、状态、会话和 workspace；</li>
+<li>看懂 CLI、Gateway、Agent Runtime 的分层；</li>
+<li>知道要改 channel、tool、skill、plugin 时分别看哪里；</li>
+<li>遇到问题时能按层排查，而不是盲猜。</li>
+</ul>  </div> </article> <aside class="toc"><p class="toc-title">目录</p><ul class="toc-list"><li class="depth-2"><a href="#先说这套教程解决什么" data-toc-link="先说这套教程解决什么">先说这套教程解决什么</a></li><li class="depth-2"><a href="#这套教程分成五段" data-toc-link="这套教程分成五段">这套教程分成五段</a></li><li class="depth-2"><a href="#如果你只是想先用起来" data-toc-link="如果你只是想先用起来">如果你只是想先用起来</a></li><li class="depth-2"><a href="#如果你想二次开发" data-toc-link="如果你想二次开发">如果你想二次开发</a></li><li class="depth-2"><a href="#本教程基于哪些资料" data-toc-link="本教程基于哪些资料">本教程基于哪些资料</a></li><li class="depth-2"><a href="#完整目录" data-toc-link="完整目录">完整目录</a></li><li class="depth-2"><a href="#看到最后应该能做什么" data-toc-link="看到最后应该能做什么">看到最后应该能做什么</a></li></ul></aside><script type="module">const c=()=>{const r=Array.from(document.querySelectorAll(".toc a[data-toc-link]"));if(!r.length)return;const o=r.map(t=>{const e=t.getAttribute("data-toc-link");if(!e)return null;const n=document.getElementById(e);return n?{id:e,heading:n,link:t}:null}).filter(t=>t!==null);if(!o.length)return;const s=t=>{r.forEach(e=>{const n=e.getAttribute("data-toc-link")===t;e.classList.toggle("active",n),n&&e.scrollIntoView({block:"nearest",inline:"nearest"})})},i=()=>{const t=Math.round(window.innerHeight*.28);let e=o[0];for(const n of o)n.heading.getBoundingClientRect().top<=t&&(e=n);s(e.id)};i();const a=new IntersectionObserver(()=>i(),{rootMargin:"-18% 0px -70% 0px",threshold:[0,1]});o.forEach(t=>a.observe(t.heading)),window.addEventListener("scroll",i,{passive:!0})};document.addEventListener("DOMContentLoaded",c);document.addEventListener("astro:page-load",c);</script> </section> <script type="module">const n=()=>{const e=document.querySelector(".docs-sidebar .docs-nav-link.active");e&&e.scrollIntoView({block:"center",inline:"nearest"})};document.addEventListener("DOMContentLoaded",n);document.addEventListener("astro:page-load",n);</script>  </main> <footer class="site-footer"> <div class="shell footer-inner"> <p>© 2026 未来观察者</p> </div> </footer> </body></html>

@@ -1,0 +1,151 @@
+<!DOCTYPE html><html lang="zh-CN"> <head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1"><script>
+      (() => {
+        const storageKey = "future-observer-theme";
+        const root = document.documentElement;
+        const getStoredMode = () => {
+          try {
+            const value = localStorage.getItem(storageKey);
+            return value === "light" || value === "dark" || value === "system" ? value : "system";
+          } catch {
+            return "system";
+          }
+        };
+        const systemDark = () => window.matchMedia?.("(prefers-color-scheme: dark)").matches ?? false;
+        const apply = (mode) => {
+          const resolved = mode === "system" ? (systemDark() ? "dark" : "light") : mode;
+          root.dataset.themeMode = mode;
+          root.dataset.theme = resolved;
+          root.style.colorScheme = resolved;
+        };
+        apply(getStoredMode());
+        window.__setFutureObserverTheme = (mode) => {
+          const next = mode === "light" || mode === "dark" || mode === "system" ? mode : "system";
+          try { localStorage.setItem(storageKey, next); } catch {}
+          apply(next);
+          window.dispatchEvent(new CustomEvent("future-observer-theme-change", { detail: { mode: next } }));
+        };
+        window.matchMedia?.("(prefers-color-scheme: dark)").addEventListener?.("change", () => {
+          if (getStoredMode() === "system") apply("system");
+        });
+      })();
+    </script><title>08. Tools 原理：OpenClaw 的工具面是怎么组成的 | 技术教程 | 未来观察者</title><meta name="description" content="理解 OpenClaw 工具系统：core、shell、channel、plugin、Tool Search、sandbox 和 policy 如何共同决定可用工具。"><meta name="generator" content="Astro v5.18.1"><meta property="og:title" content="08. Tools 原理：OpenClaw 的工具面是怎么组成的 | 技术教程 | 未来观察者"><meta property="og:description" content="理解 OpenClaw 工具系统：core、shell、channel、plugin、Tool Search、sandbox 和 policy 如何共同决定可用工具。"><meta property="og:type" content="website"><meta property="og:url" content="https://future.lifestudylab.com/docs/openclaw/08-tools-principles/"><link rel="icon" type="image/svg+xml" href="/favicon.svg"><link rel="alternate" type="application/rss+xml" title="未来观察者" href="/rss.xml"><link rel="stylesheet" href="/_astro/_channel_.DM2BjJPY.css"></head> <body> <div class="page-bg"></div> <header class="site-header"> <div class="shell header-inner"> <div class="header-bar"> <a class="brand" href="/ai-tools/"> <img src="/brand-mark.svg" alt="" class="brand-mark" width="56" height="56"> <span class="brand-text" aria-label="未来观察者">思考未来</span> </a> </div> <nav class="top-menu" aria-label="顶部菜单"> <a href="/future-daily/" class="top-menu-link"> 每日信息 </a><a href="/docs/deer-flow/00-overview/" class="top-menu-link"> DeerFlow教程 </a><a href="/docs/hermes/00-overview/" class="top-menu-link"> Hermes教程 </a><a href="/docs/openclaw/00-overview/" class="top-menu-link"> OpenClaw教程 </a><a href="/about/" class="top-menu-link"> 关于我 </a> </nav> <div class="top-actions"> <a class="feedback-link" href="https://github.com/yonglisss/yonglisss.github.io/issues" target="_blank" rel="noopener noreferrer" aria-label="问题反馈"> <svg viewBox="0 0 24 24" aria-hidden="true" class="action-icon"> <path d="M4.75 5.75A2.75 2.75 0 0 1 7.5 3h9A2.75 2.75 0 0 1 19.25 5.75v6.5A2.75 2.75 0 0 1 16.5 15H9.3l-3.55 3.2V15.1a2.75 2.75 0 0 1-1-2.1V5.75Z"></path> <path d="M8 7.75h8M8 11.25h4"></path> </svg> <span>问题反馈</span> </a> <div class="theme-switcher" data-theme-switcher> <button class="theme-trigger" type="button" aria-haspopup="menu" aria-expanded="false" aria-label="切换明暗模式" data-theme-trigger> <svg viewBox="0 0 24 24" aria-hidden="true" class="action-icon theme-trigger-icon theme-trigger-icon--light"> <circle cx="12" cy="12" r="4"></circle> <path d="M12 2.75v2M12 19.25v2M4.75 4.75l1.4 1.4M17.85 17.85l1.4 1.4M2.75 12h2M19.25 12h2M4.75 19.25l1.4-1.4M17.85 6.15l1.4-1.4"></path> </svg> <svg viewBox="0 0 24 24" aria-hidden="true" class="action-icon theme-trigger-icon theme-trigger-icon--dark"> <path d="M20.25 14.2A8 8 0 0 1 9.8 3.75 8.5 8.5 0 1 0 20.25 14.2Z"></path> </svg> <svg viewBox="0 0 24 24" aria-hidden="true" class="action-icon theme-trigger-icon theme-trigger-icon--system"> <rect x="4" y="5" width="16" height="11" rx="1.8"></rect> <path d="M9 20h6M12 16v4"></path> </svg> </button> <div class="theme-menu" role="menu" data-theme-menu hidden> <button class="theme-option" type="button" role="menuitemradio" data-theme-option="light" aria-checked="false"> <svg viewBox="0 0 24 24" aria-hidden="true" class="action-icon"><circle cx="12" cy="12" r="4"></circle><path d="M12 2.75v2M12 19.25v2M4.75 4.75l1.4 1.4M17.85 17.85l1.4 1.4M2.75 12h2M19.25 12h2M4.75 19.25l1.4-1.4M17.85 6.15l1.4-1.4"></path></svg> <span>亮色</span> </button> <button class="theme-option" type="button" role="menuitemradio" data-theme-option="dark" aria-checked="false"> <svg viewBox="0 0 24 24" aria-hidden="true" class="action-icon"><path d="M20.25 14.2A8 8 0 0 1 9.8 3.75 8.5 8.5 0 1 0 20.25 14.2Z"></path></svg> <span>暗色</span> </button> <button class="theme-option" type="button" role="menuitemradio" data-theme-option="system" aria-checked="true"> <svg viewBox="0 0 24 24" aria-hidden="true" class="action-icon"><rect x="4" y="5" width="16" height="11" rx="1.8"></rect><path d="M9 20h6M12 16v4"></path></svg> <span>跟随系统</span> </button> </div> </div> </div> </div> </header> <script>
+  (() => {
+    const switcher = document.querySelector("[data-theme-switcher]");
+    if (!switcher) return;
+
+    const trigger = switcher.querySelector("[data-theme-trigger]");
+    const menu = switcher.querySelector("[data-theme-menu]");
+    const options = [...switcher.querySelectorAll("[data-theme-option]")];
+    const modes = ["light", "dark", "system"];
+
+    const getMode = () => {
+      const mode = document.documentElement.dataset.themeMode;
+      return modes.includes(mode) ? mode : "system";
+    };
+
+    const closeMenu = () => {
+      menu.hidden = true;
+      trigger.setAttribute("aria-expanded", "false");
+    };
+
+    const openMenu = () => {
+      menu.hidden = false;
+      trigger.setAttribute("aria-expanded", "true");
+    };
+
+    const sync = () => {
+      const mode = getMode();
+      trigger.dataset.themeMode = mode;
+      options.forEach((option) => {
+        option.setAttribute("aria-checked", String(option.dataset.themeOption === mode));
+      });
+    };
+
+    trigger.addEventListener("click", () => {
+      menu.hidden ? openMenu() : closeMenu();
+    });
+
+    options.forEach((option) => {
+      option.addEventListener("click", () => {
+        window.__setFutureObserverTheme?.(option.dataset.themeOption || "system");
+        sync();
+        closeMenu();
+      });
+    });
+
+    document.addEventListener("click", (event) => {
+      if (!switcher.contains(event.target)) closeMenu();
+    });
+
+    document.addEventListener("keydown", (event) => {
+      if (event.key === "Escape") closeMenu();
+    });
+
+    window.addEventListener("future-observer-theme-change", sync);
+    sync();
+  })();
+</script>  <main class="shell page-content page-content--full">  <section class="docs-shell"> <aside class="docs-sidebar" aria-label="技术教程目录"> <nav class="docs-nav-block" aria-label="DeerFlow 教程"> <p class="docs-nav-title">DeerFlow 教程</p> <ul class="docs-nav-list"> <li> <a href="/docs/deer-flow/00-overview/" class="docs-nav-link"> 00. 教程总览 </a> </li><li> <a href="/docs/deer-flow/01-what-is-deerflow/" class="docs-nav-link"> 01. DeerFlow 是什么：先知道你在学什么 </a> </li><li> <a href="/docs/deer-flow/02-quickstart/" class="docs-nav-link"> 02. 快速开始：先把 DeerFlow 跑起来 </a> </li><li> <a href="/docs/deer-flow/03-config/" class="docs-nav-link"> 03. 配置文件：看懂 config.yaml </a> </li><li> <a href="/docs/deer-flow/04-architecture/" class="docs-nav-link"> 04. 整体架构：DeerFlow 到底在调度什么 </a> </li><li> <a href="/docs/deer-flow/05-project-structure/" class="docs-nav-link"> 05. 项目结构：从目录看懂 DeerFlow </a> </li><li> <a href="/docs/deer-flow/06-execution-flow/" class="docs-nav-link"> 06. 执行链路：一次任务从入口到结果 </a> </li><li> <a href="/docs/deer-flow/07-tools-principles/" class="docs-nav-link"> 07. Tools 原理：Agent 为什么需要工具 </a> </li><li> <a href="/docs/deer-flow/08-tools-source/" class="docs-nav-link"> 08. Tools 源码：工具是怎么注册和调用的 </a> </li><li> <a href="/docs/deer-flow/09-tools-practice/" class="docs-nav-link"> 09. Tools 实战：给研究型 Agent 增加一个工具能力 </a> </li><li> <a href="/docs/deer-flow/10-skills-principles/" class="docs-nav-link"> 10. Skills 原理：把经验沉淀成可复用能力 </a> </li><li> <a href="/docs/deer-flow/11-skills-source/" class="docs-nav-link"> 11. Skills 源码：Skill 是怎么安装、解析和约束工具的 </a> </li><li> <a href="/docs/deer-flow/12-skills-practice/" class="docs-nav-link"> 12. Skills 实战：写 Skill 约束输出质量 </a> </li><li> <a href="/docs/deer-flow/13-subagents-principles/" class="docs-nav-link"> 13. Sub-agents 原理：多智能体什么时候值得拆 </a> </li><li> <a href="/docs/deer-flow/14-subagents-source/" class="docs-nav-link"> 14. Sub-agents 源码：子 Agent 是怎么创建和汇总的 </a> </li><li> <a href="/docs/deer-flow/15-subagents-practice/" class="docs-nav-link"> 15. Sub-agents 实战：把研究任务拆给多个 Agent </a> </li><li> <a href="/docs/deer-flow/16-sandbox-principles/" class="docs-nav-link"> 16. Sandbox 原理：安全执行和文件边界 </a> </li><li> <a href="/docs/deer-flow/17-sandbox-source/" class="docs-nav-link"> 17. Sandbox 源码：执行环境和文件路径怎么管理 </a> </li><li> <a href="/docs/deer-flow/18-mcp-principles/" class="docs-nav-link"> 18. MCP 原理：把外部工具接进 Agent </a> </li><li> <a href="/docs/deer-flow/19-mcp-practice/" class="docs-nav-link"> 19. MCP 实战：接一个只读外部服务 </a> </li><li> <a href="/docs/deer-flow/20-memory-principles/" class="docs-nav-link"> 20. Memory 原理：长期上下文该记什么 </a> </li><li> <a href="/docs/deer-flow/21-observability/" class="docs-nav-link"> 21. 可观测性：看清一次 Agent 为什么失败 </a> </li><li> <a href="/docs/deer-flow/22-troubleshooting-practice/" class="docs-nav-link"> 22. 排错实战：一次任务为什么失败 </a> </li><li> <a href="/docs/deer-flow/23-final-research-agent/" class="docs-nav-link"> 23. 终局实战：自己写一个研究型 Agent </a> </li><li> <a href="/docs/deer-flow/24-agent-workflow/" class="docs-nav-link"> 24. 设计 Agent 任务流 </a> </li><li> <a href="/docs/deer-flow/25-search-and-tools/" class="docs-nav-link"> 25. 接入搜索和工具 </a> </li><li> <a href="/docs/deer-flow/26-quality-skill/" class="docs-nav-link"> 26. 写 Skill 约束输出质量 </a> </li><li> <a href="/docs/deer-flow/27-external-mcp/" class="docs-nav-link"> 27. 接 MCP / 外部服务 </a> </li><li> <a href="/docs/deer-flow/28-report-artifacts/" class="docs-nav-link"> 28. 生成报告和文件产物 </a> </li><li> <a href="/docs/deer-flow/29-acceptance-deploy/" class="docs-nav-link"> 29. 验收与部署 </a> </li> </ul> </nav><nav class="docs-nav-block" aria-label="Hermes教程"> <p class="docs-nav-title">Hermes教程</p> <ul class="docs-nav-list"> <li> <a href="/docs/hermes/00-overview/" class="docs-nav-link"> 00. 教程总览 </a> </li><li> <a href="/docs/hermes/01-what-is-hermes/" class="docs-nav-link"> 01. Hermes 是什么：先知道你在读什么 </a> </li><li> <a href="/docs/hermes/02-quickstart/" class="docs-nav-link"> 02. 快速开始：从安装到第一次对话 </a> </li><li> <a href="/docs/hermes/03-configuration/" class="docs-nav-link"> 03. 配置和模型：config.yaml、.env、provider 怎么配 </a> </li><li> <a href="/docs/hermes/04-project-structure/" class="docs-nav-link"> 04. 项目结构：从目录看懂 Hermes </a> </li><li> <a href="/docs/hermes/05-cli-entry/" class="docs-nav-link"> 05. CLI 入口：hermes 命令怎么启动一次会话 </a> </li><li> <a href="/docs/hermes/06-agent-loop/" class="docs-nav-link"> 06. Agent 主循环：一次消息如何变成模型调用和工具调用 </a> </li><li> <a href="/docs/hermes/07-prompt-context/" class="docs-nav-link"> 07. Prompt 与上下文：系统提示词、项目规则、记忆怎么进上下文 </a> </li><li> <a href="/docs/hermes/08-tools-principles/" class="docs-nav-link"> 08. Tools 原理：工具是怎么注册、筛选和执行的 </a> </li><li> <a href="/docs/hermes/09-tools-source/" class="docs-nav-link"> 09. Tools 源码：registry、toolsets、tool_executor 怎么配合 </a> </li><li> <a href="/docs/hermes/10-skills-principles/" class="docs-nav-link"> 10. Skills 原理：为什么 Hermes 把经验沉淀成 Skill </a> </li><li> <a href="/docs/hermes/11-skills-source/" class="docs-nav-link"> 11. Skills 源码：Skill 如何被发现、加载和写入 </a> </li><li> <a href="/docs/hermes/12-memory-session/" class="docs-nav-link"> 12. Memory 与 Session：长期记忆和历史会话怎么参与下一次任务 </a> </li><li> <a href="/docs/hermes/13-cron/" class="docs-nav-link"> 13. Cron：定时任务怎么保存、触发和投递 </a> </li><li> <a href="/docs/hermes/14-gateway/" class="docs-nav-link"> 14. Gateway：飞书、Telegram、Discord 这类入口怎么接进 Agent </a> </li><li> <a href="/docs/hermes/15-mcp/" class="docs-nav-link"> 15. MCP：外部工具如何变成 Hermes 工具 </a> </li><li> <a href="/docs/hermes/16-delegation/" class="docs-nav-link"> 16. Delegation：子 Agent 和并行任务怎么跑 </a> </li><li> <a href="/docs/hermes/17-security/" class="docs-nav-link"> 17. 安全边界：审批、敏感信息、文件路径和工具限制 </a> </li><li> <a href="/docs/hermes/18-debugging/" class="docs-nav-link"> 18. 调试与排障：日志、doctor、status、常见错误怎么查 </a> </li><li> <a href="/docs/hermes/19-extension-roadmap/" class="docs-nav-link"> 19. 二开路线：想改一个能力时从哪里下手 </a> </li><li> <a href="/docs/hermes/20-summary/" class="docs-nav-link"> 20. 总结：读完后你应该能做什么 </a> </li> </ul> </nav><nav class="docs-nav-block" aria-label="OpenClaw教程"> <p class="docs-nav-title">OpenClaw教程</p> <ul class="docs-nav-list"> <li> <a href="/docs/openclaw/00-overview/" class="docs-nav-link"> 00. 教程总览 </a> </li><li> <a href="/docs/openclaw/01-what-is-openclaw/" class="docs-nav-link"> 01. OpenClaw 是什么：先知道你在学什么 </a> </li><li> <a href="/docs/openclaw/02-quickstart/" class="docs-nav-link"> 02. 快速开始：安装、onboard、启动 Gateway </a> </li><li> <a href="/docs/openclaw/03-configuration/" class="docs-nav-link"> 03. 配置和模型：openclaw.json、状态目录和 auth profiles </a> </li><li> <a href="/docs/openclaw/04-project-structure/" class="docs-nav-link"> 04. 项目结构：从目录看懂 OpenClaw </a> </li><li> <a href="/docs/openclaw/05-cli-entry/" class="docs-nav-link"> 05. CLI 入口：openclaw 命令怎么启动 </a> </li><li> <a href="/docs/openclaw/06-agent-runtime/" class="docs-nav-link"> 06. Agent Runtime：一次消息如何变成模型和工具调用 </a> </li><li> <a href="/docs/openclaw/07-model-provider-stream/" class="docs-nav-link"> 07. 模型 Provider 与流式响应：OpenClaw 怎么接不同模型 </a> </li><li> <a href="/docs/openclaw/08-tools-principles/" class="docs-nav-link active"> 08. Tools 原理：OpenClaw 的工具面是怎么组成的 </a> </li><li> <a href="/docs/openclaw/09-tools-source/" class="docs-nav-link"> 09. Tools 源码：agent-tools.ts 怎么组装工具面 </a> </li><li> <a href="/docs/openclaw/10-gateway/" class="docs-nav-link"> 10. Gateway：常驻控制平面怎么工作 </a> </li><li> <a href="/docs/openclaw/11-channels/" class="docs-nav-link"> 11. Channels：多平台消息入口怎么接入 </a> </li><li> <a href="/docs/openclaw/12-sessions/" class="docs-nav-link"> 12. Sessions：会话、历史和状态怎么保存 </a> </li><li> <a href="/docs/openclaw/13-cron/" class="docs-nav-link"> 13. Cron：定时任务怎么长期运行 </a> </li><li> <a href="/docs/openclaw/14-skills/" class="docs-nav-link"> 14. Skills：过程知识如何沉淀给 Agent </a> </li><li> <a href="/docs/openclaw/15-plugins/" class="docs-nav-link"> 15. Plugins：OpenClaw 的扩展机制 </a> </li><li> <a href="/docs/openclaw/16-mcp/" class="docs-nav-link"> 16. MCP：外部工具如何接进 OpenClaw </a> </li><li> <a href="/docs/openclaw/17-security/" class="docs-nav-link"> 17. 安全边界：DM、Sandbox、工具策略和敏感信息 </a> </li><li> <a href="/docs/openclaw/18-debugging/" class="docs-nav-link"> 18. 调试与排障：从 doctor、gateway status、日志和状态目录开始 </a> </li><li> <a href="/docs/openclaw/19-extension-roadmap/" class="docs-nav-link"> 19. 二开路线：想改 OpenClaw 时从哪里下手 </a> </li><li> <a href="/docs/openclaw/20-summary/" class="docs-nav-link"> 20. 总结：读完后你应该能做什么 </a> </li> </ul> </nav> </aside> <article class="docs-article"> <header class="docs-hero"> <p class="docs-kicker">Technical Guide</p> <h1>08. Tools 原理：OpenClaw 的工具面是怎么组成的</h1> <p>理解 OpenClaw 工具系统：core、shell、channel、plugin、Tool Search、sandbox 和 policy 如何共同决定可用工具。</p> </header> <div class="docs-prose">  <h2 id="这篇解决什么问题">这篇解决什么问题</h2>
+<p>OpenClaw 的工具系统不只是一个 tools 数组。</p>
+<p><code>src/agents/agent-tools.ts</code> 文件开头就写了它的职责：构建有效的 OpenClaw agent tool surface，把 core、shell、channel、OpenClaw、plugin、Tool Search tools 组装起来，再应用 sandbox、profile、provider、sender、group、sub-agent policy。</p>
+<p>这句话很关键。</p>
+<h2 id="工具面不是固定的">工具面不是固定的</h2>
+<p>同一个 OpenClaw，在不同上下文里可用工具可能不同：</p>
+<pre class="astro-code astro-code-themes github-light github-dark" style="--shiki-light:#24292e;--shiki-dark:#e1e4e8;--shiki-light-bg:#fff;--shiki-dark-bg:#24292e; overflow-x: auto;" tabindex="0" data-language="text"><code><span class="line"><span>main session 和 group session 不同</span></span>
+<span class="line"><span>host 模式和 sandbox 模式不同</span></span>
+<span class="line"><span>不同 sender / allowlist 不同</span></span>
+<span class="line"><span>不同 provider 支持能力不同</span></span>
+<span class="line"><span>不同 agent profile 不同</span></span>
+<span class="line"><span>插件启用情况不同</span></span>
+<span class="line"><span>sub-agent session 不同</span></span></code></pre>
+<p>所以不要以为某个工具文件存在，模型就一定能调用。</p>
+<h2 id="工具来源有哪些">工具来源有哪些</h2>
+<p>从 <code>agent-tools.ts</code> 的导入和注释可以看到，工具面可能来自：</p>
+<pre class="astro-code astro-code-themes github-light github-dark" style="--shiki-light:#24292e;--shiki-dark:#e1e4e8;--shiki-light-bg:#fff;--shiki-dark-bg:#24292e; overflow-x: auto;" tabindex="0" data-language="text"><code><span class="line"><span>core tools</span></span>
+<span class="line"><span>shell / exec / process tools</span></span>
+<span class="line"><span>read / write / edit tools</span></span>
+<span class="line"><span>apply_patch</span></span>
+<span class="line"><span>channel tools</span></span>
+<span class="line"><span>OpenClaw tools</span></span>
+<span class="line"><span>plugin tools</span></span>
+<span class="line"><span>Tool Search tools</span></span>
+<span class="line"><span>cron creator tools</span></span></code></pre>
+<p>这比普通 agent 的工具系统复杂，因为 OpenClaw 要同时面对本地文件、shell、消息平台、插件和 sandbox。</p>
+<h2 id="policy-是工具系统的核心">policy 是工具系统的核心</h2>
+<p>OpenClaw 有很多工具策略：</p>
+<pre class="astro-code astro-code-themes github-light github-dark" style="--shiki-light:#24292e;--shiki-dark:#e1e4e8;--shiki-light-bg:#fff;--shiki-dark-bg:#24292e; overflow-x: auto;" tabindex="0" data-language="text"><code><span class="line"><span>tool allowlist / denylist</span></span>
+<span class="line"><span>group tool policy</span></span>
+<span class="line"><span>sender tool policy</span></span>
+<span class="line"><span>subagent tool policy</span></span>
+<span class="line"><span>profile tool policy</span></span>
+<span class="line"><span>sandbox policy</span></span>
+<span class="line"><span>provider policy</span></span>
+<span class="line"><span>message provider policy</span></span></code></pre>
+<p>这些策略共同决定一个工具是否暴露给模型。</p>
+<p>所以如果模型“看不到某个工具”，不要只查 schema。先查 policy。</p>
+<h2 id="sandbox-会改变工具行为">sandbox 会改变工具行为</h2>
+<p>同样是 read/write/edit，在 host 模式和 sandbox 模式下不一样。</p>
+<p>源码里有：</p>
+<pre class="astro-code astro-code-themes github-light github-dark" style="--shiki-light:#24292e;--shiki-dark:#e1e4e8;--shiki-light-bg:#fff;--shiki-dark-bg:#24292e; overflow-x: auto;" tabindex="0" data-language="text"><code><span class="line"><span>createOpenClawReadTool</span></span>
+<span class="line"><span>createHostWorkspaceWriteTool</span></span>
+<span class="line"><span>createHostWorkspaceEditTool</span></span>
+<span class="line"><span>createSandboxedReadTool</span></span>
+<span class="line"><span>createSandboxedWriteTool</span></span>
+<span class="line"><span>createSandboxedEditTool</span></span></code></pre>
+<p>这说明工具不是简单函数，而是根据当前运行环境创建不同实现。</p>
+<h2 id="beforeafter-hooks">before/after hooks</h2>
+<p>OpenClaw 的工具调用还会经过 hook 包装。</p>
+<p>例如 before-tool-call hook 可以在工具执行前检查、记录或拦截；after-tool-call 可以处理结果和状态。</p>
+<p>这也是为什么 tool surface 组装过程会很长。</p>
+<h2 id="输出为什么要受控">输出为什么要受控</h2>
+<p>工具结果会进入模型上下文，也可能回到聊天平台。</p>
+<p>所以工具系统要控制：</p>
+<ul>
+<li>参数校验；</li>
+<li>路径边界；</li>
+<li>权限策略；</li>
+<li>输出大小；</li>
+<li>安全摘要；</li>
+<li>是否允许 host edit。</li>
+</ul>
+<h2 id="下一篇看什么">下一篇看什么</h2>
+<p>下一篇看 Tools 源码，按 <code>agent-tools.ts</code> 这条主线拆。</p>  </div> </article> <aside class="toc"><p class="toc-title">目录</p><ul class="toc-list"><li class="depth-2"><a href="#这篇解决什么问题" data-toc-link="这篇解决什么问题">这篇解决什么问题</a></li><li class="depth-2"><a href="#工具面不是固定的" data-toc-link="工具面不是固定的">工具面不是固定的</a></li><li class="depth-2"><a href="#工具来源有哪些" data-toc-link="工具来源有哪些">工具来源有哪些</a></li><li class="depth-2"><a href="#policy-是工具系统的核心" data-toc-link="policy-是工具系统的核心">policy 是工具系统的核心</a></li><li class="depth-2"><a href="#sandbox-会改变工具行为" data-toc-link="sandbox-会改变工具行为">sandbox 会改变工具行为</a></li><li class="depth-2"><a href="#beforeafter-hooks" data-toc-link="beforeafter-hooks">before/after hooks</a></li><li class="depth-2"><a href="#输出为什么要受控" data-toc-link="输出为什么要受控">输出为什么要受控</a></li><li class="depth-2"><a href="#下一篇看什么" data-toc-link="下一篇看什么">下一篇看什么</a></li></ul></aside><script type="module">const c=()=>{const r=Array.from(document.querySelectorAll(".toc a[data-toc-link]"));if(!r.length)return;const o=r.map(t=>{const e=t.getAttribute("data-toc-link");if(!e)return null;const n=document.getElementById(e);return n?{id:e,heading:n,link:t}:null}).filter(t=>t!==null);if(!o.length)return;const s=t=>{r.forEach(e=>{const n=e.getAttribute("data-toc-link")===t;e.classList.toggle("active",n),n&&e.scrollIntoView({block:"nearest",inline:"nearest"})})},i=()=>{const t=Math.round(window.innerHeight*.28);let e=o[0];for(const n of o)n.heading.getBoundingClientRect().top<=t&&(e=n);s(e.id)};i();const a=new IntersectionObserver(()=>i(),{rootMargin:"-18% 0px -70% 0px",threshold:[0,1]});o.forEach(t=>a.observe(t.heading)),window.addEventListener("scroll",i,{passive:!0})};document.addEventListener("DOMContentLoaded",c);document.addEventListener("astro:page-load",c);</script> </section> <script type="module">const n=()=>{const e=document.querySelector(".docs-sidebar .docs-nav-link.active");e&&e.scrollIntoView({block:"center",inline:"nearest"})};document.addEventListener("DOMContentLoaded",n);document.addEventListener("astro:page-load",n);</script>  </main> <footer class="site-footer"> <div class="shell footer-inner"> <p>© 2026 未来观察者</p> </div> </footer> </body></html>
