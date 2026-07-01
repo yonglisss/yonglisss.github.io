@@ -1,0 +1,125 @@
+<!DOCTYPE html><html lang="zh-CN"> <head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1"><script>
+      (() => {
+        const storageKey = "future-observer-theme";
+        const root = document.documentElement;
+        const getStoredMode = () => {
+          try {
+            const value = localStorage.getItem(storageKey);
+            return value === "light" || value === "dark" || value === "system" ? value : "system";
+          } catch {
+            return "system";
+          }
+        };
+        const systemDark = () => window.matchMedia?.("(prefers-color-scheme: dark)").matches ?? false;
+        const apply = (mode) => {
+          const resolved = mode === "system" ? (systemDark() ? "dark" : "light") : mode;
+          root.dataset.themeMode = mode;
+          root.dataset.theme = resolved;
+          root.style.colorScheme = resolved;
+        };
+        apply(getStoredMode());
+        window.__setFutureObserverTheme = (mode) => {
+          const next = mode === "light" || mode === "dark" || mode === "system" ? mode : "system";
+          try { localStorage.setItem(storageKey, next); } catch {}
+          apply(next);
+          window.dispatchEvent(new CustomEvent("future-observer-theme-change", { detail: { mode: next } }));
+        };
+        window.matchMedia?.("(prefers-color-scheme: dark)").addEventListener?.("change", () => {
+          if (getStoredMode() === "system") apply("system");
+        });
+      })();
+    </script><title>CubeSandbox：如果你在做 AI Agent，这个沙箱基础设施值得先记住 | 未来观察者</title><meta name="description" content="这两个月，越来越多团队开始碰到同一个问题：Agent 会写代码、跑脚本、调外部服务，但一旦让它执行不完全可信的代码，传统容器方案在隔离和审计上就容易变得不够稳。CubeSandbox 是腾讯云开源的一套 AI Agent 沙箱服务，核心卖点不是“又一个代码解释器”，而是把 启动速"><meta name="generator" content="Astro v5.18.1"><meta property="og:title" content="CubeSandbox：如果你在做 AI Agent，这个沙箱基础设施值得先记住 | 未来观察者"><meta property="og:description" content="这两个月，越来越多团队开始碰到同一个问题：Agent 会写代码、跑脚本、调外部服务，但一旦让它执行不完全可信的代码，传统容器方案在隔离和审计上就容易变得不够稳。CubeSandbox 是腾讯云开源的一套 AI Agent 沙箱服务，核心卖点不是“又一个代码解释器”，而是把 启动速"><meta property="og:type" content="website"><meta property="og:url" content="https://future.lifestudylab.com/posts/2026-07-02-cubesandbox/"><link rel="icon" type="image/svg+xml" href="/favicon.svg"><link rel="alternate" type="application/rss+xml" title="未来观察者" href="/rss.xml"><link rel="stylesheet" href="/_astro/_channel_.DM2BjJPY.css"></head> <body> <div class="page-bg"></div> <header class="site-header"> <div class="shell header-inner"> <div class="header-bar"> <a class="brand" href="/ai-tools/"> <img src="/brand-mark.svg" alt="" class="brand-mark" width="56" height="56"> <span class="brand-text" aria-label="未来观察者">思考未来</span> </a> </div> <nav class="top-menu" aria-label="顶部菜单"> <a href="/future-daily/" class="top-menu-link"> 每日信息 </a><a href="/docs/deer-flow/00-overview/" class="top-menu-link"> DeerFlow教程 </a><a href="/docs/hermes/00-overview/" class="top-menu-link"> Hermes教程 </a><a href="/docs/openclaw/00-overview/" class="top-menu-link"> OpenClaw教程 </a><a href="/about/" class="top-menu-link"> 关于我 </a> </nav> <div class="top-actions"> <a class="feedback-link" href="https://github.com/yonglisss/yonglisss.github.io/issues" target="_blank" rel="noopener noreferrer" aria-label="问题反馈"> <svg viewBox="0 0 24 24" aria-hidden="true" class="action-icon"> <path d="M4.75 5.75A2.75 2.75 0 0 1 7.5 3h9A2.75 2.75 0 0 1 19.25 5.75v6.5A2.75 2.75 0 0 1 16.5 15H9.3l-3.55 3.2V15.1a2.75 2.75 0 0 1-1-2.1V5.75Z"></path> <path d="M8 7.75h8M8 11.25h4"></path> </svg> <span>问题反馈</span> </a> <div class="theme-switcher" data-theme-switcher> <button class="theme-trigger" type="button" aria-haspopup="menu" aria-expanded="false" aria-label="切换明暗模式" data-theme-trigger> <svg viewBox="0 0 24 24" aria-hidden="true" class="action-icon theme-trigger-icon theme-trigger-icon--light"> <circle cx="12" cy="12" r="4"></circle> <path d="M12 2.75v2M12 19.25v2M4.75 4.75l1.4 1.4M17.85 17.85l1.4 1.4M2.75 12h2M19.25 12h2M4.75 19.25l1.4-1.4M17.85 6.15l1.4-1.4"></path> </svg> <svg viewBox="0 0 24 24" aria-hidden="true" class="action-icon theme-trigger-icon theme-trigger-icon--dark"> <path d="M20.25 14.2A8 8 0 0 1 9.8 3.75 8.5 8.5 0 1 0 20.25 14.2Z"></path> </svg> <svg viewBox="0 0 24 24" aria-hidden="true" class="action-icon theme-trigger-icon theme-trigger-icon--system"> <rect x="4" y="5" width="16" height="11" rx="1.8"></rect> <path d="M9 20h6M12 16v4"></path> </svg> </button> <div class="theme-menu" role="menu" data-theme-menu hidden> <button class="theme-option" type="button" role="menuitemradio" data-theme-option="light" aria-checked="false"> <svg viewBox="0 0 24 24" aria-hidden="true" class="action-icon"><circle cx="12" cy="12" r="4"></circle><path d="M12 2.75v2M12 19.25v2M4.75 4.75l1.4 1.4M17.85 17.85l1.4 1.4M2.75 12h2M19.25 12h2M4.75 19.25l1.4-1.4M17.85 6.15l1.4-1.4"></path></svg> <span>亮色</span> </button> <button class="theme-option" type="button" role="menuitemradio" data-theme-option="dark" aria-checked="false"> <svg viewBox="0 0 24 24" aria-hidden="true" class="action-icon"><path d="M20.25 14.2A8 8 0 0 1 9.8 3.75 8.5 8.5 0 1 0 20.25 14.2Z"></path></svg> <span>暗色</span> </button> <button class="theme-option" type="button" role="menuitemradio" data-theme-option="system" aria-checked="true"> <svg viewBox="0 0 24 24" aria-hidden="true" class="action-icon"><rect x="4" y="5" width="16" height="11" rx="1.8"></rect><path d="M9 20h6M12 16v4"></path></svg> <span>跟随系统</span> </button> </div> </div> </div> </div> </header> <script>
+  (() => {
+    const switcher = document.querySelector("[data-theme-switcher]");
+    if (!switcher) return;
+
+    const trigger = switcher.querySelector("[data-theme-trigger]");
+    const menu = switcher.querySelector("[data-theme-menu]");
+    const options = [...switcher.querySelectorAll("[data-theme-option]")];
+    const modes = ["light", "dark", "system"];
+
+    const getMode = () => {
+      const mode = document.documentElement.dataset.themeMode;
+      return modes.includes(mode) ? mode : "system";
+    };
+
+    const closeMenu = () => {
+      menu.hidden = true;
+      trigger.setAttribute("aria-expanded", "false");
+    };
+
+    const openMenu = () => {
+      menu.hidden = false;
+      trigger.setAttribute("aria-expanded", "true");
+    };
+
+    const sync = () => {
+      const mode = getMode();
+      trigger.dataset.themeMode = mode;
+      options.forEach((option) => {
+        option.setAttribute("aria-checked", String(option.dataset.themeOption === mode));
+      });
+    };
+
+    trigger.addEventListener("click", () => {
+      menu.hidden ? openMenu() : closeMenu();
+    });
+
+    options.forEach((option) => {
+      option.addEventListener("click", () => {
+        window.__setFutureObserverTheme?.(option.dataset.themeOption || "system");
+        sync();
+        closeMenu();
+      });
+    });
+
+    document.addEventListener("click", (event) => {
+      if (!switcher.contains(event.target)) closeMenu();
+    });
+
+    document.addEventListener("keydown", (event) => {
+      if (event.key === "Escape") closeMenu();
+    });
+
+    window.addEventListener("future-observer-theme-change", sync);
+    sync();
+  })();
+</script> <aside class="site-rail" aria-label="站点导航"> <div class="site-rail-inner"> <p class="site-rail-label">Channels</p> <nav aria-label="主导航"> <ul class="site-rail-nav"> <li> <a href="/ai-tools/" class="site-rail-link"> AI工具 </a> </li><li> <a href="/future-daily/" class="site-rail-link"> 未来观察者日报 </a> </li> </ul> </nav> </div> </aside> <main class="shell page-content">  <div class="post-hero"> <p class="eyebrow">2026年7月2日</p> <h1>CubeSandbox：如果你在做 AI Agent，这个沙箱基础设施值得先记住</h1> <p class="post-summary">这两个月，越来越多团队开始碰到同一个问题：Agent 会写代码、跑脚本、调外部服务，但一旦让它执行不完全可信的代码，传统容器方案在隔离和审计上就容易变得不够稳。CubeSandbox 是腾讯云开源的一套 AI Agent 沙箱服务，核心卖点不是“又一个代码解释器”，而是把 启动速</p> <ul class="tag-list"> <li> <a href="/tags/AI%E5%B7%A5%E5%85%B7/" class="tag-link">
+#AI工具 </a> </li><li> <a href="/tags/2026%E5%B9%B407%E6%9C%88/" class="tag-link">
+#2026年07月 </a> </li> </ul> </div> <div class="post-grid"> <article class="prose">  <p>这两个月，越来越多团队开始碰到同一个问题：Agent 会写代码、跑脚本、调外部服务，但一旦让它执行不完全可信的代码，传统容器方案在隔离和审计上就容易变得不够稳。<code>CubeSandbox</code> 是腾讯云开源的一套 AI Agent 沙箱服务，核心卖点不是“又一个代码解释器”，而是把 <strong>启动速度、隔离强度和可运维性</strong> 放在同一套方案里：基于 RustVMM 与 KVM 构建，兼容 E2B SDK，官方文档给出的冷启动数据在 60ms 左右，同时强调硬件级隔离、出站管控和凭证托管。对正在做 Agent 平台、代码执行环境或浏览器自动化基础设施的团队来说，它比普通 Demo 型项目更值得看。</p>
+<h2 id="-这个项目是干什么的">📌 这个项目是干什么的</h2>
+<ul>
+<li>定位：面向 AI Agent 的安全沙箱基础设施，重点解决“让模型安全执行代码”的运行时问题。</li>
+<li>适合谁：做 Agent 平台、工作流系统、代码执行、自动化浏览器或多租户 AI 应用的工程团队。</li>
+<li>解决什么问题：在不牺牲太多启动速度的前提下，把代码执行环境从共享内核容器，提升到更强隔离的 MicroVM 级别。</li>
+<li>当前成熟度：官方仓库文档、中文说明、Quick Start、架构文档、release 说明都比较完整，已经不是只有概念图的早期项目。</li>
+</ul>
+<h2 id="-为什么值得关注">🔍 为什么值得关注</h2>
+<ol>
+<li>更值得看的不是“快”，而是它试图同时解决三件事：Agent 场景需要高并发交付、要能跑不可信代码、还得让工程团队能运维。官方把这三点直接落在了启动时延、内存开销、Web 控制台和模板体系上。</li>
+<li>兼容 E2B SDK 这一点很实用。对已经基于 E2B 接口做过接入的团队，迁移成本理论上比重写一套执行层小得多，至少值得做一次技术预研。</li>
+<li>近期的 <code>v0.4.0</code> 也有实质更新，不只是修 bug。官方新增了 <code>CubeEgress</code>，把凭证注入、域名过滤、访问审计放进出站链路，这对“Agent 能联网，但不能乱联网”的场景非常关键。</li>
+</ol>
+<h2 id="-谁适合试怎么开始">🧪 谁适合试，怎么开始</h2>
+<ul>
+<li>最适合的试用人群：正在搭 Agent 托管平台、代码解释器、Browser Agent 运行环境，或者想替代“容器直接跑模型生成代码”方案的团队。</li>
+<li>最短尝试路径：先看官方 Quick Start，准备一台 <code>x86_64 Linux</code> 机器；官方文档说明云服务器路线可通过 PVM 启用 KVM 能力，安装后先用预置镜像创建模板，再通过 E2B Python SDK 跑第一段隔离代码。</li>
+<li>建议先看：先看 README 的能力总览，再看 Quick Start，最后补 <code>v0.4.0</code> 的 changelog 和安全代理文档，判断它是否满足你的安全边界。</li>
+</ul>
+<h2 id="️-使用提醒">⚠️ 使用提醒</h2>
+<ul>
+<li>这不是“本地一键玩具项目”。官方明确写了对 <code>x86_64 Linux</code>、KVM、glibc 版本以及 <code>/data/cubelet</code> 的 XFS 文件系统有要求，想快速试用也最好按文档准备环境。</li>
+<li>如果你的场景只是单用户、低风险脚本执行，直接上这类基础设施可能偏重。它更适合多租户、需要审计、需要限制外联能力的 Agent 平台。</li>
+</ul>
+<h2 id="-参考资源">🔗 参考资源</h2>
+<ul>
+<li>GitHub：<a href="https://github.com/TencentCloud/CubeSandbox">https://github.com/TencentCloud/CubeSandbox</a></li>
+<li>文档 / 官网：<a href="https://github.com/TencentCloud/CubeSandbox/blob/master/docs/index.md">https://github.com/TencentCloud/CubeSandbox/blob/master/docs/index.md</a></li>
+<li>其他已核验资料：
+<ul>
+<li>中文 README：<a href="https://raw.githubusercontent.com/TencentCloud/CubeSandbox/master/README_zh.md">https://raw.githubusercontent.com/TencentCloud/CubeSandbox/master/README_zh.md</a></li>
+<li>Quick Start：<a href="https://raw.githubusercontent.com/TencentCloud/CubeSandbox/master/docs/guide/quickstart.md">https://raw.githubusercontent.com/TencentCloud/CubeSandbox/master/docs/guide/quickstart.md</a></li>
+<li>Releases：<a href="https://github.com/TencentCloud/CubeSandbox/releases">https://github.com/TencentCloud/CubeSandbox/releases</a></li>
+</ul>
+</li>
+</ul>  </article> <aside class="toc"><p class="toc-title">目录</p><ul class="toc-list"><li class="depth-2"><a href="#-这个项目是干什么的" data-toc-link="-这个项目是干什么的">📌 这个项目是干什么的</a></li><li class="depth-2"><a href="#-为什么值得关注" data-toc-link="-为什么值得关注">🔍 为什么值得关注</a></li><li class="depth-2"><a href="#-谁适合试怎么开始" data-toc-link="-谁适合试怎么开始">🧪 谁适合试，怎么开始</a></li><li class="depth-2"><a href="#️-使用提醒" data-toc-link="️-使用提醒">⚠️ 使用提醒</a></li><li class="depth-2"><a href="#-参考资源" data-toc-link="-参考资源">🔗 参考资源</a></li></ul></aside><script type="module">const c=()=>{const r=Array.from(document.querySelectorAll(".toc a[data-toc-link]"));if(!r.length)return;const o=r.map(t=>{const e=t.getAttribute("data-toc-link");if(!e)return null;const n=document.getElementById(e);return n?{id:e,heading:n,link:t}:null}).filter(t=>t!==null);if(!o.length)return;const s=t=>{r.forEach(e=>{const n=e.getAttribute("data-toc-link")===t;e.classList.toggle("active",n),n&&e.scrollIntoView({block:"nearest",inline:"nearest"})})},i=()=>{const t=Math.round(window.innerHeight*.28);let e=o[0];for(const n of o)n.heading.getBoundingClientRect().top<=t&&(e=n);s(e.id)};i();const a=new IntersectionObserver(()=>i(),{rootMargin:"-18% 0px -70% 0px",threshold:[0,1]});o.forEach(t=>a.observe(t.heading)),window.addEventListener("scroll",i,{passive:!0})};document.addEventListener("DOMContentLoaded",c);document.addEventListener("astro:page-load",c);</script> </div>  </main> <footer class="site-footer"> <div class="shell footer-inner"> <p>© 2026 未来观察者</p> </div> </footer> </body></html>
