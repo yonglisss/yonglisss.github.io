@@ -1,0 +1,339 @@
+<!DOCTYPE html><html lang="zh-CN"> <head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1"><script>
+      (() => {
+        const storageKey = "future-observer-theme";
+        const root = document.documentElement;
+        const getStoredMode = () => {
+          try {
+            const value = localStorage.getItem(storageKey);
+            return value === "light" || value === "dark" || value === "system" ? value : "system";
+          } catch {
+            return "system";
+          }
+        };
+        const systemDark = () => window.matchMedia?.("(prefers-color-scheme: dark)").matches ?? false;
+        const apply = (mode) => {
+          const resolved = mode === "system" ? (systemDark() ? "dark" : "light") : mode;
+          root.dataset.themeMode = mode;
+          root.dataset.theme = resolved;
+          root.style.colorScheme = resolved;
+        };
+        apply(getStoredMode());
+        window.__setFutureObserverTheme = (mode) => {
+          const next = mode === "light" || mode === "dark" || mode === "system" ? mode : "system";
+          try { localStorage.setItem(storageKey, next); } catch {}
+          apply(next);
+          window.dispatchEvent(new CustomEvent("future-observer-theme-change", { detail: { mode: next } }));
+        };
+        window.matchMedia?.("(prefers-color-scheme: dark)").addEventListener?.("change", () => {
+          if (getStoredMode() === "system") apply("system");
+        });
+      })();
+    </script><title>🏆 NVIDIA 年末市值王座：市场开始把 AI 资本开支链条定价成最终股权排序 | 未来观察者</title><meta name="description" content="🚨 核心观点：今天真正值得关注的，不是 NVIDIA 当前是不是第一，而是 Polymarket 仍给出 64% 概率押注它将在 2026 年底继续成为全球市值第一公司。这说明市场已经不只是给 AI 叙事估值，而是在把“算力需求 → 数据中心建设 → 电力与网络配套 → 企业收"><meta name="generator" content="Astro v5.18.1"><meta property="og:title" content="🏆 NVIDIA 年末市值王座：市场开始把 AI 资本开支链条定价成最终股权排序 | 未来观察者"><meta property="og:description" content="🚨 核心观点：今天真正值得关注的，不是 NVIDIA 当前是不是第一，而是 Polymarket 仍给出 64% 概率押注它将在 2026 年底继续成为全球市值第一公司。这说明市场已经不只是给 AI 叙事估值，而是在把“算力需求 → 数据中心建设 → 电力与网络配套 → 企业收"><meta property="og:type" content="website"><meta property="og:url" content="https://future.lifestudylab.com/posts/2026-07-02-nvidia%E5%B9%B4%E6%9C%AB%E5%B8%82%E5%80%BC%E7%8E%8B%E5%BA%A7-%E5%B8%82%E5%9C%BA%E5%BC%80%E5%A7%8B%E6%8A%8Aai%E8%B5%84%E6%9C%AC%E5%BC%80%E6%94%AF%E9%93%BE%E6%9D%A1%E5%AE%9A%E4%BB%B7%E6%88%90%E6%9C%80%E7%BB%88%E8%82%A1%E6%9D%83%E6%8E%92%E5%BA%8F/"><link rel="icon" type="image/svg+xml" href="/favicon.svg"><link rel="alternate" type="application/rss+xml" title="未来观察者" href="/rss.xml"><link rel="stylesheet" href="/_astro/_channel_.DM2BjJPY.css"></head> <body> <div class="page-bg"></div> <header class="site-header"> <div class="shell header-inner"> <div class="header-bar"> <a class="brand" href="/ai-tools/"> <img src="/brand-mark.svg" alt="" class="brand-mark" width="56" height="56"> <span class="brand-text" aria-label="未来观察者">思考未来</span> </a> </div> <nav class="top-menu" aria-label="顶部菜单"> <a href="/future-daily/" class="top-menu-link"> 每日信息 </a><a href="/docs/deer-flow/00-overview/" class="top-menu-link"> DeerFlow教程 </a><a href="/docs/hermes/00-overview/" class="top-menu-link"> Hermes教程 </a><a href="/docs/openclaw/00-overview/" class="top-menu-link"> OpenClaw教程 </a><a href="/about/" class="top-menu-link"> 关于我 </a> </nav> <div class="top-actions"> <a class="feedback-link" href="https://github.com/yonglisss/yonglisss.github.io/issues" target="_blank" rel="noopener noreferrer" aria-label="问题反馈"> <svg viewBox="0 0 24 24" aria-hidden="true" class="action-icon"> <path d="M4.75 5.75A2.75 2.75 0 0 1 7.5 3h9A2.75 2.75 0 0 1 19.25 5.75v6.5A2.75 2.75 0 0 1 16.5 15H9.3l-3.55 3.2V15.1a2.75 2.75 0 0 1-1-2.1V5.75Z"></path> <path d="M8 7.75h8M8 11.25h4"></path> </svg> <span>问题反馈</span> </a> <div class="theme-switcher" data-theme-switcher> <button class="theme-trigger" type="button" aria-haspopup="menu" aria-expanded="false" aria-label="切换明暗模式" data-theme-trigger> <svg viewBox="0 0 24 24" aria-hidden="true" class="action-icon theme-trigger-icon theme-trigger-icon--light"> <circle cx="12" cy="12" r="4"></circle> <path d="M12 2.75v2M12 19.25v2M4.75 4.75l1.4 1.4M17.85 17.85l1.4 1.4M2.75 12h2M19.25 12h2M4.75 19.25l1.4-1.4M17.85 6.15l1.4-1.4"></path> </svg> <svg viewBox="0 0 24 24" aria-hidden="true" class="action-icon theme-trigger-icon theme-trigger-icon--dark"> <path d="M20.25 14.2A8 8 0 0 1 9.8 3.75 8.5 8.5 0 1 0 20.25 14.2Z"></path> </svg> <svg viewBox="0 0 24 24" aria-hidden="true" class="action-icon theme-trigger-icon theme-trigger-icon--system"> <rect x="4" y="5" width="16" height="11" rx="1.8"></rect> <path d="M9 20h6M12 16v4"></path> </svg> </button> <div class="theme-menu" role="menu" data-theme-menu hidden> <button class="theme-option" type="button" role="menuitemradio" data-theme-option="light" aria-checked="false"> <svg viewBox="0 0 24 24" aria-hidden="true" class="action-icon"><circle cx="12" cy="12" r="4"></circle><path d="M12 2.75v2M12 19.25v2M4.75 4.75l1.4 1.4M17.85 17.85l1.4 1.4M2.75 12h2M19.25 12h2M4.75 19.25l1.4-1.4M17.85 6.15l1.4-1.4"></path></svg> <span>亮色</span> </button> <button class="theme-option" type="button" role="menuitemradio" data-theme-option="dark" aria-checked="false"> <svg viewBox="0 0 24 24" aria-hidden="true" class="action-icon"><path d="M20.25 14.2A8 8 0 0 1 9.8 3.75 8.5 8.5 0 1 0 20.25 14.2Z"></path></svg> <span>暗色</span> </button> <button class="theme-option" type="button" role="menuitemradio" data-theme-option="system" aria-checked="true"> <svg viewBox="0 0 24 24" aria-hidden="true" class="action-icon"><rect x="4" y="5" width="16" height="11" rx="1.8"></rect><path d="M9 20h6M12 16v4"></path></svg> <span>跟随系统</span> </button> </div> </div> </div> </div> </header> <script>
+  (() => {
+    const switcher = document.querySelector("[data-theme-switcher]");
+    if (!switcher) return;
+
+    const trigger = switcher.querySelector("[data-theme-trigger]");
+    const menu = switcher.querySelector("[data-theme-menu]");
+    const options = [...switcher.querySelectorAll("[data-theme-option]")];
+    const modes = ["light", "dark", "system"];
+
+    const getMode = () => {
+      const mode = document.documentElement.dataset.themeMode;
+      return modes.includes(mode) ? mode : "system";
+    };
+
+    const closeMenu = () => {
+      menu.hidden = true;
+      trigger.setAttribute("aria-expanded", "false");
+    };
+
+    const openMenu = () => {
+      menu.hidden = false;
+      trigger.setAttribute("aria-expanded", "true");
+    };
+
+    const sync = () => {
+      const mode = getMode();
+      trigger.dataset.themeMode = mode;
+      options.forEach((option) => {
+        option.setAttribute("aria-checked", String(option.dataset.themeOption === mode));
+      });
+    };
+
+    trigger.addEventListener("click", () => {
+      menu.hidden ? openMenu() : closeMenu();
+    });
+
+    options.forEach((option) => {
+      option.addEventListener("click", () => {
+        window.__setFutureObserverTheme?.(option.dataset.themeOption || "system");
+        sync();
+        closeMenu();
+      });
+    });
+
+    document.addEventListener("click", (event) => {
+      if (!switcher.contains(event.target)) closeMenu();
+    });
+
+    document.addEventListener("keydown", (event) => {
+      if (event.key === "Escape") closeMenu();
+    });
+
+    window.addEventListener("future-observer-theme-change", sync);
+    sync();
+  })();
+</script> <aside class="site-rail" aria-label="站点导航"> <div class="site-rail-inner"> <p class="site-rail-label">Channels</p> <nav aria-label="主导航"> <ul class="site-rail-nav"> <li> <a href="/ai-tools/" class="site-rail-link"> AI工具 </a> </li><li> <a href="/future-daily/" class="site-rail-link"> 未来观察者日报 </a> </li> </ul> </nav> </div> </aside> <main class="shell page-content">  <div class="post-hero"> <p class="eyebrow">2026年7月2日</p> <h1>🏆 NVIDIA 年末市值王座：市场开始把 AI 资本开支链条定价成最终股权排序</h1> <p class="post-summary">🚨 核心观点：今天真正值得关注的，不是 NVIDIA 当前是不是第一，而是 Polymarket 仍给出 64% 概率押注它将在 2026 年底继续成为全球市值第一公司。这说明市场已经不只是给 AI 叙事估值，而是在把“算力需求 → 数据中心建设 → 电力与网络配套 → 企业收</p> <ul class="tag-list"> <li> <a href="/tags/%E6%9C%AA%E6%9D%A5%E8%A7%82%E5%AF%9F%E8%80%85%E6%97%A5%E6%8A%A5/" class="tag-link">
+#未来观察者日报 </a> </li><li> <a href="/tags/2026%E5%B9%B407%E6%9C%88/" class="tag-link">
+#2026年07月 </a> </li> </ul> </div> <div class="post-grid"> <article class="prose">  <blockquote>
+<p>🚨 <strong>核心观点</strong>：今天真正值得关注的，不是 NVIDIA 当前是不是第一，而是 Polymarket 仍给出 <strong>64% 概率押注它将在 2026 年底继续成为全球市值第一公司</strong>。这说明市场已经不只是给 AI 叙事估值，而是在把“算力需求 → 数据中心建设 → 电力与网络配套 → 企业收入兑现”这整条资本开支链，压缩映射成最终的股权排序。</p>
+</blockquote>
+<p><strong>作者：</strong> 元英<br>
+<strong>时间：</strong> 2026年7月2日<br>
+<strong>标签：</strong> #未来观察者 #NVIDIA #AI资本开支 #市值排序 #基础设施<br>
+<strong>阅读时间：</strong> 4分钟</p>
+<hr>
+<h2 id="-今天看什么投票">📌 今天看什么投票？</h2>
+<p>我今天在 Polymarket 的科技候选里，重点看了几个方向：</p>
+<ul>
+<li><code>Which company has best AI model end of July?</code></li>
+<li><code>GPT-5.6 released by...?</code></li>
+<li><code>Largest Company end of December 2026?</code></li>
+<li><code>Largest Company end of July?</code></li>
+</ul>
+<p>最终我没有继续写模型榜、OpenAI/Anthropic 上市节奏，也没有回到 Tesla、油价或中东风险这几条最近 7 天已经覆盖过的叙事，而是选了 <strong><code>Largest Company end of December 2026?</code></strong>。</p>
+<h3 id="-关键数据卡片">📊 关键数据卡片</h3>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<table><thead><tr><th>项目</th><th>内容</th></tr></thead><tbody><tr><td>投票主题</td><td>Largest Company end of December 2026?</td></tr><tr><td>当前领先选项</td><td><strong>NVIDIA</strong></td></tr><tr><td>当前概率</td><td><strong>64%</strong></td></tr><tr><td>第二梯队</td><td><strong>Alphabet 16%</strong></td></tr><tr><td>其他可见竞争者</td><td>Apple、Microsoft 等</td></tr><tr><td>事件成交量</td><td><strong>约 400 万美元</strong></td></tr><tr><td>首页同类短期市场</td><td><code>Largest Company end of July?</code> 中 NVIDIA <strong>90%</strong></td></tr><tr><td>外部参考</td><td>公开市场排名资料显示，2026 年中 NVIDIA 已位居全球市值第一</td></tr><tr><td>数据获取时间</td><td>2026-07-02 04:00 CST 左右</td></tr><tr><td>所属领域</td><td>AI / 半导体 / 平台资本市场</td></tr><tr><td>Polymarket 链接</td><td><a href="https://polymarket.com/tech">https://polymarket.com/tech</a></td></tr></tbody></table>
+<h3 id="-为什么今天选它">✅ 为什么今天选它？</h3>
+<ul>
+<li><strong>重复度可控</strong>：最近 7 天虽然写过 <code>2026-07-01-Anthropic未按期IPO-AI资本化节奏开始从狂热转向审慎.md</code>，但那篇讨论的是 <strong>AI 公司何时适合上市</strong>，今天则是 <strong>公开市场最终把谁定价成 AI 时代的总龙头</strong>。</li>
+<li><strong>新增变量明确</strong>：这次新增变量不是“AI 资本化节奏延后”，而是 <strong>资本市场开始把 AI 基础设施链条，直接投影到全球市值排序</strong>。</li>
+<li><strong>结构意义更强</strong>：它不只是在讲一家公司股价，而是在回答一个更大的问题：<strong>AI 时代最大的价值捕获者，到底是模型公司、分发平台，还是卖铲子的人？</strong></li>
+</ul>
+<hr>
+<h2 id="-为什么会有这个投票">🧭 为什么会有这个投票？</h2>
+<p>这个投票之所以重要，是因为它把一个原本分散在新闻、财报、卖方报告里的判断，压缩成了一个非常直接的问题：</p>
+<blockquote>
+<p>🔦 <strong>到 2026 年底，谁会是全球最值钱的公司？</strong></p>
+</blockquote>
+<p>如果市场继续押注 NVIDIA，背后至少有三层现实驱动：</p>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<table><thead><tr><th>驱动层</th><th>现实变量</th><th>它意味着什么</th></tr></thead><tbody><tr><td>需求层</td><td>多家机构仍预计 2026 年 hyperscaler AI 资本开支在 <strong>6000亿-7000亿美元级别</strong></td><td>AI 建设潮还没过顶，GPU 需求仍是主线</td></tr><tr><td>供给层</td><td>NVIDIA 仍是高端 AI 训练与推理芯片最直接受益者</td><td>价值捕获优先集中在“算力卖铲人”</td></tr><tr><td>定价层</td><td>Polymarket 给出年中短期 <strong>90%</strong>、年末 <strong>64%</strong> 的领先概率</td><td>市场认可其龙头地位，但也开始计入下半年波动与竞争折价</td></tr></tbody></table>
+<p>这和昨天文章里的 <code>Anthropic</code> 形成了一个很有意思的对照：</p>
+<ul>
+<li>昨天的问题是：<strong>AI 龙头什么时候能被公开市场接纳？</strong></li>
+<li>今天的问题是：<strong>公开市场最终愿意把最大的皇冠戴在谁头上？</strong></li>
+</ul>
+<p>换句话说，昨天写的是 <strong>AI 公司进入资本市场的门槛</strong>，今天写的是 <strong>AI 资本市场内部的价值分配顺序</strong>。</p>
+<hr>
+<h2 id="-这个投票真正反映了什么结构变化">🧱 这个投票真正反映了什么结构变化？</h2>
+<h2 id="-技术层模型王座不稳定算力卖铲子更稳定">🤖 技术层：模型王座不稳定，算力卖铲子更稳定</h2>
+<p>最近一周 Polymarket 里最热的 AI 话题之一，还是“哪家公司月底模型最强”。但那个市场的问题在于：</p>
+<ul>
+<li>排名切换很快</li>
+<li>领先优势半衰期很短</li>
+<li>产品体验容易被版本更新重置</li>
+</ul>
+<p>而 <code>Largest Company end of December 2026?</code> 讨论的不是谁这周最强，而是谁能 <strong>持续把 AI 需求货币化</strong>。</p>
+<blockquote>
+<p>📍 <strong>核心区别</strong>：模型榜首是能力排序，市值王座是现金流排序。</p>
+</blockquote>
+<p>只要大厂还在持续买卡、建数据中心、扩推理能力，NVIDIA 就仍站在最靠近现金流入口的位置。</p>
+<hr>
+<h2 id="-产业层ai-价值捕获正在从应用想象回流到基础设施兑现">🏭 产业层：AI 价值捕获正在从应用想象，回流到基础设施兑现</h2>
+<p>过去很多人默认，AI 时代最大的赢家应该是应用层或超级入口。但 2026 年的市场定价更像是在说：</p>
+<ol>
+<li>用户增长很重要</li>
+<li>模型能力也很重要</li>
+<li><strong>但最先、最稳定兑现利润的，仍然是基础设施层</strong></li>
+</ol>
+<p>这也是为什么今天这个话题和 <code>2026-06-25-AI模型榜首赔率-市场开始定价模型王座的短周期轮换.md</code> 不重复：</p>
+<blockquote>
+<p>🆕 <strong>这次新增变量</strong>：市场不再只交易“谁的模型更强”，而是在交易 <strong>谁最先把整个 AI 投资周期变成稳定利润池</strong>。</p>
+</blockquote>
+<p>如果这个判断成立，未来 12-18 个月里最重要的产业信号就不是单一模型发布，而是：</p>
+<ul>
+<li>hyperscaler 资本开支是否继续上调</li>
+<li>GPU 供给是否持续偏紧</li>
+<li>推理需求是否接棒训练需求</li>
+<li>电力、网络、封装、HBM 是否继续共振</li>
+</ul>
+<hr>
+<h2 id="-资本层全球市值排序开始变成-ai-投资链条的压缩表达">💰 资本层：全球市值排序开始变成 AI 投资链条的压缩表达</h2>
+<p>市值第一，从来不只是“股价高”。它往往意味着市场对一个时代最核心利润源头的共识。</p>
+<p>如果 2026 年底仍是 NVIDIA 第一，这代表的是三件事：</p>
+<ul>
+<li><strong>公开市场仍相信 AI 资本开支不是短脉冲，而是中期趋势</strong></li>
+<li><strong>平台公司和模型公司虽然重要，但暂时还没拿走最大的利润分成</strong></li>
+<li><strong>资本市场愿意给硬科技基础设施更高、更持续的定价权</strong></li>
+</ul>
+<p>这和 6 月 2 日那篇 <code>H200算力租赁价格进入区间博弈-市场开始给AI算力贴现而不是溢价.md</code> 也形成延续，但不重复。那篇写的是 <strong>GPU 租赁价格进入博弈区间</strong>；今天新增的是：</p>
+<blockquote>
+<p>🔄 <strong>即便单点租价开始博弈，股权市场仍认为 NVIDIA 是整条链上最强的利润归集者。</strong></p>
+</blockquote>
+<p>也就是说，现货价格不一定永远强，但股权市场认为 <strong>系统性利润权</strong> 还在它手里。</p>
+<hr>
+<h2 id="-如果趋势继续未来会怎样">🔮 如果趋势继续，未来会怎样？</h2>
+<h3 id="️-短期ai-资产会继续围绕-capex-指引波动">⏱️ 短期：AI 资产会继续围绕 capex 指引波动</h3>
+<p>未来 1-3 个月，最敏感的不是口号，而是：</p>
+<ul>
+<li>大厂财报里的 capex 指引</li>
+<li>数据中心建设节奏</li>
+<li>GPU 供需与交付时间</li>
+<li>电力和散热约束是否缓解</li>
+</ul>
+<h3 id="-中期市值第一的争夺会从讲故事变成比兑现">🧮 中期：市值第一的争夺会从“讲故事”变成“比兑现”</h3>
+<p>未来 6-12 个月，NVIDIA、Alphabet、Apple、Microsoft 的差距，核心看三件事：</p>
+<ul>
+<li>谁能把 AI 支出真正转成收入增量</li>
+<li>谁能把毛利率守住</li>
+<li>谁能从实验性部署切到规模化使用</li>
+</ul>
+<h3 id="-长期最大公司可能不再只是流量平台而是算力与资本组织者">🌍 长期：最大公司可能不再只是流量平台，而是算力与资本组织者</h3>
+<p>未来 3-5 年，如果 AI 持续成为通用基础设施，那么全球最值钱公司的定义也会变：</p>
+<ul>
+<li>不只是拥有最多用户</li>
+<li>不只是拥有最强模型</li>
+<li>而是拥有 <strong>最强算力供给控制权、最深企业渗透能力、最稳定现金流回收机制</strong></li>
+</ul>
+<hr>
+<h2 id="-对谁最重要">🎯 对谁最重要？</h2>
+<h3 id="对普通从业者">对普通从业者</h3>
+<ul>
+<li>看 AI 不要只盯模型排行榜，要同步观察“谁拿走了真钱”。</li>
+<li>如果你所在行业依赖 AI 采购周期，NVIDIA 的定价就是先行风向标。</li>
+</ul>
+<h3 id="对创业者">对创业者</h3>
+<ul>
+<li>这提醒你别只追热点应用，更要找自己在基础设施链条里的“收费点”。</li>
+<li>如果无法掌握底层供给，就要尽快找到高粘性的工作流入口。</li>
+</ul>
+<h3 id="对投资观察者">对投资观察者</h3>
+<ul>
+<li>重点跟踪 capex、交付、毛利和供给瓶颈，而不是只看 demo。</li>
+<li>当市场用“最大市值公司”来表达判断时，本质是在押注一整个时代的利润归属。</li>
+</ul>
+<hr>
+<h2 id="️-风险提示">⚠️ 风险提示</h2>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<table><thead><tr><th>风险项</th><th>说明</th></tr></thead><tbody><tr><td>龙头拥挤交易</td><td>NVIDIA 已是显性共识，预期过满时波动也会放大</td></tr><tr><td>capex 回报争议</td><td>如果大厂 AI 支出回报不及预期，基础设施链也会被重估</td></tr><tr><td>竞争变量上升</td><td>自研芯片、替代架构、推理优化都可能压缩长期溢价</td></tr><tr><td>市场只反映概率</td><td>64% 不是确定性，说明年末仍有明显竞争空间</td></tr></tbody></table>
+<hr>
+<h2 id="-参考资源">🌐 参考资源</h2>
+<ul>
+<li>Polymarket <code>Technology</code> 页面：<code>Largest Company end of December 2026?</code></li>
+<li>Polymarket <code>Technology</code> 页面：<code>Largest Company end of July?</code></li>
+<li>Goldman Sachs：<code>Tracking Trillions: The Assumptions Shaping the Scale of the AI Build-Out</code></li>
+<li>Statista / 公开市场市值排行资料：2026 年中全球市值公司排名</li>
+</ul>
+<hr>
+<h2 id="️-结语">✍️ 结语</h2>
+<p>今天这个投票最有价值的地方，不是它预测谁涨得更快，而是它把一个越来越清晰的共识说透了：</p>
+<blockquote>
+<p>🧠 <strong>AI 时代第一阶段，最大的价值捕获者，可能不是最会讲故事的人，而是最先把资本开支潮稳定变现的人。</strong></p>
+</blockquote>
+<p>如果说昨天的 Anthropic 文章讨论的是“AI 公司何时适合上市”，那么今天这篇讨论的就是更深一层的问题：</p>
+<p><strong>当 AI 真的开始改写全球利润池，公开市场最后会把最大权重给谁？</strong></p>
+<p>至少在 2026 年 7 月 2 日这个时间点，Polymarket 的答案仍然很明确：</p>
+<p><strong>大概率还是 NVIDIA。</strong></p>  </article> <aside class="toc"><p class="toc-title">目录</p><ul class="toc-list"><li class="depth-2"><a href="#-今天看什么投票" data-toc-link="-今天看什么投票">📌 今天看什么投票？</a></li><li class="depth-3"><a href="#-关键数据卡片" data-toc-link="-关键数据卡片">📊 关键数据卡片</a></li><li class="depth-3"><a href="#-为什么今天选它" data-toc-link="-为什么今天选它">✅ 为什么今天选它？</a></li><li class="depth-2"><a href="#-为什么会有这个投票" data-toc-link="-为什么会有这个投票">🧭 为什么会有这个投票？</a></li><li class="depth-2"><a href="#-这个投票真正反映了什么结构变化" data-toc-link="-这个投票真正反映了什么结构变化">🧱 这个投票真正反映了什么结构变化？</a></li><li class="depth-2"><a href="#-技术层模型王座不稳定算力卖铲子更稳定" data-toc-link="-技术层模型王座不稳定算力卖铲子更稳定">🤖 技术层：模型王座不稳定，算力卖铲子更稳定</a></li><li class="depth-2"><a href="#-产业层ai-价值捕获正在从应用想象回流到基础设施兑现" data-toc-link="-产业层ai-价值捕获正在从应用想象回流到基础设施兑现">🏭 产业层：AI 价值捕获正在从应用想象，回流到基础设施兑现</a></li><li class="depth-2"><a href="#-资本层全球市值排序开始变成-ai-投资链条的压缩表达" data-toc-link="-资本层全球市值排序开始变成-ai-投资链条的压缩表达">💰 资本层：全球市值排序开始变成 AI 投资链条的压缩表达</a></li><li class="depth-2"><a href="#-如果趋势继续未来会怎样" data-toc-link="-如果趋势继续未来会怎样">🔮 如果趋势继续，未来会怎样？</a></li><li class="depth-3"><a href="#️-短期ai-资产会继续围绕-capex-指引波动" data-toc-link="️-短期ai-资产会继续围绕-capex-指引波动">⏱️ 短期：AI 资产会继续围绕 capex 指引波动</a></li><li class="depth-3"><a href="#-中期市值第一的争夺会从讲故事变成比兑现" data-toc-link="-中期市值第一的争夺会从讲故事变成比兑现">🧮 中期：市值第一的争夺会从“讲故事”变成“比兑现”</a></li><li class="depth-3"><a href="#-长期最大公司可能不再只是流量平台而是算力与资本组织者" data-toc-link="-长期最大公司可能不再只是流量平台而是算力与资本组织者">🌍 长期：最大公司可能不再只是流量平台，而是算力与资本组织者</a></li><li class="depth-2"><a href="#-对谁最重要" data-toc-link="-对谁最重要">🎯 对谁最重要？</a></li><li class="depth-3"><a href="#对普通从业者" data-toc-link="对普通从业者">对普通从业者</a></li><li class="depth-3"><a href="#对创业者" data-toc-link="对创业者">对创业者</a></li><li class="depth-3"><a href="#对投资观察者" data-toc-link="对投资观察者">对投资观察者</a></li><li class="depth-2"><a href="#️-风险提示" data-toc-link="️-风险提示">⚠️ 风险提示</a></li><li class="depth-2"><a href="#-参考资源" data-toc-link="-参考资源">🌐 参考资源</a></li><li class="depth-2"><a href="#️-结语" data-toc-link="️-结语">✍️ 结语</a></li></ul></aside><script type="module">const c=()=>{const r=Array.from(document.querySelectorAll(".toc a[data-toc-link]"));if(!r.length)return;const o=r.map(t=>{const e=t.getAttribute("data-toc-link");if(!e)return null;const n=document.getElementById(e);return n?{id:e,heading:n,link:t}:null}).filter(t=>t!==null);if(!o.length)return;const s=t=>{r.forEach(e=>{const n=e.getAttribute("data-toc-link")===t;e.classList.toggle("active",n),n&&e.scrollIntoView({block:"nearest",inline:"nearest"})})},i=()=>{const t=Math.round(window.innerHeight*.28);let e=o[0];for(const n of o)n.heading.getBoundingClientRect().top<=t&&(e=n);s(e.id)};i();const a=new IntersectionObserver(()=>i(),{rootMargin:"-18% 0px -70% 0px",threshold:[0,1]});o.forEach(t=>a.observe(t.heading)),window.addEventListener("scroll",i,{passive:!0})};document.addEventListener("DOMContentLoaded",c);document.addEventListener("astro:page-load",c);</script> </div>  </main> <footer class="site-footer"> <div class="shell footer-inner"> <p>© 2026 未来观察者</p> </div> </footer> </body></html>
