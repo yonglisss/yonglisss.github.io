@@ -1,0 +1,185 @@
+<!DOCTYPE html><html lang="zh-CN"> <head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1"><script>
+      (() => {
+        const storageKey = "future-observer-theme";
+        const root = document.documentElement;
+        const getStoredMode = () => {
+          try {
+            const value = localStorage.getItem(storageKey);
+            return value === "light" || value === "dark" || value === "system" ? value : "system";
+          } catch {
+            return "system";
+          }
+        };
+        const systemDark = () => window.matchMedia?.("(prefers-color-scheme: dark)").matches ?? false;
+        const apply = (mode) => {
+          const resolved = mode === "system" ? (systemDark() ? "dark" : "light") : mode;
+          root.dataset.themeMode = mode;
+          root.dataset.theme = resolved;
+          root.style.colorScheme = resolved;
+        };
+        apply(getStoredMode());
+        window.__setFutureObserverTheme = (mode) => {
+          const next = mode === "light" || mode === "dark" || mode === "system" ? mode : "system";
+          try { localStorage.setItem(storageKey, next); } catch {}
+          apply(next);
+          window.dispatchEvent(new CustomEvent("future-observer-theme-change", { detail: { mode: next } }));
+        };
+        window.matchMedia?.("(prefers-color-scheme: dark)").addEventListener?.("change", () => {
+          if (getStoredMode() === "system") apply("system");
+        });
+      })();
+    </script><title>09. Tools 源码：registry、toolsets、tool_executor 怎么配合 | 技术教程 | 未来观察者</title><meta name="description" content="按源码文件拆解 Hermes 工具从注册、发现、筛选到执行的完整链路。"><meta name="generator" content="Astro v5.18.1"><meta property="og:title" content="09. Tools 源码：registry、toolsets、tool_executor 怎么配合 | 技术教程 | 未来观察者"><meta property="og:description" content="按源码文件拆解 Hermes 工具从注册、发现、筛选到执行的完整链路。"><meta property="og:type" content="website"><meta property="og:url" content="https://future.lifestudylab.com/docs/hermes/09-tools-source/"><link rel="icon" type="image/svg+xml" href="/favicon.svg"><link rel="alternate" type="application/rss+xml" title="未来观察者" href="/rss.xml"><link rel="stylesheet" href="/_astro/_channel_.DM2BjJPY.css"></head> <body> <div class="page-bg"></div> <header class="site-header"> <div class="shell header-inner"> <div class="header-bar"> <a class="brand" href="/ai-tools/"> <img src="/brand-mark.svg" alt="" class="brand-mark" width="56" height="56"> <span class="brand-text" aria-label="未来观察者">思考未来</span> </a> </div> <nav class="top-menu" aria-label="顶部菜单"> <a href="/future-daily/" class="top-menu-link"> 每日信息 </a><a href="/docs/deer-flow/00-overview/" class="top-menu-link"> DeerFlow教程 </a><a href="/docs/hermes/00-overview/" class="top-menu-link"> Hermes教程 </a><a href="/about/" class="top-menu-link"> 关于我 </a> </nav> <div class="top-actions"> <a class="feedback-link" href="https://github.com/yonglisss/yonglisss.github.io/issues" target="_blank" rel="noopener noreferrer" aria-label="问题反馈"> <svg viewBox="0 0 24 24" aria-hidden="true" class="action-icon"> <path d="M4.75 5.75A2.75 2.75 0 0 1 7.5 3h9A2.75 2.75 0 0 1 19.25 5.75v6.5A2.75 2.75 0 0 1 16.5 15H9.3l-3.55 3.2V15.1a2.75 2.75 0 0 1-1-2.1V5.75Z"></path> <path d="M8 7.75h8M8 11.25h4"></path> </svg> <span>问题反馈</span> </a> <div class="theme-switcher" data-theme-switcher> <button class="theme-trigger" type="button" aria-haspopup="menu" aria-expanded="false" aria-label="切换明暗模式" data-theme-trigger> <svg viewBox="0 0 24 24" aria-hidden="true" class="action-icon theme-trigger-icon theme-trigger-icon--light"> <circle cx="12" cy="12" r="4"></circle> <path d="M12 2.75v2M12 19.25v2M4.75 4.75l1.4 1.4M17.85 17.85l1.4 1.4M2.75 12h2M19.25 12h2M4.75 19.25l1.4-1.4M17.85 6.15l1.4-1.4"></path> </svg> <svg viewBox="0 0 24 24" aria-hidden="true" class="action-icon theme-trigger-icon theme-trigger-icon--dark"> <path d="M20.25 14.2A8 8 0 0 1 9.8 3.75 8.5 8.5 0 1 0 20.25 14.2Z"></path> </svg> <svg viewBox="0 0 24 24" aria-hidden="true" class="action-icon theme-trigger-icon theme-trigger-icon--system"> <rect x="4" y="5" width="16" height="11" rx="1.8"></rect> <path d="M9 20h6M12 16v4"></path> </svg> </button> <div class="theme-menu" role="menu" data-theme-menu hidden> <button class="theme-option" type="button" role="menuitemradio" data-theme-option="light" aria-checked="false"> <svg viewBox="0 0 24 24" aria-hidden="true" class="action-icon"><circle cx="12" cy="12" r="4"></circle><path d="M12 2.75v2M12 19.25v2M4.75 4.75l1.4 1.4M17.85 17.85l1.4 1.4M2.75 12h2M19.25 12h2M4.75 19.25l1.4-1.4M17.85 6.15l1.4-1.4"></path></svg> <span>亮色</span> </button> <button class="theme-option" type="button" role="menuitemradio" data-theme-option="dark" aria-checked="false"> <svg viewBox="0 0 24 24" aria-hidden="true" class="action-icon"><path d="M20.25 14.2A8 8 0 0 1 9.8 3.75 8.5 8.5 0 1 0 20.25 14.2Z"></path></svg> <span>暗色</span> </button> <button class="theme-option" type="button" role="menuitemradio" data-theme-option="system" aria-checked="true"> <svg viewBox="0 0 24 24" aria-hidden="true" class="action-icon"><rect x="4" y="5" width="16" height="11" rx="1.8"></rect><path d="M9 20h6M12 16v4"></path></svg> <span>跟随系统</span> </button> </div> </div> </div> </div> </header> <script>
+  (() => {
+    const switcher = document.querySelector("[data-theme-switcher]");
+    if (!switcher) return;
+
+    const trigger = switcher.querySelector("[data-theme-trigger]");
+    const menu = switcher.querySelector("[data-theme-menu]");
+    const options = [...switcher.querySelectorAll("[data-theme-option]")];
+    const modes = ["light", "dark", "system"];
+
+    const getMode = () => {
+      const mode = document.documentElement.dataset.themeMode;
+      return modes.includes(mode) ? mode : "system";
+    };
+
+    const closeMenu = () => {
+      menu.hidden = true;
+      trigger.setAttribute("aria-expanded", "false");
+    };
+
+    const openMenu = () => {
+      menu.hidden = false;
+      trigger.setAttribute("aria-expanded", "true");
+    };
+
+    const sync = () => {
+      const mode = getMode();
+      trigger.dataset.themeMode = mode;
+      options.forEach((option) => {
+        option.setAttribute("aria-checked", String(option.dataset.themeOption === mode));
+      });
+    };
+
+    trigger.addEventListener("click", () => {
+      menu.hidden ? openMenu() : closeMenu();
+    });
+
+    options.forEach((option) => {
+      option.addEventListener("click", () => {
+        window.__setFutureObserverTheme?.(option.dataset.themeOption || "system");
+        sync();
+        closeMenu();
+      });
+    });
+
+    document.addEventListener("click", (event) => {
+      if (!switcher.contains(event.target)) closeMenu();
+    });
+
+    document.addEventListener("keydown", (event) => {
+      if (event.key === "Escape") closeMenu();
+    });
+
+    window.addEventListener("future-observer-theme-change", sync);
+    sync();
+  })();
+</script>  <main class="shell page-content page-content--full">  <section class="docs-shell"> <aside class="docs-sidebar" aria-label="技术教程目录"> <nav class="docs-nav-block" aria-label="DeerFlow 教程"> <p class="docs-nav-title">DeerFlow 教程</p> <ul class="docs-nav-list"> <li> <a href="/docs/deer-flow/00-overview/" class="docs-nav-link"> 00. 教程总览 </a> </li><li> <a href="/docs/deer-flow/01-what-is-deerflow/" class="docs-nav-link"> 01. DeerFlow 是什么：先知道你在学什么 </a> </li><li> <a href="/docs/deer-flow/02-quickstart/" class="docs-nav-link"> 02. 快速开始：先把 DeerFlow 跑起来 </a> </li><li> <a href="/docs/deer-flow/03-config/" class="docs-nav-link"> 03. 配置文件：看懂 config.yaml </a> </li><li> <a href="/docs/deer-flow/04-architecture/" class="docs-nav-link"> 04. 整体架构：DeerFlow 到底在调度什么 </a> </li><li> <a href="/docs/deer-flow/05-project-structure/" class="docs-nav-link"> 05. 项目结构：从目录看懂 DeerFlow </a> </li><li> <a href="/docs/deer-flow/06-execution-flow/" class="docs-nav-link"> 06. 执行链路：一次任务从入口到结果 </a> </li><li> <a href="/docs/deer-flow/07-tools-principles/" class="docs-nav-link"> 07. Tools 原理：Agent 为什么需要工具 </a> </li><li> <a href="/docs/deer-flow/08-tools-source/" class="docs-nav-link"> 08. Tools 源码：工具是怎么注册和调用的 </a> </li><li> <a href="/docs/deer-flow/09-tools-practice/" class="docs-nav-link"> 09. Tools 实战：给研究型 Agent 增加一个工具能力 </a> </li><li> <a href="/docs/deer-flow/10-skills-principles/" class="docs-nav-link"> 10. Skills 原理：把经验沉淀成可复用能力 </a> </li><li> <a href="/docs/deer-flow/11-skills-source/" class="docs-nav-link"> 11. Skills 源码：Skill 是怎么安装、解析和约束工具的 </a> </li><li> <a href="/docs/deer-flow/12-skills-practice/" class="docs-nav-link"> 12. Skills 实战：写 Skill 约束输出质量 </a> </li><li> <a href="/docs/deer-flow/13-subagents-principles/" class="docs-nav-link"> 13. Sub-agents 原理：多智能体什么时候值得拆 </a> </li><li> <a href="/docs/deer-flow/14-subagents-source/" class="docs-nav-link"> 14. Sub-agents 源码：子 Agent 是怎么创建和汇总的 </a> </li><li> <a href="/docs/deer-flow/15-subagents-practice/" class="docs-nav-link"> 15. Sub-agents 实战：把研究任务拆给多个 Agent </a> </li><li> <a href="/docs/deer-flow/16-sandbox-principles/" class="docs-nav-link"> 16. Sandbox 原理：安全执行和文件边界 </a> </li><li> <a href="/docs/deer-flow/17-sandbox-source/" class="docs-nav-link"> 17. Sandbox 源码：执行环境和文件路径怎么管理 </a> </li><li> <a href="/docs/deer-flow/18-mcp-principles/" class="docs-nav-link"> 18. MCP 原理：把外部工具接进 Agent </a> </li><li> <a href="/docs/deer-flow/19-mcp-practice/" class="docs-nav-link"> 19. MCP 实战：接一个只读外部服务 </a> </li><li> <a href="/docs/deer-flow/20-memory-principles/" class="docs-nav-link"> 20. Memory 原理：长期上下文该记什么 </a> </li><li> <a href="/docs/deer-flow/21-observability/" class="docs-nav-link"> 21. 可观测性：看清一次 Agent 为什么失败 </a> </li><li> <a href="/docs/deer-flow/22-troubleshooting-practice/" class="docs-nav-link"> 22. 排错实战：一次任务为什么失败 </a> </li><li> <a href="/docs/deer-flow/23-final-research-agent/" class="docs-nav-link"> 23. 终局实战：自己写一个研究型 Agent </a> </li><li> <a href="/docs/deer-flow/24-agent-workflow/" class="docs-nav-link"> 24. 设计 Agent 任务流 </a> </li><li> <a href="/docs/deer-flow/25-search-and-tools/" class="docs-nav-link"> 25. 接入搜索和工具 </a> </li><li> <a href="/docs/deer-flow/26-quality-skill/" class="docs-nav-link"> 26. 写 Skill 约束输出质量 </a> </li><li> <a href="/docs/deer-flow/27-external-mcp/" class="docs-nav-link"> 27. 接 MCP / 外部服务 </a> </li><li> <a href="/docs/deer-flow/28-report-artifacts/" class="docs-nav-link"> 28. 生成报告和文件产物 </a> </li><li> <a href="/docs/deer-flow/29-acceptance-deploy/" class="docs-nav-link"> 29. 验收与部署 </a> </li> </ul> </nav><nav class="docs-nav-block" aria-label="Hermes教程"> <p class="docs-nav-title">Hermes教程</p> <ul class="docs-nav-list"> <li> <a href="/docs/hermes/00-overview/" class="docs-nav-link"> 00. 教程总览 </a> </li><li> <a href="/docs/hermes/01-what-is-hermes/" class="docs-nav-link"> 01. Hermes 是什么：先知道你在读什么 </a> </li><li> <a href="/docs/hermes/02-quickstart/" class="docs-nav-link"> 02. 快速开始：从安装到第一次对话 </a> </li><li> <a href="/docs/hermes/03-configuration/" class="docs-nav-link"> 03. 配置和模型：config.yaml、.env、provider 怎么配 </a> </li><li> <a href="/docs/hermes/04-project-structure/" class="docs-nav-link"> 04. 项目结构：从目录看懂 Hermes </a> </li><li> <a href="/docs/hermes/05-cli-entry/" class="docs-nav-link"> 05. CLI 入口：hermes 命令怎么启动一次会话 </a> </li><li> <a href="/docs/hermes/06-agent-loop/" class="docs-nav-link"> 06. Agent 主循环：一次消息如何变成模型调用和工具调用 </a> </li><li> <a href="/docs/hermes/07-prompt-context/" class="docs-nav-link"> 07. Prompt 与上下文：系统提示词、项目规则、记忆怎么进上下文 </a> </li><li> <a href="/docs/hermes/08-tools-principles/" class="docs-nav-link"> 08. Tools 原理：工具是怎么注册、筛选和执行的 </a> </li><li> <a href="/docs/hermes/09-tools-source/" class="docs-nav-link active"> 09. Tools 源码：registry、toolsets、tool_executor 怎么配合 </a> </li><li> <a href="/docs/hermes/10-skills-principles/" class="docs-nav-link"> 10. Skills 原理：为什么 Hermes 把经验沉淀成 Skill </a> </li><li> <a href="/docs/hermes/11-skills-source/" class="docs-nav-link"> 11. Skills 源码：Skill 如何被发现、加载和写入 </a> </li><li> <a href="/docs/hermes/12-memory-session/" class="docs-nav-link"> 12. Memory 与 Session：长期记忆和历史会话怎么参与下一次任务 </a> </li><li> <a href="/docs/hermes/13-cron/" class="docs-nav-link"> 13. Cron：定时任务怎么保存、触发和投递 </a> </li><li> <a href="/docs/hermes/14-gateway/" class="docs-nav-link"> 14. Gateway：飞书、Telegram、Discord 这类入口怎么接进 Agent </a> </li><li> <a href="/docs/hermes/15-mcp/" class="docs-nav-link"> 15. MCP：外部工具如何变成 Hermes 工具 </a> </li><li> <a href="/docs/hermes/16-delegation/" class="docs-nav-link"> 16. Delegation：子 Agent 和并行任务怎么跑 </a> </li><li> <a href="/docs/hermes/17-security/" class="docs-nav-link"> 17. 安全边界：审批、敏感信息、文件路径和工具限制 </a> </li><li> <a href="/docs/hermes/18-debugging/" class="docs-nav-link"> 18. 调试与排障：日志、doctor、status、常见错误怎么查 </a> </li><li> <a href="/docs/hermes/19-extension-roadmap/" class="docs-nav-link"> 19. 二开路线：想改一个能力时从哪里下手 </a> </li><li> <a href="/docs/hermes/20-summary/" class="docs-nav-link"> 20. 总结：读完后你应该能做什么 </a> </li> </ul> </nav> </aside> <article class="docs-article"> <header class="docs-hero"> <p class="docs-kicker">Technical Guide</p> <h1>09. Tools 源码：registry、toolsets、tool_executor 怎么配合</h1> <p>按源码文件拆解 Hermes 工具从注册、发现、筛选到执行的完整链路。</p> </header> <div class="docs-prose">  <h2 id="这篇解决什么问题">这篇解决什么问题</h2>
+<p>上一篇讲 Tools 的概念，这一篇看源码。</p>
+<p>目标不是把每个工具都读完，而是看懂工具系统的骨架。看懂骨架后，再读 <code>terminal_tool.py</code>、<code>web_tools.py</code>、<code>file_tools.py</code> 才不会乱。</p>
+<h2 id="先看-toolsregistrypy">先看 tools/registry.py</h2>
+<p><code>tools/registry.py</code> 是中央注册表。</p>
+<p>文件注释里已经说明了导入链路：</p>
+<pre class="astro-code astro-code-themes github-light github-dark" style="--shiki-light:#24292e;--shiki-dark:#e1e4e8;--shiki-light-bg:#fff;--shiki-dark-bg:#24292e; overflow-x: auto;" tabindex="0" data-language="text"><code><span class="line"><span>tools/registry.py</span></span>
+<span class="line"><span>↑</span></span>
+<span class="line"><span>tools/*.py 通过 registry.register 注册</span></span>
+<span class="line"><span>↑</span></span>
+<span class="line"><span>model_tools.py 导入 registry 和所有工具模块</span></span>
+<span class="line"><span>↑</span></span>
+<span class="line"><span>run_agent.py / cli.py / batch_runner.py 使用 model_tools</span></span></code></pre>
+<p>这句话基本就是工具系统地图。</p>
+<h2 id="registryregister-做什么">registry.register 做什么</h2>
+<p>每个工具文件会在模块顶层调用 <code>registry.register()</code>。</p>
+<p>注册内容包括：</p>
+<pre class="astro-code astro-code-themes github-light github-dark" style="--shiki-light:#24292e;--shiki-dark:#e1e4e8;--shiki-light-bg:#fff;--shiki-dark-bg:#24292e; overflow-x: auto;" tabindex="0" data-language="text"><code><span class="line"><span>name        工具名</span></span>
+<span class="line"><span>toolset     所属工具集</span></span>
+<span class="line"><span>schema      给模型看的参数说明</span></span>
+<span class="line"><span>handler     实际执行函数</span></span>
+<span class="line"><span>check_fn    可用性检查</span></span>
+<span class="line"><span>requires_env 依赖环境变量</span></span></code></pre>
+<p>比如 <code>tools/web_tools.py</code> 会注册 <code>web_search</code> 和 <code>web_extract</code>。</p>
+<p><code>tools/terminal_tool.py</code> 会注册 <code>terminal</code>。</p>
+<h2 id="discover_builtin_tools-怎么工作">discover_builtin_tools 怎么工作</h2>
+<p><code>registry.py</code> 里有 <code>discover_builtin_tools()</code>。</p>
+<p>它会扫描 <code>tools/</code> 目录，找包含顶层 <code>registry.register(...)</code> 的 Python 文件，然后 import 这些模块。</p>
+<p>import 的副作用就是完成注册。</p>
+<p>这是一种常见插件式设计：工具文件自己声明自己，中央模块只负责发现。</p>
+<h2 id="toolsetspy-负责分组">toolsets.py 负责分组</h2>
+<p><code>toolsets.py</code> 里有 <code>_HERMES_CORE_TOOLS</code> 和 <code>TOOLSETS</code>。</p>
+<p><code>_HERMES_CORE_TOOLS</code> 是 CLI 和消息平台共享的核心工具列表，里面包括：</p>
+<pre class="astro-code astro-code-themes github-light github-dark" style="--shiki-light:#24292e;--shiki-dark:#e1e4e8;--shiki-light-bg:#fff;--shiki-dark-bg:#24292e; overflow-x: auto;" tabindex="0" data-language="text"><code><span class="line"><span>web_search / web_extract</span></span>
+<span class="line"><span>terminal / process</span></span>
+<span class="line"><span>read_file / write_file / patch / search_files</span></span>
+<span class="line"><span>vision_analyze / image_generate</span></span>
+<span class="line"><span>skills_list / skill_view / skill_manage</span></span>
+<span class="line"><span>browser_* 系列</span></span>
+<span class="line"><span>todo / memory / session_search</span></span>
+<span class="line"><span>clarify / execute_code / delegate_task / cronjob</span></span></code></pre>
+<p><code>TOOLSETS</code> 则定义工具分组，例如：</p>
+<pre class="astro-code astro-code-themes github-light github-dark" style="--shiki-light:#24292e;--shiki-dark:#e1e4e8;--shiki-light-bg:#fff;--shiki-dark-bg:#24292e; overflow-x: auto;" tabindex="0" data-language="text"><code><span class="line"><span>web</span></span>
+<span class="line"><span>search</span></span>
+<span class="line"><span>vision</span></span>
+<span class="line"><span>terminal</span></span>
+<span class="line"><span>skills</span></span>
+<span class="line"><span>browser</span></span>
+<span class="line"><span>cronjob</span></span>
+<span class="line"><span>file</span></span>
+<span class="line"><span>tts</span></span></code></pre>
+<h2 id="model_toolspy-是薄编排层">model_tools.py 是薄编排层</h2>
+<p><code>model_tools.py</code> 文件注释说得很清楚：它是工具 registry 上的一层薄编排。</p>
+<p>主要公开 API 包括：</p>
+<pre class="astro-code astro-code-themes github-light github-dark" style="--shiki-light:#24292e;--shiki-dark:#e1e4e8;--shiki-light-bg:#fff;--shiki-dark-bg:#24292e; overflow-x: auto;" tabindex="0" data-language="text"><code><span class="line"><span>get_tool_definitions(...)</span></span>
+<span class="line"><span>handle_function_call(...)</span></span>
+<span class="line"><span>get_all_tool_names()</span></span>
+<span class="line"><span>get_toolset_for_tool(name)</span></span>
+<span class="line"><span>check_tool_availability(...)</span></span></code></pre>
+<p>其中最关键是两个：</p>
+<pre class="astro-code astro-code-themes github-light github-dark" style="--shiki-light:#24292e;--shiki-dark:#e1e4e8;--shiki-light-bg:#fff;--shiki-dark-bg:#24292e; overflow-x: auto;" tabindex="0" data-language="text"><code><span class="line"><span>get_tool_definitions   给模型准备工具 schema</span></span>
+<span class="line"><span>handle_function_call   按工具名执行 handler</span></span></code></pre>
+<h2 id="tool_executorpy-负责执行策略">tool_executor.py 负责执行策略</h2>
+<p><code>agent/tool_executor.py</code> 处理工具调用执行。</p>
+<p>它关心的是：</p>
+<ul>
+<li>顺序执行还是并发执行；</li>
+<li>工具调用被中断怎么办；</li>
+<li>工具结果怎么包装成 tool message；</li>
+<li>工具输出太大怎么办；</li>
+<li>执行过程怎么展示；</li>
+<li>destructive command 是否要审批。</li>
+</ul>
+<p>所以它不关心 <code>web_search</code> 内部怎么搜。它关心的是“模型发来了这一批 tool_calls，我怎么安全、稳定地执行完”。</p>
+<h2 id="一条源码链路">一条源码链路</h2>
+<p>把几个文件串起来：</p>
+<pre class="astro-code astro-code-themes github-light github-dark" style="--shiki-light:#24292e;--shiki-dark:#e1e4e8;--shiki-light-bg:#fff;--shiki-dark-bg:#24292e; overflow-x: auto;" tabindex="0" data-language="text"><code><span class="line"><span>tools/web_tools.py</span></span>
+<span class="line"><span>→ registry.register(name="web_search", ...)</span></span>
+<span class="line"><span>→ model_tools.discover_builtin_tools()</span></span>
+<span class="line"><span>→ registry.get_definitions()</span></span>
+<span class="line"><span>→ model_tools.get_tool_definitions()</span></span>
+<span class="line"><span>→ AIAgent 把 schema 发给模型</span></span>
+<span class="line"><span>→ 模型返回 web_search tool_call</span></span>
+<span class="line"><span>→ agent/tool_executor.py 执行</span></span>
+<span class="line"><span>→ model_tools.handle_function_call("web_search", args)</span></span>
+<span class="line"><span>→ registry.dispatch / handler</span></span>
+<span class="line"><span>→ 工具结果回到 messages</span></span></code></pre>
+<p>这条线看懂，就能自己加工具。</p>
+<h2 id="新增工具应该改哪里">新增工具应该改哪里</h2>
+<p>通常只需要：</p>
+<pre class="astro-code astro-code-themes github-light github-dark" style="--shiki-light:#24292e;--shiki-dark:#e1e4e8;--shiki-light-bg:#fff;--shiki-dark-bg:#24292e; overflow-x: auto;" tabindex="0" data-language="text"><code><span class="line"><span>1. 新建 tools/your_tool.py</span></span>
+<span class="line"><span>2. 在文件里实现 handler</span></span>
+<span class="line"><span>3. 调用 registry.register(...)</span></span>
+<span class="line"><span>4. 如果要纳入某个默认 toolset，更新 toolsets.py</span></span>
+<span class="line"><span>5. 写 check_fn，避免依赖缺失时暴露工具</span></span></code></pre>
+<p>不要直接在 Agent loop 里硬塞特殊工具逻辑。</p>
+<h2 id="下一篇看什么">下一篇看什么</h2>
+<p>下一篇看 Skills。</p>
+<p>Tools 解决“能做什么”，Skills 解决“遇到某类任务时应该怎么做”。</p>  </div> </article> <aside class="toc"><p class="toc-title">目录</p><ul class="toc-list"><li class="depth-2"><a href="#这篇解决什么问题" data-toc-link="这篇解决什么问题">这篇解决什么问题</a></li><li class="depth-2"><a href="#先看-toolsregistrypy" data-toc-link="先看-toolsregistrypy">先看 tools/registry.py</a></li><li class="depth-2"><a href="#registryregister-做什么" data-toc-link="registryregister-做什么">registry.register 做什么</a></li><li class="depth-2"><a href="#discover_builtin_tools-怎么工作" data-toc-link="discover_builtin_tools-怎么工作">discover_builtin_tools 怎么工作</a></li><li class="depth-2"><a href="#toolsetspy-负责分组" data-toc-link="toolsetspy-负责分组">toolsets.py 负责分组</a></li><li class="depth-2"><a href="#model_toolspy-是薄编排层" data-toc-link="model_toolspy-是薄编排层">model_tools.py 是薄编排层</a></li><li class="depth-2"><a href="#tool_executorpy-负责执行策略" data-toc-link="tool_executorpy-负责执行策略">tool_executor.py 负责执行策略</a></li><li class="depth-2"><a href="#一条源码链路" data-toc-link="一条源码链路">一条源码链路</a></li><li class="depth-2"><a href="#新增工具应该改哪里" data-toc-link="新增工具应该改哪里">新增工具应该改哪里</a></li><li class="depth-2"><a href="#下一篇看什么" data-toc-link="下一篇看什么">下一篇看什么</a></li></ul></aside><script type="module">const c=()=>{const r=Array.from(document.querySelectorAll(".toc a[data-toc-link]"));if(!r.length)return;const o=r.map(t=>{const e=t.getAttribute("data-toc-link");if(!e)return null;const n=document.getElementById(e);return n?{id:e,heading:n,link:t}:null}).filter(t=>t!==null);if(!o.length)return;const s=t=>{r.forEach(e=>{const n=e.getAttribute("data-toc-link")===t;e.classList.toggle("active",n),n&&e.scrollIntoView({block:"nearest",inline:"nearest"})})},i=()=>{const t=Math.round(window.innerHeight*.28);let e=o[0];for(const n of o)n.heading.getBoundingClientRect().top<=t&&(e=n);s(e.id)};i();const a=new IntersectionObserver(()=>i(),{rootMargin:"-18% 0px -70% 0px",threshold:[0,1]});o.forEach(t=>a.observe(t.heading)),window.addEventListener("scroll",i,{passive:!0})};document.addEventListener("DOMContentLoaded",c);document.addEventListener("astro:page-load",c);</script> </section> <script type="module">const n=()=>{const e=document.querySelector(".docs-sidebar .docs-nav-link.active");e&&e.scrollIntoView({block:"center",inline:"nearest"})};document.addEventListener("DOMContentLoaded",n);document.addEventListener("astro:page-load",n);</script>  </main> <footer class="site-footer"> <div class="shell footer-inner"> <p>© 2026 未来观察者</p> </div> </footer> </body></html>

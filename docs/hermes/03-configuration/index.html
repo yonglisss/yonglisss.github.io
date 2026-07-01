@@ -1,0 +1,167 @@
+<!DOCTYPE html><html lang="zh-CN"> <head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1"><script>
+      (() => {
+        const storageKey = "future-observer-theme";
+        const root = document.documentElement;
+        const getStoredMode = () => {
+          try {
+            const value = localStorage.getItem(storageKey);
+            return value === "light" || value === "dark" || value === "system" ? value : "system";
+          } catch {
+            return "system";
+          }
+        };
+        const systemDark = () => window.matchMedia?.("(prefers-color-scheme: dark)").matches ?? false;
+        const apply = (mode) => {
+          const resolved = mode === "system" ? (systemDark() ? "dark" : "light") : mode;
+          root.dataset.themeMode = mode;
+          root.dataset.theme = resolved;
+          root.style.colorScheme = resolved;
+        };
+        apply(getStoredMode());
+        window.__setFutureObserverTheme = (mode) => {
+          const next = mode === "light" || mode === "dark" || mode === "system" ? mode : "system";
+          try { localStorage.setItem(storageKey, next); } catch {}
+          apply(next);
+          window.dispatchEvent(new CustomEvent("future-observer-theme-change", { detail: { mode: next } }));
+        };
+        window.matchMedia?.("(prefers-color-scheme: dark)").addEventListener?.("change", () => {
+          if (getStoredMode() === "system") apply("system");
+        });
+      })();
+    </script><title>03. 配置和模型：config.yaml、.env、provider 怎么配 | 技术教程 | 未来观察者</title><meta name="description" content="看懂 Hermes 的配置入口：模型、密钥、工具、Gateway、Memory 和 terminal backend 分别放在哪里。"><meta name="generator" content="Astro v5.18.1"><meta property="og:title" content="03. 配置和模型：config.yaml、.env、provider 怎么配 | 技术教程 | 未来观察者"><meta property="og:description" content="看懂 Hermes 的配置入口：模型、密钥、工具、Gateway、Memory 和 terminal backend 分别放在哪里。"><meta property="og:type" content="website"><meta property="og:url" content="https://future.lifestudylab.com/docs/hermes/03-configuration/"><link rel="icon" type="image/svg+xml" href="/favicon.svg"><link rel="alternate" type="application/rss+xml" title="未来观察者" href="/rss.xml"><link rel="stylesheet" href="/_astro/_channel_.DM2BjJPY.css"></head> <body> <div class="page-bg"></div> <header class="site-header"> <div class="shell header-inner"> <div class="header-bar"> <a class="brand" href="/ai-tools/"> <img src="/brand-mark.svg" alt="" class="brand-mark" width="56" height="56"> <span class="brand-text" aria-label="未来观察者">思考未来</span> </a> </div> <nav class="top-menu" aria-label="顶部菜单"> <a href="/future-daily/" class="top-menu-link"> 每日信息 </a><a href="/docs/deer-flow/00-overview/" class="top-menu-link"> DeerFlow教程 </a><a href="/docs/hermes/00-overview/" class="top-menu-link"> Hermes教程 </a><a href="/about/" class="top-menu-link"> 关于我 </a> </nav> <div class="top-actions"> <a class="feedback-link" href="https://github.com/yonglisss/yonglisss.github.io/issues" target="_blank" rel="noopener noreferrer" aria-label="问题反馈"> <svg viewBox="0 0 24 24" aria-hidden="true" class="action-icon"> <path d="M4.75 5.75A2.75 2.75 0 0 1 7.5 3h9A2.75 2.75 0 0 1 19.25 5.75v6.5A2.75 2.75 0 0 1 16.5 15H9.3l-3.55 3.2V15.1a2.75 2.75 0 0 1-1-2.1V5.75Z"></path> <path d="M8 7.75h8M8 11.25h4"></path> </svg> <span>问题反馈</span> </a> <div class="theme-switcher" data-theme-switcher> <button class="theme-trigger" type="button" aria-haspopup="menu" aria-expanded="false" aria-label="切换明暗模式" data-theme-trigger> <svg viewBox="0 0 24 24" aria-hidden="true" class="action-icon theme-trigger-icon theme-trigger-icon--light"> <circle cx="12" cy="12" r="4"></circle> <path d="M12 2.75v2M12 19.25v2M4.75 4.75l1.4 1.4M17.85 17.85l1.4 1.4M2.75 12h2M19.25 12h2M4.75 19.25l1.4-1.4M17.85 6.15l1.4-1.4"></path> </svg> <svg viewBox="0 0 24 24" aria-hidden="true" class="action-icon theme-trigger-icon theme-trigger-icon--dark"> <path d="M20.25 14.2A8 8 0 0 1 9.8 3.75 8.5 8.5 0 1 0 20.25 14.2Z"></path> </svg> <svg viewBox="0 0 24 24" aria-hidden="true" class="action-icon theme-trigger-icon theme-trigger-icon--system"> <rect x="4" y="5" width="16" height="11" rx="1.8"></rect> <path d="M9 20h6M12 16v4"></path> </svg> </button> <div class="theme-menu" role="menu" data-theme-menu hidden> <button class="theme-option" type="button" role="menuitemradio" data-theme-option="light" aria-checked="false"> <svg viewBox="0 0 24 24" aria-hidden="true" class="action-icon"><circle cx="12" cy="12" r="4"></circle><path d="M12 2.75v2M12 19.25v2M4.75 4.75l1.4 1.4M17.85 17.85l1.4 1.4M2.75 12h2M19.25 12h2M4.75 19.25l1.4-1.4M17.85 6.15l1.4-1.4"></path></svg> <span>亮色</span> </button> <button class="theme-option" type="button" role="menuitemradio" data-theme-option="dark" aria-checked="false"> <svg viewBox="0 0 24 24" aria-hidden="true" class="action-icon"><path d="M20.25 14.2A8 8 0 0 1 9.8 3.75 8.5 8.5 0 1 0 20.25 14.2Z"></path></svg> <span>暗色</span> </button> <button class="theme-option" type="button" role="menuitemradio" data-theme-option="system" aria-checked="true"> <svg viewBox="0 0 24 24" aria-hidden="true" class="action-icon"><rect x="4" y="5" width="16" height="11" rx="1.8"></rect><path d="M9 20h6M12 16v4"></path></svg> <span>跟随系统</span> </button> </div> </div> </div> </div> </header> <script>
+  (() => {
+    const switcher = document.querySelector("[data-theme-switcher]");
+    if (!switcher) return;
+
+    const trigger = switcher.querySelector("[data-theme-trigger]");
+    const menu = switcher.querySelector("[data-theme-menu]");
+    const options = [...switcher.querySelectorAll("[data-theme-option]")];
+    const modes = ["light", "dark", "system"];
+
+    const getMode = () => {
+      const mode = document.documentElement.dataset.themeMode;
+      return modes.includes(mode) ? mode : "system";
+    };
+
+    const closeMenu = () => {
+      menu.hidden = true;
+      trigger.setAttribute("aria-expanded", "false");
+    };
+
+    const openMenu = () => {
+      menu.hidden = false;
+      trigger.setAttribute("aria-expanded", "true");
+    };
+
+    const sync = () => {
+      const mode = getMode();
+      trigger.dataset.themeMode = mode;
+      options.forEach((option) => {
+        option.setAttribute("aria-checked", String(option.dataset.themeOption === mode));
+      });
+    };
+
+    trigger.addEventListener("click", () => {
+      menu.hidden ? openMenu() : closeMenu();
+    });
+
+    options.forEach((option) => {
+      option.addEventListener("click", () => {
+        window.__setFutureObserverTheme?.(option.dataset.themeOption || "system");
+        sync();
+        closeMenu();
+      });
+    });
+
+    document.addEventListener("click", (event) => {
+      if (!switcher.contains(event.target)) closeMenu();
+    });
+
+    document.addEventListener("keydown", (event) => {
+      if (event.key === "Escape") closeMenu();
+    });
+
+    window.addEventListener("future-observer-theme-change", sync);
+    sync();
+  })();
+</script>  <main class="shell page-content page-content--full">  <section class="docs-shell"> <aside class="docs-sidebar" aria-label="技术教程目录"> <nav class="docs-nav-block" aria-label="DeerFlow 教程"> <p class="docs-nav-title">DeerFlow 教程</p> <ul class="docs-nav-list"> <li> <a href="/docs/deer-flow/00-overview/" class="docs-nav-link"> 00. 教程总览 </a> </li><li> <a href="/docs/deer-flow/01-what-is-deerflow/" class="docs-nav-link"> 01. DeerFlow 是什么：先知道你在学什么 </a> </li><li> <a href="/docs/deer-flow/02-quickstart/" class="docs-nav-link"> 02. 快速开始：先把 DeerFlow 跑起来 </a> </li><li> <a href="/docs/deer-flow/03-config/" class="docs-nav-link"> 03. 配置文件：看懂 config.yaml </a> </li><li> <a href="/docs/deer-flow/04-architecture/" class="docs-nav-link"> 04. 整体架构：DeerFlow 到底在调度什么 </a> </li><li> <a href="/docs/deer-flow/05-project-structure/" class="docs-nav-link"> 05. 项目结构：从目录看懂 DeerFlow </a> </li><li> <a href="/docs/deer-flow/06-execution-flow/" class="docs-nav-link"> 06. 执行链路：一次任务从入口到结果 </a> </li><li> <a href="/docs/deer-flow/07-tools-principles/" class="docs-nav-link"> 07. Tools 原理：Agent 为什么需要工具 </a> </li><li> <a href="/docs/deer-flow/08-tools-source/" class="docs-nav-link"> 08. Tools 源码：工具是怎么注册和调用的 </a> </li><li> <a href="/docs/deer-flow/09-tools-practice/" class="docs-nav-link"> 09. Tools 实战：给研究型 Agent 增加一个工具能力 </a> </li><li> <a href="/docs/deer-flow/10-skills-principles/" class="docs-nav-link"> 10. Skills 原理：把经验沉淀成可复用能力 </a> </li><li> <a href="/docs/deer-flow/11-skills-source/" class="docs-nav-link"> 11. Skills 源码：Skill 是怎么安装、解析和约束工具的 </a> </li><li> <a href="/docs/deer-flow/12-skills-practice/" class="docs-nav-link"> 12. Skills 实战：写 Skill 约束输出质量 </a> </li><li> <a href="/docs/deer-flow/13-subagents-principles/" class="docs-nav-link"> 13. Sub-agents 原理：多智能体什么时候值得拆 </a> </li><li> <a href="/docs/deer-flow/14-subagents-source/" class="docs-nav-link"> 14. Sub-agents 源码：子 Agent 是怎么创建和汇总的 </a> </li><li> <a href="/docs/deer-flow/15-subagents-practice/" class="docs-nav-link"> 15. Sub-agents 实战：把研究任务拆给多个 Agent </a> </li><li> <a href="/docs/deer-flow/16-sandbox-principles/" class="docs-nav-link"> 16. Sandbox 原理：安全执行和文件边界 </a> </li><li> <a href="/docs/deer-flow/17-sandbox-source/" class="docs-nav-link"> 17. Sandbox 源码：执行环境和文件路径怎么管理 </a> </li><li> <a href="/docs/deer-flow/18-mcp-principles/" class="docs-nav-link"> 18. MCP 原理：把外部工具接进 Agent </a> </li><li> <a href="/docs/deer-flow/19-mcp-practice/" class="docs-nav-link"> 19. MCP 实战：接一个只读外部服务 </a> </li><li> <a href="/docs/deer-flow/20-memory-principles/" class="docs-nav-link"> 20. Memory 原理：长期上下文该记什么 </a> </li><li> <a href="/docs/deer-flow/21-observability/" class="docs-nav-link"> 21. 可观测性：看清一次 Agent 为什么失败 </a> </li><li> <a href="/docs/deer-flow/22-troubleshooting-practice/" class="docs-nav-link"> 22. 排错实战：一次任务为什么失败 </a> </li><li> <a href="/docs/deer-flow/23-final-research-agent/" class="docs-nav-link"> 23. 终局实战：自己写一个研究型 Agent </a> </li><li> <a href="/docs/deer-flow/24-agent-workflow/" class="docs-nav-link"> 24. 设计 Agent 任务流 </a> </li><li> <a href="/docs/deer-flow/25-search-and-tools/" class="docs-nav-link"> 25. 接入搜索和工具 </a> </li><li> <a href="/docs/deer-flow/26-quality-skill/" class="docs-nav-link"> 26. 写 Skill 约束输出质量 </a> </li><li> <a href="/docs/deer-flow/27-external-mcp/" class="docs-nav-link"> 27. 接 MCP / 外部服务 </a> </li><li> <a href="/docs/deer-flow/28-report-artifacts/" class="docs-nav-link"> 28. 生成报告和文件产物 </a> </li><li> <a href="/docs/deer-flow/29-acceptance-deploy/" class="docs-nav-link"> 29. 验收与部署 </a> </li> </ul> </nav><nav class="docs-nav-block" aria-label="Hermes教程"> <p class="docs-nav-title">Hermes教程</p> <ul class="docs-nav-list"> <li> <a href="/docs/hermes/00-overview/" class="docs-nav-link"> 00. 教程总览 </a> </li><li> <a href="/docs/hermes/01-what-is-hermes/" class="docs-nav-link"> 01. Hermes 是什么：先知道你在读什么 </a> </li><li> <a href="/docs/hermes/02-quickstart/" class="docs-nav-link"> 02. 快速开始：从安装到第一次对话 </a> </li><li> <a href="/docs/hermes/03-configuration/" class="docs-nav-link active"> 03. 配置和模型：config.yaml、.env、provider 怎么配 </a> </li><li> <a href="/docs/hermes/04-project-structure/" class="docs-nav-link"> 04. 项目结构：从目录看懂 Hermes </a> </li><li> <a href="/docs/hermes/05-cli-entry/" class="docs-nav-link"> 05. CLI 入口：hermes 命令怎么启动一次会话 </a> </li><li> <a href="/docs/hermes/06-agent-loop/" class="docs-nav-link"> 06. Agent 主循环：一次消息如何变成模型调用和工具调用 </a> </li><li> <a href="/docs/hermes/07-prompt-context/" class="docs-nav-link"> 07. Prompt 与上下文：系统提示词、项目规则、记忆怎么进上下文 </a> </li><li> <a href="/docs/hermes/08-tools-principles/" class="docs-nav-link"> 08. Tools 原理：工具是怎么注册、筛选和执行的 </a> </li><li> <a href="/docs/hermes/09-tools-source/" class="docs-nav-link"> 09. Tools 源码：registry、toolsets、tool_executor 怎么配合 </a> </li><li> <a href="/docs/hermes/10-skills-principles/" class="docs-nav-link"> 10. Skills 原理：为什么 Hermes 把经验沉淀成 Skill </a> </li><li> <a href="/docs/hermes/11-skills-source/" class="docs-nav-link"> 11. Skills 源码：Skill 如何被发现、加载和写入 </a> </li><li> <a href="/docs/hermes/12-memory-session/" class="docs-nav-link"> 12. Memory 与 Session：长期记忆和历史会话怎么参与下一次任务 </a> </li><li> <a href="/docs/hermes/13-cron/" class="docs-nav-link"> 13. Cron：定时任务怎么保存、触发和投递 </a> </li><li> <a href="/docs/hermes/14-gateway/" class="docs-nav-link"> 14. Gateway：飞书、Telegram、Discord 这类入口怎么接进 Agent </a> </li><li> <a href="/docs/hermes/15-mcp/" class="docs-nav-link"> 15. MCP：外部工具如何变成 Hermes 工具 </a> </li><li> <a href="/docs/hermes/16-delegation/" class="docs-nav-link"> 16. Delegation：子 Agent 和并行任务怎么跑 </a> </li><li> <a href="/docs/hermes/17-security/" class="docs-nav-link"> 17. 安全边界：审批、敏感信息、文件路径和工具限制 </a> </li><li> <a href="/docs/hermes/18-debugging/" class="docs-nav-link"> 18. 调试与排障：日志、doctor、status、常见错误怎么查 </a> </li><li> <a href="/docs/hermes/19-extension-roadmap/" class="docs-nav-link"> 19. 二开路线：想改一个能力时从哪里下手 </a> </li><li> <a href="/docs/hermes/20-summary/" class="docs-nav-link"> 20. 总结：读完后你应该能做什么 </a> </li> </ul> </nav> </aside> <article class="docs-article"> <header class="docs-hero"> <p class="docs-kicker">Technical Guide</p> <h1>03. 配置和模型：config.yaml、.env、provider 怎么配</h1> <p>看懂 Hermes 的配置入口：模型、密钥、工具、Gateway、Memory 和 terminal backend 分别放在哪里。</p> </header> <div class="docs-prose">  <h2 id="这篇解决什么问题">这篇解决什么问题</h2>
+<p>Hermes 的很多问题看起来像源码问题，实际是配置问题。</p>
+<p>比如：模型调不通、工具没出现、Gateway 收不到消息、TTS 没声音、browser 不可用。这些大多先看配置，不要直接改代码。</p>
+<h2 id="关键路径">关键路径</h2>
+<p>默认情况下，Hermes 的主要配置在：</p>
+<pre class="astro-code astro-code-themes github-light github-dark" style="--shiki-light:#24292e;--shiki-dark:#e1e4e8;--shiki-light-bg:#fff;--shiki-dark-bg:#24292e; overflow-x: auto;" tabindex="0" data-language="text"><code><span class="line"><span>~/.hermes/config.yaml</span></span>
+<span class="line"><span>~/.hermes/.env</span></span>
+<span class="line"><span>~/.hermes/auth.json</span></span>
+<span class="line"><span>~/.hermes/skills/</span></span>
+<span class="line"><span>~/.hermes/cron/jobs.json</span></span>
+<span class="line"><span>~/.hermes/state.db</span></span>
+<span class="line"><span>~/.hermes/logs/</span></span></code></pre>
+<p>如果用了 profile，则会在：</p>
+<pre class="astro-code astro-code-themes github-light github-dark" style="--shiki-light:#24292e;--shiki-dark:#e1e4e8;--shiki-light-bg:#fff;--shiki-dark-bg:#24292e; overflow-x: auto;" tabindex="0" data-language="text"><code><span class="line"><span>~/.hermes/profiles/&#x3C;name>/</span></span></code></pre>
+<p>每个 profile 有自己的配置、skills、memory、cron 和会话状态。</p>
+<h2 id="configyaml-放什么">config.yaml 放什么</h2>
+<p><code>config.yaml</code> 放结构化配置，例如：</p>
+<pre class="astro-code astro-code-themes github-light github-dark" style="--shiki-light:#24292e;--shiki-dark:#e1e4e8;--shiki-light-bg:#fff;--shiki-dark-bg:#24292e; overflow-x: auto;" tabindex="0" data-language="text"><code><span class="line"><span>model.default</span></span>
+<span class="line"><span>model.provider</span></span>
+<span class="line"><span>model.base_url</span></span>
+<span class="line"><span>agent.max_turns</span></span>
+<span class="line"><span>terminal.backend</span></span>
+<span class="line"><span>gateway 配置</span></span>
+<span class="line"><span>memory 配置</span></span>
+<span class="line"><span>compression 配置</span></span>
+<span class="line"><span>tools 配置</span></span></code></pre>
+<p>你可以用命令查看和修改：</p>
+<pre class="astro-code astro-code-themes github-light github-dark" style="--shiki-light:#24292e;--shiki-dark:#e1e4e8;--shiki-light-bg:#fff;--shiki-dark-bg:#24292e; overflow-x: auto;" tabindex="0" data-language="bash"><code><span class="line"><span style="--shiki-light:#6F42C1;--shiki-dark:#B392F0">hermes</span><span style="--shiki-light:#032F62;--shiki-dark:#9ECBFF"> config</span></span>
+<span class="line"><span style="--shiki-light:#6F42C1;--shiki-dark:#B392F0">hermes</span><span style="--shiki-light:#032F62;--shiki-dark:#9ECBFF"> config</span><span style="--shiki-light:#032F62;--shiki-dark:#9ECBFF"> edit</span></span>
+<span class="line"><span style="--shiki-light:#6F42C1;--shiki-dark:#B392F0">hermes</span><span style="--shiki-light:#032F62;--shiki-dark:#9ECBFF"> config</span><span style="--shiki-light:#032F62;--shiki-dark:#9ECBFF"> set</span><span style="--shiki-light:#032F62;--shiki-dark:#9ECBFF"> model.provider</span><span style="--shiki-light:#032F62;--shiki-dark:#9ECBFF"> openrouter</span></span>
+<span class="line"><span style="--shiki-light:#6F42C1;--shiki-dark:#B392F0">hermes</span><span style="--shiki-light:#032F62;--shiki-dark:#9ECBFF"> config</span><span style="--shiki-light:#032F62;--shiki-dark:#9ECBFF"> path</span></span></code></pre>
+<h2 id="env-放什么">.env 放什么</h2>
+<p><code>.env</code> 放密钥和环境变量。</p>
+<p>比如：</p>
+<pre class="astro-code astro-code-themes github-light github-dark" style="--shiki-light:#24292e;--shiki-dark:#e1e4e8;--shiki-light-bg:#fff;--shiki-dark-bg:#24292e; overflow-x: auto;" tabindex="0" data-language="text"><code><span class="line"><span>OPENROUTER_API_KEY</span></span>
+<span class="line"><span>ANTHROPIC_API_KEY</span></span>
+<span class="line"><span>GOOGLE_API_KEY</span></span>
+<span class="line"><span>DEEPSEEK_API_KEY</span></span>
+<span class="line"><span>XAI_API_KEY</span></span></code></pre>
+<p>原则很简单：</p>
+<ul>
+<li>配置项放 <code>config.yaml</code>；</li>
+<li>密钥放 <code>.env</code> 或 <code>auth.json</code>；</li>
+<li>不要把密钥写进技能、文档或代码仓库。</li>
+</ul>
+<h2 id="provider-和-model">provider 和 model</h2>
+<p>Hermes 是 provider-agnostic 的。</p>
+<p>也就是说，同一个 Agent loop 可以切换不同模型后端。你可以通过：</p>
+<pre class="astro-code astro-code-themes github-light github-dark" style="--shiki-light:#24292e;--shiki-dark:#e1e4e8;--shiki-light-bg:#fff;--shiki-dark-bg:#24292e; overflow-x: auto;" tabindex="0" data-language="bash"><code><span class="line"><span style="--shiki-light:#6F42C1;--shiki-dark:#B392F0">hermes</span><span style="--shiki-light:#032F62;--shiki-dark:#9ECBFF"> model</span></span></code></pre>
+<p>交互式选择 provider 和 model。</p>
+<p>也可以在单次命令里指定：</p>
+<pre class="astro-code astro-code-themes github-light github-dark" style="--shiki-light:#24292e;--shiki-dark:#e1e4e8;--shiki-light-bg:#fff;--shiki-dark-bg:#24292e; overflow-x: auto;" tabindex="0" data-language="bash"><code><span class="line"><span style="--shiki-light:#6F42C1;--shiki-dark:#B392F0">hermes</span><span style="--shiki-light:#032F62;--shiki-dark:#9ECBFF"> chat</span><span style="--shiki-light:#005CC5;--shiki-dark:#79B8FF"> -q</span><span style="--shiki-light:#032F62;--shiki-dark:#9ECBFF"> "hello"</span><span style="--shiki-light:#005CC5;--shiki-dark:#79B8FF"> --provider</span><span style="--shiki-light:#032F62;--shiki-dark:#9ECBFF"> openrouter</span><span style="--shiki-light:#005CC5;--shiki-dark:#79B8FF"> -m</span><span style="--shiki-light:#032F62;--shiki-dark:#9ECBFF"> anthropic/claude-sonnet-4</span></span></code></pre>
+<h2 id="authjson-做什么">auth.json 做什么</h2>
+<p><code>auth.json</code> 用于保存 OAuth 或 credential pool 一类的认证信息。</p>
+<p>例如 Nous Portal、OpenAI Codex、Qwen OAuth、Copilot 这类不只是简单 API key 的 provider，会通过 <code>hermes auth</code> 管理。</p>
+<p>常用命令：</p>
+<pre class="astro-code astro-code-themes github-light github-dark" style="--shiki-light:#24292e;--shiki-dark:#e1e4e8;--shiki-light-bg:#fff;--shiki-dark-bg:#24292e; overflow-x: auto;" tabindex="0" data-language="bash"><code><span class="line"><span style="--shiki-light:#6F42C1;--shiki-dark:#B392F0">hermes</span><span style="--shiki-light:#032F62;--shiki-dark:#9ECBFF"> auth</span></span>
+<span class="line"><span style="--shiki-light:#6F42C1;--shiki-dark:#B392F0">hermes</span><span style="--shiki-light:#032F62;--shiki-dark:#9ECBFF"> auth</span><span style="--shiki-light:#032F62;--shiki-dark:#9ECBFF"> list</span></span>
+<span class="line"><span style="--shiki-light:#6F42C1;--shiki-dark:#B392F0">hermes</span><span style="--shiki-light:#032F62;--shiki-dark:#9ECBFF"> auth</span><span style="--shiki-light:#032F62;--shiki-dark:#9ECBFF"> add</span><span style="--shiki-light:#D73A49;--shiki-dark:#F97583"> &#x3C;</span><span style="--shiki-light:#032F62;--shiki-dark:#9ECBFF">provide</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8">r</span><span style="--shiki-light:#D73A49;--shiki-dark:#F97583">></span></span>
+<span class="line"><span style="--shiki-light:#6F42C1;--shiki-dark:#B392F0">hermes</span><span style="--shiki-light:#032F62;--shiki-dark:#9ECBFF"> auth</span><span style="--shiki-light:#032F62;--shiki-dark:#9ECBFF"> remove</span><span style="--shiki-light:#D73A49;--shiki-dark:#F97583"> &#x3C;</span><span style="--shiki-light:#032F62;--shiki-dark:#9ECBFF">provide</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8">r</span><span style="--shiki-light:#D73A49;--shiki-dark:#F97583">></span></span></code></pre>
+<h2 id="工具配置为什么重要">工具配置为什么重要</h2>
+<p>Hermes 不会在每次会话都暴露所有工具。</p>
+<p>工具出现取决于：</p>
+<pre class="astro-code astro-code-themes github-light github-dark" style="--shiki-light:#24292e;--shiki-dark:#e1e4e8;--shiki-light-bg:#fff;--shiki-dark-bg:#24292e; overflow-x: auto;" tabindex="0" data-language="text"><code><span class="line"><span>toolsets.py 定义了哪些工具集</span></span>
+<span class="line"><span>工具自身 check_fn 是否通过</span></span>
+<span class="line"><span>当前平台或 profile 是否启用</span></span>
+<span class="line"><span>会话是否限制 enabled_toolsets</span></span></code></pre>
+<p>所以“模型为什么不能调用某个工具”，不要只看模型。先看：</p>
+<pre class="astro-code astro-code-themes github-light github-dark" style="--shiki-light:#24292e;--shiki-dark:#e1e4e8;--shiki-light-bg:#fff;--shiki-dark-bg:#24292e; overflow-x: auto;" tabindex="0" data-language="bash"><code><span class="line"><span style="--shiki-light:#6F42C1;--shiki-dark:#B392F0">hermes</span><span style="--shiki-light:#032F62;--shiki-dark:#9ECBFF"> tools</span><span style="--shiki-light:#032F62;--shiki-dark:#9ECBFF"> list</span></span>
+<span class="line"><span style="--shiki-light:#6F42C1;--shiki-dark:#B392F0">hermes</span><span style="--shiki-light:#032F62;--shiki-dark:#9ECBFF"> tools</span></span></code></pre>
+<h2 id="配置影响源码哪里">配置影响源码哪里</h2>
+<p>后面读源码时，可以先记住这条关系：</p>
+<pre class="astro-code astro-code-themes github-light github-dark" style="--shiki-light:#24292e;--shiki-dark:#e1e4e8;--shiki-light-bg:#fff;--shiki-dark-bg:#24292e; overflow-x: auto;" tabindex="0" data-language="text"><code><span class="line"><span>config.yaml / .env / auth.json</span></span>
+<span class="line"><span>→ agent 初始化</span></span>
+<span class="line"><span>→ provider/model/client 构建</span></span>
+<span class="line"><span>→ prompt 和 tools 构建</span></span>
+<span class="line"><span>→ run_conversation 执行</span></span></code></pre>
+<p>配置不是旁路，它直接决定一次会话里模型、工具、记忆、压缩、Gateway 的行为。</p>
+<h2 id="下一篇看什么">下一篇看什么</h2>
+<p>下一篇看项目结构。</p>
+<p>先知道目录怎么分，再进入 CLI 入口和 Agent 主循环。</p>  </div> </article> <aside class="toc"><p class="toc-title">目录</p><ul class="toc-list"><li class="depth-2"><a href="#这篇解决什么问题" data-toc-link="这篇解决什么问题">这篇解决什么问题</a></li><li class="depth-2"><a href="#关键路径" data-toc-link="关键路径">关键路径</a></li><li class="depth-2"><a href="#configyaml-放什么" data-toc-link="configyaml-放什么">config.yaml 放什么</a></li><li class="depth-2"><a href="#env-放什么" data-toc-link="env-放什么">.env 放什么</a></li><li class="depth-2"><a href="#provider-和-model" data-toc-link="provider-和-model">provider 和 model</a></li><li class="depth-2"><a href="#authjson-做什么" data-toc-link="authjson-做什么">auth.json 做什么</a></li><li class="depth-2"><a href="#工具配置为什么重要" data-toc-link="工具配置为什么重要">工具配置为什么重要</a></li><li class="depth-2"><a href="#配置影响源码哪里" data-toc-link="配置影响源码哪里">配置影响源码哪里</a></li><li class="depth-2"><a href="#下一篇看什么" data-toc-link="下一篇看什么">下一篇看什么</a></li></ul></aside><script type="module">const c=()=>{const r=Array.from(document.querySelectorAll(".toc a[data-toc-link]"));if(!r.length)return;const o=r.map(t=>{const e=t.getAttribute("data-toc-link");if(!e)return null;const n=document.getElementById(e);return n?{id:e,heading:n,link:t}:null}).filter(t=>t!==null);if(!o.length)return;const s=t=>{r.forEach(e=>{const n=e.getAttribute("data-toc-link")===t;e.classList.toggle("active",n),n&&e.scrollIntoView({block:"nearest",inline:"nearest"})})},i=()=>{const t=Math.round(window.innerHeight*.28);let e=o[0];for(const n of o)n.heading.getBoundingClientRect().top<=t&&(e=n);s(e.id)};i();const a=new IntersectionObserver(()=>i(),{rootMargin:"-18% 0px -70% 0px",threshold:[0,1]});o.forEach(t=>a.observe(t.heading)),window.addEventListener("scroll",i,{passive:!0})};document.addEventListener("DOMContentLoaded",c);document.addEventListener("astro:page-load",c);</script> </section> <script type="module">const n=()=>{const e=document.querySelector(".docs-sidebar .docs-nav-link.active");e&&e.scrollIntoView({block:"center",inline:"nearest"})};document.addEventListener("DOMContentLoaded",n);document.addEventListener("astro:page-load",n);</script>  </main> <footer class="site-footer"> <div class="shell footer-inner"> <p>© 2026 未来观察者</p> </div> </footer> </body></html>

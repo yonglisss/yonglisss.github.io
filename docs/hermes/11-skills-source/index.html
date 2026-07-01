@@ -1,0 +1,160 @@
+<!DOCTYPE html><html lang="zh-CN"> <head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1"><script>
+      (() => {
+        const storageKey = "future-observer-theme";
+        const root = document.documentElement;
+        const getStoredMode = () => {
+          try {
+            const value = localStorage.getItem(storageKey);
+            return value === "light" || value === "dark" || value === "system" ? value : "system";
+          } catch {
+            return "system";
+          }
+        };
+        const systemDark = () => window.matchMedia?.("(prefers-color-scheme: dark)").matches ?? false;
+        const apply = (mode) => {
+          const resolved = mode === "system" ? (systemDark() ? "dark" : "light") : mode;
+          root.dataset.themeMode = mode;
+          root.dataset.theme = resolved;
+          root.style.colorScheme = resolved;
+        };
+        apply(getStoredMode());
+        window.__setFutureObserverTheme = (mode) => {
+          const next = mode === "light" || mode === "dark" || mode === "system" ? mode : "system";
+          try { localStorage.setItem(storageKey, next); } catch {}
+          apply(next);
+          window.dispatchEvent(new CustomEvent("future-observer-theme-change", { detail: { mode: next } }));
+        };
+        window.matchMedia?.("(prefers-color-scheme: dark)").addEventListener?.("change", () => {
+          if (getStoredMode() === "system") apply("system");
+        });
+      })();
+    </script><title>11. Skills 源码：Skill 如何被发现、加载和写入 | 技术教程 | 未来观察者</title><meta name="description" content="从 skill_utils、prompt_builder 和 skills 工具看 Hermes 的 Skill 生命周期。"><meta name="generator" content="Astro v5.18.1"><meta property="og:title" content="11. Skills 源码：Skill 如何被发现、加载和写入 | 技术教程 | 未来观察者"><meta property="og:description" content="从 skill_utils、prompt_builder 和 skills 工具看 Hermes 的 Skill 生命周期。"><meta property="og:type" content="website"><meta property="og:url" content="https://future.lifestudylab.com/docs/hermes/11-skills-source/"><link rel="icon" type="image/svg+xml" href="/favicon.svg"><link rel="alternate" type="application/rss+xml" title="未来观察者" href="/rss.xml"><link rel="stylesheet" href="/_astro/_channel_.DM2BjJPY.css"></head> <body> <div class="page-bg"></div> <header class="site-header"> <div class="shell header-inner"> <div class="header-bar"> <a class="brand" href="/ai-tools/"> <img src="/brand-mark.svg" alt="" class="brand-mark" width="56" height="56"> <span class="brand-text" aria-label="未来观察者">思考未来</span> </a> </div> <nav class="top-menu" aria-label="顶部菜单"> <a href="/future-daily/" class="top-menu-link"> 每日信息 </a><a href="/docs/deer-flow/00-overview/" class="top-menu-link"> DeerFlow教程 </a><a href="/docs/hermes/00-overview/" class="top-menu-link"> Hermes教程 </a><a href="/about/" class="top-menu-link"> 关于我 </a> </nav> <div class="top-actions"> <a class="feedback-link" href="https://github.com/yonglisss/yonglisss.github.io/issues" target="_blank" rel="noopener noreferrer" aria-label="问题反馈"> <svg viewBox="0 0 24 24" aria-hidden="true" class="action-icon"> <path d="M4.75 5.75A2.75 2.75 0 0 1 7.5 3h9A2.75 2.75 0 0 1 19.25 5.75v6.5A2.75 2.75 0 0 1 16.5 15H9.3l-3.55 3.2V15.1a2.75 2.75 0 0 1-1-2.1V5.75Z"></path> <path d="M8 7.75h8M8 11.25h4"></path> </svg> <span>问题反馈</span> </a> <div class="theme-switcher" data-theme-switcher> <button class="theme-trigger" type="button" aria-haspopup="menu" aria-expanded="false" aria-label="切换明暗模式" data-theme-trigger> <svg viewBox="0 0 24 24" aria-hidden="true" class="action-icon theme-trigger-icon theme-trigger-icon--light"> <circle cx="12" cy="12" r="4"></circle> <path d="M12 2.75v2M12 19.25v2M4.75 4.75l1.4 1.4M17.85 17.85l1.4 1.4M2.75 12h2M19.25 12h2M4.75 19.25l1.4-1.4M17.85 6.15l1.4-1.4"></path> </svg> <svg viewBox="0 0 24 24" aria-hidden="true" class="action-icon theme-trigger-icon theme-trigger-icon--dark"> <path d="M20.25 14.2A8 8 0 0 1 9.8 3.75 8.5 8.5 0 1 0 20.25 14.2Z"></path> </svg> <svg viewBox="0 0 24 24" aria-hidden="true" class="action-icon theme-trigger-icon theme-trigger-icon--system"> <rect x="4" y="5" width="16" height="11" rx="1.8"></rect> <path d="M9 20h6M12 16v4"></path> </svg> </button> <div class="theme-menu" role="menu" data-theme-menu hidden> <button class="theme-option" type="button" role="menuitemradio" data-theme-option="light" aria-checked="false"> <svg viewBox="0 0 24 24" aria-hidden="true" class="action-icon"><circle cx="12" cy="12" r="4"></circle><path d="M12 2.75v2M12 19.25v2M4.75 4.75l1.4 1.4M17.85 17.85l1.4 1.4M2.75 12h2M19.25 12h2M4.75 19.25l1.4-1.4M17.85 6.15l1.4-1.4"></path></svg> <span>亮色</span> </button> <button class="theme-option" type="button" role="menuitemradio" data-theme-option="dark" aria-checked="false"> <svg viewBox="0 0 24 24" aria-hidden="true" class="action-icon"><path d="M20.25 14.2A8 8 0 0 1 9.8 3.75 8.5 8.5 0 1 0 20.25 14.2Z"></path></svg> <span>暗色</span> </button> <button class="theme-option" type="button" role="menuitemradio" data-theme-option="system" aria-checked="true"> <svg viewBox="0 0 24 24" aria-hidden="true" class="action-icon"><rect x="4" y="5" width="16" height="11" rx="1.8"></rect><path d="M9 20h6M12 16v4"></path></svg> <span>跟随系统</span> </button> </div> </div> </div> </div> </header> <script>
+  (() => {
+    const switcher = document.querySelector("[data-theme-switcher]");
+    if (!switcher) return;
+
+    const trigger = switcher.querySelector("[data-theme-trigger]");
+    const menu = switcher.querySelector("[data-theme-menu]");
+    const options = [...switcher.querySelectorAll("[data-theme-option]")];
+    const modes = ["light", "dark", "system"];
+
+    const getMode = () => {
+      const mode = document.documentElement.dataset.themeMode;
+      return modes.includes(mode) ? mode : "system";
+    };
+
+    const closeMenu = () => {
+      menu.hidden = true;
+      trigger.setAttribute("aria-expanded", "false");
+    };
+
+    const openMenu = () => {
+      menu.hidden = false;
+      trigger.setAttribute("aria-expanded", "true");
+    };
+
+    const sync = () => {
+      const mode = getMode();
+      trigger.dataset.themeMode = mode;
+      options.forEach((option) => {
+        option.setAttribute("aria-checked", String(option.dataset.themeOption === mode));
+      });
+    };
+
+    trigger.addEventListener("click", () => {
+      menu.hidden ? openMenu() : closeMenu();
+    });
+
+    options.forEach((option) => {
+      option.addEventListener("click", () => {
+        window.__setFutureObserverTheme?.(option.dataset.themeOption || "system");
+        sync();
+        closeMenu();
+      });
+    });
+
+    document.addEventListener("click", (event) => {
+      if (!switcher.contains(event.target)) closeMenu();
+    });
+
+    document.addEventListener("keydown", (event) => {
+      if (event.key === "Escape") closeMenu();
+    });
+
+    window.addEventListener("future-observer-theme-change", sync);
+    sync();
+  })();
+</script>  <main class="shell page-content page-content--full">  <section class="docs-shell"> <aside class="docs-sidebar" aria-label="技术教程目录"> <nav class="docs-nav-block" aria-label="DeerFlow 教程"> <p class="docs-nav-title">DeerFlow 教程</p> <ul class="docs-nav-list"> <li> <a href="/docs/deer-flow/00-overview/" class="docs-nav-link"> 00. 教程总览 </a> </li><li> <a href="/docs/deer-flow/01-what-is-deerflow/" class="docs-nav-link"> 01. DeerFlow 是什么：先知道你在学什么 </a> </li><li> <a href="/docs/deer-flow/02-quickstart/" class="docs-nav-link"> 02. 快速开始：先把 DeerFlow 跑起来 </a> </li><li> <a href="/docs/deer-flow/03-config/" class="docs-nav-link"> 03. 配置文件：看懂 config.yaml </a> </li><li> <a href="/docs/deer-flow/04-architecture/" class="docs-nav-link"> 04. 整体架构：DeerFlow 到底在调度什么 </a> </li><li> <a href="/docs/deer-flow/05-project-structure/" class="docs-nav-link"> 05. 项目结构：从目录看懂 DeerFlow </a> </li><li> <a href="/docs/deer-flow/06-execution-flow/" class="docs-nav-link"> 06. 执行链路：一次任务从入口到结果 </a> </li><li> <a href="/docs/deer-flow/07-tools-principles/" class="docs-nav-link"> 07. Tools 原理：Agent 为什么需要工具 </a> </li><li> <a href="/docs/deer-flow/08-tools-source/" class="docs-nav-link"> 08. Tools 源码：工具是怎么注册和调用的 </a> </li><li> <a href="/docs/deer-flow/09-tools-practice/" class="docs-nav-link"> 09. Tools 实战：给研究型 Agent 增加一个工具能力 </a> </li><li> <a href="/docs/deer-flow/10-skills-principles/" class="docs-nav-link"> 10. Skills 原理：把经验沉淀成可复用能力 </a> </li><li> <a href="/docs/deer-flow/11-skills-source/" class="docs-nav-link"> 11. Skills 源码：Skill 是怎么安装、解析和约束工具的 </a> </li><li> <a href="/docs/deer-flow/12-skills-practice/" class="docs-nav-link"> 12. Skills 实战：写 Skill 约束输出质量 </a> </li><li> <a href="/docs/deer-flow/13-subagents-principles/" class="docs-nav-link"> 13. Sub-agents 原理：多智能体什么时候值得拆 </a> </li><li> <a href="/docs/deer-flow/14-subagents-source/" class="docs-nav-link"> 14. Sub-agents 源码：子 Agent 是怎么创建和汇总的 </a> </li><li> <a href="/docs/deer-flow/15-subagents-practice/" class="docs-nav-link"> 15. Sub-agents 实战：把研究任务拆给多个 Agent </a> </li><li> <a href="/docs/deer-flow/16-sandbox-principles/" class="docs-nav-link"> 16. Sandbox 原理：安全执行和文件边界 </a> </li><li> <a href="/docs/deer-flow/17-sandbox-source/" class="docs-nav-link"> 17. Sandbox 源码：执行环境和文件路径怎么管理 </a> </li><li> <a href="/docs/deer-flow/18-mcp-principles/" class="docs-nav-link"> 18. MCP 原理：把外部工具接进 Agent </a> </li><li> <a href="/docs/deer-flow/19-mcp-practice/" class="docs-nav-link"> 19. MCP 实战：接一个只读外部服务 </a> </li><li> <a href="/docs/deer-flow/20-memory-principles/" class="docs-nav-link"> 20. Memory 原理：长期上下文该记什么 </a> </li><li> <a href="/docs/deer-flow/21-observability/" class="docs-nav-link"> 21. 可观测性：看清一次 Agent 为什么失败 </a> </li><li> <a href="/docs/deer-flow/22-troubleshooting-practice/" class="docs-nav-link"> 22. 排错实战：一次任务为什么失败 </a> </li><li> <a href="/docs/deer-flow/23-final-research-agent/" class="docs-nav-link"> 23. 终局实战：自己写一个研究型 Agent </a> </li><li> <a href="/docs/deer-flow/24-agent-workflow/" class="docs-nav-link"> 24. 设计 Agent 任务流 </a> </li><li> <a href="/docs/deer-flow/25-search-and-tools/" class="docs-nav-link"> 25. 接入搜索和工具 </a> </li><li> <a href="/docs/deer-flow/26-quality-skill/" class="docs-nav-link"> 26. 写 Skill 约束输出质量 </a> </li><li> <a href="/docs/deer-flow/27-external-mcp/" class="docs-nav-link"> 27. 接 MCP / 外部服务 </a> </li><li> <a href="/docs/deer-flow/28-report-artifacts/" class="docs-nav-link"> 28. 生成报告和文件产物 </a> </li><li> <a href="/docs/deer-flow/29-acceptance-deploy/" class="docs-nav-link"> 29. 验收与部署 </a> </li> </ul> </nav><nav class="docs-nav-block" aria-label="Hermes教程"> <p class="docs-nav-title">Hermes教程</p> <ul class="docs-nav-list"> <li> <a href="/docs/hermes/00-overview/" class="docs-nav-link"> 00. 教程总览 </a> </li><li> <a href="/docs/hermes/01-what-is-hermes/" class="docs-nav-link"> 01. Hermes 是什么：先知道你在读什么 </a> </li><li> <a href="/docs/hermes/02-quickstart/" class="docs-nav-link"> 02. 快速开始：从安装到第一次对话 </a> </li><li> <a href="/docs/hermes/03-configuration/" class="docs-nav-link"> 03. 配置和模型：config.yaml、.env、provider 怎么配 </a> </li><li> <a href="/docs/hermes/04-project-structure/" class="docs-nav-link"> 04. 项目结构：从目录看懂 Hermes </a> </li><li> <a href="/docs/hermes/05-cli-entry/" class="docs-nav-link"> 05. CLI 入口：hermes 命令怎么启动一次会话 </a> </li><li> <a href="/docs/hermes/06-agent-loop/" class="docs-nav-link"> 06. Agent 主循环：一次消息如何变成模型调用和工具调用 </a> </li><li> <a href="/docs/hermes/07-prompt-context/" class="docs-nav-link"> 07. Prompt 与上下文：系统提示词、项目规则、记忆怎么进上下文 </a> </li><li> <a href="/docs/hermes/08-tools-principles/" class="docs-nav-link"> 08. Tools 原理：工具是怎么注册、筛选和执行的 </a> </li><li> <a href="/docs/hermes/09-tools-source/" class="docs-nav-link"> 09. Tools 源码：registry、toolsets、tool_executor 怎么配合 </a> </li><li> <a href="/docs/hermes/10-skills-principles/" class="docs-nav-link"> 10. Skills 原理：为什么 Hermes 把经验沉淀成 Skill </a> </li><li> <a href="/docs/hermes/11-skills-source/" class="docs-nav-link active"> 11. Skills 源码：Skill 如何被发现、加载和写入 </a> </li><li> <a href="/docs/hermes/12-memory-session/" class="docs-nav-link"> 12. Memory 与 Session：长期记忆和历史会话怎么参与下一次任务 </a> </li><li> <a href="/docs/hermes/13-cron/" class="docs-nav-link"> 13. Cron：定时任务怎么保存、触发和投递 </a> </li><li> <a href="/docs/hermes/14-gateway/" class="docs-nav-link"> 14. Gateway：飞书、Telegram、Discord 这类入口怎么接进 Agent </a> </li><li> <a href="/docs/hermes/15-mcp/" class="docs-nav-link"> 15. MCP：外部工具如何变成 Hermes 工具 </a> </li><li> <a href="/docs/hermes/16-delegation/" class="docs-nav-link"> 16. Delegation：子 Agent 和并行任务怎么跑 </a> </li><li> <a href="/docs/hermes/17-security/" class="docs-nav-link"> 17. 安全边界：审批、敏感信息、文件路径和工具限制 </a> </li><li> <a href="/docs/hermes/18-debugging/" class="docs-nav-link"> 18. 调试与排障：日志、doctor、status、常见错误怎么查 </a> </li><li> <a href="/docs/hermes/19-extension-roadmap/" class="docs-nav-link"> 19. 二开路线：想改一个能力时从哪里下手 </a> </li><li> <a href="/docs/hermes/20-summary/" class="docs-nav-link"> 20. 总结：读完后你应该能做什么 </a> </li> </ul> </nav> </aside> <article class="docs-article"> <header class="docs-hero"> <p class="docs-kicker">Technical Guide</p> <h1>11. Skills 源码：Skill 如何被发现、加载和写入</h1> <p>从 skill_utils、prompt_builder 和 skills 工具看 Hermes 的 Skill 生命周期。</p> </header> <div class="docs-prose">  <h2 id="这篇解决什么问题">这篇解决什么问题</h2>
+<p>上一篇讲 Skill 的意义，这一篇看源码。</p>
+<p>目标是看懂：Hermes 怎么找到 Skill，怎么决定哪些 Skill 出现在索引里，模型怎么读取完整 Skill，写入 Skill 时又有什么边界。</p>
+<h2 id="先看哪些文件">先看哪些文件</h2>
+<p>关键文件包括：</p>
+<pre class="astro-code astro-code-themes github-light github-dark" style="--shiki-light:#24292e;--shiki-dark:#e1e4e8;--shiki-light-bg:#fff;--shiki-dark-bg:#24292e; overflow-x: auto;" tabindex="0" data-language="text"><code><span class="line"><span>agent/skill_utils.py</span></span>
+<span class="line"><span>agent/prompt_builder.py</span></span>
+<span class="line"><span>tools/skills_tool.py</span></span>
+<span class="line"><span>agent/skill_preprocessing.py</span></span>
+<span class="line"><span>agent/skill_commands.py</span></span>
+<span class="line"><span>agent/curator.py</span></span></code></pre>
+<p>不同版本文件名可能有细节变化，但主线基本是：发现、索引、加载、写入、维护。</p>
+<h2 id="skill-存在哪里">Skill 存在哪里</h2>
+<p>默认用户 Skill 在：</p>
+<pre class="astro-code astro-code-themes github-light github-dark" style="--shiki-light:#24292e;--shiki-dark:#e1e4e8;--shiki-light-bg:#fff;--shiki-dark-bg:#24292e; overflow-x: auto;" tabindex="0" data-language="text"><code><span class="line"><span>~/.hermes/skills/</span></span></code></pre>
+<p>Profile 场景下则在：</p>
+<pre class="astro-code astro-code-themes github-light github-dark" style="--shiki-light:#24292e;--shiki-dark:#e1e4e8;--shiki-light-bg:#fff;--shiki-dark-bg:#24292e; overflow-x: auto;" tabindex="0" data-language="text"><code><span class="line"><span>~/.hermes/profiles/&#x3C;name>/skills/</span></span></code></pre>
+<p>此外，Hermes 还可能加载 bundled skills、hub skills、OpenClaw 迁移来的 skills。</p>
+<p><code>agent/skill_utils.py</code> 里的 <code>get_all_skills_dirs()</code> 就是找这些目录的关键函数之一。</p>
+<h2 id="发现-skill-时会跳过哪些目录">发现 Skill 时会跳过哪些目录</h2>
+<p><code>skill_utils.py</code> 里定义了排除目录，例如：</p>
+<pre class="astro-code astro-code-themes github-light github-dark" style="--shiki-light:#24292e;--shiki-dark:#e1e4e8;--shiki-light-bg:#fff;--shiki-dark-bg:#24292e; overflow-x: auto;" tabindex="0" data-language="text"><code><span class="line"><span>.git</span></span>
+<span class="line"><span>.github</span></span>
+<span class="line"><span>.archive</span></span>
+<span class="line"><span>.venv</span></span>
+<span class="line"><span>node_modules</span></span>
+<span class="line"><span>site-packages</span></span>
+<span class="line"><span>__pycache__</span></span>
+<span class="line"><span>.pytest_cache</span></span></code></pre>
+<p>这不是小细节。</p>
+<p>如果不排除，扫描 Skill 时可能把依赖目录、归档文件、测试缓存里的 <code>SKILL.md</code> 当成真实技能。</p>
+<h2 id="references-为什么不被当成-skill">references 为什么不被当成 Skill</h2>
+<p><code>references/</code>、<code>templates/</code>、<code>assets/</code>、<code>scripts/</code> 是 Skill 的支持目录。</p>
+<p>源码里有 <code>SKILL_SUPPORT_DIRS</code>，并明确说明：这些目录里的文件是通过 <code>skill_view(..., file_path=...)</code> 显式加载的，不是独立 Skill 根目录。</p>
+<p>这就是 progressive disclosure：主 Skill 先轻量加载，长资料按需读取。</p>
+<h2 id="platform-和-environment-过滤">platform 和 environment 过滤</h2>
+<p>Skill frontmatter 可以声明平台：</p>
+<pre class="astro-code astro-code-themes github-light github-dark" style="--shiki-light:#24292e;--shiki-dark:#e1e4e8;--shiki-light-bg:#fff;--shiki-dark-bg:#24292e; overflow-x: auto;" tabindex="0" data-language="yaml"><code><span class="line"><span style="--shiki-light:#22863A;--shiki-dark:#85E89D">platforms</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8">: [</span><span style="--shiki-light:#032F62;--shiki-dark:#9ECBFF">linux</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8">, </span><span style="--shiki-light:#032F62;--shiki-dark:#9ECBFF">macos</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8">]</span></span></code></pre>
+<p>也可以声明环境相关条件。</p>
+<p>源码里的注释强调：这是“展示/推荐时”的过滤，不是硬限制。也就是说，不匹配时可以不出现在索引里，但用户或系统显式 <code>skill_view</code> 时仍然可以加载。</p>
+<p>这点很重要：显式加载代表明确意图。</p>
+<h2 id="skill_view-做什么">skill_view 做什么</h2>
+<p><code>skill_view</code> 是读取 Skill 的主要工具。</p>
+<p>它可以读取：</p>
+<pre class="astro-code astro-code-themes github-light github-dark" style="--shiki-light:#24292e;--shiki-dark:#e1e4e8;--shiki-light-bg:#fff;--shiki-dark-bg:#24292e; overflow-x: auto;" tabindex="0" data-language="text"><code><span class="line"><span>SKILL.md</span></span>
+<span class="line"><span>references/xxx.md</span></span>
+<span class="line"><span>templates/xxx</span></span>
+<span class="line"><span>scripts/xxx</span></span></code></pre>
+<p>所以一个复杂 Skill 不需要把所有内容塞进主文件。主文件只放流程和触发条件，长背景资料放 references。</p>
+<h2 id="skill_manage-做什么">skill_manage 做什么</h2>
+<p><code>skill_manage</code> 用于创建、patch、编辑、删除或写入 Skill 支持文件。</p>
+<p>它适合沉淀长期流程，不适合记录临时任务进度。</p>
+<p>比如：</p>
+<pre class="astro-code astro-code-themes github-light github-dark" style="--shiki-light:#24292e;--shiki-dark:#e1e4e8;--shiki-light-bg:#fff;--shiki-dark-bg:#24292e; overflow-x: auto;" tabindex="0" data-language="text"><code><span class="line"><span>可以写：技术教程写作检查清单</span></span>
+<span class="line"><span>不要写：今天修了某篇文章第 3 段</span></span></code></pre>
+<p>后者应该留在会话历史或 git commit 里，而不是 Skill。</p>
+<h2 id="curator-是什么">Curator 是什么</h2>
+<p>Hermes 还有 curator 相关逻辑，用于维护 agent 创建的 Skill：使用统计、过期、归档、恢复等。</p>
+<p>这说明 Skill 不是“写进去就永远不管”。Skill 会变旧，会重复，也会需要合并。</p>
+<h2 id="如果你要新增一个-skill">如果你要新增一个 Skill</h2>
+<p>最小路径是：</p>
+<pre class="astro-code astro-code-themes github-light github-dark" style="--shiki-light:#24292e;--shiki-dark:#e1e4e8;--shiki-light-bg:#fff;--shiki-dark-bg:#24292e; overflow-x: auto;" tabindex="0" data-language="text"><code><span class="line"><span>~/.hermes/skills/&#x3C;category>/&#x3C;skill-name>/SKILL.md</span></span></code></pre>
+<p>主文件建议包含：</p>
+<pre class="astro-code astro-code-themes github-light github-dark" style="--shiki-light:#24292e;--shiki-dark:#e1e4e8;--shiki-light-bg:#fff;--shiki-dark-bg:#24292e; overflow-x: auto;" tabindex="0" data-language="text"><code><span class="line"><span>name</span></span>
+<span class="line"><span>description</span></span>
+<span class="line"><span>when to use</span></span>
+<span class="line"><span>workflow</span></span>
+<span class="line"><span>pitfalls</span></span>
+<span class="line"><span>verification</span></span></code></pre>
+<p>如果内容很长，把案例和参考拆到：</p>
+<pre class="astro-code astro-code-themes github-light github-dark" style="--shiki-light:#24292e;--shiki-dark:#e1e4e8;--shiki-light-bg:#fff;--shiki-dark-bg:#24292e; overflow-x: auto;" tabindex="0" data-language="text"><code><span class="line"><span>references/</span></span></code></pre>
+<h2 id="下一篇看什么">下一篇看什么</h2>
+<p>下一篇看 Memory 和 Session。</p>
+<p>Skill 是过程知识，Memory 是长期用户/环境事实，Session 是历史对话。三者不要混。</p>  </div> </article> <aside class="toc"><p class="toc-title">目录</p><ul class="toc-list"><li class="depth-2"><a href="#这篇解决什么问题" data-toc-link="这篇解决什么问题">这篇解决什么问题</a></li><li class="depth-2"><a href="#先看哪些文件" data-toc-link="先看哪些文件">先看哪些文件</a></li><li class="depth-2"><a href="#skill-存在哪里" data-toc-link="skill-存在哪里">Skill 存在哪里</a></li><li class="depth-2"><a href="#发现-skill-时会跳过哪些目录" data-toc-link="发现-skill-时会跳过哪些目录">发现 Skill 时会跳过哪些目录</a></li><li class="depth-2"><a href="#references-为什么不被当成-skill" data-toc-link="references-为什么不被当成-skill">references 为什么不被当成 Skill</a></li><li class="depth-2"><a href="#platform-和-environment-过滤" data-toc-link="platform-和-environment-过滤">platform 和 environment 过滤</a></li><li class="depth-2"><a href="#skill_view-做什么" data-toc-link="skill_view-做什么">skill_view 做什么</a></li><li class="depth-2"><a href="#skill_manage-做什么" data-toc-link="skill_manage-做什么">skill_manage 做什么</a></li><li class="depth-2"><a href="#curator-是什么" data-toc-link="curator-是什么">Curator 是什么</a></li><li class="depth-2"><a href="#如果你要新增一个-skill" data-toc-link="如果你要新增一个-skill">如果你要新增一个 Skill</a></li><li class="depth-2"><a href="#下一篇看什么" data-toc-link="下一篇看什么">下一篇看什么</a></li></ul></aside><script type="module">const c=()=>{const r=Array.from(document.querySelectorAll(".toc a[data-toc-link]"));if(!r.length)return;const o=r.map(t=>{const e=t.getAttribute("data-toc-link");if(!e)return null;const n=document.getElementById(e);return n?{id:e,heading:n,link:t}:null}).filter(t=>t!==null);if(!o.length)return;const s=t=>{r.forEach(e=>{const n=e.getAttribute("data-toc-link")===t;e.classList.toggle("active",n),n&&e.scrollIntoView({block:"nearest",inline:"nearest"})})},i=()=>{const t=Math.round(window.innerHeight*.28);let e=o[0];for(const n of o)n.heading.getBoundingClientRect().top<=t&&(e=n);s(e.id)};i();const a=new IntersectionObserver(()=>i(),{rootMargin:"-18% 0px -70% 0px",threshold:[0,1]});o.forEach(t=>a.observe(t.heading)),window.addEventListener("scroll",i,{passive:!0})};document.addEventListener("DOMContentLoaded",c);document.addEventListener("astro:page-load",c);</script> </section> <script type="module">const n=()=>{const e=document.querySelector(".docs-sidebar .docs-nav-link.active");e&&e.scrollIntoView({block:"center",inline:"nearest"})};document.addEventListener("DOMContentLoaded",n);document.addEventListener("astro:page-load",n);</script>  </main> <footer class="site-footer"> <div class="shell footer-inner"> <p>© 2026 未来观察者</p> </div> </footer> </body></html>

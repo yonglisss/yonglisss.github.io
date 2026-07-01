@@ -1,0 +1,142 @@
+<!DOCTYPE html><html lang="zh-CN"> <head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1"><script>
+      (() => {
+        const storageKey = "future-observer-theme";
+        const root = document.documentElement;
+        const getStoredMode = () => {
+          try {
+            const value = localStorage.getItem(storageKey);
+            return value === "light" || value === "dark" || value === "system" ? value : "system";
+          } catch {
+            return "system";
+          }
+        };
+        const systemDark = () => window.matchMedia?.("(prefers-color-scheme: dark)").matches ?? false;
+        const apply = (mode) => {
+          const resolved = mode === "system" ? (systemDark() ? "dark" : "light") : mode;
+          root.dataset.themeMode = mode;
+          root.dataset.theme = resolved;
+          root.style.colorScheme = resolved;
+        };
+        apply(getStoredMode());
+        window.__setFutureObserverTheme = (mode) => {
+          const next = mode === "light" || mode === "dark" || mode === "system" ? mode : "system";
+          try { localStorage.setItem(storageKey, next); } catch {}
+          apply(next);
+          window.dispatchEvent(new CustomEvent("future-observer-theme-change", { detail: { mode: next } }));
+        };
+        window.matchMedia?.("(prefers-color-scheme: dark)").addEventListener?.("change", () => {
+          if (getStoredMode() === "system") apply("system");
+        });
+      })();
+    </script><title>12. Memory 与 Session：长期记忆和历史会话怎么参与下一次任务 | 技术教程 | 未来观察者</title><meta name="description" content="区分 Memory、User Profile、Session Search 和上下文压缩，理解 Hermes 如何跨会话延续工作。"><meta name="generator" content="Astro v5.18.1"><meta property="og:title" content="12. Memory 与 Session：长期记忆和历史会话怎么参与下一次任务 | 技术教程 | 未来观察者"><meta property="og:description" content="区分 Memory、User Profile、Session Search 和上下文压缩，理解 Hermes 如何跨会话延续工作。"><meta property="og:type" content="website"><meta property="og:url" content="https://future.lifestudylab.com/docs/hermes/12-memory-session/"><link rel="icon" type="image/svg+xml" href="/favicon.svg"><link rel="alternate" type="application/rss+xml" title="未来观察者" href="/rss.xml"><link rel="stylesheet" href="/_astro/_channel_.DM2BjJPY.css"></head> <body> <div class="page-bg"></div> <header class="site-header"> <div class="shell header-inner"> <div class="header-bar"> <a class="brand" href="/ai-tools/"> <img src="/brand-mark.svg" alt="" class="brand-mark" width="56" height="56"> <span class="brand-text" aria-label="未来观察者">思考未来</span> </a> </div> <nav class="top-menu" aria-label="顶部菜单"> <a href="/future-daily/" class="top-menu-link"> 每日信息 </a><a href="/docs/deer-flow/00-overview/" class="top-menu-link"> DeerFlow教程 </a><a href="/docs/hermes/00-overview/" class="top-menu-link"> Hermes教程 </a><a href="/about/" class="top-menu-link"> 关于我 </a> </nav> <div class="top-actions"> <a class="feedback-link" href="https://github.com/yonglisss/yonglisss.github.io/issues" target="_blank" rel="noopener noreferrer" aria-label="问题反馈"> <svg viewBox="0 0 24 24" aria-hidden="true" class="action-icon"> <path d="M4.75 5.75A2.75 2.75 0 0 1 7.5 3h9A2.75 2.75 0 0 1 19.25 5.75v6.5A2.75 2.75 0 0 1 16.5 15H9.3l-3.55 3.2V15.1a2.75 2.75 0 0 1-1-2.1V5.75Z"></path> <path d="M8 7.75h8M8 11.25h4"></path> </svg> <span>问题反馈</span> </a> <div class="theme-switcher" data-theme-switcher> <button class="theme-trigger" type="button" aria-haspopup="menu" aria-expanded="false" aria-label="切换明暗模式" data-theme-trigger> <svg viewBox="0 0 24 24" aria-hidden="true" class="action-icon theme-trigger-icon theme-trigger-icon--light"> <circle cx="12" cy="12" r="4"></circle> <path d="M12 2.75v2M12 19.25v2M4.75 4.75l1.4 1.4M17.85 17.85l1.4 1.4M2.75 12h2M19.25 12h2M4.75 19.25l1.4-1.4M17.85 6.15l1.4-1.4"></path> </svg> <svg viewBox="0 0 24 24" aria-hidden="true" class="action-icon theme-trigger-icon theme-trigger-icon--dark"> <path d="M20.25 14.2A8 8 0 0 1 9.8 3.75 8.5 8.5 0 1 0 20.25 14.2Z"></path> </svg> <svg viewBox="0 0 24 24" aria-hidden="true" class="action-icon theme-trigger-icon theme-trigger-icon--system"> <rect x="4" y="5" width="16" height="11" rx="1.8"></rect> <path d="M9 20h6M12 16v4"></path> </svg> </button> <div class="theme-menu" role="menu" data-theme-menu hidden> <button class="theme-option" type="button" role="menuitemradio" data-theme-option="light" aria-checked="false"> <svg viewBox="0 0 24 24" aria-hidden="true" class="action-icon"><circle cx="12" cy="12" r="4"></circle><path d="M12 2.75v2M12 19.25v2M4.75 4.75l1.4 1.4M17.85 17.85l1.4 1.4M2.75 12h2M19.25 12h2M4.75 19.25l1.4-1.4M17.85 6.15l1.4-1.4"></path></svg> <span>亮色</span> </button> <button class="theme-option" type="button" role="menuitemradio" data-theme-option="dark" aria-checked="false"> <svg viewBox="0 0 24 24" aria-hidden="true" class="action-icon"><path d="M20.25 14.2A8 8 0 0 1 9.8 3.75 8.5 8.5 0 1 0 20.25 14.2Z"></path></svg> <span>暗色</span> </button> <button class="theme-option" type="button" role="menuitemradio" data-theme-option="system" aria-checked="true"> <svg viewBox="0 0 24 24" aria-hidden="true" class="action-icon"><rect x="4" y="5" width="16" height="11" rx="1.8"></rect><path d="M9 20h6M12 16v4"></path></svg> <span>跟随系统</span> </button> </div> </div> </div> </div> </header> <script>
+  (() => {
+    const switcher = document.querySelector("[data-theme-switcher]");
+    if (!switcher) return;
+
+    const trigger = switcher.querySelector("[data-theme-trigger]");
+    const menu = switcher.querySelector("[data-theme-menu]");
+    const options = [...switcher.querySelectorAll("[data-theme-option]")];
+    const modes = ["light", "dark", "system"];
+
+    const getMode = () => {
+      const mode = document.documentElement.dataset.themeMode;
+      return modes.includes(mode) ? mode : "system";
+    };
+
+    const closeMenu = () => {
+      menu.hidden = true;
+      trigger.setAttribute("aria-expanded", "false");
+    };
+
+    const openMenu = () => {
+      menu.hidden = false;
+      trigger.setAttribute("aria-expanded", "true");
+    };
+
+    const sync = () => {
+      const mode = getMode();
+      trigger.dataset.themeMode = mode;
+      options.forEach((option) => {
+        option.setAttribute("aria-checked", String(option.dataset.themeOption === mode));
+      });
+    };
+
+    trigger.addEventListener("click", () => {
+      menu.hidden ? openMenu() : closeMenu();
+    });
+
+    options.forEach((option) => {
+      option.addEventListener("click", () => {
+        window.__setFutureObserverTheme?.(option.dataset.themeOption || "system");
+        sync();
+        closeMenu();
+      });
+    });
+
+    document.addEventListener("click", (event) => {
+      if (!switcher.contains(event.target)) closeMenu();
+    });
+
+    document.addEventListener("keydown", (event) => {
+      if (event.key === "Escape") closeMenu();
+    });
+
+    window.addEventListener("future-observer-theme-change", sync);
+    sync();
+  })();
+</script>  <main class="shell page-content page-content--full">  <section class="docs-shell"> <aside class="docs-sidebar" aria-label="技术教程目录"> <nav class="docs-nav-block" aria-label="DeerFlow 教程"> <p class="docs-nav-title">DeerFlow 教程</p> <ul class="docs-nav-list"> <li> <a href="/docs/deer-flow/00-overview/" class="docs-nav-link"> 00. 教程总览 </a> </li><li> <a href="/docs/deer-flow/01-what-is-deerflow/" class="docs-nav-link"> 01. DeerFlow 是什么：先知道你在学什么 </a> </li><li> <a href="/docs/deer-flow/02-quickstart/" class="docs-nav-link"> 02. 快速开始：先把 DeerFlow 跑起来 </a> </li><li> <a href="/docs/deer-flow/03-config/" class="docs-nav-link"> 03. 配置文件：看懂 config.yaml </a> </li><li> <a href="/docs/deer-flow/04-architecture/" class="docs-nav-link"> 04. 整体架构：DeerFlow 到底在调度什么 </a> </li><li> <a href="/docs/deer-flow/05-project-structure/" class="docs-nav-link"> 05. 项目结构：从目录看懂 DeerFlow </a> </li><li> <a href="/docs/deer-flow/06-execution-flow/" class="docs-nav-link"> 06. 执行链路：一次任务从入口到结果 </a> </li><li> <a href="/docs/deer-flow/07-tools-principles/" class="docs-nav-link"> 07. Tools 原理：Agent 为什么需要工具 </a> </li><li> <a href="/docs/deer-flow/08-tools-source/" class="docs-nav-link"> 08. Tools 源码：工具是怎么注册和调用的 </a> </li><li> <a href="/docs/deer-flow/09-tools-practice/" class="docs-nav-link"> 09. Tools 实战：给研究型 Agent 增加一个工具能力 </a> </li><li> <a href="/docs/deer-flow/10-skills-principles/" class="docs-nav-link"> 10. Skills 原理：把经验沉淀成可复用能力 </a> </li><li> <a href="/docs/deer-flow/11-skills-source/" class="docs-nav-link"> 11. Skills 源码：Skill 是怎么安装、解析和约束工具的 </a> </li><li> <a href="/docs/deer-flow/12-skills-practice/" class="docs-nav-link"> 12. Skills 实战：写 Skill 约束输出质量 </a> </li><li> <a href="/docs/deer-flow/13-subagents-principles/" class="docs-nav-link"> 13. Sub-agents 原理：多智能体什么时候值得拆 </a> </li><li> <a href="/docs/deer-flow/14-subagents-source/" class="docs-nav-link"> 14. Sub-agents 源码：子 Agent 是怎么创建和汇总的 </a> </li><li> <a href="/docs/deer-flow/15-subagents-practice/" class="docs-nav-link"> 15. Sub-agents 实战：把研究任务拆给多个 Agent </a> </li><li> <a href="/docs/deer-flow/16-sandbox-principles/" class="docs-nav-link"> 16. Sandbox 原理：安全执行和文件边界 </a> </li><li> <a href="/docs/deer-flow/17-sandbox-source/" class="docs-nav-link"> 17. Sandbox 源码：执行环境和文件路径怎么管理 </a> </li><li> <a href="/docs/deer-flow/18-mcp-principles/" class="docs-nav-link"> 18. MCP 原理：把外部工具接进 Agent </a> </li><li> <a href="/docs/deer-flow/19-mcp-practice/" class="docs-nav-link"> 19. MCP 实战：接一个只读外部服务 </a> </li><li> <a href="/docs/deer-flow/20-memory-principles/" class="docs-nav-link"> 20. Memory 原理：长期上下文该记什么 </a> </li><li> <a href="/docs/deer-flow/21-observability/" class="docs-nav-link"> 21. 可观测性：看清一次 Agent 为什么失败 </a> </li><li> <a href="/docs/deer-flow/22-troubleshooting-practice/" class="docs-nav-link"> 22. 排错实战：一次任务为什么失败 </a> </li><li> <a href="/docs/deer-flow/23-final-research-agent/" class="docs-nav-link"> 23. 终局实战：自己写一个研究型 Agent </a> </li><li> <a href="/docs/deer-flow/24-agent-workflow/" class="docs-nav-link"> 24. 设计 Agent 任务流 </a> </li><li> <a href="/docs/deer-flow/25-search-and-tools/" class="docs-nav-link"> 25. 接入搜索和工具 </a> </li><li> <a href="/docs/deer-flow/26-quality-skill/" class="docs-nav-link"> 26. 写 Skill 约束输出质量 </a> </li><li> <a href="/docs/deer-flow/27-external-mcp/" class="docs-nav-link"> 27. 接 MCP / 外部服务 </a> </li><li> <a href="/docs/deer-flow/28-report-artifacts/" class="docs-nav-link"> 28. 生成报告和文件产物 </a> </li><li> <a href="/docs/deer-flow/29-acceptance-deploy/" class="docs-nav-link"> 29. 验收与部署 </a> </li> </ul> </nav><nav class="docs-nav-block" aria-label="Hermes教程"> <p class="docs-nav-title">Hermes教程</p> <ul class="docs-nav-list"> <li> <a href="/docs/hermes/00-overview/" class="docs-nav-link"> 00. 教程总览 </a> </li><li> <a href="/docs/hermes/01-what-is-hermes/" class="docs-nav-link"> 01. Hermes 是什么：先知道你在读什么 </a> </li><li> <a href="/docs/hermes/02-quickstart/" class="docs-nav-link"> 02. 快速开始：从安装到第一次对话 </a> </li><li> <a href="/docs/hermes/03-configuration/" class="docs-nav-link"> 03. 配置和模型：config.yaml、.env、provider 怎么配 </a> </li><li> <a href="/docs/hermes/04-project-structure/" class="docs-nav-link"> 04. 项目结构：从目录看懂 Hermes </a> </li><li> <a href="/docs/hermes/05-cli-entry/" class="docs-nav-link"> 05. CLI 入口：hermes 命令怎么启动一次会话 </a> </li><li> <a href="/docs/hermes/06-agent-loop/" class="docs-nav-link"> 06. Agent 主循环：一次消息如何变成模型调用和工具调用 </a> </li><li> <a href="/docs/hermes/07-prompt-context/" class="docs-nav-link"> 07. Prompt 与上下文：系统提示词、项目规则、记忆怎么进上下文 </a> </li><li> <a href="/docs/hermes/08-tools-principles/" class="docs-nav-link"> 08. Tools 原理：工具是怎么注册、筛选和执行的 </a> </li><li> <a href="/docs/hermes/09-tools-source/" class="docs-nav-link"> 09. Tools 源码：registry、toolsets、tool_executor 怎么配合 </a> </li><li> <a href="/docs/hermes/10-skills-principles/" class="docs-nav-link"> 10. Skills 原理：为什么 Hermes 把经验沉淀成 Skill </a> </li><li> <a href="/docs/hermes/11-skills-source/" class="docs-nav-link"> 11. Skills 源码：Skill 如何被发现、加载和写入 </a> </li><li> <a href="/docs/hermes/12-memory-session/" class="docs-nav-link active"> 12. Memory 与 Session：长期记忆和历史会话怎么参与下一次任务 </a> </li><li> <a href="/docs/hermes/13-cron/" class="docs-nav-link"> 13. Cron：定时任务怎么保存、触发和投递 </a> </li><li> <a href="/docs/hermes/14-gateway/" class="docs-nav-link"> 14. Gateway：飞书、Telegram、Discord 这类入口怎么接进 Agent </a> </li><li> <a href="/docs/hermes/15-mcp/" class="docs-nav-link"> 15. MCP：外部工具如何变成 Hermes 工具 </a> </li><li> <a href="/docs/hermes/16-delegation/" class="docs-nav-link"> 16. Delegation：子 Agent 和并行任务怎么跑 </a> </li><li> <a href="/docs/hermes/17-security/" class="docs-nav-link"> 17. 安全边界：审批、敏感信息、文件路径和工具限制 </a> </li><li> <a href="/docs/hermes/18-debugging/" class="docs-nav-link"> 18. 调试与排障：日志、doctor、status、常见错误怎么查 </a> </li><li> <a href="/docs/hermes/19-extension-roadmap/" class="docs-nav-link"> 19. 二开路线：想改一个能力时从哪里下手 </a> </li><li> <a href="/docs/hermes/20-summary/" class="docs-nav-link"> 20. 总结：读完后你应该能做什么 </a> </li> </ul> </nav> </aside> <article class="docs-article"> <header class="docs-hero"> <p class="docs-kicker">Technical Guide</p> <h1>12. Memory 与 Session：长期记忆和历史会话怎么参与下一次任务</h1> <p>区分 Memory、User Profile、Session Search 和上下文压缩，理解 Hermes 如何跨会话延续工作。</p> </header> <div class="docs-prose">  <h2 id="这篇解决什么问题">这篇解决什么问题</h2>
+<p>很多 Agent 号称“有记忆”，但记忆到底是什么，经常说不清。</p>
+<p>在 Hermes 里，至少要区分三件事：</p>
+<pre class="astro-code astro-code-themes github-light github-dark" style="--shiki-light:#24292e;--shiki-dark:#e1e4e8;--shiki-light-bg:#fff;--shiki-dark-bg:#24292e; overflow-x: auto;" tabindex="0" data-language="text"><code><span class="line"><span>Memory：长期稳定事实</span></span>
+<span class="line"><span>User Profile：关于用户是谁、偏好什么</span></span>
+<span class="line"><span>Session：过去对话和任务过程</span></span></code></pre>
+<p>它们进入下一次任务的方式不一样。</p>
+<h2 id="memory-适合放什么">Memory 适合放什么</h2>
+<p>Memory 适合放稳定事实，例如：</p>
+<pre class="astro-code astro-code-themes github-light github-dark" style="--shiki-light:#24292e;--shiki-dark:#e1e4e8;--shiki-light-bg:#fff;--shiki-dark-bg:#24292e; overflow-x: auto;" tabindex="0" data-language="text"><code><span class="line"><span>用户偏好中文短回复</span></span>
+<span class="line"><span>某个项目使用 Astro</span></span>
+<span class="line"><span>某个知识库默认路径</span></span>
+<span class="line"><span>某类任务的长期约定</span></span></code></pre>
+<p>不适合放：</p>
+<pre class="astro-code astro-code-themes github-light github-dark" style="--shiki-light:#24292e;--shiki-dark:#e1e4e8;--shiki-light-bg:#fff;--shiki-dark-bg:#24292e; overflow-x: auto;" tabindex="0" data-language="text"><code><span class="line"><span>今天完成了什么</span></span>
+<span class="line"><span>某个 PR 号</span></span>
+<span class="line"><span>某次临时任务状态</span></span>
+<span class="line"><span>一个很快会过期的链接</span></span></code></pre>
+<p>这些会污染后续会话。</p>
+<h2 id="user-profile-和-memory-的区别">User Profile 和 Memory 的区别</h2>
+<p>User Profile 更像“用户是谁”。</p>
+<p>Memory 更像“我对环境和工作方式的稳定认识”。</p>
+<p>例如：</p>
+<pre class="astro-code astro-code-themes github-light github-dark" style="--shiki-light:#24292e;--shiki-dark:#e1e4e8;--shiki-light-bg:#fff;--shiki-dark-bg:#24292e; overflow-x: auto;" tabindex="0" data-language="text"><code><span class="line"><span>用户叫勇谋，偏好中文沟通        → User Profile</span></span>
+<span class="line"><span>future-observer-web 是 Astro 站点 → Memory</span></span></code></pre>
+<p>两者都会影响回答，但用途不同。</p>
+<h2 id="session-search-做什么">Session Search 做什么</h2>
+<p>Session Search 不是记忆写入。</p>
+<p>它是搜索过去会话。</p>
+<p>当用户说“上次那个任务继续”或“你还记得我之前做的项目吗”，Hermes 可以通过 session_search 找到历史对话，而不是要求用户重复讲一遍。</p>
+<p>这适合找任务过程、决策和历史上下文。</p>
+<h2 id="memory-如何进入上下文">Memory 如何进入上下文</h2>
+<p><code>agent/memory_manager.py</code> 会把相关记忆构造成上下文块。</p>
+<p>然后在 Agent 构建系统提示词/turn context 时注入。</p>
+<p>这意味着 Memory 不是数据库里躺着的文本，而是会真实影响下一次模型调用。</p>
+<p>所以写错 Memory 比写错一条普通消息更危险。</p>
+<h2 id="上下文压缩和记忆不是一回事">上下文压缩和记忆不是一回事</h2>
+<p>长会话里，Hermes 会做上下文压缩。</p>
+<p>压缩解决的是：当前会话太长，模型上下文装不下。</p>
+<p>Memory 解决的是：跨会话保留稳定事实。</p>
+<p>不要把压缩摘要当长期记忆，也不要把长期记忆当任务进度表。</p>
+<h2 id="如果你要改记忆相关能力">如果你要改记忆相关能力</h2>
+<p>先判断目标：</p>
+<pre class="astro-code astro-code-themes github-light github-dark" style="--shiki-light:#24292e;--shiki-dark:#e1e4e8;--shiki-light-bg:#fff;--shiki-dark-bg:#24292e; overflow-x: auto;" tabindex="0" data-language="text"><code><span class="line"><span>改记忆如何进入 prompt       → agent/memory_manager.py / prompt 构建</span></span>
+<span class="line"><span>改 memory 工具写入规则      → memory tool 相关实现</span></span>
+<span class="line"><span>改 session 搜索             → session_search / state.db 相关实现</span></span>
+<span class="line"><span>改压缩策略                 → context_compressor / conversation_compression</span></span></code></pre>
+<p>不要把所有跨会话能力都归到一个文件里找。</p>
+<h2 id="一个实用原则">一个实用原则</h2>
+<p>判断一条信息该放哪里，可以问：</p>
+<pre class="astro-code astro-code-themes github-light github-dark" style="--shiki-light:#24292e;--shiki-dark:#e1e4e8;--shiki-light-bg:#fff;--shiki-dark-bg:#24292e; overflow-x: auto;" tabindex="0" data-language="text"><code><span class="line"><span>一周后它还重要吗？</span></span></code></pre>
+<p>如果重要，可能是 Memory 或 Skill。</p>
+<p>如果不重要，只是过程记录，就让它留在 Session 或 Git commit 里。</p>
+<h2 id="下一篇看什么">下一篇看什么</h2>
+<p>下一篇看 Cron。</p>
+<p>Cron 是 Hermes 从“对话式助手”变成“长期自动化系统”的关键能力。</p>  </div> </article> <aside class="toc"><p class="toc-title">目录</p><ul class="toc-list"><li class="depth-2"><a href="#这篇解决什么问题" data-toc-link="这篇解决什么问题">这篇解决什么问题</a></li><li class="depth-2"><a href="#memory-适合放什么" data-toc-link="memory-适合放什么">Memory 适合放什么</a></li><li class="depth-2"><a href="#user-profile-和-memory-的区别" data-toc-link="user-profile-和-memory-的区别">User Profile 和 Memory 的区别</a></li><li class="depth-2"><a href="#session-search-做什么" data-toc-link="session-search-做什么">Session Search 做什么</a></li><li class="depth-2"><a href="#memory-如何进入上下文" data-toc-link="memory-如何进入上下文">Memory 如何进入上下文</a></li><li class="depth-2"><a href="#上下文压缩和记忆不是一回事" data-toc-link="上下文压缩和记忆不是一回事">上下文压缩和记忆不是一回事</a></li><li class="depth-2"><a href="#如果你要改记忆相关能力" data-toc-link="如果你要改记忆相关能力">如果你要改记忆相关能力</a></li><li class="depth-2"><a href="#一个实用原则" data-toc-link="一个实用原则">一个实用原则</a></li><li class="depth-2"><a href="#下一篇看什么" data-toc-link="下一篇看什么">下一篇看什么</a></li></ul></aside><script type="module">const c=()=>{const r=Array.from(document.querySelectorAll(".toc a[data-toc-link]"));if(!r.length)return;const o=r.map(t=>{const e=t.getAttribute("data-toc-link");if(!e)return null;const n=document.getElementById(e);return n?{id:e,heading:n,link:t}:null}).filter(t=>t!==null);if(!o.length)return;const s=t=>{r.forEach(e=>{const n=e.getAttribute("data-toc-link")===t;e.classList.toggle("active",n),n&&e.scrollIntoView({block:"nearest",inline:"nearest"})})},i=()=>{const t=Math.round(window.innerHeight*.28);let e=o[0];for(const n of o)n.heading.getBoundingClientRect().top<=t&&(e=n);s(e.id)};i();const a=new IntersectionObserver(()=>i(),{rootMargin:"-18% 0px -70% 0px",threshold:[0,1]});o.forEach(t=>a.observe(t.heading)),window.addEventListener("scroll",i,{passive:!0})};document.addEventListener("DOMContentLoaded",c);document.addEventListener("astro:page-load",c);</script> </section> <script type="module">const n=()=>{const e=document.querySelector(".docs-sidebar .docs-nav-link.active");e&&e.scrollIntoView({block:"center",inline:"nearest"})};document.addEventListener("DOMContentLoaded",n);document.addEventListener("astro:page-load",n);</script>  </main> <footer class="site-footer"> <div class="shell footer-inner"> <p>© 2026 未来观察者</p> </div> </footer> </body></html>
