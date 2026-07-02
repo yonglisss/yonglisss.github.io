@@ -1,0 +1,253 @@
+<!DOCTYPE html><html lang="zh-CN"> <head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1"><script>
+      (() => {
+        const storageKey = "future-observer-theme";
+        const root = document.documentElement;
+        const getStoredMode = () => {
+          try {
+            const value = localStorage.getItem(storageKey);
+            return value === "light" || value === "dark" || value === "system" ? value : "system";
+          } catch {
+            return "system";
+          }
+        };
+        const systemDark = () => window.matchMedia?.("(prefers-color-scheme: dark)").matches ?? false;
+        const apply = (mode) => {
+          const resolved = mode === "system" ? (systemDark() ? "dark" : "light") : mode;
+          root.dataset.themeMode = mode;
+          root.dataset.theme = resolved;
+          root.style.colorScheme = resolved;
+        };
+        apply(getStoredMode());
+        window.__setFutureObserverTheme = (mode) => {
+          const next = mode === "light" || mode === "dark" || mode === "system" ? mode : "system";
+          try { localStorage.setItem(storageKey, next); } catch {}
+          apply(next);
+          window.dispatchEvent(new CustomEvent("future-observer-theme-change", { detail: { mode: next } }));
+        };
+        window.matchMedia?.("(prefers-color-scheme: dark)").addEventListener?.("change", () => {
+          if (getStoredMode() === "system") apply("system");
+        });
+      })();
+    </script><title>🚀 Starship年度入轨次数：市场开始用发射节奏衡量太空制造能力 | 未来观察者</title><meta name="description" content="🎯 核心观点：今天值得看的不是 SpaceX 又一次发射本身，而是 Polymarket 已经开始把 Starship 从“能不能飞”重新定价为“能不能稳定、密集、可复制地飞”。这意味着太空产业的关键变量，正在从单点技术突破转向制造节奏与运营能力。"><meta name="generator" content="Astro v5.18.1"><meta property="og:title" content="🚀 Starship年度入轨次数：市场开始用发射节奏衡量太空制造能力 | 未来观察者"><meta property="og:description" content="🎯 核心观点：今天值得看的不是 SpaceX 又一次发射本身，而是 Polymarket 已经开始把 Starship 从“能不能飞”重新定价为“能不能稳定、密集、可复制地飞”。这意味着太空产业的关键变量，正在从单点技术突破转向制造节奏与运营能力。"><meta property="og:type" content="website"><meta property="og:url" content="https://future.lifestudylab.com/posts/2026-07-03-starship%E5%B9%B4%E5%BA%A6%E5%85%A5%E8%BD%A8%E6%AC%A1%E6%95%B0-%E5%B8%82%E5%9C%BA%E5%BC%80%E5%A7%8B%E7%94%A8%E5%8F%91%E5%B0%84%E8%8A%82%E5%A5%8F%E8%A1%A1%E9%87%8F%E5%A4%AA%E7%A9%BA%E5%88%B6%E9%80%A0%E8%83%BD%E5%8A%9B/"><link rel="icon" type="image/svg+xml" href="/favicon.svg"><link rel="alternate" type="application/rss+xml" title="未来观察者" href="/rss.xml"><link rel="stylesheet" href="/_astro/_channel_.AMbMo1vF.css"></head> <body> <div class="page-bg"></div> <header class="site-header"> <div class="shell header-inner"> <div class="header-bar"> <a class="brand" href="/ai-tools/"> <img src="/brand-mark.svg" alt="" class="brand-mark" width="56" height="56"> <span class="brand-text" aria-label="未来观察者">思考未来</span> </a> </div> <nav class="top-menu" aria-label="顶部菜单"> <a href="/future-daily/" class="top-menu-link"> 每日信息 </a><a href="/docs/deer-flow/00-overview/" class="top-menu-link"> DeerFlow教程 </a><a href="/docs/hermes/00-overview/" class="top-menu-link"> Hermes教程 </a><a href="/docs/openclaw/00-overview/" class="top-menu-link"> OpenClaw教程 </a><a href="/about/" class="top-menu-link"> 关于我 </a> </nav> <div class="top-actions"> <a class="feedback-link" href="https://github.com/yonglisss/yonglisss.github.io/issues" target="_blank" rel="noopener noreferrer" aria-label="问题反馈"> <svg viewBox="0 0 24 24" aria-hidden="true" class="action-icon"> <path d="M4.75 5.75A2.75 2.75 0 0 1 7.5 3h9A2.75 2.75 0 0 1 19.25 5.75v6.5A2.75 2.75 0 0 1 16.5 15H9.3l-3.55 3.2V15.1a2.75 2.75 0 0 1-1-2.1V5.75Z"></path> <path d="M8 7.75h8M8 11.25h4"></path> </svg> <span>问题反馈</span> </a> <div class="theme-switcher" data-theme-switcher> <button class="theme-trigger" type="button" aria-haspopup="menu" aria-expanded="false" aria-label="切换明暗模式" data-theme-trigger> <svg viewBox="0 0 24 24" aria-hidden="true" class="action-icon theme-trigger-icon theme-trigger-icon--light"> <circle cx="12" cy="12" r="4"></circle> <path d="M12 2.75v2M12 19.25v2M4.75 4.75l1.4 1.4M17.85 17.85l1.4 1.4M2.75 12h2M19.25 12h2M4.75 19.25l1.4-1.4M17.85 6.15l1.4-1.4"></path> </svg> <svg viewBox="0 0 24 24" aria-hidden="true" class="action-icon theme-trigger-icon theme-trigger-icon--dark"> <path d="M20.25 14.2A8 8 0 0 1 9.8 3.75 8.5 8.5 0 1 0 20.25 14.2Z"></path> </svg> <svg viewBox="0 0 24 24" aria-hidden="true" class="action-icon theme-trigger-icon theme-trigger-icon--system"> <rect x="4" y="5" width="16" height="11" rx="1.8"></rect> <path d="M9 20h6M12 16v4"></path> </svg> </button> <div class="theme-menu" role="menu" data-theme-menu hidden> <button class="theme-option" type="button" role="menuitemradio" data-theme-option="light" aria-checked="false"> <svg viewBox="0 0 24 24" aria-hidden="true" class="action-icon"><circle cx="12" cy="12" r="4"></circle><path d="M12 2.75v2M12 19.25v2M4.75 4.75l1.4 1.4M17.85 17.85l1.4 1.4M2.75 12h2M19.25 12h2M4.75 19.25l1.4-1.4M17.85 6.15l1.4-1.4"></path></svg> <span>亮色</span> </button> <button class="theme-option" type="button" role="menuitemradio" data-theme-option="dark" aria-checked="false"> <svg viewBox="0 0 24 24" aria-hidden="true" class="action-icon"><path d="M20.25 14.2A8 8 0 0 1 9.8 3.75 8.5 8.5 0 1 0 20.25 14.2Z"></path></svg> <span>暗色</span> </button> <button class="theme-option" type="button" role="menuitemradio" data-theme-option="system" aria-checked="true"> <svg viewBox="0 0 24 24" aria-hidden="true" class="action-icon"><rect x="4" y="5" width="16" height="11" rx="1.8"></rect><path d="M9 20h6M12 16v4"></path></svg> <span>跟随系统</span> </button> </div> </div> </div> </div> </header> <script>
+  (() => {
+    const switcher = document.querySelector("[data-theme-switcher]");
+    if (!switcher) return;
+
+    const trigger = switcher.querySelector("[data-theme-trigger]");
+    const menu = switcher.querySelector("[data-theme-menu]");
+    const options = [...switcher.querySelectorAll("[data-theme-option]")];
+    const modes = ["light", "dark", "system"];
+
+    const getMode = () => {
+      const mode = document.documentElement.dataset.themeMode;
+      return modes.includes(mode) ? mode : "system";
+    };
+
+    const closeMenu = () => {
+      menu.hidden = true;
+      trigger.setAttribute("aria-expanded", "false");
+    };
+
+    const openMenu = () => {
+      menu.hidden = false;
+      trigger.setAttribute("aria-expanded", "true");
+    };
+
+    const sync = () => {
+      const mode = getMode();
+      trigger.dataset.themeMode = mode;
+      options.forEach((option) => {
+        option.setAttribute("aria-checked", String(option.dataset.themeOption === mode));
+      });
+    };
+
+    trigger.addEventListener("click", () => {
+      menu.hidden ? openMenu() : closeMenu();
+    });
+
+    options.forEach((option) => {
+      option.addEventListener("click", () => {
+        window.__setFutureObserverTheme?.(option.dataset.themeOption || "system");
+        sync();
+        closeMenu();
+      });
+    });
+
+    document.addEventListener("click", (event) => {
+      if (!switcher.contains(event.target)) closeMenu();
+    });
+
+    document.addEventListener("keydown", (event) => {
+      if (event.key === "Escape") closeMenu();
+    });
+
+    window.addEventListener("future-observer-theme-change", sync);
+    sync();
+  })();
+</script> <aside class="site-rail" aria-label="站点导航"> <div class="site-rail-inner"> <p class="site-rail-label">Channels</p> <nav aria-label="主导航"> <ul class="site-rail-nav"> <li> <a href="/ai-tools/" class="site-rail-link"> AI工具 </a> </li><li> <a href="/future-daily/" class="site-rail-link"> 未来观察者日报 </a> </li> </ul> </nav> </div> </aside> <main class="shell page-content">  <div class="post-hero"> <p class="eyebrow">2026年7月3日</p> <h1>🚀 Starship年度入轨次数：市场开始用发射节奏衡量太空制造能力</h1> <p class="post-summary">🎯 核心观点：今天值得看的不是 SpaceX 又一次发射本身，而是 Polymarket 已经开始把 Starship 从“能不能飞”重新定价为“能不能稳定、密集、可复制地飞”。这意味着太空产业的关键变量，正在从单点技术突破转向制造节奏与运营能力。</p> <ul class="tag-list"> <li> <a href="/tags/%E6%9C%AA%E6%9D%A5%E8%A7%82%E5%AF%9F%E8%80%85%E6%97%A5%E6%8A%A5/" class="tag-link">
+#未来观察者日报 </a> </li><li> <a href="/tags/2026%E5%B9%B407%E6%9C%88/" class="tag-link">
+#2026年07月 </a> </li> </ul> </div> <div class="post-grid"> <article class="prose">  <blockquote>
+<p>🎯 <strong>核心观点</strong>：今天值得看的不是 SpaceX 又一次发射本身，而是 Polymarket 已经开始把 Starship 从“能不能飞”重新定价为“能不能稳定、密集、可复制地飞”。这意味着太空产业的关键变量，正在从单点技术突破转向制造节奏与运营能力。</p>
+</blockquote>
+<p><strong>作者：</strong> 元英<br>
+<strong>时间：</strong> 2026年7月3日<br>
+<strong>标签：</strong> #未来观察者 #SpaceX #太空制造 #商业航天<br>
+<strong>阅读时间：</strong> 3-5分钟</p>
+<hr>
+<h2 id="-今天看什么投票">🧭 今天看什么投票？</h2>
+<p>今天选择的 Polymarket 投票是：<strong>How many SpaceX Starship launches reach space in 2026?</strong></p>
+<p>它不是一个单纯的“下一次发射会不会成功”的短线事件，而是在问一个更结构性的问题：<strong>Starship 在 2026 年到底能不能形成可重复的发射节奏。</strong></p>
+<h3 id="-关键数据卡片">📊 关键数据卡片</h3>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<table><thead><tr><th>项目</th><th>内容</th></tr></thead><tbody><tr><td>投票主题</td><td>How many SpaceX Starship launches reach space in 2026?</td></tr><tr><td>主要区间</td><td><code>&#x3C;5</code>、<code>5-6</code>、<code>7-8</code>、<code>9-10</code> 等年度成功抵达太空次数区间</td></tr><tr><td>当前主要概率</td><td><code>&#x3C;5</code>：约 41%；<code>5-6</code>：约 37%；<code>7-8</code>：约 12.1%；<code>9-10</code>：约 3.4%</td></tr><tr><td>总交易量</td><td>约 478,966 美元</td></tr><tr><td>所属领域</td><td>商业航天 / 太空制造 / 重型运载平台</td></tr><tr><td>数据获取时间</td><td>2026-07-03 04:01 CST 左右</td></tr><tr><td>数据来源</td><td>Polymarket：<code>https://polymarket.com/event/how-many-spacex-starship-launches-reach-space-in-2026</code></td></tr></tbody></table>
+<h3 id="-为什么今天选它">✅ 为什么今天选它？</h3>
+<ul>
+<li><strong>去重判断</strong>：最近 2 天内容分别是 NVIDIA 年末市值、Anthropic IPO，属于 AI 资本化与算力链条；最近 7 天还写过 WTI 油价、Bitcoin、美联储、Tesla 交付、AI 模型榜首等。今天这个选题切到商业航天与太空制造，避免连续重复 AI/宏观/能源主线。</li>
+<li><strong>现实驱动明确</strong>：Starship 的价值不只在单次发射成功，而在能否把重型运载做成高频、低边际成本的基础设施。</li>
+<li><strong>结构意义足够</strong>：如果 Starship 年度入轨次数上不去，月球、火星、星链二代、轨道制造、太空数据中心等远期叙事都会被重新折现。</li>
+</ul>
+<hr>
+<h2 id="-为什么会有这个投票">🔧 为什么会有这个投票？</h2>
+<p>过去几年，市场对 Starship 的关注点主要是“能不能飞起来”。但到 2026 年，这个问题已经不够了。</p>
+<p>真正的分水岭变成了三件事：</p>
+<ol>
+<li>
+<p><strong>发射是否可重复</strong><br>
+一次成功只能证明工程上限；多次稳定成功，才说明组织、供应链、测试流程和监管协同进入可复制阶段。</p>
+</li>
+<li>
+<p><strong>失败是否可被快速吸收</strong><br>
+SpaceX 的优势一直不是零失败，而是高频试错。如果每次事故都导致长时间停摆，Starship 就仍然是实验项目；如果失败后能快速回到发射台，它才接近运营系统。</p>
+</li>
+<li>
+<p><strong>年度节奏是否足以支撑商业叙事</strong><br>
+星链部署、深空任务、超重型货运、在轨补给，都不是靠一两次发射完成的。年度次数越低，后续应用兑现越慢。</p>
+</li>
+</ol>
+<p>所以这个投票本质上是在问：<strong>Starship 是产品，还是项目？</strong></p>
+<hr>
+<h2 id="️-这个投票真正反映了什么结构变化">🏗️ 这个投票真正反映了什么结构变化？</h2>
+<h3 id="1-技术层面从单次极限转向系统可靠性">1. 技术层面：从“单次极限”转向“系统可靠性”</h3>
+<p>Starship 的技术难点不只是猛禽发动机、热防护、一级回收或轨道级飞行。更难的是把这些环节组合成一个可以反复执行的系统。</p>
+<p>Polymarket 当前把 <code>&#x3C;5</code> 和 <code>5-6</code> 两个区间合计定价在约 78% 左右，说明市场并不认为 2026 年会迅速进入高频成熟期。换句话说，交易者承认 Starship 有巨大潜力，但仍然认为爬坡过程会受到工程、监管和节奏约束。</p>
+<h3 id="2-产业层面商业航天进入产能定价阶段">2. 产业层面：商业航天进入“产能定价”阶段</h3>
+<p>过去商业航天的估值，常常来自愿景：火星、星链、低成本入轨、太空经济。</p>
+<p>现在市场开始看更硬的指标：</p>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<table><thead><tr><th>旧指标</th><th>新指标</th></tr></thead><tbody><tr><td>是否完成演示飞行</td><td>一年能完成多少次有效入轨</td></tr><tr><td>单次发射是否成功</td><td>失败后多久恢复节奏</td></tr><tr><td>火箭性能参数</td><td>发射、回收、复用的组织效率</td></tr><tr><td>太空愿景</td><td>对星链、月球任务、在轨物流的实际交付能力</td></tr></tbody></table>
+<p>这就是从“故事估值”进入“产能估值”。</p>
+<h3 id="3-社会资本层面太空基础设施开始像能源和芯片一样被定价">3. 社会/资本层面：太空基础设施开始像能源和芯片一样被定价</h3>
+<p>如果 Starship 能稳定提高发射频率，它就不只是 SpaceX 的火箭项目，而是一个潜在的太空基础设施底座。</p>
+<p>资本市场关心的会变成：</p>
+<ul>
+<li>谁拥有最低成本的吨级入轨能力；</li>
+<li>谁能把卫星、通信、遥感、国防、在轨计算打包成平台；</li>
+<li>谁能让太空不再是项目制，而是供应链制。</li>
+</ul>
+<p>这也是今天这个投票符合“未来观察者”定位的原因：它观察的不是一场发射，而是一个产业能否从科研工程进入工业化阶段。</p>
+<hr>
+<h2 id="-如果趋势继续未来会怎样">⏳ 如果趋势继续，未来会怎样？</h2>
+<h3 id="短期市场继续盯下一次能不能飞">短期：市场继续盯“下一次能不能飞”</h3>
+<p>未来几个月，交易者会继续围绕单次飞行测试、FAA/监管节奏、发射窗口和事故复盘调整概率。若连续成功，<code>5-6</code> 或更高区间可能抬升；若出现长时间停摆，<code>&#x3C;5</code> 会进一步占优。</p>
+<h3 id="中期starship-进入节奏验证">中期：Starship 进入“节奏验证”</h3>
+<p>如果 2026 年能达到 5-6 次以上有效入轨，市场会开始重新定价 SpaceX 的重型运载能力：不仅是能飞，而是开始具备年度计划性。</p>
+<p>这会影响星链二代扩张、NASA 合作任务、商业载荷定价，甚至其他火箭公司的融资叙事。</p>
+<h3 id="长期太空经济的门槛从能造火箭变成能运营航线">长期：太空经济的门槛从“能造火箭”变成“能运营航线”</h3>
+<p>长期看，真正稀缺的不是某一次发射成功，而是像航空公司一样管理发射频次、维护、复用、保险、客户排期和监管沟通。</p>
+<p>谁能把发射变成航线，谁才有机会把太空经济做成平台经济。</p>
+<hr>
+<h2 id="-对谁最重要">🧩 对谁最重要？</h2>
+<h3 id="普通人">普通人</h3>
+<p>不要只看“火箭又炸了”或“火箭又成功了”这种标题。更值得观察的是：失败后恢复速度、年度测试次数、是否进入稳定迭代周期。</p>
+<h3 id="从业者">从业者</h3>
+<p>如果你在机器人、材料、仿真、制造、供应链、自动化测试领域，Starship 的节奏本身就是一个观察窗口：高频航天需要的不只是航天工程师，也需要大量工业软件、自动化检测和复杂制造能力。</p>
+<h3 id="创业者投资观察者">创业者/投资观察者</h3>
+<p>可以重点看三类机会：</p>
+<ol>
+<li><strong>航天供应链国产替代与高可靠制造</strong>：材料、阀门、传感器、热防护、测试设备；</li>
+<li><strong>在轨服务与卫星应用</strong>：当入轨成本下降，应用层才会变厚；</li>
+<li><strong>高频工程组织工具</strong>：仿真、质量追踪、事故复盘、数字孪生会越来越重要。</li>
+</ol>
+<hr>
+<h2 id="️-风险提示">⚠️ 风险提示</h2>
+<ul>
+<li><strong>投票价格不是事实</strong>：Polymarket 概率只是市场定价，不代表最终结果。</li>
+<li><strong>样本可能受交易结构影响</strong>：交易量约 47.9 万美元，有参考价值，但不能等同于全市场共识。</li>
+<li><strong>监管变量很关键</strong>：发射许可、事故调查、环境与安全审查，都可能影响节奏。</li>
+<li><strong>不要把 SpaceX 外推到整个行业</strong>：SpaceX 的组织能力特殊，其他商业航天公司未必能复制。</li>
+</ul>
+<hr>
+<h2 id="-结语太空产业的真正问题是频率">🌌 结语：太空产业的真正问题，是频率</h2>
+<p>今天这个投票最有价值的地方在于，它把一个宏大的太空叙事压缩成一个可观察指标：<strong>2026 年 Starship 到底能成功抵达太空多少次？</strong></p>
+<p>如果次数上不去，太空经济仍然主要是愿景；如果次数稳步上来，低成本重型入轨就会开始改变卫星、通信、国防、计算和制造的边界。</p>
+<p>未来观察太空产业，不要只问“有没有成功发射”。更好的问题是：<strong>它能不能一遍又一遍地成功。</strong></p>
+<hr>
+<h2 id="-参考资源">🔗 参考资源</h2>
+<ul>
+<li>Polymarket：How many SpaceX Starship launches reach space in 2026?<br>
+<code>https://polymarket.com/event/how-many-spacex-starship-launches-reach-space-in-2026</code></li>
+<li>Polymarket：SpaceX Starship Flight Test 13<br>
+<code>https://polymarket.com/event/spacex-starship-flight-test-13</code></li>
+<li>Polymarket：How many SpaceX launches in 2026?<br>
+<code>https://polymarket.com/event/how-many-spacex-launches-in-2026</code></li>
+</ul>  </article> <aside class="toc"><p class="toc-title">目录</p><ul class="toc-list"><li class="depth-2"><a href="#-今天看什么投票" data-toc-link="-今天看什么投票">🧭 今天看什么投票？</a></li><li class="depth-3"><a href="#-关键数据卡片" data-toc-link="-关键数据卡片">📊 关键数据卡片</a></li><li class="depth-3"><a href="#-为什么今天选它" data-toc-link="-为什么今天选它">✅ 为什么今天选它？</a></li><li class="depth-2"><a href="#-为什么会有这个投票" data-toc-link="-为什么会有这个投票">🔧 为什么会有这个投票？</a></li><li class="depth-2"><a href="#️-这个投票真正反映了什么结构变化" data-toc-link="️-这个投票真正反映了什么结构变化">🏗️ 这个投票真正反映了什么结构变化？</a></li><li class="depth-3"><a href="#1-技术层面从单次极限转向系统可靠性" data-toc-link="1-技术层面从单次极限转向系统可靠性">1. 技术层面：从“单次极限”转向“系统可靠性”</a></li><li class="depth-3"><a href="#2-产业层面商业航天进入产能定价阶段" data-toc-link="2-产业层面商业航天进入产能定价阶段">2. 产业层面：商业航天进入“产能定价”阶段</a></li><li class="depth-3"><a href="#3-社会资本层面太空基础设施开始像能源和芯片一样被定价" data-toc-link="3-社会资本层面太空基础设施开始像能源和芯片一样被定价">3. 社会/资本层面：太空基础设施开始像能源和芯片一样被定价</a></li><li class="depth-2"><a href="#-如果趋势继续未来会怎样" data-toc-link="-如果趋势继续未来会怎样">⏳ 如果趋势继续，未来会怎样？</a></li><li class="depth-3"><a href="#短期市场继续盯下一次能不能飞" data-toc-link="短期市场继续盯下一次能不能飞">短期：市场继续盯“下一次能不能飞”</a></li><li class="depth-3"><a href="#中期starship-进入节奏验证" data-toc-link="中期starship-进入节奏验证">中期：Starship 进入“节奏验证”</a></li><li class="depth-3"><a href="#长期太空经济的门槛从能造火箭变成能运营航线" data-toc-link="长期太空经济的门槛从能造火箭变成能运营航线">长期：太空经济的门槛从“能造火箭”变成“能运营航线”</a></li><li class="depth-2"><a href="#-对谁最重要" data-toc-link="-对谁最重要">🧩 对谁最重要？</a></li><li class="depth-3"><a href="#普通人" data-toc-link="普通人">普通人</a></li><li class="depth-3"><a href="#从业者" data-toc-link="从业者">从业者</a></li><li class="depth-3"><a href="#创业者投资观察者" data-toc-link="创业者投资观察者">创业者/投资观察者</a></li><li class="depth-2"><a href="#️-风险提示" data-toc-link="️-风险提示">⚠️ 风险提示</a></li><li class="depth-2"><a href="#-结语太空产业的真正问题是频率" data-toc-link="-结语太空产业的真正问题是频率">🌌 结语：太空产业的真正问题，是频率</a></li><li class="depth-2"><a href="#-参考资源" data-toc-link="-参考资源">🔗 参考资源</a></li></ul></aside><script type="module">const c=()=>{const r=Array.from(document.querySelectorAll(".toc a[data-toc-link]"));if(!r.length)return;const o=r.map(t=>{const e=t.getAttribute("data-toc-link");if(!e)return null;const n=document.getElementById(e);return n?{id:e,heading:n,link:t}:null}).filter(t=>t!==null);if(!o.length)return;const s=t=>{r.forEach(e=>{const n=e.getAttribute("data-toc-link")===t;e.classList.toggle("active",n),n&&e.scrollIntoView({block:"nearest",inline:"nearest"})})},i=()=>{const t=Math.round(window.innerHeight*.28);let e=o[0];for(const n of o)n.heading.getBoundingClientRect().top<=t&&(e=n);s(e.id)};i();const a=new IntersectionObserver(()=>i(),{rootMargin:"-18% 0px -70% 0px",threshold:[0,1]});o.forEach(t=>a.observe(t.heading)),window.addEventListener("scroll",i,{passive:!0})};document.addEventListener("DOMContentLoaded",c);document.addEventListener("astro:page-load",c);</script> </div>  </main> <footer class="site-footer"> <div class="shell footer-inner"> <p>© 2026 未来观察者</p> </div> </footer> </body></html>
