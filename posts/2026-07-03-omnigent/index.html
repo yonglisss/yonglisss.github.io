@@ -1,0 +1,126 @@
+<!DOCTYPE html><html lang="zh-CN"> <head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1"><script>
+      (() => {
+        const storageKey = "future-observer-theme";
+        const root = document.documentElement;
+        const getStoredMode = () => {
+          try {
+            const value = localStorage.getItem(storageKey);
+            return value === "light" || value === "dark" || value === "system" ? value : "system";
+          } catch {
+            return "system";
+          }
+        };
+        const systemDark = () => window.matchMedia?.("(prefers-color-scheme: dark)").matches ?? false;
+        const apply = (mode) => {
+          const resolved = mode === "system" ? (systemDark() ? "dark" : "light") : mode;
+          root.dataset.themeMode = mode;
+          root.dataset.theme = resolved;
+          root.style.colorScheme = resolved;
+        };
+        apply(getStoredMode());
+        window.__setFutureObserverTheme = (mode) => {
+          const next = mode === "light" || mode === "dark" || mode === "system" ? mode : "system";
+          try { localStorage.setItem(storageKey, next); } catch {}
+          apply(next);
+          window.dispatchEvent(new CustomEvent("future-observer-theme-change", { detail: { mode: next } }));
+        };
+        window.matchMedia?.("(prefers-color-scheme: dark)").addEventListener?.("change", () => {
+          if (getStoredMode() === "system") apply("system");
+        });
+      })();
+    </script><title>Omnigent：把多个 AI 编程 Agent 接到同一个工作台里 | 未来观察者</title><meta name="description" content="现在做 AI 编程，很多团队已经不是“选一个 Agent 就够了”。Claude Code、Codex、Cursor、OpenCode、Hermes 甚至自定义 Agent，各有强项，也各有接入方式。Omnigent 想解决的正是这个割裂问题：它把自己定位成开源的 meta-ha"><meta name="generator" content="Astro v5.18.1"><meta property="og:title" content="Omnigent：把多个 AI 编程 Agent 接到同一个工作台里 | 未来观察者"><meta property="og:description" content="现在做 AI 编程，很多团队已经不是“选一个 Agent 就够了”。Claude Code、Codex、Cursor、OpenCode、Hermes 甚至自定义 Agent，各有强项，也各有接入方式。Omnigent 想解决的正是这个割裂问题：它把自己定位成开源的 meta-ha"><meta property="og:type" content="website"><meta property="og:url" content="https://future.lifestudylab.com/posts/2026-07-03-omnigent/"><link rel="icon" type="image/svg+xml" href="/favicon.svg"><link rel="alternate" type="application/rss+xml" title="未来观察者" href="/rss.xml"><link rel="stylesheet" href="/_astro/_channel_.AMbMo1vF.css"></head> <body> <div class="page-bg"></div> <header class="site-header"> <div class="shell header-inner"> <div class="header-bar"> <a class="brand" href="/ai-tools/"> <img src="/brand-mark.svg" alt="" class="brand-mark" width="56" height="56"> <span class="brand-text" aria-label="未来观察者">思考未来</span> </a> </div> <nav class="top-menu" aria-label="顶部菜单"> <a href="/future-daily/" class="top-menu-link"> 每日信息 </a><a href="/docs/deer-flow/00-overview/" class="top-menu-link"> DeerFlow教程 </a><a href="/docs/hermes/00-overview/" class="top-menu-link"> Hermes教程 </a><a href="/docs/openclaw/00-overview/" class="top-menu-link"> OpenClaw教程 </a><a href="/about/" class="top-menu-link"> 关于我 </a> </nav> <div class="top-actions"> <a class="feedback-link" href="https://github.com/yonglisss/yonglisss.github.io/issues" target="_blank" rel="noopener noreferrer" aria-label="问题反馈"> <svg viewBox="0 0 24 24" aria-hidden="true" class="action-icon"> <path d="M4.75 5.75A2.75 2.75 0 0 1 7.5 3h9A2.75 2.75 0 0 1 19.25 5.75v6.5A2.75 2.75 0 0 1 16.5 15H9.3l-3.55 3.2V15.1a2.75 2.75 0 0 1-1-2.1V5.75Z"></path> <path d="M8 7.75h8M8 11.25h4"></path> </svg> <span>问题反馈</span> </a> <div class="theme-switcher" data-theme-switcher> <button class="theme-trigger" type="button" aria-haspopup="menu" aria-expanded="false" aria-label="切换明暗模式" data-theme-trigger> <svg viewBox="0 0 24 24" aria-hidden="true" class="action-icon theme-trigger-icon theme-trigger-icon--light"> <circle cx="12" cy="12" r="4"></circle> <path d="M12 2.75v2M12 19.25v2M4.75 4.75l1.4 1.4M17.85 17.85l1.4 1.4M2.75 12h2M19.25 12h2M4.75 19.25l1.4-1.4M17.85 6.15l1.4-1.4"></path> </svg> <svg viewBox="0 0 24 24" aria-hidden="true" class="action-icon theme-trigger-icon theme-trigger-icon--dark"> <path d="M20.25 14.2A8 8 0 0 1 9.8 3.75 8.5 8.5 0 1 0 20.25 14.2Z"></path> </svg> <svg viewBox="0 0 24 24" aria-hidden="true" class="action-icon theme-trigger-icon theme-trigger-icon--system"> <rect x="4" y="5" width="16" height="11" rx="1.8"></rect> <path d="M9 20h6M12 16v4"></path> </svg> </button> <div class="theme-menu" role="menu" data-theme-menu hidden> <button class="theme-option" type="button" role="menuitemradio" data-theme-option="light" aria-checked="false"> <svg viewBox="0 0 24 24" aria-hidden="true" class="action-icon"><circle cx="12" cy="12" r="4"></circle><path d="M12 2.75v2M12 19.25v2M4.75 4.75l1.4 1.4M17.85 17.85l1.4 1.4M2.75 12h2M19.25 12h2M4.75 19.25l1.4-1.4M17.85 6.15l1.4-1.4"></path></svg> <span>亮色</span> </button> <button class="theme-option" type="button" role="menuitemradio" data-theme-option="dark" aria-checked="false"> <svg viewBox="0 0 24 24" aria-hidden="true" class="action-icon"><path d="M20.25 14.2A8 8 0 0 1 9.8 3.75 8.5 8.5 0 1 0 20.25 14.2Z"></path></svg> <span>暗色</span> </button> <button class="theme-option" type="button" role="menuitemradio" data-theme-option="system" aria-checked="true"> <svg viewBox="0 0 24 24" aria-hidden="true" class="action-icon"><rect x="4" y="5" width="16" height="11" rx="1.8"></rect><path d="M9 20h6M12 16v4"></path></svg> <span>跟随系统</span> </button> </div> </div> </div> </div> </header> <script>
+  (() => {
+    const switcher = document.querySelector("[data-theme-switcher]");
+    if (!switcher) return;
+
+    const trigger = switcher.querySelector("[data-theme-trigger]");
+    const menu = switcher.querySelector("[data-theme-menu]");
+    const options = [...switcher.querySelectorAll("[data-theme-option]")];
+    const modes = ["light", "dark", "system"];
+
+    const getMode = () => {
+      const mode = document.documentElement.dataset.themeMode;
+      return modes.includes(mode) ? mode : "system";
+    };
+
+    const closeMenu = () => {
+      menu.hidden = true;
+      trigger.setAttribute("aria-expanded", "false");
+    };
+
+    const openMenu = () => {
+      menu.hidden = false;
+      trigger.setAttribute("aria-expanded", "true");
+    };
+
+    const sync = () => {
+      const mode = getMode();
+      trigger.dataset.themeMode = mode;
+      options.forEach((option) => {
+        option.setAttribute("aria-checked", String(option.dataset.themeOption === mode));
+      });
+    };
+
+    trigger.addEventListener("click", () => {
+      menu.hidden ? openMenu() : closeMenu();
+    });
+
+    options.forEach((option) => {
+      option.addEventListener("click", () => {
+        window.__setFutureObserverTheme?.(option.dataset.themeOption || "system");
+        sync();
+        closeMenu();
+      });
+    });
+
+    document.addEventListener("click", (event) => {
+      if (!switcher.contains(event.target)) closeMenu();
+    });
+
+    document.addEventListener("keydown", (event) => {
+      if (event.key === "Escape") closeMenu();
+    });
+
+    window.addEventListener("future-observer-theme-change", sync);
+    sync();
+  })();
+</script> <aside class="site-rail" aria-label="站点导航"> <div class="site-rail-inner"> <p class="site-rail-label">Channels</p> <nav aria-label="主导航"> <ul class="site-rail-nav"> <li> <a href="/ai-tools/" class="site-rail-link"> AI工具 </a> </li><li> <a href="/future-daily/" class="site-rail-link"> 未来观察者日报 </a> </li> </ul> </nav> </div> </aside> <main class="shell page-content">  <div class="post-hero"> <p class="eyebrow">2026年7月3日</p> <h1>Omnigent：把多个 AI 编程 Agent 接到同一个工作台里</h1> <p class="post-summary">现在做 AI 编程，很多团队已经不是“选一个 Agent 就够了”。Claude Code、Codex、Cursor、OpenCode、Hermes 甚至自定义 Agent，各有强项，也各有接入方式。Omnigent 想解决的正是这个割裂问题：它把自己定位成开源的 meta-ha</p> <ul class="tag-list"> <li> <a href="/tags/AI%E5%B7%A5%E5%85%B7/" class="tag-link">
+#AI工具 </a> </li><li> <a href="/tags/2026%E5%B9%B407%E6%9C%88/" class="tag-link">
+#2026年07月 </a> </li> </ul> </div> <div class="post-grid"> <article class="prose">  <p>现在做 AI 编程，很多团队已经不是“选一个 Agent 就够了”。Claude Code、Codex、Cursor、OpenCode、Hermes 甚至自定义 Agent，各有强项，也各有接入方式。<code>Omnigent</code> 想解决的正是这个割裂问题：它把自己定位成开源的 <strong>meta-harness</strong>，在多个 Agent 之上提供统一编排层，让开发者可以在同一个会话里切换、组合、协作和治理不同 Agent。项目目前是 alpha 状态，但 README、官网、文档、示例和 release 都比较完整，适合关注“多 Agent 工程化”的团队先做技术预研。</p>
+<h2 id="-这个项目是干什么的">📌 这个项目是干什么的</h2>
+<ul>
+<li>定位：一个开源 AI Agent 编排框架，核心不是再造一个模型聊天壳，而是统一管理多个已有 Agent / coding harness。</li>
+<li>支持对象：官方 README 提到可接入 Claude Code、Codex、Cursor、OpenCode、Hermes、Pi 以及通过 YAML 定义的自定义 Agent。</li>
+<li>使用场景：同一个任务中让不同 Agent 分工、互相 review，或者把终端、浏览器、手机、桌面端里的会话同步起来。</li>
+<li>开源情况：GitHub 仓库使用 Apache-2.0 许可证；PyPI 当前可查版本为 <code>0.3.0</code>；官方标注项目状态为 alpha。</li>
+</ul>
+<h2 id="-为什么值得关注">🔍 为什么值得关注</h2>
+<ol>
+<li>
+<p><strong>它切中了“Agent 工具链碎片化”的真实痛点。</strong> 很多团队已经在同时试 Claude Code、Codex、Cursor 等工具，但工作流、权限、上下文和协作方式并不统一。Omnigent 的价值在于把这些 Agent 放进同一层调度和会话管理里，而不是要求团队重写现有工具链。</p>
+</li>
+<li>
+<p><strong>治理能力比功能清单更值得看。</strong> README 明确提到 policies：可以在高风险动作前暂停等待审批、限制工具访问、控制成本，并可作用在 server、单个 agent 或单个 chat 上。对企业内部试点 Agent 来说，这类“能不能控住”往往比“能不能跑通 Demo”更关键。</p>
+</li>
+<li>
+<p><strong>它把本地与云端执行都放进了设计里。</strong> 官方说明支持在本地终端、浏览器、手机或桌面应用继续同一会话，也提到可在 Modal、Daytona、E2B、Kubernetes 等沙箱环境运行 Agent。对于想把 AI 编程从个人工具推进到团队基础设施的读者，这是一个值得观察的方向。</p>
+</li>
+</ol>
+<h2 id="-谁适合试怎么开始">🧪 谁适合试，怎么开始</h2>
+<p>如果你只是想找一个轻量聊天工具，Omnigent 可能偏重；如果你正在做 AI 编程平台、Agent 工作台、团队协作式代码助手，或者想比较不同 coding agent 的工程化接入方式，可以优先试一下。</p>
+<p>最短路径是先读 GitHub README 的 Quick start：官方提供一条安装脚本，也支持通过 <code>uv tool install omnigent</code>、<code>pip install omnigent</code> 或 Homebrew 安装。README 同时说明需要 Python 3.12+，以及 uv、git、Node.js 22 LTS 等前置工具。建议先不要急着接入全部 Agent，而是从一个已有 coding agent + 一个自定义 YAML agent 开始，验证会话管理、权限策略和协作流程是否符合自己的团队习惯。</p>
+<h2 id="️-使用提醒">⚠️ 使用提醒</h2>
+<ul>
+<li>官方已经标注 alpha，适合预研和小范围试用，不建议直接当成稳定生产基础设施押注。</li>
+<li>它解决的是“多 Agent 编排与治理”，不是替代底层模型能力。效果仍取决于你接入的模型、Agent、权限配置和执行环境。</li>
+<li>如果团队当前只有单人使用一个固定工具，收益可能不明显；当你开始面对多工具、多成员、多任务和风险审批时，它的价值才更容易体现。</li>
+</ul>
+<h2 id="-参考资源">🔗 参考资源</h2>
+<ul>
+<li>GitHub：<a href="https://github.com/omnigent-ai/omnigent">https://github.com/omnigent-ai/omnigent</a></li>
+<li>官网：<a href="https://omnigent.ai">https://omnigent.ai</a></li>
+<li>文档目录：<a href="https://github.com/omnigent-ai/omnigent/tree/main/docs">https://github.com/omnigent-ai/omnigent/tree/main/docs</a></li>
+<li>示例目录：<a href="https://github.com/omnigent-ai/omnigent/tree/main/examples">https://github.com/omnigent-ai/omnigent/tree/main/examples</a></li>
+<li>Releases：<a href="https://github.com/omnigent-ai/omnigent/releases">https://github.com/omnigent-ai/omnigent/releases</a></li>
+<li>PyPI：<a href="https://pypi.org/project/omnigent/">https://pypi.org/project/omnigent/</a></li>
+</ul>  </article> <aside class="toc"><p class="toc-title">目录</p><ul class="toc-list"><li class="depth-2"><a href="#-这个项目是干什么的" data-toc-link="-这个项目是干什么的">📌 这个项目是干什么的</a></li><li class="depth-2"><a href="#-为什么值得关注" data-toc-link="-为什么值得关注">🔍 为什么值得关注</a></li><li class="depth-2"><a href="#-谁适合试怎么开始" data-toc-link="-谁适合试怎么开始">🧪 谁适合试，怎么开始</a></li><li class="depth-2"><a href="#️-使用提醒" data-toc-link="️-使用提醒">⚠️ 使用提醒</a></li><li class="depth-2"><a href="#-参考资源" data-toc-link="-参考资源">🔗 参考资源</a></li></ul></aside><script type="module">const c=()=>{const r=Array.from(document.querySelectorAll(".toc a[data-toc-link]"));if(!r.length)return;const o=r.map(t=>{const e=t.getAttribute("data-toc-link");if(!e)return null;const n=document.getElementById(e);return n?{id:e,heading:n,link:t}:null}).filter(t=>t!==null);if(!o.length)return;const s=t=>{r.forEach(e=>{const n=e.getAttribute("data-toc-link")===t;e.classList.toggle("active",n),n&&e.scrollIntoView({block:"nearest",inline:"nearest"})})},i=()=>{const t=Math.round(window.innerHeight*.28);let e=o[0];for(const n of o)n.heading.getBoundingClientRect().top<=t&&(e=n);s(e.id)};i();const a=new IntersectionObserver(()=>i(),{rootMargin:"-18% 0px -70% 0px",threshold:[0,1]});o.forEach(t=>a.observe(t.heading)),window.addEventListener("scroll",i,{passive:!0})};document.addEventListener("DOMContentLoaded",c);document.addEventListener("astro:page-load",c);</script> </div>  </main> <footer class="site-footer"> <div class="shell footer-inner"> <p>© 2026 未来观察者</p> </div> </footer> </body></html>
