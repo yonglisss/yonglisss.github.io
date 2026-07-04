@@ -1,0 +1,119 @@
+<!DOCTYPE html><html lang="zh-CN"> <head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1"><script>
+      (() => {
+        const storageKey = "future-observer-theme";
+        const root = document.documentElement;
+        const getStoredMode = () => {
+          try {
+            const value = localStorage.getItem(storageKey);
+            return value === "light" || value === "dark" || value === "system" ? value : "system";
+          } catch {
+            return "system";
+          }
+        };
+        const systemDark = () => window.matchMedia?.("(prefers-color-scheme: dark)").matches ?? false;
+        const apply = (mode) => {
+          const resolved = mode === "system" ? (systemDark() ? "dark" : "light") : mode;
+          root.dataset.themeMode = mode;
+          root.dataset.theme = resolved;
+          root.style.colorScheme = resolved;
+        };
+        apply(getStoredMode());
+        window.__setFutureObserverTheme = (mode) => {
+          const next = mode === "light" || mode === "dark" || mode === "system" ? mode : "system";
+          try { localStorage.setItem(storageKey, next); } catch {}
+          apply(next);
+          window.dispatchEvent(new CustomEvent("future-observer-theme-change", { detail: { mode: next } }));
+        };
+        window.matchMedia?.("(prefers-color-scheme: dark)").addEventListener?.("change", () => {
+          if (getStoredMode() === "system") apply("system");
+        });
+      })();
+    </script><title>Open Design：把设计交付变成可审阅的本地 AI 工作流 | 未来观察者</title><meta name="description" content="如果你最近在关注“AI 生成界面 / 演示稿 / 营销页”这类工具，Open Design 值得放进观察清单。它不是单纯的图片生成器，而是一个本地优先的开源设计工作台：让 Claude Code、Codex、Gemini CLI、OpenCode、Cursor Agent 等代码"><meta name="generator" content="Astro v5.18.1"><meta property="og:title" content="Open Design：把设计交付变成可审阅的本地 AI 工作流 | 未来观察者"><meta property="og:description" content="如果你最近在关注“AI 生成界面 / 演示稿 / 营销页”这类工具，Open Design 值得放进观察清单。它不是单纯的图片生成器，而是一个本地优先的开源设计工作台：让 Claude Code、Codex、Gemini CLI、OpenCode、Cursor Agent 等代码"><meta property="og:type" content="website"><meta property="og:url" content="https://future.lifestudylab.com/posts/2026-07-05-open-design/"><link rel="icon" type="image/svg+xml" href="/favicon.svg"><link rel="alternate" type="application/rss+xml" title="未来观察者" href="/rss.xml"><link rel="stylesheet" href="/_astro/_channel_.AMbMo1vF.css"></head> <body> <div class="page-bg"></div> <header class="site-header"> <div class="shell header-inner"> <div class="header-bar"> <a class="brand" href="/ai-tools/"> <img src="/brand-mark.svg" alt="" class="brand-mark" width="56" height="56"> <span class="brand-text" aria-label="未来观察者">思考未来</span> </a> </div> <nav class="top-menu" aria-label="顶部菜单"> <a href="/future-daily/" class="top-menu-link"> 每日信息 </a><a href="/docs/deer-flow/00-overview/" class="top-menu-link"> DeerFlow教程 </a><a href="/docs/hermes/00-overview/" class="top-menu-link"> Hermes教程 </a><a href="/docs/openclaw/00-overview/" class="top-menu-link"> OpenClaw教程 </a><a href="/about/" class="top-menu-link"> 关于我 </a> </nav> <div class="top-actions"> <a class="feedback-link" href="https://github.com/yonglisss/yonglisss.github.io/issues" target="_blank" rel="noopener noreferrer" aria-label="问题反馈"> <svg viewBox="0 0 24 24" aria-hidden="true" class="action-icon"> <path d="M4.75 5.75A2.75 2.75 0 0 1 7.5 3h9A2.75 2.75 0 0 1 19.25 5.75v6.5A2.75 2.75 0 0 1 16.5 15H9.3l-3.55 3.2V15.1a2.75 2.75 0 0 1-1-2.1V5.75Z"></path> <path d="M8 7.75h8M8 11.25h4"></path> </svg> <span>问题反馈</span> </a> <div class="theme-switcher" data-theme-switcher> <button class="theme-trigger" type="button" aria-haspopup="menu" aria-expanded="false" aria-label="切换明暗模式" data-theme-trigger> <svg viewBox="0 0 24 24" aria-hidden="true" class="action-icon theme-trigger-icon theme-trigger-icon--light"> <circle cx="12" cy="12" r="4"></circle> <path d="M12 2.75v2M12 19.25v2M4.75 4.75l1.4 1.4M17.85 17.85l1.4 1.4M2.75 12h2M19.25 12h2M4.75 19.25l1.4-1.4M17.85 6.15l1.4-1.4"></path> </svg> <svg viewBox="0 0 24 24" aria-hidden="true" class="action-icon theme-trigger-icon theme-trigger-icon--dark"> <path d="M20.25 14.2A8 8 0 0 1 9.8 3.75 8.5 8.5 0 1 0 20.25 14.2Z"></path> </svg> <svg viewBox="0 0 24 24" aria-hidden="true" class="action-icon theme-trigger-icon theme-trigger-icon--system"> <rect x="4" y="5" width="16" height="11" rx="1.8"></rect> <path d="M9 20h6M12 16v4"></path> </svg> </button> <div class="theme-menu" role="menu" data-theme-menu hidden> <button class="theme-option" type="button" role="menuitemradio" data-theme-option="light" aria-checked="false"> <svg viewBox="0 0 24 24" aria-hidden="true" class="action-icon"><circle cx="12" cy="12" r="4"></circle><path d="M12 2.75v2M12 19.25v2M4.75 4.75l1.4 1.4M17.85 17.85l1.4 1.4M2.75 12h2M19.25 12h2M4.75 19.25l1.4-1.4M17.85 6.15l1.4-1.4"></path></svg> <span>亮色</span> </button> <button class="theme-option" type="button" role="menuitemradio" data-theme-option="dark" aria-checked="false"> <svg viewBox="0 0 24 24" aria-hidden="true" class="action-icon"><path d="M20.25 14.2A8 8 0 0 1 9.8 3.75 8.5 8.5 0 1 0 20.25 14.2Z"></path></svg> <span>暗色</span> </button> <button class="theme-option" type="button" role="menuitemradio" data-theme-option="system" aria-checked="true"> <svg viewBox="0 0 24 24" aria-hidden="true" class="action-icon"><rect x="4" y="5" width="16" height="11" rx="1.8"></rect><path d="M9 20h6M12 16v4"></path></svg> <span>跟随系统</span> </button> </div> </div> </div> </div> </header> <script>
+  (() => {
+    const switcher = document.querySelector("[data-theme-switcher]");
+    if (!switcher) return;
+
+    const trigger = switcher.querySelector("[data-theme-trigger]");
+    const menu = switcher.querySelector("[data-theme-menu]");
+    const options = [...switcher.querySelectorAll("[data-theme-option]")];
+    const modes = ["light", "dark", "system"];
+
+    const getMode = () => {
+      const mode = document.documentElement.dataset.themeMode;
+      return modes.includes(mode) ? mode : "system";
+    };
+
+    const closeMenu = () => {
+      menu.hidden = true;
+      trigger.setAttribute("aria-expanded", "false");
+    };
+
+    const openMenu = () => {
+      menu.hidden = false;
+      trigger.setAttribute("aria-expanded", "true");
+    };
+
+    const sync = () => {
+      const mode = getMode();
+      trigger.dataset.themeMode = mode;
+      options.forEach((option) => {
+        option.setAttribute("aria-checked", String(option.dataset.themeOption === mode));
+      });
+    };
+
+    trigger.addEventListener("click", () => {
+      menu.hidden ? openMenu() : closeMenu();
+    });
+
+    options.forEach((option) => {
+      option.addEventListener("click", () => {
+        window.__setFutureObserverTheme?.(option.dataset.themeOption || "system");
+        sync();
+        closeMenu();
+      });
+    });
+
+    document.addEventListener("click", (event) => {
+      if (!switcher.contains(event.target)) closeMenu();
+    });
+
+    document.addEventListener("keydown", (event) => {
+      if (event.key === "Escape") closeMenu();
+    });
+
+    window.addEventListener("future-observer-theme-change", sync);
+    sync();
+  })();
+</script> <aside class="site-rail" aria-label="站点导航"> <div class="site-rail-inner"> <p class="site-rail-label">Channels</p> <nav aria-label="主导航"> <ul class="site-rail-nav"> <li> <a href="/ai-tools/" class="site-rail-link"> AI工具 </a> </li><li> <a href="/future-daily/" class="site-rail-link"> 未来观察者日报 </a> </li> </ul> </nav> </div> </aside> <main class="shell page-content">  <div class="post-hero"> <p class="eyebrow">2026年7月5日</p> <h1>Open Design：把设计交付变成可审阅的本地 AI 工作流</h1> <p class="post-summary">如果你最近在关注“AI 生成界面 / 演示稿 / 营销页”这类工具，Open Design 值得放进观察清单。它不是单纯的图片生成器，而是一个本地优先的开源设计工作台：让 Claude Code、Codex、Gemini CLI、OpenCode、Cursor Agent 等代码</p> <ul class="tag-list"> <li> <a href="/tags/AI%E5%B7%A5%E5%85%B7/" class="tag-link">
+#AI工具 </a> </li><li> <a href="/tags/2026%E5%B9%B407%E6%9C%88/" class="tag-link">
+#2026年07月 </a> </li> </ul> </div> <div class="post-grid"> <article class="prose">  <p>如果你最近在关注“AI 生成界面 / 演示稿 / 营销页”这类工具，Open Design 值得放进观察清单。它不是单纯的图片生成器，而是一个本地优先的开源设计工作台：让 Claude Code、Codex、Gemini CLI、OpenCode、Cursor Agent 等代码代理参与设计生成，把原型、仪表盘、PPT、图片、视频等交付物做成真实文件，再进入预览、修改和导出流程。</p>
+<p>它的价值不在于“又多了一个 AI 设计 App”，而在于把设计系统、插件、技能和代码代理串到同一个工作流里。对需要快速做产品原型、活动页、汇报材料的团队来说，这比只拿到一张效果图更有用。</p>
+<h2 id="-这个项目是干什么的">📌 这个项目是干什么的</h2>
+<ul>
+<li>Open Design 定位为开源的 agentic design workspace，官方称其为本地优先的 Claude Design 替代方案。</li>
+<li>它提供 macOS、Windows 桌面应用，也支持 Docker 方式在本地启动服务。</li>
+<li>项目强调用真实 HTML / PDF / PPTX / MP4 等文件交付，而不是只停留在截图或提示词结果。</li>
+<li>它可以连接多种本地代码代理 CLI，或者通过 BYOK / OpenAI-compatible endpoint 使用模型能力。</li>
+</ul>
+<h2 id="-为什么值得关注">🔍 为什么值得关注</h2>
+<p>第一，它把“设计生成”从一次性出图，往可迭代工作流推进了一步。README 中反复强调的不是单点功能，而是从 brief、参考收集、生成 artifact、评论修改、导出交付的闭环。这对开发者和产品人更友好：结果可以落到文件系统里，后续还能交给代码代理继续改。</p>
+<p>第二，它把设计系统前置成约束。Open Design 提到 <code>DESIGN.md</code>、design systems、plugins、skills 等机制，本质上是在减少“每次都重新解释品牌规范”的成本。对有固定视觉规范的团队，这比临时让模型自由发挥更可控。</p>
+<p>第三，项目活跃度较高。GitHub 仓库显示 Apache-2.0 许可证，近期 release 为 <code>open-design-v0.13.0</code>，发布说明中提到会话续接、BYOK 设置优化、导出链路等改进；仓库也在近期持续更新。它仍然需要实测，但至少不是只有概念页的项目。</p>
+<h2 id="-谁适合试怎么开始">🧪 谁适合试，怎么开始</h2>
+<p>更适合三类人先试：</p>
+<ul>
+<li>经常要做产品原型、落地页、活动页的产品 / 前端同学；</li>
+<li>已经在用 Claude Code、Codex、Gemini CLI 等代码代理，希望把它们接入设计流程的开发者；</li>
+<li>有固定品牌规范，想把设计系统沉淀成可复用工作流的小团队。</li>
+</ul>
+<p>最短路径建议先看 GitHub README 和 Quickstart。官方 Quickstart 给出的 Docker 路线是：进入 <code>deploy</code> 目录，复制 <code>.env.example</code>，生成并填写 <code>OD_API_TOKEN</code>，然后用 <code>docker compose up -d</code> 启动，默认访问 <code>http://localhost:7456</code>。如果要从源码跑，注意仓库 <code>package.json</code> 要求 Node.js 24.x，并使用 pnpm 10.33.x。</p>
+<h2 id="️-使用提醒">⚠️ 使用提醒</h2>
+<p>Open Design 更像“设计工作台”，不是零门槛模板站。它依赖模型、代理 CLI、设计系统和本地环境配置，真正用顺需要一定工程基础。</p>
+<p>另外，README 中有不少能力描述很丰富，例如多格式导出、插件、模型路由、多个代理兼容等。正式用于生产前，建议先用一个低风险页面或内部汇报稿测试：看生成质量、修改链路、导出文件是否符合团队要求，再决定是否纳入日常流程。</p>
+<h2 id="-参考资源">🔗 参考资源</h2>
+<ul>
+<li>GitHub 仓库：<a href="https://github.com/nexu-io/open-design">https://github.com/nexu-io/open-design</a></li>
+<li>官方网站：<a href="https://open-design.ai">https://open-design.ai</a></li>
+<li>Quickstart：<a href="https://github.com/nexu-io/open-design/blob/main/QUICKSTART.md">https://github.com/nexu-io/open-design/blob/main/QUICKSTART.md</a></li>
+<li>Release： <a href="https://github.com/nexu-io/open-design/releases/tag/open-design-v0.13.0">https://github.com/nexu-io/open-design/releases/tag/open-design-v0.13.0</a></li>
+</ul>  </article> <aside class="toc"><p class="toc-title">目录</p><ul class="toc-list"><li class="depth-2"><a href="#-这个项目是干什么的" data-toc-link="-这个项目是干什么的">📌 这个项目是干什么的</a></li><li class="depth-2"><a href="#-为什么值得关注" data-toc-link="-为什么值得关注">🔍 为什么值得关注</a></li><li class="depth-2"><a href="#-谁适合试怎么开始" data-toc-link="-谁适合试怎么开始">🧪 谁适合试，怎么开始</a></li><li class="depth-2"><a href="#️-使用提醒" data-toc-link="️-使用提醒">⚠️ 使用提醒</a></li><li class="depth-2"><a href="#-参考资源" data-toc-link="-参考资源">🔗 参考资源</a></li></ul></aside><script type="module">const c=()=>{const r=Array.from(document.querySelectorAll(".toc a[data-toc-link]"));if(!r.length)return;const o=r.map(t=>{const e=t.getAttribute("data-toc-link");if(!e)return null;const n=document.getElementById(e);return n?{id:e,heading:n,link:t}:null}).filter(t=>t!==null);if(!o.length)return;const s=t=>{r.forEach(e=>{const n=e.getAttribute("data-toc-link")===t;e.classList.toggle("active",n),n&&e.scrollIntoView({block:"nearest",inline:"nearest"})})},i=()=>{const t=Math.round(window.innerHeight*.28);let e=o[0];for(const n of o)n.heading.getBoundingClientRect().top<=t&&(e=n);s(e.id)};i();const a=new IntersectionObserver(()=>i(),{rootMargin:"-18% 0px -70% 0px",threshold:[0,1]});o.forEach(t=>a.observe(t.heading)),window.addEventListener("scroll",i,{passive:!0})};document.addEventListener("DOMContentLoaded",c);document.addEventListener("astro:page-load",c);</script> </div>  </main> <footer class="site-footer"> <div class="shell footer-inner"> <p>© 2026 未来观察者</p> </div> </footer> </body></html>
