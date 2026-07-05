@@ -1,0 +1,323 @@
+<!DOCTYPE html><html lang="zh-CN"> <head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1"><script>
+      (() => {
+        const storageKey = "future-observer-theme";
+        const root = document.documentElement;
+        const getStoredMode = () => {
+          try {
+            const value = localStorage.getItem(storageKey);
+            return value === "light" || value === "dark" || value === "system" ? value : "system";
+          } catch {
+            return "system";
+          }
+        };
+        const systemDark = () => window.matchMedia?.("(prefers-color-scheme: dark)").matches ?? false;
+        const apply = (mode) => {
+          const resolved = mode === "system" ? (systemDark() ? "dark" : "light") : mode;
+          root.dataset.themeMode = mode;
+          root.dataset.theme = resolved;
+          root.style.colorScheme = resolved;
+        };
+        apply(getStoredMode());
+        window.__setFutureObserverTheme = (mode) => {
+          const next = mode === "light" || mode === "dark" || mode === "system" ? mode : "system";
+          try { localStorage.setItem(storageKey, next); } catch {}
+          apply(next);
+          window.dispatchEvent(new CustomEvent("future-observer-theme-change", { detail: { mode: next } }));
+        };
+        window.matchMedia?.("(prefers-color-scheme: dark)").addEventListener?.("change", () => {
+          if (getStoredMode() === "system") apply("system");
+        });
+      })();
+    </script><title>🧭 全年零降息赔率：高利率正在从会议分歧变成年度基准 | 未来观察者</title><meta name="description" content="📌 核心观点：Polymarket 上“2026 年没有任何一次美联储降息”的 Yes 价格升至约 77.65%，这不只是一次利率押注，而是市场把“高利率维持更久”从短期会议判断，重新定价为全年资本成本基准。"><meta name="generator" content="Astro v5.18.1"><meta property="og:title" content="🧭 全年零降息赔率：高利率正在从会议分歧变成年度基准 | 未来观察者"><meta property="og:description" content="📌 核心观点：Polymarket 上“2026 年没有任何一次美联储降息”的 Yes 价格升至约 77.65%，这不只是一次利率押注，而是市场把“高利率维持更久”从短期会议判断，重新定价为全年资本成本基准。"><meta property="og:type" content="website"><meta property="og:url" content="https://future.lifestudylab.com/posts/2026-07-06-%E5%85%A8%E5%B9%B4%E9%9B%B6%E9%99%8D%E6%81%AF%E8%B5%94%E7%8E%87-%E9%AB%98%E5%88%A9%E7%8E%87%E6%AD%A3%E5%9C%A8%E4%BB%8E%E4%BC%9A%E8%AE%AE%E5%88%86%E6%AD%A7%E5%8F%98%E6%88%90%E5%B9%B4%E5%BA%A6%E5%9F%BA%E5%87%86/"><link rel="icon" type="image/svg+xml" href="/favicon.svg"><link rel="alternate" type="application/rss+xml" title="未来观察者" href="/rss.xml"><link rel="stylesheet" href="/_astro/_channel_.AMbMo1vF.css"></head> <body> <div class="page-bg"></div> <header class="site-header"> <div class="shell header-inner"> <div class="header-bar"> <a class="brand" href="/ai-tools/"> <img src="/brand-mark.svg" alt="" class="brand-mark" width="56" height="56"> <span class="brand-text" aria-label="未来观察者">思考未来</span> </a> </div> <nav class="top-menu" aria-label="顶部菜单"> <a href="/future-daily/" class="top-menu-link"> 每日信息 </a><a href="/docs/deer-flow/00-overview/" class="top-menu-link"> DeerFlow教程 </a><a href="/docs/hermes/00-overview/" class="top-menu-link"> Hermes教程 </a><a href="/docs/openclaw/00-overview/" class="top-menu-link"> OpenClaw教程 </a><a href="/about/" class="top-menu-link"> 关于我 </a> </nav> <div class="top-actions"> <a class="feedback-link" href="https://github.com/yonglisss/yonglisss.github.io/issues" target="_blank" rel="noopener noreferrer" aria-label="问题反馈"> <svg viewBox="0 0 24 24" aria-hidden="true" class="action-icon"> <path d="M4.75 5.75A2.75 2.75 0 0 1 7.5 3h9A2.75 2.75 0 0 1 19.25 5.75v6.5A2.75 2.75 0 0 1 16.5 15H9.3l-3.55 3.2V15.1a2.75 2.75 0 0 1-1-2.1V5.75Z"></path> <path d="M8 7.75h8M8 11.25h4"></path> </svg> <span>问题反馈</span> </a> <div class="theme-switcher" data-theme-switcher> <button class="theme-trigger" type="button" aria-haspopup="menu" aria-expanded="false" aria-label="切换明暗模式" data-theme-trigger> <svg viewBox="0 0 24 24" aria-hidden="true" class="action-icon theme-trigger-icon theme-trigger-icon--light"> <circle cx="12" cy="12" r="4"></circle> <path d="M12 2.75v2M12 19.25v2M4.75 4.75l1.4 1.4M17.85 17.85l1.4 1.4M2.75 12h2M19.25 12h2M4.75 19.25l1.4-1.4M17.85 6.15l1.4-1.4"></path> </svg> <svg viewBox="0 0 24 24" aria-hidden="true" class="action-icon theme-trigger-icon theme-trigger-icon--dark"> <path d="M20.25 14.2A8 8 0 0 1 9.8 3.75 8.5 8.5 0 1 0 20.25 14.2Z"></path> </svg> <svg viewBox="0 0 24 24" aria-hidden="true" class="action-icon theme-trigger-icon theme-trigger-icon--system"> <rect x="4" y="5" width="16" height="11" rx="1.8"></rect> <path d="M9 20h6M12 16v4"></path> </svg> </button> <div class="theme-menu" role="menu" data-theme-menu hidden> <button class="theme-option" type="button" role="menuitemradio" data-theme-option="light" aria-checked="false"> <svg viewBox="0 0 24 24" aria-hidden="true" class="action-icon"><circle cx="12" cy="12" r="4"></circle><path d="M12 2.75v2M12 19.25v2M4.75 4.75l1.4 1.4M17.85 17.85l1.4 1.4M2.75 12h2M19.25 12h2M4.75 19.25l1.4-1.4M17.85 6.15l1.4-1.4"></path></svg> <span>亮色</span> </button> <button class="theme-option" type="button" role="menuitemradio" data-theme-option="dark" aria-checked="false"> <svg viewBox="0 0 24 24" aria-hidden="true" class="action-icon"><path d="M20.25 14.2A8 8 0 0 1 9.8 3.75 8.5 8.5 0 1 0 20.25 14.2Z"></path></svg> <span>暗色</span> </button> <button class="theme-option" type="button" role="menuitemradio" data-theme-option="system" aria-checked="true"> <svg viewBox="0 0 24 24" aria-hidden="true" class="action-icon"><rect x="4" y="5" width="16" height="11" rx="1.8"></rect><path d="M9 20h6M12 16v4"></path></svg> <span>跟随系统</span> </button> </div> </div> </div> </div> </header> <script>
+  (() => {
+    const switcher = document.querySelector("[data-theme-switcher]");
+    if (!switcher) return;
+
+    const trigger = switcher.querySelector("[data-theme-trigger]");
+    const menu = switcher.querySelector("[data-theme-menu]");
+    const options = [...switcher.querySelectorAll("[data-theme-option]")];
+    const modes = ["light", "dark", "system"];
+
+    const getMode = () => {
+      const mode = document.documentElement.dataset.themeMode;
+      return modes.includes(mode) ? mode : "system";
+    };
+
+    const closeMenu = () => {
+      menu.hidden = true;
+      trigger.setAttribute("aria-expanded", "false");
+    };
+
+    const openMenu = () => {
+      menu.hidden = false;
+      trigger.setAttribute("aria-expanded", "true");
+    };
+
+    const sync = () => {
+      const mode = getMode();
+      trigger.dataset.themeMode = mode;
+      options.forEach((option) => {
+        option.setAttribute("aria-checked", String(option.dataset.themeOption === mode));
+      });
+    };
+
+    trigger.addEventListener("click", () => {
+      menu.hidden ? openMenu() : closeMenu();
+    });
+
+    options.forEach((option) => {
+      option.addEventListener("click", () => {
+        window.__setFutureObserverTheme?.(option.dataset.themeOption || "system");
+        sync();
+        closeMenu();
+      });
+    });
+
+    document.addEventListener("click", (event) => {
+      if (!switcher.contains(event.target)) closeMenu();
+    });
+
+    document.addEventListener("keydown", (event) => {
+      if (event.key === "Escape") closeMenu();
+    });
+
+    window.addEventListener("future-observer-theme-change", sync);
+    sync();
+  })();
+</script> <aside class="site-rail" aria-label="站点导航"> <div class="site-rail-inner"> <p class="site-rail-label">Channels</p> <nav aria-label="主导航"> <ul class="site-rail-nav"> <li> <a href="/ai-tools/" class="site-rail-link"> AI工具 </a> </li><li> <a href="/future-daily/" class="site-rail-link"> 未来观察者日报 </a> </li> </ul> </nav> </div> </aside> <main class="shell page-content">  <div class="post-hero"> <p class="eyebrow">2026年7月6日</p> <h1>🧭 全年零降息赔率：高利率正在从会议分歧变成年度基准</h1> <p class="post-summary">📌 核心观点：Polymarket 上“2026 年没有任何一次美联储降息”的 Yes 价格升至约 77.65%，这不只是一次利率押注，而是市场把“高利率维持更久”从短期会议判断，重新定价为全年资本成本基准。</p> <ul class="tag-list"> <li> <a href="/tags/%E6%9C%AA%E6%9D%A5%E8%A7%82%E5%AF%9F%E8%80%85%E6%97%A5%E6%8A%A5/" class="tag-link">
+#未来观察者日报 </a> </li><li> <a href="/tags/2026%E5%B9%B407%E6%9C%88/" class="tag-link">
+#2026年07月 </a> </li> </ul> </div> <div class="post-grid"> <article class="prose">  <blockquote>
+<p>📌 <strong>核心观点</strong>：Polymarket 上“2026 年没有任何一次美联储降息”的 Yes 价格升至约 77.65%，这不只是一次利率押注，而是市场把“高利率维持更久”从短期会议判断，重新定价为全年资本成本基准。</p>
+</blockquote>
+<p><strong>作者：</strong> 元英<br>
+<strong>时间：</strong> 2026年7月6日<br>
+<strong>标签：</strong> #未来观察者 #美联储 #资本成本 #宏观定价<br>
+<strong>阅读时间：</strong> 3-5分钟</p>
+<hr>
+<h2 id="-今天看什么投票">🎯 今天看什么投票？</h2>
+<p>今天最值得看的不是某一次 FOMC 会议，而是 Polymarket 的组合型投票：<strong>“How many Fed rate cuts in 2026?”</strong>。</p>
+<p>它把 2026 年全年降息次数拆成多个结果市场。当前最集中的定价是：<strong>全年 0 次降息的概率约 77.65%</strong>。</p>
+<h3 id="-关键数据卡片">📊 关键数据卡片</h3>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<table><thead><tr><th>项目</th><th>内容</th></tr></thead><tbody><tr><td>投票主题</td><td>How many Fed rate cuts in 2026?</td></tr><tr><td>观察焦点</td><td>2026 年全年美联储降息次数</td></tr><tr><td>最高概率选项</td><td>0 次降息：Yes 约 77.65%</td></tr><tr><td>其他主要选项</td><td>1 次约 14.5%；2 次约 4.4%；3 次约 1.85%</td></tr><tr><td>事件总成交量</td><td>约 40,719,905 美元</td></tr><tr><td>事件流动性</td><td>约 3,386,434 美元</td></tr><tr><td>数据获取时间</td><td>2026-07-06 04:02 CST</td></tr><tr><td>Polymarket 链接</td><td><a href="https://polymarket.com/event/how-many-fed-rate-cuts-in-2026">https://polymarket.com/event/how-many-fed-rate-cuts-in-2026</a></td></tr><tr><td>所属领域</td><td>宏观 / 资本成本 / 风险资产定价</td></tr></tbody></table>
+<h3 id="-候选去重判断">🧩 候选去重判断</h3>
+<p>最近 7 天《未来观察者》已写过的主线包括：</p>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<table><thead><tr><th>日期</th><th>主题主线</th></tr></thead><tbody><tr><td>2026-07-05</td><td>CXMT 上市估值 / 中国存储芯片 / AI 基础设施</td></tr><tr><td>2026-07-04</td><td>中美关税协议 / 供应链不确定性</td></tr><tr><td>2026-07-03</td><td>Starship 发射节奏 / 太空制造能力</td></tr><tr><td>2026-07-02</td><td>NVIDIA 市值王座 / AI 资本开支链条</td></tr><tr><td>2026-07-01</td><td>Anthropic IPO 节奏 / AI 资本化审慎</td></tr><tr><td>2026-06-30</td><td>WTI 油价区间 / 地缘风险溢价</td></tr><tr><td>2026-06-29</td><td>Bitcoin 年度价格带 / 加密资产风险下限</td></tr></tbody></table>
+<p>宏观利率主线最近一次是 2026-06-27 的“美联储 7 月按兵不动”，已超过 7 天。今天这次新增变量也不同：<strong>不是单次会议是否降息，而是全年降息次数的分布被重新压缩到“0 次”这个年度基准上</strong>。</p>
+<hr>
+<h2 id="-为什么会有这个投票">🔍 为什么会有这个投票？</h2>
+<p>这个投票出现并获得高成交量，背后不是简单的“猜美联储”，而是三个现实驱动叠加：</p>
+<ol>
+<li>
+<p><strong>市场需要给全年资金价格找锚点</strong><br>
+单次会议投票回答的是“下一次会不会动”。全年降息次数投票回答的是“企业融资、科技估值、房地产、私募退出应该按什么利率环境建模”。后者更接近资本市场真正关心的问题。</p>
+</li>
+<li>
+<p><strong>风险资产对降息依赖仍然很强</strong><br>
+AI、芯片、加密、成长股、IPO 窗口，本质上都依赖远期现金流折现和流动性预期。若全年 0 次降息成为基准，很多资产的上行逻辑就必须从“利率下行”切换到“盈利兑现”。</p>
+</li>
+<li>
+<p><strong>宏观不确定性正在被产品化</strong><br>
+Polymarket 把降息次数拆成 0、1、2、3 次等多个可交易选项，相当于把宏观分歧变成可观察的实时价格曲线。这让“市场叙事”不再只来自投行报告，也来自链上预测市场的资金选择。</p>
+</li>
+</ol>
+<hr>
+<h2 id="️-这个投票真正反映了什么结构变化">🏗️ 这个投票真正反映了什么结构变化？</h2>
+<h3 id="1-技术层预测市场成为宏观预期的实时仪表盘">1. 技术层：预测市场成为宏观预期的实时仪表盘</h3>
+<p>过去，普通人观察利率预期主要看期货、债券收益率或机构报告；现在，Polymarket 这类预测市场用更直观的问题，把复杂宏观变量转换成概率。</p>
+<p>这不会取代传统利率市场，但它降低了理解门槛：</p>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<table><thead><tr><th>传统表达</th><th>预测市场表达</th></tr></thead><tbody><tr><td>收益率曲线、点阵图、期货隐含路径</td><td>“今年到底降几次息？”</td></tr><tr><td>机构研报解释预期</td><td>市场价格直接显示概率</td></tr><tr><td>专业交易员主导</td><td>更开放的资金和观点参与</td></tr></tbody></table>
+<h3 id="2-产业层企业要按无降息情景重新做预算">2. 产业层：企业要按“无降息”情景重新做预算</h3>
+<p>如果全年 0 次降息成为主情景，最受影响的不是短线交易者，而是高资本开支行业：</p>
+<ul>
+<li>数据中心和 AI 基础设施：融资成本更难靠利率下行缓解；</li>
+<li>芯片和先进制造：库存、设备、扩产周期的容错率下降；</li>
+<li>新能源和电动车：补贴、需求、利率敏感型消费都会被压缩；</li>
+<li>IPO 和并购：估值谈判更依赖现金流质量，而不是宽松预期。</li>
+</ul>
+<h3 id="3-社会--资本层高利率正在变成新默认值">3. 社会 / 资本层：高利率正在变成“新默认值”</h3>
+<p>这次投票最重要的信号是：市场没有只押注“再等一两次会议就会宽松”，而是在把 2026 年剩余时间整体看成高利率环境。</p>
+<p>这意味着资本分配逻辑会更硬：</p>
+<ol>
+<li>讲故事但不产生现金流的项目更难融资；</li>
+<li>资产负债表强的公司更容易继续扩张；</li>
+<li>消费者和中小企业会更早感受到资金成本压力；</li>
+<li>政策预期对市场的托底能力下降，基本面验证变得更重要。</li>
+</ol>
+<hr>
+<h2 id="-如果趋势继续未来会怎样">⏳ 如果趋势继续，未来会怎样？</h2>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<table><thead><tr><th>时间维度</th><th>可能变化</th><th>观察指标</th></tr></thead><tbody><tr><td>短期：未来 1-2 个月</td><td>市场继续围绕“是否年内首降”反复定价，但 0 次降息仍是主锚</td><td>FOMC 声明、通胀数据、就业数据、Polymarket 0 次选项价格</td></tr><tr><td>中期：未来 3-6 个月</td><td>风险资产从“等降息”转向“看盈利”；IPO 定价更谨慎</td><td>科技股盈利、AI capex 回报、IPO 折价幅度</td></tr><tr><td>长期：2027 年以后</td><td>若高利率维持更久，资本会向现金流稳、定价权强、负债低的公司集中</td><td>企业债利差、违约率、成长股估值中枢</td></tr></tbody></table>
+<p>我的判断是：<strong>只要“0 次降息”仍维持在 70% 以上，高利率就不能再被当作短期扰动，而应该被当作所有资产定价模型里的基准假设。</strong></p>
+<hr>
+<h2 id="-对谁最重要">🧭 对谁最重要？</h2>
+<h3 id="-普通人">👤 普通人</h3>
+<ul>
+<li>不要把未来 6 个月的贷款、房贷、信用卡成本建立在“很快降息”的假设上；</li>
+<li>如果持有高波动资产，要区分上涨来自盈利改善，还是只来自降息想象；</li>
+<li>保持现金流安全垫，比追逐短线宏观反转更重要。</li>
+</ul>
+<h3 id="-从业者">🧑‍💻 从业者</h3>
+<ul>
+<li>在 AI、芯片、新能源等资本密集行业，项目可行性要重新测算资金成本；</li>
+<li>对销售团队来说，客户预算紧缩可能不是短期现象，而是年度约束；</li>
+<li>对产品团队来说，能直接降本增效的产品更容易获得预算。</li>
+</ul>
+<h3 id="-创业者--投资观察者">💼 创业者 / 投资观察者</h3>
+<ul>
+<li>创业融资叙事要从“市场大、增长快”转向“回款快、毛利稳、现金流清晰”；</li>
+<li>投资观察重点应从估值弹性切换到资产负债表质量；</li>
+<li>如果某个行业仍能在高利率下扩张，反而说明它具备更强真实需求。</li>
+</ul>
+<hr>
+<h2 id="️-风险提示">⚠️ 风险提示</h2>
+<p>这篇文章基于 Polymarket 截至 2026-07-06 04:02 CST 的市场价格。预测市场价格不是事实，也不是官方利率路径，只代表当时交易者用资金表达的概率。</p>
+<p>可能改变判断的变量包括：</p>
+<ol>
+<li>通胀快速回落；</li>
+<li>就业或金融系统突然走弱；</li>
+<li>美联储沟通口径明显转鸽；</li>
+<li>地缘或信用事件引发避险与政策响应；</li>
+<li>Polymarket 市场流动性变化导致价格短期偏离。</li>
+</ol>
+<hr>
+<h2 id="-结语真正的变化不是不降息而是不再等降息">🌅 结语：真正的变化不是“不降息”，而是“不再等降息”</h2>
+<p>今天这个投票值得关注，不是因为 77.65% 这个数字本身一定正确，而是它说明市场正在切换思维方式：</p>
+<blockquote>
+<p>从“降息什么时候来”，转向“如果今年都不来，谁还能活得好”。</p>
+</blockquote>
+<p>这对未来观察者来说，是一个更重要的分界线。因为当高利率从临时变量变成年度基准，真正有韧性的技术、产业和公司，才会开始被区分出来。</p>
+<hr>
+<h2 id="-参考资源">🔗 参考资源</h2>
+<ul>
+<li>Polymarket：How many Fed rate cuts in 2026?<br>
+<a href="https://polymarket.com/event/how-many-fed-rate-cuts-in-2026">https://polymarket.com/event/how-many-fed-rate-cuts-in-2026</a></li>
+<li>Polymarket Gamma API 数据核验：事件成交量、流动性、各结果 Yes / No 价格</li>
+<li>知识库近期文章去重检查：2026-06-29 至 2026-07-05《未来观察者》已发布标题</li>
+</ul>  </article> <aside class="toc"><p class="toc-title">目录</p><ul class="toc-list"><li class="depth-2"><a href="#-今天看什么投票" data-toc-link="-今天看什么投票">🎯 今天看什么投票？</a></li><li class="depth-3"><a href="#-关键数据卡片" data-toc-link="-关键数据卡片">📊 关键数据卡片</a></li><li class="depth-3"><a href="#-候选去重判断" data-toc-link="-候选去重判断">🧩 候选去重判断</a></li><li class="depth-2"><a href="#-为什么会有这个投票" data-toc-link="-为什么会有这个投票">🔍 为什么会有这个投票？</a></li><li class="depth-2"><a href="#️-这个投票真正反映了什么结构变化" data-toc-link="️-这个投票真正反映了什么结构变化">🏗️ 这个投票真正反映了什么结构变化？</a></li><li class="depth-3"><a href="#1-技术层预测市场成为宏观预期的实时仪表盘" data-toc-link="1-技术层预测市场成为宏观预期的实时仪表盘">1. 技术层：预测市场成为宏观预期的实时仪表盘</a></li><li class="depth-3"><a href="#2-产业层企业要按无降息情景重新做预算" data-toc-link="2-产业层企业要按无降息情景重新做预算">2. 产业层：企业要按“无降息”情景重新做预算</a></li><li class="depth-3"><a href="#3-社会--资本层高利率正在变成新默认值" data-toc-link="3-社会--资本层高利率正在变成新默认值">3. 社会 / 资本层：高利率正在变成“新默认值”</a></li><li class="depth-2"><a href="#-如果趋势继续未来会怎样" data-toc-link="-如果趋势继续未来会怎样">⏳ 如果趋势继续，未来会怎样？</a></li><li class="depth-2"><a href="#-对谁最重要" data-toc-link="-对谁最重要">🧭 对谁最重要？</a></li><li class="depth-3"><a href="#-普通人" data-toc-link="-普通人">👤 普通人</a></li><li class="depth-3"><a href="#-从业者" data-toc-link="-从业者">🧑‍💻 从业者</a></li><li class="depth-3"><a href="#-创业者--投资观察者" data-toc-link="-创业者--投资观察者">💼 创业者 / 投资观察者</a></li><li class="depth-2"><a href="#️-风险提示" data-toc-link="️-风险提示">⚠️ 风险提示</a></li><li class="depth-2"><a href="#-结语真正的变化不是不降息而是不再等降息" data-toc-link="-结语真正的变化不是不降息而是不再等降息">🌅 结语：真正的变化不是“不降息”，而是“不再等降息”</a></li><li class="depth-2"><a href="#-参考资源" data-toc-link="-参考资源">🔗 参考资源</a></li></ul></aside><script type="module">const c=()=>{const r=Array.from(document.querySelectorAll(".toc a[data-toc-link]"));if(!r.length)return;const o=r.map(t=>{const e=t.getAttribute("data-toc-link");if(!e)return null;const n=document.getElementById(e);return n?{id:e,heading:n,link:t}:null}).filter(t=>t!==null);if(!o.length)return;const s=t=>{r.forEach(e=>{const n=e.getAttribute("data-toc-link")===t;e.classList.toggle("active",n),n&&e.scrollIntoView({block:"nearest",inline:"nearest"})})},i=()=>{const t=Math.round(window.innerHeight*.28);let e=o[0];for(const n of o)n.heading.getBoundingClientRect().top<=t&&(e=n);s(e.id)};i();const a=new IntersectionObserver(()=>i(),{rootMargin:"-18% 0px -70% 0px",threshold:[0,1]});o.forEach(t=>a.observe(t.heading)),window.addEventListener("scroll",i,{passive:!0})};document.addEventListener("DOMContentLoaded",c);document.addEventListener("astro:page-load",c);</script> </div>  </main> <footer class="site-footer"> <div class="shell footer-inner"> <p>© 2026 未来观察者</p> </div> </footer> </body></html>
