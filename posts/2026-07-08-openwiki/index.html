@@ -1,0 +1,130 @@
+<!DOCTYPE html><html lang="zh-CN"> <head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1"><script>
+      (() => {
+        const storageKey = "future-observer-theme";
+        const root = document.documentElement;
+        const getStoredMode = () => {
+          try {
+            const value = localStorage.getItem(storageKey);
+            return value === "light" || value === "dark" || value === "system" ? value : "system";
+          } catch {
+            return "system";
+          }
+        };
+        const systemDark = () => window.matchMedia?.("(prefers-color-scheme: dark)").matches ?? false;
+        const apply = (mode) => {
+          const resolved = mode === "system" ? (systemDark() ? "dark" : "light") : mode;
+          root.dataset.themeMode = mode;
+          root.dataset.theme = resolved;
+          root.style.colorScheme = resolved;
+        };
+        apply(getStoredMode());
+        window.__setFutureObserverTheme = (mode) => {
+          const next = mode === "light" || mode === "dark" || mode === "system" ? mode : "system";
+          try { localStorage.setItem(storageKey, next); } catch {}
+          apply(next);
+          window.dispatchEvent(new CustomEvent("future-observer-theme-change", { detail: { mode: next } }));
+        };
+        window.matchMedia?.("(prefers-color-scheme: dark)").addEventListener?.("change", () => {
+          if (getStoredMode() === "system") apply("system");
+        });
+      })();
+    </script><title>OpenWiki：给代码库写一份 Agent 真能用的说明书 | 未来观察者</title><meta name="description" content="如果团队已经开始用 Claude Code、Codex 或 Cursor 这类 AI 编程工具，一个常见问题会很快出现：Agent 能读代码，但不一定理解项目的“上下文”。OpenWiki 是 LangChain AI 新开源的一个 CLI，目标很明确：为代码库生成并维护一份面向"><meta name="generator" content="Astro v5.18.1"><meta property="og:title" content="OpenWiki：给代码库写一份 Agent 真能用的说明书 | 未来观察者"><meta property="og:description" content="如果团队已经开始用 Claude Code、Codex 或 Cursor 这类 AI 编程工具，一个常见问题会很快出现：Agent 能读代码，但不一定理解项目的“上下文”。OpenWiki 是 LangChain AI 新开源的一个 CLI，目标很明确：为代码库生成并维护一份面向"><meta property="og:type" content="website"><meta property="og:url" content="https://future.lifestudylab.com/posts/2026-07-08-openwiki/"><link rel="icon" type="image/svg+xml" href="/favicon.svg"><link rel="alternate" type="application/rss+xml" title="未来观察者" href="/rss.xml"><link rel="stylesheet" href="/_astro/_channel_.AMbMo1vF.css"></head> <body> <div class="page-bg"></div> <header class="site-header"> <div class="shell header-inner"> <div class="header-bar"> <a class="brand" href="/ai-tools/"> <img src="/brand-mark.svg" alt="" class="brand-mark" width="56" height="56"> <span class="brand-text" aria-label="未来观察者">思考未来</span> </a> </div> <nav class="top-menu" aria-label="顶部菜单"> <a href="/future-daily/" class="top-menu-link"> 每日信息 </a><a href="/docs/deer-flow/00-overview/" class="top-menu-link"> DeerFlow教程 </a><a href="/docs/hermes/00-overview/" class="top-menu-link"> Hermes教程 </a><a href="/docs/openclaw/00-overview/" class="top-menu-link"> OpenClaw教程 </a><a href="/about/" class="top-menu-link"> 关于我 </a> </nav> <div class="top-actions"> <a class="feedback-link" href="https://github.com/yonglisss/yonglisss.github.io/issues" target="_blank" rel="noopener noreferrer" aria-label="问题反馈"> <svg viewBox="0 0 24 24" aria-hidden="true" class="action-icon"> <path d="M4.75 5.75A2.75 2.75 0 0 1 7.5 3h9A2.75 2.75 0 0 1 19.25 5.75v6.5A2.75 2.75 0 0 1 16.5 15H9.3l-3.55 3.2V15.1a2.75 2.75 0 0 1-1-2.1V5.75Z"></path> <path d="M8 7.75h8M8 11.25h4"></path> </svg> <span>问题反馈</span> </a> <div class="theme-switcher" data-theme-switcher> <button class="theme-trigger" type="button" aria-haspopup="menu" aria-expanded="false" aria-label="切换明暗模式" data-theme-trigger> <svg viewBox="0 0 24 24" aria-hidden="true" class="action-icon theme-trigger-icon theme-trigger-icon--light"> <circle cx="12" cy="12" r="4"></circle> <path d="M12 2.75v2M12 19.25v2M4.75 4.75l1.4 1.4M17.85 17.85l1.4 1.4M2.75 12h2M19.25 12h2M4.75 19.25l1.4-1.4M17.85 6.15l1.4-1.4"></path> </svg> <svg viewBox="0 0 24 24" aria-hidden="true" class="action-icon theme-trigger-icon theme-trigger-icon--dark"> <path d="M20.25 14.2A8 8 0 0 1 9.8 3.75 8.5 8.5 0 1 0 20.25 14.2Z"></path> </svg> <svg viewBox="0 0 24 24" aria-hidden="true" class="action-icon theme-trigger-icon theme-trigger-icon--system"> <rect x="4" y="5" width="16" height="11" rx="1.8"></rect> <path d="M9 20h6M12 16v4"></path> </svg> </button> <div class="theme-menu" role="menu" data-theme-menu hidden> <button class="theme-option" type="button" role="menuitemradio" data-theme-option="light" aria-checked="false"> <svg viewBox="0 0 24 24" aria-hidden="true" class="action-icon"><circle cx="12" cy="12" r="4"></circle><path d="M12 2.75v2M12 19.25v2M4.75 4.75l1.4 1.4M17.85 17.85l1.4 1.4M2.75 12h2M19.25 12h2M4.75 19.25l1.4-1.4M17.85 6.15l1.4-1.4"></path></svg> <span>亮色</span> </button> <button class="theme-option" type="button" role="menuitemradio" data-theme-option="dark" aria-checked="false"> <svg viewBox="0 0 24 24" aria-hidden="true" class="action-icon"><path d="M20.25 14.2A8 8 0 0 1 9.8 3.75 8.5 8.5 0 1 0 20.25 14.2Z"></path></svg> <span>暗色</span> </button> <button class="theme-option" type="button" role="menuitemradio" data-theme-option="system" aria-checked="true"> <svg viewBox="0 0 24 24" aria-hidden="true" class="action-icon"><rect x="4" y="5" width="16" height="11" rx="1.8"></rect><path d="M9 20h6M12 16v4"></path></svg> <span>跟随系统</span> </button> </div> </div> </div> </div> </header> <script>
+  (() => {
+    const switcher = document.querySelector("[data-theme-switcher]");
+    if (!switcher) return;
+
+    const trigger = switcher.querySelector("[data-theme-trigger]");
+    const menu = switcher.querySelector("[data-theme-menu]");
+    const options = [...switcher.querySelectorAll("[data-theme-option]")];
+    const modes = ["light", "dark", "system"];
+
+    const getMode = () => {
+      const mode = document.documentElement.dataset.themeMode;
+      return modes.includes(mode) ? mode : "system";
+    };
+
+    const closeMenu = () => {
+      menu.hidden = true;
+      trigger.setAttribute("aria-expanded", "false");
+    };
+
+    const openMenu = () => {
+      menu.hidden = false;
+      trigger.setAttribute("aria-expanded", "true");
+    };
+
+    const sync = () => {
+      const mode = getMode();
+      trigger.dataset.themeMode = mode;
+      options.forEach((option) => {
+        option.setAttribute("aria-checked", String(option.dataset.themeOption === mode));
+      });
+    };
+
+    trigger.addEventListener("click", () => {
+      menu.hidden ? openMenu() : closeMenu();
+    });
+
+    options.forEach((option) => {
+      option.addEventListener("click", () => {
+        window.__setFutureObserverTheme?.(option.dataset.themeOption || "system");
+        sync();
+        closeMenu();
+      });
+    });
+
+    document.addEventListener("click", (event) => {
+      if (!switcher.contains(event.target)) closeMenu();
+    });
+
+    document.addEventListener("keydown", (event) => {
+      if (event.key === "Escape") closeMenu();
+    });
+
+    window.addEventListener("future-observer-theme-change", sync);
+    sync();
+  })();
+</script> <aside class="site-rail" aria-label="站点导航"> <div class="site-rail-inner"> <p class="site-rail-label">Channels</p> <nav aria-label="主导航"> <ul class="site-rail-nav"> <li> <a href="/ai-tools/" class="site-rail-link"> AI工具 </a> </li><li> <a href="/future-daily/" class="site-rail-link"> 未来观察者日报 </a> </li> </ul> </nav> </div> </aside> <main class="shell page-content">  <div class="post-hero"> <p class="eyebrow">2026年7月8日</p> <h1>OpenWiki：给代码库写一份 Agent 真能用的说明书</h1> <p class="post-summary">如果团队已经开始用 Claude Code、Codex 或 Cursor 这类 AI 编程工具，一个常见问题会很快出现：Agent 能读代码，但不一定理解项目的“上下文”。OpenWiki 是 LangChain AI 新开源的一个 CLI，目标很明确：为代码库生成并维护一份面向</p> <ul class="tag-list"> <li> <a href="/tags/AI%E5%B7%A5%E5%85%B7/" class="tag-link">
+#AI工具 </a> </li><li> <a href="/tags/2026%E5%B9%B407%E6%9C%88/" class="tag-link">
+#2026年07月 </a> </li> </ul> </div> <div class="post-grid"> <article class="prose">  <p>如果团队已经开始用 Claude Code、Codex 或 Cursor 这类 AI 编程工具，一个常见问题会很快出现：Agent 能读代码，但不一定理解项目的“上下文”。OpenWiki 是 LangChain AI 新开源的一个 CLI，目标很明确：为代码库生成并维护一份面向 Agent 的文档，让 AI 在改代码前先有稳定的项目地图。</p>
+<h2 id="-这个项目是干什么的">📌 这个项目是干什么的</h2>
+<ul>
+<li>定位：OpenWiki 是一个命令行工具，用来为代码库生成和更新 <code>openwiki/</code> 目录下的文档。</li>
+<li>适合谁：经常使用 AI 编程 Agent 的开发者、技术团队，以及希望降低新成员理解成本的项目维护者。</li>
+<li>解决什么问题：把项目结构、关键模块和约定整理成 Agent 可参考的 Wiki，减少“每次都重新读一遍代码”的上下文浪费。</li>
+<li>当前成熟度：项目创建于 2026 年 6 月，GitHub 热度很高，已发布 0.0.2 版本，但仍属于早期工具，适合先在非关键项目试用。</li>
+</ul>
+<h2 id="-为什么值得关注">🔍 为什么值得关注</h2>
+<ol>
+<li>
+<p><strong>它不是又一个聊天入口，而是补 Agent 的上下文层。</strong><br>
+OpenWiki 的核心价值不在“替你写文档”这件事本身，而在于把文档变成 AI 编程工作流的一部分。README 说明，它会在没有 Wiki 时创建 <code>openwiki/</code>，已有 Wiki 时根据代码变化刷新文档。</p>
+</li>
+<li>
+<p><strong>它考虑了持续维护，而不是一次性生成。</strong><br>
+官方仓库提供了 GitHub Actions 和 GitLab CI 示例，可以定时运行 <code>openwiki --update --print</code>，再通过 PR/MR 提交文档更新。对团队来说，这比手动喊 Agent “帮我总结项目”更接近可持续流程。</p>
+</li>
+<li>
+<p><strong>它会把使用约定写进 Agent 入口文件。</strong><br>
+README 提到，OpenWiki 会向 <code>AGENTS.md</code> 或 <code>CLAUDE.md</code> 追加提示，让编码 Agent 在搜索上下文时参考 Wiki。这一点很实用：文档如果不进入 Agent 的默认路径，很容易变成没人看的静态资料。</p>
+</li>
+</ol>
+<h2 id="-谁适合试怎么开始">🧪 谁适合试，怎么开始</h2>
+<p>如果你的项目已经在使用 AI 编程工具，而且经常遇到“Agent 改错模块、遗漏项目约定、重复解释背景”的问题，可以优先试一下。</p>
+<p>最短路径很简单：安装 Node.js 20+，然后运行：</p>
+<pre class="astro-code astro-code-themes github-light github-dark" style="--shiki-light:#24292e;--shiki-dark:#e1e4e8;--shiki-light-bg:#fff;--shiki-dark-bg:#24292e; overflow-x: auto;" tabindex="0" data-language="bash"><code><span class="line"><span style="--shiki-light:#6F42C1;--shiki-dark:#B392F0">npm</span><span style="--shiki-light:#032F62;--shiki-dark:#9ECBFF"> install</span><span style="--shiki-light:#005CC5;--shiki-dark:#79B8FF"> -g</span><span style="--shiki-light:#032F62;--shiki-dark:#9ECBFF"> openwiki</span></span>
+<span class="line"><span style="--shiki-light:#6F42C1;--shiki-dark:#B392F0">openwiki</span><span style="--shiki-light:#005CC5;--shiki-dark:#79B8FF"> --init</span></span></code></pre>
+<p>初始化后，先在一个中小型仓库里生成文档，检查 <code>openwiki/</code> 目录内容是否真的能帮助理解项目。确认质量可接受后，再考虑接入官方示例里的 GitHub Actions 或 GitLab CI，让文档随项目变化自动更新。</p>
+<h2 id="️-使用提醒">⚠️ 使用提醒</h2>
+<ul>
+<li>OpenWiki 需要配置推理服务、API Key 和模型，首次交互运行会把配置保存到本机 <code>~/.openwiki/.env</code>，团队使用前要先明确密钥管理方式。</li>
+<li>它更适合“已有代码库的上下文整理”，不是替代正式架构文档、接口文档或代码审查。</li>
+<li>项目还很新，版本号只有 0.0.2。建议先把它当作 Agent 工作流增强工具，而不是生产级文档系统。</li>
+</ul>
+<h2 id="-参考资源">🔗 参考资源</h2>
+<ul>
+<li>GitHub：<a href="https://github.com/langchain-ai/openwiki">https://github.com/langchain-ai/openwiki</a></li>
+<li>Release 0.0.2：<a href="https://github.com/langchain-ai/openwiki/releases/tag/0.0.2">https://github.com/langchain-ai/openwiki/releases/tag/0.0.2</a></li>
+<li>GitHub Actions 示例：<a href="https://github.com/langchain-ai/openwiki/blob/main/examples/openwiki-update.yml">https://github.com/langchain-ai/openwiki/blob/main/examples/openwiki-update.yml</a></li>
+<li>GitLab CI 示例：<a href="https://github.com/langchain-ai/openwiki/blob/main/examples/openwiki-update.gitlab-ci.yml">https://github.com/langchain-ai/openwiki/blob/main/examples/openwiki-update.gitlab-ci.yml</a></li>
+</ul>  </article> <aside class="toc"><p class="toc-title">目录</p><ul class="toc-list"><li class="depth-2"><a href="#-这个项目是干什么的" data-toc-link="-这个项目是干什么的">📌 这个项目是干什么的</a></li><li class="depth-2"><a href="#-为什么值得关注" data-toc-link="-为什么值得关注">🔍 为什么值得关注</a></li><li class="depth-2"><a href="#-谁适合试怎么开始" data-toc-link="-谁适合试怎么开始">🧪 谁适合试，怎么开始</a></li><li class="depth-2"><a href="#️-使用提醒" data-toc-link="️-使用提醒">⚠️ 使用提醒</a></li><li class="depth-2"><a href="#-参考资源" data-toc-link="-参考资源">🔗 参考资源</a></li></ul></aside><script type="module">const c=()=>{const r=Array.from(document.querySelectorAll(".toc a[data-toc-link]"));if(!r.length)return;const o=r.map(t=>{const e=t.getAttribute("data-toc-link");if(!e)return null;const n=document.getElementById(e);return n?{id:e,heading:n,link:t}:null}).filter(t=>t!==null);if(!o.length)return;const s=t=>{r.forEach(e=>{const n=e.getAttribute("data-toc-link")===t;e.classList.toggle("active",n),n&&e.scrollIntoView({block:"nearest",inline:"nearest"})})},i=()=>{const t=Math.round(window.innerHeight*.28);let e=o[0];for(const n of o)n.heading.getBoundingClientRect().top<=t&&(e=n);s(e.id)};i();const a=new IntersectionObserver(()=>i(),{rootMargin:"-18% 0px -70% 0px",threshold:[0,1]});o.forEach(t=>a.observe(t.heading)),window.addEventListener("scroll",i,{passive:!0})};document.addEventListener("DOMContentLoaded",c);document.addEventListener("astro:page-load",c);</script> </div>  </main> <footer class="site-footer"> <div class="shell footer-inner"> <p>© 2026 未来观察者</p> </div> </footer> </body></html>
