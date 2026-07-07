@@ -1,0 +1,253 @@
+<!DOCTYPE html><html lang="zh-CN"> <head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1"><script>
+      (() => {
+        const storageKey = "future-observer-theme";
+        const root = document.documentElement;
+        const getStoredMode = () => {
+          try {
+            const value = localStorage.getItem(storageKey);
+            return value === "light" || value === "dark" || value === "system" ? value : "system";
+          } catch {
+            return "system";
+          }
+        };
+        const systemDark = () => window.matchMedia?.("(prefers-color-scheme: dark)").matches ?? false;
+        const apply = (mode) => {
+          const resolved = mode === "system" ? (systemDark() ? "dark" : "light") : mode;
+          root.dataset.themeMode = mode;
+          root.dataset.theme = resolved;
+          root.style.colorScheme = resolved;
+        };
+        apply(getStoredMode());
+        window.__setFutureObserverTheme = (mode) => {
+          const next = mode === "light" || mode === "dark" || mode === "system" ? mode : "system";
+          try { localStorage.setItem(storageKey, next); } catch {}
+          apply(next);
+          window.dispatchEvent(new CustomEvent("future-observer-theme-change", { detail: { mode: next } }));
+        };
+        window.matchMedia?.("(prefers-color-scheme: dark)").addEventListener?.("change", () => {
+          if (getStoredMode() === "system") apply("system");
+        });
+      })();
+    </script><title>🚢 霍尔木兹航运恢复低赔率：能源安全正在被按物流韧性重新定价 | 未来观察者</title><meta name="description" content="⚡ 核心观点：Polymarket 给“霍尔木兹海峡航运在 7 月底前恢复正常”的 Yes 概率只有约 6.5%，这不只是一个中东风险投票，而是在提示：能源市场正在把“通道可用性”重新当作供应链资产定价。"><meta name="generator" content="Astro v5.18.1"><meta property="og:title" content="🚢 霍尔木兹航运恢复低赔率：能源安全正在被按物流韧性重新定价 | 未来观察者"><meta property="og:description" content="⚡ 核心观点：Polymarket 给“霍尔木兹海峡航运在 7 月底前恢复正常”的 Yes 概率只有约 6.5%，这不只是一个中东风险投票，而是在提示：能源市场正在把“通道可用性”重新当作供应链资产定价。"><meta property="og:type" content="website"><meta property="og:url" content="https://future.lifestudylab.com/posts/2026-07-08-%E9%9C%8D%E5%B0%94%E6%9C%A8%E5%85%B9%E8%88%AA%E8%BF%90%E6%81%A2%E5%A4%8D%E4%BD%8E%E8%B5%94%E7%8E%87-%E8%83%BD%E6%BA%90%E5%AE%89%E5%85%A8%E6%AD%A3%E5%9C%A8%E8%A2%AB%E6%8C%89%E7%89%A9%E6%B5%81%E9%9F%A7%E6%80%A7%E9%87%8D%E6%96%B0%E5%AE%9A%E4%BB%B7/"><link rel="icon" type="image/svg+xml" href="/favicon.svg"><link rel="alternate" type="application/rss+xml" title="未来观察者" href="/rss.xml"><link rel="stylesheet" href="/_astro/_channel_.AMbMo1vF.css"></head> <body> <div class="page-bg"></div> <header class="site-header"> <div class="shell header-inner"> <div class="header-bar"> <a class="brand" href="/ai-tools/"> <img src="/brand-mark.svg" alt="" class="brand-mark" width="56" height="56"> <span class="brand-text" aria-label="未来观察者">思考未来</span> </a> </div> <nav class="top-menu" aria-label="顶部菜单"> <a href="/future-daily/" class="top-menu-link"> 每日信息 </a><a href="/docs/deer-flow/00-overview/" class="top-menu-link"> DeerFlow教程 </a><a href="/docs/hermes/00-overview/" class="top-menu-link"> Hermes教程 </a><a href="/docs/openclaw/00-overview/" class="top-menu-link"> OpenClaw教程 </a><a href="/about/" class="top-menu-link"> 关于我 </a> </nav> <div class="top-actions"> <a class="feedback-link" href="https://github.com/yonglisss/yonglisss.github.io/issues" target="_blank" rel="noopener noreferrer" aria-label="问题反馈"> <svg viewBox="0 0 24 24" aria-hidden="true" class="action-icon"> <path d="M4.75 5.75A2.75 2.75 0 0 1 7.5 3h9A2.75 2.75 0 0 1 19.25 5.75v6.5A2.75 2.75 0 0 1 16.5 15H9.3l-3.55 3.2V15.1a2.75 2.75 0 0 1-1-2.1V5.75Z"></path> <path d="M8 7.75h8M8 11.25h4"></path> </svg> <span>问题反馈</span> </a> <div class="theme-switcher" data-theme-switcher> <button class="theme-trigger" type="button" aria-haspopup="menu" aria-expanded="false" aria-label="切换明暗模式" data-theme-trigger> <svg viewBox="0 0 24 24" aria-hidden="true" class="action-icon theme-trigger-icon theme-trigger-icon--light"> <circle cx="12" cy="12" r="4"></circle> <path d="M12 2.75v2M12 19.25v2M4.75 4.75l1.4 1.4M17.85 17.85l1.4 1.4M2.75 12h2M19.25 12h2M4.75 19.25l1.4-1.4M17.85 6.15l1.4-1.4"></path> </svg> <svg viewBox="0 0 24 24" aria-hidden="true" class="action-icon theme-trigger-icon theme-trigger-icon--dark"> <path d="M20.25 14.2A8 8 0 0 1 9.8 3.75 8.5 8.5 0 1 0 20.25 14.2Z"></path> </svg> <svg viewBox="0 0 24 24" aria-hidden="true" class="action-icon theme-trigger-icon theme-trigger-icon--system"> <rect x="4" y="5" width="16" height="11" rx="1.8"></rect> <path d="M9 20h6M12 16v4"></path> </svg> </button> <div class="theme-menu" role="menu" data-theme-menu hidden> <button class="theme-option" type="button" role="menuitemradio" data-theme-option="light" aria-checked="false"> <svg viewBox="0 0 24 24" aria-hidden="true" class="action-icon"><circle cx="12" cy="12" r="4"></circle><path d="M12 2.75v2M12 19.25v2M4.75 4.75l1.4 1.4M17.85 17.85l1.4 1.4M2.75 12h2M19.25 12h2M4.75 19.25l1.4-1.4M17.85 6.15l1.4-1.4"></path></svg> <span>亮色</span> </button> <button class="theme-option" type="button" role="menuitemradio" data-theme-option="dark" aria-checked="false"> <svg viewBox="0 0 24 24" aria-hidden="true" class="action-icon"><path d="M20.25 14.2A8 8 0 0 1 9.8 3.75 8.5 8.5 0 1 0 20.25 14.2Z"></path></svg> <span>暗色</span> </button> <button class="theme-option" type="button" role="menuitemradio" data-theme-option="system" aria-checked="true"> <svg viewBox="0 0 24 24" aria-hidden="true" class="action-icon"><rect x="4" y="5" width="16" height="11" rx="1.8"></rect><path d="M9 20h6M12 16v4"></path></svg> <span>跟随系统</span> </button> </div> </div> </div> </div> </header> <script>
+  (() => {
+    const switcher = document.querySelector("[data-theme-switcher]");
+    if (!switcher) return;
+
+    const trigger = switcher.querySelector("[data-theme-trigger]");
+    const menu = switcher.querySelector("[data-theme-menu]");
+    const options = [...switcher.querySelectorAll("[data-theme-option]")];
+    const modes = ["light", "dark", "system"];
+
+    const getMode = () => {
+      const mode = document.documentElement.dataset.themeMode;
+      return modes.includes(mode) ? mode : "system";
+    };
+
+    const closeMenu = () => {
+      menu.hidden = true;
+      trigger.setAttribute("aria-expanded", "false");
+    };
+
+    const openMenu = () => {
+      menu.hidden = false;
+      trigger.setAttribute("aria-expanded", "true");
+    };
+
+    const sync = () => {
+      const mode = getMode();
+      trigger.dataset.themeMode = mode;
+      options.forEach((option) => {
+        option.setAttribute("aria-checked", String(option.dataset.themeOption === mode));
+      });
+    };
+
+    trigger.addEventListener("click", () => {
+      menu.hidden ? openMenu() : closeMenu();
+    });
+
+    options.forEach((option) => {
+      option.addEventListener("click", () => {
+        window.__setFutureObserverTheme?.(option.dataset.themeOption || "system");
+        sync();
+        closeMenu();
+      });
+    });
+
+    document.addEventListener("click", (event) => {
+      if (!switcher.contains(event.target)) closeMenu();
+    });
+
+    document.addEventListener("keydown", (event) => {
+      if (event.key === "Escape") closeMenu();
+    });
+
+    window.addEventListener("future-observer-theme-change", sync);
+    sync();
+  })();
+</script> <aside class="site-rail" aria-label="站点导航"> <div class="site-rail-inner"> <p class="site-rail-label">Channels</p> <nav aria-label="主导航"> <ul class="site-rail-nav"> <li> <a href="/ai-tools/" class="site-rail-link"> AI工具 </a> </li><li> <a href="/future-daily/" class="site-rail-link"> 未来观察者日报 </a> </li> </ul> </nav> </div> </aside> <main class="shell page-content">  <div class="post-hero"> <p class="eyebrow">2026年7月8日</p> <h1>🚢 霍尔木兹航运恢复低赔率：能源安全正在被按物流韧性重新定价</h1> <p class="post-summary">⚡ 核心观点：Polymarket 给“霍尔木兹海峡航运在 7 月底前恢复正常”的 Yes 概率只有约 6.5%，这不只是一个中东风险投票，而是在提示：能源市场正在把“通道可用性”重新当作供应链资产定价。</p> <ul class="tag-list"> <li> <a href="/tags/%E6%9C%AA%E6%9D%A5%E8%A7%82%E5%AF%9F%E8%80%85%E6%97%A5%E6%8A%A5/" class="tag-link">
+#未来观察者日报 </a> </li><li> <a href="/tags/2026%E5%B9%B407%E6%9C%88/" class="tag-link">
+#2026年07月 </a> </li> </ul> </div> <div class="post-grid"> <article class="prose">  <blockquote>
+<p>⚡ <strong>核心观点</strong>：Polymarket 给“霍尔木兹海峡航运在 7 月底前恢复正常”的 Yes 概率只有约 6.5%，这不只是一个中东风险投票，而是在提示：能源市场正在把“通道可用性”重新当作供应链资产定价。</p>
+</blockquote>
+<p><strong>作者：</strong> 元英<br>
+<strong>时间：</strong> 2026年7月8日<br>
+<strong>标签：</strong> #未来观察者 #能源安全 #航运供应链 #地缘风险<br>
+<strong>阅读时间：</strong> 3-5分钟</p>
+<hr>
+<h2 id="-今天看什么投票">🧭 今天看什么投票？</h2>
+<p>今天最值得观察的，不是某只科技股，也不是单一政治人物赔率，而是 Polymarket 上这个更接近真实经济脉搏的市场：</p>
+<p><strong>Strait of Hormuz traffic returns to normal by July 31?</strong></p>
+<p>它问的是：到 2026 年 7 月 31 日前，IMF Portwatch 是否会公布霍尔木兹海峡 7 日移动平均过境船舶数达到或超过 60 艘。</p>
+<h3 id="-关键数据卡片">📊 关键数据卡片</h3>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<table><thead><tr><th>项目</th><th>内容</th></tr></thead><tbody><tr><td>投票主题</td><td>霍尔木兹海峡航运流量是否在 7 月 31 日前恢复正常</td></tr><tr><td>判定标准</td><td>IMF Portwatch 的 Strait of Hormuz “Arrivals of Ships” 7 日移动平均值 ≥ 60</td></tr><tr><td>当前概率</td><td>Yes 约 6.5%，No 约 93.5%</td></tr><tr><td>总交易量</td><td>约 1,283.3 万美元</td></tr><tr><td>流动性</td><td>约 75.5 万美元</td></tr><tr><td>24 小时交易量</td><td>约 55.8 万美元</td></tr><tr><td>近 7 日交易量</td><td>约 185.0 万美元</td></tr><tr><td>数据获取时间</td><td>2026-07-07 20:01 UTC / 2026年7月8日北京时间</td></tr><tr><td>原始链接</td><td><a href="https://polymarket.com/event/strait-of-hormuz-traffic-returns-to-normal-by-july-31">https://polymarket.com/event/strait-of-hormuz-traffic-returns-to-normal-by-july-31</a></td></tr><tr><td>所属领域</td><td>能源 / 航运 / 地缘供应链</td></tr></tbody></table>
+<h3 id="-为什么今天选它">✅ 为什么今天选它？</h3>
+<p>最近 7 天《未来观察者》已经写过：私募 AI 平台估值、高利率、国产存储芯片、中美关税、太空制造、AI 资本开支和 Anthropic IPO。它们分别对应平台资本、宏观利率、芯片、贸易、航天、AI 算力和资本化节奏。</p>
+<p>今天这个霍尔木兹航运投票与前 7 天主题不重复。它的新增变量是：<strong>市场开始把能源安全从“油价涨跌”拆解为“关键航道是否恢复到可验证的物流流量”。</strong></p>
+<hr>
+<h2 id="-为什么会有这个投票">🔥 为什么会有这个投票？</h2>
+<p>霍尔木兹海峡不是普通航道。它连接波斯湾与阿曼湾，是全球油气贸易中最敏感的瓶颈之一。传统上，投资者讨论霍尔木兹风险，往往只看三件事：</p>
+<ol>
+<li>油价有没有飙升；</li>
+<li>地缘冲突有没有升级；</li>
+<li>军事封锁是否发生。</li>
+</ol>
+<p>但这个 Polymarket 投票的设计更细：它不问“会不会打仗”，也不问“油价会不会涨”，而是问 IMF Portwatch 统计里的 7 日移动平均船舶过境数能不能回到 60 艘以上。</p>
+<p>这说明市场正在关心一个更底层的问题：</p>
+<blockquote>
+<p>供应链是否真正恢复，不看声明，不看情绪，而看船有没有重新通过。</p>
+</blockquote>
+<p>这类投票出现，本质上是因为宏观市场正在从“新闻驱动”转向“传感器驱动”：港口数据、AIS 航运轨迹、库存变化、保险费率和运费，正在成为判断地缘风险的实时指标。</p>
+<hr>
+<h2 id="-这个投票真正反映了什么结构变化">🧱 这个投票真正反映了什么结构变化？</h2>
+<h3 id="1-技术层航运数据正在变成可交易信号">1. 技术层：航运数据正在变成可交易信号</h3>
+<p>IMF Portwatch 这类数据源把港口与关键航道的船舶流量做成可追踪指标。过去，普通投资者很难实时判断“航道是否恢复”；现在，市场可以直接围绕 7 日均值、过境次数、港口拥堵程度定价。</p>
+<p>这意味着未来的能源风险判断会更像高频供应链监控：</p>
+<ul>
+<li>船舶数量是事实层；</li>
+<li>市场赔率是预期层；</li>
+<li>油价与运费是传导层。</li>
+</ul>
+<h3 id="2-产业层能源安全从产量问题变成通道问题">2. 产业层：能源安全从产量问题变成通道问题</h3>
+<p>油气供应不是只由油田决定，也由航道、港口、保险和船队调度共同决定。</p>
+<p>当市场给“7 月底前恢复正常”只有约 6.5% 的 Yes 概率时，它表达的不是“霍尔木兹一定失效”，而是：在当前信息下，交易者不相信航运流量会很快回到正常阈值。</p>
+<p>对能源企业而言，这会推高三个隐性成本：</p>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<table><thead><tr><th>成本类型</th><th>可能变化</th></tr></thead><tbody><tr><td>运输成本</td><td>航线绕行、等待时间、船期波动增加</td></tr><tr><td>风险成本</td><td>战争险、货物险、融资折价上升</td></tr><tr><td>库存成本</td><td>买方更倾向保留安全库存，压低供应链效率</td></tr></tbody></table>
+<h3 id="3-社会--资本层全球化效率开始让位于韧性定价">3. 社会 / 资本层：全球化效率开始让位于韧性定价</h3>
+<p>过去二十年，全球贸易系统追求的是最低成本和最高周转。现在，越来越多资产会被问一个新问题：</p>
+<blockquote>
+<p>如果关键通道突然不稳定，这个商业模式还能不能运转？</p>
+</blockquote>
+<p>这会影响的不只是能源股，也包括化工、航空、航运、制造业和通胀预期。资本市场会更愿意给“有替代通道、有库存策略、有长期合同”的企业确定性溢价。</p>
+<hr>
+<h2 id="-如果趋势继续未来会怎样">⏳ 如果趋势继续，未来会怎样？</h2>
+<h3 id="短期油价不一定立刻暴涨但风险溢价会更黏">短期：油价不一定立刻暴涨，但风险溢价会更黏</h3>
+<p>如果航运流量迟迟不能回到阈值，市场可能不需要看到全面封锁，也会在油价、运费和保险费中保留风险溢价。</p>
+<h3 id="中期买方会重新设计库存与采购节奏">中期：买方会重新设计库存与采购节奏</h3>
+<p>炼化、化工、航空燃油和大宗商品贸易商可能提高安全库存，或者增加非单一路径采购。结果是：供应链看起来更稳，但资金占用更高。</p>
+<h3 id="长期关键通道会成为产业政策的一部分">长期：关键通道会成为产业政策的一部分</h3>
+<p>能源安全不再只是“多买一点油”，而是包括 LNG 接收站、战略储备、替代航线、港口数字化监控、军民协同护航和保险机制。未来 3-5 年，国家和大型企业都会更重视“物流韧性资产”。</p>
+<hr>
+<h2 id="-对谁最重要">🧩 对谁最重要？</h2>
+<h3 id="普通人">普通人</h3>
+<p>关注油价、电价和航空燃油附加费，不要只看单日新闻。若能源通道风险持续，生活成本传导通常不是一天完成，而是通过运输、食品、机票和制造品慢慢体现。</p>
+<h3 id="从业者">从业者</h3>
+<p>能源、航运、化工、外贸从业者应把港口流量、运费、保险费和库存天数纳入日常监控。未来的竞争优势可能来自更快识别“通道风险”。</p>
+<h3 id="创业者--投资观察者">创业者 / 投资观察者</h3>
+<p>值得观察三类机会：</p>
+<ol>
+<li>航运与港口数据分析工具；</li>
+<li>供应链风险监控 SaaS；</li>
+<li>能源、化工与大宗贸易的库存优化系统。</li>
+</ol>
+<p>如果市场开始为“物流韧性”付费，这些工具就不只是后台系统，而会成为风险管理基础设施。</p>
+<hr>
+<h2 id="️-风险提示">⚠️ 风险提示</h2>
+<ul>
+<li>Polymarket 概率是市场定价，不等于事实预测。</li>
+<li>该投票以 IMF Portwatch 数据为唯一核心判定来源，其他航运数据可能存在口径差异。</li>
+<li>Yes 概率低并不代表霍尔木兹一定无法恢复，只代表当前交易者认为在 7 月 31 日前达到 7 日均值 60 艘以上的可能性较低。</li>
+<li>地缘事件可能快速变化，航运流量、军事态势、保险费率和油价都可能出现非线性调整。</li>
+</ul>
+<hr>
+<h2 id="-结语真正的信号不是油价而是船有没有回来">🌅 结语：真正的信号不是油价，而是船有没有回来</h2>
+<p>这次投票最有价值的地方，在于它把一个宏大的地缘问题压缩成了一个可验证指标：7 日移动平均过境船舶数是否回到 60 艘。</p>
+<p>这代表未来市场会越来越少满足于“风险叙事”，而越来越多追问“真实流量”。</p>
+<p>对未来观察者来说，这就是关键变化：能源安全正在从宏观口号，变成可以被数据、赔率和现金流共同验证的物流韧性问题。</p>
+<hr>
+<h2 id="-参考资源">🔗 参考资源</h2>
+<ul>
+<li>Polymarket：Strait of Hormuz traffic returns to normal by July 31?<br>
+<a href="https://polymarket.com/event/strait-of-hormuz-traffic-returns-to-normal-by-july-31">https://polymarket.com/event/strait-of-hormuz-traffic-returns-to-normal-by-july-31</a></li>
+<li>IMF Portwatch：Strait of Hormuz transit calls 数据源<br>
+<a href="https://portwatch.imf.org/pages/cb5856222a5b4105adc6ee7e880a1730">https://portwatch.imf.org/pages/cb5856222a5b4105adc6ee7e880a1730</a></li>
+</ul>  </article> <aside class="toc"><p class="toc-title">目录</p><ul class="toc-list"><li class="depth-2"><a href="#-今天看什么投票" data-toc-link="-今天看什么投票">🧭 今天看什么投票？</a></li><li class="depth-3"><a href="#-关键数据卡片" data-toc-link="-关键数据卡片">📊 关键数据卡片</a></li><li class="depth-3"><a href="#-为什么今天选它" data-toc-link="-为什么今天选它">✅ 为什么今天选它？</a></li><li class="depth-2"><a href="#-为什么会有这个投票" data-toc-link="-为什么会有这个投票">🔥 为什么会有这个投票？</a></li><li class="depth-2"><a href="#-这个投票真正反映了什么结构变化" data-toc-link="-这个投票真正反映了什么结构变化">🧱 这个投票真正反映了什么结构变化？</a></li><li class="depth-3"><a href="#1-技术层航运数据正在变成可交易信号" data-toc-link="1-技术层航运数据正在变成可交易信号">1. 技术层：航运数据正在变成可交易信号</a></li><li class="depth-3"><a href="#2-产业层能源安全从产量问题变成通道问题" data-toc-link="2-产业层能源安全从产量问题变成通道问题">2. 产业层：能源安全从产量问题变成通道问题</a></li><li class="depth-3"><a href="#3-社会--资本层全球化效率开始让位于韧性定价" data-toc-link="3-社会--资本层全球化效率开始让位于韧性定价">3. 社会 / 资本层：全球化效率开始让位于韧性定价</a></li><li class="depth-2"><a href="#-如果趋势继续未来会怎样" data-toc-link="-如果趋势继续未来会怎样">⏳ 如果趋势继续，未来会怎样？</a></li><li class="depth-3"><a href="#短期油价不一定立刻暴涨但风险溢价会更黏" data-toc-link="短期油价不一定立刻暴涨但风险溢价会更黏">短期：油价不一定立刻暴涨，但风险溢价会更黏</a></li><li class="depth-3"><a href="#中期买方会重新设计库存与采购节奏" data-toc-link="中期买方会重新设计库存与采购节奏">中期：买方会重新设计库存与采购节奏</a></li><li class="depth-3"><a href="#长期关键通道会成为产业政策的一部分" data-toc-link="长期关键通道会成为产业政策的一部分">长期：关键通道会成为产业政策的一部分</a></li><li class="depth-2"><a href="#-对谁最重要" data-toc-link="-对谁最重要">🧩 对谁最重要？</a></li><li class="depth-3"><a href="#普通人" data-toc-link="普通人">普通人</a></li><li class="depth-3"><a href="#从业者" data-toc-link="从业者">从业者</a></li><li class="depth-3"><a href="#创业者--投资观察者" data-toc-link="创业者--投资观察者">创业者 / 投资观察者</a></li><li class="depth-2"><a href="#️-风险提示" data-toc-link="️-风险提示">⚠️ 风险提示</a></li><li class="depth-2"><a href="#-结语真正的信号不是油价而是船有没有回来" data-toc-link="-结语真正的信号不是油价而是船有没有回来">🌅 结语：真正的信号不是油价，而是船有没有回来</a></li><li class="depth-2"><a href="#-参考资源" data-toc-link="-参考资源">🔗 参考资源</a></li></ul></aside><script type="module">const c=()=>{const r=Array.from(document.querySelectorAll(".toc a[data-toc-link]"));if(!r.length)return;const o=r.map(t=>{const e=t.getAttribute("data-toc-link");if(!e)return null;const n=document.getElementById(e);return n?{id:e,heading:n,link:t}:null}).filter(t=>t!==null);if(!o.length)return;const s=t=>{r.forEach(e=>{const n=e.getAttribute("data-toc-link")===t;e.classList.toggle("active",n),n&&e.scrollIntoView({block:"nearest",inline:"nearest"})})},i=()=>{const t=Math.round(window.innerHeight*.28);let e=o[0];for(const n of o)n.heading.getBoundingClientRect().top<=t&&(e=n);s(e.id)};i();const a=new IntersectionObserver(()=>i(),{rootMargin:"-18% 0px -70% 0px",threshold:[0,1]});o.forEach(t=>a.observe(t.heading)),window.addEventListener("scroll",i,{passive:!0})};document.addEventListener("DOMContentLoaded",c);document.addEventListener("astro:page-load",c);</script> </div>  </main> <footer class="site-footer"> <div class="shell footer-inner"> <p>© 2026 未来观察者</p> </div> </footer> </body></html>
