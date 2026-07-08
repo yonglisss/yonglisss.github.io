@@ -1,0 +1,296 @@
+<!DOCTYPE html><html lang="zh-CN"> <head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1"><script>
+      (() => {
+        const storageKey = "future-observer-theme";
+        const root = document.documentElement;
+        const getStoredMode = () => {
+          try {
+            const value = localStorage.getItem(storageKey);
+            return value === "light" || value === "dark" || value === "system" ? value : "system";
+          } catch {
+            return "system";
+          }
+        };
+        const systemDark = () => window.matchMedia?.("(prefers-color-scheme: dark)").matches ?? false;
+        const apply = (mode) => {
+          const resolved = mode === "system" ? (systemDark() ? "dark" : "light") : mode;
+          root.dataset.themeMode = mode;
+          root.dataset.theme = resolved;
+          root.style.colorScheme = resolved;
+        };
+        apply(getStoredMode());
+        window.__setFutureObserverTheme = (mode) => {
+          const next = mode === "light" || mode === "dark" || mode === "system" ? mode : "system";
+          try { localStorage.setItem(storageKey, next); } catch {}
+          apply(next);
+          window.dispatchEvent(new CustomEvent("future-observer-theme-change", { detail: { mode: next } }));
+        };
+        window.matchMedia?.("(prefers-color-scheme: dark)").addEventListener?.("change", () => {
+          if (getStoredMode() === "system") apply("system");
+        });
+      })();
+    </script><title>₿ Bitcoin 七月价格带：市场开始把加密资产按“流动性地板”定价 | 未来观察者</title><meta name="description" content="🧭 核心观点：今天值得看的不是“比特币会不会暴涨”，而是 Polymarket 正在给 7 月价格带画出一个很清晰的区间：下方 $57,500 附近仍有压力，上方 $70,000 以上则明显谨慎。加密资产正在从叙事交易，进入更依赖宏观流动性和风险预算的区间定价阶段。"><meta name="generator" content="Astro v5.18.1"><meta property="og:title" content="₿ Bitcoin 七月价格带：市场开始把加密资产按“流动性地板”定价 | 未来观察者"><meta property="og:description" content="🧭 核心观点：今天值得看的不是“比特币会不会暴涨”，而是 Polymarket 正在给 7 月价格带画出一个很清晰的区间：下方 $57,500 附近仍有压力，上方 $70,000 以上则明显谨慎。加密资产正在从叙事交易，进入更依赖宏观流动性和风险预算的区间定价阶段。"><meta property="og:type" content="website"><meta property="og:url" content="https://future.lifestudylab.com/posts/2026-07-09-bitcoin%E4%B8%83%E6%9C%88%E4%BB%B7%E6%A0%BC%E5%B8%A6-%E5%B8%82%E5%9C%BA%E5%BC%80%E5%A7%8B%E6%8A%8A%E5%8A%A0%E5%AF%86%E8%B5%84%E4%BA%A7%E6%8C%89%E6%B5%81%E5%8A%A8%E6%80%A7%E5%9C%B0%E6%9D%BF%E5%AE%9A%E4%BB%B7/"><link rel="icon" type="image/svg+xml" href="/favicon.svg"><link rel="alternate" type="application/rss+xml" title="未来观察者" href="/rss.xml"><link rel="stylesheet" href="/_astro/_channel_.BFW__1rx.css"></head> <body> <div class="page-bg"></div> <header class="site-header"> <div class="shell header-inner"> <div class="header-bar"> <a class="brand" href="/ai-tools/"> <img src="/brand-mark.svg" alt="" class="brand-mark" width="56" height="56"> <span class="brand-text" aria-label="未来观察者">思考未来</span> </a> </div> <nav class="top-menu" aria-label="顶部菜单"> <a href="/future-daily/" class="top-menu-link"> 每日信息 </a><a href="/docs/deer-flow/00-overview/" class="top-menu-link"> DeerFlow教程 </a><a href="/docs/hermes/00-overview/" class="top-menu-link"> Hermes教程 </a><a href="/docs/openclaw/00-overview/" class="top-menu-link"> OpenClaw教程 </a><a href="/about/" class="top-menu-link"> 关于我 </a> </nav> <div class="top-actions"> <a class="feedback-link" href="https://github.com/yonglisss/yonglisss.github.io/issues" target="_blank" rel="noopener noreferrer" aria-label="问题反馈"> <svg viewBox="0 0 24 24" aria-hidden="true" class="action-icon"> <path d="M4.75 5.75A2.75 2.75 0 0 1 7.5 3h9A2.75 2.75 0 0 1 19.25 5.75v6.5A2.75 2.75 0 0 1 16.5 15H9.3l-3.55 3.2V15.1a2.75 2.75 0 0 1-1-2.1V5.75Z"></path> <path d="M8 7.75h8M8 11.25h4"></path> </svg> <span>问题反馈</span> </a> <div class="theme-switcher" data-theme-switcher> <button class="theme-trigger" type="button" aria-haspopup="menu" aria-expanded="false" aria-label="切换明暗模式" data-theme-trigger> <svg viewBox="0 0 24 24" aria-hidden="true" class="action-icon theme-trigger-icon theme-trigger-icon--light"> <circle cx="12" cy="12" r="4"></circle> <path d="M12 2.75v2M12 19.25v2M4.75 4.75l1.4 1.4M17.85 17.85l1.4 1.4M2.75 12h2M19.25 12h2M4.75 19.25l1.4-1.4M17.85 6.15l1.4-1.4"></path> </svg> <svg viewBox="0 0 24 24" aria-hidden="true" class="action-icon theme-trigger-icon theme-trigger-icon--dark"> <path d="M20.25 14.2A8 8 0 0 1 9.8 3.75 8.5 8.5 0 1 0 20.25 14.2Z"></path> </svg> <svg viewBox="0 0 24 24" aria-hidden="true" class="action-icon theme-trigger-icon theme-trigger-icon--system"> <rect x="4" y="5" width="16" height="11" rx="1.8"></rect> <path d="M9 20h6M12 16v4"></path> </svg> </button> <div class="theme-menu" role="menu" data-theme-menu hidden> <button class="theme-option" type="button" role="menuitemradio" data-theme-option="light" aria-checked="false"> <svg viewBox="0 0 24 24" aria-hidden="true" class="action-icon"><circle cx="12" cy="12" r="4"></circle><path d="M12 2.75v2M12 19.25v2M4.75 4.75l1.4 1.4M17.85 17.85l1.4 1.4M2.75 12h2M19.25 12h2M4.75 19.25l1.4-1.4M17.85 6.15l1.4-1.4"></path></svg> <span>亮色</span> </button> <button class="theme-option" type="button" role="menuitemradio" data-theme-option="dark" aria-checked="false"> <svg viewBox="0 0 24 24" aria-hidden="true" class="action-icon"><path d="M20.25 14.2A8 8 0 0 1 9.8 3.75 8.5 8.5 0 1 0 20.25 14.2Z"></path></svg> <span>暗色</span> </button> <button class="theme-option" type="button" role="menuitemradio" data-theme-option="system" aria-checked="true"> <svg viewBox="0 0 24 24" aria-hidden="true" class="action-icon"><rect x="4" y="5" width="16" height="11" rx="1.8"></rect><path d="M9 20h6M12 16v4"></path></svg> <span>跟随系统</span> </button> </div> </div> </div> </div> </header> <script>
+  (() => {
+    const switcher = document.querySelector("[data-theme-switcher]");
+    if (!switcher) return;
+
+    const trigger = switcher.querySelector("[data-theme-trigger]");
+    const menu = switcher.querySelector("[data-theme-menu]");
+    const options = [...switcher.querySelectorAll("[data-theme-option]")];
+    const modes = ["light", "dark", "system"];
+
+    const getMode = () => {
+      const mode = document.documentElement.dataset.themeMode;
+      return modes.includes(mode) ? mode : "system";
+    };
+
+    const closeMenu = () => {
+      menu.hidden = true;
+      trigger.setAttribute("aria-expanded", "false");
+    };
+
+    const openMenu = () => {
+      menu.hidden = false;
+      trigger.setAttribute("aria-expanded", "true");
+    };
+
+    const sync = () => {
+      const mode = getMode();
+      trigger.dataset.themeMode = mode;
+      options.forEach((option) => {
+        option.setAttribute("aria-checked", String(option.dataset.themeOption === mode));
+      });
+    };
+
+    trigger.addEventListener("click", () => {
+      menu.hidden ? openMenu() : closeMenu();
+    });
+
+    options.forEach((option) => {
+      option.addEventListener("click", () => {
+        window.__setFutureObserverTheme?.(option.dataset.themeOption || "system");
+        sync();
+        closeMenu();
+      });
+    });
+
+    document.addEventListener("click", (event) => {
+      if (!switcher.contains(event.target)) closeMenu();
+    });
+
+    document.addEventListener("keydown", (event) => {
+      if (event.key === "Escape") closeMenu();
+    });
+
+    window.addEventListener("future-observer-theme-change", sync);
+    sync();
+  })();
+</script> <aside class="site-rail" aria-label="站点导航"> <div class="site-rail-inner"> <p class="site-rail-label">Channels</p> <nav aria-label="主导航"> <ul class="site-rail-nav"> <li> <a href="/ai-tools/" class="site-rail-link"> AI工具 </a> </li><li> <a href="/future-daily/" class="site-rail-link"> 未来观察者日报 </a> </li> </ul> </nav> </div> </aside> <main class="shell page-content">  <div class="post-hero"> <p class="eyebrow">2026年7月9日</p> <h1>₿ Bitcoin 七月价格带：市场开始把加密资产按“流动性地板”定价</h1> <p class="post-summary">🧭 核心观点：今天值得看的不是“比特币会不会暴涨”，而是 Polymarket 正在给 7 月价格带画出一个很清晰的区间：下方 $57,500 附近仍有压力，上方 $70,000 以上则明显谨慎。加密资产正在从叙事交易，进入更依赖宏观流动性和风险预算的区间定价阶段。</p> <ul class="tag-list"> <li> <a href="/tags/%E6%9C%AA%E6%9D%A5%E8%A7%82%E5%AF%9F%E8%80%85%E6%97%A5%E6%8A%A5/" class="tag-link">
+#未来观察者日报 </a> </li><li> <a href="/tags/2026%E5%B9%B407%E6%9C%88/" class="tag-link">
+#2026年07月 </a> </li> </ul> </div> <div class="post-grid"> <article class="prose">  <blockquote>
+<p>🧭 <strong>核心观点</strong>：今天值得看的不是“比特币会不会暴涨”，而是 Polymarket 正在给 7 月价格带画出一个很清晰的区间：下方 $57,500 附近仍有压力，上方 $70,000 以上则明显谨慎。加密资产正在从叙事交易，进入更依赖宏观流动性和风险预算的区间定价阶段。</p>
+</blockquote>
+<p><strong>作者：</strong> 元英<br>
+<strong>时间：</strong> 2026年7月9日 04:01 CST<br>
+<strong>标签：</strong> #未来观察者 #Bitcoin #Crypto #流动性定价<br>
+<strong>阅读时间：</strong> 3-5分钟</p>
+<hr>
+<h2 id="-今天看什么投票">🔎 今天看什么投票？</h2>
+<p>今天从 Polymarket 多领域候选中筛选后，我选择的是：<strong>What price will Bitcoin hit in July?</strong></p>
+<p>选择它的原因不是因为它最热，而是因为它和最近 7 天的主题重复度最低：过去一周已经写过能源航运、AI平台估值、利率、芯片、关税、太空制造、NVIDIA市值排序；继续写 AI 模型、IPO、霍尔木兹或利率都容易重复。比特币价格带则提供了一个观察资本市场风险偏好的窗口。</p>
+<h3 id="-关键数据卡片">📊 关键数据卡片</h3>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<table><thead><tr><th>项目</th><th>内容</th></tr></thead><tbody><tr><td>投票主题</td><td>What price will Bitcoin hit in July?</td></tr><tr><td>所属领域</td><td>Crypto / 资本市场 / 风险资产</td></tr><tr><td>Polymarket 事件交易量</td><td>约 <strong>$5,002,693.86</strong></td></tr><tr><td>24小时交易量</td><td>约 <strong>$719,885.74</strong></td></tr><tr><td>流动性</td><td>约 <strong>$1,218,168.12</strong></td></tr><tr><td>数据获取时间</td><td>2026年7月9日 04:01 CST</td></tr><tr><td>原始链接</td><td><a href="https://polymarket.com/event/what-price-will-bitcoin-hit-in-july-2026">https://polymarket.com/event/what-price-will-bitcoin-hit-in-july-2026</a></td></tr></tbody></table>
+<h3 id="-市场给出的价格带">🧮 市场给出的价格带</h3>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<table><thead><tr><th>7月触及价位</th><th align="right">Yes 概率</th><th align="right">No 概率</th><th align="right">单项交易量</th><th>观察含义</th></tr></thead><tbody><tr><td>Reach $67,500</td><td align="right">34.5%</td><td align="right">65.5%</td><td align="right">$556,525.63</td><td>上行仍有想象，但不是主情景</td></tr><tr><td>Reach $70,000</td><td align="right">16.5%</td><td align="right">83.5%</td><td align="right">$322,772.12</td><td>市场对突破关键整数位较谨慎</td></tr><tr><td>Reach $72,500</td><td align="right">9.5%</td><td align="right">90.5%</td><td align="right">$225,773.92</td><td>强趋势行情概率较低</td></tr><tr><td>Reach $75,000</td><td align="right">4.2%</td><td align="right">95.8%</td><td align="right">$284,494.61</td><td>明显被视为小概率事件</td></tr><tr><td>Reach $80,000</td><td align="right">1.15%</td><td align="right">98.85%</td><td align="right">$235,027.86</td><td>极端上行情景</td></tr><tr><td>Dip to $57,500</td><td align="right">42.0%</td><td align="right">58.0%</td><td align="right">$396,085.33</td><td>下行风险仍未被完全排除</td></tr></tbody></table>
+<p><strong>事实说明</strong>：以上为 Polymarket 市场价格隐含概率，不等于真实概率，也不构成投资建议。</p>
+<hr>
+<h2 id="-为什么今天会有这个投票">🧩 为什么今天会有这个投票？</h2>
+<p>这个投票本质上回答一个问题：<strong>比特币现在更像“高弹性科技资产”，还是更像“宏观流动性的温度计”？</strong></p>
+<p>从当前定价看，市场并没有押注单边暴涨：</p>
+<ol>
+<li><strong>上方空间被压缩</strong>：$70,000 的 Yes 只有 16.5%，$75,000 只有 4.2%。这意味着交易者并不认为 7 月会轻易进入强动量突破。</li>
+<li><strong>下方风险仍存在</strong>：跌到 $57,500 的 Yes 有 42.0%，说明市场没有把底部完全确认。</li>
+<li><strong>区间交易成为主线</strong>：$65,000 的 Yes 达 62.5%，而 $67,500 降到 34.5%，市场实际画出的是一个“中枢附近反复拉锯”的结构。</li>
+</ol>
+<p>这和最近一周的其他 Polymarket 主题形成对照：利率、高估值平台、能源航运都在讨论“风险预算重新收缩”。比特币只是换了一个资产类别，把同一个问题表达得更直接。</p>
+<hr>
+<h2 id="️-这个投票真正反映了什么结构变化">🏗️ 这个投票真正反映了什么结构变化？</h2>
+<h3 id="1-技术层面链上资产越来越依赖场外资金节奏">1. 技术层面：链上资产越来越依赖场外资金节奏</h3>
+<p>比特币自身技术叙事并没有每天发生重大变化，真正推动短期价格带变化的，往往是资金流入、杠杆水平和风险偏好。也就是说，技术资产的定价权正在从“故事强弱”转向“资金是否持续进场”。</p>
+<h3 id="2-产业层面加密市场更像全球风险资产的一部分">2. 产业层面：加密市场更像全球风险资产的一部分</h3>
+<p>过去很多人把比特币看作独立周期，但从价格带投票看，交易者更像是在给它做宏观资产配置：</p>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<table><thead><tr><th>过去的定价方式</th><th>现在更明显的定价方式</th></tr></thead><tbody><tr><td>减半、叙事、链上活跃度</td><td>利率路径、美元流动性、风险资产仓位</td></tr><tr><td>单一币种故事</td><td>ETF/机构资金/跨资产相关性</td></tr><tr><td>牛熊周期语言</td><td>区间、波动率、风险预算语言</td></tr></tbody></table>
+<h3 id="3-社会与资本层面加密资产正在被正常金融化">3. 社会与资本层面：加密资产正在被“正常金融化”</h3>
+<p>当一个资产进入预测市场、ETF、机构组合和宏观对冲框架之后，它的想象力不会消失，但表达方式会变化：从“是否改变世界”，变成“在当前利率和风险偏好下，市场愿意给它多高的价格上限”。</p>
+<p>这也是今天这组概率最有价值的地方：它不是告诉我们比特币没有未来，而是提醒我们，未来资产一旦金融化，就会被更冷静地折现。</p>
+<hr>
+<h2 id="-如果趋势继续未来会怎样">⏳ 如果趋势继续，未来会怎样？</h2>
+<h3 id="短期7-月更可能是价格带博弈">短期：7 月更可能是价格带博弈</h3>
+<p>如果 Polymarket 当前定价延续，7 月交易重心可能不是追逐 $80,000，而是在 $57,500 到 $70,000 之间反复确认风险偏好。突破需要新的资金流入或宏观利好。</p>
+<h3 id="中期比特币会更像高波动纳斯达克">中期：比特币会更像“高波动纳斯达克”</h3>
+<p>如果高利率环境持续，BTC 的上行会更依赖外部流动性，而不是单靠加密原生叙事。它可能仍然有长期吸引力，但短中期会被纳入科技股、成长股、AI 资本开支等同一套风险资产框架。</p>
+<h3 id="长期数字资产进入资产配置但超额收益更难白捡">长期：数字资产进入资产配置，但超额收益更难白捡</h3>
+<p>长期看，金融化会带来更深流动性、更低进入门槛和更大机构参与；但另一面是，定价会更有效，早期那种单靠叙事扩张获得巨大错配收益的机会会减少。</p>
+<hr>
+<h2 id="-对谁最重要">🎯 对谁最重要？</h2>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<table><thead><tr><th>人群</th><th>应该关注什么</th><th>具体行动</th></tr></thead><tbody><tr><td>普通投资者</td><td>不要把低概率上行情景当主情景</td><td>用仓位上限管理波动，不追单一价位故事</td></tr><tr><td>加密从业者</td><td>用户增长不等于资产价格必然上行</td><td>关注真实收入、留存、支付/结算场景，而不是只看币价</td></tr><tr><td>创业者</td><td>金融化资产更需要合规入口和风险工具</td><td>可以关注托管、风控、税务、链上数据服务等基础设施</td></tr><tr><td>投资观察者</td><td>比特币是风险偏好的温度计</td><td>把 BTC 价格带与利率、美元、科技股估值一起观察</td></tr></tbody></table>
+<hr>
+<h2 id="️-风险提示">⚠️ 风险提示</h2>
+<ol>
+<li><strong>Polymarket 是市场定价，不是真实预言</strong>：概率会随订单和新闻快速变化。</li>
+<li><strong>单一市场可能存在流动性偏差</strong>：即使总流动性超过 120 万美元，也不能代表全部市场共识。</li>
+<li><strong>加密资产波动极高</strong>：短时间内可能因政策、交易所、ETF资金流、宏观数据发生剧烈变化。</li>
+<li><strong>本文不构成投资建议</strong>：这里只讨论预测市场反映的结构变化，不建议据此直接交易。</li>
+</ol>
+<hr>
+<h2 id="-结语别只看价格要看市场愿意给未来多少溢价">🌅 结语：别只看价格，要看市场愿意给未来多少溢价</h2>
+<p>今天这组比特币价格投票的信号很清楚：市场还承认 BTC 的弹性，但不愿意轻易支付过高的短期上行溢价。</p>
+<p>对未来观察者来说，这比“涨还是跌”更重要。因为它说明一个更大的趋势：<strong>当新资产进入主流金融系统，它不会只靠信仰定价，而会被利率、流动性、风险预算和机构行为一起重新塑形。</strong></p>
+<hr>
+<h2 id="-参考资源">🔗 参考资源</h2>
+<ul>
+<li>Polymarket：What price will Bitcoin hit in July? <a href="https://polymarket.com/event/what-price-will-bitcoin-hit-in-july-2026">https://polymarket.com/event/what-price-will-bitcoin-hit-in-july-2026</a></li>
+<li>Polymarket 数据获取时间：2026年7月9日 04:01 CST</li>
+<li>近期去重参考：2026年7月2日至7月8日《未来观察者》已发布主题（NVIDIA、Starship、关税、存储芯片、美联储、字节估值、霍尔木兹航运）</li>
+</ul>  </article> <aside class="toc"><p class="toc-title">目录</p><ul class="toc-list"><li class="depth-2"><a href="#-今天看什么投票" data-toc-link="-今天看什么投票">🔎 今天看什么投票？</a></li><li class="depth-3"><a href="#-关键数据卡片" data-toc-link="-关键数据卡片">📊 关键数据卡片</a></li><li class="depth-3"><a href="#-市场给出的价格带" data-toc-link="-市场给出的价格带">🧮 市场给出的价格带</a></li><li class="depth-2"><a href="#-为什么今天会有这个投票" data-toc-link="-为什么今天会有这个投票">🧩 为什么今天会有这个投票？</a></li><li class="depth-2"><a href="#️-这个投票真正反映了什么结构变化" data-toc-link="️-这个投票真正反映了什么结构变化">🏗️ 这个投票真正反映了什么结构变化？</a></li><li class="depth-3"><a href="#1-技术层面链上资产越来越依赖场外资金节奏" data-toc-link="1-技术层面链上资产越来越依赖场外资金节奏">1. 技术层面：链上资产越来越依赖场外资金节奏</a></li><li class="depth-3"><a href="#2-产业层面加密市场更像全球风险资产的一部分" data-toc-link="2-产业层面加密市场更像全球风险资产的一部分">2. 产业层面：加密市场更像全球风险资产的一部分</a></li><li class="depth-3"><a href="#3-社会与资本层面加密资产正在被正常金融化" data-toc-link="3-社会与资本层面加密资产正在被正常金融化">3. 社会与资本层面：加密资产正在被“正常金融化”</a></li><li class="depth-2"><a href="#-如果趋势继续未来会怎样" data-toc-link="-如果趋势继续未来会怎样">⏳ 如果趋势继续，未来会怎样？</a></li><li class="depth-3"><a href="#短期7-月更可能是价格带博弈" data-toc-link="短期7-月更可能是价格带博弈">短期：7 月更可能是价格带博弈</a></li><li class="depth-3"><a href="#中期比特币会更像高波动纳斯达克" data-toc-link="中期比特币会更像高波动纳斯达克">中期：比特币会更像“高波动纳斯达克”</a></li><li class="depth-3"><a href="#长期数字资产进入资产配置但超额收益更难白捡" data-toc-link="长期数字资产进入资产配置但超额收益更难白捡">长期：数字资产进入资产配置，但超额收益更难白捡</a></li><li class="depth-2"><a href="#-对谁最重要" data-toc-link="-对谁最重要">🎯 对谁最重要？</a></li><li class="depth-2"><a href="#️-风险提示" data-toc-link="️-风险提示">⚠️ 风险提示</a></li><li class="depth-2"><a href="#-结语别只看价格要看市场愿意给未来多少溢价" data-toc-link="-结语别只看价格要看市场愿意给未来多少溢价">🌅 结语：别只看价格，要看市场愿意给未来多少溢价</a></li><li class="depth-2"><a href="#-参考资源" data-toc-link="-参考资源">🔗 参考资源</a></li></ul></aside><script type="module">const c=()=>{const r=Array.from(document.querySelectorAll(".toc a[data-toc-link]"));if(!r.length)return;const o=r.map(t=>{const e=t.getAttribute("data-toc-link");if(!e)return null;const n=document.getElementById(e);return n?{id:e,heading:n,link:t}:null}).filter(t=>t!==null);if(!o.length)return;const s=t=>{r.forEach(e=>{const n=e.getAttribute("data-toc-link")===t;e.classList.toggle("active",n),n&&e.scrollIntoView({block:"nearest",inline:"nearest"})})},i=()=>{const t=Math.round(window.innerHeight*.28);let e=o[0];for(const n of o)n.heading.getBoundingClientRect().top<=t&&(e=n);s(e.id)};i();const a=new IntersectionObserver(()=>i(),{rootMargin:"-18% 0px -70% 0px",threshold:[0,1]});o.forEach(t=>a.observe(t.heading)),window.addEventListener("scroll",i,{passive:!0})};document.addEventListener("DOMContentLoaded",c);document.addEventListener("astro:page-load",c);</script> </div>  </main> <footer class="site-footer"> <div class="shell footer-inner"> <p>© 2026 未来观察者</p> </div> </footer> </body></html>
