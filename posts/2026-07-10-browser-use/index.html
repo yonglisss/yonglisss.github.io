@@ -1,0 +1,130 @@
+<!DOCTYPE html><html lang="zh-CN"> <head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1"><script>
+      (() => {
+        const storageKey = "future-observer-theme";
+        const root = document.documentElement;
+        const getStoredMode = () => {
+          try {
+            const value = localStorage.getItem(storageKey);
+            return value === "light" || value === "dark" || value === "system" ? value : "system";
+          } catch {
+            return "system";
+          }
+        };
+        const systemDark = () => window.matchMedia?.("(prefers-color-scheme: dark)").matches ?? false;
+        const apply = (mode) => {
+          const resolved = mode === "system" ? (systemDark() ? "dark" : "light") : mode;
+          root.dataset.themeMode = mode;
+          root.dataset.theme = resolved;
+          root.style.colorScheme = resolved;
+        };
+        apply(getStoredMode());
+        window.__setFutureObserverTheme = (mode) => {
+          const next = mode === "light" || mode === "dark" || mode === "system" ? mode : "system";
+          try { localStorage.setItem(storageKey, next); } catch {}
+          apply(next);
+          window.dispatchEvent(new CustomEvent("future-observer-theme-change", { detail: { mode: next } }));
+        };
+        window.matchMedia?.("(prefers-color-scheme: dark)").addEventListener?.("change", () => {
+          if (getStoredMode() === "system") apply("system");
+        });
+      })();
+    </script><title>Browser Use：让 AI Agent 像人一样操作浏览器 | 未来观察者</title><meta name="description" content="很多 AI Agent 卡在一个现实问题上：它能读网页、写代码，却不一定能稳定完成“打开页面、点击按钮、填写表单、跨页面查找信息”这类浏览器任务。Browser Use 要解决的就是这个断点。它是一个开源 Python 库，让开发者把浏览器操作能力接入 Agent 工作流，并提供"><meta name="generator" content="Astro v5.18.1"><meta property="og:title" content="Browser Use：让 AI Agent 像人一样操作浏览器 | 未来观察者"><meta property="og:description" content="很多 AI Agent 卡在一个现实问题上：它能读网页、写代码，却不一定能稳定完成“打开页面、点击按钮、填写表单、跨页面查找信息”这类浏览器任务。Browser Use 要解决的就是这个断点。它是一个开源 Python 库，让开发者把浏览器操作能力接入 Agent 工作流，并提供"><meta property="og:type" content="website"><meta property="og:url" content="https://future.lifestudylab.com/posts/2026-07-10-browser-use/"><link rel="icon" type="image/svg+xml" href="/favicon.svg"><link rel="alternate" type="application/rss+xml" title="未来观察者" href="/rss.xml"><link rel="stylesheet" href="/_astro/_channel_.BFW__1rx.css"></head> <body> <div class="page-bg"></div> <header class="site-header"> <div class="shell header-inner"> <div class="header-bar"> <a class="brand" href="/ai-tools/"> <img src="/brand-mark.svg" alt="" class="brand-mark" width="56" height="56"> <span class="brand-text" aria-label="未来观察者">思考未来</span> </a> </div> <nav class="top-menu" aria-label="顶部菜单"> <a href="/future-daily/" class="top-menu-link"> 每日信息 </a><a href="/docs/deer-flow/00-overview/" class="top-menu-link"> DeerFlow教程 </a><a href="/docs/hermes/00-overview/" class="top-menu-link"> Hermes教程 </a><a href="/docs/openclaw/00-overview/" class="top-menu-link"> OpenClaw教程 </a><a href="/about/" class="top-menu-link"> 关于我 </a> </nav> <div class="top-actions"> <a class="feedback-link" href="https://github.com/yonglisss/yonglisss.github.io/issues" target="_blank" rel="noopener noreferrer" aria-label="问题反馈"> <svg viewBox="0 0 24 24" aria-hidden="true" class="action-icon"> <path d="M4.75 5.75A2.75 2.75 0 0 1 7.5 3h9A2.75 2.75 0 0 1 19.25 5.75v6.5A2.75 2.75 0 0 1 16.5 15H9.3l-3.55 3.2V15.1a2.75 2.75 0 0 1-1-2.1V5.75Z"></path> <path d="M8 7.75h8M8 11.25h4"></path> </svg> <span>问题反馈</span> </a> <div class="theme-switcher" data-theme-switcher> <button class="theme-trigger" type="button" aria-haspopup="menu" aria-expanded="false" aria-label="切换明暗模式" data-theme-trigger> <svg viewBox="0 0 24 24" aria-hidden="true" class="action-icon theme-trigger-icon theme-trigger-icon--light"> <circle cx="12" cy="12" r="4"></circle> <path d="M12 2.75v2M12 19.25v2M4.75 4.75l1.4 1.4M17.85 17.85l1.4 1.4M2.75 12h2M19.25 12h2M4.75 19.25l1.4-1.4M17.85 6.15l1.4-1.4"></path> </svg> <svg viewBox="0 0 24 24" aria-hidden="true" class="action-icon theme-trigger-icon theme-trigger-icon--dark"> <path d="M20.25 14.2A8 8 0 0 1 9.8 3.75 8.5 8.5 0 1 0 20.25 14.2Z"></path> </svg> <svg viewBox="0 0 24 24" aria-hidden="true" class="action-icon theme-trigger-icon theme-trigger-icon--system"> <rect x="4" y="5" width="16" height="11" rx="1.8"></rect> <path d="M9 20h6M12 16v4"></path> </svg> </button> <div class="theme-menu" role="menu" data-theme-menu hidden> <button class="theme-option" type="button" role="menuitemradio" data-theme-option="light" aria-checked="false"> <svg viewBox="0 0 24 24" aria-hidden="true" class="action-icon"><circle cx="12" cy="12" r="4"></circle><path d="M12 2.75v2M12 19.25v2M4.75 4.75l1.4 1.4M17.85 17.85l1.4 1.4M2.75 12h2M19.25 12h2M4.75 19.25l1.4-1.4M17.85 6.15l1.4-1.4"></path></svg> <span>亮色</span> </button> <button class="theme-option" type="button" role="menuitemradio" data-theme-option="dark" aria-checked="false"> <svg viewBox="0 0 24 24" aria-hidden="true" class="action-icon"><path d="M20.25 14.2A8 8 0 0 1 9.8 3.75 8.5 8.5 0 1 0 20.25 14.2Z"></path></svg> <span>暗色</span> </button> <button class="theme-option" type="button" role="menuitemradio" data-theme-option="system" aria-checked="true"> <svg viewBox="0 0 24 24" aria-hidden="true" class="action-icon"><rect x="4" y="5" width="16" height="11" rx="1.8"></rect><path d="M9 20h6M12 16v4"></path></svg> <span>跟随系统</span> </button> </div> </div> </div> </div> </header> <script>
+  (() => {
+    const switcher = document.querySelector("[data-theme-switcher]");
+    if (!switcher) return;
+
+    const trigger = switcher.querySelector("[data-theme-trigger]");
+    const menu = switcher.querySelector("[data-theme-menu]");
+    const options = [...switcher.querySelectorAll("[data-theme-option]")];
+    const modes = ["light", "dark", "system"];
+
+    const getMode = () => {
+      const mode = document.documentElement.dataset.themeMode;
+      return modes.includes(mode) ? mode : "system";
+    };
+
+    const closeMenu = () => {
+      menu.hidden = true;
+      trigger.setAttribute("aria-expanded", "false");
+    };
+
+    const openMenu = () => {
+      menu.hidden = false;
+      trigger.setAttribute("aria-expanded", "true");
+    };
+
+    const sync = () => {
+      const mode = getMode();
+      trigger.dataset.themeMode = mode;
+      options.forEach((option) => {
+        option.setAttribute("aria-checked", String(option.dataset.themeOption === mode));
+      });
+    };
+
+    trigger.addEventListener("click", () => {
+      menu.hidden ? openMenu() : closeMenu();
+    });
+
+    options.forEach((option) => {
+      option.addEventListener("click", () => {
+        window.__setFutureObserverTheme?.(option.dataset.themeOption || "system");
+        sync();
+        closeMenu();
+      });
+    });
+
+    document.addEventListener("click", (event) => {
+      if (!switcher.contains(event.target)) closeMenu();
+    });
+
+    document.addEventListener("keydown", (event) => {
+      if (event.key === "Escape") closeMenu();
+    });
+
+    window.addEventListener("future-observer-theme-change", sync);
+    sync();
+  })();
+</script> <aside class="site-rail" aria-label="站点导航"> <div class="site-rail-inner"> <p class="site-rail-label">Channels</p> <nav aria-label="主导航"> <ul class="site-rail-nav"> <li> <a href="/ai-tools/" class="site-rail-link"> AI工具 </a> </li><li> <a href="/future-daily/" class="site-rail-link"> 未来观察者日报 </a> </li> </ul> </nav> </div> </aside> <main class="shell page-content">  <div class="post-hero"> <p class="eyebrow">2026年7月10日</p> <h1>Browser Use：让 AI Agent 像人一样操作浏览器</h1> <p class="post-summary">很多 AI Agent 卡在一个现实问题上：它能读网页、写代码，却不一定能稳定完成“打开页面、点击按钮、填写表单、跨页面查找信息”这类浏览器任务。Browser Use 要解决的就是这个断点。它是一个开源 Python 库，让开发者把浏览器操作能力接入 Agent 工作流，并提供</p> <ul class="tag-list"> <li> <a href="/tags/AI%E5%B7%A5%E5%85%B7/" class="tag-link">
+#AI工具 </a> </li><li> <a href="/tags/2026%E5%B9%B407%E6%9C%88/" class="tag-link">
+#2026年07月 </a> </li> </ul> </div> <div class="post-grid"> <article class="prose">  <p>很多 AI Agent 卡在一个现实问题上：它能读网页、写代码，却不一定能稳定完成“打开页面、点击按钮、填写表单、跨页面查找信息”这类浏览器任务。Browser Use 要解决的就是这个断点。它是一个开源 Python 库，让开发者把浏览器操作能力接入 Agent 工作流，并提供官方文档、示例和云端选项，适合用来验证网页自动化类 AI 应用。</p>
+<h2 id="-这个项目是干什么的">📌 这个项目是干什么的</h2>
+<ul>
+<li>定位：Browser Use 是面向 AI Agent 的浏览器自动化工具，让 Agent 能打开网页、点击、输入、填写表单并执行多步骤任务。</li>
+<li>适合谁：做客服后台自动化、信息采集、表单处理、网页测试、个人助理类 Agent 的开发者和团队。</li>
+<li>解决什么问题：把“模型会理解网页任务”与“真实浏览器里完成操作”之间的链路补上。</li>
+<li>当前成熟度：项目在 GitHub 采用 MIT 许可证，README、官方文档、示例目录和 Release 都比较完整；但网页自动化本身仍受页面结构、登录态和风控影响。</li>
+</ul>
+<h2 id="-为什么值得关注">🔍 为什么值得关注</h2>
+<ol>
+<li>
+<p><strong>它瞄准的是 Agent 落地里的高频场景。</strong><br>
+Browser Use 官方 README 给出的例子不是抽象 demo，而是填写求职申请、购买杂货、查找电脑配件这类真实网页任务。这类任务共同点是步骤多、页面变化多、很难只靠传统脚本一次写死。</p>
+</li>
+<li>
+<p><strong>它既能当库用，也在补 Agent 集成路径。</strong><br>
+对开发者来说，最直接的方式是安装 Python 包，在代码里创建 <code>Agent</code>，指定任务和 LLM 后运行。最新 Release 0.13.3 还加入了 Browser Use CLI 3.0、<code>browser-use skill</code> 等能力，方便 Claude Code、Codex、Cursor、Gemini 等编码 Agent 直接安装和调用。</p>
+</li>
+<li>
+<p><strong>它把“可上手”做得比较清楚。</strong><br>
+README 明确写了安装方式：<code>uv add browser-use</code> 或 <code>pip install browser-use</code>，并给出最小 Python 示例。官方还维护了 <code>examples/</code> 目录，覆盖 getting started、cloud、custom functions、observability、use-cases 等场景。对中文开发者来说，这比只看概念介绍更容易判断能不能接进自己的流程。</p>
+</li>
+</ol>
+<h2 id="-谁适合试怎么开始">🧪 谁适合试，怎么开始</h2>
+<p>如果你正在做“让 AI 帮人操作网页”的产品原型，Browser Use 值得优先试。最短路径是先准备 Python 3.11 以上环境，安装依赖并配置模型 API Key：</p>
+<pre class="astro-code astro-code-themes github-light github-dark" style="--shiki-light:#24292e;--shiki-dark:#e1e4e8;--shiki-light-bg:#fff;--shiki-dark-bg:#24292e; overflow-x: auto;" tabindex="0" data-language="bash"><code><span class="line"><span style="--shiki-light:#6F42C1;--shiki-dark:#B392F0">uv</span><span style="--shiki-light:#032F62;--shiki-dark:#9ECBFF"> add</span><span style="--shiki-light:#032F62;--shiki-dark:#9ECBFF"> browser-use</span></span>
+<span class="line"><span style="--shiki-light:#6A737D;--shiki-dark:#6A737D"># 或 pip install browser-use</span></span></code></pre>
+<p>然后从官方 <code>examples/simple.py</code> 开始跑通一个小任务，例如让 Agent 查询几个 GitHub 仓库的 star 数。跑通后，再看 <code>examples/use-cases/</code> 里的表单填写、购物、信息查找示例，判断它是否适合你的目标网站。</p>
+<h2 id="️-使用提醒">⚠️ 使用提醒</h2>
+<ul>
+<li>不要把它理解成“万能网页操作机器人”。网页结构变化、验证码、登录态、反爬策略、权限边界都会影响稳定性。</li>
+<li>涉及下单、付款、投递申请、修改账号信息等高风险操作时，应设计人工确认环节，不建议完全无人值守。</li>
+<li>如果只是固定页面、固定按钮的简单自动化，传统 Playwright / Selenium 脚本可能更便宜、更可控；Browser Use 更适合任务目标相对自然语言化、页面流程不完全固定的 Agent 场景。</li>
+</ul>
+<h2 id="-参考资源">🔗 参考资源</h2>
+<ul>
+<li>GitHub：<a href="https://github.com/browser-use/browser-use">https://github.com/browser-use/browser-use</a></li>
+<li>官方网站：<a href="https://browser-use.com">https://browser-use.com</a></li>
+<li>官方文档：<a href="https://docs.browser-use.com/open-source/introduction">https://docs.browser-use.com/open-source/introduction</a></li>
+<li>Release 0.13.3：<a href="https://github.com/browser-use/browser-use/releases/tag/0.13.3">https://github.com/browser-use/browser-use/releases/tag/0.13.3</a></li>
+<li>示例目录：<a href="https://github.com/browser-use/browser-use/tree/main/examples">https://github.com/browser-use/browser-use/tree/main/examples</a></li>
+</ul>  </article> <aside class="toc"><p class="toc-title">目录</p><ul class="toc-list"><li class="depth-2"><a href="#-这个项目是干什么的" data-toc-link="-这个项目是干什么的">📌 这个项目是干什么的</a></li><li class="depth-2"><a href="#-为什么值得关注" data-toc-link="-为什么值得关注">🔍 为什么值得关注</a></li><li class="depth-2"><a href="#-谁适合试怎么开始" data-toc-link="-谁适合试怎么开始">🧪 谁适合试，怎么开始</a></li><li class="depth-2"><a href="#️-使用提醒" data-toc-link="️-使用提醒">⚠️ 使用提醒</a></li><li class="depth-2"><a href="#-参考资源" data-toc-link="-参考资源">🔗 参考资源</a></li></ul></aside><script type="module">const c=()=>{const r=Array.from(document.querySelectorAll(".toc a[data-toc-link]"));if(!r.length)return;const o=r.map(t=>{const e=t.getAttribute("data-toc-link");if(!e)return null;const n=document.getElementById(e);return n?{id:e,heading:n,link:t}:null}).filter(t=>t!==null);if(!o.length)return;const s=t=>{r.forEach(e=>{const n=e.getAttribute("data-toc-link")===t;e.classList.toggle("active",n),n&&e.scrollIntoView({block:"nearest",inline:"nearest"})})},i=()=>{const t=Math.round(window.innerHeight*.28);let e=o[0];for(const n of o)n.heading.getBoundingClientRect().top<=t&&(e=n);s(e.id)};i();const a=new IntersectionObserver(()=>i(),{rootMargin:"-18% 0px -70% 0px",threshold:[0,1]});o.forEach(t=>a.observe(t.heading)),window.addEventListener("scroll",i,{passive:!0})};document.addEventListener("DOMContentLoaded",c);document.addEventListener("astro:page-load",c);</script> </div>  </main> <footer class="site-footer"> <div class="shell footer-inner"> <p>© 2026 未来观察者</p> </div> </footer> </body></html>
