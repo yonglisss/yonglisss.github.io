@@ -1,0 +1,250 @@
+<!DOCTYPE html><html lang="zh-CN"> <head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1"><script>
+      (() => {
+        const storageKey = "future-observer-theme";
+        const root = document.documentElement;
+        const getStoredMode = () => {
+          try {
+            const value = localStorage.getItem(storageKey);
+            return value === "light" || value === "dark" || value === "system" ? value : "system";
+          } catch {
+            return "system";
+          }
+        };
+        const systemDark = () => window.matchMedia?.("(prefers-color-scheme: dark)").matches ?? false;
+        const apply = (mode) => {
+          const resolved = mode === "system" ? (systemDark() ? "dark" : "light") : mode;
+          root.dataset.themeMode = mode;
+          root.dataset.theme = resolved;
+          root.style.colorScheme = resolved;
+        };
+        apply(getStoredMode());
+        window.__setFutureObserverTheme = (mode) => {
+          const next = mode === "light" || mode === "dark" || mode === "system" ? mode : "system";
+          try { localStorage.setItem(storageKey, next); } catch {}
+          apply(next);
+          window.dispatchEvent(new CustomEvent("future-observer-theme-change", { detail: { mode: next } }));
+        };
+        window.matchMedia?.("(prefers-color-scheme: dark)").addEventListener?.("change", () => {
+          if (getStoredMode() === "system") apply("system");
+        });
+      })();
+    </script><title>⚾ ABS挑战成功率：体育判罚自动化正在从“裁判替代”转向“团队能力定价” | 未来观察者</title><meta name="description" content="🧭 核心观点：今天值得看的不是哪支 MLB 球队会赢，而是 Polymarket 已经开始把“理解并利用机器判罚系统”的能力，单独定价成一项可交易优势。"><meta name="generator" content="Astro v5.18.1"><meta property="og:title" content="⚾ ABS挑战成功率：体育判罚自动化正在从“裁判替代”转向“团队能力定价” | 未来观察者"><meta property="og:description" content="🧭 核心观点：今天值得看的不是哪支 MLB 球队会赢，而是 Polymarket 已经开始把“理解并利用机器判罚系统”的能力，单独定价成一项可交易优势。"><meta property="og:type" content="website"><meta property="og:url" content="https://future.lifestudylab.com/posts/2026-07-11-abs%E6%8C%91%E6%88%98%E6%88%90%E5%8A%9F%E7%8E%87-%E4%BD%93%E8%82%B2%E5%88%A4%E7%BD%9A%E8%87%AA%E5%8A%A8%E5%8C%96%E6%AD%A3%E5%9C%A8%E4%BB%8E%E8%A3%81%E5%88%A4%E6%9B%BF%E4%BB%A3%E8%BD%AC%E5%90%91%E5%9B%A2%E9%98%9F%E8%83%BD%E5%8A%9B%E5%AE%9A%E4%BB%B7/"><link rel="icon" type="image/svg+xml" href="/favicon.svg"><link rel="alternate" type="application/rss+xml" title="未来观察者" href="/rss.xml"><link rel="stylesheet" href="/_astro/_channel_.BFW__1rx.css"></head> <body> <div class="page-bg"></div> <header class="site-header"> <div class="shell header-inner"> <div class="header-bar"> <a class="brand" href="/ai-tools/"> <img src="/brand-mark.svg" alt="" class="brand-mark" width="56" height="56"> <span class="brand-text" aria-label="未来观察者">思考未来</span> </a> </div> <nav class="top-menu" aria-label="顶部菜单"> <a href="/future-daily/" class="top-menu-link"> 每日信息 </a><a href="/docs/deer-flow/00-overview/" class="top-menu-link"> DeerFlow教程 </a><a href="/docs/hermes/00-overview/" class="top-menu-link"> Hermes教程 </a><a href="/docs/openclaw/00-overview/" class="top-menu-link"> OpenClaw教程 </a><a href="/about/" class="top-menu-link"> 关于我 </a> </nav> <div class="top-actions"> <a class="feedback-link" href="https://github.com/yonglisss/yonglisss.github.io/issues" target="_blank" rel="noopener noreferrer" aria-label="问题反馈"> <svg viewBox="0 0 24 24" aria-hidden="true" class="action-icon"> <path d="M4.75 5.75A2.75 2.75 0 0 1 7.5 3h9A2.75 2.75 0 0 1 19.25 5.75v6.5A2.75 2.75 0 0 1 16.5 15H9.3l-3.55 3.2V15.1a2.75 2.75 0 0 1-1-2.1V5.75Z"></path> <path d="M8 7.75h8M8 11.25h4"></path> </svg> <span>问题反馈</span> </a> <div class="theme-switcher" data-theme-switcher> <button class="theme-trigger" type="button" aria-haspopup="menu" aria-expanded="false" aria-label="切换明暗模式" data-theme-trigger> <svg viewBox="0 0 24 24" aria-hidden="true" class="action-icon theme-trigger-icon theme-trigger-icon--light"> <circle cx="12" cy="12" r="4"></circle> <path d="M12 2.75v2M12 19.25v2M4.75 4.75l1.4 1.4M17.85 17.85l1.4 1.4M2.75 12h2M19.25 12h2M4.75 19.25l1.4-1.4M17.85 6.15l1.4-1.4"></path> </svg> <svg viewBox="0 0 24 24" aria-hidden="true" class="action-icon theme-trigger-icon theme-trigger-icon--dark"> <path d="M20.25 14.2A8 8 0 0 1 9.8 3.75 8.5 8.5 0 1 0 20.25 14.2Z"></path> </svg> <svg viewBox="0 0 24 24" aria-hidden="true" class="action-icon theme-trigger-icon theme-trigger-icon--system"> <rect x="4" y="5" width="16" height="11" rx="1.8"></rect> <path d="M9 20h6M12 16v4"></path> </svg> </button> <div class="theme-menu" role="menu" data-theme-menu hidden> <button class="theme-option" type="button" role="menuitemradio" data-theme-option="light" aria-checked="false"> <svg viewBox="0 0 24 24" aria-hidden="true" class="action-icon"><circle cx="12" cy="12" r="4"></circle><path d="M12 2.75v2M12 19.25v2M4.75 4.75l1.4 1.4M17.85 17.85l1.4 1.4M2.75 12h2M19.25 12h2M4.75 19.25l1.4-1.4M17.85 6.15l1.4-1.4"></path></svg> <span>亮色</span> </button> <button class="theme-option" type="button" role="menuitemradio" data-theme-option="dark" aria-checked="false"> <svg viewBox="0 0 24 24" aria-hidden="true" class="action-icon"><path d="M20.25 14.2A8 8 0 0 1 9.8 3.75 8.5 8.5 0 1 0 20.25 14.2Z"></path></svg> <span>暗色</span> </button> <button class="theme-option" type="button" role="menuitemradio" data-theme-option="system" aria-checked="true"> <svg viewBox="0 0 24 24" aria-hidden="true" class="action-icon"><rect x="4" y="5" width="16" height="11" rx="1.8"></rect><path d="M9 20h6M12 16v4"></path></svg> <span>跟随系统</span> </button> </div> </div> </div> </div> </header> <script>
+  (() => {
+    const switcher = document.querySelector("[data-theme-switcher]");
+    if (!switcher) return;
+
+    const trigger = switcher.querySelector("[data-theme-trigger]");
+    const menu = switcher.querySelector("[data-theme-menu]");
+    const options = [...switcher.querySelectorAll("[data-theme-option]")];
+    const modes = ["light", "dark", "system"];
+
+    const getMode = () => {
+      const mode = document.documentElement.dataset.themeMode;
+      return modes.includes(mode) ? mode : "system";
+    };
+
+    const closeMenu = () => {
+      menu.hidden = true;
+      trigger.setAttribute("aria-expanded", "false");
+    };
+
+    const openMenu = () => {
+      menu.hidden = false;
+      trigger.setAttribute("aria-expanded", "true");
+    };
+
+    const sync = () => {
+      const mode = getMode();
+      trigger.dataset.themeMode = mode;
+      options.forEach((option) => {
+        option.setAttribute("aria-checked", String(option.dataset.themeOption === mode));
+      });
+    };
+
+    trigger.addEventListener("click", () => {
+      menu.hidden ? openMenu() : closeMenu();
+    });
+
+    options.forEach((option) => {
+      option.addEventListener("click", () => {
+        window.__setFutureObserverTheme?.(option.dataset.themeOption || "system");
+        sync();
+        closeMenu();
+      });
+    });
+
+    document.addEventListener("click", (event) => {
+      if (!switcher.contains(event.target)) closeMenu();
+    });
+
+    document.addEventListener("keydown", (event) => {
+      if (event.key === "Escape") closeMenu();
+    });
+
+    window.addEventListener("future-observer-theme-change", sync);
+    sync();
+  })();
+</script> <aside class="site-rail" aria-label="站点导航"> <div class="site-rail-inner"> <p class="site-rail-label">Channels</p> <nav aria-label="主导航"> <ul class="site-rail-nav"> <li> <a href="/ai-tools/" class="site-rail-link"> AI工具 </a> </li><li> <a href="/future-daily/" class="site-rail-link"> 未来观察者日报 </a> </li> </ul> </nav> </div> </aside> <main class="shell page-content">  <div class="post-hero"> <p class="eyebrow">2026年7月11日</p> <h1>⚾ ABS挑战成功率：体育判罚自动化正在从“裁判替代”转向“团队能力定价”</h1> <p class="post-summary">🧭 核心观点：今天值得看的不是哪支 MLB 球队会赢，而是 Polymarket 已经开始把“理解并利用机器判罚系统”的能力，单独定价成一项可交易优势。</p> <ul class="tag-list"> <li> <a href="/tags/%E6%9C%AA%E6%9D%A5%E8%A7%82%E5%AF%9F%E8%80%85%E6%97%A5%E6%8A%A5/" class="tag-link">
+#未来观察者日报 </a> </li><li> <a href="/tags/2026%E5%B9%B407%E6%9C%88/" class="tag-link">
+#2026年07月 </a> </li> </ul> </div> <div class="post-grid"> <article class="prose">  <blockquote>
+<p>🧭 <strong>核心观点</strong>：今天值得看的不是哪支 MLB 球队会赢，而是 Polymarket 已经开始把“理解并利用机器判罚系统”的能力，单独定价成一项可交易优势。</p>
+</blockquote>
+<p><strong>作者：</strong> 元英<br>
+<strong>时间：</strong> 2026年7月11日<br>
+<strong>标签：</strong> #未来观察者 #体育科技 #自动化判罚 #数据策略<br>
+<strong>阅读时间：</strong> 3-5分钟</p>
+<hr>
+<h2 id="-今天看什么投票">🔎 今天看什么投票？</h2>
+<p>Polymarket 今日候选里，高热度仍集中在世界杯、短线体育赛果、利率和地缘政治。但这些主题近期已经多次覆盖，且不少只是短线结果交易。今天更值得观察的是一个看似小众、但结构意义更强的市场：</p>
+<p><strong>MLB: Highest ABS Challenge Success Rate (Team)</strong><br>
+即：2026 MLB 常规赛中，哪支球队的 ABS 挑战成功率最高？</p>
+<h3 id="-关键数据卡片">📊 关键数据卡片</h3>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<table><thead><tr><th>项目</th><th>内容</th></tr></thead><tbody><tr><td>投票主题</td><td>2026 MLB 常规赛哪支球队 ABS 挑战成功率最高</td></tr><tr><td>原始问题</td><td>MLB: Highest ABS Challenge Success Rate (Team)</td></tr><tr><td>当前靠前选项</td><td>Pittsburgh Pirates 37.15%；Baltimore Orioles 37.10%；Washington Nationals 37.10%；Toronto Blue Jays 37.10%；Cleveland Guardians 37.10%</td></tr><tr><td>市场总交易量</td><td>106,616.71 美元</td></tr><tr><td>24小时交易量</td><td>93,106.99 美元</td></tr><tr><td>流动性</td><td>14,129.42 美元</td></tr><tr><td>结算来源</td><td>MLB 官方 ABS 页面：baseballsavant.mlb.com/abs</td></tr><tr><td>结算时间</td><td>2026-10-11 23:59 ET 前后，以 MLB 官方信息为准</td></tr><tr><td>数据获取时间</td><td>2026-07-11 04:02:16 CST</td></tr><tr><td>Polymarket 链接</td><td><a href="https://polymarket.com/event/mlb-highest-abs-challenge-success-rate-team-20260702220030937">https://polymarket.com/event/mlb-highest-abs-challenge-success-rate-team-20260702220030937</a></td></tr></tbody></table>
+<h3 id="️-先说一个数据注意点">⚠️ 先说一个数据注意点</h3>
+<p>这个市场虽然 24 小时交易量突然放大，但单个球队子市场流动性并不深，部分选项存在明显买卖价差。因此，本文不把 37% 左右的队伍排序解读为精确预测，而是把它视为一个更重要的信号：<strong>市场开始围绕“机器判罚挑战能力”形成独立定价。</strong></p>
+<hr>
+<h2 id="-为什么今天会有这个投票">🧩 为什么今天会有这个投票？</h2>
+<p>这个投票成立的前提，是 MLB 的 ABS（Automated Ball-Strike）挑战机制已经不再只是“技术演示”。Polymarket 的规则明确写到：市场将按照 2026 MLB 常规赛各队的 ABS challenge won% 结算，若成功率相同，则比较挑战成功次数，再按队名字母顺序处理。</p>
+<p>这意味着三个变化已经发生：</p>
+<ol>
+<li><strong>判罚被数据化</strong>：好球/坏球不再只是裁判即时判断，也能被系统记录、复盘和排名。</li>
+<li><strong>挑战成为策略资源</strong>：球队不是被动接受自动化，而是在比赛中决定何时挑战、由谁判断、如何使用次数。</li>
+<li><strong>体育科技进入可交易层</strong>：预测市场不只交易胜负，也开始交易“谁更会使用新规则”。</li>
+</ol>
+<p>这与最近 7 天的内容不同：此前写过 AI 模型排名、Bitcoin、能源航运、ByteDance 估值、利率、芯片、关税和太空发射；今天的新增变量是<strong>自动化系统进入真实竞赛后的组织适配能力</strong>，不是传统 AI 公司、宏观利率或地缘风险主线。</p>
+<hr>
+<h2 id="️-这个投票真正反映了什么结构变化">🏗️ 这个投票真正反映了什么结构变化？</h2>
+<h3 id="1-技术层自动化不是替代人而是改变人机分工">1. 技术层：自动化不是替代人，而是改变人机分工</h3>
+<p>ABS 的关键不是“机器完全取代裁判”，而是把争议判断变成可验证、可挑战、可统计的流程。真正的竞争点从“裁判是否会误判”，转向“球队能否更快识别值得挑战的球”。</p>
+<p>这类系统的扩散逻辑，和很多行业的 AI 落地很像：</p>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<table><thead><tr><th>旧模式</th><th>新模式</th></tr></thead><tbody><tr><td>人做判断，系统辅助记录</td><td>系统给出可验证基准，人决定何时调用</td></tr><tr><td>争议来自主观判断</td><td>争议转向流程、阈值和挑战策略</td></tr><tr><td>优势来自经验直觉</td><td>优势来自数据、训练和组织协同</td></tr></tbody></table>
+<h3 id="2-产业层球队的规则运营能力开始资产化">2. 产业层：球队的“规则运营能力”开始资产化</h3>
+<p>过去衡量球队能力，主要看球员、教练、预算、训练体系。ABS 挑战成功率把一个新维度推到台前：<strong>球队是否能把规则变化转化为运营优势。</strong></p>
+<p>这会催生新的产业需求：</p>
+<ul>
+<li>捕手、投手和打者的实时判断训练；</li>
+<li>教练席的数据提示系统；</li>
+<li>赛后 ABS 复盘工具；</li>
+<li>面向青训和小联盟的规则适配训练产品。</li>
+</ul>
+<p>如果这种指标持续公开，体育科技公司卖的就不只是“数据看板”，而是“提高挑战成功率的训练闭环”。</p>
+<h3 id="3-社会资本层可验证系统会重塑公平感">3. 社会/资本层：可验证系统会重塑公平感</h3>
+<p>体育判罚的核心是信任。自动化判罚系统引入后，观众和市场对公平性的理解会变化：过去争论“裁判是不是错了”，未来可能争论“挑战机制是不是被某些球队更有效利用”。</p>
+<p>这会带来一种新的公平悖论：</p>
+<ul>
+<li>技术提高了判罚可验证性；</li>
+<li>但更懂技术和流程的组织，可能获得额外优势；</li>
+<li>资本会流向能把规则变化转化为胜率提升的团队。</li>
+</ul>
+<hr>
+<h2 id="-如果趋势继续未来会怎样">⏳ 如果趋势继续，未来会怎样？</h2>
+<h3 id="短期挑战成功率会成为新型比赛叙事">短期：挑战成功率会成为新型比赛叙事</h3>
+<p>到 2026 常规赛中后段，媒体和球迷可能不只看胜负，还会看球队 ABS 挑战成功率、挑战次数、关键局面挑战表现。这个指标会成为比赛转播和赛后讨论的新素材。</p>
+<h3 id="中期规则适配能力会进入球队建设">中期：规则适配能力会进入球队建设</h3>
+<p>球队可能会把 ABS 训练纳入常规训练：谁负责第一判断，谁负责复核，什么球况值得挑战，什么比分阶段应该保守。这些都会形成流程化 SOP。</p>
+<h3 id="长期自动化判罚会从体育扩散到更多线下场景">长期：自动化判罚会从体育扩散到更多线下场景</h3>
+<p>体育只是一个可见样本。类似逻辑会出现在医疗分诊、保险理赔、工业质检、教育测评等场景：系统给出标准，人类保留挑战和复核权。真正的优势不只是拥有 AI，而是知道何时相信它、何时质疑它。</p>
+<hr>
+<h2 id="-对谁最重要">🧭 对谁最重要？</h2>
+<h3 id="普通人">普通人</h3>
+<p>可以把 ABS 看作一个理解未来工作方式的样本：自动化系统不会简单消灭人的判断，而是要求人学会在流程中做更高质量的判断。</p>
+<h3 id="体育与数据从业者">体育与数据从业者</h3>
+<p>值得关注两个方向：</p>
+<ol>
+<li>面向球队的实时决策辅助；</li>
+<li>面向训练体系的挑战判断模拟器。</li>
+</ol>
+<p>如果一个指标能被公开记录、排名和交易，它就可能变成产品需求。</p>
+<h3 id="创业者投资观察者">创业者/投资观察者</h3>
+<p>不要只看“自动裁判”这个概念本身，更值得看的是围绕新规则产生的服务层：数据接口、训练工具、策略建模、可视化复盘、观众互动投注等。</p>
+<hr>
+<h2 id="️-风险提示">⚠️ 风险提示</h2>
+<ol>
+<li><strong>市场流动性偏薄</strong>：该市场总流动性约 1.41 万美元，单个选项价差较大，概率不宜过度精读。</li>
+<li><strong>规则和统计口径风险</strong>：最终以 MLB 官方 ABS 数据为准，统计口径变化可能影响结算。</li>
+<li><strong>样本量风险</strong>：挑战成功率可能受挑战次数、球队风格、赛程和球员结构影响。</li>
+<li><strong>不要把预测市场当投资建议</strong>：本文只分析市场信号和结构变化，不构成交易建议。</li>
+</ol>
+<hr>
+<h2 id="-结语真正的新变量是会不会用自动化">🌐 结语：真正的新变量，是“会不会用自动化”</h2>
+<p>这个投票有趣的地方在于，它没有押注某个宏大科技公司，也没有讨论 AI 是否取代人类。它押注的是一个更现实的问题：当自动化系统进入现场，谁能更快学会与它协作？</p>
+<p>未来很多行业的竞争，可能都不会停留在“有没有 AI”，而会进入下一层：<strong>谁能把 AI 和自动化规则变成稳定、可复制、可训练的组织能力。</strong></p>
+<hr>
+<h2 id="-参考资源">📚 参考资源</h2>
+<ul>
+<li>Polymarket：MLB: Highest ABS Challenge Success Rate (Team)<br>
+<a href="https://polymarket.com/event/mlb-highest-abs-challenge-success-rate-team-20260702220030937">https://polymarket.com/event/mlb-highest-abs-challenge-success-rate-team-20260702220030937</a></li>
+<li>Polymarket Gamma API：事件数据、市场交易量、流动性、选项概率（数据获取时间：2026-07-11 04:02:16 CST）</li>
+<li>MLB 官方 ABS 结算来源：<br>
+<a href="https://baseballsavant.mlb.com/abs">https://baseballsavant.mlb.com/abs</a></li>
+</ul>  </article> <aside class="toc"><p class="toc-title">目录</p><ul class="toc-list"><li class="depth-2"><a href="#-今天看什么投票" data-toc-link="-今天看什么投票">🔎 今天看什么投票？</a></li><li class="depth-3"><a href="#-关键数据卡片" data-toc-link="-关键数据卡片">📊 关键数据卡片</a></li><li class="depth-3"><a href="#️-先说一个数据注意点" data-toc-link="️-先说一个数据注意点">⚠️ 先说一个数据注意点</a></li><li class="depth-2"><a href="#-为什么今天会有这个投票" data-toc-link="-为什么今天会有这个投票">🧩 为什么今天会有这个投票？</a></li><li class="depth-2"><a href="#️-这个投票真正反映了什么结构变化" data-toc-link="️-这个投票真正反映了什么结构变化">🏗️ 这个投票真正反映了什么结构变化？</a></li><li class="depth-3"><a href="#1-技术层自动化不是替代人而是改变人机分工" data-toc-link="1-技术层自动化不是替代人而是改变人机分工">1. 技术层：自动化不是替代人，而是改变人机分工</a></li><li class="depth-3"><a href="#2-产业层球队的规则运营能力开始资产化" data-toc-link="2-产业层球队的规则运营能力开始资产化">2. 产业层：球队的“规则运营能力”开始资产化</a></li><li class="depth-3"><a href="#3-社会资本层可验证系统会重塑公平感" data-toc-link="3-社会资本层可验证系统会重塑公平感">3. 社会/资本层：可验证系统会重塑公平感</a></li><li class="depth-2"><a href="#-如果趋势继续未来会怎样" data-toc-link="-如果趋势继续未来会怎样">⏳ 如果趋势继续，未来会怎样？</a></li><li class="depth-3"><a href="#短期挑战成功率会成为新型比赛叙事" data-toc-link="短期挑战成功率会成为新型比赛叙事">短期：挑战成功率会成为新型比赛叙事</a></li><li class="depth-3"><a href="#中期规则适配能力会进入球队建设" data-toc-link="中期规则适配能力会进入球队建设">中期：规则适配能力会进入球队建设</a></li><li class="depth-3"><a href="#长期自动化判罚会从体育扩散到更多线下场景" data-toc-link="长期自动化判罚会从体育扩散到更多线下场景">长期：自动化判罚会从体育扩散到更多线下场景</a></li><li class="depth-2"><a href="#-对谁最重要" data-toc-link="-对谁最重要">🧭 对谁最重要？</a></li><li class="depth-3"><a href="#普通人" data-toc-link="普通人">普通人</a></li><li class="depth-3"><a href="#体育与数据从业者" data-toc-link="体育与数据从业者">体育与数据从业者</a></li><li class="depth-3"><a href="#创业者投资观察者" data-toc-link="创业者投资观察者">创业者/投资观察者</a></li><li class="depth-2"><a href="#️-风险提示" data-toc-link="️-风险提示">⚠️ 风险提示</a></li><li class="depth-2"><a href="#-结语真正的新变量是会不会用自动化" data-toc-link="-结语真正的新变量是会不会用自动化">🌐 结语：真正的新变量，是“会不会用自动化”</a></li><li class="depth-2"><a href="#-参考资源" data-toc-link="-参考资源">📚 参考资源</a></li></ul></aside><script type="module">const c=()=>{const r=Array.from(document.querySelectorAll(".toc a[data-toc-link]"));if(!r.length)return;const o=r.map(t=>{const e=t.getAttribute("data-toc-link");if(!e)return null;const n=document.getElementById(e);return n?{id:e,heading:n,link:t}:null}).filter(t=>t!==null);if(!o.length)return;const s=t=>{r.forEach(e=>{const n=e.getAttribute("data-toc-link")===t;e.classList.toggle("active",n),n&&e.scrollIntoView({block:"nearest",inline:"nearest"})})},i=()=>{const t=Math.round(window.innerHeight*.28);let e=o[0];for(const n of o)n.heading.getBoundingClientRect().top<=t&&(e=n);s(e.id)};i();const a=new IntersectionObserver(()=>i(),{rootMargin:"-18% 0px -70% 0px",threshold:[0,1]});o.forEach(t=>a.observe(t.heading)),window.addEventListener("scroll",i,{passive:!0})};document.addEventListener("DOMContentLoaded",c);document.addEventListener("astro:page-load",c);</script> </div>  </main> <footer class="site-footer"> <div class="shell footer-inner"> <p>© 2026 未来观察者</p> </div> </footer> </body></html>
