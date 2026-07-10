@@ -1,0 +1,122 @@
+<!DOCTYPE html><html lang="zh-CN"> <head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1"><script>
+      (() => {
+        const storageKey = "future-observer-theme";
+        const root = document.documentElement;
+        const getStoredMode = () => {
+          try {
+            const value = localStorage.getItem(storageKey);
+            return value === "light" || value === "dark" || value === "system" ? value : "system";
+          } catch {
+            return "system";
+          }
+        };
+        const systemDark = () => window.matchMedia?.("(prefers-color-scheme: dark)").matches ?? false;
+        const apply = (mode) => {
+          const resolved = mode === "system" ? (systemDark() ? "dark" : "light") : mode;
+          root.dataset.themeMode = mode;
+          root.dataset.theme = resolved;
+          root.style.colorScheme = resolved;
+        };
+        apply(getStoredMode());
+        window.__setFutureObserverTheme = (mode) => {
+          const next = mode === "light" || mode === "dark" || mode === "system" ? mode : "system";
+          try { localStorage.setItem(storageKey, next); } catch {}
+          apply(next);
+          window.dispatchEvent(new CustomEvent("future-observer-theme-change", { detail: { mode: next } }));
+        };
+        window.matchMedia?.("(prefers-color-scheme: dark)").addEventListener?.("change", () => {
+          if (getStoredMode() === "system") apply("system");
+        });
+      })();
+    </script><title>Daft：面向多模态 AI 数据处理的 Python 数据引擎 | 未来观察者</title><meta name="description" content="如果你的 AI 项目已经不只是处理表格，而是同时要处理图片、音频、视频、Embedding 和结构化数据，传统 DataFrame 或 Spark 工作流很容易变得笨重。Daft 是一个开源的高性能数据引擎，定位就是服务 AI 和多模态工作负载：用 Python 写数据处理逻辑，"><meta name="generator" content="Astro v5.18.1"><meta property="og:title" content="Daft：面向多模态 AI 数据处理的 Python 数据引擎 | 未来观察者"><meta property="og:description" content="如果你的 AI 项目已经不只是处理表格，而是同时要处理图片、音频、视频、Embedding 和结构化数据，传统 DataFrame 或 Spark 工作流很容易变得笨重。Daft 是一个开源的高性能数据引擎，定位就是服务 AI 和多模态工作负载：用 Python 写数据处理逻辑，"><meta property="og:type" content="website"><meta property="og:url" content="https://future.lifestudylab.com/posts/2026-07-11-daft/"><link rel="icon" type="image/svg+xml" href="/favicon.svg"><link rel="alternate" type="application/rss+xml" title="未来观察者" href="/rss.xml"><link rel="stylesheet" href="/_astro/_channel_.BFW__1rx.css"></head> <body> <div class="page-bg"></div> <header class="site-header"> <div class="shell header-inner"> <div class="header-bar"> <a class="brand" href="/ai-tools/"> <img src="/brand-mark.svg" alt="" class="brand-mark" width="56" height="56"> <span class="brand-text" aria-label="未来观察者">思考未来</span> </a> </div> <nav class="top-menu" aria-label="顶部菜单"> <a href="/future-daily/" class="top-menu-link"> 每日信息 </a><a href="/docs/deer-flow/00-overview/" class="top-menu-link"> DeerFlow教程 </a><a href="/docs/hermes/00-overview/" class="top-menu-link"> Hermes教程 </a><a href="/docs/openclaw/00-overview/" class="top-menu-link"> OpenClaw教程 </a><a href="/about/" class="top-menu-link"> 关于我 </a> </nav> <div class="top-actions"> <a class="feedback-link" href="https://github.com/yonglisss/yonglisss.github.io/issues" target="_blank" rel="noopener noreferrer" aria-label="问题反馈"> <svg viewBox="0 0 24 24" aria-hidden="true" class="action-icon"> <path d="M4.75 5.75A2.75 2.75 0 0 1 7.5 3h9A2.75 2.75 0 0 1 19.25 5.75v6.5A2.75 2.75 0 0 1 16.5 15H9.3l-3.55 3.2V15.1a2.75 2.75 0 0 1-1-2.1V5.75Z"></path> <path d="M8 7.75h8M8 11.25h4"></path> </svg> <span>问题反馈</span> </a> <div class="theme-switcher" data-theme-switcher> <button class="theme-trigger" type="button" aria-haspopup="menu" aria-expanded="false" aria-label="切换明暗模式" data-theme-trigger> <svg viewBox="0 0 24 24" aria-hidden="true" class="action-icon theme-trigger-icon theme-trigger-icon--light"> <circle cx="12" cy="12" r="4"></circle> <path d="M12 2.75v2M12 19.25v2M4.75 4.75l1.4 1.4M17.85 17.85l1.4 1.4M2.75 12h2M19.25 12h2M4.75 19.25l1.4-1.4M17.85 6.15l1.4-1.4"></path> </svg> <svg viewBox="0 0 24 24" aria-hidden="true" class="action-icon theme-trigger-icon theme-trigger-icon--dark"> <path d="M20.25 14.2A8 8 0 0 1 9.8 3.75 8.5 8.5 0 1 0 20.25 14.2Z"></path> </svg> <svg viewBox="0 0 24 24" aria-hidden="true" class="action-icon theme-trigger-icon theme-trigger-icon--system"> <rect x="4" y="5" width="16" height="11" rx="1.8"></rect> <path d="M9 20h6M12 16v4"></path> </svg> </button> <div class="theme-menu" role="menu" data-theme-menu hidden> <button class="theme-option" type="button" role="menuitemradio" data-theme-option="light" aria-checked="false"> <svg viewBox="0 0 24 24" aria-hidden="true" class="action-icon"><circle cx="12" cy="12" r="4"></circle><path d="M12 2.75v2M12 19.25v2M4.75 4.75l1.4 1.4M17.85 17.85l1.4 1.4M2.75 12h2M19.25 12h2M4.75 19.25l1.4-1.4M17.85 6.15l1.4-1.4"></path></svg> <span>亮色</span> </button> <button class="theme-option" type="button" role="menuitemradio" data-theme-option="dark" aria-checked="false"> <svg viewBox="0 0 24 24" aria-hidden="true" class="action-icon"><path d="M20.25 14.2A8 8 0 0 1 9.8 3.75 8.5 8.5 0 1 0 20.25 14.2Z"></path></svg> <span>暗色</span> </button> <button class="theme-option" type="button" role="menuitemradio" data-theme-option="system" aria-checked="true"> <svg viewBox="0 0 24 24" aria-hidden="true" class="action-icon"><rect x="4" y="5" width="16" height="11" rx="1.8"></rect><path d="M9 20h6M12 16v4"></path></svg> <span>跟随系统</span> </button> </div> </div> </div> </div> </header> <script>
+  (() => {
+    const switcher = document.querySelector("[data-theme-switcher]");
+    if (!switcher) return;
+
+    const trigger = switcher.querySelector("[data-theme-trigger]");
+    const menu = switcher.querySelector("[data-theme-menu]");
+    const options = [...switcher.querySelectorAll("[data-theme-option]")];
+    const modes = ["light", "dark", "system"];
+
+    const getMode = () => {
+      const mode = document.documentElement.dataset.themeMode;
+      return modes.includes(mode) ? mode : "system";
+    };
+
+    const closeMenu = () => {
+      menu.hidden = true;
+      trigger.setAttribute("aria-expanded", "false");
+    };
+
+    const openMenu = () => {
+      menu.hidden = false;
+      trigger.setAttribute("aria-expanded", "true");
+    };
+
+    const sync = () => {
+      const mode = getMode();
+      trigger.dataset.themeMode = mode;
+      options.forEach((option) => {
+        option.setAttribute("aria-checked", String(option.dataset.themeOption === mode));
+      });
+    };
+
+    trigger.addEventListener("click", () => {
+      menu.hidden ? openMenu() : closeMenu();
+    });
+
+    options.forEach((option) => {
+      option.addEventListener("click", () => {
+        window.__setFutureObserverTheme?.(option.dataset.themeOption || "system");
+        sync();
+        closeMenu();
+      });
+    });
+
+    document.addEventListener("click", (event) => {
+      if (!switcher.contains(event.target)) closeMenu();
+    });
+
+    document.addEventListener("keydown", (event) => {
+      if (event.key === "Escape") closeMenu();
+    });
+
+    window.addEventListener("future-observer-theme-change", sync);
+    sync();
+  })();
+</script> <aside class="site-rail" aria-label="站点导航"> <div class="site-rail-inner"> <p class="site-rail-label">Channels</p> <nav aria-label="主导航"> <ul class="site-rail-nav"> <li> <a href="/ai-tools/" class="site-rail-link"> AI工具 </a> </li><li> <a href="/future-daily/" class="site-rail-link"> 未来观察者日报 </a> </li> </ul> </nav> </div> </aside> <main class="shell page-content">  <div class="post-hero"> <p class="eyebrow">2026年7月11日</p> <h1>Daft：面向多模态 AI 数据处理的 Python 数据引擎</h1> <p class="post-summary">如果你的 AI 项目已经不只是处理表格，而是同时要处理图片、音频、视频、Embedding 和结构化数据，传统 DataFrame 或 Spark 工作流很容易变得笨重。Daft 是一个开源的高性能数据引擎，定位就是服务 AI 和多模态工作负载：用 Python 写数据处理逻辑，</p> <ul class="tag-list"> <li> <a href="/tags/AI%E5%B7%A5%E5%85%B7/" class="tag-link">
+#AI工具 </a> </li><li> <a href="/tags/2026%E5%B9%B407%E6%9C%88/" class="tag-link">
+#2026年07月 </a> </li> </ul> </div> <div class="post-grid"> <article class="prose">  <p>如果你的 AI 项目已经不只是处理表格，而是同时要处理图片、音频、视频、Embedding 和结构化数据，传统 DataFrame 或 Spark 工作流很容易变得笨重。Daft 是一个开源的高性能数据引擎，定位就是服务 AI 和多模态工作负载：用 Python 写数据处理逻辑，底层由 Rust 提供执行能力，并支持从本地任务扩展到 Ray、Kubernetes 等分布式环境。</p>
+<p>它今天值得关注，不是因为“又一个数据框架”，而是因为 AI 应用的数据层正在变复杂：模型调用、向量生成、文件解析、批量推理、数据清洗往往混在一起。Daft 试图把这些步骤放进同一个可编排的数据处理框架里。</p>
+<h2 id="-这个项目是干什么的">📌 这个项目是干什么的</h2>
+<ul>
+<li><strong>统一处理多模态数据</strong>：官方 README 明确提到可处理图片、音频、视频、Embedding 与结构化数据，适合 AI 数据准备、批处理和分析场景。</li>
+<li><strong>内置 AI 操作</strong>：支持在数据管道里运行 LLM Prompt、生成 Embedding、做分类等操作，可接入 OpenAI、Transformers 或自定义模型。</li>
+<li><strong>Python 原生体验</strong>：对开发者来说，上手方式更接近 Python 数据工程，而不是先搭一整套 JVM/Spark 环境。</li>
+<li><strong>可从本地扩展到分布式</strong>：官方文档提供本地使用、Ray 分布式运行等路径，适合先小规模验证，再扩到更大的数据处理任务。</li>
+</ul>
+<h2 id="-为什么值得关注">🔍 为什么值得关注</h2>
+<p>第一，它抓住了 AI 工程里一个很真实的痛点：数据不再只是 CSV。很多团队做 RAG、视觉检索、内容审核、视频理解时，前处理和批量推理的复杂度并不低。Daft 把多模态数据、模型调用和数据管道放在一起，能减少“脚本胶水层”。</p>
+<p>第二，它的定位比通用数据分析工具更贴近 AI 工作流。官方介绍中强调 AI and multimodal workloads，README 也给出了 Prompt、Embedding、分类这类操作方向。对需要批量处理非结构化数据的开发者，比单纯用 pandas 拼脚本更有工程化空间。</p>
+<p>第三，项目维护状态较活跃。GitHub 仓库显示 Apache-2.0 许可证，近期持续提交，并在 2026-07-10 发布 v0.7.19。对开源工具来说，这至少说明它不是无人维护的展示项目。</p>
+<h2 id="-谁适合试怎么开始">🧪 谁适合试，怎么开始</h2>
+<p>如果你在做以下事情，可以优先看 Daft：</p>
+<ul>
+<li>批量清洗图片、音频、视频或文档数据；</li>
+<li>为 RAG / 多模态检索生成 Embedding；</li>
+<li>在数据管道里批量调用模型做分类、抽取、打标签；</li>
+<li>想用 Python 写逻辑，但未来可能需要分布式扩展。</li>
+</ul>
+<p>最短尝试路径是：先看官方 Quickstart，跑通本地 DataFrame 示例；再看 Installation 文档确认环境；如果数据量变大，再研究 Ray 分布式运行方式。不要一开始就上集群，先用一个小样本验证它是否能减少你的数据处理脚本复杂度。</p>
+<h2 id="️-使用提醒">⚠️ 使用提醒</h2>
+<p>Daft 更适合“AI 数据工程”和“多模态批处理”，不等同于完整的 RAG 平台、Agent 框架或模型服务平台。它解决的是数据处理层问题，不会替你完成业务编排、权限管理、线上监控等生产系统能力。</p>
+<p>另外，项目仍处在 0.x 版本阶段。引入生产链路前，建议重点验证三件事：现有数据源是否支持、团队是否接受新的 DataFrame API、分布式执行在你的数据规模下是否稳定。把它当作一个值得试验的数据引擎，而不是立即替换所有存量数据栈，会更稳妥。</p>
+<h2 id="-参考资源">🔗 参考资源</h2>
+<ul>
+<li>GitHub 仓库：<a href="https://github.com/Eventual-Inc/Daft">https://github.com/Eventual-Inc/Daft</a></li>
+<li>官方网站：<a href="https://www.daft.ai">https://www.daft.ai</a></li>
+<li>官方文档：<a href="https://docs.daft.ai">https://docs.daft.ai</a></li>
+<li>安装文档：<a href="https://docs.daft.ai/en/stable/install/">https://docs.daft.ai/en/stable/install/</a></li>
+<li>快速开始：<a href="https://docs.daft.ai/en/stable/quickstart/">https://docs.daft.ai/en/stable/quickstart/</a></li>
+<li>最新 Release：<a href="https://github.com/Eventual-Inc/Daft/releases/tag/v0.7.19">https://github.com/Eventual-Inc/Daft/releases/tag/v0.7.19</a></li>
+</ul>  </article> <aside class="toc"><p class="toc-title">目录</p><ul class="toc-list"><li class="depth-2"><a href="#-这个项目是干什么的" data-toc-link="-这个项目是干什么的">📌 这个项目是干什么的</a></li><li class="depth-2"><a href="#-为什么值得关注" data-toc-link="-为什么值得关注">🔍 为什么值得关注</a></li><li class="depth-2"><a href="#-谁适合试怎么开始" data-toc-link="-谁适合试怎么开始">🧪 谁适合试，怎么开始</a></li><li class="depth-2"><a href="#️-使用提醒" data-toc-link="️-使用提醒">⚠️ 使用提醒</a></li><li class="depth-2"><a href="#-参考资源" data-toc-link="-参考资源">🔗 参考资源</a></li></ul></aside><script type="module">const c=()=>{const r=Array.from(document.querySelectorAll(".toc a[data-toc-link]"));if(!r.length)return;const o=r.map(t=>{const e=t.getAttribute("data-toc-link");if(!e)return null;const n=document.getElementById(e);return n?{id:e,heading:n,link:t}:null}).filter(t=>t!==null);if(!o.length)return;const s=t=>{r.forEach(e=>{const n=e.getAttribute("data-toc-link")===t;e.classList.toggle("active",n),n&&e.scrollIntoView({block:"nearest",inline:"nearest"})})},i=()=>{const t=Math.round(window.innerHeight*.28);let e=o[0];for(const n of o)n.heading.getBoundingClientRect().top<=t&&(e=n);s(e.id)};i();const a=new IntersectionObserver(()=>i(),{rootMargin:"-18% 0px -70% 0px",threshold:[0,1]});o.forEach(t=>a.observe(t.heading)),window.addEventListener("scroll",i,{passive:!0})};document.addEventListener("DOMContentLoaded",c);document.addEventListener("astro:page-load",c);</script> </div>  </main> <footer class="site-footer"> <div class="shell footer-inner"> <p>© 2026 未来观察者</p> </div> </footer> </body></html>
