@@ -1,0 +1,282 @@
+<!DOCTYPE html><html lang="zh-CN"> <head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1"><script>
+      (() => {
+        const storageKey = "future-observer-theme";
+        const root = document.documentElement;
+        const getStoredMode = () => {
+          try {
+            const value = localStorage.getItem(storageKey);
+            return value === "light" || value === "dark" || value === "system" ? value : "system";
+          } catch {
+            return "system";
+          }
+        };
+        const systemDark = () => window.matchMedia?.("(prefers-color-scheme: dark)").matches ?? false;
+        const apply = (mode) => {
+          const resolved = mode === "system" ? (systemDark() ? "dark" : "light") : mode;
+          root.dataset.themeMode = mode;
+          root.dataset.theme = resolved;
+          root.style.colorScheme = resolved;
+        };
+        apply(getStoredMode());
+        window.__setFutureObserverTheme = (mode) => {
+          const next = mode === "light" || mode === "dark" || mode === "system" ? mode : "system";
+          try { localStorage.setItem(storageKey, next); } catch {}
+          apply(next);
+          window.dispatchEvent(new CustomEvent("future-observer-theme-change", { detail: { mode: next } }));
+        };
+        window.matchMedia?.("(prefers-color-scheme: dark)").addEventListener?.("change", () => {
+          if (getStoredMode() === "system") apply("system");
+        });
+      })();
+    </script><title>🧬 美国麻疹病例预测：公共卫生韧性正在被重新定价 | 未来观察者</title><meta name="description" content="📌 核心观点：Polymarket 对 2026 年美国麻疹病例的定价，真正值得看的不是“会不会到某个数字”，而是市场正在把疫苗覆盖、州际流动和公共卫生执行力重新视为一种可量化的社会基础设施风险。"><meta name="generator" content="Astro v5.18.1"><meta property="og:title" content="🧬 美国麻疹病例预测：公共卫生韧性正在被重新定价 | 未来观察者"><meta property="og:description" content="📌 核心观点：Polymarket 对 2026 年美国麻疹病例的定价，真正值得看的不是“会不会到某个数字”，而是市场正在把疫苗覆盖、州际流动和公共卫生执行力重新视为一种可量化的社会基础设施风险。"><meta property="og:type" content="website"><meta property="og:url" content="https://future.lifestudylab.com/posts/2026-07-12-%E7%BE%8E%E5%9B%BD%E9%BA%BB%E7%96%B9%E7%97%85%E4%BE%8B%E9%A2%84%E6%B5%8B-%E5%85%AC%E5%85%B1%E5%8D%AB%E7%94%9F%E9%9F%A7%E6%80%A7%E6%AD%A3%E5%9C%A8%E8%A2%AB%E9%87%8D%E6%96%B0%E5%AE%9A%E4%BB%B7/"><link rel="icon" type="image/svg+xml" href="/favicon.svg"><link rel="alternate" type="application/rss+xml" title="未来观察者" href="/rss.xml"><link rel="stylesheet" href="/_astro/_channel_.BFW__1rx.css"></head> <body> <div class="page-bg"></div> <header class="site-header"> <div class="shell header-inner"> <div class="header-bar"> <a class="brand" href="/ai-tools/"> <img src="/brand-mark.svg" alt="" class="brand-mark" width="56" height="56"> <span class="brand-text" aria-label="未来观察者">思考未来</span> </a> </div> <nav class="top-menu" aria-label="顶部菜单"> <a href="/future-daily/" class="top-menu-link"> 每日信息 </a><a href="/docs/deer-flow/00-overview/" class="top-menu-link"> DeerFlow教程 </a><a href="/docs/hermes/00-overview/" class="top-menu-link"> Hermes教程 </a><a href="/docs/openclaw/00-overview/" class="top-menu-link"> OpenClaw教程 </a><a href="/about/" class="top-menu-link"> 关于我 </a> </nav> <div class="top-actions"> <a class="feedback-link" href="https://github.com/yonglisss/yonglisss.github.io/issues" target="_blank" rel="noopener noreferrer" aria-label="问题反馈"> <svg viewBox="0 0 24 24" aria-hidden="true" class="action-icon"> <path d="M4.75 5.75A2.75 2.75 0 0 1 7.5 3h9A2.75 2.75 0 0 1 19.25 5.75v6.5A2.75 2.75 0 0 1 16.5 15H9.3l-3.55 3.2V15.1a2.75 2.75 0 0 1-1-2.1V5.75Z"></path> <path d="M8 7.75h8M8 11.25h4"></path> </svg> <span>问题反馈</span> </a> <div class="theme-switcher" data-theme-switcher> <button class="theme-trigger" type="button" aria-haspopup="menu" aria-expanded="false" aria-label="切换明暗模式" data-theme-trigger> <svg viewBox="0 0 24 24" aria-hidden="true" class="action-icon theme-trigger-icon theme-trigger-icon--light"> <circle cx="12" cy="12" r="4"></circle> <path d="M12 2.75v2M12 19.25v2M4.75 4.75l1.4 1.4M17.85 17.85l1.4 1.4M2.75 12h2M19.25 12h2M4.75 19.25l1.4-1.4M17.85 6.15l1.4-1.4"></path> </svg> <svg viewBox="0 0 24 24" aria-hidden="true" class="action-icon theme-trigger-icon theme-trigger-icon--dark"> <path d="M20.25 14.2A8 8 0 0 1 9.8 3.75 8.5 8.5 0 1 0 20.25 14.2Z"></path> </svg> <svg viewBox="0 0 24 24" aria-hidden="true" class="action-icon theme-trigger-icon theme-trigger-icon--system"> <rect x="4" y="5" width="16" height="11" rx="1.8"></rect> <path d="M9 20h6M12 16v4"></path> </svg> </button> <div class="theme-menu" role="menu" data-theme-menu hidden> <button class="theme-option" type="button" role="menuitemradio" data-theme-option="light" aria-checked="false"> <svg viewBox="0 0 24 24" aria-hidden="true" class="action-icon"><circle cx="12" cy="12" r="4"></circle><path d="M12 2.75v2M12 19.25v2M4.75 4.75l1.4 1.4M17.85 17.85l1.4 1.4M2.75 12h2M19.25 12h2M4.75 19.25l1.4-1.4M17.85 6.15l1.4-1.4"></path></svg> <span>亮色</span> </button> <button class="theme-option" type="button" role="menuitemradio" data-theme-option="dark" aria-checked="false"> <svg viewBox="0 0 24 24" aria-hidden="true" class="action-icon"><path d="M20.25 14.2A8 8 0 0 1 9.8 3.75 8.5 8.5 0 1 0 20.25 14.2Z"></path></svg> <span>暗色</span> </button> <button class="theme-option" type="button" role="menuitemradio" data-theme-option="system" aria-checked="true"> <svg viewBox="0 0 24 24" aria-hidden="true" class="action-icon"><rect x="4" y="5" width="16" height="11" rx="1.8"></rect><path d="M9 20h6M12 16v4"></path></svg> <span>跟随系统</span> </button> </div> </div> </div> </div> </header> <script>
+  (() => {
+    const switcher = document.querySelector("[data-theme-switcher]");
+    if (!switcher) return;
+
+    const trigger = switcher.querySelector("[data-theme-trigger]");
+    const menu = switcher.querySelector("[data-theme-menu]");
+    const options = [...switcher.querySelectorAll("[data-theme-option]")];
+    const modes = ["light", "dark", "system"];
+
+    const getMode = () => {
+      const mode = document.documentElement.dataset.themeMode;
+      return modes.includes(mode) ? mode : "system";
+    };
+
+    const closeMenu = () => {
+      menu.hidden = true;
+      trigger.setAttribute("aria-expanded", "false");
+    };
+
+    const openMenu = () => {
+      menu.hidden = false;
+      trigger.setAttribute("aria-expanded", "true");
+    };
+
+    const sync = () => {
+      const mode = getMode();
+      trigger.dataset.themeMode = mode;
+      options.forEach((option) => {
+        option.setAttribute("aria-checked", String(option.dataset.themeOption === mode));
+      });
+    };
+
+    trigger.addEventListener("click", () => {
+      menu.hidden ? openMenu() : closeMenu();
+    });
+
+    options.forEach((option) => {
+      option.addEventListener("click", () => {
+        window.__setFutureObserverTheme?.(option.dataset.themeOption || "system");
+        sync();
+        closeMenu();
+      });
+    });
+
+    document.addEventListener("click", (event) => {
+      if (!switcher.contains(event.target)) closeMenu();
+    });
+
+    document.addEventListener("keydown", (event) => {
+      if (event.key === "Escape") closeMenu();
+    });
+
+    window.addEventListener("future-observer-theme-change", sync);
+    sync();
+  })();
+</script> <aside class="site-rail" aria-label="站点导航"> <div class="site-rail-inner"> <p class="site-rail-label">Channels</p> <nav aria-label="主导航"> <ul class="site-rail-nav"> <li> <a href="/ai-tools/" class="site-rail-link"> AI工具 </a> </li><li> <a href="/future-daily/" class="site-rail-link"> 未来观察者日报 </a> </li> </ul> </nav> </div> </aside> <main class="shell page-content">  <div class="post-hero"> <p class="eyebrow">2026年7月12日</p> <h1>🧬 美国麻疹病例预测：公共卫生韧性正在被重新定价</h1> <p class="post-summary">📌 核心观点：Polymarket 对 2026 年美国麻疹病例的定价，真正值得看的不是“会不会到某个数字”，而是市场正在把疫苗覆盖、州际流动和公共卫生执行力重新视为一种可量化的社会基础设施风险。</p> <ul class="tag-list"> <li> <a href="/tags/%E6%9C%AA%E6%9D%A5%E8%A7%82%E5%AF%9F%E8%80%85%E6%97%A5%E6%8A%A5/" class="tag-link">
+#未来观察者日报 </a> </li><li> <a href="/tags/2026%E5%B9%B407%E6%9C%88/" class="tag-link">
+#2026年07月 </a> </li> </ul> </div> <div class="post-grid"> <article class="prose">  <blockquote>
+<p>📌 <strong>核心观点</strong>：Polymarket 对 2026 年美国麻疹病例的定价，真正值得看的不是“会不会到某个数字”，而是市场正在把疫苗覆盖、州际流动和公共卫生执行力重新视为一种可量化的社会基础设施风险。</p>
+</blockquote>
+<p><strong>作者：</strong> 元英<br>
+<strong>时间：</strong> 2026年7月12日<br>
+<strong>标签：</strong> #未来观察者 #公共卫生 #预测市场 #社会基础设施<br>
+<strong>阅读时间：</strong> 3-5分钟</p>
+<hr>
+<h2 id="-今天看什么投票">🔎 今天看什么投票？</h2>
+<p>今天选择的 Polymarket 投票是：<strong>“Measles cases in U.S. in 2026?”</strong>，也就是预测 2026 年美国全年麻疹确诊病例是否会越过不同门槛。</p>
+<h3 id="-关键数据卡片">📊 关键数据卡片</h3>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<table><thead><tr><th>项目</th><th>内容</th></tr></thead><tbody><tr><td>投票主题</td><td>2026 年美国麻疹病例数是否达到不同门槛</td></tr><tr><td>主要门槛与概率</td><td>≥3000 例：85%；≥3500 例：63.5%；≥4000 例：34.5%；≥5000 例：16.5%；≥7500 例：10.5%；≥10000 例：6.75%</td></tr><tr><td>已接近确定门槛</td><td>≥500、≥1000、≥2000 例均为 100%</td></tr><tr><td>总交易量</td><td>约 776.21 万美元</td></tr><tr><td>24小时交易量</td><td>约 1,695.73 美元</td></tr><tr><td>流动性</td><td>约 72,402.50 美元</td></tr><tr><td>解析规则</td><td>以 CDC Measles / Rubeola 计数器为最终结算来源</td></tr><tr><td>数据获取时间</td><td>2026-07-12 05:00 CST；Polymarket 事件更新时间为 2026-07-11 20:58 UTC</td></tr><tr><td>投票链接</td><td><a href="https://polymarket.com/event/measles-cases-in-us-in-2026">https://polymarket.com/event/measles-cases-in-us-in-2026</a></td></tr></tbody></table>
+<h3 id="-为什么今天选它">🧭 为什么今天选它？</h3>
+<p>最近 7 天已经写过体育判罚自动化、AI 模型排名、比特币、霍尔木兹航运、AI 平台估值、利率、存储芯片等主题。麻疹病例预测属于<strong>公共卫生与社会基础设施韧性</strong>，没有与前 2 天或最近 7 天形成同一行业主线重复。</p>
+<p>更重要的是，它满足三个筛选条件：</p>
+<ol>
+<li><strong>讨论未来结果</strong>：全年病例是否突破 3000、3500、4000、5000 等门槛。</li>
+<li><strong>有现实驱动</strong>：CDC 数据显示，截至 2026年7月9日，美国 2026 年已报告 2,231 例确诊麻疹病例。</li>
+<li><strong>有结构意义</strong>：市场正在交易的不是单一疫情新闻，而是疫苗覆盖率、跨州传播、公共卫生响应能力和社会信任之间的系统性缺口。</li>
+</ol>
+<hr>
+<h2 id="-为什么会有这个投票">🧨 为什么会有这个投票？</h2>
+<p>麻疹不是一个“新技术”话题，但它非常适合未来观察者，因为它揭示了一个容易被忽视的趋势：<strong>未来社会的脆弱性，不只来自 AI、能源和战争，也来自基础防疫共识的退化。</strong></p>
+<p>麻疹本身具有极高传染性。当疫苗覆盖率足够高时，它通常被压制在局部输入型病例；但一旦局部免疫屏障下降，传播就会从“偶发事件”变成“持续链条”。</p>
+<p>目前市场给出的信号很清晰：</p>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<table><thead><tr><th>年内病例门槛</th><th align="right">Polymarket 隐含概率</th><th>市场含义</th></tr></thead><tbody><tr><td>≥3000 例</td><td align="right">85%</td><td>市场基本认为病例继续累积是大概率事件</td></tr><tr><td>≥3500 例</td><td align="right">63.5%</td><td>中位预期已经明显高于当前 CDC 口径数字</td></tr><tr><td>≥4000 例</td><td align="right">34.5%</td><td>仍有较高尾部风险</td></tr><tr><td>≥5000 例</td><td align="right">16.5%</td><td>市场未把极端扩散作为主情景，但没有忽略</td></tr><tr><td>≥10000 例</td><td align="right">6.75%</td><td>低概率高冲击情景</td></tr></tbody></table>
+<p>这说明，交易者并不只是根据“当前 2,231 例”线性外推，而是在定价下半年是否会出现新的州际传播、学校季节性传播、疫苗接种政策摩擦和公共卫生执行差异。</p>
+<hr>
+<h2 id="️-这个投票真正反映了什么结构变化">🏗️ 这个投票真正反映了什么结构变化？</h2>
+<h3 id="1-技术层面疾病监测正在从滞后统计变成可交易信号">1. 技术层面：疾病监测正在从滞后统计变成可交易信号</h3>
+<p>过去，公共卫生数据更多服务于监管和医学研究；现在，它开始进入预测市场，被拆成多个“可交易门槛”。这意味着 CDC 周度数据、州级报告、学校传播、医院收治情况，都可能成为市场定价的输入。</p>
+<p>这不是医学判断替代专业机构，而是说明：<strong>公共数据越高频、越可信，越容易变成市场对社会风险的实时估值工具。</strong></p>
+<h3 id="2-产业层面疫苗检测学校与保险都会被重新审视">2. 产业层面：疫苗、检测、学校与保险都会被重新审视</h3>
+<p>如果病例继续增加，最直接受影响的不是某一家药企，而是一整套公共卫生产业链：疫苗接种服务、基层诊所、学校健康管理、旅行与隔离规则、医疗保险支付压力。</p>
+<p>对产业观察者来说，关键不在于“麻疹疫苗需求会不会暴涨”，而在于公共卫生系统是否需要更多数字化调度能力：</p>
+<ul>
+<li>哪些地区免疫缺口最大？</li>
+<li>哪些学校和社区需要优先干预？</li>
+<li>如何把病例、接触者和接种服务连接起来？</li>
+</ul>
+<h3 id="3-社会--资本层面信任本身成为基础设施">3. 社会 / 资本层面：信任本身成为基础设施</h3>
+<p>麻疹复燃背后最值得警惕的是社会信任成本。疫苗覆盖不是单纯医学问题，也依赖家庭信任、社区沟通、政府可信度和信息环境。</p>
+<p>当信任下降，社会就需要用更高成本去弥补：更多检测、更多隔离、更多行政执行、更多学校停课风险。预测市场把病例数做成价格，本质上是在量化这种“信任折价”。</p>
+<hr>
+<h2 id="-如果趋势继续未来会怎样">⏳ 如果趋势继续，未来会怎样？</h2>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<table><thead><tr><th>时间维度</th><th>可能变化</th><th>观察指标</th></tr></thead><tbody><tr><td>短期：未来 1-2 个月</td><td>病例继续向 3000 / 3500 门槛靠近，市场主要交易 CDC 周度增量</td><td>CDC 每周新增、涉及州数量、学校相关暴露事件</td></tr><tr><td>中期：2026 年下半年</td><td>如果开学季带来传播链扩散，4000 例门槛会成为关键分水岭</td><td>秋季学校传播、州级疫苗政策、局部爆发数量</td></tr><tr><td>长期：未来 1-3 年</td><td>公共卫生韧性可能被纳入保险、学校治理、州际旅行和社区服务评估</td><td>MMR 接种率、豁免比例、地方公共卫生预算</td></tr></tbody></table>
+<p>一个值得注意的判断是：<strong>如果 2026 年最终显著高于 3000 例，它就不再只是一次年度异常，而会成为美国公共卫生治理能力被重新定价的标志性样本。</strong></p>
+<hr>
+<h2 id="-对普通人从业者和创业者有什么启发">🧭 对普通人、从业者和创业者有什么启发？</h2>
+<h3 id="-普通人">👤 普通人</h3>
+<ol>
+<li>检查自己和家庭成员的 MMR 疫苗接种记录，尤其是儿童、跨州旅行者和学校相关人群。</li>
+<li>关注本州卫生部门和 CDC 更新，不要只依赖社交媒体碎片信息。</li>
+<li>如果所在社区出现病例，优先确认暴露地点、隔离建议和补种渠道。</li>
+</ol>
+<h3 id="️-医疗--教育从业者">🧑‍⚕️ 医疗 / 教育从业者</h3>
+<ol>
+<li>把“病例通报—接触者追踪—补种提醒”做成标准流程，而不是临时应对。</li>
+<li>学校和诊所应提前准备开学季沟通材料，减少恐慌和误解。</li>
+<li>对低接种率社区，重点不是简单宣传，而是建立可信的本地沟通节点。</li>
+</ol>
+<h3 id="-创业者--投资观察者">💼 创业者 / 投资观察者</h3>
+<ol>
+<li>关注公共卫生数据基础设施：病例上报、接种记录、区域风险地图。</li>
+<li>关注基层医疗 SaaS、学校健康管理、保险风控中的新需求。</li>
+<li>不要把公共卫生当作一次性危机，而应看作“社会基础设施数字化”的长期场景。</li>
+</ol>
+<hr>
+<h2 id="️-风险提示">⚠️ 风险提示</h2>
+<ol>
+<li><strong>预测市场不是医学结论</strong>：Polymarket 概率反映交易者定价，不等同于 CDC 或流行病学专家预测。</li>
+<li><strong>数据口径会影响结算</strong>：该市场明确以 CDC 计数器为准，州级或媒体报道不一定直接计入。</li>
+<li><strong>流动性有限</strong>：该市场虽然总交易量较高，但当前 24 小时交易量不大，短期价格可能受少数订单影响。</li>
+<li><strong>病例增长非线性</strong>：麻疹传播受学校季节、局部接种率、公共卫生干预等因素影响，不能简单线性外推。</li>
+</ol>
+<hr>
+<h2 id="-结语未来风险不只来自前沿科技也来自基础共识">🌱 结语：未来风险不只来自前沿科技，也来自基础共识</h2>
+<p>今天这组麻疹病例投票提醒我们：未来观察不能只盯着 AI 模型、芯片和资本市场。很多真正影响社会运行的变量，来自最基础的系统：疫苗、学校、基层医疗、政府数据和公众信任。</p>
+<p>如果说 AI 和能源代表未来生产力的上限，那么公共卫生韧性代表社会承压能力的底线。<strong>当一个社会连可预防疾病都需要被市场重新定价时，说明“基础设施”这个词，已经不只属于电网、港口和数据中心，也属于信任与协作。</strong></p>
+<hr>
+<h2 id="-参考资源">🔗 参考资源</h2>
+<ul>
+<li>Polymarket：Measles cases in U.S. in 2026?<br>
+<a href="https://polymarket.com/event/measles-cases-in-us-in-2026">https://polymarket.com/event/measles-cases-in-us-in-2026</a></li>
+<li>CDC：Measles Cases and Outbreaks<br>
+<a href="https://www.cdc.gov/measles/data-research/index.html">https://www.cdc.gov/measles/data-research/index.html</a></li>
+<li>U.S. News：Tracking U.S. Measles 2026<br>
+<a href="https://www.usnews.com/news/health-news/articles/tracking-the-2026-u-s-measles-outbreaks">https://www.usnews.com/news/health-news/articles/tracking-the-2026-u-s-measles-outbreaks</a></li>
+</ul>  </article> <aside class="toc"><p class="toc-title">目录</p><ul class="toc-list"><li class="depth-2"><a href="#-今天看什么投票" data-toc-link="-今天看什么投票">🔎 今天看什么投票？</a></li><li class="depth-3"><a href="#-关键数据卡片" data-toc-link="-关键数据卡片">📊 关键数据卡片</a></li><li class="depth-3"><a href="#-为什么今天选它" data-toc-link="-为什么今天选它">🧭 为什么今天选它？</a></li><li class="depth-2"><a href="#-为什么会有这个投票" data-toc-link="-为什么会有这个投票">🧨 为什么会有这个投票？</a></li><li class="depth-2"><a href="#️-这个投票真正反映了什么结构变化" data-toc-link="️-这个投票真正反映了什么结构变化">🏗️ 这个投票真正反映了什么结构变化？</a></li><li class="depth-3"><a href="#1-技术层面疾病监测正在从滞后统计变成可交易信号" data-toc-link="1-技术层面疾病监测正在从滞后统计变成可交易信号">1. 技术层面：疾病监测正在从滞后统计变成可交易信号</a></li><li class="depth-3"><a href="#2-产业层面疫苗检测学校与保险都会被重新审视" data-toc-link="2-产业层面疫苗检测学校与保险都会被重新审视">2. 产业层面：疫苗、检测、学校与保险都会被重新审视</a></li><li class="depth-3"><a href="#3-社会--资本层面信任本身成为基础设施" data-toc-link="3-社会--资本层面信任本身成为基础设施">3. 社会 / 资本层面：信任本身成为基础设施</a></li><li class="depth-2"><a href="#-如果趋势继续未来会怎样" data-toc-link="-如果趋势继续未来会怎样">⏳ 如果趋势继续，未来会怎样？</a></li><li class="depth-2"><a href="#-对普通人从业者和创业者有什么启发" data-toc-link="-对普通人从业者和创业者有什么启发">🧭 对普通人、从业者和创业者有什么启发？</a></li><li class="depth-3"><a href="#-普通人" data-toc-link="-普通人">👤 普通人</a></li><li class="depth-3"><a href="#️-医疗--教育从业者" data-toc-link="️-医疗--教育从业者">🧑‍⚕️ 医疗 / 教育从业者</a></li><li class="depth-3"><a href="#-创业者--投资观察者" data-toc-link="-创业者--投资观察者">💼 创业者 / 投资观察者</a></li><li class="depth-2"><a href="#️-风险提示" data-toc-link="️-风险提示">⚠️ 风险提示</a></li><li class="depth-2"><a href="#-结语未来风险不只来自前沿科技也来自基础共识" data-toc-link="-结语未来风险不只来自前沿科技也来自基础共识">🌱 结语：未来风险不只来自前沿科技，也来自基础共识</a></li><li class="depth-2"><a href="#-参考资源" data-toc-link="-参考资源">🔗 参考资源</a></li></ul></aside><script type="module">const c=()=>{const r=Array.from(document.querySelectorAll(".toc a[data-toc-link]"));if(!r.length)return;const o=r.map(t=>{const e=t.getAttribute("data-toc-link");if(!e)return null;const n=document.getElementById(e);return n?{id:e,heading:n,link:t}:null}).filter(t=>t!==null);if(!o.length)return;const s=t=>{r.forEach(e=>{const n=e.getAttribute("data-toc-link")===t;e.classList.toggle("active",n),n&&e.scrollIntoView({block:"nearest",inline:"nearest"})})},i=()=>{const t=Math.round(window.innerHeight*.28);let e=o[0];for(const n of o)n.heading.getBoundingClientRect().top<=t&&(e=n);s(e.id)};i();const a=new IntersectionObserver(()=>i(),{rootMargin:"-18% 0px -70% 0px",threshold:[0,1]});o.forEach(t=>a.observe(t.heading)),window.addEventListener("scroll",i,{passive:!0})};document.addEventListener("DOMContentLoaded",c);document.addEventListener("astro:page-load",c);</script> </div>  </main> <footer class="site-footer"> <div class="shell footer-inner"> <p>© 2026 未来观察者</p> </div> </footer> </body></html>
