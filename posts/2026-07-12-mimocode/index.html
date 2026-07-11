@@ -1,0 +1,120 @@
+<!DOCTYPE html><html lang="zh-CN"> <head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1"><script>
+      (() => {
+        const storageKey = "future-observer-theme";
+        const root = document.documentElement;
+        const getStoredMode = () => {
+          try {
+            const value = localStorage.getItem(storageKey);
+            return value === "light" || value === "dark" || value === "system" ? value : "system";
+          } catch {
+            return "system";
+          }
+        };
+        const systemDark = () => window.matchMedia?.("(prefers-color-scheme: dark)").matches ?? false;
+        const apply = (mode) => {
+          const resolved = mode === "system" ? (systemDark() ? "dark" : "light") : mode;
+          root.dataset.themeMode = mode;
+          root.dataset.theme = resolved;
+          root.style.colorScheme = resolved;
+        };
+        apply(getStoredMode());
+        window.__setFutureObserverTheme = (mode) => {
+          const next = mode === "light" || mode === "dark" || mode === "system" ? mode : "system";
+          try { localStorage.setItem(storageKey, next); } catch {}
+          apply(next);
+          window.dispatchEvent(new CustomEvent("future-observer-theme-change", { detail: { mode: next } }));
+        };
+        window.matchMedia?.("(prefers-color-scheme: dark)").addEventListener?.("change", () => {
+          if (getStoredMode() === "system") apply("system");
+        });
+      })();
+    </script><title>MiMoCode：小米开源的终端 AI 编程助手，重点不只是“写代码” | 未来观察者</title><meta name="description" content="AI 编程工具已经很多，但 MiMoCode 值得单独看一眼：它不是只把模型接到终端里，而是把多智能体、持久化记忆、上下文重建、任务追踪和工作流编排放进同一个开源工具。对经常用 Claude Code、Codex、Cline 或 Cursor 的开发者来说，它的价值不在“又多一个"><meta name="generator" content="Astro v5.18.1"><meta property="og:title" content="MiMoCode：小米开源的终端 AI 编程助手，重点不只是“写代码” | 未来观察者"><meta property="og:description" content="AI 编程工具已经很多，但 MiMoCode 值得单独看一眼：它不是只把模型接到终端里，而是把多智能体、持久化记忆、上下文重建、任务追踪和工作流编排放进同一个开源工具。对经常用 Claude Code、Codex、Cline 或 Cursor 的开发者来说，它的价值不在“又多一个"><meta property="og:type" content="website"><meta property="og:url" content="https://future.lifestudylab.com/posts/2026-07-12-mimocode/"><link rel="icon" type="image/svg+xml" href="/favicon.svg"><link rel="alternate" type="application/rss+xml" title="未来观察者" href="/rss.xml"><link rel="stylesheet" href="/_astro/_channel_.BFW__1rx.css"></head> <body> <div class="page-bg"></div> <header class="site-header"> <div class="shell header-inner"> <div class="header-bar"> <a class="brand" href="/ai-tools/"> <img src="/brand-mark.svg" alt="" class="brand-mark" width="56" height="56"> <span class="brand-text" aria-label="未来观察者">思考未来</span> </a> </div> <nav class="top-menu" aria-label="顶部菜单"> <a href="/future-daily/" class="top-menu-link"> 每日信息 </a><a href="/docs/deer-flow/00-overview/" class="top-menu-link"> DeerFlow教程 </a><a href="/docs/hermes/00-overview/" class="top-menu-link"> Hermes教程 </a><a href="/docs/openclaw/00-overview/" class="top-menu-link"> OpenClaw教程 </a><a href="/about/" class="top-menu-link"> 关于我 </a> </nav> <div class="top-actions"> <a class="feedback-link" href="https://github.com/yonglisss/yonglisss.github.io/issues" target="_blank" rel="noopener noreferrer" aria-label="问题反馈"> <svg viewBox="0 0 24 24" aria-hidden="true" class="action-icon"> <path d="M4.75 5.75A2.75 2.75 0 0 1 7.5 3h9A2.75 2.75 0 0 1 19.25 5.75v6.5A2.75 2.75 0 0 1 16.5 15H9.3l-3.55 3.2V15.1a2.75 2.75 0 0 1-1-2.1V5.75Z"></path> <path d="M8 7.75h8M8 11.25h4"></path> </svg> <span>问题反馈</span> </a> <div class="theme-switcher" data-theme-switcher> <button class="theme-trigger" type="button" aria-haspopup="menu" aria-expanded="false" aria-label="切换明暗模式" data-theme-trigger> <svg viewBox="0 0 24 24" aria-hidden="true" class="action-icon theme-trigger-icon theme-trigger-icon--light"> <circle cx="12" cy="12" r="4"></circle> <path d="M12 2.75v2M12 19.25v2M4.75 4.75l1.4 1.4M17.85 17.85l1.4 1.4M2.75 12h2M19.25 12h2M4.75 19.25l1.4-1.4M17.85 6.15l1.4-1.4"></path> </svg> <svg viewBox="0 0 24 24" aria-hidden="true" class="action-icon theme-trigger-icon theme-trigger-icon--dark"> <path d="M20.25 14.2A8 8 0 0 1 9.8 3.75 8.5 8.5 0 1 0 20.25 14.2Z"></path> </svg> <svg viewBox="0 0 24 24" aria-hidden="true" class="action-icon theme-trigger-icon theme-trigger-icon--system"> <rect x="4" y="5" width="16" height="11" rx="1.8"></rect> <path d="M9 20h6M12 16v4"></path> </svg> </button> <div class="theme-menu" role="menu" data-theme-menu hidden> <button class="theme-option" type="button" role="menuitemradio" data-theme-option="light" aria-checked="false"> <svg viewBox="0 0 24 24" aria-hidden="true" class="action-icon"><circle cx="12" cy="12" r="4"></circle><path d="M12 2.75v2M12 19.25v2M4.75 4.75l1.4 1.4M17.85 17.85l1.4 1.4M2.75 12h2M19.25 12h2M4.75 19.25l1.4-1.4M17.85 6.15l1.4-1.4"></path></svg> <span>亮色</span> </button> <button class="theme-option" type="button" role="menuitemradio" data-theme-option="dark" aria-checked="false"> <svg viewBox="0 0 24 24" aria-hidden="true" class="action-icon"><path d="M20.25 14.2A8 8 0 0 1 9.8 3.75 8.5 8.5 0 1 0 20.25 14.2Z"></path></svg> <span>暗色</span> </button> <button class="theme-option" type="button" role="menuitemradio" data-theme-option="system" aria-checked="true"> <svg viewBox="0 0 24 24" aria-hidden="true" class="action-icon"><rect x="4" y="5" width="16" height="11" rx="1.8"></rect><path d="M9 20h6M12 16v4"></path></svg> <span>跟随系统</span> </button> </div> </div> </div> </div> </header> <script>
+  (() => {
+    const switcher = document.querySelector("[data-theme-switcher]");
+    if (!switcher) return;
+
+    const trigger = switcher.querySelector("[data-theme-trigger]");
+    const menu = switcher.querySelector("[data-theme-menu]");
+    const options = [...switcher.querySelectorAll("[data-theme-option]")];
+    const modes = ["light", "dark", "system"];
+
+    const getMode = () => {
+      const mode = document.documentElement.dataset.themeMode;
+      return modes.includes(mode) ? mode : "system";
+    };
+
+    const closeMenu = () => {
+      menu.hidden = true;
+      trigger.setAttribute("aria-expanded", "false");
+    };
+
+    const openMenu = () => {
+      menu.hidden = false;
+      trigger.setAttribute("aria-expanded", "true");
+    };
+
+    const sync = () => {
+      const mode = getMode();
+      trigger.dataset.themeMode = mode;
+      options.forEach((option) => {
+        option.setAttribute("aria-checked", String(option.dataset.themeOption === mode));
+      });
+    };
+
+    trigger.addEventListener("click", () => {
+      menu.hidden ? openMenu() : closeMenu();
+    });
+
+    options.forEach((option) => {
+      option.addEventListener("click", () => {
+        window.__setFutureObserverTheme?.(option.dataset.themeOption || "system");
+        sync();
+        closeMenu();
+      });
+    });
+
+    document.addEventListener("click", (event) => {
+      if (!switcher.contains(event.target)) closeMenu();
+    });
+
+    document.addEventListener("keydown", (event) => {
+      if (event.key === "Escape") closeMenu();
+    });
+
+    window.addEventListener("future-observer-theme-change", sync);
+    sync();
+  })();
+</script> <aside class="site-rail" aria-label="站点导航"> <div class="site-rail-inner"> <p class="site-rail-label">Channels</p> <nav aria-label="主导航"> <ul class="site-rail-nav"> <li> <a href="/ai-tools/" class="site-rail-link"> AI工具 </a> </li><li> <a href="/future-daily/" class="site-rail-link"> 未来观察者日报 </a> </li> </ul> </nav> </div> </aside> <main class="shell page-content">  <div class="post-hero"> <p class="eyebrow">2026年7月12日</p> <h1>MiMoCode：小米开源的终端 AI 编程助手，重点不只是“写代码”</h1> <p class="post-summary">AI 编程工具已经很多，但 MiMoCode 值得单独看一眼：它不是只把模型接到终端里，而是把多智能体、持久化记忆、上下文重建、任务追踪和工作流编排放进同一个开源工具。对经常用 Claude Code、Codex、Cline 或 Cursor 的开发者来说，它的价值不在“又多一个</p> <ul class="tag-list"> <li> <a href="/tags/AI%E5%B7%A5%E5%85%B7/" class="tag-link">
+#AI工具 </a> </li><li> <a href="/tags/2026%E5%B9%B407%E6%9C%88/" class="tag-link">
+#2026年07月 </a> </li> </ul> </div> <div class="post-grid"> <article class="prose">  <p>AI 编程工具已经很多，但 MiMoCode 值得单独看一眼：它不是只把模型接到终端里，而是把多智能体、持久化记忆、上下文重建、任务追踪和工作流编排放进同一个开源工具。对经常用 Claude Code、Codex、Cline 或 Cursor 的开发者来说，它的价值不在“又多一个聊天入口”，而在于探索 AI Coding Agent 如何更长期、更可控地参与真实项目。</p>
+<h2 id="-这个项目是干什么的">📌 这个项目是干什么的</h2>
+<ul>
+<li><strong>定位</strong>：MiMoCode 是小米 MiMo 团队开源的终端原生 AI 编程助手，可读写代码、执行命令、管理 Git。</li>
+<li><strong>适合谁</strong>：适合想在命令行里使用 Coding Agent，并关注长任务、跨会话记忆、工作流编排的开发者。</li>
+<li><strong>解决什么问题</strong>：官方 README 强调通过持久化记忆系统，让 Agent 在多次会话间保持对项目的理解，而不是每次都从零开始读代码。</li>
+<li><strong>当前成熟度</strong>：GitHub 仓库使用 MIT 许可证，近期仍在更新；最新 Release 为 v0.1.5，整体仍属于早期版本，适合先试用评估。</li>
+</ul>
+<h2 id="-为什么值得关注">🔍 为什么值得关注</h2>
+<p>第一，它把“记忆”做成了核心能力，而不是附加提示词。MiMoCode 使用基于 SQLite FTS5 的跨会话记忆，包含项目记忆、会话检查点、临时笔记和任务进展。对大项目来说，这比单次上下文窗口更接近真实开发需求：Agent 需要知道项目规则、架构决策和未完成任务。</p>
+<p>第二，它关注长任务的可恢复性。README 中提到自动检查点、上下文重建和预算化注入：当上下文接近上限时，可以从 checkpoint、memory、notes 和近期消息中重建工作状态。这类机制不一定马上完美，但方向很重要——AI 编程从“问答”走向“持续执行”，靠的就是状态管理。</p>
+<p>第三，它不只是一套模型壳。MiMoCode 支持多智能体模式，包括 build、plan、compose；也支持自定义 Provider、MCP、插件、内置技能，以及 specs-driven 的 Compose 工作流。官方同时说明它基于 OpenCode fork 构建，保留多 Provider、TUI、LSP、MCP 等核心能力，并在此基础上扩展记忆、编排和自我进化能力。</p>
+<h2 id="-谁适合试怎么开始">🧪 谁适合试，怎么开始</h2>
+<p>如果你已经在用终端类 AI 编程工具，可以把 MiMoCode 当作一个“长任务 Agent 实验环境”来试：</p>
+<ul>
+<li>需要让 Agent 反复理解同一个中大型项目；</li>
+<li>想比较不同模型 / Provider 在编码任务里的表现；</li>
+<li>想研究多智能体、任务追踪、工作流编排如何落到开发流程里；</li>
+<li>希望在本地或公司环境里保留更多控制权。</li>
+</ul>
+<p>最短尝试路径：先看 GitHub README 或中文 README，确认安装方式；本地可用 <code>npm install -g @mimo-ai/cli</code> 安装，也可使用官方提供的 macOS / Linux、Windows 一键安装命令。首次启动后按引导配置 Provider，再用一个非生产项目测试读代码、改小功能、生成 checkpoint 和恢复上下文。</p>
+<h2 id="️-使用提醒">⚠️ 使用提醒</h2>
+<p>MiMoCode 目前仍是 v0.1.x 阶段，不建议直接交给关键生产仓库“全自动改代码”。尤其涉及命令执行、Git 操作、外部目录读写时，要先理解权限机制，并在可回滚的分支或沙箱中试用。</p>
+<p>另外，README 提到 MiMo Auto 是“限时免费”通道，这类服务状态可能变化；如果要长期使用，建议优先验证自定义 OpenAI-compatible Provider 的接入方式。把它当成一个值得研究的开源 Agent 工程样本，而不是马上替代现有开发流程，会更稳。</p>
+<h2 id="-参考资源">🔗 参考资源</h2>
+<ul>
+<li>GitHub 仓库：<a href="https://github.com/XiaomiMiMo/MiMo-Code">https://github.com/XiaomiMiMo/MiMo-Code</a></li>
+<li>中文 README：<a href="https://github.com/XiaomiMiMo/MiMo-Code/blob/main/README.zh.md">https://github.com/XiaomiMiMo/MiMo-Code/blob/main/README.zh.md</a></li>
+<li>官网：<a href="https://mimo.xiaomi.com/zh/mimocode">https://mimo.xiaomi.com/zh/mimocode</a></li>
+<li>官方博客：<a href="https://mimo.xiaomi.com/zh/blog/mimo-code-long-horizon">https://mimo.xiaomi.com/zh/blog/mimo-code-long-horizon</a></li>
+<li>最新 Release：<a href="https://github.com/XiaomiMiMo/MiMo-Code/releases/tag/v0.1.5">https://github.com/XiaomiMiMo/MiMo-Code/releases/tag/v0.1.5</a></li>
+</ul>  </article> <aside class="toc"><p class="toc-title">目录</p><ul class="toc-list"><li class="depth-2"><a href="#-这个项目是干什么的" data-toc-link="-这个项目是干什么的">📌 这个项目是干什么的</a></li><li class="depth-2"><a href="#-为什么值得关注" data-toc-link="-为什么值得关注">🔍 为什么值得关注</a></li><li class="depth-2"><a href="#-谁适合试怎么开始" data-toc-link="-谁适合试怎么开始">🧪 谁适合试，怎么开始</a></li><li class="depth-2"><a href="#️-使用提醒" data-toc-link="️-使用提醒">⚠️ 使用提醒</a></li><li class="depth-2"><a href="#-参考资源" data-toc-link="-参考资源">🔗 参考资源</a></li></ul></aside><script type="module">const c=()=>{const r=Array.from(document.querySelectorAll(".toc a[data-toc-link]"));if(!r.length)return;const o=r.map(t=>{const e=t.getAttribute("data-toc-link");if(!e)return null;const n=document.getElementById(e);return n?{id:e,heading:n,link:t}:null}).filter(t=>t!==null);if(!o.length)return;const s=t=>{r.forEach(e=>{const n=e.getAttribute("data-toc-link")===t;e.classList.toggle("active",n),n&&e.scrollIntoView({block:"nearest",inline:"nearest"})})},i=()=>{const t=Math.round(window.innerHeight*.28);let e=o[0];for(const n of o)n.heading.getBoundingClientRect().top<=t&&(e=n);s(e.id)};i();const a=new IntersectionObserver(()=>i(),{rootMargin:"-18% 0px -70% 0px",threshold:[0,1]});o.forEach(t=>a.observe(t.heading)),window.addEventListener("scroll",i,{passive:!0})};document.addEventListener("DOMContentLoaded",c);document.addEventListener("astro:page-load",c);</script> </div>  </main> <footer class="site-footer"> <div class="shell footer-inner"> <p>© 2026 未来观察者</p> </div> </footer> </body></html>
