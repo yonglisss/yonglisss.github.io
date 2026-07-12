@@ -1,0 +1,131 @@
+<!DOCTYPE html><html lang="zh-CN"> <head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1"><script>
+      (() => {
+        const storageKey = "future-observer-theme";
+        const root = document.documentElement;
+        const getStoredMode = () => {
+          try {
+            const value = localStorage.getItem(storageKey);
+            return value === "light" || value === "dark" || value === "system" ? value : "system";
+          } catch {
+            return "system";
+          }
+        };
+        const systemDark = () => window.matchMedia?.("(prefers-color-scheme: dark)").matches ?? false;
+        const apply = (mode) => {
+          const resolved = mode === "system" ? (systemDark() ? "dark" : "light") : mode;
+          root.dataset.themeMode = mode;
+          root.dataset.theme = resolved;
+          root.style.colorScheme = resolved;
+        };
+        apply(getStoredMode());
+        window.__setFutureObserverTheme = (mode) => {
+          const next = mode === "light" || mode === "dark" || mode === "system" ? mode : "system";
+          try { localStorage.setItem(storageKey, next); } catch {}
+          apply(next);
+          window.dispatchEvent(new CustomEvent("future-observer-theme-change", { detail: { mode: next } }));
+        };
+        window.matchMedia?.("(prefers-color-scheme: dark)").addEventListener?.("change", () => {
+          if (getStoredMode() === "system") apply("system");
+        });
+      })();
+    </script><title>Chidori：让 AI Agent 的调试从“玄学复现”回到工程化 | 未来观察者</title><meta name="description" content="如果你正在做多步骤 Agent，最头疼的往往不是“能不能调用模型”，而是运行到一半崩了怎么办、同一个 bug 怎么复现、每次调试为什么都要重新花 token。Chidori 是一个开源 Agent 框架，核心思路是把每次 LLM 调用、工具调用、HTTP 请求都记录成可回放的 h"><meta name="generator" content="Astro v5.18.1"><meta property="og:title" content="Chidori：让 AI Agent 的调试从“玄学复现”回到工程化 | 未来观察者"><meta property="og:description" content="如果你正在做多步骤 Agent，最头疼的往往不是“能不能调用模型”，而是运行到一半崩了怎么办、同一个 bug 怎么复现、每次调试为什么都要重新花 token。Chidori 是一个开源 Agent 框架，核心思路是把每次 LLM 调用、工具调用、HTTP 请求都记录成可回放的 h"><meta property="og:type" content="website"><meta property="og:url" content="https://future.lifestudylab.com/posts/2026-07-13-chidori/"><link rel="icon" type="image/svg+xml" href="/favicon.svg"><link rel="alternate" type="application/rss+xml" title="未来观察者" href="/rss.xml"><link rel="stylesheet" href="/_astro/_channel_.BFW__1rx.css"></head> <body> <div class="page-bg"></div> <header class="site-header"> <div class="shell header-inner"> <div class="header-bar"> <a class="brand" href="/ai-tools/"> <img src="/brand-mark.svg" alt="" class="brand-mark" width="56" height="56"> <span class="brand-text" aria-label="未来观察者">思考未来</span> </a> </div> <nav class="top-menu" aria-label="顶部菜单"> <a href="/future-daily/" class="top-menu-link"> 每日信息 </a><a href="/docs/deer-flow/00-overview/" class="top-menu-link"> DeerFlow教程 </a><a href="/docs/hermes/00-overview/" class="top-menu-link"> Hermes教程 </a><a href="/docs/openclaw/00-overview/" class="top-menu-link"> OpenClaw教程 </a><a href="/about/" class="top-menu-link"> 关于我 </a> </nav> <div class="top-actions"> <a class="feedback-link" href="https://github.com/yonglisss/yonglisss.github.io/issues" target="_blank" rel="noopener noreferrer" aria-label="问题反馈"> <svg viewBox="0 0 24 24" aria-hidden="true" class="action-icon"> <path d="M4.75 5.75A2.75 2.75 0 0 1 7.5 3h9A2.75 2.75 0 0 1 19.25 5.75v6.5A2.75 2.75 0 0 1 16.5 15H9.3l-3.55 3.2V15.1a2.75 2.75 0 0 1-1-2.1V5.75Z"></path> <path d="M8 7.75h8M8 11.25h4"></path> </svg> <span>问题反馈</span> </a> <div class="theme-switcher" data-theme-switcher> <button class="theme-trigger" type="button" aria-haspopup="menu" aria-expanded="false" aria-label="切换明暗模式" data-theme-trigger> <svg viewBox="0 0 24 24" aria-hidden="true" class="action-icon theme-trigger-icon theme-trigger-icon--light"> <circle cx="12" cy="12" r="4"></circle> <path d="M12 2.75v2M12 19.25v2M4.75 4.75l1.4 1.4M17.85 17.85l1.4 1.4M2.75 12h2M19.25 12h2M4.75 19.25l1.4-1.4M17.85 6.15l1.4-1.4"></path> </svg> <svg viewBox="0 0 24 24" aria-hidden="true" class="action-icon theme-trigger-icon theme-trigger-icon--dark"> <path d="M20.25 14.2A8 8 0 0 1 9.8 3.75 8.5 8.5 0 1 0 20.25 14.2Z"></path> </svg> <svg viewBox="0 0 24 24" aria-hidden="true" class="action-icon theme-trigger-icon theme-trigger-icon--system"> <rect x="4" y="5" width="16" height="11" rx="1.8"></rect> <path d="M9 20h6M12 16v4"></path> </svg> </button> <div class="theme-menu" role="menu" data-theme-menu hidden> <button class="theme-option" type="button" role="menuitemradio" data-theme-option="light" aria-checked="false"> <svg viewBox="0 0 24 24" aria-hidden="true" class="action-icon"><circle cx="12" cy="12" r="4"></circle><path d="M12 2.75v2M12 19.25v2M4.75 4.75l1.4 1.4M17.85 17.85l1.4 1.4M2.75 12h2M19.25 12h2M4.75 19.25l1.4-1.4M17.85 6.15l1.4-1.4"></path></svg> <span>亮色</span> </button> <button class="theme-option" type="button" role="menuitemradio" data-theme-option="dark" aria-checked="false"> <svg viewBox="0 0 24 24" aria-hidden="true" class="action-icon"><path d="M20.25 14.2A8 8 0 0 1 9.8 3.75 8.5 8.5 0 1 0 20.25 14.2Z"></path></svg> <span>暗色</span> </button> <button class="theme-option" type="button" role="menuitemradio" data-theme-option="system" aria-checked="true"> <svg viewBox="0 0 24 24" aria-hidden="true" class="action-icon"><rect x="4" y="5" width="16" height="11" rx="1.8"></rect><path d="M9 20h6M12 16v4"></path></svg> <span>跟随系统</span> </button> </div> </div> </div> </div> </header> <script>
+  (() => {
+    const switcher = document.querySelector("[data-theme-switcher]");
+    if (!switcher) return;
+
+    const trigger = switcher.querySelector("[data-theme-trigger]");
+    const menu = switcher.querySelector("[data-theme-menu]");
+    const options = [...switcher.querySelectorAll("[data-theme-option]")];
+    const modes = ["light", "dark", "system"];
+
+    const getMode = () => {
+      const mode = document.documentElement.dataset.themeMode;
+      return modes.includes(mode) ? mode : "system";
+    };
+
+    const closeMenu = () => {
+      menu.hidden = true;
+      trigger.setAttribute("aria-expanded", "false");
+    };
+
+    const openMenu = () => {
+      menu.hidden = false;
+      trigger.setAttribute("aria-expanded", "true");
+    };
+
+    const sync = () => {
+      const mode = getMode();
+      trigger.dataset.themeMode = mode;
+      options.forEach((option) => {
+        option.setAttribute("aria-checked", String(option.dataset.themeOption === mode));
+      });
+    };
+
+    trigger.addEventListener("click", () => {
+      menu.hidden ? openMenu() : closeMenu();
+    });
+
+    options.forEach((option) => {
+      option.addEventListener("click", () => {
+        window.__setFutureObserverTheme?.(option.dataset.themeOption || "system");
+        sync();
+        closeMenu();
+      });
+    });
+
+    document.addEventListener("click", (event) => {
+      if (!switcher.contains(event.target)) closeMenu();
+    });
+
+    document.addEventListener("keydown", (event) => {
+      if (event.key === "Escape") closeMenu();
+    });
+
+    window.addEventListener("future-observer-theme-change", sync);
+    sync();
+  })();
+</script> <aside class="site-rail" aria-label="站点导航"> <div class="site-rail-inner"> <p class="site-rail-label">Channels</p> <nav aria-label="主导航"> <ul class="site-rail-nav"> <li> <a href="/ai-tools/" class="site-rail-link"> AI工具 </a> </li><li> <a href="/future-daily/" class="site-rail-link"> 未来观察者日报 </a> </li> </ul> </nav> </div> </aside> <main class="shell page-content">  <div class="post-hero"> <p class="eyebrow">2026年7月13日</p> <h1>Chidori：让 AI Agent 的调试从“玄学复现”回到工程化</h1> <p class="post-summary">如果你正在做多步骤 Agent，最头疼的往往不是“能不能调用模型”，而是运行到一半崩了怎么办、同一个 bug 怎么复现、每次调试为什么都要重新花 token。Chidori 是一个开源 Agent 框架，核心思路是把每次 LLM 调用、工具调用、HTTP 请求都记录成可回放的 h</p> <ul class="tag-list"> <li> <a href="/tags/AI%E5%B7%A5%E5%85%B7/" class="tag-link">
+#AI工具 </a> </li><li> <a href="/tags/2026%E5%B9%B407%E6%9C%88/" class="tag-link">
+#2026年07月 </a> </li> </ul> </div> <div class="post-grid"> <article class="prose">  <p>如果你正在做多步骤 Agent，最头疼的往往不是“能不能调用模型”，而是运行到一半崩了怎么办、同一个 bug 怎么复现、每次调试为什么都要重新花 token。Chidori 是一个开源 Agent 框架，核心思路是把每次 LLM 调用、工具调用、HTTP 请求都记录成可回放的 host call，让 Agent 运行天然具备 checkpoint、replay 和 resume 能力。</p>
+<h2 id="-这个项目是干什么的">📌 这个项目是干什么的</h2>
+<ul>
+<li>定位：面向 AI Agent 的 durable runtime / framework，主打“可持久化、可回放、可恢复”。</li>
+<li>适合谁：正在做长流程 Agent、多工具编排、人类审批、生产环境调试的开发者或团队。</li>
+<li>解决什么问题：Agent 运行天然不确定、调试成本高、崩溃后难恢复；Chidori 通过记录副作用，把运行过程变成可检查、可重放的日志。</li>
+<li>当前成熟度：GitHub 仓库近期仍活跃，官方 release 已到 v3.6.0；同时提供 Rust binary、TypeScript 与 Python SDK，许可证为 Apache-2.0。</li>
+</ul>
+<h2 id="-为什么值得关注">🔍 为什么值得关注</h2>
+<ol>
+<li>
+<p><strong>它把“调试 Agent”当成一等问题处理。</strong> 传统 Agent 框架更关注编排和工具调用，Chidori 则强调每次运行都能记录、暂停、恢复。官方 README 明确写到：回放一次运行时，可以用记录结果替代真实 LLM 调用，做到零 token 成本的复现。</p>
+</li>
+<li>
+<p><strong>它的边界设计比较清楚。</strong> Chidori 要求所有外部副作用都通过 runtime 的 host call 发生，包括 LLM、工具和 HTTP 请求。这样 runtime 才能看到完整过程，并在 checkpoint 后继续执行。这个设计对生产调试很有价值：问题不再只靠日志猜，而是能沿着运行记录往回看。</p>
+</li>
+<li>
+<p><strong>它适合长流程 Agent 的真实场景。</strong> 比如需要等待人工审批、跨多个工具执行任务、或运行过程中可能被中断的 Agent。Chidori 支持把运行挂起到磁盘，之后由人或其他系统补充输入，再从暂停点继续。</p>
+</li>
+</ol>
+<h2 id="-谁适合试怎么开始">🧪 谁适合试，怎么开始</h2>
+<p>如果你只是做一个简单聊天机器人，Chidori 可能偏重；如果你在做“会持续执行任务”的 Agent，就值得花半小时看一下。</p>
+<p>最短尝试路径：先读 GitHub README 的 Quick Start，再看 <code>docs/getting-started.md</code> 和 <code>examples/record-replay</code>。安装方式以官方 README 为准：Chidori 提供自包含 binary，也可通过 npm、PyPI、crates.io 获取对应包；当前核验到的最新版本均为 3.6.0。</p>
+<p>建议优先验证两个能力：</p>
+<ul>
+<li>跑一个最小 Agent，并生成一次 recorded run；</li>
+<li>修改代码后用 replay 复现旧运行，确认是否符合预期。</li>
+</ul>
+<h2 id="️-使用提醒">⚠️ 使用提醒</h2>
+<ul>
+<li>Chidori 的价值建立在“副作用必须经过 runtime”之上。如果项目里大量代码绕过 runtime 直接访问外部世界，可回放能力会打折。</li>
+<li>它不是低代码 Agent 平台，也不是现成业务应用，更适合有工程能力的团队做基础设施评估。</li>
+<li>对已有 LangChain、Mastra、内部工作流系统的团队，建议先用一个边界清晰的小流程试点，不要一上来迁移核心链路。</li>
+</ul>
+<h2 id="-参考资源">🔗 参考资源</h2>
+<ul>
+<li>GitHub：<a href="https://github.com/ThousandBirdsInc/chidori">https://github.com/ThousandBirdsInc/chidori</a></li>
+<li>官方文档：<a href="https://docs.thousandbirds.ai">https://docs.thousandbirds.ai</a></li>
+<li>Release：<a href="https://github.com/ThousandBirdsInc/chidori/releases/tag/v3.6.0">https://github.com/ThousandBirdsInc/chidori/releases/tag/v3.6.0</a></li>
+<li>PyPI：<a href="https://pypi.org/project/chidori/">https://pypi.org/project/chidori/</a></li>
+<li>npm：<a href="https://www.npmjs.com/package/@1kbirds/chidori">https://www.npmjs.com/package/@1kbirds/chidori</a></li>
+<li>crates.io：<a href="https://crates.io/crates/chidori">https://crates.io/crates/chidori</a></li>
+</ul>  </article> <aside class="toc"><p class="toc-title">目录</p><ul class="toc-list"><li class="depth-2"><a href="#-这个项目是干什么的" data-toc-link="-这个项目是干什么的">📌 这个项目是干什么的</a></li><li class="depth-2"><a href="#-为什么值得关注" data-toc-link="-为什么值得关注">🔍 为什么值得关注</a></li><li class="depth-2"><a href="#-谁适合试怎么开始" data-toc-link="-谁适合试怎么开始">🧪 谁适合试，怎么开始</a></li><li class="depth-2"><a href="#️-使用提醒" data-toc-link="️-使用提醒">⚠️ 使用提醒</a></li><li class="depth-2"><a href="#-参考资源" data-toc-link="-参考资源">🔗 参考资源</a></li></ul></aside><script type="module">const c=()=>{const r=Array.from(document.querySelectorAll(".toc a[data-toc-link]"));if(!r.length)return;const o=r.map(t=>{const e=t.getAttribute("data-toc-link");if(!e)return null;const n=document.getElementById(e);return n?{id:e,heading:n,link:t}:null}).filter(t=>t!==null);if(!o.length)return;const s=t=>{r.forEach(e=>{const n=e.getAttribute("data-toc-link")===t;e.classList.toggle("active",n),n&&e.scrollIntoView({block:"nearest",inline:"nearest"})})},i=()=>{const t=Math.round(window.innerHeight*.28);let e=o[0];for(const n of o)n.heading.getBoundingClientRect().top<=t&&(e=n);s(e.id)};i();const a=new IntersectionObserver(()=>i(),{rootMargin:"-18% 0px -70% 0px",threshold:[0,1]});o.forEach(t=>a.observe(t.heading)),window.addEventListener("scroll",i,{passive:!0})};document.addEventListener("DOMContentLoaded",c);document.addEventListener("astro:page-load",c);</script> </div>  </main> <footer class="site-footer"> <div class="shell footer-inner"> <p>© 2026 未来观察者</p> </div> </footer> </body></html>
