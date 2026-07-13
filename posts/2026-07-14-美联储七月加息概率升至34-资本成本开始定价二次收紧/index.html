@@ -1,0 +1,289 @@
+<!DOCTYPE html><html lang="zh-CN"> <head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1"><script>
+      (() => {
+        const storageKey = "future-observer-theme";
+        const root = document.documentElement;
+        const getStoredMode = () => {
+          try {
+            const value = localStorage.getItem(storageKey);
+            return value === "light" || value === "dark" || value === "system" ? value : "system";
+          } catch {
+            return "system";
+          }
+        };
+        const systemDark = () => window.matchMedia?.("(prefers-color-scheme: dark)").matches ?? false;
+        const apply = (mode) => {
+          const resolved = mode === "system" ? (systemDark() ? "dark" : "light") : mode;
+          root.dataset.themeMode = mode;
+          root.dataset.theme = resolved;
+          root.style.colorScheme = resolved;
+        };
+        apply(getStoredMode());
+        window.__setFutureObserverTheme = (mode) => {
+          const next = mode === "light" || mode === "dark" || mode === "system" ? mode : "system";
+          try { localStorage.setItem(storageKey, next); } catch {}
+          apply(next);
+          window.dispatchEvent(new CustomEvent("future-observer-theme-change", { detail: { mode: next } }));
+        };
+        window.matchMedia?.("(prefers-color-scheme: dark)").addEventListener?.("change", () => {
+          if (getStoredMode() === "system") apply("system");
+        });
+      })();
+    </script><title>🧯 美联储七月加息概率升至 34%：资本成本开始定价“二次收紧” | 未来观察者</title><meta name="description" content="📌 核心观点：Polymarket 对 7 月 FOMC 的主情景仍是按兵不动，但 25 个基点加息已被定价到约 34.4%。相比“全年不降息”，今天真正新增的变量是：市场开始认真防范利率再次上行，企业与投资者的压力测试必须从“高利率更久”升级为“融资成本还能更高”。"><meta name="generator" content="Astro v5.18.1"><meta property="og:title" content="🧯 美联储七月加息概率升至 34%：资本成本开始定价“二次收紧” | 未来观察者"><meta property="og:description" content="📌 核心观点：Polymarket 对 7 月 FOMC 的主情景仍是按兵不动，但 25 个基点加息已被定价到约 34.4%。相比“全年不降息”，今天真正新增的变量是：市场开始认真防范利率再次上行，企业与投资者的压力测试必须从“高利率更久”升级为“融资成本还能更高”。"><meta property="og:type" content="website"><meta property="og:url" content="https://future.lifestudylab.com/posts/2026-07-14-%E7%BE%8E%E8%81%94%E5%82%A8%E4%B8%83%E6%9C%88%E5%8A%A0%E6%81%AF%E6%A6%82%E7%8E%87%E5%8D%87%E8%87%B334-%E8%B5%84%E6%9C%AC%E6%88%90%E6%9C%AC%E5%BC%80%E5%A7%8B%E5%AE%9A%E4%BB%B7%E4%BA%8C%E6%AC%A1%E6%94%B6%E7%B4%A7/"><link rel="icon" type="image/svg+xml" href="/favicon.svg"><link rel="alternate" type="application/rss+xml" title="未来观察者" href="/rss.xml"><link rel="stylesheet" href="/_astro/_channel_.BFW__1rx.css"></head> <body> <div class="page-bg"></div> <header class="site-header"> <div class="shell header-inner"> <div class="header-bar"> <a class="brand" href="/ai-tools/"> <img src="/brand-mark.svg" alt="" class="brand-mark" width="56" height="56"> <span class="brand-text" aria-label="未来观察者">思考未来</span> </a> </div> <nav class="top-menu" aria-label="顶部菜单"> <a href="/future-daily/" class="top-menu-link"> 每日信息 </a><a href="/docs/deer-flow/00-overview/" class="top-menu-link"> DeerFlow教程 </a><a href="/docs/hermes/00-overview/" class="top-menu-link"> Hermes教程 </a><a href="/docs/openclaw/00-overview/" class="top-menu-link"> OpenClaw教程 </a><a href="/about/" class="top-menu-link"> 关于我 </a> </nav> <div class="top-actions"> <a class="feedback-link" href="https://github.com/yonglisss/yonglisss.github.io/issues" target="_blank" rel="noopener noreferrer" aria-label="问题反馈"> <svg viewBox="0 0 24 24" aria-hidden="true" class="action-icon"> <path d="M4.75 5.75A2.75 2.75 0 0 1 7.5 3h9A2.75 2.75 0 0 1 19.25 5.75v6.5A2.75 2.75 0 0 1 16.5 15H9.3l-3.55 3.2V15.1a2.75 2.75 0 0 1-1-2.1V5.75Z"></path> <path d="M8 7.75h8M8 11.25h4"></path> </svg> <span>问题反馈</span> </a> <div class="theme-switcher" data-theme-switcher> <button class="theme-trigger" type="button" aria-haspopup="menu" aria-expanded="false" aria-label="切换明暗模式" data-theme-trigger> <svg viewBox="0 0 24 24" aria-hidden="true" class="action-icon theme-trigger-icon theme-trigger-icon--light"> <circle cx="12" cy="12" r="4"></circle> <path d="M12 2.75v2M12 19.25v2M4.75 4.75l1.4 1.4M17.85 17.85l1.4 1.4M2.75 12h2M19.25 12h2M4.75 19.25l1.4-1.4M17.85 6.15l1.4-1.4"></path> </svg> <svg viewBox="0 0 24 24" aria-hidden="true" class="action-icon theme-trigger-icon theme-trigger-icon--dark"> <path d="M20.25 14.2A8 8 0 0 1 9.8 3.75 8.5 8.5 0 1 0 20.25 14.2Z"></path> </svg> <svg viewBox="0 0 24 24" aria-hidden="true" class="action-icon theme-trigger-icon theme-trigger-icon--system"> <rect x="4" y="5" width="16" height="11" rx="1.8"></rect> <path d="M9 20h6M12 16v4"></path> </svg> </button> <div class="theme-menu" role="menu" data-theme-menu hidden> <button class="theme-option" type="button" role="menuitemradio" data-theme-option="light" aria-checked="false"> <svg viewBox="0 0 24 24" aria-hidden="true" class="action-icon"><circle cx="12" cy="12" r="4"></circle><path d="M12 2.75v2M12 19.25v2M4.75 4.75l1.4 1.4M17.85 17.85l1.4 1.4M2.75 12h2M19.25 12h2M4.75 19.25l1.4-1.4M17.85 6.15l1.4-1.4"></path></svg> <span>亮色</span> </button> <button class="theme-option" type="button" role="menuitemradio" data-theme-option="dark" aria-checked="false"> <svg viewBox="0 0 24 24" aria-hidden="true" class="action-icon"><path d="M20.25 14.2A8 8 0 0 1 9.8 3.75 8.5 8.5 0 1 0 20.25 14.2Z"></path></svg> <span>暗色</span> </button> <button class="theme-option" type="button" role="menuitemradio" data-theme-option="system" aria-checked="true"> <svg viewBox="0 0 24 24" aria-hidden="true" class="action-icon"><rect x="4" y="5" width="16" height="11" rx="1.8"></rect><path d="M9 20h6M12 16v4"></path></svg> <span>跟随系统</span> </button> </div> </div> </div> </div> </header> <script>
+  (() => {
+    const switcher = document.querySelector("[data-theme-switcher]");
+    if (!switcher) return;
+
+    const trigger = switcher.querySelector("[data-theme-trigger]");
+    const menu = switcher.querySelector("[data-theme-menu]");
+    const options = [...switcher.querySelectorAll("[data-theme-option]")];
+    const modes = ["light", "dark", "system"];
+
+    const getMode = () => {
+      const mode = document.documentElement.dataset.themeMode;
+      return modes.includes(mode) ? mode : "system";
+    };
+
+    const closeMenu = () => {
+      menu.hidden = true;
+      trigger.setAttribute("aria-expanded", "false");
+    };
+
+    const openMenu = () => {
+      menu.hidden = false;
+      trigger.setAttribute("aria-expanded", "true");
+    };
+
+    const sync = () => {
+      const mode = getMode();
+      trigger.dataset.themeMode = mode;
+      options.forEach((option) => {
+        option.setAttribute("aria-checked", String(option.dataset.themeOption === mode));
+      });
+    };
+
+    trigger.addEventListener("click", () => {
+      menu.hidden ? openMenu() : closeMenu();
+    });
+
+    options.forEach((option) => {
+      option.addEventListener("click", () => {
+        window.__setFutureObserverTheme?.(option.dataset.themeOption || "system");
+        sync();
+        closeMenu();
+      });
+    });
+
+    document.addEventListener("click", (event) => {
+      if (!switcher.contains(event.target)) closeMenu();
+    });
+
+    document.addEventListener("keydown", (event) => {
+      if (event.key === "Escape") closeMenu();
+    });
+
+    window.addEventListener("future-observer-theme-change", sync);
+    sync();
+  })();
+</script> <aside class="site-rail" aria-label="站点导航"> <div class="site-rail-inner"> <p class="site-rail-label">Channels</p> <nav aria-label="主导航"> <ul class="site-rail-nav"> <li> <a href="/ai-tools/" class="site-rail-link"> AI工具 </a> </li><li> <a href="/future-daily/" class="site-rail-link"> 未来观察者日报 </a> </li> </ul> </nav> </div> </aside> <main class="shell page-content">  <div class="post-hero"> <p class="eyebrow">2026年7月14日</p> <h1>🧯 美联储七月加息概率升至 34%：资本成本开始定价“二次收紧”</h1> <p class="post-summary">📌 核心观点：Polymarket 对 7 月 FOMC 的主情景仍是按兵不动，但 25 个基点加息已被定价到约 34.4%。相比“全年不降息”，今天真正新增的变量是：市场开始认真防范利率再次上行，企业与投资者的压力测试必须从“高利率更久”升级为“融资成本还能更高”。</p> <ul class="tag-list"> <li> <a href="/tags/%E6%9C%AA%E6%9D%A5%E8%A7%82%E5%AF%9F%E8%80%85%E6%97%A5%E6%8A%A5/" class="tag-link">
+#未来观察者日报 </a> </li><li> <a href="/tags/2026%E5%B9%B407%E6%9C%88/" class="tag-link">
+#2026年07月 </a> </li> </ul> </div> <div class="post-grid"> <article class="prose">  <blockquote>
+<p>📌 <strong>核心观点</strong>：Polymarket 对 7 月 FOMC 的主情景仍是按兵不动，但 25 个基点加息已被定价到约 34.4%。相比“全年不降息”，今天真正新增的变量是：市场开始认真防范利率再次上行，企业与投资者的压力测试必须从“高利率更久”升级为“融资成本还能更高”。</p>
+</blockquote>
+<p><strong>作者：</strong> 元英<br>
+<strong>时间：</strong> 2026年7月14日<br>
+<strong>标签：</strong> #未来观察者 #美联储 #资本成本 #宏观定价<br>
+<strong>阅读时间：</strong> 3-5分钟</p>
+<hr>
+<h2 id="-今天看什么投票">🎯 今天看什么投票？</h2>
+<p>今天选择的 Polymarket 投票是 <strong>“Fed Decision in July?”</strong>。市场按 7 月 28—29 日 FOMC 会议后的利率变动幅度结算，最终依据美联储声明。</p>
+<h3 id="-关键数据卡片">📊 关键数据卡片</h3>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<table><thead><tr><th>7 月会议结果</th><th align="right">当前概率</th></tr></thead><tbody><tr><td>降息 50+ 基点</td><td align="right">0.15%</td></tr><tr><td>降息 25 基点</td><td align="right">0.45%</td></tr><tr><td><strong>利率不变</strong></td><td align="right"><strong>64.5%</strong></td></tr><tr><td><strong>加息 25 基点</strong></td><td align="right"><strong>34.4%</strong></td></tr><tr><td>加息 50+ 基点</td><td align="right">0.7%</td></tr></tbody></table>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<table><thead><tr><th>项目</th><th align="right">数据</th></tr></thead><tbody><tr><td>事件累计交易量</td><td align="right">约 5,260.33 万美元</td></tr><tr><td>24 小时交易量</td><td align="right">约 206.67 万美元</td></tr><tr><td>流动性</td><td align="right">约 324.28 万美元</td></tr><tr><td>数据获取时间</td><td align="right">2026-07-14 04:02 CST</td></tr><tr><td>Polymarket 更新时间</td><td align="right">2026-07-13 19:59 UTC</td></tr><tr><td>所属领域</td><td align="right">宏观 / 资本成本 / 科技估值</td></tr><tr><td>投票链接</td><td align="right"><a href="https://polymarket.com/event/fed-decision-in-july-181">https://polymarket.com/event/fed-decision-in-july-181</a></td></tr></tbody></table>
+<blockquote>
+<p><strong>读数方法</strong>：这些价格是交易者的市场定价，不是美联储预测。各选项因买卖价差与独立合约机制，合计可能不严格等于 100%。</p>
+</blockquote>
+<h3 id="-为什么今天选它">🧭 为什么今天选它？</h3>
+<p>最近 7 天已覆盖平台估值、能源航运、Bitcoin、AI 模型排名、体育科技、公共卫生和台海供应链，今天改选宏观利率，避免行业主线连续重复。同期高热候选中的 Bitcoin、WTI、霍尔木兹和 AI 模型均与近 7 天文章高度重合。</p>
+<p>7 月 6 日文章曾分析“全年零降息”，但已超过 7 天；<strong>本次新增变量不是继续复述高利率，而是 25 基点加息概率达到 34.4%</strong>。叙事因此从“宽松推迟”切换到“存在二次收紧风险”。</p>
+<hr>
+<h2 id="-为什么会有这个投票">🔥 为什么会有这个投票？</h2>
+<p>这组定价最值得注意的不是 64.5% 的“按兵不动”，而是市场两端已经明显不对称：降息合计不足 1%，25 个基点加息却接近三分之一。</p>
+<p>这说明交易者当前讨论的核心问题已发生变化：</p>
+<ol>
+<li><strong>不再问何时降息</strong>：7 月降息在该市场几乎被排除。</li>
+<li><strong>开始问是否还要加息</strong>：通胀、政策沟通或其他宏观变量只要继续偏紧，加息就不再是极端尾部情景。</li>
+<li><strong>会议风险正在快速产品化</strong>：超过 5,260 万美元累计交易量，将复杂的宏观分歧压缩成可持续更新的概率分布。</li>
+</ol>
+<p>可以确认的<strong>事实</strong>只有市场价格、交易指标、结算规则与会议日程；至于 34.4% 背后的具体宏观驱动，由于本文没有取得可交叉核验的同期数据细项，不把任何单一数据解释成既定原因。</p>
+<hr>
+<h2 id="️-34-加息概率反映了什么结构变化">🏗️ 34% 加息概率反映了什么结构变化？</h2>
+<h3 id="1-技术层风险模型需要加入利率上行尾部">1. 技术层：风险模型需要加入“利率上行尾部”</h3>
+<p>过去许多估值模型只比较“降息”与“维持不变”。现在至少应增加第三套情景：政策利率再上调 25 个基点。对于久期长、现金流靠后的科技资产，小幅折现率变化也会放大估值波动。</p>
+<h3 id="2-产业层资本开支不能只按利率持平测算">2. 产业层：资本开支不能只按利率持平测算</h3>
+<p>AI 数据中心、芯片制造、新能源、商业地产和高负债并购项目都依赖长期融资。企业若只用当前资金成本做预算，可能低估再融资与债务滚续风险。</p>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<table><thead><tr><th>压力测试</th><th>需要回答的问题</th></tr></thead><tbody><tr><td>基准情景：不变</td><td>当前现金流能否覆盖利息与扩张？</td></tr><tr><td>上行情景：+25bp</td><td>项目回报率、估值和偿债空间会下降多少？</td></tr><tr><td>极端情景：更久更高</td><td>哪些非核心投入可以延后，哪些债务必须提前处理？</td></tr></tbody></table>
+<h3 id="3-社会--资本层资产负债表质量继续压过故事溢价">3. 社会 / 资本层：资产负债表质量继续压过故事溢价</h3>
+<p>如果市场从“无降息”进一步转向“可能加息”，资本会更偏好低负债、现金流稳定、具备定价权的公司。普通家庭与中小企业则可能通过信贷、住房和周转成本承受更直接的压力。</p>
+<p>真正的结构变化是：<strong>利率不再只是估值公式中的背景参数，而重新成为决定项目能否启动、企业能否续命的硬约束。</strong></p>
+<hr>
+<h2 id="-如果趋势继续未来会怎样">🔭 如果趋势继续，未来会怎样？</h2>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<table><thead><tr><th>时间维度</th><th>可能变化</th><th>重点观察</th></tr></thead><tbody><tr><td>短期：至 7 月会议</td><td>“不变”仍是主情景，但加息概率对新数据和政策表态高度敏感</td><td>34.4% 是否持续；FOMC 沟通；官方通胀与就业数据</td></tr><tr><td>中期：未来 3-6 个月</td><td>企业预算从等待宽松转向主动压降融资风险</td><td>债券利差、再融资成本、资本开支指引、IPO 折价</td></tr><tr><td>长期：未来 1-3 年</td><td>资本进一步向现金流、低杠杆与定价权集中</td><td>企业违约率、成长资产估值中枢、行业集中度</td></tr></tbody></table>
+<p><strong>推测而非事实</strong>：若 25 基点加息概率持续高于 30%，科技与资本密集行业可能更快削减边缘项目；若该概率迅速回落，则今天的价格更可能只是一次短期风险重估。</p>
+<hr>
+<h2 id="-对普通人从业者和创业者意味着什么">🧭 对普通人、从业者和创业者意味着什么？</h2>
+<h3 id="-普通人">👤 普通人</h3>
+<ul>
+<li>不要把未来贷款成本建立在“马上降息”的单一路径上。</li>
+<li>对浮动利率债务做一次 +25bp 情景测算，优先保留现金缓冲。</li>
+<li>区分资产上涨究竟来自盈利改善，还是对宽松的想象。</li>
+</ul>
+<h3 id="-从业者">🧑‍💻 从业者</h3>
+<ul>
+<li>给所在项目补一张利率敏感度表：资金成本上升后，回收期延长多少？</li>
+<li>销售和产品团队应优先证明可量化降本，而不是只讲远期增长。</li>
+<li>关注客户预算审批周期与回款速度，它们往往比宏观口号更早反映压力。</li>
+</ul>
+<h3 id="-创业者--投资观察者">💼 创业者 / 投资观察者</h3>
+<ol>
+<li>融资计划同时准备“估值下降”和“资金到位延迟”两套预案。</li>
+<li>把现金跑道、毛利、回款周期放到增长率之前。</li>
+<li>观察哪些公司在更高资金成本下仍敢扩产——这通常比概念热度更能验证真实需求。</li>
+</ol>
+<hr>
+<h2 id="️-风险提示">⚠️ 风险提示</h2>
+<ul>
+<li>Polymarket 概率是市场定价，不等于官方决策概率或投资建议。</li>
+<li>单个市场会受流动性、参与者结构、买卖价差与短期情绪影响。</li>
+<li>会议前的新数据、突发金融风险或政策沟通都可能让概率快速反转。</li>
+<li>本文未取得足够的同期宏观数据细项，因此只分析已核验的预测市场结构，不臆测具体数据催化。</li>
+</ul>
+<hr>
+<h2 id="-结语真正的新风险是高利率还有上行空间">🌅 结语：真正的新风险，是“高利率”还有上行空间</h2>
+<p>一周前，市场的重点还是“2026 年会不会降息”；今天，7 月加息 25 个基点已被定价到约 34.4%。这不是结论已经锁定，而是风险边界发生了变化。</p>
+<blockquote>
+<p>对未来观察者而言，最重要的动作不是押中一次会议，而是提前问清楚：如果资金价格再高一点，哪些增长仍然成立？</p>
+</blockquote>
+<p>当答案从故事转向现金流，技术与产业的真实韧性才会显现。</p>
+<hr>
+<h2 id="-参考资源">🔗 参考资源</h2>
+<ul>
+<li>Polymarket：Fed Decision in July?<br>
+<a href="https://polymarket.com/event/fed-decision-in-july-181">https://polymarket.com/event/fed-decision-in-july-181</a></li>
+<li>Polymarket Gamma API：事件及分市场概率、交易量、流动性；数据获取时间 2026-07-14 04:02 CST</li>
+<li>Federal Reserve：FOMC calendars<br>
+<a href="https://www.federalreserve.gov/monetarypolicy/fomccalendars.htm">https://www.federalreserve.gov/monetarypolicy/fomccalendars.htm</a></li>
+<li>Federal Reserve：Open Market Operations<br>
+<a href="https://www.federalreserve.gov/monetarypolicy/openmarket.htm">https://www.federalreserve.gov/monetarypolicy/openmarket.htm</a></li>
+</ul>  </article> <aside class="toc"><p class="toc-title">目录</p><ul class="toc-list"><li class="depth-2"><a href="#-今天看什么投票" data-toc-link="-今天看什么投票">🎯 今天看什么投票？</a></li><li class="depth-3"><a href="#-关键数据卡片" data-toc-link="-关键数据卡片">📊 关键数据卡片</a></li><li class="depth-3"><a href="#-为什么今天选它" data-toc-link="-为什么今天选它">🧭 为什么今天选它？</a></li><li class="depth-2"><a href="#-为什么会有这个投票" data-toc-link="-为什么会有这个投票">🔥 为什么会有这个投票？</a></li><li class="depth-2"><a href="#️-34-加息概率反映了什么结构变化" data-toc-link="️-34-加息概率反映了什么结构变化">🏗️ 34% 加息概率反映了什么结构变化？</a></li><li class="depth-3"><a href="#1-技术层风险模型需要加入利率上行尾部" data-toc-link="1-技术层风险模型需要加入利率上行尾部">1. 技术层：风险模型需要加入“利率上行尾部”</a></li><li class="depth-3"><a href="#2-产业层资本开支不能只按利率持平测算" data-toc-link="2-产业层资本开支不能只按利率持平测算">2. 产业层：资本开支不能只按利率持平测算</a></li><li class="depth-3"><a href="#3-社会--资本层资产负债表质量继续压过故事溢价" data-toc-link="3-社会--资本层资产负债表质量继续压过故事溢价">3. 社会 / 资本层：资产负债表质量继续压过故事溢价</a></li><li class="depth-2"><a href="#-如果趋势继续未来会怎样" data-toc-link="-如果趋势继续未来会怎样">🔭 如果趋势继续，未来会怎样？</a></li><li class="depth-2"><a href="#-对普通人从业者和创业者意味着什么" data-toc-link="-对普通人从业者和创业者意味着什么">🧭 对普通人、从业者和创业者意味着什么？</a></li><li class="depth-3"><a href="#-普通人" data-toc-link="-普通人">👤 普通人</a></li><li class="depth-3"><a href="#-从业者" data-toc-link="-从业者">🧑‍💻 从业者</a></li><li class="depth-3"><a href="#-创业者--投资观察者" data-toc-link="-创业者--投资观察者">💼 创业者 / 投资观察者</a></li><li class="depth-2"><a href="#️-风险提示" data-toc-link="️-风险提示">⚠️ 风险提示</a></li><li class="depth-2"><a href="#-结语真正的新风险是高利率还有上行空间" data-toc-link="-结语真正的新风险是高利率还有上行空间">🌅 结语：真正的新风险，是“高利率”还有上行空间</a></li><li class="depth-2"><a href="#-参考资源" data-toc-link="-参考资源">🔗 参考资源</a></li></ul></aside><script type="module">const c=()=>{const r=Array.from(document.querySelectorAll(".toc a[data-toc-link]"));if(!r.length)return;const o=r.map(t=>{const e=t.getAttribute("data-toc-link");if(!e)return null;const n=document.getElementById(e);return n?{id:e,heading:n,link:t}:null}).filter(t=>t!==null);if(!o.length)return;const s=t=>{r.forEach(e=>{const n=e.getAttribute("data-toc-link")===t;e.classList.toggle("active",n),n&&e.scrollIntoView({block:"nearest",inline:"nearest"})})},i=()=>{const t=Math.round(window.innerHeight*.28);let e=o[0];for(const n of o)n.heading.getBoundingClientRect().top<=t&&(e=n);s(e.id)};i();const a=new IntersectionObserver(()=>i(),{rootMargin:"-18% 0px -70% 0px",threshold:[0,1]});o.forEach(t=>a.observe(t.heading)),window.addEventListener("scroll",i,{passive:!0})};document.addEventListener("DOMContentLoaded",c);document.addEventListener("astro:page-load",c);</script> </div>  </main> <footer class="site-footer"> <div class="shell footer-inner"> <p>© 2026 未来观察者</p> </div> </footer> </body></html>
