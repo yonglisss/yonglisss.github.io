@@ -1,0 +1,114 @@
+<!DOCTYPE html><html lang="zh-CN"> <head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1"><script>
+      (() => {
+        const storageKey = "future-observer-theme";
+        const root = document.documentElement;
+        const getStoredMode = () => {
+          try {
+            const value = localStorage.getItem(storageKey);
+            return value === "light" || value === "dark" || value === "system" ? value : "system";
+          } catch {
+            return "system";
+          }
+        };
+        const systemDark = () => window.matchMedia?.("(prefers-color-scheme: dark)").matches ?? false;
+        const apply = (mode) => {
+          const resolved = mode === "system" ? (systemDark() ? "dark" : "light") : mode;
+          root.dataset.themeMode = mode;
+          root.dataset.theme = resolved;
+          root.style.colorScheme = resolved;
+        };
+        apply(getStoredMode());
+        window.__setFutureObserverTheme = (mode) => {
+          const next = mode === "light" || mode === "dark" || mode === "system" ? mode : "system";
+          try { localStorage.setItem(storageKey, next); } catch {}
+          apply(next);
+          window.dispatchEvent(new CustomEvent("future-observer-theme-change", { detail: { mode: next } }));
+        };
+        window.matchMedia?.("(prefers-color-scheme: dark)").addEventListener?.("change", () => {
+          if (getStoredMode() === "system") apply("system");
+        });
+      })();
+    </script><title>Graphify：先把代码库变成知识图谱，再让 AI 回答架构问题 | 未来观察者</title><meta name="description" content="接手陌生项目时，AI 编程助手通常会反复搜索文件、拼接上下文，却仍可能漏掉跨模块调用。Graphify 提供了另一条路径：先把代码、数据库结构和文档整理成可查询的知识图谱，再让助手沿关系找答案。"><meta name="generator" content="Astro v5.18.1"><meta property="og:title" content="Graphify：先把代码库变成知识图谱，再让 AI 回答架构问题 | 未来观察者"><meta property="og:description" content="接手陌生项目时，AI 编程助手通常会反复搜索文件、拼接上下文，却仍可能漏掉跨模块调用。Graphify 提供了另一条路径：先把代码、数据库结构和文档整理成可查询的知识图谱，再让助手沿关系找答案。"><meta property="og:type" content="website"><meta property="og:url" content="https://future.lifestudylab.com/posts/2026-07-14-graphify/"><link rel="icon" type="image/svg+xml" href="/favicon.svg"><link rel="alternate" type="application/rss+xml" title="未来观察者" href="/rss.xml"><link rel="stylesheet" href="/_astro/_channel_.BFW__1rx.css"></head> <body> <div class="page-bg"></div> <header class="site-header"> <div class="shell header-inner"> <div class="header-bar"> <a class="brand" href="/ai-tools/"> <img src="/brand-mark.svg" alt="" class="brand-mark" width="56" height="56"> <span class="brand-text" aria-label="未来观察者">思考未来</span> </a> </div> <nav class="top-menu" aria-label="顶部菜单"> <a href="/future-daily/" class="top-menu-link"> 每日信息 </a><a href="/docs/deer-flow/00-overview/" class="top-menu-link"> DeerFlow教程 </a><a href="/docs/hermes/00-overview/" class="top-menu-link"> Hermes教程 </a><a href="/docs/openclaw/00-overview/" class="top-menu-link"> OpenClaw教程 </a><a href="/about/" class="top-menu-link"> 关于我 </a> </nav> <div class="top-actions"> <a class="feedback-link" href="https://github.com/yonglisss/yonglisss.github.io/issues" target="_blank" rel="noopener noreferrer" aria-label="问题反馈"> <svg viewBox="0 0 24 24" aria-hidden="true" class="action-icon"> <path d="M4.75 5.75A2.75 2.75 0 0 1 7.5 3h9A2.75 2.75 0 0 1 19.25 5.75v6.5A2.75 2.75 0 0 1 16.5 15H9.3l-3.55 3.2V15.1a2.75 2.75 0 0 1-1-2.1V5.75Z"></path> <path d="M8 7.75h8M8 11.25h4"></path> </svg> <span>问题反馈</span> </a> <div class="theme-switcher" data-theme-switcher> <button class="theme-trigger" type="button" aria-haspopup="menu" aria-expanded="false" aria-label="切换明暗模式" data-theme-trigger> <svg viewBox="0 0 24 24" aria-hidden="true" class="action-icon theme-trigger-icon theme-trigger-icon--light"> <circle cx="12" cy="12" r="4"></circle> <path d="M12 2.75v2M12 19.25v2M4.75 4.75l1.4 1.4M17.85 17.85l1.4 1.4M2.75 12h2M19.25 12h2M4.75 19.25l1.4-1.4M17.85 6.15l1.4-1.4"></path> </svg> <svg viewBox="0 0 24 24" aria-hidden="true" class="action-icon theme-trigger-icon theme-trigger-icon--dark"> <path d="M20.25 14.2A8 8 0 0 1 9.8 3.75 8.5 8.5 0 1 0 20.25 14.2Z"></path> </svg> <svg viewBox="0 0 24 24" aria-hidden="true" class="action-icon theme-trigger-icon theme-trigger-icon--system"> <rect x="4" y="5" width="16" height="11" rx="1.8"></rect> <path d="M9 20h6M12 16v4"></path> </svg> </button> <div class="theme-menu" role="menu" data-theme-menu hidden> <button class="theme-option" type="button" role="menuitemradio" data-theme-option="light" aria-checked="false"> <svg viewBox="0 0 24 24" aria-hidden="true" class="action-icon"><circle cx="12" cy="12" r="4"></circle><path d="M12 2.75v2M12 19.25v2M4.75 4.75l1.4 1.4M17.85 17.85l1.4 1.4M2.75 12h2M19.25 12h2M4.75 19.25l1.4-1.4M17.85 6.15l1.4-1.4"></path></svg> <span>亮色</span> </button> <button class="theme-option" type="button" role="menuitemradio" data-theme-option="dark" aria-checked="false"> <svg viewBox="0 0 24 24" aria-hidden="true" class="action-icon"><path d="M20.25 14.2A8 8 0 0 1 9.8 3.75 8.5 8.5 0 1 0 20.25 14.2Z"></path></svg> <span>暗色</span> </button> <button class="theme-option" type="button" role="menuitemradio" data-theme-option="system" aria-checked="true"> <svg viewBox="0 0 24 24" aria-hidden="true" class="action-icon"><rect x="4" y="5" width="16" height="11" rx="1.8"></rect><path d="M9 20h6M12 16v4"></path></svg> <span>跟随系统</span> </button> </div> </div> </div> </div> </header> <script>
+  (() => {
+    const switcher = document.querySelector("[data-theme-switcher]");
+    if (!switcher) return;
+
+    const trigger = switcher.querySelector("[data-theme-trigger]");
+    const menu = switcher.querySelector("[data-theme-menu]");
+    const options = [...switcher.querySelectorAll("[data-theme-option]")];
+    const modes = ["light", "dark", "system"];
+
+    const getMode = () => {
+      const mode = document.documentElement.dataset.themeMode;
+      return modes.includes(mode) ? mode : "system";
+    };
+
+    const closeMenu = () => {
+      menu.hidden = true;
+      trigger.setAttribute("aria-expanded", "false");
+    };
+
+    const openMenu = () => {
+      menu.hidden = false;
+      trigger.setAttribute("aria-expanded", "true");
+    };
+
+    const sync = () => {
+      const mode = getMode();
+      trigger.dataset.themeMode = mode;
+      options.forEach((option) => {
+        option.setAttribute("aria-checked", String(option.dataset.themeOption === mode));
+      });
+    };
+
+    trigger.addEventListener("click", () => {
+      menu.hidden ? openMenu() : closeMenu();
+    });
+
+    options.forEach((option) => {
+      option.addEventListener("click", () => {
+        window.__setFutureObserverTheme?.(option.dataset.themeOption || "system");
+        sync();
+        closeMenu();
+      });
+    });
+
+    document.addEventListener("click", (event) => {
+      if (!switcher.contains(event.target)) closeMenu();
+    });
+
+    document.addEventListener("keydown", (event) => {
+      if (event.key === "Escape") closeMenu();
+    });
+
+    window.addEventListener("future-observer-theme-change", sync);
+    sync();
+  })();
+</script> <aside class="site-rail" aria-label="站点导航"> <div class="site-rail-inner"> <p class="site-rail-label">Channels</p> <nav aria-label="主导航"> <ul class="site-rail-nav"> <li> <a href="/ai-tools/" class="site-rail-link"> AI工具 </a> </li><li> <a href="/future-daily/" class="site-rail-link"> 未来观察者日报 </a> </li> </ul> </nav> </div> </aside> <main class="shell page-content">  <div class="post-hero"> <p class="eyebrow">2026年7月14日</p> <h1>Graphify：先把代码库变成知识图谱，再让 AI 回答架构问题</h1> <p class="post-summary">接手陌生项目时，AI 编程助手通常会反复搜索文件、拼接上下文，却仍可能漏掉跨模块调用。Graphify 提供了另一条路径：先把代码、数据库结构和文档整理成可查询的知识图谱，再让助手沿关系找答案。</p> <ul class="tag-list"> <li> <a href="/tags/AI%E5%B7%A5%E5%85%B7/" class="tag-link">
+#AI工具 </a> </li><li> <a href="/tags/2026%E5%B9%B407%E6%9C%88/" class="tag-link">
+#2026年07月 </a> </li> </ul> </div> <div class="post-grid"> <article class="prose">  <p>接手陌生项目时，AI 编程助手通常会反复搜索文件、拼接上下文，却仍可能漏掉跨模块调用。Graphify 提供了另一条路径：先把代码、数据库结构和文档整理成可查询的知识图谱，再让助手沿关系找答案。</p>
+<h2 id="-这个项目是什么">📌 这个项目是什么</h2>
+<p>Graphify 是一个面向 AI 编程助手的开源工具，支持 Claude Code、Codex、Cursor、Gemini CLI 等平台。它使用 tree-sitter 在本地解析代码 AST，识别调用、导入、继承和跨文件关联；结果保存为 <code>graph.html</code>、<code>GRAPH_REPORT.md</code> 和 <code>graph.json</code>，可视化、报告和后续查询都保留在本地。</p>
+<p>它不是向量数据库。项目把节点之间的边标记为 <code>EXTRACTED</code> 或 <code>INFERRED</code>，分别表示源码中明确存在的关系和工具推断出的关系，便于开发者判断答案依据。</p>
+<h2 id="-为什么值得看">🔍 为什么值得看</h2>
+<p>一是场景具体。理解遗留系统、梳理认证链路、评估改动影响时，真正困难的往往不是找到某个函数，而是看清它与其他模块如何连接。Graphify 提供 <code>query</code>、<code>path</code> 和 <code>explain</code> 命令，分别用于问题检索、关系路径追踪和节点解释。</p>
+<p>二是隐私边界相对清楚。官方说明，代码解析默认在本地完成，不需要 LLM，也不会上传源码；只有处理文档、PDF、图片或音视频的语义步骤，才会调用助手模型或用户配置的后端。项目采用 MIT 许可证，官方 Release 已发布 v0.9.14，近期仍在修复 worktree 扫描膨胀、路径泄露和导出稳定性等工程问题。</p>
+<h2 id="-怎么开始">🧪 怎么开始</h2>
+<p>需要 Python 3.10 及以上。官方推荐使用隔离环境安装，注意 PyPI 包名有两个 <code>y</code>：</p>
+<pre class="astro-code astro-code-themes github-light github-dark" style="--shiki-light:#24292e;--shiki-dark:#e1e4e8;--shiki-light-bg:#fff;--shiki-dark-bg:#24292e; overflow-x: auto;" tabindex="0" data-language="bash"><code><span class="line"><span style="--shiki-light:#6F42C1;--shiki-dark:#B392F0">uv</span><span style="--shiki-light:#032F62;--shiki-dark:#9ECBFF"> tool</span><span style="--shiki-light:#032F62;--shiki-dark:#9ECBFF"> install</span><span style="--shiki-light:#032F62;--shiki-dark:#9ECBFF"> graphifyy</span></span>
+<span class="line"><span style="--shiki-light:#6F42C1;--shiki-dark:#B392F0">graphify</span><span style="--shiki-light:#032F62;--shiki-dark:#9ECBFF"> install</span></span></code></pre>
+<p>随后进入一个测试项目，在 AI 编程助手中运行 <code>/graphify .</code>；Codex 使用 <code>$graphify</code>，PowerShell 则直接运行 <code>graphify .</code>。生成图后，可以先试：</p>
+<pre class="astro-code astro-code-themes github-light github-dark" style="--shiki-light:#24292e;--shiki-dark:#e1e4e8;--shiki-light-bg:#fff;--shiki-dark-bg:#24292e; overflow-x: auto;" tabindex="0" data-language="bash"><code><span class="line"><span style="--shiki-light:#6F42C1;--shiki-dark:#B392F0">graphify</span><span style="--shiki-light:#032F62;--shiki-dark:#9ECBFF"> query</span><span style="--shiki-light:#032F62;--shiki-dark:#9ECBFF"> "认证流程经过哪些模块"</span></span>
+<span class="line"><span style="--shiki-light:#6F42C1;--shiki-dark:#B392F0">graphify</span><span style="--shiki-light:#032F62;--shiki-dark:#9ECBFF"> path</span><span style="--shiki-light:#032F62;--shiki-dark:#9ECBFF"> "登录接口"</span><span style="--shiki-light:#032F62;--shiki-dark:#9ECBFF"> "用户模型"</span></span></code></pre>
+<h2 id="-适合谁">👥 适合谁</h2>
+<p>它更适合维护中大型代码库、需要快速理解陌生系统，或希望减少 AI 反复读取源码成本的开发者和团队。小型项目只有几十个文件时，直接搜索通常更简单，没有必要额外维护一张图。</p>
+<h2 id="️-值得注意的点">⚠️ 值得注意的点</h2>
+<p>知识图谱不是事实保证，尤其是 <code>INFERRED</code> 关系，仍要回到源码确认。多媒体和文档的语义解析也可能调用外部模型，涉及敏感资料时应先检查后端配置。建议先在非核心仓库试跑，并检查 <code>graphify-out</code> 的体积与内容，再决定是否提交到团队仓库。</p>
+<h2 id="-参考资源">🔗 参考资源</h2>
+<ul>
+<li>GitHub：<a href="https://github.com/Graphify-Labs/graphify">https://github.com/Graphify-Labs/graphify</a></li>
+<li>官方网站：<a href="https://graphify.com">https://graphify.com</a></li>
+<li>中文 README：<a href="https://github.com/Graphify-Labs/graphify/blob/v8/docs/translations/README.zh-CN.md">https://github.com/Graphify-Labs/graphify/blob/v8/docs/translations/README.zh-CN.md</a></li>
+<li>Release v0.9.14：<a href="https://github.com/Graphify-Labs/graphify/releases/tag/v0.9.14">https://github.com/Graphify-Labs/graphify/releases/tag/v0.9.14</a></li>
+<li>PyPI：<a href="https://pypi.org/project/graphifyy/">https://pypi.org/project/graphifyy/</a></li>
+</ul>  </article> <aside class="toc"><p class="toc-title">目录</p><ul class="toc-list"><li class="depth-2"><a href="#-这个项目是什么" data-toc-link="-这个项目是什么">📌 这个项目是什么</a></li><li class="depth-2"><a href="#-为什么值得看" data-toc-link="-为什么值得看">🔍 为什么值得看</a></li><li class="depth-2"><a href="#-怎么开始" data-toc-link="-怎么开始">🧪 怎么开始</a></li><li class="depth-2"><a href="#-适合谁" data-toc-link="-适合谁">👥 适合谁</a></li><li class="depth-2"><a href="#️-值得注意的点" data-toc-link="️-值得注意的点">⚠️ 值得注意的点</a></li><li class="depth-2"><a href="#-参考资源" data-toc-link="-参考资源">🔗 参考资源</a></li></ul></aside><script type="module">const c=()=>{const r=Array.from(document.querySelectorAll(".toc a[data-toc-link]"));if(!r.length)return;const o=r.map(t=>{const e=t.getAttribute("data-toc-link");if(!e)return null;const n=document.getElementById(e);return n?{id:e,heading:n,link:t}:null}).filter(t=>t!==null);if(!o.length)return;const s=t=>{r.forEach(e=>{const n=e.getAttribute("data-toc-link")===t;e.classList.toggle("active",n),n&&e.scrollIntoView({block:"nearest",inline:"nearest"})})},i=()=>{const t=Math.round(window.innerHeight*.28);let e=o[0];for(const n of o)n.heading.getBoundingClientRect().top<=t&&(e=n);s(e.id)};i();const a=new IntersectionObserver(()=>i(),{rootMargin:"-18% 0px -70% 0px",threshold:[0,1]});o.forEach(t=>a.observe(t.heading)),window.addEventListener("scroll",i,{passive:!0})};document.addEventListener("DOMContentLoaded",c);document.addEventListener("astro:page-load",c);</script> </div>  </main> <footer class="site-footer"> <div class="shell footer-inner"> <p>© 2026 未来观察者</p> </div> </footer> </body></html>
