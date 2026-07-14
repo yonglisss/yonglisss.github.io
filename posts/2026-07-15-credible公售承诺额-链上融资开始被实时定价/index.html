@@ -1,0 +1,306 @@
+<!DOCTYPE html><html lang="zh-CN"> <head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1"><script>
+      (() => {
+        const storageKey = "future-observer-theme";
+        const root = document.documentElement;
+        const getStoredMode = () => {
+          try {
+            const value = localStorage.getItem(storageKey);
+            return value === "light" || value === "dark" || value === "system" ? value : "system";
+          } catch {
+            return "system";
+          }
+        };
+        const systemDark = () => window.matchMedia?.("(prefers-color-scheme: dark)").matches ?? false;
+        const apply = (mode) => {
+          const resolved = mode === "system" ? (systemDark() ? "dark" : "light") : mode;
+          root.dataset.themeMode = mode;
+          root.dataset.theme = resolved;
+          root.style.colorScheme = resolved;
+        };
+        apply(getStoredMode());
+        window.__setFutureObserverTheme = (mode) => {
+          const next = mode === "light" || mode === "dark" || mode === "system" ? mode : "system";
+          try { localStorage.setItem(storageKey, next); } catch {}
+          apply(next);
+          window.dispatchEvent(new CustomEvent("future-observer-theme-change", { detail: { mode: next } }));
+        };
+        window.matchMedia?.("(prefers-color-scheme: dark)").addEventListener?.("change", () => {
+          if (getStoredMode() === "system") apply("system");
+        });
+      })();
+    </script><title>🧪 Credible 公售承诺额：链上融资开始被实时定价 | 未来观察者</title><meta name="description" content="📌 核心观点：Polymarket 给 Credible 公售突破 3000 万美元约 77% 的概率，却只给突破 5000 万美元约 17.5%。真正值得看的不是某个代币能涨多少，而是链上公售正在把一级市场的需求强度，从事后公告变成可连续观察、可交易的融资曲线。"><meta name="generator" content="Astro v5.18.1"><meta property="og:title" content="🧪 Credible 公售承诺额：链上融资开始被实时定价 | 未来观察者"><meta property="og:description" content="📌 核心观点：Polymarket 给 Credible 公售突破 3000 万美元约 77% 的概率，却只给突破 5000 万美元约 17.5%。真正值得看的不是某个代币能涨多少，而是链上公售正在把一级市场的需求强度，从事后公告变成可连续观察、可交易的融资曲线。"><meta property="og:type" content="website"><meta property="og:url" content="https://future.lifestudylab.com/posts/2026-07-15-credible%E5%85%AC%E5%94%AE%E6%89%BF%E8%AF%BA%E9%A2%9D-%E9%93%BE%E4%B8%8A%E8%9E%8D%E8%B5%84%E5%BC%80%E5%A7%8B%E8%A2%AB%E5%AE%9E%E6%97%B6%E5%AE%9A%E4%BB%B7/"><link rel="icon" type="image/svg+xml" href="/favicon.svg"><link rel="alternate" type="application/rss+xml" title="未来观察者" href="/rss.xml"><link rel="stylesheet" href="/_astro/_channel_.BFW__1rx.css"></head> <body> <div class="page-bg"></div> <header class="site-header"> <div class="shell header-inner"> <div class="header-bar"> <a class="brand" href="/ai-tools/"> <img src="/brand-mark.svg" alt="" class="brand-mark" width="56" height="56"> <span class="brand-text" aria-label="未来观察者">思考未来</span> </a> </div> <nav class="top-menu" aria-label="顶部菜单"> <a href="/future-daily/" class="top-menu-link"> 每日信息 </a><a href="/docs/deer-flow/00-overview/" class="top-menu-link"> DeerFlow教程 </a><a href="/docs/hermes/00-overview/" class="top-menu-link"> Hermes教程 </a><a href="/docs/openclaw/00-overview/" class="top-menu-link"> OpenClaw教程 </a><a href="/about/" class="top-menu-link"> 关于我 </a> </nav> <div class="top-actions"> <a class="feedback-link" href="https://github.com/yonglisss/yonglisss.github.io/issues" target="_blank" rel="noopener noreferrer" aria-label="问题反馈"> <svg viewBox="0 0 24 24" aria-hidden="true" class="action-icon"> <path d="M4.75 5.75A2.75 2.75 0 0 1 7.5 3h9A2.75 2.75 0 0 1 19.25 5.75v6.5A2.75 2.75 0 0 1 16.5 15H9.3l-3.55 3.2V15.1a2.75 2.75 0 0 1-1-2.1V5.75Z"></path> <path d="M8 7.75h8M8 11.25h4"></path> </svg> <span>问题反馈</span> </a> <div class="theme-switcher" data-theme-switcher> <button class="theme-trigger" type="button" aria-haspopup="menu" aria-expanded="false" aria-label="切换明暗模式" data-theme-trigger> <svg viewBox="0 0 24 24" aria-hidden="true" class="action-icon theme-trigger-icon theme-trigger-icon--light"> <circle cx="12" cy="12" r="4"></circle> <path d="M12 2.75v2M12 19.25v2M4.75 4.75l1.4 1.4M17.85 17.85l1.4 1.4M2.75 12h2M19.25 12h2M4.75 19.25l1.4-1.4M17.85 6.15l1.4-1.4"></path> </svg> <svg viewBox="0 0 24 24" aria-hidden="true" class="action-icon theme-trigger-icon theme-trigger-icon--dark"> <path d="M20.25 14.2A8 8 0 0 1 9.8 3.75 8.5 8.5 0 1 0 20.25 14.2Z"></path> </svg> <svg viewBox="0 0 24 24" aria-hidden="true" class="action-icon theme-trigger-icon theme-trigger-icon--system"> <rect x="4" y="5" width="16" height="11" rx="1.8"></rect> <path d="M9 20h6M12 16v4"></path> </svg> </button> <div class="theme-menu" role="menu" data-theme-menu hidden> <button class="theme-option" type="button" role="menuitemradio" data-theme-option="light" aria-checked="false"> <svg viewBox="0 0 24 24" aria-hidden="true" class="action-icon"><circle cx="12" cy="12" r="4"></circle><path d="M12 2.75v2M12 19.25v2M4.75 4.75l1.4 1.4M17.85 17.85l1.4 1.4M2.75 12h2M19.25 12h2M4.75 19.25l1.4-1.4M17.85 6.15l1.4-1.4"></path></svg> <span>亮色</span> </button> <button class="theme-option" type="button" role="menuitemradio" data-theme-option="dark" aria-checked="false"> <svg viewBox="0 0 24 24" aria-hidden="true" class="action-icon"><path d="M20.25 14.2A8 8 0 0 1 9.8 3.75 8.5 8.5 0 1 0 20.25 14.2Z"></path></svg> <span>暗色</span> </button> <button class="theme-option" type="button" role="menuitemradio" data-theme-option="system" aria-checked="true"> <svg viewBox="0 0 24 24" aria-hidden="true" class="action-icon"><rect x="4" y="5" width="16" height="11" rx="1.8"></rect><path d="M9 20h6M12 16v4"></path></svg> <span>跟随系统</span> </button> </div> </div> </div> </div> </header> <script>
+  (() => {
+    const switcher = document.querySelector("[data-theme-switcher]");
+    if (!switcher) return;
+
+    const trigger = switcher.querySelector("[data-theme-trigger]");
+    const menu = switcher.querySelector("[data-theme-menu]");
+    const options = [...switcher.querySelectorAll("[data-theme-option]")];
+    const modes = ["light", "dark", "system"];
+
+    const getMode = () => {
+      const mode = document.documentElement.dataset.themeMode;
+      return modes.includes(mode) ? mode : "system";
+    };
+
+    const closeMenu = () => {
+      menu.hidden = true;
+      trigger.setAttribute("aria-expanded", "false");
+    };
+
+    const openMenu = () => {
+      menu.hidden = false;
+      trigger.setAttribute("aria-expanded", "true");
+    };
+
+    const sync = () => {
+      const mode = getMode();
+      trigger.dataset.themeMode = mode;
+      options.forEach((option) => {
+        option.setAttribute("aria-checked", String(option.dataset.themeOption === mode));
+      });
+    };
+
+    trigger.addEventListener("click", () => {
+      menu.hidden ? openMenu() : closeMenu();
+    });
+
+    options.forEach((option) => {
+      option.addEventListener("click", () => {
+        window.__setFutureObserverTheme?.(option.dataset.themeOption || "system");
+        sync();
+        closeMenu();
+      });
+    });
+
+    document.addEventListener("click", (event) => {
+      if (!switcher.contains(event.target)) closeMenu();
+    });
+
+    document.addEventListener("keydown", (event) => {
+      if (event.key === "Escape") closeMenu();
+    });
+
+    window.addEventListener("future-observer-theme-change", sync);
+    sync();
+  })();
+</script> <aside class="site-rail" aria-label="站点导航"> <div class="site-rail-inner"> <p class="site-rail-label">Channels</p> <nav aria-label="主导航"> <ul class="site-rail-nav"> <li> <a href="/ai-tools/" class="site-rail-link"> AI工具 </a> </li><li> <a href="/future-daily/" class="site-rail-link"> 未来观察者日报 </a> </li> </ul> </nav> </div> </aside> <main class="shell page-content">  <div class="post-hero"> <p class="eyebrow">2026年7月15日</p> <h1>🧪 Credible 公售承诺额：链上融资开始被实时定价</h1> <p class="post-summary">📌 核心观点：Polymarket 给 Credible 公售突破 3000 万美元约 77% 的概率，却只给突破 5000 万美元约 17.5%。真正值得看的不是某个代币能涨多少，而是链上公售正在把一级市场的需求强度，从事后公告变成可连续观察、可交易的融资曲线。</p> <ul class="tag-list"> <li> <a href="/tags/%E6%9C%AA%E6%9D%A5%E8%A7%82%E5%AF%9F%E8%80%85%E6%97%A5%E6%8A%A5/" class="tag-link">
+#未来观察者日报 </a> </li><li> <a href="/tags/2026%E5%B9%B407%E6%9C%88/" class="tag-link">
+#2026年07月 </a> </li> </ul> </div> <div class="post-grid"> <article class="prose">  <blockquote>
+<p>📌 <strong>核心观点</strong>：Polymarket 给 Credible 公售突破 3000 万美元约 77% 的概率，却只给突破 5000 万美元约 17.5%。真正值得看的不是某个代币能涨多少，而是链上公售正在把一级市场的需求强度，从事后公告变成可连续观察、可交易的融资曲线。</p>
+</blockquote>
+<p><strong>作者：</strong> 元英<br>
+<strong>时间：</strong> 2026年7月15日<br>
+<strong>标签：</strong> #未来观察者 #链上融资 #公开销售 #资本形成<br>
+<strong>阅读时间：</strong> 3-5分钟</p>
+<hr>
+<h2 id="-今天看什么投票">🎯 今天看什么投票？</h2>
+<p>今天选择的 Polymarket 事件是 <strong>“Total commitments for the Credible public sale on MetaDAO”</strong>。它按 Credible 在 MetaDAO 官方公售页显示的累计承诺额分档结算；若某门槛在 2026 年 8 月 31 日 23:59 ET 前曾被突破，对应市场即结算为 Yes。</p>
+<h3 id="-关键数据卡片">📊 关键数据卡片</h3>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<table><thead><tr><th>承诺额门槛</th><th align="right">Yes 概率</th><th>市场读数</th></tr></thead><tbody><tr><td>超过 2500 万美元</td><td align="right">99%</td><td>市场近乎确认</td></tr><tr><td>超过 3000 万美元</td><td align="right">77%</td><td>当前主情景</td></tr><tr><td>超过 3500 万美元</td><td align="right">42%</td><td>接近分水岭</td></tr><tr><td>超过 4000 万美元</td><td align="right">29%</td><td>非主情景但不可忽视</td></tr><tr><td>超过 5000 万美元</td><td align="right">17.5%</td><td>明显尾部情景</td></tr><tr><td>超过 1 亿美元</td><td align="right">1.35%</td><td>极低概率</td></tr></tbody></table>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<table><thead><tr><th>项目</th><th align="right">数据</th></tr></thead><tbody><tr><td>事件累计交易量</td><td align="right">约 64.93 万美元</td></tr><tr><td>24 小时交易量</td><td align="right">约 21.41 万美元</td></tr><tr><td>流动性</td><td align="right">约 15.67 万美元</td></tr><tr><td>已确认突破的门槛</td><td align="right">200万、400万、600万、800万美元市场均已结算 Yes</td></tr><tr><td>数据获取时间</td><td align="right">2026-07-15 04:00 CST</td></tr><tr><td>Polymarket 更新时间</td><td align="right">2026-07-15 03:56 CST（2026-07-14 19:56 UTC）</td></tr><tr><td>所属领域</td><td align="right">链上资本 / 公共融资 / 金融基础设施</td></tr><tr><td>投票链接</td><td align="right"><a href="https://polymarket.com/event/total-commitments-for-the-credible-public-sale-on-metadao-20260708134325640">https://polymarket.com/event/total-commitments-for-the-credible-public-sale-on-metadao-20260708134325640</a></td></tr></tbody></table>
+<blockquote>
+<p><strong>读数方法</strong>：概率来自独立二元合约的市场价格，不是融资承诺，也不是项目估值；不同门槛的流动性和价差不同，不能把整条曲线当作精确统计模型。</p>
+</blockquote>
+<h3 id="-为什么今天选它">🧭 为什么今天选它？</h3>
+<p>最近 14 天已覆盖 AI、芯片、太空、关税、利率、平台估值、能源航运、Bitcoin、模型排名、体育科技、公共卫生与供应链安全。高热候选中的美联储、WTI、Bitcoin、霍尔木兹和 AI 模型均与最近 7 天主线重合。</p>
+<p>7 月 9 日写过 Bitcoin，但那篇讨论的是<strong>二级市场的流动性地板</strong>；本次新增变量是<strong>一级市场融资需求被拆成一条实时概率曲线</strong>。两者虽都使用加密基础设施，核心问题分别是资产价格与资本形成，不是旧文章换标题。</p>
+<hr>
+<h2 id="-为什么会有这个投票">🔥 为什么会有这个投票？</h2>
+<p>传统私募融资的需求信息通常掌握在项目方、承销机构和少数投资人手中。外部观察者往往只能在融资结束后看到“募了多少钱”，看不到过程中市场如何改变判断。</p>
+<p>Credible 公售把官方页面上的 committed 数字设为可验证结算源，Polymarket 又把它拆成多个门槛。于是市场同时出现了三层信号：</p>
+<ol>
+<li><strong>官方承诺额</strong>：回答已经有多少资金表达参与意愿。</li>
+<li><strong>门槛概率</strong>：回答交易者认为最终还能走多远。</li>
+<li><strong>概率曲线</strong>：显示需求从“较确定”转向“尾部情景”的位置。</li>
+</ol>
+<p>当前曲线在 3000 万至 4000 万美元之间快速降温，意味着交易者把约 3000 万美元视为较可信结果，但对更高额度明显保留。可以确认的事实是合约价格、交易量、结算规则以及已结算门槛；项目基本面描述若未取得独立来源核验，本文不将其写成事实依据。</p>
+<hr>
+<h2 id="️-一条融资概率曲线反映了什么结构变化">🏗️ 一条融资概率曲线反映了什么结构变化？</h2>
+<h3 id="1-技术层链上数据与预测市场开始拼接">1. 技术层：链上数据与预测市场开始拼接</h3>
+<p>当融资承诺、资金流和结算规则都可公开验证，一级市场可以获得接近二级市场的实时反馈。未来的融资面板不一定只显示“已募金额”，还可能同时显示增速、集中度、退款风险和市场预期。</p>
+<h3 id="2-产业层募资能力被提前压力测试">2. 产业层：募资能力被提前压力测试</h3>
+<p>过去项目方主要与单一领投方谈判；公开销售则需要同时面对大量参与者。概率曲线能够提前暴露一个关键问题：热度究竟能否跨过更高门槛，还是只停留在早期抢筹。</p>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<table><thead><tr><th>观察层</th><th>应重点看什么</th><th>容易误判什么</th></tr></thead><tbody><tr><td>需求</td><td>承诺额增速、参与持续性</td><td>把承诺额等同于最终留存资金</td></tr><tr><td>市场</td><td>相邻门槛概率与价差</td><td>只看最高概率，不看流动性</td></tr><tr><td>项目</td><td>资金用途、分配机制、执行能力</td><td>把募资成功等同于产品成功</td></tr></tbody></table>
+<h3 id="3-社会--资本层一级市场信息差正在缩小">3. 社会 / 资本层：一级市场信息差正在缩小</h3>
+<p>预测市场没有消除风险，但把原本封闭的融资判断变成公共价格。普通参与者获得更多信号，项目方也承受更高透明度：募集进度一旦放缓，市场会迅速反映。</p>
+<p>结构变化不在于“所有融资都该上链”，而在于：<strong>资本形成过程本身，正在成为实时数据产品。</strong></p>
+<hr>
+<h2 id="-如果趋势继续未来会怎样">🔭 如果趋势继续，未来会怎样？</h2>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<table><thead><tr><th>时间维度</th><th>可能变化</th><th>重点观察</th></tr></thead><tbody><tr><td>短期：本次公售结束前</td><td>3000万—4000万美元区间成为主要博弈带</td><td>官方 committed 数字；30M、35M、40M 概率；价差与成交量</td></tr><tr><td>中期：未来 6-18 个月</td><td>更多链上销售被配套做成融资预测市场</td><td>公售数量、参与者集中度、退款与解锁表现</td></tr><tr><td>长期：未来 3-5 年</td><td>融资平台、数据平台与预测市场可能形成一体化资本基础设施</td><td>合规框架、结算可信度、跨平台数据标准</td></tr></tbody></table>
+<p><strong>推测而非事实</strong>：若这类市场持续出现，项目方可能在融资前就面对公开“需求曲线”；但如果成交集中于少数账户、门槛市场长期缺乏流动性，它也可能只是更复杂的情绪仪表盘。</p>
+<hr>
+<h2 id="-对普通人从业者和创业者意味着什么">🧭 对普通人、从业者和创业者意味着什么？</h2>
+<h3 id="-普通参与者">👤 普通参与者</h3>
+<ul>
+<li>不把 committed 当作收入、存款或确定投资，它首先是按规则表达的资金承诺。</li>
+<li>同时检查分配、退款、锁定、估值和流动性规则。</li>
+<li>概率剧烈变化时先看成交深度，不追逐单一价格。</li>
+</ul>
+<h3 id="-从业者">🧑‍💻 从业者</h3>
+<ul>
+<li>为公售仪表盘增加承诺额增速、独立参与者数量和资金集中度。</li>
+<li>将“可验证结算源”写进产品设计，避免事后解释口径。</li>
+<li>区分营销热度、资金承诺和最终留存三套指标。</li>
+</ul>
+<h3 id="-创业者--投资观察者">💼 创业者 / 投资观察者</h3>
+<ol>
+<li>用相邻门槛的概率差寻找市场真正的预期分界线。</li>
+<li>评估融资平台时，优先看规则透明度、退款机制与数据可验证性。</li>
+<li>不把超额认购直接等同于长期需求，继续跟踪解锁后留存、收入与产品使用。</li>
+</ol>
+<hr>
+<h2 id="️-风险提示">⚠️ 风险提示</h2>
+<ul>
+<li>Polymarket 价格是交易者定价，不代表官方融资预测或投资建议。</li>
+<li>各门槛是独立合约，流动性、买卖价差与参与者结构会影响概率。</li>
+<li>结算规则规定门槛只要曾被达到即可结算 Yes，即使之后退款或取消承诺；因此它衡量的是峰值承诺额，不等同于最终实收资金。</li>
+<li>MetaDAO 官方页面本次抓取触发安全检查，本文没有把无法独立核验的实时页面数字写入正文，仅采用 Polymarket Gamma API 中可核验的合约与结算数据。</li>
+</ul>
+<hr>
+<h2 id="-结语融资不再只公布结果也开始交易过程">🌅 结语：融资不再只公布结果，也开始交易过程</h2>
+<p>Credible 公售最值得观察的，不是最终数字是否恰好落在某个门槛，而是一级市场正在长出一条公开、连续更新的预期曲线。</p>
+<blockquote>
+<p>当募资进度、市场概率与最终结算可以互相校验，资本形成就从一则事后新闻，变成一套实时可观察的基础设施。</p>
+</blockquote>
+<p>这会提高透明度，也会放大短期情绪。未来真正有价值的能力，不是只会追逐超额认购，而是能分清承诺、到账、留存与长期价值。</p>
+<hr>
+<h2 id="-参考资源">🔗 参考资源</h2>
+<ul>
+<li>Polymarket：Total commitments for the Credible public sale on MetaDAO<br>
+<a href="https://polymarket.com/event/total-commitments-for-the-credible-public-sale-on-metadao-20260708134325640">https://polymarket.com/event/total-commitments-for-the-credible-public-sale-on-metadao-20260708134325640</a></li>
+<li>Polymarket Gamma API：事件、分门槛概率、交易量、流动性与结算状态；数据获取时间 2026-07-15 04:00 CST</li>
+<li>MetaDAO：Credible Fundraise（Polymarket 指定结算源；本次访问触发安全检查）<br>
+<a href="https://www.metadao.fi/projects/credible/fundraise">https://www.metadao.fi/projects/credible/fundraise</a></li>
+</ul>  </article> <aside class="toc"><p class="toc-title">目录</p><ul class="toc-list"><li class="depth-2"><a href="#-今天看什么投票" data-toc-link="-今天看什么投票">🎯 今天看什么投票？</a></li><li class="depth-3"><a href="#-关键数据卡片" data-toc-link="-关键数据卡片">📊 关键数据卡片</a></li><li class="depth-3"><a href="#-为什么今天选它" data-toc-link="-为什么今天选它">🧭 为什么今天选它？</a></li><li class="depth-2"><a href="#-为什么会有这个投票" data-toc-link="-为什么会有这个投票">🔥 为什么会有这个投票？</a></li><li class="depth-2"><a href="#️-一条融资概率曲线反映了什么结构变化" data-toc-link="️-一条融资概率曲线反映了什么结构变化">🏗️ 一条融资概率曲线反映了什么结构变化？</a></li><li class="depth-3"><a href="#1-技术层链上数据与预测市场开始拼接" data-toc-link="1-技术层链上数据与预测市场开始拼接">1. 技术层：链上数据与预测市场开始拼接</a></li><li class="depth-3"><a href="#2-产业层募资能力被提前压力测试" data-toc-link="2-产业层募资能力被提前压力测试">2. 产业层：募资能力被提前压力测试</a></li><li class="depth-3"><a href="#3-社会--资本层一级市场信息差正在缩小" data-toc-link="3-社会--资本层一级市场信息差正在缩小">3. 社会 / 资本层：一级市场信息差正在缩小</a></li><li class="depth-2"><a href="#-如果趋势继续未来会怎样" data-toc-link="-如果趋势继续未来会怎样">🔭 如果趋势继续，未来会怎样？</a></li><li class="depth-2"><a href="#-对普通人从业者和创业者意味着什么" data-toc-link="-对普通人从业者和创业者意味着什么">🧭 对普通人、从业者和创业者意味着什么？</a></li><li class="depth-3"><a href="#-普通参与者" data-toc-link="-普通参与者">👤 普通参与者</a></li><li class="depth-3"><a href="#-从业者" data-toc-link="-从业者">🧑‍💻 从业者</a></li><li class="depth-3"><a href="#-创业者--投资观察者" data-toc-link="-创业者--投资观察者">💼 创业者 / 投资观察者</a></li><li class="depth-2"><a href="#️-风险提示" data-toc-link="️-风险提示">⚠️ 风险提示</a></li><li class="depth-2"><a href="#-结语融资不再只公布结果也开始交易过程" data-toc-link="-结语融资不再只公布结果也开始交易过程">🌅 结语：融资不再只公布结果，也开始交易过程</a></li><li class="depth-2"><a href="#-参考资源" data-toc-link="-参考资源">🔗 参考资源</a></li></ul></aside><script type="module">const c=()=>{const r=Array.from(document.querySelectorAll(".toc a[data-toc-link]"));if(!r.length)return;const o=r.map(t=>{const e=t.getAttribute("data-toc-link");if(!e)return null;const n=document.getElementById(e);return n?{id:e,heading:n,link:t}:null}).filter(t=>t!==null);if(!o.length)return;const s=t=>{r.forEach(e=>{const n=e.getAttribute("data-toc-link")===t;e.classList.toggle("active",n),n&&e.scrollIntoView({block:"nearest",inline:"nearest"})})},i=()=>{const t=Math.round(window.innerHeight*.28);let e=o[0];for(const n of o)n.heading.getBoundingClientRect().top<=t&&(e=n);s(e.id)};i();const a=new IntersectionObserver(()=>i(),{rootMargin:"-18% 0px -70% 0px",threshold:[0,1]});o.forEach(t=>a.observe(t.heading)),window.addEventListener("scroll",i,{passive:!0})};document.addEventListener("DOMContentLoaded",c);document.addEventListener("astro:page-load",c);</script> </div>  </main> <footer class="site-footer"> <div class="shell footer-inner"> <p>© 2026 未来观察者</p> </div> </footer> </body></html>
