@@ -1,0 +1,114 @@
+<!DOCTYPE html><html lang="zh-CN"> <head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1"><script>
+      (() => {
+        const storageKey = "future-observer-theme";
+        const root = document.documentElement;
+        const getStoredMode = () => {
+          try {
+            const value = localStorage.getItem(storageKey);
+            return value === "light" || value === "dark" || value === "system" ? value : "system";
+          } catch {
+            return "system";
+          }
+        };
+        const systemDark = () => window.matchMedia?.("(prefers-color-scheme: dark)").matches ?? false;
+        const apply = (mode) => {
+          const resolved = mode === "system" ? (systemDark() ? "dark" : "light") : mode;
+          root.dataset.themeMode = mode;
+          root.dataset.theme = resolved;
+          root.style.colorScheme = resolved;
+        };
+        apply(getStoredMode());
+        window.__setFutureObserverTheme = (mode) => {
+          const next = mode === "light" || mode === "dark" || mode === "system" ? mode : "system";
+          try { localStorage.setItem(storageKey, next); } catch {}
+          apply(next);
+          window.dispatchEvent(new CustomEvent("future-observer-theme-change", { detail: { mode: next } }));
+        };
+        window.matchMedia?.("(prefers-color-scheme: dark)").addEventListener?.("change", () => {
+          if (getStoredMode() === "system") apply("system");
+        });
+      })();
+    </script><title>Needle：把工具调用模型缩到 2600 万参数，端侧 Agent 多了一种选择 | 未来观察者</title><meta name="description" content="让手表、手机或离线设备理解“关灯”“查天气”并选对 API，不一定需要把通用大模型塞进设备。Cactus Compute 开源的 Needle，尝试把工具调用收窄成一个小而专的任务。"><meta name="generator" content="Astro v5.18.1"><meta property="og:title" content="Needle：把工具调用模型缩到 2600 万参数，端侧 Agent 多了一种选择 | 未来观察者"><meta property="og:description" content="让手表、手机或离线设备理解“关灯”“查天气”并选对 API，不一定需要把通用大模型塞进设备。Cactus Compute 开源的 Needle，尝试把工具调用收窄成一个小而专的任务。"><meta property="og:type" content="website"><meta property="og:url" content="https://future.lifestudylab.com/posts/2026-07-15-needle/"><link rel="icon" type="image/svg+xml" href="/favicon.svg"><link rel="alternate" type="application/rss+xml" title="未来观察者" href="/rss.xml"><link rel="stylesheet" href="/_astro/_channel_.BFW__1rx.css"></head> <body> <div class="page-bg"></div> <header class="site-header"> <div class="shell header-inner"> <div class="header-bar"> <a class="brand" href="/ai-tools/"> <img src="/brand-mark.svg" alt="" class="brand-mark" width="56" height="56"> <span class="brand-text" aria-label="未来观察者">思考未来</span> </a> </div> <nav class="top-menu" aria-label="顶部菜单"> <a href="/future-daily/" class="top-menu-link"> 每日信息 </a><a href="/docs/deer-flow/00-overview/" class="top-menu-link"> DeerFlow教程 </a><a href="/docs/hermes/00-overview/" class="top-menu-link"> Hermes教程 </a><a href="/docs/openclaw/00-overview/" class="top-menu-link"> OpenClaw教程 </a><a href="/about/" class="top-menu-link"> 关于我 </a> </nav> <div class="top-actions"> <a class="feedback-link" href="https://github.com/yonglisss/yonglisss.github.io/issues" target="_blank" rel="noopener noreferrer" aria-label="问题反馈"> <svg viewBox="0 0 24 24" aria-hidden="true" class="action-icon"> <path d="M4.75 5.75A2.75 2.75 0 0 1 7.5 3h9A2.75 2.75 0 0 1 19.25 5.75v6.5A2.75 2.75 0 0 1 16.5 15H9.3l-3.55 3.2V15.1a2.75 2.75 0 0 1-1-2.1V5.75Z"></path> <path d="M8 7.75h8M8 11.25h4"></path> </svg> <span>问题反馈</span> </a> <div class="theme-switcher" data-theme-switcher> <button class="theme-trigger" type="button" aria-haspopup="menu" aria-expanded="false" aria-label="切换明暗模式" data-theme-trigger> <svg viewBox="0 0 24 24" aria-hidden="true" class="action-icon theme-trigger-icon theme-trigger-icon--light"> <circle cx="12" cy="12" r="4"></circle> <path d="M12 2.75v2M12 19.25v2M4.75 4.75l1.4 1.4M17.85 17.85l1.4 1.4M2.75 12h2M19.25 12h2M4.75 19.25l1.4-1.4M17.85 6.15l1.4-1.4"></path> </svg> <svg viewBox="0 0 24 24" aria-hidden="true" class="action-icon theme-trigger-icon theme-trigger-icon--dark"> <path d="M20.25 14.2A8 8 0 0 1 9.8 3.75 8.5 8.5 0 1 0 20.25 14.2Z"></path> </svg> <svg viewBox="0 0 24 24" aria-hidden="true" class="action-icon theme-trigger-icon theme-trigger-icon--system"> <rect x="4" y="5" width="16" height="11" rx="1.8"></rect> <path d="M9 20h6M12 16v4"></path> </svg> </button> <div class="theme-menu" role="menu" data-theme-menu hidden> <button class="theme-option" type="button" role="menuitemradio" data-theme-option="light" aria-checked="false"> <svg viewBox="0 0 24 24" aria-hidden="true" class="action-icon"><circle cx="12" cy="12" r="4"></circle><path d="M12 2.75v2M12 19.25v2M4.75 4.75l1.4 1.4M17.85 17.85l1.4 1.4M2.75 12h2M19.25 12h2M4.75 19.25l1.4-1.4M17.85 6.15l1.4-1.4"></path></svg> <span>亮色</span> </button> <button class="theme-option" type="button" role="menuitemradio" data-theme-option="dark" aria-checked="false"> <svg viewBox="0 0 24 24" aria-hidden="true" class="action-icon"><path d="M20.25 14.2A8 8 0 0 1 9.8 3.75 8.5 8.5 0 1 0 20.25 14.2Z"></path></svg> <span>暗色</span> </button> <button class="theme-option" type="button" role="menuitemradio" data-theme-option="system" aria-checked="true"> <svg viewBox="0 0 24 24" aria-hidden="true" class="action-icon"><rect x="4" y="5" width="16" height="11" rx="1.8"></rect><path d="M9 20h6M12 16v4"></path></svg> <span>跟随系统</span> </button> </div> </div> </div> </div> </header> <script>
+  (() => {
+    const switcher = document.querySelector("[data-theme-switcher]");
+    if (!switcher) return;
+
+    const trigger = switcher.querySelector("[data-theme-trigger]");
+    const menu = switcher.querySelector("[data-theme-menu]");
+    const options = [...switcher.querySelectorAll("[data-theme-option]")];
+    const modes = ["light", "dark", "system"];
+
+    const getMode = () => {
+      const mode = document.documentElement.dataset.themeMode;
+      return modes.includes(mode) ? mode : "system";
+    };
+
+    const closeMenu = () => {
+      menu.hidden = true;
+      trigger.setAttribute("aria-expanded", "false");
+    };
+
+    const openMenu = () => {
+      menu.hidden = false;
+      trigger.setAttribute("aria-expanded", "true");
+    };
+
+    const sync = () => {
+      const mode = getMode();
+      trigger.dataset.themeMode = mode;
+      options.forEach((option) => {
+        option.setAttribute("aria-checked", String(option.dataset.themeOption === mode));
+      });
+    };
+
+    trigger.addEventListener("click", () => {
+      menu.hidden ? openMenu() : closeMenu();
+    });
+
+    options.forEach((option) => {
+      option.addEventListener("click", () => {
+        window.__setFutureObserverTheme?.(option.dataset.themeOption || "system");
+        sync();
+        closeMenu();
+      });
+    });
+
+    document.addEventListener("click", (event) => {
+      if (!switcher.contains(event.target)) closeMenu();
+    });
+
+    document.addEventListener("keydown", (event) => {
+      if (event.key === "Escape") closeMenu();
+    });
+
+    window.addEventListener("future-observer-theme-change", sync);
+    sync();
+  })();
+</script> <aside class="site-rail" aria-label="站点导航"> <div class="site-rail-inner"> <p class="site-rail-label">Channels</p> <nav aria-label="主导航"> <ul class="site-rail-nav"> <li> <a href="/ai-tools/" class="site-rail-link"> AI工具 </a> </li><li> <a href="/future-daily/" class="site-rail-link"> 未来观察者日报 </a> </li> </ul> </nav> </div> </aside> <main class="shell page-content">  <div class="post-hero"> <p class="eyebrow">2026年7月15日</p> <h1>Needle：把工具调用模型缩到 2600 万参数，端侧 Agent 多了一种选择</h1> <p class="post-summary">让手表、手机或离线设备理解“关灯”“查天气”并选对 API，不一定需要把通用大模型塞进设备。Cactus Compute 开源的 Needle，尝试把工具调用收窄成一个小而专的任务。</p> <ul class="tag-list"> <li> <a href="/tags/AI%E5%B7%A5%E5%85%B7/" class="tag-link">
+#AI工具 </a> </li><li> <a href="/tags/2026%E5%B9%B407%E6%9C%88/" class="tag-link">
+#2026年07月 </a> </li> </ul> </div> <div class="post-grid"> <article class="prose">  <p>让手表、手机或离线设备理解“关灯”“查天气”并选对 API，不一定需要把通用大模型塞进设备。Cactus Compute 开源的 Needle，尝试把工具调用收窄成一个小而专的任务。</p>
+<h2 id="-这个项目是什么">📌 这个项目是什么</h2>
+<p>Needle 是一个面向单次函数调用的 2600 万参数模型，采用编码器—解码器结构和纯注意力网络，不含常见的前馈网络（FFN）。输入是用户请求和工具定义，输出则是结构化的工具名与参数，例如把“查询旧金山天气”转换成 <code>get_weather</code> 调用。</p>
+<p>项目公开了 JAX/Flax 训练、微调与推理代码，模型权重托管在 Hugging Face，代码采用 MIT 许可证。官方明确把它定位为实验性模型：重点是个人设备上的单次工具调用，而不是聊天、复杂推理或多轮 Agent。</p>
+<h2 id="-为什么值得看">🔍 为什么值得看</h2>
+<p>它的价值不只是“小”。工具调用本质上常包含三步：匹配工具、抽取参数、组装 JSON。Needle 团队据此移除 FFN，用交叉注意力完成输入与输出之间的对齐，从而减少参数和内存访问。对于智能家居、可穿戴设备、离线控制器等固定工具集场景，这比部署一个能力过剩的通用模型更有针对性。</p>
+<p>项目还提供本地微调入口。开发者可以用自己的工具定义和查询样本校准模型，而不是只依赖统一云端模型。官方建议每个工具至少准备 120 条样本，并划分训练、验证和测试集，这也提醒使用者：小模型能否可靠工作，高度依赖场景数据。</p>
+<h2 id="-怎么开始">🧪 怎么开始</h2>
+<p>Needle 需要 Python 3.11 及以上。建议先在测试环境运行官方 Playground：</p>
+<pre class="astro-code astro-code-themes github-light github-dark" style="--shiki-light:#24292e;--shiki-dark:#e1e4e8;--shiki-light-bg:#fff;--shiki-dark-bg:#24292e; overflow-x: auto;" tabindex="0" data-language="bash"><code><span class="line"><span style="--shiki-light:#6F42C1;--shiki-dark:#B392F0">git</span><span style="--shiki-light:#032F62;--shiki-dark:#9ECBFF"> clone</span><span style="--shiki-light:#032F62;--shiki-dark:#9ECBFF"> https://github.com/cactus-compute/needle.git</span></span>
+<span class="line"><span style="--shiki-light:#005CC5;--shiki-dark:#79B8FF">cd</span><span style="--shiki-light:#032F62;--shiki-dark:#9ECBFF"> needle</span></span>
+<span class="line"><span style="--shiki-light:#005CC5;--shiki-dark:#79B8FF">source</span><span style="--shiki-light:#032F62;--shiki-dark:#9ECBFF"> ./setup</span></span>
+<span class="line"><span style="--shiki-light:#6F42C1;--shiki-dark:#B392F0">needle</span><span style="--shiki-light:#032F62;--shiki-dark:#9ECBFF"> playground</span></span></code></pre>
+<p>脚本会创建虚拟环境、安装依赖并自动选择 CPU、NVIDIA GPU 或 TPU 对应的 JAX 后端；随后可在 <code>http://127.0.0.1:7860</code> 测试工具定义与请求。权重会自动下载。若要微调，可准备包含 <code>query</code>、<code>tools</code>、<code>answers</code> 三个字段的 JSONL 文件，再运行：</p>
+<pre class="astro-code astro-code-themes github-light github-dark" style="--shiki-light:#24292e;--shiki-dark:#e1e4e8;--shiki-light-bg:#fff;--shiki-dark-bg:#24292e; overflow-x: auto;" tabindex="0" data-language="bash"><code><span class="line"><span style="--shiki-light:#6F42C1;--shiki-dark:#B392F0">needle</span><span style="--shiki-light:#032F62;--shiki-dark:#9ECBFF"> finetune</span><span style="--shiki-light:#032F62;--shiki-dark:#9ECBFF"> data.jsonl</span></span></code></pre>
+<h2 id="-适合谁">👥 适合谁</h2>
+<p>适合研究端侧 AI、固定指令路由、隐私敏感控制和低资源设备的开发者。若需求包含开放问答、长对话、复杂规划或大量动态工具，通用模型或“检索筛选 + 大模型调用”的方案通常更稳妥。</p>
+<h2 id="️-值得注意的点">⚠️ 值得注意的点</h2>
+<p>官方性能数字来自项目自身说明，且当前仓库版本仅为 0.1.0，尚无正式 Release，应先用真实工具集独立评测。Playground 的数据生成流程可能调用 Gemini；处理内部工具和样本前，要检查 API 配置与数据边界。不要把模型生成的 JSON 直接视为可信操作，生产环境仍需参数校验、权限控制和高风险动作确认。</p>
+<h2 id="-参考资源">🔗 参考资源</h2>
+<ul>
+<li>GitHub：<a href="https://github.com/cactus-compute/needle">https://github.com/cactus-compute/needle</a></li>
+<li>官方模型与 Model Card：<a href="https://huggingface.co/Cactus-Compute/needle">https://huggingface.co/Cactus-Compute/needle</a></li>
+<li>架构说明：<a href="https://github.com/cactus-compute/needle/blob/main/docs/simple_attention_networks.md">https://github.com/cactus-compute/needle/blob/main/docs/simple_attention_networks.md</a></li>
+<li>Cactus 官网：<a href="https://cactuscompute.com">https://cactuscompute.com</a></li>
+</ul>  </article> <aside class="toc"><p class="toc-title">目录</p><ul class="toc-list"><li class="depth-2"><a href="#-这个项目是什么" data-toc-link="-这个项目是什么">📌 这个项目是什么</a></li><li class="depth-2"><a href="#-为什么值得看" data-toc-link="-为什么值得看">🔍 为什么值得看</a></li><li class="depth-2"><a href="#-怎么开始" data-toc-link="-怎么开始">🧪 怎么开始</a></li><li class="depth-2"><a href="#-适合谁" data-toc-link="-适合谁">👥 适合谁</a></li><li class="depth-2"><a href="#️-值得注意的点" data-toc-link="️-值得注意的点">⚠️ 值得注意的点</a></li><li class="depth-2"><a href="#-参考资源" data-toc-link="-参考资源">🔗 参考资源</a></li></ul></aside><script type="module">const c=()=>{const r=Array.from(document.querySelectorAll(".toc a[data-toc-link]"));if(!r.length)return;const o=r.map(t=>{const e=t.getAttribute("data-toc-link");if(!e)return null;const n=document.getElementById(e);return n?{id:e,heading:n,link:t}:null}).filter(t=>t!==null);if(!o.length)return;const s=t=>{r.forEach(e=>{const n=e.getAttribute("data-toc-link")===t;e.classList.toggle("active",n),n&&e.scrollIntoView({block:"nearest",inline:"nearest"})})},i=()=>{const t=Math.round(window.innerHeight*.28);let e=o[0];for(const n of o)n.heading.getBoundingClientRect().top<=t&&(e=n);s(e.id)};i();const a=new IntersectionObserver(()=>i(),{rootMargin:"-18% 0px -70% 0px",threshold:[0,1]});o.forEach(t=>a.observe(t.heading)),window.addEventListener("scroll",i,{passive:!0})};document.addEventListener("DOMContentLoaded",c);document.addEventListener("astro:page-load",c);</script> </div>  </main> <footer class="site-footer"> <div class="shell footer-inner"> <p>© 2026 未来观察者</p> </div> </footer> </body></html>
