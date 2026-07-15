@@ -1,0 +1,112 @@
+<!DOCTYPE html><html lang="zh-CN"> <head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1"><script>
+      (() => {
+        const storageKey = "future-observer-theme";
+        const root = document.documentElement;
+        const getStoredMode = () => {
+          try {
+            const value = localStorage.getItem(storageKey);
+            return value === "light" || value === "dark" || value === "system" ? value : "system";
+          } catch {
+            return "system";
+          }
+        };
+        const systemDark = () => window.matchMedia?.("(prefers-color-scheme: dark)").matches ?? false;
+        const apply = (mode) => {
+          const resolved = mode === "system" ? (systemDark() ? "dark" : "light") : mode;
+          root.dataset.themeMode = mode;
+          root.dataset.theme = resolved;
+          root.style.colorScheme = resolved;
+        };
+        apply(getStoredMode());
+        window.__setFutureObserverTheme = (mode) => {
+          const next = mode === "light" || mode === "dark" || mode === "system" ? mode : "system";
+          try { localStorage.setItem(storageKey, next); } catch {}
+          apply(next);
+          window.dispatchEvent(new CustomEvent("future-observer-theme-change", { detail: { mode: next } }));
+        };
+        window.matchMedia?.("(prefers-color-scheme: dark)").addEventListener?.("change", () => {
+          if (getStoredMode() === "system") apply("system");
+        });
+      })();
+    </script><title>Hallmark：给 AI 生成网页加一套“反模板化”设计检查 | 未来观察者</title><meta name="description" content="用 AI 写前端很快，但成品常出现相似的渐变、卡片阵列和大号标题。Together AI 开源的 Hallmark 没有再造一个网页生成器，而是把设计规则、审查清单和参考主题做成可安装的编码助手 Skill。"><meta name="generator" content="Astro v5.18.1"><meta property="og:title" content="Hallmark：给 AI 生成网页加一套“反模板化”设计检查 | 未来观察者"><meta property="og:description" content="用 AI 写前端很快，但成品常出现相似的渐变、卡片阵列和大号标题。Together AI 开源的 Hallmark 没有再造一个网页生成器，而是把设计规则、审查清单和参考主题做成可安装的编码助手 Skill。"><meta property="og:type" content="website"><meta property="og:url" content="https://future.lifestudylab.com/posts/2026-07-16-hallmark/"><link rel="icon" type="image/svg+xml" href="/favicon.svg"><link rel="alternate" type="application/rss+xml" title="未来观察者" href="/rss.xml"><link rel="stylesheet" href="/_astro/_channel_.BFW__1rx.css"></head> <body> <div class="page-bg"></div> <header class="site-header"> <div class="shell header-inner"> <div class="header-bar"> <a class="brand" href="/ai-tools/"> <img src="/brand-mark.svg" alt="" class="brand-mark" width="56" height="56"> <span class="brand-text" aria-label="未来观察者">思考未来</span> </a> </div> <nav class="top-menu" aria-label="顶部菜单"> <a href="/future-daily/" class="top-menu-link"> 每日信息 </a><a href="/docs/deer-flow/00-overview/" class="top-menu-link"> DeerFlow教程 </a><a href="/docs/hermes/00-overview/" class="top-menu-link"> Hermes教程 </a><a href="/docs/openclaw/00-overview/" class="top-menu-link"> OpenClaw教程 </a><a href="/about/" class="top-menu-link"> 关于我 </a> </nav> <div class="top-actions"> <a class="feedback-link" href="https://github.com/yonglisss/yonglisss.github.io/issues" target="_blank" rel="noopener noreferrer" aria-label="问题反馈"> <svg viewBox="0 0 24 24" aria-hidden="true" class="action-icon"> <path d="M4.75 5.75A2.75 2.75 0 0 1 7.5 3h9A2.75 2.75 0 0 1 19.25 5.75v6.5A2.75 2.75 0 0 1 16.5 15H9.3l-3.55 3.2V15.1a2.75 2.75 0 0 1-1-2.1V5.75Z"></path> <path d="M8 7.75h8M8 11.25h4"></path> </svg> <span>问题反馈</span> </a> <div class="theme-switcher" data-theme-switcher> <button class="theme-trigger" type="button" aria-haspopup="menu" aria-expanded="false" aria-label="切换明暗模式" data-theme-trigger> <svg viewBox="0 0 24 24" aria-hidden="true" class="action-icon theme-trigger-icon theme-trigger-icon--light"> <circle cx="12" cy="12" r="4"></circle> <path d="M12 2.75v2M12 19.25v2M4.75 4.75l1.4 1.4M17.85 17.85l1.4 1.4M2.75 12h2M19.25 12h2M4.75 19.25l1.4-1.4M17.85 6.15l1.4-1.4"></path> </svg> <svg viewBox="0 0 24 24" aria-hidden="true" class="action-icon theme-trigger-icon theme-trigger-icon--dark"> <path d="M20.25 14.2A8 8 0 0 1 9.8 3.75 8.5 8.5 0 1 0 20.25 14.2Z"></path> </svg> <svg viewBox="0 0 24 24" aria-hidden="true" class="action-icon theme-trigger-icon theme-trigger-icon--system"> <rect x="4" y="5" width="16" height="11" rx="1.8"></rect> <path d="M9 20h6M12 16v4"></path> </svg> </button> <div class="theme-menu" role="menu" data-theme-menu hidden> <button class="theme-option" type="button" role="menuitemradio" data-theme-option="light" aria-checked="false"> <svg viewBox="0 0 24 24" aria-hidden="true" class="action-icon"><circle cx="12" cy="12" r="4"></circle><path d="M12 2.75v2M12 19.25v2M4.75 4.75l1.4 1.4M17.85 17.85l1.4 1.4M2.75 12h2M19.25 12h2M4.75 19.25l1.4-1.4M17.85 6.15l1.4-1.4"></path></svg> <span>亮色</span> </button> <button class="theme-option" type="button" role="menuitemradio" data-theme-option="dark" aria-checked="false"> <svg viewBox="0 0 24 24" aria-hidden="true" class="action-icon"><path d="M20.25 14.2A8 8 0 0 1 9.8 3.75 8.5 8.5 0 1 0 20.25 14.2Z"></path></svg> <span>暗色</span> </button> <button class="theme-option" type="button" role="menuitemradio" data-theme-option="system" aria-checked="true"> <svg viewBox="0 0 24 24" aria-hidden="true" class="action-icon"><rect x="4" y="5" width="16" height="11" rx="1.8"></rect><path d="M9 20h6M12 16v4"></path></svg> <span>跟随系统</span> </button> </div> </div> </div> </div> </header> <script>
+  (() => {
+    const switcher = document.querySelector("[data-theme-switcher]");
+    if (!switcher) return;
+
+    const trigger = switcher.querySelector("[data-theme-trigger]");
+    const menu = switcher.querySelector("[data-theme-menu]");
+    const options = [...switcher.querySelectorAll("[data-theme-option]")];
+    const modes = ["light", "dark", "system"];
+
+    const getMode = () => {
+      const mode = document.documentElement.dataset.themeMode;
+      return modes.includes(mode) ? mode : "system";
+    };
+
+    const closeMenu = () => {
+      menu.hidden = true;
+      trigger.setAttribute("aria-expanded", "false");
+    };
+
+    const openMenu = () => {
+      menu.hidden = false;
+      trigger.setAttribute("aria-expanded", "true");
+    };
+
+    const sync = () => {
+      const mode = getMode();
+      trigger.dataset.themeMode = mode;
+      options.forEach((option) => {
+        option.setAttribute("aria-checked", String(option.dataset.themeOption === mode));
+      });
+    };
+
+    trigger.addEventListener("click", () => {
+      menu.hidden ? openMenu() : closeMenu();
+    });
+
+    options.forEach((option) => {
+      option.addEventListener("click", () => {
+        window.__setFutureObserverTheme?.(option.dataset.themeOption || "system");
+        sync();
+        closeMenu();
+      });
+    });
+
+    document.addEventListener("click", (event) => {
+      if (!switcher.contains(event.target)) closeMenu();
+    });
+
+    document.addEventListener("keydown", (event) => {
+      if (event.key === "Escape") closeMenu();
+    });
+
+    window.addEventListener("future-observer-theme-change", sync);
+    sync();
+  })();
+</script> <aside class="site-rail" aria-label="站点导航"> <div class="site-rail-inner"> <p class="site-rail-label">Channels</p> <nav aria-label="主导航"> <ul class="site-rail-nav"> <li> <a href="/ai-tools/" class="site-rail-link"> AI工具 </a> </li><li> <a href="/future-daily/" class="site-rail-link"> 未来观察者日报 </a> </li> </ul> </nav> </div> </aside> <main class="shell page-content">  <div class="post-hero"> <p class="eyebrow">2026年7月16日</p> <h1>Hallmark：给 AI 生成网页加一套“反模板化”设计检查</h1> <p class="post-summary">用 AI 写前端很快，但成品常出现相似的渐变、卡片阵列和大号标题。Together AI 开源的 Hallmark 没有再造一个网页生成器，而是把设计规则、审查清单和参考主题做成可安装的编码助手 Skill。</p> <ul class="tag-list"> <li> <a href="/tags/AI%E5%B7%A5%E5%85%B7/" class="tag-link">
+#AI工具 </a> </li><li> <a href="/tags/2026%E5%B9%B407%E6%9C%88/" class="tag-link">
+#2026年07月 </a> </li> </ul> </div> <div class="post-grid"> <article class="prose">  <p>用 AI 写前端很快，但成品常出现相似的渐变、卡片阵列和大号标题。Together AI 开源的 Hallmark 没有再造一个网页生成器，而是把设计规则、审查清单和参考主题做成可安装的编码助手 Skill。</p>
+<h2 id="-这个项目是什么">📌 这个项目是什么</h2>
+<p>Hallmark 面向 Claude Code、Cursor 和 Codex。它会根据需求选择页面宏观结构与视觉主题，并在交付前运行 57 项模式检查和一次自我审查。仓库提供 20 套主题及完整示例，生成结果以 HTML、CSS 为主；规则、参考资料和示例均可直接查看，采用 MIT 许可证。</p>
+<p>它提供四种用法：默认模式创建新界面；<code>audit</code> 只审查现有代码并输出问题清单；<code>redesign</code> 保留文案、信息架构和品牌要素后重做结构；<code>study</code> 从截图或 URL 提取布局、字体搭配和色彩锚点，还可生成便于其他 AI 工具复用的 <code>design.md</code>。官方明确要求避免像素级复制和照搬付费模板。</p>
+<h2 id="-为什么值得看">🔍 为什么值得看</h2>
+<p>Hallmark 值得关注的地方，是把“别做得像 AI”从一句模糊提示变成了可复用流程。团队不必每次重新解释“少用卡片、不要默认渐变、版式要有层次”，而可以把约束放进项目级 Skill，让生成与审查遵循同一套标准。</p>
+<p>它也展示了一种实用思路：编码助手的价值不只来自模型升级，还可以通过领域规则、反例检查和交付前审查提高稳定性。即使最终不采用 Hallmark 的审美，开发团队也能借鉴这种方法，沉淀自己的品牌规范与前端验收清单。</p>
+<h2 id="-怎么开始">🧪 怎么开始</h2>
+<p>先在测试项目中安装：</p>
+<pre class="astro-code astro-code-themes github-light github-dark" style="--shiki-light:#24292e;--shiki-dark:#e1e4e8;--shiki-light-bg:#fff;--shiki-dark-bg:#24292e; overflow-x: auto;" tabindex="0" data-language="bash"><code><span class="line"><span style="--shiki-light:#6F42C1;--shiki-dark:#B392F0">npx</span><span style="--shiki-light:#032F62;--shiki-dark:#9ECBFF"> skills</span><span style="--shiki-light:#032F62;--shiki-dark:#9ECBFF"> add</span><span style="--shiki-light:#032F62;--shiki-dark:#9ECBFF"> nutlope/hallmark</span></span></code></pre>
+<p>也可以手动复制仓库中的 <code>SKILL.md</code> 与 <code>references/</code>：Claude Code 放到 <code>~/.claude/skills/hallmark/</code>，Codex 可放到 <code>~/.codex/skills/hallmark/</code> 或项目内 <code>.codex/skills/hallmark/</code>；Cursor 需要把规则正文放进 <code>.cursor/rules/hallmark.mdc</code>。</p>
+<p>建议不要一上来就生成整站。先对一个现有页面运行 <code>hallmark audit &#x3C;target></code>，确认它指出的问题是否符合团队设计规范，再尝试重做单个落地页。</p>
+<h2 id="-适合谁">👥 适合谁</h2>
+<p>适合经常用编码 Agent 制作官网、活动页、产品原型的独立开发者和前端团队，也适合想把品牌审美转成机器可执行规则的设计工程团队。已有成熟设计系统和严格组件库的项目，更适合借鉴其审查机制，而不是直接替换现有规范。</p>
+<h2 id="️-值得注意的点">⚠️ 值得注意的点</h2>
+<p>“通过 57 项检查”不等于设计质量已被客观证明，主题选择和审美判断仍需人工验收。项目目前没有正式 Release，安装命令默认跟随仓库更新，团队使用时最好固定提交版本并审查 Skill 内容。<code>study</code> 外部网站时还要注意版权、商标和素材授权；生成页面上线前，仍应补做响应式、无障碍、性能与浏览器兼容测试。</p>
+<h2 id="-参考资源">🔗 参考资源</h2>
+<ul>
+<li>GitHub：<a href="https://github.com/Nutlope/hallmark">https://github.com/Nutlope/hallmark</a></li>
+<li>官方示例：<a href="https://www.usehallmark.com/">https://www.usehallmark.com/</a></li>
+<li>使用配方：<a href="https://github.com/Nutlope/hallmark/blob/main/docs/recipes.md">https://github.com/Nutlope/hallmark/blob/main/docs/recipes.md</a></li>
+<li>Study 示例：<a href="https://github.com/Nutlope/hallmark/blob/main/docs/study-examples.md">https://github.com/Nutlope/hallmark/blob/main/docs/study-examples.md</a></li>
+<li>项目路线图：<a href="https://github.com/Nutlope/hallmark/blob/main/ROADMAP.md">https://github.com/Nutlope/hallmark/blob/main/ROADMAP.md</a></li>
+</ul>  </article> <aside class="toc"><p class="toc-title">目录</p><ul class="toc-list"><li class="depth-2"><a href="#-这个项目是什么" data-toc-link="-这个项目是什么">📌 这个项目是什么</a></li><li class="depth-2"><a href="#-为什么值得看" data-toc-link="-为什么值得看">🔍 为什么值得看</a></li><li class="depth-2"><a href="#-怎么开始" data-toc-link="-怎么开始">🧪 怎么开始</a></li><li class="depth-2"><a href="#-适合谁" data-toc-link="-适合谁">👥 适合谁</a></li><li class="depth-2"><a href="#️-值得注意的点" data-toc-link="️-值得注意的点">⚠️ 值得注意的点</a></li><li class="depth-2"><a href="#-参考资源" data-toc-link="-参考资源">🔗 参考资源</a></li></ul></aside><script type="module">const c=()=>{const r=Array.from(document.querySelectorAll(".toc a[data-toc-link]"));if(!r.length)return;const o=r.map(t=>{const e=t.getAttribute("data-toc-link");if(!e)return null;const n=document.getElementById(e);return n?{id:e,heading:n,link:t}:null}).filter(t=>t!==null);if(!o.length)return;const s=t=>{r.forEach(e=>{const n=e.getAttribute("data-toc-link")===t;e.classList.toggle("active",n),n&&e.scrollIntoView({block:"nearest",inline:"nearest"})})},i=()=>{const t=Math.round(window.innerHeight*.28);let e=o[0];for(const n of o)n.heading.getBoundingClientRect().top<=t&&(e=n);s(e.id)};i();const a=new IntersectionObserver(()=>i(),{rootMargin:"-18% 0px -70% 0px",threshold:[0,1]});o.forEach(t=>a.observe(t.heading)),window.addEventListener("scroll",i,{passive:!0})};document.addEventListener("DOMContentLoaded",c);document.addEventListener("astro:page-load",c);</script> </div>  </main> <footer class="site-footer"> <div class="shell footer-inner"> <p>© 2026 未来观察者</p> </div> </footer> </body></html>
