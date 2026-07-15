@@ -1,0 +1,298 @@
+<!DOCTYPE html><html lang="zh-CN"> <head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1"><script>
+      (() => {
+        const storageKey = "future-observer-theme";
+        const root = document.documentElement;
+        const getStoredMode = () => {
+          try {
+            const value = localStorage.getItem(storageKey);
+            return value === "light" || value === "dark" || value === "system" ? value : "system";
+          } catch {
+            return "system";
+          }
+        };
+        const systemDark = () => window.matchMedia?.("(prefers-color-scheme: dark)").matches ?? false;
+        const apply = (mode) => {
+          const resolved = mode === "system" ? (systemDark() ? "dark" : "light") : mode;
+          root.dataset.themeMode = mode;
+          root.dataset.theme = resolved;
+          root.style.colorScheme = resolved;
+        };
+        apply(getStoredMode());
+        window.__setFutureObserverTheme = (mode) => {
+          const next = mode === "light" || mode === "dark" || mode === "system" ? mode : "system";
+          try { localStorage.setItem(storageKey, next); } catch {}
+          apply(next);
+          window.dispatchEvent(new CustomEvent("future-observer-theme-change", { detail: { mode: next } }));
+        };
+        window.matchMedia?.("(prefers-color-scheme: dark)").addEventListener?.("change", () => {
+          if (getStoredMode() === "system") apply("system");
+        });
+      })();
+    </script><title>📉 中国二季度 GDP 区间：宏观判断正在从单点预测转向实时概率 | 未来观察者</title><meta name="description" content="🧭 核心观点：Polymarket 将中国 2026 年二季度 GDP 同比增速落在 4.3%—4.6% 的概率定价至 99.45%。今天真正值得观察的，不只是一个即将公布的宏观数字，而是高频信息正在把“经济会怎样”压缩成可交易的概率区间；但过度集中的价格也提醒我们，预测市场可"><meta name="generator" content="Astro v5.18.1"><meta property="og:title" content="📉 中国二季度 GDP 区间：宏观判断正在从单点预测转向实时概率 | 未来观察者"><meta property="og:description" content="🧭 核心观点：Polymarket 将中国 2026 年二季度 GDP 同比增速落在 4.3%—4.6% 的概率定价至 99.45%。今天真正值得观察的，不只是一个即将公布的宏观数字，而是高频信息正在把“经济会怎样”压缩成可交易的概率区间；但过度集中的价格也提醒我们，预测市场可"><meta property="og:type" content="website"><meta property="og:url" content="https://future.lifestudylab.com/posts/2026-07-16-%E4%B8%AD%E5%9B%BD%E4%BA%8C%E5%AD%A3%E5%BA%A6gdp%E5%8C%BA%E9%97%B4-%E5%AE%8F%E8%A7%82%E5%88%A4%E6%96%AD%E6%AD%A3%E5%9C%A8%E4%BB%8E%E5%8D%95%E7%82%B9%E9%A2%84%E6%B5%8B%E8%BD%AC%E5%90%91%E5%AE%9E%E6%97%B6%E6%A6%82%E7%8E%87/"><link rel="icon" type="image/svg+xml" href="/favicon.svg"><link rel="alternate" type="application/rss+xml" title="未来观察者" href="/rss.xml"><link rel="stylesheet" href="/_astro/_channel_.BFW__1rx.css"></head> <body> <div class="page-bg"></div> <header class="site-header"> <div class="shell header-inner"> <div class="header-bar"> <a class="brand" href="/ai-tools/"> <img src="/brand-mark.svg" alt="" class="brand-mark" width="56" height="56"> <span class="brand-text" aria-label="未来观察者">思考未来</span> </a> </div> <nav class="top-menu" aria-label="顶部菜单"> <a href="/future-daily/" class="top-menu-link"> 每日信息 </a><a href="/docs/deer-flow/00-overview/" class="top-menu-link"> DeerFlow教程 </a><a href="/docs/hermes/00-overview/" class="top-menu-link"> Hermes教程 </a><a href="/docs/openclaw/00-overview/" class="top-menu-link"> OpenClaw教程 </a><a href="/about/" class="top-menu-link"> 关于我 </a> </nav> <div class="top-actions"> <a class="feedback-link" href="https://github.com/yonglisss/yonglisss.github.io/issues" target="_blank" rel="noopener noreferrer" aria-label="问题反馈"> <svg viewBox="0 0 24 24" aria-hidden="true" class="action-icon"> <path d="M4.75 5.75A2.75 2.75 0 0 1 7.5 3h9A2.75 2.75 0 0 1 19.25 5.75v6.5A2.75 2.75 0 0 1 16.5 15H9.3l-3.55 3.2V15.1a2.75 2.75 0 0 1-1-2.1V5.75Z"></path> <path d="M8 7.75h8M8 11.25h4"></path> </svg> <span>问题反馈</span> </a> <div class="theme-switcher" data-theme-switcher> <button class="theme-trigger" type="button" aria-haspopup="menu" aria-expanded="false" aria-label="切换明暗模式" data-theme-trigger> <svg viewBox="0 0 24 24" aria-hidden="true" class="action-icon theme-trigger-icon theme-trigger-icon--light"> <circle cx="12" cy="12" r="4"></circle> <path d="M12 2.75v2M12 19.25v2M4.75 4.75l1.4 1.4M17.85 17.85l1.4 1.4M2.75 12h2M19.25 12h2M4.75 19.25l1.4-1.4M17.85 6.15l1.4-1.4"></path> </svg> <svg viewBox="0 0 24 24" aria-hidden="true" class="action-icon theme-trigger-icon theme-trigger-icon--dark"> <path d="M20.25 14.2A8 8 0 0 1 9.8 3.75 8.5 8.5 0 1 0 20.25 14.2Z"></path> </svg> <svg viewBox="0 0 24 24" aria-hidden="true" class="action-icon theme-trigger-icon theme-trigger-icon--system"> <rect x="4" y="5" width="16" height="11" rx="1.8"></rect> <path d="M9 20h6M12 16v4"></path> </svg> </button> <div class="theme-menu" role="menu" data-theme-menu hidden> <button class="theme-option" type="button" role="menuitemradio" data-theme-option="light" aria-checked="false"> <svg viewBox="0 0 24 24" aria-hidden="true" class="action-icon"><circle cx="12" cy="12" r="4"></circle><path d="M12 2.75v2M12 19.25v2M4.75 4.75l1.4 1.4M17.85 17.85l1.4 1.4M2.75 12h2M19.25 12h2M4.75 19.25l1.4-1.4M17.85 6.15l1.4-1.4"></path></svg> <span>亮色</span> </button> <button class="theme-option" type="button" role="menuitemradio" data-theme-option="dark" aria-checked="false"> <svg viewBox="0 0 24 24" aria-hidden="true" class="action-icon"><path d="M20.25 14.2A8 8 0 0 1 9.8 3.75 8.5 8.5 0 1 0 20.25 14.2Z"></path></svg> <span>暗色</span> </button> <button class="theme-option" type="button" role="menuitemradio" data-theme-option="system" aria-checked="true"> <svg viewBox="0 0 24 24" aria-hidden="true" class="action-icon"><rect x="4" y="5" width="16" height="11" rx="1.8"></rect><path d="M9 20h6M12 16v4"></path></svg> <span>跟随系统</span> </button> </div> </div> </div> </div> </header> <script>
+  (() => {
+    const switcher = document.querySelector("[data-theme-switcher]");
+    if (!switcher) return;
+
+    const trigger = switcher.querySelector("[data-theme-trigger]");
+    const menu = switcher.querySelector("[data-theme-menu]");
+    const options = [...switcher.querySelectorAll("[data-theme-option]")];
+    const modes = ["light", "dark", "system"];
+
+    const getMode = () => {
+      const mode = document.documentElement.dataset.themeMode;
+      return modes.includes(mode) ? mode : "system";
+    };
+
+    const closeMenu = () => {
+      menu.hidden = true;
+      trigger.setAttribute("aria-expanded", "false");
+    };
+
+    const openMenu = () => {
+      menu.hidden = false;
+      trigger.setAttribute("aria-expanded", "true");
+    };
+
+    const sync = () => {
+      const mode = getMode();
+      trigger.dataset.themeMode = mode;
+      options.forEach((option) => {
+        option.setAttribute("aria-checked", String(option.dataset.themeOption === mode));
+      });
+    };
+
+    trigger.addEventListener("click", () => {
+      menu.hidden ? openMenu() : closeMenu();
+    });
+
+    options.forEach((option) => {
+      option.addEventListener("click", () => {
+        window.__setFutureObserverTheme?.(option.dataset.themeOption || "system");
+        sync();
+        closeMenu();
+      });
+    });
+
+    document.addEventListener("click", (event) => {
+      if (!switcher.contains(event.target)) closeMenu();
+    });
+
+    document.addEventListener("keydown", (event) => {
+      if (event.key === "Escape") closeMenu();
+    });
+
+    window.addEventListener("future-observer-theme-change", sync);
+    sync();
+  })();
+</script> <aside class="site-rail" aria-label="站点导航"> <div class="site-rail-inner"> <p class="site-rail-label">Channels</p> <nav aria-label="主导航"> <ul class="site-rail-nav"> <li> <a href="/ai-tools/" class="site-rail-link"> AI工具 </a> </li><li> <a href="/future-daily/" class="site-rail-link"> 未来观察者日报 </a> </li> </ul> </nav> </div> </aside> <main class="shell page-content">  <div class="post-hero"> <p class="eyebrow">2026年7月16日</p> <h1>📉 中国二季度 GDP 区间：宏观判断正在从单点预测转向实时概率</h1> <p class="post-summary">🧭 核心观点：Polymarket 将中国 2026 年二季度 GDP 同比增速落在 4.3%—4.6% 的概率定价至 99.45%。今天真正值得观察的，不只是一个即将公布的宏观数字，而是高频信息正在把“经济会怎样”压缩成可交易的概率区间；但过度集中的价格也提醒我们，预测市场可</p> <ul class="tag-list"> <li> <a href="/tags/%E6%9C%AA%E6%9D%A5%E8%A7%82%E5%AF%9F%E8%80%85%E6%97%A5%E6%8A%A5/" class="tag-link">
+#未来观察者日报 </a> </li><li> <a href="/tags/2026%E5%B9%B407%E6%9C%88/" class="tag-link">
+#2026年07月 </a> </li> </ul> </div> <div class="post-grid"> <article class="prose">  <blockquote>
+<p>🧭 <strong>核心观点</strong>：Polymarket 将中国 2026 年二季度 GDP 同比增速落在 <strong>4.3%—4.6%</strong> 的概率定价至 <strong>99.45%</strong>。今天真正值得观察的，不只是一个即将公布的宏观数字，而是高频信息正在把“经济会怎样”压缩成可交易的概率区间；但过度集中的价格也提醒我们，预测市场可能是在反映强共识，而非消除不确定性。</p>
+</blockquote>
+<p><strong>作者：</strong> 元英<br>
+<strong>时间：</strong> 2026年7月16日<br>
+<strong>标签：</strong> #未来观察者 #中国经济 #GDP #预测市场<br>
+<strong>阅读时间：</strong> 3-5分钟</p>
+<hr>
+<h2 id="-今天看什么投票">🎯 今天看什么投票？</h2>
+<p>Polymarket 事件 <strong>“China GDP growth (Y/Y) in Q2 2026?”</strong>，按中国国家统计局计划于 7 月 16 日发布的 2026 年二季度 GDP 初步核算同比增速结算。市场被拆成九个互斥区间；若公布值正好位于两个区间边界，则按规则归入较高区间。</p>
+<h3 id="-关键数据卡片">📊 关键数据卡片</h3>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<table><thead><tr><th>GDP 同比区间</th><th align="right">市场概率</th><th align="right">24 小时交易量</th></tr></thead><tbody><tr><td>低于 4.0%</td><td align="right">0.10%</td><td align="right">约 7,663 美元</td></tr><tr><td>4.0%—4.3%</td><td align="right">0.30%</td><td align="right">约 7,147 美元</td></tr><tr><td><strong>4.3%—4.6%</strong></td><td align="right"><strong>99.45%</strong></td><td align="right"><strong>约 40,426 美元</strong></td></tr><tr><td>4.6%—4.9%</td><td align="right">0.15%</td><td align="right">约 20,264 美元</td></tr><tr><td>4.9% 及以上各档</td><td align="right">各约 0.05%</td><td align="right">合计约 1.54 万美元</td></tr></tbody></table>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<table><thead><tr><th>项目</th><th align="right">数据</th></tr></thead><tbody><tr><td>事件累计交易量</td><td align="right">约 28.67 万美元</td></tr><tr><td>24 小时交易量</td><td align="right">约 9.09 万美元</td></tr><tr><td>流动性</td><td align="right">约 5.73 万美元</td></tr><tr><td>数据获取时间</td><td align="right">2026-07-16 04:01 CST</td></tr><tr><td>Polymarket 更新时间</td><td align="right">2026-07-16 03:57 CST（2026-07-15 19:57 UTC）</td></tr><tr><td>所属领域</td><td align="right">宏观经济 / 资本定价 / 数据基础设施</td></tr><tr><td>投票链接</td><td align="right"><a href="https://polymarket.com/event/china-gdp-growth-yy-in-q2-2026">https://polymarket.com/event/china-gdp-growth-yy-in-q2-2026</a></td></tr></tbody></table>
+<blockquote>
+<p><strong>读数方法</strong>：上述概率来自二元合约价格。各区间虽对应同一个最终结果，却拥有不同的流动性和价差，不能把报价误当成官方预测或严格统计置信区间。</p>
+</blockquote>
+<h3 id="-为什么今天选它">🧩 为什么今天选它？</h3>
+<p>最近 14 天已覆盖 AI、芯片、太空、关税、利率、平台估值、能源、加密资产、公共卫生与供应链安全。过去 7 天虽写过美联储利率，但其核心是<strong>资本成本是否二次收紧</strong>；今天新增变量是<strong>实体经济总量数据如何被区间化、实时化定价</strong>，观察对象和传导逻辑不同。</p>
+<p>同期高热候选中的 Bitcoin、WTI、霍尔木兹、美联储和台海议题，均与最近 7 天内容高度重复。中国二季度 GDP 市场既有明确结算源，又临近数据发布，且能延伸到企业需求判断与宏观数据产品化，因此优先级更高。</p>
+<hr>
+<h2 id="-为什么会有这个投票">🔥 为什么会有这个投票？</h2>
+<p>GDP 发布前，市场需要回答的并非抽象的“经济好不好”，而是一个可结算问题：同比增速究竟落在哪个区间。Polymarket 把单点预测改造成九档价格，让参与者用资金表达判断。</p>
+<p>当前 4.3%—4.6% 档获得压倒性定价，说明交易者对结果区间形成了极强共识。可以确认的是合约价格、交易量、结算规则和官方发布日；至于共识来自哪些高频指标、机构预测或提前信息，仅凭盘口无法确认，不能倒推为事实。</p>
+<p>这个投票今天升温，直接原因有两个：</p>
+<ol>
+<li><strong>结算临近</strong>：国家统计局发布日就是 7 月 16 日，信息的时间价值迅速收敛。</li>
+<li><strong>区间明确</strong>：相比“经济是否强劲”，同比增速档位可以由官方初值直接判定，降低了语义争议。</li>
+</ol>
+<hr>
+<h2 id="️-一条-gdp-概率曲线反映了什么结构变化">🏗️ 一条 GDP 概率曲线反映了什么结构变化？</h2>
+<h3 id="1-技术层宏观数据正在变成机器可结算事件">1. 技术层：宏观数据正在变成机器可结算事件</h3>
+<p>官方发布时间、初值口径与区间边界被写入规则后，宏观预测可以自动映射为合约结果。未来的数据产品不只展示历史时间序列，也可能同时展示发布前概率、发布后修正和预测误差。</p>
+<h3 id="2-产业层企业判断从年度叙事转向实时校准">2. 产业层：企业判断从年度叙事转向实时校准</h3>
+<p>GDP 本身不能替代订单、库存和现金流，但它会影响企业对需求、产能与预算的基准判断。预测市场的价值不是给出“唯一正确答案”，而是暴露共识集中在哪里，以及结果偏离共识时哪些决策最脆弱。</p>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<table><thead><tr><th>观察对象</th><th>应关注什么</th><th>不应如何误读</th></tr></thead><tbody><tr><td>企业经营者</td><td>自身订单与宏观区间是否背离</td><td>用一个 GDP 数字替代客户数据</td></tr><tr><td>数据从业者</td><td>概率变化、成交深度、预测误差</td><td>把最后成交价当成完整民调</td></tr><tr><td>资本观察者</td><td>超预期或低预期后的利率、汇率与风险偏好传导</td><td>把 GDP 增速直接等同于资产涨跌</td></tr></tbody></table>
+<h3 id="3-社会--资本层共识更透明也可能更拥挤">3. 社会 / 资本层：共识更透明，也可能更拥挤</h3>
+<p>传统预测常以机构报告的单点数字呈现；盘口则把不同判断变成连续价格。透明度提高了，但 99.45% 的集中度也可能制造“人人看起来都知道答案”的错觉。一旦流动性有限、信息来源同质化或大额账户主导，极端价格仍可能失真。</p>
+<hr>
+<h2 id="-如果趋势继续未来会怎样">🔭 如果趋势继续，未来会怎样？</h2>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<table><thead><tr><th>时间维度</th><th>可能变化</th><th>重点观察</th></tr></thead><tbody><tr><td><strong>短期：数据公布前后</strong></td><td>概率快速向最终区间收敛，偏离 4.3%—4.6% 将形成明显预期差</td><td>官方初值、盘口结算、相邻区间深度</td></tr><tr><td><strong>中期：未来 6—18 个月</strong></td><td>更多 GDP、通胀、就业与贸易数据被做成标准化区间市场</td><td>市场覆盖率、成交活跃度、历史命中率</td></tr><tr><td><strong>长期：未来 3—5 年</strong></td><td>官方统计、专业预测与市场概率可能共同构成实时宏观仪表盘</td><td>数据授权、结算标准、操纵防护与合规边界</td></tr></tbody></table>
+<p><strong>推测而非事实</strong>：如果此类市场能持续积累预测记录，企业可能用概率分布而不是单一基准做压力测试；如果多数合约只在发布前短暂活跃，它们更可能只是事件交易工具，而非可靠的长期经济基础设施。</p>
+<hr>
+<h2 id="-普通人从业者和决策者该怎么做">🧭 普通人、从业者和决策者该怎么做？</h2>
+<h3 id="-普通观察者">👤 普通观察者</h3>
+<ul>
+<li>先看区间和结算规则，再看醒目的概率数字。</li>
+<li>GDP 公布后区分“低于预期”和“绝对增速较低”，两者不是同一判断。</li>
+<li>不依据单个盘口做投资决策，至少同时核对官方数据与自身现金流。</li>
+</ul>
+<h3 id="-数据与产品从业者">🧑‍💻 数据与产品从业者</h3>
+<ul>
+<li>保存发布前多个时间点的概率，而不是只截取最终报价。</li>
+<li>为概率图表同时展示成交量、流动性与买卖价差。</li>
+<li>复盘“市场预测—官方初值—后续修订”三者差异，建立可验证的预测质量记录。</li>
+</ul>
+<h3 id="-创业者--经营决策者">💼 创业者 / 经营决策者</h3>
+<ol>
+<li>围绕主区间、上行偏离和下行偏离各做一套需求情景。</li>
+<li>用客户订单、回款和库存验证宏观信号，不让总量数据覆盖微观事实。</li>
+<li>若结果显著偏离 4.3%—4.6%，优先检查预算、招聘和融资假设中最依赖增长预期的部分。</li>
+</ol>
+<hr>
+<h2 id="️-风险提示">⚠️ 风险提示</h2>
+<ul>
+<li>Polymarket 价格是交易者定价，不是国家统计局数据，也不构成投资建议。</li>
+<li>各区间为独立二元合约，概率之和未必严格等于 100%，报价受流动性和价差影响。</li>
+<li>市场规定使用首次发布值结算，后续统计修订不改变结果；因此合约答案不等于“最终最准确 GDP”。</li>
+<li>99.45% 表示盘口高度集中，不代表该结果在统计意义上拥有同等置信度。</li>
+<li>本文未用无法从盘口验证的机构预测解释价格来源，避免把推测包装成事实。</li>
+</ul>
+<hr>
+<h2 id="-结语重要的不只是-gdp-数字而是预期如何形成">🌅 结语：重要的不只是 GDP 数字，而是预期如何形成</h2>
+<p>中国二季度 GDP 投票把宏观判断压缩成一条几乎单峰的概率曲线。它让共识变得可见，也把共识拥挤的风险暴露出来。</p>
+<blockquote>
+<p>当宏观数据从“公布后解读”走向“公布前实时定价”，真正稀缺的能力将不是猜中一个数字，而是识别市场假设、管理偏离风险，并在新数据出现时快速更新决策。</p>
+</blockquote>
+<p>今天要等待的是官方初值；更长期要观察的，则是预测市场能否从事件盘口成长为可校验、可复盘的宏观信息基础设施。</p>
+<hr>
+<h2 id="-参考资源">🔗 参考资源</h2>
+<ul>
+<li>Polymarket：China GDP growth (Y/Y) in Q2 2026?<br>
+<a href="https://polymarket.com/event/china-gdp-growth-yy-in-q2-2026">https://polymarket.com/event/china-gdp-growth-yy-in-q2-2026</a></li>
+<li>Polymarket Gamma API：事件、分区间价格、交易量、流动性与更新时间；数据获取时间 2026-07-16 04:01 CST</li>
+<li>National Bureau of Statistics of China：Latest Releases<br>
+<a href="https://www.stats.gov.cn/english/PressRelease/">https://www.stats.gov.cn/english/PressRelease/</a></li>
+<li>National Bureau of Statistics of China：Regular Press Release Calendar of NBS in 2026<br>
+<a href="https://www.stats.gov.cn/english/PressRelease/ReleaseCalendar/202512/t20251226_1962154.html">https://www.stats.gov.cn/english/PressRelease/ReleaseCalendar/202512/t20251226_1962154.html</a></li>
+</ul>  </article> <aside class="toc"><p class="toc-title">目录</p><ul class="toc-list"><li class="depth-2"><a href="#-今天看什么投票" data-toc-link="-今天看什么投票">🎯 今天看什么投票？</a></li><li class="depth-3"><a href="#-关键数据卡片" data-toc-link="-关键数据卡片">📊 关键数据卡片</a></li><li class="depth-3"><a href="#-为什么今天选它" data-toc-link="-为什么今天选它">🧩 为什么今天选它？</a></li><li class="depth-2"><a href="#-为什么会有这个投票" data-toc-link="-为什么会有这个投票">🔥 为什么会有这个投票？</a></li><li class="depth-2"><a href="#️-一条-gdp-概率曲线反映了什么结构变化" data-toc-link="️-一条-gdp-概率曲线反映了什么结构变化">🏗️ 一条 GDP 概率曲线反映了什么结构变化？</a></li><li class="depth-3"><a href="#1-技术层宏观数据正在变成机器可结算事件" data-toc-link="1-技术层宏观数据正在变成机器可结算事件">1. 技术层：宏观数据正在变成机器可结算事件</a></li><li class="depth-3"><a href="#2-产业层企业判断从年度叙事转向实时校准" data-toc-link="2-产业层企业判断从年度叙事转向实时校准">2. 产业层：企业判断从年度叙事转向实时校准</a></li><li class="depth-3"><a href="#3-社会--资本层共识更透明也可能更拥挤" data-toc-link="3-社会--资本层共识更透明也可能更拥挤">3. 社会 / 资本层：共识更透明，也可能更拥挤</a></li><li class="depth-2"><a href="#-如果趋势继续未来会怎样" data-toc-link="-如果趋势继续未来会怎样">🔭 如果趋势继续，未来会怎样？</a></li><li class="depth-2"><a href="#-普通人从业者和决策者该怎么做" data-toc-link="-普通人从业者和决策者该怎么做">🧭 普通人、从业者和决策者该怎么做？</a></li><li class="depth-3"><a href="#-普通观察者" data-toc-link="-普通观察者">👤 普通观察者</a></li><li class="depth-3"><a href="#-数据与产品从业者" data-toc-link="-数据与产品从业者">🧑‍💻 数据与产品从业者</a></li><li class="depth-3"><a href="#-创业者--经营决策者" data-toc-link="-创业者--经营决策者">💼 创业者 / 经营决策者</a></li><li class="depth-2"><a href="#️-风险提示" data-toc-link="️-风险提示">⚠️ 风险提示</a></li><li class="depth-2"><a href="#-结语重要的不只是-gdp-数字而是预期如何形成" data-toc-link="-结语重要的不只是-gdp-数字而是预期如何形成">🌅 结语：重要的不只是 GDP 数字，而是预期如何形成</a></li><li class="depth-2"><a href="#-参考资源" data-toc-link="-参考资源">🔗 参考资源</a></li></ul></aside><script type="module">const c=()=>{const r=Array.from(document.querySelectorAll(".toc a[data-toc-link]"));if(!r.length)return;const o=r.map(t=>{const e=t.getAttribute("data-toc-link");if(!e)return null;const n=document.getElementById(e);return n?{id:e,heading:n,link:t}:null}).filter(t=>t!==null);if(!o.length)return;const s=t=>{r.forEach(e=>{const n=e.getAttribute("data-toc-link")===t;e.classList.toggle("active",n),n&&e.scrollIntoView({block:"nearest",inline:"nearest"})})},i=()=>{const t=Math.round(window.innerHeight*.28);let e=o[0];for(const n of o)n.heading.getBoundingClientRect().top<=t&&(e=n);s(e.id)};i();const a=new IntersectionObserver(()=>i(),{rootMargin:"-18% 0px -70% 0px",threshold:[0,1]});o.forEach(t=>a.observe(t.heading)),window.addEventListener("scroll",i,{passive:!0})};document.addEventListener("DOMContentLoaded",c);document.addEventListener("astro:page-load",c);</script> </div>  </main> <footer class="site-footer"> <div class="shell footer-inner"> <p>© 2026 未来观察者</p> </div> </footer> </body></html>
