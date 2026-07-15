@@ -139,14 +139,21 @@
 <p>可以问一个轻量研究问题，例如：</p>
 <pre class="astro-code astro-code-themes github-light github-dark" style="--shiki-light:#24292e;--shiki-dark:#e1e4e8;--shiki-light-bg:#fff;--shiki-dark-bg:#24292e; overflow-x: auto;" tabindex="0" data-language="text"><code><span class="line"><span>总结一下 DeerFlow 这个项目解决什么问题，并给出三个适合继续学习的方向。</span></span></code></pre>
 <p>不要一开始就让它写长报告、接外部系统或执行复杂代码。</p>
-<h2 id="跑通的标准">跑通的标准</h2>
-<p>这一篇的完成标准很简单：</p>
-<ul>
-<li>页面能打开；</li>
-<li>后端没有启动错误；</li>
-<li>模型调用成功；</li>
-<li>搜索或工具能力至少有一个能正常返回；</li>
-<li>能看到一次任务从输入到输出的完整过程。</li>
+<h2 id="动手检查">动手检查</h2>
+<p>现在不要继续看下一篇，先用 5 分钟跑一个最小任务：</p>
+<pre class="astro-code astro-code-themes github-light github-dark" style="--shiki-light:#24292e;--shiki-dark:#e1e4e8;--shiki-light-bg:#fff;--shiki-dark-bg:#24292e; overflow-x: auto;" tabindex="0" data-language="text"><code><span class="line"><span>总结 DeerFlow 解决的核心问题，并附上一个你实际查到的来源。</span></span></code></pre>
+<p>任务执行时，同时看一眼前端页面和后端日志。你不需要读懂全部日志，只确认请求确实进入后端，模型或工具也确实被调用。</p>
+<h3 id="完成标准">完成标准</h3>
+<ul class="contains-task-list">
+<li class="task-list-item"><input type="checkbox" disabled> 页面可以正常打开；</li>
+<li class="task-list-item"><input type="checkbox" disabled> 后端没有启动错误；</li>
+<li class="task-list-item"><input type="checkbox" disabled> 模型调用成功；</li>
+<li class="task-list-item"><input type="checkbox" disabled> 至少一次搜索或工具调用返回结果；</li>
+<li class="task-list-item"><input type="checkbox" disabled> 最终回答包含一个可核对的来源；</li>
+<li class="task-list-item"><input type="checkbox" disabled> 能在页面或日志中找到这次任务的完整过程。</li>
 </ul>
-<p>做到这里就够了。</p>
-<p>下一篇再看配置文件。配置看懂以后，再谈架构和源码。</p>  </div> </article> <aside class="toc"><p class="toc-title">目录</p><ul class="toc-list"><li class="depth-2"><a href="#这一篇只做一件事" data-toc-link="这一篇只做一件事">这一篇只做一件事</a></li><li class="depth-2"><a href="#先准备环境" data-toc-link="先准备环境">先准备环境</a></li><li class="depth-2"><a href="#拉代码" data-toc-link="拉代码">拉代码</a></li><li class="depth-2"><a href="#安装依赖" data-toc-link="安装依赖">安装依赖</a></li><li class="depth-2"><a href="#配置模型" data-toc-link="配置模型">配置模型</a></li><li class="depth-2"><a href="#配置搜索能力" data-toc-link="配置搜索能力">配置搜索能力</a></li><li class="depth-2"><a href="#启动本地开发" data-toc-link="启动本地开发">启动本地开发</a></li><li class="depth-2"><a href="#跑通第一个任务" data-toc-link="跑通第一个任务">跑通第一个任务</a></li><li class="depth-2"><a href="#跑通的标准" data-toc-link="跑通的标准">跑通的标准</a></li></ul></aside><script type="module">const c=()=>{const r=Array.from(document.querySelectorAll(".toc a[data-toc-link]"));if(!r.length)return;const o=r.map(t=>{const e=t.getAttribute("data-toc-link");if(!e)return null;const n=document.getElementById(e);return n?{id:e,heading:n,link:t}:null}).filter(t=>t!==null);if(!o.length)return;const s=t=>{r.forEach(e=>{const n=e.getAttribute("data-toc-link")===t;e.classList.toggle("active",n),n&&e.scrollIntoView({block:"nearest",inline:"nearest"})})},i=()=>{const t=Math.round(window.innerHeight*.28);let e=o[0];for(const n of o)n.heading.getBoundingClientRect().top<=t&&(e=n);s(e.id)};i();const a=new IntersectionObserver(()=>i(),{rootMargin:"-18% 0px -70% 0px",threshold:[0,1]});o.forEach(t=>a.observe(t.heading)),window.addEventListener("scroll",i,{passive:!0})};document.addEventListener("DOMContentLoaded",c);document.addEventListener("astro:page-load",c);</script> </section> <script type="module">const n=()=>{const e=document.querySelector(".docs-sidebar .docs-nav-link.active");e&&e.scrollIntoView({block:"center",inline:"nearest"})};document.addEventListener("DOMContentLoaded",n);document.addEventListener("astro:page-load",n);</script>  </main> <footer class="site-footer"> <div class="shell footer-inner"> <p>© 2026 未来观察者</p> </div> </footer> </body></html>
+<p>做到这里，这一篇就算通过。</p>
+<h3 id="多走一步">多走一步</h3>
+<p>故意把 <code>config.yaml</code> 里的模型名改错一次并重启，观察错误最先出现在哪里。确认后立即恢复配置，再跑一次同样的任务。</p>
+<p>这个小实验的目的不是制造故障，而是让你知道：以后模型调用失败，应该先看哪一层。</p>
+<p>下一篇再看配置文件。配置看懂以后，再谈架构和源码。</p>  </div> </article> <aside class="toc"><p class="toc-title">目录</p><ul class="toc-list"><li class="depth-2"><a href="#这一篇只做一件事" data-toc-link="这一篇只做一件事">这一篇只做一件事</a></li><li class="depth-2"><a href="#先准备环境" data-toc-link="先准备环境">先准备环境</a></li><li class="depth-2"><a href="#拉代码" data-toc-link="拉代码">拉代码</a></li><li class="depth-2"><a href="#安装依赖" data-toc-link="安装依赖">安装依赖</a></li><li class="depth-2"><a href="#配置模型" data-toc-link="配置模型">配置模型</a></li><li class="depth-2"><a href="#配置搜索能力" data-toc-link="配置搜索能力">配置搜索能力</a></li><li class="depth-2"><a href="#启动本地开发" data-toc-link="启动本地开发">启动本地开发</a></li><li class="depth-2"><a href="#跑通第一个任务" data-toc-link="跑通第一个任务">跑通第一个任务</a></li><li class="depth-2"><a href="#动手检查" data-toc-link="动手检查">动手检查</a></li><li class="depth-3"><a href="#完成标准" data-toc-link="完成标准">完成标准</a></li><li class="depth-3"><a href="#多走一步" data-toc-link="多走一步">多走一步</a></li></ul></aside><script type="module">const c=()=>{const r=Array.from(document.querySelectorAll(".toc a[data-toc-link]"));if(!r.length)return;const o=r.map(t=>{const e=t.getAttribute("data-toc-link");if(!e)return null;const n=document.getElementById(e);return n?{id:e,heading:n,link:t}:null}).filter(t=>t!==null);if(!o.length)return;const s=t=>{r.forEach(e=>{const n=e.getAttribute("data-toc-link")===t;e.classList.toggle("active",n),n&&e.scrollIntoView({block:"nearest",inline:"nearest"})})},i=()=>{const t=Math.round(window.innerHeight*.28);let e=o[0];for(const n of o)n.heading.getBoundingClientRect().top<=t&&(e=n);s(e.id)};i();const a=new IntersectionObserver(()=>i(),{rootMargin:"-18% 0px -70% 0px",threshold:[0,1]});o.forEach(t=>a.observe(t.heading)),window.addEventListener("scroll",i,{passive:!0})};document.addEventListener("DOMContentLoaded",c);document.addEventListener("astro:page-load",c);</script> </section> <script type="module">const n=()=>{const e=document.querySelector(".docs-sidebar .docs-nav-link.active");e&&e.scrollIntoView({block:"center",inline:"nearest"})};document.addEventListener("DOMContentLoaded",n);document.addEventListener("astro:page-load",n);</script>  </main> <footer class="site-footer"> <div class="shell footer-inner"> <p>© 2026 未来观察者</p> </div> </footer> </body></html>
