@@ -157,7 +157,7 @@
 <span class="line"><span>远程 url / headers 是否正确</span></span></code></pre>
 <p>如果 MCP server 启动时往 stderr 输出大量日志，Hermes 会把它重定向到日志文件，避免污染 TUI。</p>
 <h2 id="源码改动后怎么验证">源码改动后怎么验证</h2>
-<p>如果改的是这个 future-observer-web 文档站：</p>
+<p>如果改的是一个 Astro 文档站：</p>
 <pre class="astro-code astro-code-themes github-light github-dark" style="--shiki-light:#24292e;--shiki-dark:#e1e4e8;--shiki-light-bg:#fff;--shiki-dark-bg:#24292e; overflow-x: auto;" tabindex="0" data-language="bash"><code><span class="line"><span style="--shiki-light:#6F42C1;--shiki-dark:#B392F0">npm</span><span style="--shiki-light:#032F62;--shiki-dark:#9ECBFF"> run</span><span style="--shiki-light:#032F62;--shiki-dark:#9ECBFF"> build</span></span></code></pre>
 <p>如果改 Hermes 本体，至少先跑相关测试或命令：</p>
 <pre class="astro-code astro-code-themes github-light github-dark" style="--shiki-light:#24292e;--shiki-dark:#e1e4e8;--shiki-light-bg:#fff;--shiki-dark-bg:#24292e; overflow-x: auto;" tabindex="0" data-language="bash"><code><span class="line"><span style="--shiki-light:#6F42C1;--shiki-dark:#B392F0">hermes</span><span style="--shiki-light:#032F62;--shiki-dark:#9ECBFF"> doctor</span></span>
