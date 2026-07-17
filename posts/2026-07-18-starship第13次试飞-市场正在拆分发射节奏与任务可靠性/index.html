@@ -1,0 +1,328 @@
+<!DOCTYPE html><html lang="zh-CN"> <head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1"><script>
+      (() => {
+        const storageKey = "future-observer-theme";
+        const root = document.documentElement;
+        const getStoredMode = () => {
+          try {
+            const value = localStorage.getItem(storageKey);
+            return value === "light" || value === "dark" || value === "system" ? value : "system";
+          } catch {
+            return "system";
+          }
+        };
+        const systemDark = () => window.matchMedia?.("(prefers-color-scheme: dark)").matches ?? false;
+        const apply = (mode) => {
+          const resolved = mode === "system" ? (systemDark() ? "dark" : "light") : mode;
+          root.dataset.themeMode = mode;
+          root.dataset.theme = resolved;
+          root.style.colorScheme = resolved;
+        };
+        apply(getStoredMode());
+        window.__setFutureObserverTheme = (mode) => {
+          const next = mode === "light" || mode === "dark" || mode === "system" ? mode : "system";
+          try { localStorage.setItem(storageKey, next); } catch {}
+          apply(next);
+          window.dispatchEvent(new CustomEvent("future-observer-theme-change", { detail: { mode: next } }));
+        };
+        window.matchMedia?.("(prefers-color-scheme: dark)").addEventListener?.("change", () => {
+          if (getStoredMode() === "system") apply("system");
+        });
+      })();
+    </script><title>🚀 Starship 第13次试飞：市场正在拆分“按时发射”与“完成任务” | 未来观察者</title><meta name="description" content="🧭 核心观点：Polymarket 给 Starship 第13次试飞在 7月20日前发射 53.5%、7月31日前发射 93.05% 的定价，却同时给助推器爆炸 73.5%、上级成功溅落 69%。真正值得观察的不是一次试飞成败，而是商业航天的进度、可靠性与回收能力，正在被拆成"><meta name="generator" content="Astro v5.18.1"><meta property="og:title" content="🚀 Starship 第13次试飞：市场正在拆分“按时发射”与“完成任务” | 未来观察者"><meta property="og:description" content="🧭 核心观点：Polymarket 给 Starship 第13次试飞在 7月20日前发射 53.5%、7月31日前发射 93.05% 的定价，却同时给助推器爆炸 73.5%、上级成功溅落 69%。真正值得观察的不是一次试飞成败，而是商业航天的进度、可靠性与回收能力，正在被拆成"><meta property="og:type" content="website"><meta property="og:url" content="https://future.lifestudylab.com/posts/2026-07-18-starship%E7%AC%AC13%E6%AC%A1%E8%AF%95%E9%A3%9E-%E5%B8%82%E5%9C%BA%E6%AD%A3%E5%9C%A8%E6%8B%86%E5%88%86%E5%8F%91%E5%B0%84%E8%8A%82%E5%A5%8F%E4%B8%8E%E4%BB%BB%E5%8A%A1%E5%8F%AF%E9%9D%A0%E6%80%A7/"><link rel="icon" type="image/svg+xml" href="/favicon.svg"><link rel="alternate" type="application/rss+xml" title="未来观察者" href="/rss.xml"><link rel="stylesheet" href="/_astro/_channel_.BFW__1rx.css"></head> <body> <div class="page-bg"></div> <header class="site-header"> <div class="shell header-inner"> <div class="header-bar"> <a class="brand" href="/ai-tools/"> <img src="/brand-mark.svg" alt="" class="brand-mark" width="56" height="56"> <span class="brand-text" aria-label="未来观察者">思考未来</span> </a> </div> <nav class="top-menu" aria-label="顶部菜单"> <a href="/future-daily/" class="top-menu-link"> 每日信息 </a><a href="/docs/deer-flow/00-overview/" class="top-menu-link"> DeerFlow教程 </a><a href="/docs/hermes/00-overview/" class="top-menu-link"> Hermes教程 </a><a href="/docs/openclaw/00-overview/" class="top-menu-link"> OpenClaw教程 </a><a href="/about/" class="top-menu-link"> 关于我 </a> </nav> <div class="top-actions"> <a class="feedback-link" href="https://github.com/yonglisss/yonglisss.github.io/issues" target="_blank" rel="noopener noreferrer" aria-label="问题反馈"> <svg viewBox="0 0 24 24" aria-hidden="true" class="action-icon"> <path d="M4.75 5.75A2.75 2.75 0 0 1 7.5 3h9A2.75 2.75 0 0 1 19.25 5.75v6.5A2.75 2.75 0 0 1 16.5 15H9.3l-3.55 3.2V15.1a2.75 2.75 0 0 1-1-2.1V5.75Z"></path> <path d="M8 7.75h8M8 11.25h4"></path> </svg> <span>问题反馈</span> </a> <div class="theme-switcher" data-theme-switcher> <button class="theme-trigger" type="button" aria-haspopup="menu" aria-expanded="false" aria-label="切换明暗模式" data-theme-trigger> <svg viewBox="0 0 24 24" aria-hidden="true" class="action-icon theme-trigger-icon theme-trigger-icon--light"> <circle cx="12" cy="12" r="4"></circle> <path d="M12 2.75v2M12 19.25v2M4.75 4.75l1.4 1.4M17.85 17.85l1.4 1.4M2.75 12h2M19.25 12h2M4.75 19.25l1.4-1.4M17.85 6.15l1.4-1.4"></path> </svg> <svg viewBox="0 0 24 24" aria-hidden="true" class="action-icon theme-trigger-icon theme-trigger-icon--dark"> <path d="M20.25 14.2A8 8 0 0 1 9.8 3.75 8.5 8.5 0 1 0 20.25 14.2Z"></path> </svg> <svg viewBox="0 0 24 24" aria-hidden="true" class="action-icon theme-trigger-icon theme-trigger-icon--system"> <rect x="4" y="5" width="16" height="11" rx="1.8"></rect> <path d="M9 20h6M12 16v4"></path> </svg> </button> <div class="theme-menu" role="menu" data-theme-menu hidden> <button class="theme-option" type="button" role="menuitemradio" data-theme-option="light" aria-checked="false"> <svg viewBox="0 0 24 24" aria-hidden="true" class="action-icon"><circle cx="12" cy="12" r="4"></circle><path d="M12 2.75v2M12 19.25v2M4.75 4.75l1.4 1.4M17.85 17.85l1.4 1.4M2.75 12h2M19.25 12h2M4.75 19.25l1.4-1.4M17.85 6.15l1.4-1.4"></path></svg> <span>亮色</span> </button> <button class="theme-option" type="button" role="menuitemradio" data-theme-option="dark" aria-checked="false"> <svg viewBox="0 0 24 24" aria-hidden="true" class="action-icon"><path d="M20.25 14.2A8 8 0 0 1 9.8 3.75 8.5 8.5 0 1 0 20.25 14.2Z"></path></svg> <span>暗色</span> </button> <button class="theme-option" type="button" role="menuitemradio" data-theme-option="system" aria-checked="true"> <svg viewBox="0 0 24 24" aria-hidden="true" class="action-icon"><rect x="4" y="5" width="16" height="11" rx="1.8"></rect><path d="M9 20h6M12 16v4"></path></svg> <span>跟随系统</span> </button> </div> </div> </div> </div> </header> <script>
+  (() => {
+    const switcher = document.querySelector("[data-theme-switcher]");
+    if (!switcher) return;
+
+    const trigger = switcher.querySelector("[data-theme-trigger]");
+    const menu = switcher.querySelector("[data-theme-menu]");
+    const options = [...switcher.querySelectorAll("[data-theme-option]")];
+    const modes = ["light", "dark", "system"];
+
+    const getMode = () => {
+      const mode = document.documentElement.dataset.themeMode;
+      return modes.includes(mode) ? mode : "system";
+    };
+
+    const closeMenu = () => {
+      menu.hidden = true;
+      trigger.setAttribute("aria-expanded", "false");
+    };
+
+    const openMenu = () => {
+      menu.hidden = false;
+      trigger.setAttribute("aria-expanded", "true");
+    };
+
+    const sync = () => {
+      const mode = getMode();
+      trigger.dataset.themeMode = mode;
+      options.forEach((option) => {
+        option.setAttribute("aria-checked", String(option.dataset.themeOption === mode));
+      });
+    };
+
+    trigger.addEventListener("click", () => {
+      menu.hidden ? openMenu() : closeMenu();
+    });
+
+    options.forEach((option) => {
+      option.addEventListener("click", () => {
+        window.__setFutureObserverTheme?.(option.dataset.themeOption || "system");
+        sync();
+        closeMenu();
+      });
+    });
+
+    document.addEventListener("click", (event) => {
+      if (!switcher.contains(event.target)) closeMenu();
+    });
+
+    document.addEventListener("keydown", (event) => {
+      if (event.key === "Escape") closeMenu();
+    });
+
+    window.addEventListener("future-observer-theme-change", sync);
+    sync();
+  })();
+</script> <aside class="site-rail" aria-label="站点导航"> <div class="site-rail-inner"> <p class="site-rail-label">Channels</p> <nav aria-label="主导航"> <ul class="site-rail-nav"> <li> <a href="/ai-tools/" class="site-rail-link"> AI工具 </a> </li><li> <a href="/future-daily/" class="site-rail-link"> 未来观察者日报 </a> </li> </ul> </nav> </div> </aside> <main class="shell page-content">  <div class="post-hero"> <p class="eyebrow">2026年7月18日</p> <h1>🚀 Starship 第13次试飞：市场正在拆分“按时发射”与“完成任务”</h1> <p class="post-summary">🧭 核心观点：Polymarket 给 Starship 第13次试飞在 7月20日前发射 53.5%、7月31日前发射 93.05% 的定价，却同时给助推器爆炸 73.5%、上级成功溅落 69%。真正值得观察的不是一次试飞成败，而是商业航天的进度、可靠性与回收能力，正在被拆成</p> <ul class="tag-list"> <li> <a href="/tags/%E6%9C%AA%E6%9D%A5%E8%A7%82%E5%AF%9F%E8%80%85%E6%97%A5%E6%8A%A5/" class="tag-link">
+#未来观察者日报 </a> </li><li> <a href="/tags/2026%E5%B9%B407%E6%9C%88/" class="tag-link">
+#2026年07月 </a> </li> </ul> </div> <div class="post-grid"> <article class="prose">  <blockquote>
+<p>🧭 <strong>核心观点</strong>：Polymarket 给 Starship 第13次试飞在 <strong>7月20日前发射 53.5%</strong>、<strong>7月31日前发射 93.05%</strong> 的定价，却同时给助推器爆炸 <strong>73.5%</strong>、上级成功溅落 <strong>69%</strong>。真正值得观察的不是一次试飞成败，而是商业航天的进度、可靠性与回收能力，正在被拆成彼此独立的可交易里程碑。</p>
+</blockquote>
+<p><strong>作者：</strong> 元英<br>
+<strong>时间：</strong> 2026年7月18日<br>
+<strong>标签：</strong> #未来观察者 #商业航天 #Starship #先进制造<br>
+<strong>阅读时间：</strong> 3-5分钟</p>
+<hr>
+<h2 id="-今天看什么投票">🎯 今天看什么投票？</h2>
+<p>Polymarket 事件 <strong>“SpaceX Starship Flight Test 13”</strong> 同时交易发射日期、助推器状态、上级溅落和塔架回收。它不是简单的“成功 / 失败”二选一，而是一张把复杂工程任务拆成多个验收节点的概率仪表盘。</p>
+<h3 id="-关键数据卡片">📊 关键数据卡片</h3>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<table><thead><tr><th>子投票</th><th align="right">Yes 概率</th><th align="right">24小时交易量</th><th align="right">买一 / 卖一</th><th align="right">变化</th></tr></thead><tbody><tr><td>7月20日前发射</td><td align="right"><strong>53.5%</strong></td><td align="right">约 2,216 美元</td><td align="right">44% / 63%</td><td align="right">新近市场</td></tr><tr><td>7月23日前发射</td><td align="right"><strong>75.0%</strong></td><td align="right">约 573 美元</td><td align="right">72% / 78%</td><td align="right">新近市场</td></tr><tr><td>7月31日前发射</td><td align="right"><strong>93.05%</strong></td><td align="right">约 1.69 万美元</td><td align="right">92.4% / 93.7%</td><td align="right">单日 <strong>-3.55</strong> 个百分点</td></tr><tr><td>8月31日前发射</td><td align="right"><strong>97.75%</strong></td><td align="right">约 4,926 美元</td><td align="right">97.5% / 98.0%</td><td align="right">单周 <strong>+4.25</strong> 个百分点</td></tr><tr><td>Super Heavy 助推器爆炸</td><td align="right"><strong>73.5%</strong></td><td align="right">约 2.15 万美元</td><td align="right">73% / 74%</td><td align="right">单周 <strong>-4</strong> 个百分点</td></tr><tr><td>Starship 上级成功受控溅落</td><td align="right"><strong>69.0%</strong></td><td align="right">约 4,651 美元</td><td align="right">68% / 70%</td><td align="right">单日 <strong>-8.5</strong> 个百分点</td></tr><tr><td>塔架“筷子”成功捕获助推器</td><td align="right"><strong>5.0%</strong></td><td align="right">约 7,031 美元</td><td align="right">2% / 8%</td><td align="right">单日 <strong>+3.9</strong> 个百分点</td></tr></tbody></table>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<table><thead><tr><th>事件指标</th><th align="right">数据</th></tr></thead><tbody><tr><td>累计交易量</td><td align="right">约 32.10 万美元</td></tr><tr><td>24小时交易量</td><td align="right">约 16.26 万美元</td></tr><tr><td>流动性</td><td align="right">约 7.35 万美元</td></tr><tr><td>数据获取时间</td><td align="right">2026-07-18 04:00 CST</td></tr><tr><td>Polymarket 更新时间</td><td align="right">2026-07-18 03:59 CST（2026-07-17 19:59 UTC）</td></tr><tr><td>所属领域</td><td align="right">商业航天 / 先进制造 / 工程可靠性</td></tr><tr><td>投票链接</td><td align="right"><a href="https://polymarket.com/event/spacex-starship-flight-test-13">https://polymarket.com/event/spacex-starship-flight-test-13</a></td></tr></tbody></table>
+<blockquote>
+<p><strong>读数提醒</strong>：各行是结算条件不同的独立二元合约，不能相加成一个概率分布。“发射”只要求飞行器离开发射台，后续爆炸不影响日期合约结算，因此“7月底前发射概率高”与“助推器爆炸概率高”并不矛盾。</p>
+</blockquote>
+<h3 id="-为什么今天选它">🧩 为什么今天选它？</h3>
+<p>最近14天文章已覆盖芯片、利率、平台估值、能源物流、加密、公共卫生、供应链安全、宏观数据和气候风险。更热的美联储、Bitcoin、WTI、霍尔木兹及 AI 模型榜首，均与最近7天主线重复。</p>
+<p>7月3日曾写过 Starship <strong>年度入轨次数</strong>，但本次新增变量明确：不再讨论全年发射总量，而是利用第13次试飞的多组合约，观察<strong>排期可信度、飞行可靠性与回收能力如何被分开定价</strong>。24小时成交约占累计成交的一半，也说明市场正在集中重估这个临近工程节点。</p>
+<hr>
+<h2 id="️-为什么会有这组投票排期与性能不再是同一个问题">⏱️ 为什么会有这组投票？排期与性能不再是同一个问题</h2>
+<p>第13次试飞合约把任务拆成三类问题：</p>
+<ol>
+<li><strong>什么时候发射</strong>：7月20日、23日、31日和8月31日等时间窗；</li>
+<li><strong>飞行器能否完成阶段目标</strong>：助推器是否爆炸、上级能否受控溅落；</li>
+<li><strong>复用是否推进</strong>：助推器能否被塔架捕获。</li>
+</ol>
+<p>这组价格揭示了一个关键分歧：市场对“7月底前离开发射台”很有信心，却不认为所有硬件都能完整回收。与此同时，7月31日前发射概率单日下降3.55个百分点，上级成功溅落概率单日下降8.5个百分点，说明临近试飞时，时间表与任务质量预期可以向不同方向调整。</p>
+<p><strong>事实</strong>是合约规则、报价、交易量与价差；<strong>市场定价</strong>是7月底前发射占优、塔架捕获仍属小概率；<strong>推测</strong>是交易者可能在根据临近窗口的信息修正工程进度。盘口本身不能证明具体延误原因，本文不把未获官方材料核验的传闻写成事实。</p>
+<hr>
+<h2 id="️-多组合约真正反映了什么结构变化">🏗️ 多组合约真正反映了什么结构变化？</h2>
+<h3 id="1-技术层复杂系统开始按里程碑衡量而非只看炸没炸">1. 技术层：复杂系统开始按里程碑衡量，而非只看“炸没炸”</h3>
+<p>试验型火箭的工程价值不能由一个成功标签概括。离台、级间分离、再入、受控溅落和捕获，对应不同子系统与不同故障树。把它们分别记录，才能判断进步来自发动机、热防护、制导控制还是地面系统。</p>
+<h3 id="2-产业层发射频率的瓶颈是闭环速度">2. 产业层：发射频率的瓶颈是“闭环速度”</h3>
+<p>商业航天真正的产能，不只是制造多少枚火箭，而是测试、发现问题、修改设计、监管放行和再次发射的循环速度。日期合约衡量节奏，溅落和捕获合约衡量技术成熟度；只有两者同时改善，试飞频率才可能转化为可重复的运输能力。</p>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<table><thead><tr><th>观察维度</th><th>代表合约</th><th>对产业意味着什么</th></tr></thead><tbody><tr><td>排期能力</td><td>7月20日 / 31日前发射</td><td>地面准备与审批节奏</td></tr><tr><td>飞行可靠性</td><td>助推器爆炸、上级溅落</td><td>关键子系统成熟度</td></tr><tr><td>可复用能力</td><td>塔架捕获</td><td>周转成本与基础设施协同</td></tr><tr><td>信息效率</td><td>概率、价差、成交变化</td><td>外部共识如何响应新信号</td></tr></tbody></table>
+<h3 id="3-社会--资本层工程进度正在变成连续价格而不是发布会叙事">3. 社会 / 资本层：工程进度正在变成连续价格，而不是发布会叙事</h3>
+<p>事件24小时交易量约16.26万美元，给外部观察者提供了比“成功 / 失败”更细的预期变化。但新开的7月20日合约买卖价差达到19个百分点，捕获合约价差也有6个百分点，说明部分数字仍受流动性影响，不能替代工程审查、官方进度或安全评估。</p>
+<hr>
+<h2 id="-如果这种定价方式继续未来会怎样">🔭 如果这种定价方式继续，未来会怎样？</h2>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<table><thead><tr><th>时间维度</th><th>可能变化</th><th>应重点观察</th></tr></thead><tbody><tr><td><strong>短期：未来两周</strong></td><td>日期概率向实际窗口快速收敛，飞行后各性能合约结算</td><td>是否离台、上级再入状态、助推器处置</td></tr><tr><td><strong>中期：未来6—18个月</strong></td><td>市场从单次试飞转向连续衡量周转周期与任务完成率</td><td>相邻试飞间隔、同类节点命中率、回收复用</td></tr><tr><td><strong>长期：未来3—5年</strong></td><td>航天项目可能形成类似交付看板的外部概率层</td><td>单位运力成本、发射频率、可靠性与保险定价</td></tr></tbody></table>
+<p><strong>推测而非事实</strong>：如果这些里程碑长期保留价格历史，资本市场可更早识别“发射次数增长但可靠性未同步”的分化；如果合约只在试飞前短暂活跃、规则口径频繁变化，它们就难以成为稳定的产业指标。</p>
+<hr>
+<h2 id="-普通人从业者和创业者如何行动">🧭 普通人、从业者和创业者如何行动？</h2>
+<h3 id="-普通观察者">👤 普通观察者</h3>
+<ul>
+<li>不要把“成功发射”理解为“完成全部任务”；先读清楚结算条件。</li>
+<li>同时看概率、24小时成交量和买卖价差，避免被单一百分比误导。</li>
+<li>复盘时按节点记录结果，而不是只保存爆炸视频或成功口号。</li>
+</ul>
+<h3 id="-航天与制造从业者">🧑‍💻 航天与制造从业者</h3>
+<ol>
+<li>建立“计划窗口—实际窗口—节点完成率”的连续台账。</li>
+<li>将离台、再入、溅落和回收分别映射到故障模式，不混用一个总成功率。</li>
+<li>比较盘口变化与官方信息发布时间，检验市场是领先、同步还是滞后。</li>
+</ol>
+<h3 id="-创业者--投资观察者">💼 创业者 / 投资观察者</h3>
+<ul>
+<li>关注测试闭环工具：遥测数据管理、仿真验证、质量追溯和地面运维，而不只追逐整箭概念。</li>
+<li>评估商业航天企业时，同时问三个问题：能否按时、能否完成任务、能否低成本重复。</li>
+<li>把回收能力视为运营指标，而非营销画面；真正重要的是周转时间与重复使用后的可靠性。</li>
+</ul>
+<hr>
+<h2 id="️-风险提示">⚠️ 风险提示</h2>
+<ul>
+<li>Polymarket 价格是交易者报价，不是 SpaceX 官方计划，也不构成投资建议。</li>
+<li>合约定义差异很大：发射后爆炸仍可使日期合约结算为 Yes。</li>
+<li>部分短日期合约成交量和流动性较低，宽价差会放大价格噪音。</li>
+<li>试飞安排可能因技术、天气、安全或监管因素变化；本文未对具体原因作未经核验的断言。</li>
+<li>单次试飞不能直接推出长期成本、运力或企业估值。</li>
+</ul>
+<hr>
+<h2 id="-结语真正的成熟是三个概率一起改善">🌅 结语：真正的成熟，是三个概率一起改善</h2>
+<p>第13次试飞市场最有价值的信号，不是93.05%的“7月底前发射”，而是进度、可靠性和复用能力已经出现不同价格。</p>
+<blockquote>
+<p>当“能否按时”“能否完成”“能否回收”不再被压缩成一个成功标签，商业航天才开始拥有可复盘的工程语言。</p>
+</blockquote>
+<p>未来判断 Starship 是否接近规模化运营，不能只数发射次数。更关键的组合是：发射间隔持续缩短、关键节点完成率持续上升、回收后的周转成本持续下降。只有三者同时发生，高频试验才会转化为真正的运输基础设施。</p>
+<hr>
+<h2 id="-参考资源">🔗 参考资源</h2>
+<ul>
+<li>Polymarket：SpaceX Starship Flight Test 13<br>
+<a href="https://polymarket.com/event/spacex-starship-flight-test-13">https://polymarket.com/event/spacex-starship-flight-test-13</a></li>
+<li>Polymarket Gamma API：事件价格、交易量、流动性、买卖价、变化幅度与更新时间；数据获取时间 2026-07-18 04:00 CST</li>
+<li>SpaceX 官方视频频道（合约指定的主要核验来源）<br>
+<a href="https://www.youtube.com/c/SpaceX">https://www.youtube.com/c/SpaceX</a></li>
+</ul>  </article> <aside class="toc"><p class="toc-title">目录</p><ul class="toc-list"><li class="depth-2"><a href="#-今天看什么投票" data-toc-link="-今天看什么投票">🎯 今天看什么投票？</a></li><li class="depth-3"><a href="#-关键数据卡片" data-toc-link="-关键数据卡片">📊 关键数据卡片</a></li><li class="depth-3"><a href="#-为什么今天选它" data-toc-link="-为什么今天选它">🧩 为什么今天选它？</a></li><li class="depth-2"><a href="#️-为什么会有这组投票排期与性能不再是同一个问题" data-toc-link="️-为什么会有这组投票排期与性能不再是同一个问题">⏱️ 为什么会有这组投票？排期与性能不再是同一个问题</a></li><li class="depth-2"><a href="#️-多组合约真正反映了什么结构变化" data-toc-link="️-多组合约真正反映了什么结构变化">🏗️ 多组合约真正反映了什么结构变化？</a></li><li class="depth-3"><a href="#1-技术层复杂系统开始按里程碑衡量而非只看炸没炸" data-toc-link="1-技术层复杂系统开始按里程碑衡量而非只看炸没炸">1. 技术层：复杂系统开始按里程碑衡量，而非只看“炸没炸”</a></li><li class="depth-3"><a href="#2-产业层发射频率的瓶颈是闭环速度" data-toc-link="2-产业层发射频率的瓶颈是闭环速度">2. 产业层：发射频率的瓶颈是“闭环速度”</a></li><li class="depth-3"><a href="#3-社会--资本层工程进度正在变成连续价格而不是发布会叙事" data-toc-link="3-社会--资本层工程进度正在变成连续价格而不是发布会叙事">3. 社会 / 资本层：工程进度正在变成连续价格，而不是发布会叙事</a></li><li class="depth-2"><a href="#-如果这种定价方式继续未来会怎样" data-toc-link="-如果这种定价方式继续未来会怎样">🔭 如果这种定价方式继续，未来会怎样？</a></li><li class="depth-2"><a href="#-普通人从业者和创业者如何行动" data-toc-link="-普通人从业者和创业者如何行动">🧭 普通人、从业者和创业者如何行动？</a></li><li class="depth-3"><a href="#-普通观察者" data-toc-link="-普通观察者">👤 普通观察者</a></li><li class="depth-3"><a href="#-航天与制造从业者" data-toc-link="-航天与制造从业者">🧑‍💻 航天与制造从业者</a></li><li class="depth-3"><a href="#-创业者--投资观察者" data-toc-link="-创业者--投资观察者">💼 创业者 / 投资观察者</a></li><li class="depth-2"><a href="#️-风险提示" data-toc-link="️-风险提示">⚠️ 风险提示</a></li><li class="depth-2"><a href="#-结语真正的成熟是三个概率一起改善" data-toc-link="-结语真正的成熟是三个概率一起改善">🌅 结语：真正的成熟，是三个概率一起改善</a></li><li class="depth-2"><a href="#-参考资源" data-toc-link="-参考资源">🔗 参考资源</a></li></ul></aside><script type="module">const c=()=>{const r=Array.from(document.querySelectorAll(".toc a[data-toc-link]"));if(!r.length)return;const o=r.map(t=>{const e=t.getAttribute("data-toc-link");if(!e)return null;const n=document.getElementById(e);return n?{id:e,heading:n,link:t}:null}).filter(t=>t!==null);if(!o.length)return;const s=t=>{r.forEach(e=>{const n=e.getAttribute("data-toc-link")===t;e.classList.toggle("active",n),n&&e.scrollIntoView({block:"nearest",inline:"nearest"})})},i=()=>{const t=Math.round(window.innerHeight*.28);let e=o[0];for(const n of o)n.heading.getBoundingClientRect().top<=t&&(e=n);s(e.id)};i();const a=new IntersectionObserver(()=>i(),{rootMargin:"-18% 0px -70% 0px",threshold:[0,1]});o.forEach(t=>a.observe(t.heading)),window.addEventListener("scroll",i,{passive:!0})};document.addEventListener("DOMContentLoaded",c);document.addEventListener("astro:page-load",c);</script> </div>  </main> <footer class="site-footer"> <div class="shell footer-inner"> <p>© 2026 未来观察者</p> </div> </footer> </body></html>
