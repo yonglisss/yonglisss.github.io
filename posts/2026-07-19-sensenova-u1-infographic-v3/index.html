@@ -1,0 +1,112 @@
+<!DOCTYPE html><html lang="zh-CN"> <head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1"><script>
+      (() => {
+        const storageKey = "future-observer-theme";
+        const root = document.documentElement;
+        const getStoredMode = () => {
+          try {
+            const value = localStorage.getItem(storageKey);
+            return value === "light" || value === "dark" || value === "system" ? value : "system";
+          } catch {
+            return "system";
+          }
+        };
+        const systemDark = () => window.matchMedia?.("(prefers-color-scheme: dark)").matches ?? false;
+        const apply = (mode) => {
+          const resolved = mode === "system" ? (systemDark() ? "dark" : "light") : mode;
+          root.dataset.themeMode = mode;
+          root.dataset.theme = resolved;
+          root.style.colorScheme = resolved;
+        };
+        apply(getStoredMode());
+        window.__setFutureObserverTheme = (mode) => {
+          const next = mode === "light" || mode === "dark" || mode === "system" ? mode : "system";
+          try { localStorage.setItem(storageKey, next); } catch {}
+          apply(next);
+          window.dispatchEvent(new CustomEvent("future-observer-theme-change", { detail: { mode: next } }));
+        };
+        window.matchMedia?.("(prefers-color-scheme: dark)").addEventListener?.("change", () => {
+          if (getStoredMode() === "system") apply("system");
+        });
+      })();
+    </script><title>SenseNova-U1 Infographic V3：把信息图生成和局部修改放进同一个模型 | 未来观察者</title><meta name="description" content="生成信息图并不难，难的是文字、布局出错后还能精准修改，而不是整张重做。OpenSenseNova 7 月 16 日发布的 SenseNova-U1-8B-MoT-Infographic-V3，瞄准的正是这个断点：同一模型既能从文字生成信息图，也能基于现有图片继续编辑。目前项目登上"><meta name="generator" content="Astro v5.18.1"><meta property="og:title" content="SenseNova-U1 Infographic V3：把信息图生成和局部修改放进同一个模型 | 未来观察者"><meta property="og:description" content="生成信息图并不难，难的是文字、布局出错后还能精准修改，而不是整张重做。OpenSenseNova 7 月 16 日发布的 SenseNova-U1-8B-MoT-Infographic-V3，瞄准的正是这个断点：同一模型既能从文字生成信息图，也能基于现有图片继续编辑。目前项目登上"><meta property="og:type" content="website"><meta property="og:url" content="https://future.lifestudylab.com/posts/2026-07-19-sensenova-u1-infographic-v3/"><link rel="icon" type="image/svg+xml" href="/favicon.svg"><link rel="alternate" type="application/rss+xml" title="未来观察者" href="/rss.xml"><link rel="stylesheet" href="/_astro/_channel_.BFW__1rx.css"></head> <body> <div class="page-bg"></div> <header class="site-header"> <div class="shell header-inner"> <div class="header-bar"> <a class="brand" href="/ai-tools/"> <img src="/brand-mark.svg" alt="" class="brand-mark" width="56" height="56"> <span class="brand-text" aria-label="未来观察者">思考未来</span> </a> </div> <nav class="top-menu" aria-label="顶部菜单"> <a href="/future-daily/" class="top-menu-link"> 每日信息 </a><a href="/docs/deer-flow/00-overview/" class="top-menu-link"> DeerFlow教程 </a><a href="/docs/hermes/00-overview/" class="top-menu-link"> Hermes教程 </a><a href="/docs/openclaw/00-overview/" class="top-menu-link"> OpenClaw教程 </a><a href="/about/" class="top-menu-link"> 关于我 </a> </nav> <div class="top-actions"> <a class="feedback-link" href="https://github.com/yonglisss/yonglisss.github.io/issues" target="_blank" rel="noopener noreferrer" aria-label="问题反馈"> <svg viewBox="0 0 24 24" aria-hidden="true" class="action-icon"> <path d="M4.75 5.75A2.75 2.75 0 0 1 7.5 3h9A2.75 2.75 0 0 1 19.25 5.75v6.5A2.75 2.75 0 0 1 16.5 15H9.3l-3.55 3.2V15.1a2.75 2.75 0 0 1-1-2.1V5.75Z"></path> <path d="M8 7.75h8M8 11.25h4"></path> </svg> <span>问题反馈</span> </a> <div class="theme-switcher" data-theme-switcher> <button class="theme-trigger" type="button" aria-haspopup="menu" aria-expanded="false" aria-label="切换明暗模式" data-theme-trigger> <svg viewBox="0 0 24 24" aria-hidden="true" class="action-icon theme-trigger-icon theme-trigger-icon--light"> <circle cx="12" cy="12" r="4"></circle> <path d="M12 2.75v2M12 19.25v2M4.75 4.75l1.4 1.4M17.85 17.85l1.4 1.4M2.75 12h2M19.25 12h2M4.75 19.25l1.4-1.4M17.85 6.15l1.4-1.4"></path> </svg> <svg viewBox="0 0 24 24" aria-hidden="true" class="action-icon theme-trigger-icon theme-trigger-icon--dark"> <path d="M20.25 14.2A8 8 0 0 1 9.8 3.75 8.5 8.5 0 1 0 20.25 14.2Z"></path> </svg> <svg viewBox="0 0 24 24" aria-hidden="true" class="action-icon theme-trigger-icon theme-trigger-icon--system"> <rect x="4" y="5" width="16" height="11" rx="1.8"></rect> <path d="M9 20h6M12 16v4"></path> </svg> </button> <div class="theme-menu" role="menu" data-theme-menu hidden> <button class="theme-option" type="button" role="menuitemradio" data-theme-option="light" aria-checked="false"> <svg viewBox="0 0 24 24" aria-hidden="true" class="action-icon"><circle cx="12" cy="12" r="4"></circle><path d="M12 2.75v2M12 19.25v2M4.75 4.75l1.4 1.4M17.85 17.85l1.4 1.4M2.75 12h2M19.25 12h2M4.75 19.25l1.4-1.4M17.85 6.15l1.4-1.4"></path></svg> <span>亮色</span> </button> <button class="theme-option" type="button" role="menuitemradio" data-theme-option="dark" aria-checked="false"> <svg viewBox="0 0 24 24" aria-hidden="true" class="action-icon"><path d="M20.25 14.2A8 8 0 0 1 9.8 3.75 8.5 8.5 0 1 0 20.25 14.2Z"></path></svg> <span>暗色</span> </button> <button class="theme-option" type="button" role="menuitemradio" data-theme-option="system" aria-checked="true"> <svg viewBox="0 0 24 24" aria-hidden="true" class="action-icon"><rect x="4" y="5" width="16" height="11" rx="1.8"></rect><path d="M9 20h6M12 16v4"></path></svg> <span>跟随系统</span> </button> </div> </div> </div> </div> </header> <script>
+  (() => {
+    const switcher = document.querySelector("[data-theme-switcher]");
+    if (!switcher) return;
+
+    const trigger = switcher.querySelector("[data-theme-trigger]");
+    const menu = switcher.querySelector("[data-theme-menu]");
+    const options = [...switcher.querySelectorAll("[data-theme-option]")];
+    const modes = ["light", "dark", "system"];
+
+    const getMode = () => {
+      const mode = document.documentElement.dataset.themeMode;
+      return modes.includes(mode) ? mode : "system";
+    };
+
+    const closeMenu = () => {
+      menu.hidden = true;
+      trigger.setAttribute("aria-expanded", "false");
+    };
+
+    const openMenu = () => {
+      menu.hidden = false;
+      trigger.setAttribute("aria-expanded", "true");
+    };
+
+    const sync = () => {
+      const mode = getMode();
+      trigger.dataset.themeMode = mode;
+      options.forEach((option) => {
+        option.setAttribute("aria-checked", String(option.dataset.themeOption === mode));
+      });
+    };
+
+    trigger.addEventListener("click", () => {
+      menu.hidden ? openMenu() : closeMenu();
+    });
+
+    options.forEach((option) => {
+      option.addEventListener("click", () => {
+        window.__setFutureObserverTheme?.(option.dataset.themeOption || "system");
+        sync();
+        closeMenu();
+      });
+    });
+
+    document.addEventListener("click", (event) => {
+      if (!switcher.contains(event.target)) closeMenu();
+    });
+
+    document.addEventListener("keydown", (event) => {
+      if (event.key === "Escape") closeMenu();
+    });
+
+    window.addEventListener("future-observer-theme-change", sync);
+    sync();
+  })();
+</script> <aside class="site-rail" aria-label="站点导航"> <div class="site-rail-inner"> <p class="site-rail-label">Channels</p> <nav aria-label="主导航"> <ul class="site-rail-nav"> <li> <a href="/ai-tools/" class="site-rail-link"> AI工具 </a> </li><li> <a href="/future-daily/" class="site-rail-link"> 未来观察者日报 </a> </li> </ul> </nav> </div> </aside> <main class="shell page-content">  <div class="post-hero"> <p class="eyebrow">2026年7月19日</p> <h1>SenseNova-U1 Infographic V3：把信息图生成和局部修改放进同一个模型</h1> <p class="post-summary">生成信息图并不难，难的是文字、布局出错后还能精准修改，而不是整张重做。OpenSenseNova 7 月 16 日发布的 SenseNova-U1-8B-MoT-Infographic-V3，瞄准的正是这个断点：同一模型既能从文字生成信息图，也能基于现有图片继续编辑。目前项目登上</p> <ul class="tag-list"> <li> <a href="/tags/AI%E5%B7%A5%E5%85%B7/" class="tag-link">
+#AI工具 </a> </li><li> <a href="/tags/2026%E5%B9%B407%E6%9C%88/" class="tag-link">
+#2026年07月 </a> </li> </ul> </div> <div class="post-grid"> <article class="prose">  <p>生成信息图并不难，难的是文字、布局出错后还能精准修改，而不是整张重做。OpenSenseNova 7 月 16 日发布的 SenseNova-U1-8B-MoT-Infographic-V3，瞄准的正是这个断点：同一模型既能从文字生成信息图，也能基于现有图片继续编辑。目前项目登上 GitHub 日榜，代码与权重采用 Apache 2.0 许可证。</p>
+<h2 id="-这个项目是干什么的">📌 这个项目是干什么的</h2>
+<ul>
+<li><strong>定位</strong>：8B 级信息图生成与编辑模型，同时支持文生图和图像编辑。</li>
+<li><strong>能力</strong>：可替换局部文字或内容、修复瑕疵、调整整体风格和布局，也能通过框选区域约束修改范围。</li>
+<li><strong>适合谁</strong>：制作海报、报告配图、知识卡片的内容团队，以及想搭建私有视觉工作流的开发者。</li>
+<li><strong>成熟度</strong>：代码、权重、示例和在线体验均已提供，但 V3 刚发布，仍应按早期版本评估。</li>
+</ul>
+<h2 id="-为什么值得关注">🔍 为什么值得关注</h2>
+<p>它不只追求“一次生成得像”，而是把后续修改纳入主流程。官方列出了文字替换、图表编辑、元素重排、页面结构重建等 10 类任务，这比反复重抽整张图更接近真实生产。</p>
+<p>官方报告显示，V3 在 Qwen-Image-Bench 总分为 50.23，高于同系列 V2 的 48.00；在项目方列入对比的开源模型中，WeEdit 平均分和 GEdit-Bench 总分均居首。这些结果适合用来确定测试方向，但不能替代自己的中文业务样本。</p>
+<h2 id="-谁适合试怎么开始">🧪 谁适合试，怎么开始</h2>
+<p>非技术用户可先打开 SenseNova-Studio，分别测试“从零生成”和“只改一处文字”，重点检查中文小字、数字、品牌名及未编辑区域是否稳定。注意：Studio 使用经过蒸馏、专用于信息图生成的 U1-Fast，效果不等同于本地 V3。</p>
+<p>开发者可从 GitHub 的 <code>examples</code> 目录开始：文生图使用 <code>examples/t2i/inference.py</code>，编辑使用 <code>examples/editing/inference.py</code>。显存紧张时，可按文档尝试 GGUF 与 <code>--vram_mode balanced</code>；官方参考配置约需 10～12GB 显存，但会牺牲速度。</p>
+<h2 id="️-使用提醒">⚠️ 使用提醒</h2>
+<p>信息图里的事实、数字和文字必须人工复核，不能把“字形正确”当成内容正确。接入生产前，建议用固定模板测试中文准确率、局部编辑保持度、推理耗时和峰值显存。</p>
+<h2 id="-参考资源">🔗 参考资源</h2>
+<ul>
+<li>GitHub：<a href="https://github.com/OpenSenseNova/SenseNova-U1">https://github.com/OpenSenseNova/SenseNova-U1</a></li>
+<li>V3 模型卡：<a href="https://huggingface.co/sensenova/SenseNova-U1-8B-MoT-Infographic-V3">https://huggingface.co/sensenova/SenseNova-U1-8B-MoT-Infographic-V3</a></li>
+<li>信息图文档：<a href="https://github.com/OpenSenseNova/SenseNova-U1/blob/main/docs/u1_infographic_model.md">https://github.com/OpenSenseNova/SenseNova-U1/blob/main/docs/u1_infographic_model.md</a></li>
+<li>推理示例：<a href="https://github.com/OpenSenseNova/SenseNova-U1/tree/main/examples">https://github.com/OpenSenseNova/SenseNova-U1/tree/main/examples</a></li>
+<li>在线体验：<a href="https://unify.light-ai.top/">https://unify.light-ai.top/</a></li>
+</ul>  </article> <aside class="toc"><p class="toc-title">目录</p><ul class="toc-list"><li class="depth-2"><a href="#-这个项目是干什么的" data-toc-link="-这个项目是干什么的">📌 这个项目是干什么的</a></li><li class="depth-2"><a href="#-为什么值得关注" data-toc-link="-为什么值得关注">🔍 为什么值得关注</a></li><li class="depth-2"><a href="#-谁适合试怎么开始" data-toc-link="-谁适合试怎么开始">🧪 谁适合试，怎么开始</a></li><li class="depth-2"><a href="#️-使用提醒" data-toc-link="️-使用提醒">⚠️ 使用提醒</a></li><li class="depth-2"><a href="#-参考资源" data-toc-link="-参考资源">🔗 参考资源</a></li></ul></aside><script type="module">const c=()=>{const r=Array.from(document.querySelectorAll(".toc a[data-toc-link]"));if(!r.length)return;const o=r.map(t=>{const e=t.getAttribute("data-toc-link");if(!e)return null;const n=document.getElementById(e);return n?{id:e,heading:n,link:t}:null}).filter(t=>t!==null);if(!o.length)return;const s=t=>{r.forEach(e=>{const n=e.getAttribute("data-toc-link")===t;e.classList.toggle("active",n),n&&e.scrollIntoView({block:"nearest",inline:"nearest"})})},i=()=>{const t=Math.round(window.innerHeight*.28);let e=o[0];for(const n of o)n.heading.getBoundingClientRect().top<=t&&(e=n);s(e.id)};i();const a=new IntersectionObserver(()=>i(),{rootMargin:"-18% 0px -70% 0px",threshold:[0,1]});o.forEach(t=>a.observe(t.heading)),window.addEventListener("scroll",i,{passive:!0})};document.addEventListener("DOMContentLoaded",c);document.addEventListener("astro:page-load",c);</script> </div>  </main> <footer class="site-footer"> <div class="shell footer-inner"> <p>© 2026 未来观察者</p> </div> </footer> </body></html>
