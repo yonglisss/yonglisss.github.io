@@ -1,0 +1,112 @@
+<!DOCTYPE html><html lang="zh-CN"> <head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1"><script>
+      (() => {
+        const storageKey = "future-observer-theme";
+        const root = document.documentElement;
+        const getStoredMode = () => {
+          try {
+            const value = localStorage.getItem(storageKey);
+            return value === "light" || value === "dark" || value === "system" ? value : "system";
+          } catch {
+            return "system";
+          }
+        };
+        const systemDark = () => window.matchMedia?.("(prefers-color-scheme: dark)").matches ?? false;
+        const apply = (mode) => {
+          const resolved = mode === "system" ? (systemDark() ? "dark" : "light") : mode;
+          root.dataset.themeMode = mode;
+          root.dataset.theme = resolved;
+          root.style.colorScheme = resolved;
+        };
+        apply(getStoredMode());
+        window.__setFutureObserverTheme = (mode) => {
+          const next = mode === "light" || mode === "dark" || mode === "system" ? mode : "system";
+          try { localStorage.setItem(storageKey, next); } catch {}
+          apply(next);
+          window.dispatchEvent(new CustomEvent("future-observer-theme-change", { detail: { mode: next } }));
+        };
+        window.matchMedia?.("(prefers-color-scheme: dark)").addEventListener?.("change", () => {
+          if (getStoredMode() === "system") apply("system");
+        });
+      })();
+    </script><title>code-review-graph：让编码 Agent 先看“影响范围”，再读代码 | 未来观察者</title><meta name="description" content="AI 编码工具做代码审查时，常会重复搜索、打开大量文件，既消耗上下文，也容易漏掉跨文件依赖。code-review-graph 的思路是先为仓库建立一张本地结构图，再通过 MCP 或 CLI 把与变更真正相关的函数、调用方、依赖和测试交给 Agent。它近日登上 GitHub 日"><meta name="generator" content="Astro v5.18.1"><meta property="og:title" content="code-review-graph：让编码 Agent 先看“影响范围”，再读代码 | 未来观察者"><meta property="og:description" content="AI 编码工具做代码审查时，常会重复搜索、打开大量文件，既消耗上下文，也容易漏掉跨文件依赖。code-review-graph 的思路是先为仓库建立一张本地结构图，再通过 MCP 或 CLI 把与变更真正相关的函数、调用方、依赖和测试交给 Agent。它近日登上 GitHub 日"><meta property="og:type" content="website"><meta property="og:url" content="https://future.lifestudylab.com/posts/2026-07-21-code-review-graph/"><link rel="icon" type="image/svg+xml" href="/favicon.svg"><link rel="alternate" type="application/rss+xml" title="未来观察者" href="/rss.xml"><link rel="stylesheet" href="/_astro/_channel_.BFW__1rx.css"></head> <body> <div class="page-bg"></div> <header class="site-header"> <div class="shell header-inner"> <div class="header-bar"> <a class="brand" href="/ai-tools/"> <img src="/brand-mark.svg" alt="" class="brand-mark" width="56" height="56"> <span class="brand-text" aria-label="未来观察者">思考未来</span> </a> </div> <nav class="top-menu" aria-label="顶部菜单"> <a href="/future-daily/" class="top-menu-link"> 每日信息 </a><a href="/docs/deer-flow/00-overview/" class="top-menu-link"> DeerFlow教程 </a><a href="/docs/hermes/00-overview/" class="top-menu-link"> Hermes教程 </a><a href="/docs/openclaw/00-overview/" class="top-menu-link"> OpenClaw教程 </a><a href="/about/" class="top-menu-link"> 关于我 </a> </nav> <div class="top-actions"> <a class="feedback-link" href="https://github.com/yonglisss/yonglisss.github.io/issues" target="_blank" rel="noopener noreferrer" aria-label="问题反馈"> <svg viewBox="0 0 24 24" aria-hidden="true" class="action-icon"> <path d="M4.75 5.75A2.75 2.75 0 0 1 7.5 3h9A2.75 2.75 0 0 1 19.25 5.75v6.5A2.75 2.75 0 0 1 16.5 15H9.3l-3.55 3.2V15.1a2.75 2.75 0 0 1-1-2.1V5.75Z"></path> <path d="M8 7.75h8M8 11.25h4"></path> </svg> <span>问题反馈</span> </a> <div class="theme-switcher" data-theme-switcher> <button class="theme-trigger" type="button" aria-haspopup="menu" aria-expanded="false" aria-label="切换明暗模式" data-theme-trigger> <svg viewBox="0 0 24 24" aria-hidden="true" class="action-icon theme-trigger-icon theme-trigger-icon--light"> <circle cx="12" cy="12" r="4"></circle> <path d="M12 2.75v2M12 19.25v2M4.75 4.75l1.4 1.4M17.85 17.85l1.4 1.4M2.75 12h2M19.25 12h2M4.75 19.25l1.4-1.4M17.85 6.15l1.4-1.4"></path> </svg> <svg viewBox="0 0 24 24" aria-hidden="true" class="action-icon theme-trigger-icon theme-trigger-icon--dark"> <path d="M20.25 14.2A8 8 0 0 1 9.8 3.75 8.5 8.5 0 1 0 20.25 14.2Z"></path> </svg> <svg viewBox="0 0 24 24" aria-hidden="true" class="action-icon theme-trigger-icon theme-trigger-icon--system"> <rect x="4" y="5" width="16" height="11" rx="1.8"></rect> <path d="M9 20h6M12 16v4"></path> </svg> </button> <div class="theme-menu" role="menu" data-theme-menu hidden> <button class="theme-option" type="button" role="menuitemradio" data-theme-option="light" aria-checked="false"> <svg viewBox="0 0 24 24" aria-hidden="true" class="action-icon"><circle cx="12" cy="12" r="4"></circle><path d="M12 2.75v2M12 19.25v2M4.75 4.75l1.4 1.4M17.85 17.85l1.4 1.4M2.75 12h2M19.25 12h2M4.75 19.25l1.4-1.4M17.85 6.15l1.4-1.4"></path></svg> <span>亮色</span> </button> <button class="theme-option" type="button" role="menuitemradio" data-theme-option="dark" aria-checked="false"> <svg viewBox="0 0 24 24" aria-hidden="true" class="action-icon"><path d="M20.25 14.2A8 8 0 0 1 9.8 3.75 8.5 8.5 0 1 0 20.25 14.2Z"></path></svg> <span>暗色</span> </button> <button class="theme-option" type="button" role="menuitemradio" data-theme-option="system" aria-checked="true"> <svg viewBox="0 0 24 24" aria-hidden="true" class="action-icon"><rect x="4" y="5" width="16" height="11" rx="1.8"></rect><path d="M9 20h6M12 16v4"></path></svg> <span>跟随系统</span> </button> </div> </div> </div> </div> </header> <script>
+  (() => {
+    const switcher = document.querySelector("[data-theme-switcher]");
+    if (!switcher) return;
+
+    const trigger = switcher.querySelector("[data-theme-trigger]");
+    const menu = switcher.querySelector("[data-theme-menu]");
+    const options = [...switcher.querySelectorAll("[data-theme-option]")];
+    const modes = ["light", "dark", "system"];
+
+    const getMode = () => {
+      const mode = document.documentElement.dataset.themeMode;
+      return modes.includes(mode) ? mode : "system";
+    };
+
+    const closeMenu = () => {
+      menu.hidden = true;
+      trigger.setAttribute("aria-expanded", "false");
+    };
+
+    const openMenu = () => {
+      menu.hidden = false;
+      trigger.setAttribute("aria-expanded", "true");
+    };
+
+    const sync = () => {
+      const mode = getMode();
+      trigger.dataset.themeMode = mode;
+      options.forEach((option) => {
+        option.setAttribute("aria-checked", String(option.dataset.themeOption === mode));
+      });
+    };
+
+    trigger.addEventListener("click", () => {
+      menu.hidden ? openMenu() : closeMenu();
+    });
+
+    options.forEach((option) => {
+      option.addEventListener("click", () => {
+        window.__setFutureObserverTheme?.(option.dataset.themeOption || "system");
+        sync();
+        closeMenu();
+      });
+    });
+
+    document.addEventListener("click", (event) => {
+      if (!switcher.contains(event.target)) closeMenu();
+    });
+
+    document.addEventListener("keydown", (event) => {
+      if (event.key === "Escape") closeMenu();
+    });
+
+    window.addEventListener("future-observer-theme-change", sync);
+    sync();
+  })();
+</script> <aside class="site-rail" aria-label="站点导航"> <div class="site-rail-inner"> <p class="site-rail-label">Channels</p> <nav aria-label="主导航"> <ul class="site-rail-nav"> <li> <a href="/ai-tools/" class="site-rail-link"> AI工具 </a> </li><li> <a href="/future-daily/" class="site-rail-link"> 未来观察者日报 </a> </li> </ul> </nav> </div> </aside> <main class="shell page-content">  <div class="post-hero"> <p class="eyebrow">2026年7月21日</p> <h1>code-review-graph：让编码 Agent 先看“影响范围”，再读代码</h1> <p class="post-summary">AI 编码工具做代码审查时，常会重复搜索、打开大量文件，既消耗上下文，也容易漏掉跨文件依赖。code-review-graph 的思路是先为仓库建立一张本地结构图，再通过 MCP 或 CLI 把与变更真正相关的函数、调用方、依赖和测试交给 Agent。它近日登上 GitHub 日</p> <ul class="tag-list"> <li> <a href="/tags/AI%E5%B7%A5%E5%85%B7/" class="tag-link">
+#AI工具 </a> </li><li> <a href="/tags/2026%E5%B9%B407%E6%9C%88/" class="tag-link">
+#2026年07月 </a> </li> </ul> </div> <div class="post-grid"> <article class="prose">  <p>AI 编码工具做代码审查时，常会重复搜索、打开大量文件，既消耗上下文，也容易漏掉跨文件依赖。<code>code-review-graph</code> 的思路是先为仓库建立一张本地结构图，再通过 MCP 或 CLI 把与变更真正相关的函数、调用方、依赖和测试交给 Agent。它近日登上 GitHub 日榜，最新稳定版为 v2.3.7，采用 MIT 许可证。</p>
+<h2 id="-这个项目是干什么的">📌 这个项目是干什么的</h2>
+<p>项目使用 Tree-sitter 解析代码，把文件、类、函数和测试保存为节点，把调用、导入、继承、测试覆盖等关系保存到仓库内的 SQLite 数据库。文件变化后可增量更新；审查时则沿关系图计算“爆炸半径”，帮助 Agent 优先读取可能受影响的代码。</p>
+<p>它不是新的代码生成模型，也不替代 Claude Code、Codex 或 Cursor，而是为这些工具补充持久化的代码结构上下文。目前可自动配置多种 MCP 客户端，也提供变更检测、架构概览、可视化和 GitHub Action。</p>
+<h2 id="-为什么值得关注">🔍 为什么值得关注</h2>
+<p>真正有价值的不是“节省 Token”这句宣传，而是它把代码审查从关键词搜索推进到结构关系查询：改动一个函数后，可以继续追踪调用方、相关测试和受影响执行路径，尤其适合多人维护的大仓库与 monorepo。</p>
+<p>官方给出的 6 个开源仓库测试中，图查询相对“读取整个源码库”的每问题 Token 中位缩减约 82 倍。不过这个基线是全库读取，并不等同于熟练 Agent 的 grep 工作流；项目文档也明确承认，小仓库、单文件改动可能因图元数据产生额外开销。这个克制的边界说明，反而更方便团队判断是否值得接入。</p>
+<h2 id="-谁适合试怎么开始">🧪 谁适合试，怎么开始</h2>
+<p>更适合几百到数千文件、需要反复审查和影响分析的团队。Python 3.10 以上环境可在可回滚仓库中运行：</p>
+<pre class="astro-code astro-code-themes github-light github-dark" style="--shiki-light:#24292e;--shiki-dark:#e1e4e8;--shiki-light-bg:#fff;--shiki-dark-bg:#24292e; overflow-x: auto;" tabindex="0" data-language="bash"><code><span class="line"><span style="--shiki-light:#6F42C1;--shiki-dark:#B392F0">pipx</span><span style="--shiki-light:#032F62;--shiki-dark:#9ECBFF"> install</span><span style="--shiki-light:#032F62;--shiki-dark:#9ECBFF"> code-review-graph</span></span>
+<span class="line"><span style="--shiki-light:#6F42C1;--shiki-dark:#B392F0">code-review-graph</span><span style="--shiki-light:#032F62;--shiki-dark:#9ECBFF"> install</span><span style="--shiki-light:#005CC5;--shiki-dark:#79B8FF"> --platform</span><span style="--shiki-light:#032F62;--shiki-dark:#9ECBFF"> codex</span></span>
+<span class="line"><span style="--shiki-light:#6F42C1;--shiki-dark:#B392F0">code-review-graph</span><span style="--shiki-light:#032F62;--shiki-dark:#9ECBFF"> build</span></span>
+<span class="line"><span style="--shiki-light:#6F42C1;--shiki-dark:#B392F0">code-review-graph</span><span style="--shiki-light:#032F62;--shiki-dark:#9ECBFF"> status</span></span></code></pre>
+<p>使用其他客户端时，可把 <code>codex</code> 换成 <code>cursor</code>、<code>claude-code</code> 等；安装后重启对应工具。建议先选一个中型内部项目，用真实 PR 对比 Agent 原有搜索结果与图谱返回的影响范围，再决定是否铺开。卸载前可运行 <code>code-review-graph uninstall --dry-run</code> 预览改动。</p>
+<h2 id="️-使用提醒">⚠️ 使用提醒</h2>
+<p>它的调用关系来自 AST 与启发式分析，不是编译器级语义：动态分派、元编程等场景可能出现模糊或推断边，不能替代测试、LSP 和人工审查。核心图谱与查询默认在本地运行且无遥测，但可选的云端 Embedding 会发送待嵌入文本，应单独评估代码合规性。</p>
+<h2 id="-参考资源">🔗 参考资源</h2>
+<ul>
+<li>GitHub：<a href="https://github.com/tirth8205/code-review-graph">https://github.com/tirth8205/code-review-graph</a></li>
+<li>使用指南：<a href="https://github.com/tirth8205/code-review-graph/blob/main/docs/USAGE.md">https://github.com/tirth8205/code-review-graph/blob/main/docs/USAGE.md</a></li>
+<li>FAQ 与适用边界：<a href="https://github.com/tirth8205/code-review-graph/blob/main/docs/FAQ.md">https://github.com/tirth8205/code-review-graph/blob/main/docs/FAQ.md</a></li>
+<li>基准复现说明：<a href="https://github.com/tirth8205/code-review-graph/blob/main/docs/REPRODUCING.md">https://github.com/tirth8205/code-review-graph/blob/main/docs/REPRODUCING.md</a></li>
+<li>v2.3.7 Release：<a href="https://github.com/tirth8205/code-review-graph/releases/tag/v2.3.7">https://github.com/tirth8205/code-review-graph/releases/tag/v2.3.7</a></li>
+</ul>  </article> <aside class="toc"><p class="toc-title">目录</p><ul class="toc-list"><li class="depth-2"><a href="#-这个项目是干什么的" data-toc-link="-这个项目是干什么的">📌 这个项目是干什么的</a></li><li class="depth-2"><a href="#-为什么值得关注" data-toc-link="-为什么值得关注">🔍 为什么值得关注</a></li><li class="depth-2"><a href="#-谁适合试怎么开始" data-toc-link="-谁适合试怎么开始">🧪 谁适合试，怎么开始</a></li><li class="depth-2"><a href="#️-使用提醒" data-toc-link="️-使用提醒">⚠️ 使用提醒</a></li><li class="depth-2"><a href="#-参考资源" data-toc-link="-参考资源">🔗 参考资源</a></li></ul></aside><script type="module">const c=()=>{const r=Array.from(document.querySelectorAll(".toc a[data-toc-link]"));if(!r.length)return;const o=r.map(t=>{const e=t.getAttribute("data-toc-link");if(!e)return null;const n=document.getElementById(e);return n?{id:e,heading:n,link:t}:null}).filter(t=>t!==null);if(!o.length)return;const s=t=>{r.forEach(e=>{const n=e.getAttribute("data-toc-link")===t;e.classList.toggle("active",n),n&&e.scrollIntoView({block:"nearest",inline:"nearest"})})},i=()=>{const t=Math.round(window.innerHeight*.28);let e=o[0];for(const n of o)n.heading.getBoundingClientRect().top<=t&&(e=n);s(e.id)};i();const a=new IntersectionObserver(()=>i(),{rootMargin:"-18% 0px -70% 0px",threshold:[0,1]});o.forEach(t=>a.observe(t.heading)),window.addEventListener("scroll",i,{passive:!0})};document.addEventListener("DOMContentLoaded",c);document.addEventListener("astro:page-load",c);</script> </div>  </main> <footer class="site-footer"> <div class="shell footer-inner"> <p>© 2026 未来观察者</p> </div> </footer> </body></html>
