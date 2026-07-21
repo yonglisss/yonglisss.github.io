@@ -1,0 +1,113 @@
+<!DOCTYPE html><html lang="zh-CN"> <head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1"><script>
+      (() => {
+        const storageKey = "future-observer-theme";
+        const root = document.documentElement;
+        const getStoredMode = () => {
+          try {
+            const value = localStorage.getItem(storageKey);
+            return value === "light" || value === "dark" || value === "system" ? value : "system";
+          } catch {
+            return "system";
+          }
+        };
+        const systemDark = () => window.matchMedia?.("(prefers-color-scheme: dark)").matches ?? false;
+        const apply = (mode) => {
+          const resolved = mode === "system" ? (systemDark() ? "dark" : "light") : mode;
+          root.dataset.themeMode = mode;
+          root.dataset.theme = resolved;
+          root.style.colorScheme = resolved;
+        };
+        apply(getStoredMode());
+        window.__setFutureObserverTheme = (mode) => {
+          const next = mode === "light" || mode === "dark" || mode === "system" ? mode : "system";
+          try { localStorage.setItem(storageKey, next); } catch {}
+          apply(next);
+          window.dispatchEvent(new CustomEvent("future-observer-theme-change", { detail: { mode: next } }));
+        };
+        window.matchMedia?.("(prefers-color-scheme: dark)").addEventListener?.("change", () => {
+          if (getStoredMode() === "system") apply("system");
+        });
+      })();
+    </script><title>llmfit：先算清本机能跑什么模型，再下载几十 GB 权重 | 未来观察者</title><meta name="description" content="本地部署大模型最常见的浪费，不是安装失败，而是模型下载完才发现显存不够、量化选错，或者速度根本无法接受。llmfit 是一个开源终端工具：它读取电脑的内存、CPU、GPU 与显存，为数百个模型估算可运行性，并按质量、速度、内存适配度和上下文能力排序。项目近日进入 GitHub 日"><meta name="generator" content="Astro v5.18.1"><meta property="og:title" content="llmfit：先算清本机能跑什么模型，再下载几十 GB 权重 | 未来观察者"><meta property="og:description" content="本地部署大模型最常见的浪费，不是安装失败，而是模型下载完才发现显存不够、量化选错，或者速度根本无法接受。llmfit 是一个开源终端工具：它读取电脑的内存、CPU、GPU 与显存，为数百个模型估算可运行性，并按质量、速度、内存适配度和上下文能力排序。项目近日进入 GitHub 日"><meta property="og:type" content="website"><meta property="og:url" content="https://future.lifestudylab.com/posts/2026-07-22-llmfit/"><link rel="icon" type="image/svg+xml" href="/favicon.svg"><link rel="alternate" type="application/rss+xml" title="未来观察者" href="/rss.xml"><link rel="stylesheet" href="/_astro/_channel_.BFW__1rx.css"></head> <body> <div class="page-bg"></div> <header class="site-header"> <div class="shell header-inner"> <div class="header-bar"> <a class="brand" href="/ai-tools/"> <img src="/brand-mark.svg" alt="" class="brand-mark" width="56" height="56"> <span class="brand-text" aria-label="未来观察者">思考未来</span> </a> </div> <nav class="top-menu" aria-label="顶部菜单"> <a href="/future-daily/" class="top-menu-link"> 每日信息 </a><a href="/docs/deer-flow/00-overview/" class="top-menu-link"> DeerFlow教程 </a><a href="/docs/hermes/00-overview/" class="top-menu-link"> Hermes教程 </a><a href="/docs/openclaw/00-overview/" class="top-menu-link"> OpenClaw教程 </a><a href="/about/" class="top-menu-link"> 关于我 </a> </nav> <div class="top-actions"> <a class="feedback-link" href="https://github.com/yonglisss/yonglisss.github.io/issues" target="_blank" rel="noopener noreferrer" aria-label="问题反馈"> <svg viewBox="0 0 24 24" aria-hidden="true" class="action-icon"> <path d="M4.75 5.75A2.75 2.75 0 0 1 7.5 3h9A2.75 2.75 0 0 1 19.25 5.75v6.5A2.75 2.75 0 0 1 16.5 15H9.3l-3.55 3.2V15.1a2.75 2.75 0 0 1-1-2.1V5.75Z"></path> <path d="M8 7.75h8M8 11.25h4"></path> </svg> <span>问题反馈</span> </a> <div class="theme-switcher" data-theme-switcher> <button class="theme-trigger" type="button" aria-haspopup="menu" aria-expanded="false" aria-label="切换明暗模式" data-theme-trigger> <svg viewBox="0 0 24 24" aria-hidden="true" class="action-icon theme-trigger-icon theme-trigger-icon--light"> <circle cx="12" cy="12" r="4"></circle> <path d="M12 2.75v2M12 19.25v2M4.75 4.75l1.4 1.4M17.85 17.85l1.4 1.4M2.75 12h2M19.25 12h2M4.75 19.25l1.4-1.4M17.85 6.15l1.4-1.4"></path> </svg> <svg viewBox="0 0 24 24" aria-hidden="true" class="action-icon theme-trigger-icon theme-trigger-icon--dark"> <path d="M20.25 14.2A8 8 0 0 1 9.8 3.75 8.5 8.5 0 1 0 20.25 14.2Z"></path> </svg> <svg viewBox="0 0 24 24" aria-hidden="true" class="action-icon theme-trigger-icon theme-trigger-icon--system"> <rect x="4" y="5" width="16" height="11" rx="1.8"></rect> <path d="M9 20h6M12 16v4"></path> </svg> </button> <div class="theme-menu" role="menu" data-theme-menu hidden> <button class="theme-option" type="button" role="menuitemradio" data-theme-option="light" aria-checked="false"> <svg viewBox="0 0 24 24" aria-hidden="true" class="action-icon"><circle cx="12" cy="12" r="4"></circle><path d="M12 2.75v2M12 19.25v2M4.75 4.75l1.4 1.4M17.85 17.85l1.4 1.4M2.75 12h2M19.25 12h2M4.75 19.25l1.4-1.4M17.85 6.15l1.4-1.4"></path></svg> <span>亮色</span> </button> <button class="theme-option" type="button" role="menuitemradio" data-theme-option="dark" aria-checked="false"> <svg viewBox="0 0 24 24" aria-hidden="true" class="action-icon"><path d="M20.25 14.2A8 8 0 0 1 9.8 3.75 8.5 8.5 0 1 0 20.25 14.2Z"></path></svg> <span>暗色</span> </button> <button class="theme-option" type="button" role="menuitemradio" data-theme-option="system" aria-checked="true"> <svg viewBox="0 0 24 24" aria-hidden="true" class="action-icon"><rect x="4" y="5" width="16" height="11" rx="1.8"></rect><path d="M9 20h6M12 16v4"></path></svg> <span>跟随系统</span> </button> </div> </div> </div> </div> </header> <script>
+  (() => {
+    const switcher = document.querySelector("[data-theme-switcher]");
+    if (!switcher) return;
+
+    const trigger = switcher.querySelector("[data-theme-trigger]");
+    const menu = switcher.querySelector("[data-theme-menu]");
+    const options = [...switcher.querySelectorAll("[data-theme-option]")];
+    const modes = ["light", "dark", "system"];
+
+    const getMode = () => {
+      const mode = document.documentElement.dataset.themeMode;
+      return modes.includes(mode) ? mode : "system";
+    };
+
+    const closeMenu = () => {
+      menu.hidden = true;
+      trigger.setAttribute("aria-expanded", "false");
+    };
+
+    const openMenu = () => {
+      menu.hidden = false;
+      trigger.setAttribute("aria-expanded", "true");
+    };
+
+    const sync = () => {
+      const mode = getMode();
+      trigger.dataset.themeMode = mode;
+      options.forEach((option) => {
+        option.setAttribute("aria-checked", String(option.dataset.themeOption === mode));
+      });
+    };
+
+    trigger.addEventListener("click", () => {
+      menu.hidden ? openMenu() : closeMenu();
+    });
+
+    options.forEach((option) => {
+      option.addEventListener("click", () => {
+        window.__setFutureObserverTheme?.(option.dataset.themeOption || "system");
+        sync();
+        closeMenu();
+      });
+    });
+
+    document.addEventListener("click", (event) => {
+      if (!switcher.contains(event.target)) closeMenu();
+    });
+
+    document.addEventListener("keydown", (event) => {
+      if (event.key === "Escape") closeMenu();
+    });
+
+    window.addEventListener("future-observer-theme-change", sync);
+    sync();
+  })();
+</script> <aside class="site-rail" aria-label="站点导航"> <div class="site-rail-inner"> <p class="site-rail-label">Channels</p> <nav aria-label="主导航"> <ul class="site-rail-nav"> <li> <a href="/ai-tools/" class="site-rail-link"> AI工具 </a> </li><li> <a href="/future-daily/" class="site-rail-link"> 未来观察者日报 </a> </li> </ul> </nav> </div> </aside> <main class="shell page-content">  <div class="post-hero"> <p class="eyebrow">2026年7月22日</p> <h1>llmfit：先算清本机能跑什么模型，再下载几十 GB 权重</h1> <p class="post-summary">本地部署大模型最常见的浪费，不是安装失败，而是模型下载完才发现显存不够、量化选错，或者速度根本无法接受。llmfit 是一个开源终端工具：它读取电脑的内存、CPU、GPU 与显存，为数百个模型估算可运行性，并按质量、速度、内存适配度和上下文能力排序。项目近日进入 GitHub 日</p> <ul class="tag-list"> <li> <a href="/tags/AI%E5%B7%A5%E5%85%B7/" class="tag-link">
+#AI工具 </a> </li><li> <a href="/tags/2026%E5%B9%B407%E6%9C%88/" class="tag-link">
+#2026年07月 </a> </li> </ul> </div> <div class="post-grid"> <article class="prose">  <p>本地部署大模型最常见的浪费，不是安装失败，而是模型下载完才发现显存不够、量化选错，或者速度根本无法接受。<code>llmfit</code> 是一个开源终端工具：它读取电脑的内存、CPU、GPU 与显存，为数百个模型估算可运行性，并按质量、速度、内存适配度和上下文能力排序。项目近日进入 GitHub 日榜，7 月 21 日发布 v1.1.6，采用 MIT 许可证。</p>
+<h2 id="-这个项目是干什么的">📌 这个项目是干什么的</h2>
+<p>llmfit 支持交互式 TUI，也提供适合脚本和 Agent 调用的 CLI、JSON 输出与本地 REST API。它能识别 NVIDIA、AMD、Intel Arc、Apple Silicon 和昇腾等硬件路径，并根据任务类型筛选通用、编程、推理、对话、多模态或 Embedding 模型。</p>
+<p>它不负责训练模型，也不是一个推理引擎。更准确的定位是“本地模型选型器”：先判断哪个模型、哪种量化和运行方式更适合当前机器，再交给 Ollama、llama.cpp、MLX、vLLM 等后端运行。</p>
+<h2 id="-为什么值得关注">🔍 为什么值得关注</h2>
+<p>第一，它不只看参数量。工具会从 Q8_0 到 Q2_K 尝试可容纳的量化档位，也会区分纯 GPU、CPU+GPU、CPU 以及 MoE 专家卸载，避免用“7B 能不能跑”这种过于粗糙的判断。</p>
+<p>第二，推荐结果可以解释。运行 <code>llmfit info "&#x3C;模型名>"</code>，能查看速度估算采用的硬件带宽、模型大小和效率系数，而不是只给一个黑盒分数。v1.x 还加入真实基准流程：对已经启动的模型测量 tokens/s 与首 Token 延迟，本机实测值会优先替代公式估算。</p>
+<p>第三，它适合进入自动化流程。<code>llmfit recommend --json</code> 可把推荐结果交给脚本或 Agent；<code>llmfit serve</code> 则能为节点调度器提供模型适配查询 API。</p>
+<h2 id="-谁适合试怎么开始">🧪 谁适合试，怎么开始</h2>
+<p>更适合准备部署本地模型、需要管理多种硬件，或正在为团队制定模型选型规则的开发者。最短路径是不安装直接运行：</p>
+<pre class="astro-code astro-code-themes github-light github-dark" style="--shiki-light:#24292e;--shiki-dark:#e1e4e8;--shiki-light-bg:#fff;--shiki-dark-bg:#24292e; overflow-x: auto;" tabindex="0" data-language="bash"><code><span class="line"><span style="--shiki-light:#6F42C1;--shiki-dark:#B392F0">uvx</span><span style="--shiki-light:#032F62;--shiki-dark:#9ECBFF"> llmfit</span></span>
+<span class="line"><span style="--shiki-light:#6F42C1;--shiki-dark:#B392F0">llmfit</span><span style="--shiki-light:#032F62;--shiki-dark:#9ECBFF"> recommend</span><span style="--shiki-light:#005CC5;--shiki-dark:#79B8FF"> --json</span><span style="--shiki-light:#005CC5;--shiki-dark:#79B8FF"> --use-case</span><span style="--shiki-light:#032F62;--shiki-dark:#9ECBFF"> coding</span><span style="--shiki-light:#005CC5;--shiki-dark:#79B8FF"> --limit</span><span style="--shiki-light:#005CC5;--shiki-dark:#79B8FF"> 3</span></span>
+<span class="line"><span style="--shiki-light:#6F42C1;--shiki-dark:#B392F0">llmfit</span><span style="--shiki-light:#032F62;--shiki-dark:#9ECBFF"> info</span><span style="--shiki-light:#032F62;--shiki-dark:#9ECBFF"> "&#x3C;模型名>"</span></span></code></pre>
+<p>macOS 与 Linux 也可用 Homebrew，Windows 可用 Scoop。建议先核对顶部识别出的 RAM、GPU 和显存；识别异常时运行 <code>llmfit doctor</code>，必要时再用 <code>--memory</code>、<code>--ram</code> 手动覆盖。</p>
+<h2 id="️-使用提醒">⚠️ 使用提醒</h2>
+<p>推荐表里的速度主要是估算，不是性能承诺。驱动、推理后端、上下文长度、KV Cache、CPU 卸载和模型实现都会影响结果；陌生模型族还可能回退到启发式评分。真正准备投入生产前，应先启动模型，再用 <code>llmfit bench</code> 做本机实测。</p>
+<p>另外，模型目录内置在发布包中，更新模型列表需要升级 llmfit。基准结果默认先保存在本地；只有主动启用 <code>--share</code> 并确认后，才会通过 GitHub 流程提交社区数据。</p>
+<h2 id="-参考资源">🔗 参考资源</h2>
+<ul>
+<li>GitHub：<a href="https://github.com/AlexsJones/llmfit">https://github.com/AlexsJones/llmfit</a></li>
+<li>工作原理：<a href="https://github.com/AlexsJones/llmfit/blob/main/docs/how-it-works.md">https://github.com/AlexsJones/llmfit/blob/main/docs/how-it-works.md</a></li>
+<li>平台支持：<a href="https://github.com/AlexsJones/llmfit/blob/main/docs/platform-support.md">https://github.com/AlexsJones/llmfit/blob/main/docs/platform-support.md</a></li>
+<li>基准指南：<a href="https://github.com/AlexsJones/llmfit/blob/main/docs/benchmarking.md">https://github.com/AlexsJones/llmfit/blob/main/docs/benchmarking.md</a></li>
+<li>v1.1.6 Release：<a href="https://github.com/AlexsJones/llmfit/releases/tag/v1.1.6">https://github.com/AlexsJones/llmfit/releases/tag/v1.1.6</a></li>
+</ul>  </article> <aside class="toc"><p class="toc-title">目录</p><ul class="toc-list"><li class="depth-2"><a href="#-这个项目是干什么的" data-toc-link="-这个项目是干什么的">📌 这个项目是干什么的</a></li><li class="depth-2"><a href="#-为什么值得关注" data-toc-link="-为什么值得关注">🔍 为什么值得关注</a></li><li class="depth-2"><a href="#-谁适合试怎么开始" data-toc-link="-谁适合试怎么开始">🧪 谁适合试，怎么开始</a></li><li class="depth-2"><a href="#️-使用提醒" data-toc-link="️-使用提醒">⚠️ 使用提醒</a></li><li class="depth-2"><a href="#-参考资源" data-toc-link="-参考资源">🔗 参考资源</a></li></ul></aside><script type="module">const c=()=>{const r=Array.from(document.querySelectorAll(".toc a[data-toc-link]"));if(!r.length)return;const o=r.map(t=>{const e=t.getAttribute("data-toc-link");if(!e)return null;const n=document.getElementById(e);return n?{id:e,heading:n,link:t}:null}).filter(t=>t!==null);if(!o.length)return;const s=t=>{r.forEach(e=>{const n=e.getAttribute("data-toc-link")===t;e.classList.toggle("active",n),n&&e.scrollIntoView({block:"nearest",inline:"nearest"})})},i=()=>{const t=Math.round(window.innerHeight*.28);let e=o[0];for(const n of o)n.heading.getBoundingClientRect().top<=t&&(e=n);s(e.id)};i();const a=new IntersectionObserver(()=>i(),{rootMargin:"-18% 0px -70% 0px",threshold:[0,1]});o.forEach(t=>a.observe(t.heading)),window.addEventListener("scroll",i,{passive:!0})};document.addEventListener("DOMContentLoaded",c);document.addEventListener("astro:page-load",c);</script> </div>  </main> <footer class="site-footer"> <div class="shell footer-inner"> <p>© 2026 未来观察者</p> </div> </footer> </body></html>
