@@ -1,0 +1,112 @@
+<!DOCTYPE html><html lang="zh-CN"> <head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1"><script>
+      (() => {
+        const storageKey = "future-observer-theme";
+        const root = document.documentElement;
+        const getStoredMode = () => {
+          try {
+            const value = localStorage.getItem(storageKey);
+            return value === "light" || value === "dark" || value === "system" ? value : "system";
+          } catch {
+            return "system";
+          }
+        };
+        const systemDark = () => window.matchMedia?.("(prefers-color-scheme: dark)").matches ?? false;
+        const apply = (mode) => {
+          const resolved = mode === "system" ? (systemDark() ? "dark" : "light") : mode;
+          root.dataset.themeMode = mode;
+          root.dataset.theme = resolved;
+          root.style.colorScheme = resolved;
+        };
+        apply(getStoredMode());
+        window.__setFutureObserverTheme = (mode) => {
+          const next = mode === "light" || mode === "dark" || mode === "system" ? mode : "system";
+          try { localStorage.setItem(storageKey, next); } catch {}
+          apply(next);
+          window.dispatchEvent(new CustomEvent("future-observer-theme-change", { detail: { mode: next } }));
+        };
+        window.matchMedia?.("(prefers-color-scheme: dark)").addEventListener?.("change", () => {
+          if (getStoredMode() === "system") apply("system");
+        });
+      })();
+    </script><title>Impeccable：给 AI 编程工具补上一套前端设计语言 | 未来观察者</title><meta name="description" content="AI 能快速生成页面，但“能运行”不等于“像一个认真设计过的产品”：常见结果是卡片套卡片、紫蓝渐变、层级模糊，换个项目仍是同一套模板。Impeccable 没有再造一个代码生成器，而是把设计上下文、评审命令和确定性检测规则接入现有 AI 编程工具。项目当天位居 GitHub 总榜"><meta name="generator" content="Astro v5.18.1"><meta property="og:title" content="Impeccable：给 AI 编程工具补上一套前端设计语言 | 未来观察者"><meta property="og:description" content="AI 能快速生成页面，但“能运行”不等于“像一个认真设计过的产品”：常见结果是卡片套卡片、紫蓝渐变、层级模糊，换个项目仍是同一套模板。Impeccable 没有再造一个代码生成器，而是把设计上下文、评审命令和确定性检测规则接入现有 AI 编程工具。项目当天位居 GitHub 总榜"><meta property="og:type" content="website"><meta property="og:url" content="https://future.lifestudylab.com/posts/2026-07-28-impeccable/"><link rel="icon" type="image/svg+xml" href="/favicon.svg"><link rel="alternate" type="application/rss+xml" title="未来观察者" href="/rss.xml"><link rel="stylesheet" href="/_astro/_channel_.BFW__1rx.css"></head> <body> <div class="page-bg"></div> <header class="site-header"> <div class="shell header-inner"> <div class="header-bar"> <a class="brand" href="/ai-tools/"> <img src="/brand-mark.svg" alt="" class="brand-mark" width="56" height="56"> <span class="brand-text" aria-label="未来观察者">思考未来</span> </a> </div> <nav class="top-menu" aria-label="顶部菜单"> <a href="/future-daily/" class="top-menu-link"> 每日信息 </a><a href="/docs/deer-flow/00-overview/" class="top-menu-link"> DeerFlow教程 </a><a href="/docs/hermes/00-overview/" class="top-menu-link"> Hermes教程 </a><a href="/docs/openclaw/00-overview/" class="top-menu-link"> OpenClaw教程 </a><a href="/about/" class="top-menu-link"> 关于我 </a> </nav> <div class="top-actions"> <a class="feedback-link" href="https://github.com/yonglisss/yonglisss.github.io/issues" target="_blank" rel="noopener noreferrer" aria-label="问题反馈"> <svg viewBox="0 0 24 24" aria-hidden="true" class="action-icon"> <path d="M4.75 5.75A2.75 2.75 0 0 1 7.5 3h9A2.75 2.75 0 0 1 19.25 5.75v6.5A2.75 2.75 0 0 1 16.5 15H9.3l-3.55 3.2V15.1a2.75 2.75 0 0 1-1-2.1V5.75Z"></path> <path d="M8 7.75h8M8 11.25h4"></path> </svg> <span>问题反馈</span> </a> <div class="theme-switcher" data-theme-switcher> <button class="theme-trigger" type="button" aria-haspopup="menu" aria-expanded="false" aria-label="切换明暗模式" data-theme-trigger> <svg viewBox="0 0 24 24" aria-hidden="true" class="action-icon theme-trigger-icon theme-trigger-icon--light"> <circle cx="12" cy="12" r="4"></circle> <path d="M12 2.75v2M12 19.25v2M4.75 4.75l1.4 1.4M17.85 17.85l1.4 1.4M2.75 12h2M19.25 12h2M4.75 19.25l1.4-1.4M17.85 6.15l1.4-1.4"></path> </svg> <svg viewBox="0 0 24 24" aria-hidden="true" class="action-icon theme-trigger-icon theme-trigger-icon--dark"> <path d="M20.25 14.2A8 8 0 0 1 9.8 3.75 8.5 8.5 0 1 0 20.25 14.2Z"></path> </svg> <svg viewBox="0 0 24 24" aria-hidden="true" class="action-icon theme-trigger-icon theme-trigger-icon--system"> <rect x="4" y="5" width="16" height="11" rx="1.8"></rect> <path d="M9 20h6M12 16v4"></path> </svg> </button> <div class="theme-menu" role="menu" data-theme-menu hidden> <button class="theme-option" type="button" role="menuitemradio" data-theme-option="light" aria-checked="false"> <svg viewBox="0 0 24 24" aria-hidden="true" class="action-icon"><circle cx="12" cy="12" r="4"></circle><path d="M12 2.75v2M12 19.25v2M4.75 4.75l1.4 1.4M17.85 17.85l1.4 1.4M2.75 12h2M19.25 12h2M4.75 19.25l1.4-1.4M17.85 6.15l1.4-1.4"></path></svg> <span>亮色</span> </button> <button class="theme-option" type="button" role="menuitemradio" data-theme-option="dark" aria-checked="false"> <svg viewBox="0 0 24 24" aria-hidden="true" class="action-icon"><path d="M20.25 14.2A8 8 0 0 1 9.8 3.75 8.5 8.5 0 1 0 20.25 14.2Z"></path></svg> <span>暗色</span> </button> <button class="theme-option" type="button" role="menuitemradio" data-theme-option="system" aria-checked="true"> <svg viewBox="0 0 24 24" aria-hidden="true" class="action-icon"><rect x="4" y="5" width="16" height="11" rx="1.8"></rect><path d="M9 20h6M12 16v4"></path></svg> <span>跟随系统</span> </button> </div> </div> </div> </div> </header> <script>
+  (() => {
+    const switcher = document.querySelector("[data-theme-switcher]");
+    if (!switcher) return;
+
+    const trigger = switcher.querySelector("[data-theme-trigger]");
+    const menu = switcher.querySelector("[data-theme-menu]");
+    const options = [...switcher.querySelectorAll("[data-theme-option]")];
+    const modes = ["light", "dark", "system"];
+
+    const getMode = () => {
+      const mode = document.documentElement.dataset.themeMode;
+      return modes.includes(mode) ? mode : "system";
+    };
+
+    const closeMenu = () => {
+      menu.hidden = true;
+      trigger.setAttribute("aria-expanded", "false");
+    };
+
+    const openMenu = () => {
+      menu.hidden = false;
+      trigger.setAttribute("aria-expanded", "true");
+    };
+
+    const sync = () => {
+      const mode = getMode();
+      trigger.dataset.themeMode = mode;
+      options.forEach((option) => {
+        option.setAttribute("aria-checked", String(option.dataset.themeOption === mode));
+      });
+    };
+
+    trigger.addEventListener("click", () => {
+      menu.hidden ? openMenu() : closeMenu();
+    });
+
+    options.forEach((option) => {
+      option.addEventListener("click", () => {
+        window.__setFutureObserverTheme?.(option.dataset.themeOption || "system");
+        sync();
+        closeMenu();
+      });
+    });
+
+    document.addEventListener("click", (event) => {
+      if (!switcher.contains(event.target)) closeMenu();
+    });
+
+    document.addEventListener("keydown", (event) => {
+      if (event.key === "Escape") closeMenu();
+    });
+
+    window.addEventListener("future-observer-theme-change", sync);
+    sync();
+  })();
+</script> <aside class="site-rail" aria-label="站点导航"> <div class="site-rail-inner"> <p class="site-rail-label">Channels</p> <nav aria-label="主导航"> <ul class="site-rail-nav"> <li> <a href="/ai-tools/" class="site-rail-link"> AI工具 </a> </li><li> <a href="/future-daily/" class="site-rail-link"> 未来观察者日报 </a> </li> </ul> </nav> </div> </aside> <main class="shell page-content">  <div class="post-hero"> <p class="eyebrow">2026年7月28日</p> <h1>Impeccable：给 AI 编程工具补上一套前端设计语言</h1> <p class="post-summary">AI 能快速生成页面，但“能运行”不等于“像一个认真设计过的产品”：常见结果是卡片套卡片、紫蓝渐变、层级模糊，换个项目仍是同一套模板。Impeccable 没有再造一个代码生成器，而是把设计上下文、评审命令和确定性检测规则接入现有 AI 编程工具。项目当天位居 GitHub 总榜</p> <ul class="tag-list"> <li> <a href="/tags/AI%E5%B7%A5%E5%85%B7/" class="tag-link">
+#AI工具 </a> </li><li> <a href="/tags/2026%E5%B9%B407%E6%9C%88/" class="tag-link">
+#2026年07月 </a> </li> </ul> </div> <div class="post-grid"> <article class="prose">  <p>AI 能快速生成页面，但“能运行”不等于“像一个认真设计过的产品”：常见结果是卡片套卡片、紫蓝渐变、层级模糊，换个项目仍是同一套模板。Impeccable 没有再造一个代码生成器，而是把设计上下文、评审命令和确定性检测规则接入现有 AI 编程工具。项目当天位居 GitHub 总榜前列，适合经常用 Agent 做前端的开发者关注。</p>
+<h2 id="-这个项目是干什么的">📌 这个项目是干什么的</h2>
+<ul>
+<li>它以一个 Agent Skill 提供 23 个命令，覆盖设计初始化、页面塑形、UX 评审、无障碍与性能审计、响应式适配及最终润色。</li>
+<li><code>/impeccable init</code> 会生成 <code>PRODUCT.md</code>，并可建立 <code>DESIGN.md</code>，让后续任务持续读取产品受众、品牌语气、颜色、字体和组件约束。</li>
+<li>CLI 与浏览器扩展内置 60 条确定性规则，可检查过度使用渐变、卡片嵌套、触控区域过小、标题层级跳跃等问题；这部分无需 LLM 或 API Key。</li>
+<li>项目采用 Apache-2.0 许可证，官方最新 Skill Release 为 v4.0.2。</li>
+</ul>
+<h2 id="-为什么值得关注">🔍 为什么值得关注</h2>
+<p>第一，它解决的不是“再写一段提示词”，而是设计约束无法沉淀的问题。产品背景进入项目文件后，<code>audit</code>、<code>critique</code>、<code>polish</code> 等动作共享同一套上下文，团队也能在代码库里审阅和维护这些约束。</p>
+<p>第二，它把主观建议和可重复检查分开。视觉方向仍需模型与人判断，但明显的反模式可由规则扫描；CLI 还支持 JSON 输出，便于放入 CI。这个组合比只让模型评价自己刚生成的页面更可控。</p>
+<h2 id="-谁适合试怎么开始">🧪 谁适合试，怎么开始</h2>
+<p>适合使用 Claude Code、Cursor、Codex CLI、Gemini CLI、GitHub Copilot 等工具开发网页，又缺少专职设计支持的个人和小团队。可先在测试项目根目录运行：</p>
+<pre class="astro-code astro-code-themes github-light github-dark" style="--shiki-light:#24292e;--shiki-dark:#e1e4e8;--shiki-light-bg:#fff;--shiki-dark-bg:#24292e; overflow-x: auto;" tabindex="0" data-language="bash"><code><span class="line"><span style="--shiki-light:#6F42C1;--shiki-dark:#B392F0">npx</span><span style="--shiki-light:#032F62;--shiki-dark:#9ECBFF"> impeccable</span><span style="--shiki-light:#032F62;--shiki-dark:#9ECBFF"> install</span></span></code></pre>
+<p>重载所用编程工具后，执行 <code>/impeccable init</code>，再选择一个已有页面运行 <code>/impeccable audit</code>。先看它发现的问题是否符合团队标准，再尝试 <code>polish</code> 或 <code>layout</code>，不要直接对整个生产站点批量改写。</p>
+<h2 id="️-使用提醒">⚠️ 使用提醒</h2>
+<p>Impeccable 提供的是设计指导与检测，不会替代用户研究、品牌决策和真实设备验收。部分原生 Hook 需要项目信任或人工批准；安装脚本也会向不同工具目录写入 Skill 与 Hook 配置，提交前应检查 git diff。规则中的字体、动效等偏好并非普遍真理，已有设计系统的团队应通过忽略配置保留合理例外，而不是机械接受全部修改。</p>
+<h2 id="-参考资源">🔗 参考资源</h2>
+<ul>
+<li>GitHub：<a href="https://github.com/pbakaus/impeccable">https://github.com/pbakaus/impeccable</a></li>
+<li>官方文档：<a href="https://impeccable.style/docs">https://impeccable.style/docs</a></li>
+<li>检测器文档：<a href="https://impeccable.style/docs/detector">https://impeccable.style/docs/detector</a></li>
+<li>v4.0.2 Release：<a href="https://github.com/pbakaus/impeccable/releases/tag/skill-v4.0.2">https://github.com/pbakaus/impeccable/releases/tag/skill-v4.0.2</a></li>
+</ul>  </article> <aside class="toc"><p class="toc-title">目录</p><ul class="toc-list"><li class="depth-2"><a href="#-这个项目是干什么的" data-toc-link="-这个项目是干什么的">📌 这个项目是干什么的</a></li><li class="depth-2"><a href="#-为什么值得关注" data-toc-link="-为什么值得关注">🔍 为什么值得关注</a></li><li class="depth-2"><a href="#-谁适合试怎么开始" data-toc-link="-谁适合试怎么开始">🧪 谁适合试，怎么开始</a></li><li class="depth-2"><a href="#️-使用提醒" data-toc-link="️-使用提醒">⚠️ 使用提醒</a></li><li class="depth-2"><a href="#-参考资源" data-toc-link="-参考资源">🔗 参考资源</a></li></ul></aside><script type="module">const c=()=>{const r=Array.from(document.querySelectorAll(".toc a[data-toc-link]"));if(!r.length)return;const o=r.map(t=>{const e=t.getAttribute("data-toc-link");if(!e)return null;const n=document.getElementById(e);return n?{id:e,heading:n,link:t}:null}).filter(t=>t!==null);if(!o.length)return;const s=t=>{r.forEach(e=>{const n=e.getAttribute("data-toc-link")===t;e.classList.toggle("active",n),n&&e.scrollIntoView({block:"nearest",inline:"nearest"})})},i=()=>{const t=Math.round(window.innerHeight*.28);let e=o[0];for(const n of o)n.heading.getBoundingClientRect().top<=t&&(e=n);s(e.id)};i();const a=new IntersectionObserver(()=>i(),{rootMargin:"-18% 0px -70% 0px",threshold:[0,1]});o.forEach(t=>a.observe(t.heading)),window.addEventListener("scroll",i,{passive:!0})};document.addEventListener("DOMContentLoaded",c);document.addEventListener("astro:page-load",c);</script> </div>  </main> <footer class="site-footer"> <div class="shell footer-inner"> <p>© 2026 未来观察者</p> </div> </footer> </body></html>
