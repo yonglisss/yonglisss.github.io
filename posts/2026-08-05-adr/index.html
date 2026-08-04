@@ -1,0 +1,113 @@
+<!DOCTYPE html><html lang="zh-CN"> <head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1"><script>
+      (() => {
+        const storageKey = "future-observer-theme";
+        const root = document.documentElement;
+        const getStoredMode = () => {
+          try {
+            const value = localStorage.getItem(storageKey);
+            return value === "light" || value === "dark" || value === "system" ? value : "system";
+          } catch {
+            return "system";
+          }
+        };
+        const systemDark = () => window.matchMedia?.("(prefers-color-scheme: dark)").matches ?? false;
+        const apply = (mode) => {
+          const resolved = mode === "system" ? (systemDark() ? "dark" : "light") : mode;
+          root.dataset.themeMode = mode;
+          root.dataset.theme = resolved;
+          root.style.colorScheme = resolved;
+        };
+        apply(getStoredMode());
+        window.__setFutureObserverTheme = (mode) => {
+          const next = mode === "light" || mode === "dark" || mode === "system" ? mode : "system";
+          try { localStorage.setItem(storageKey, next); } catch {}
+          apply(next);
+          window.dispatchEvent(new CustomEvent("future-observer-theme-change", { detail: { mode: next } }));
+        };
+        window.matchMedia?.("(prefers-color-scheme: dark)").addEventListener?.("change", () => {
+          if (getStoredMode() === "system") apply("system");
+        });
+      })();
+    </script><title>ADR：给企业 AI 智能体补上一层“可观测与检测” | 未来观察者</title><meta name="description" content="当 Claude Code、Cursor、Codex 开始读取代码、调用工具甚至执行命令，传统日志往往只能记录进程和接口，却很难回答：智能体当时想做什么、调用了哪个工具、是否受到提示注入。Uber 开源的 ADR（Agentic AI Detection and Response"><meta name="generator" content="Astro v5.18.1"><meta property="og:title" content="ADR：给企业 AI 智能体补上一层“可观测与检测” | 未来观察者"><meta property="og:description" content="当 Claude Code、Cursor、Codex 开始读取代码、调用工具甚至执行命令，传统日志往往只能记录进程和接口，却很难回答：智能体当时想做什么、调用了哪个工具、是否受到提示注入。Uber 开源的 ADR（Agentic AI Detection and Response"><meta property="og:type" content="website"><meta property="og:url" content="https://future.lifestudylab.com/posts/2026-08-05-adr/"><link rel="icon" type="image/svg+xml" href="/favicon.svg"><link rel="alternate" type="application/rss+xml" title="未来观察者" href="/rss.xml"><link rel="stylesheet" href="/_astro/_channel_.BFW__1rx.css"></head> <body> <div class="page-bg"></div> <header class="site-header"> <div class="shell header-inner"> <div class="header-bar"> <a class="brand" href="/ai-tools/"> <img src="/brand-mark.svg" alt="" class="brand-mark" width="56" height="56"> <span class="brand-text" aria-label="未来观察者">思考未来</span> </a> </div> <nav class="top-menu" aria-label="顶部菜单"> <a href="/future-daily/" class="top-menu-link"> 每日信息 </a><a href="/docs/deer-flow/00-overview/" class="top-menu-link"> DeerFlow教程 </a><a href="/docs/hermes/00-overview/" class="top-menu-link"> Hermes教程 </a><a href="/docs/openclaw/00-overview/" class="top-menu-link"> OpenClaw教程 </a><a href="/about/" class="top-menu-link"> 关于我 </a> </nav> <div class="top-actions"> <a class="feedback-link" href="https://github.com/yonglisss/yonglisss.github.io/issues" target="_blank" rel="noopener noreferrer" aria-label="问题反馈"> <svg viewBox="0 0 24 24" aria-hidden="true" class="action-icon"> <path d="M4.75 5.75A2.75 2.75 0 0 1 7.5 3h9A2.75 2.75 0 0 1 19.25 5.75v6.5A2.75 2.75 0 0 1 16.5 15H9.3l-3.55 3.2V15.1a2.75 2.75 0 0 1-1-2.1V5.75Z"></path> <path d="M8 7.75h8M8 11.25h4"></path> </svg> <span>问题反馈</span> </a> <div class="theme-switcher" data-theme-switcher> <button class="theme-trigger" type="button" aria-haspopup="menu" aria-expanded="false" aria-label="切换明暗模式" data-theme-trigger> <svg viewBox="0 0 24 24" aria-hidden="true" class="action-icon theme-trigger-icon theme-trigger-icon--light"> <circle cx="12" cy="12" r="4"></circle> <path d="M12 2.75v2M12 19.25v2M4.75 4.75l1.4 1.4M17.85 17.85l1.4 1.4M2.75 12h2M19.25 12h2M4.75 19.25l1.4-1.4M17.85 6.15l1.4-1.4"></path> </svg> <svg viewBox="0 0 24 24" aria-hidden="true" class="action-icon theme-trigger-icon theme-trigger-icon--dark"> <path d="M20.25 14.2A8 8 0 0 1 9.8 3.75 8.5 8.5 0 1 0 20.25 14.2Z"></path> </svg> <svg viewBox="0 0 24 24" aria-hidden="true" class="action-icon theme-trigger-icon theme-trigger-icon--system"> <rect x="4" y="5" width="16" height="11" rx="1.8"></rect> <path d="M9 20h6M12 16v4"></path> </svg> </button> <div class="theme-menu" role="menu" data-theme-menu hidden> <button class="theme-option" type="button" role="menuitemradio" data-theme-option="light" aria-checked="false"> <svg viewBox="0 0 24 24" aria-hidden="true" class="action-icon"><circle cx="12" cy="12" r="4"></circle><path d="M12 2.75v2M12 19.25v2M4.75 4.75l1.4 1.4M17.85 17.85l1.4 1.4M2.75 12h2M19.25 12h2M4.75 19.25l1.4-1.4M17.85 6.15l1.4-1.4"></path></svg> <span>亮色</span> </button> <button class="theme-option" type="button" role="menuitemradio" data-theme-option="dark" aria-checked="false"> <svg viewBox="0 0 24 24" aria-hidden="true" class="action-icon"><path d="M20.25 14.2A8 8 0 0 1 9.8 3.75 8.5 8.5 0 1 0 20.25 14.2Z"></path></svg> <span>暗色</span> </button> <button class="theme-option" type="button" role="menuitemradio" data-theme-option="system" aria-checked="true"> <svg viewBox="0 0 24 24" aria-hidden="true" class="action-icon"><rect x="4" y="5" width="16" height="11" rx="1.8"></rect><path d="M9 20h6M12 16v4"></path></svg> <span>跟随系统</span> </button> </div> </div> </div> </div> </header> <script>
+  (() => {
+    const switcher = document.querySelector("[data-theme-switcher]");
+    if (!switcher) return;
+
+    const trigger = switcher.querySelector("[data-theme-trigger]");
+    const menu = switcher.querySelector("[data-theme-menu]");
+    const options = [...switcher.querySelectorAll("[data-theme-option]")];
+    const modes = ["light", "dark", "system"];
+
+    const getMode = () => {
+      const mode = document.documentElement.dataset.themeMode;
+      return modes.includes(mode) ? mode : "system";
+    };
+
+    const closeMenu = () => {
+      menu.hidden = true;
+      trigger.setAttribute("aria-expanded", "false");
+    };
+
+    const openMenu = () => {
+      menu.hidden = false;
+      trigger.setAttribute("aria-expanded", "true");
+    };
+
+    const sync = () => {
+      const mode = getMode();
+      trigger.dataset.themeMode = mode;
+      options.forEach((option) => {
+        option.setAttribute("aria-checked", String(option.dataset.themeOption === mode));
+      });
+    };
+
+    trigger.addEventListener("click", () => {
+      menu.hidden ? openMenu() : closeMenu();
+    });
+
+    options.forEach((option) => {
+      option.addEventListener("click", () => {
+        window.__setFutureObserverTheme?.(option.dataset.themeOption || "system");
+        sync();
+        closeMenu();
+      });
+    });
+
+    document.addEventListener("click", (event) => {
+      if (!switcher.contains(event.target)) closeMenu();
+    });
+
+    document.addEventListener("keydown", (event) => {
+      if (event.key === "Escape") closeMenu();
+    });
+
+    window.addEventListener("future-observer-theme-change", sync);
+    sync();
+  })();
+</script> <aside class="site-rail" aria-label="站点导航"> <div class="site-rail-inner"> <p class="site-rail-label">Channels</p> <nav aria-label="主导航"> <ul class="site-rail-nav"> <li> <a href="/ai-tools/" class="site-rail-link"> AI工具 </a> </li><li> <a href="/future-daily/" class="site-rail-link"> 未来观察者日报 </a> </li> </ul> </nav> </div> </aside> <main class="shell page-content">  <div class="post-hero"> <p class="eyebrow">2026年8月5日</p> <h1>ADR：给企业 AI 智能体补上一层“可观测与检测”</h1> <p class="post-summary">当 Claude Code、Cursor、Codex 开始读取代码、调用工具甚至执行命令，传统日志往往只能记录进程和接口，却很难回答：智能体当时想做什么、调用了哪个工具、是否受到提示注入。Uber 开源的 ADR（Agentic AI Detection and Response</p> <ul class="tag-list"> <li> <a href="/tags/AI%E5%B7%A5%E5%85%B7/" class="tag-link">
+#AI工具 </a> </li><li> <a href="/tags/2026%E5%B9%B408%E6%9C%88/" class="tag-link">
+#2026年08月 </a> </li> </ul> </div> <div class="post-grid"> <article class="prose">  <p>当 Claude Code、Cursor、Codex 开始读取代码、调用工具甚至执行命令，传统日志往往只能记录进程和接口，却很难回答：智能体当时想做什么、调用了哪个工具、是否受到提示注入。Uber 开源的 ADR（Agentic AI Detection and Response），尝试把这些行为统一成可分析的安全事件。</p>
+<h2 id="-它解决什么问题">📌 它解决什么问题</h2>
+<p>ADR 面向员工使用的编程智能体，也面向客服等业务智能体。当前仓库开放了三部分：采集与标准化行为日志的 ADR Sensor、用于研究攻击与防御的 ADR-Bench，以及两阶段威胁检测器。</p>
+<p>其中最容易落地的是 Sensor。它能解析 Claude Code、Cursor、Cline、Codex CLI、Warp 等工具的本地日志，把会话、模型、工具名称、参数和执行结果转换为统一的 <code>AgentEvent</code>，再导出 JSON 或 JSONL，供检测管线或 SIEM 使用。对同时采用多种 AI 编程工具的团队，这比为每个客户端单独写解析器更容易维护。</p>
+<h2 id="-为什么值得关注">🔍 为什么值得关注</h2>
+<p>它的价值不只是“扫描提示词”，而是把安全控制放到完整执行链路上：先看智能体意图与工具调用，再对可疑会话做深入分析。项目还提供 303 个合成任务、133 个 MCP Server 定义和可复现实验流程，方便安全团队比较检测方案，而不是只靠几个演示攻击判断效果。</p>
+<p>不过要区分开源能力与 Uber 内部系统。仓库不包含阻止危险操作的 Prevention 组件，也没有用于上线前红队测试的 ADR Explorer；生产遥测数据同样未公开。因此，它目前更适合作为日志采集底座与安全研究框架，而不是开箱即用的企业防护平台。</p>
+<h2 id="-谁适合试怎么开始">🧪 谁适合试，怎么开始</h2>
+<p>适合正在大规模引入 AI 编程助手、需要审计 MCP 与工具调用，或研究提示注入防御的平台和安全团队。建议先从 Sensor 做小范围验证：</p>
+<pre class="astro-code astro-code-themes github-light github-dark" style="--shiki-light:#24292e;--shiki-dark:#e1e4e8;--shiki-light-bg:#fff;--shiki-dark-bg:#24292e; overflow-x: auto;" tabindex="0" data-language="bash"><code><span class="line"><span style="--shiki-light:#6F42C1;--shiki-dark:#B392F0">pip</span><span style="--shiki-light:#032F62;--shiki-dark:#9ECBFF"> install</span><span style="--shiki-light:#032F62;--shiki-dark:#9ECBFF"> adr-sensor</span></span>
+<span class="line"><span style="--shiki-light:#6F42C1;--shiki-dark:#B392F0">adr-sensor</span><span style="--shiki-light:#005CC5;--shiki-dark:#79B8FF"> --source</span><span style="--shiki-light:#032F62;--shiki-dark:#9ECBFF"> codex</span><span style="--shiki-light:#005CC5;--shiki-dark:#79B8FF"> --output-format</span><span style="--shiki-light:#032F62;--shiki-dark:#9ECBFF"> jsonl</span></span></code></pre>
+<p>先检查采集字段、敏感信息范围和日志完整性，再接入现有告警系统。若要评估检测器，可克隆仓库后进入 <code>Detection</code> 执行 <code>uv sync</code>，并优先使用官方提供的打包会话复现实验，避免一开始运行全部智能体任务。</p>
+<h2 id="️-使用提醒">⚠️ 使用提醒</h2>
+<p>ADR-Bench 明确是研究制品，不应连接真实凭据、生产 MCP Server 或业务数据；其部分固定版本依赖含已知 CVE，必须放在容器、虚拟机或隔离主机中。默认双智能体检测还需要 OpenAI、Anthropic API 与 Claude CLI，完整评测会产生费用。Sensor 会接触会话内容、代码路径和工具参数，上线前必须完成隐私分级、脱敏、访问控制与保留周期设计。</p>
+<p>项目采用 Apache 2.0 许可证，Sensor 已发布 v1.0.0。若团队刚开始治理智能体，先把“发生了什么”记录完整，再谈自动阻断，是更稳妥的起点。</p>
+<h2 id="-参考资源">🔗 参考资源</h2>
+<ul>
+<li>GitHub：<a href="https://github.com/uber/ADR">https://github.com/uber/ADR</a></li>
+<li>Sensor 文档：<a href="https://github.com/uber/ADR/tree/main/Sensor">https://github.com/uber/ADR/tree/main/Sensor</a></li>
+<li>Detection 文档：<a href="https://github.com/uber/ADR/tree/main/Detection">https://github.com/uber/ADR/tree/main/Detection</a></li>
+<li>复现实验：<a href="https://github.com/uber/ADR/blob/main/docs/REPRODUCIBILITY.md">https://github.com/uber/ADR/blob/main/docs/REPRODUCIBILITY.md</a></li>
+<li>Sensor v1.0.0：<a href="https://github.com/uber/ADR/releases/tag/sensor-v1.0.0">https://github.com/uber/ADR/releases/tag/sensor-v1.0.0</a></li>
+<li>论文：<a href="https://arxiv.org/abs/2605.17380">https://arxiv.org/abs/2605.17380</a></li>
+<li>许可证：<a href="https://github.com/uber/ADR/blob/main/LICENSE">https://github.com/uber/ADR/blob/main/LICENSE</a></li>
+</ul>  </article> <aside class="toc"><p class="toc-title">目录</p><ul class="toc-list"><li class="depth-2"><a href="#-它解决什么问题" data-toc-link="-它解决什么问题">📌 它解决什么问题</a></li><li class="depth-2"><a href="#-为什么值得关注" data-toc-link="-为什么值得关注">🔍 为什么值得关注</a></li><li class="depth-2"><a href="#-谁适合试怎么开始" data-toc-link="-谁适合试怎么开始">🧪 谁适合试，怎么开始</a></li><li class="depth-2"><a href="#️-使用提醒" data-toc-link="️-使用提醒">⚠️ 使用提醒</a></li><li class="depth-2"><a href="#-参考资源" data-toc-link="-参考资源">🔗 参考资源</a></li></ul></aside><script type="module">const c=()=>{const r=Array.from(document.querySelectorAll(".toc a[data-toc-link]"));if(!r.length)return;const o=r.map(t=>{const e=t.getAttribute("data-toc-link");if(!e)return null;const n=document.getElementById(e);return n?{id:e,heading:n,link:t}:null}).filter(t=>t!==null);if(!o.length)return;const s=t=>{r.forEach(e=>{const n=e.getAttribute("data-toc-link")===t;e.classList.toggle("active",n),n&&e.scrollIntoView({block:"nearest",inline:"nearest"})})},i=()=>{const t=Math.round(window.innerHeight*.28);let e=o[0];for(const n of o)n.heading.getBoundingClientRect().top<=t&&(e=n);s(e.id)};i();const a=new IntersectionObserver(()=>i(),{rootMargin:"-18% 0px -70% 0px",threshold:[0,1]});o.forEach(t=>a.observe(t.heading)),window.addEventListener("scroll",i,{passive:!0})};document.addEventListener("DOMContentLoaded",c);document.addEventListener("astro:page-load",c);</script> </div>  </main> <footer class="site-footer"> <div class="shell footer-inner"> <p>© 2026 未来观察者</p> </div> </footer> </body></html>
