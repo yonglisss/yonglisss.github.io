@@ -1,0 +1,296 @@
+<!DOCTYPE html><html lang="zh-CN"> <head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1"><script>
+      (() => {
+        const storageKey = "future-observer-theme";
+        const root = document.documentElement;
+        const getStoredMode = () => {
+          try {
+            const value = localStorage.getItem(storageKey);
+            return value === "light" || value === "dark" || value === "system" ? value : "system";
+          } catch {
+            return "system";
+          }
+        };
+        const systemDark = () => window.matchMedia?.("(prefers-color-scheme: dark)").matches ?? false;
+        const apply = (mode) => {
+          const resolved = mode === "system" ? (systemDark() ? "dark" : "light") : mode;
+          root.dataset.themeMode = mode;
+          root.dataset.theme = resolved;
+          root.style.colorScheme = resolved;
+        };
+        apply(getStoredMode());
+        window.__setFutureObserverTheme = (mode) => {
+          const next = mode === "light" || mode === "dark" || mode === "system" ? mode : "system";
+          try { localStorage.setItem(storageKey, next); } catch {}
+          apply(next);
+          window.dispatchEvent(new CustomEvent("future-observer-theme-change", { detail: { mode: next } }));
+        };
+        window.matchMedia?.("(prefers-color-scheme: dark)").addEventListener?.("change", () => {
+          if (getStoredMode() === "system") apply("system");
+        });
+      })();
+    </script><title>⏳ CLARITY 法案概率跌至 16.5%：加密合规进入“时间折价”阶段 | 未来观察者</title><meta name="description" content="🔭 核心观点：Polymarket 将 CLARITY 法案在 2026 年内签署成法的概率压至 16.5%，较 7 月 23 日观察值低 22 个百分点。市场现在定价的已不只是条款分歧，而是剩余立法时间能否容纳参议院表决、两院协调与总统签署的完整链条。"><meta name="generator" content="Astro v5.18.1"><meta property="og:title" content="⏳ CLARITY 法案概率跌至 16.5%：加密合规进入“时间折价”阶段 | 未来观察者"><meta property="og:description" content="🔭 核心观点：Polymarket 将 CLARITY 法案在 2026 年内签署成法的概率压至 16.5%，较 7 月 23 日观察值低 22 个百分点。市场现在定价的已不只是条款分歧，而是剩余立法时间能否容纳参议院表决、两院协调与总统签署的完整链条。"><meta property="og:type" content="website"><meta property="og:url" content="https://future.lifestudylab.com/posts/2026-08-07-clarity%E6%B3%95%E6%A1%88%E6%A6%82%E7%8E%87%E8%B7%8C%E8%87%B3165-%E5%8A%A0%E5%AF%86%E5%90%88%E8%A7%84%E8%BF%9B%E5%85%A5%E6%97%B6%E9%97%B4%E6%8A%98%E4%BB%B7%E9%98%B6%E6%AE%B5/"><link rel="icon" type="image/svg+xml" href="/favicon.svg"><link rel="alternate" type="application/rss+xml" title="未来观察者" href="/rss.xml"><link rel="stylesheet" href="/_astro/_channel_.BFW__1rx.css"></head> <body> <div class="page-bg"></div> <header class="site-header"> <div class="shell header-inner"> <div class="header-bar"> <a class="brand" href="/ai-tools/"> <img src="/brand-mark.svg" alt="" class="brand-mark" width="56" height="56"> <span class="brand-text" aria-label="未来观察者">思考未来</span> </a> </div> <nav class="top-menu" aria-label="顶部菜单"> <a href="/future-daily/" class="top-menu-link"> 每日信息 </a><a href="/docs/deer-flow/00-overview/" class="top-menu-link"> DeerFlow教程 </a><a href="/docs/hermes/00-overview/" class="top-menu-link"> Hermes教程 </a><a href="/docs/openclaw/00-overview/" class="top-menu-link"> OpenClaw教程 </a><a href="/about/" class="top-menu-link"> 关于我 </a> </nav> <div class="top-actions"> <a class="feedback-link" href="https://github.com/yonglisss/yonglisss.github.io/issues" target="_blank" rel="noopener noreferrer" aria-label="问题反馈"> <svg viewBox="0 0 24 24" aria-hidden="true" class="action-icon"> <path d="M4.75 5.75A2.75 2.75 0 0 1 7.5 3h9A2.75 2.75 0 0 1 19.25 5.75v6.5A2.75 2.75 0 0 1 16.5 15H9.3l-3.55 3.2V15.1a2.75 2.75 0 0 1-1-2.1V5.75Z"></path> <path d="M8 7.75h8M8 11.25h4"></path> </svg> <span>问题反馈</span> </a> <div class="theme-switcher" data-theme-switcher> <button class="theme-trigger" type="button" aria-haspopup="menu" aria-expanded="false" aria-label="切换明暗模式" data-theme-trigger> <svg viewBox="0 0 24 24" aria-hidden="true" class="action-icon theme-trigger-icon theme-trigger-icon--light"> <circle cx="12" cy="12" r="4"></circle> <path d="M12 2.75v2M12 19.25v2M4.75 4.75l1.4 1.4M17.85 17.85l1.4 1.4M2.75 12h2M19.25 12h2M4.75 19.25l1.4-1.4M17.85 6.15l1.4-1.4"></path> </svg> <svg viewBox="0 0 24 24" aria-hidden="true" class="action-icon theme-trigger-icon theme-trigger-icon--dark"> <path d="M20.25 14.2A8 8 0 0 1 9.8 3.75 8.5 8.5 0 1 0 20.25 14.2Z"></path> </svg> <svg viewBox="0 0 24 24" aria-hidden="true" class="action-icon theme-trigger-icon theme-trigger-icon--system"> <rect x="4" y="5" width="16" height="11" rx="1.8"></rect> <path d="M9 20h6M12 16v4"></path> </svg> </button> <div class="theme-menu" role="menu" data-theme-menu hidden> <button class="theme-option" type="button" role="menuitemradio" data-theme-option="light" aria-checked="false"> <svg viewBox="0 0 24 24" aria-hidden="true" class="action-icon"><circle cx="12" cy="12" r="4"></circle><path d="M12 2.75v2M12 19.25v2M4.75 4.75l1.4 1.4M17.85 17.85l1.4 1.4M2.75 12h2M19.25 12h2M4.75 19.25l1.4-1.4M17.85 6.15l1.4-1.4"></path></svg> <span>亮色</span> </button> <button class="theme-option" type="button" role="menuitemradio" data-theme-option="dark" aria-checked="false"> <svg viewBox="0 0 24 24" aria-hidden="true" class="action-icon"><path d="M20.25 14.2A8 8 0 0 1 9.8 3.75 8.5 8.5 0 1 0 20.25 14.2Z"></path></svg> <span>暗色</span> </button> <button class="theme-option" type="button" role="menuitemradio" data-theme-option="system" aria-checked="true"> <svg viewBox="0 0 24 24" aria-hidden="true" class="action-icon"><rect x="4" y="5" width="16" height="11" rx="1.8"></rect><path d="M9 20h6M12 16v4"></path></svg> <span>跟随系统</span> </button> </div> </div> </div> </div> </header> <script>
+  (() => {
+    const switcher = document.querySelector("[data-theme-switcher]");
+    if (!switcher) return;
+
+    const trigger = switcher.querySelector("[data-theme-trigger]");
+    const menu = switcher.querySelector("[data-theme-menu]");
+    const options = [...switcher.querySelectorAll("[data-theme-option]")];
+    const modes = ["light", "dark", "system"];
+
+    const getMode = () => {
+      const mode = document.documentElement.dataset.themeMode;
+      return modes.includes(mode) ? mode : "system";
+    };
+
+    const closeMenu = () => {
+      menu.hidden = true;
+      trigger.setAttribute("aria-expanded", "false");
+    };
+
+    const openMenu = () => {
+      menu.hidden = false;
+      trigger.setAttribute("aria-expanded", "true");
+    };
+
+    const sync = () => {
+      const mode = getMode();
+      trigger.dataset.themeMode = mode;
+      options.forEach((option) => {
+        option.setAttribute("aria-checked", String(option.dataset.themeOption === mode));
+      });
+    };
+
+    trigger.addEventListener("click", () => {
+      menu.hidden ? openMenu() : closeMenu();
+    });
+
+    options.forEach((option) => {
+      option.addEventListener("click", () => {
+        window.__setFutureObserverTheme?.(option.dataset.themeOption || "system");
+        sync();
+        closeMenu();
+      });
+    });
+
+    document.addEventListener("click", (event) => {
+      if (!switcher.contains(event.target)) closeMenu();
+    });
+
+    document.addEventListener("keydown", (event) => {
+      if (event.key === "Escape") closeMenu();
+    });
+
+    window.addEventListener("future-observer-theme-change", sync);
+    sync();
+  })();
+</script> <aside class="site-rail" aria-label="站点导航"> <div class="site-rail-inner"> <p class="site-rail-label">Channels</p> <nav aria-label="主导航"> <ul class="site-rail-nav"> <li> <a href="/ai-tools/" class="site-rail-link"> AI工具 </a> </li><li> <a href="/future-daily/" class="site-rail-link"> 未来观察者日报 </a> </li> </ul> </nav> </div> </aside> <main class="shell page-content">  <div class="post-hero"> <p class="eyebrow">2026年8月7日</p> <h1>⏳ CLARITY 法案概率跌至 16.5%：加密合规进入“时间折价”阶段</h1> <p class="post-summary">🔭 核心观点：Polymarket 将 CLARITY 法案在 2026 年内签署成法的概率压至 16.5%，较 7 月 23 日观察值低 22 个百分点。市场现在定价的已不只是条款分歧，而是剩余立法时间能否容纳参议院表决、两院协调与总统签署的完整链条。</p> <ul class="tag-list"> <li> <a href="/tags/%E6%9C%AA%E6%9D%A5%E8%A7%82%E5%AF%9F%E8%80%85%E6%97%A5%E6%8A%A5/" class="tag-link">
+#未来观察者日报 </a> </li><li> <a href="/tags/2026%E5%B9%B408%E6%9C%88/" class="tag-link">
+#2026年08月 </a> </li> </ul> </div> <div class="post-grid"> <article class="prose">  <blockquote>
+<p>🔭 <strong>核心观点</strong>：Polymarket 将 CLARITY 法案在 2026 年内签署成法的概率压至 <strong>16.5%</strong>，较 7 月 23 日观察值低 <strong>22 个百分点</strong>。市场现在定价的已不只是条款分歧，而是剩余立法时间能否容纳参议院表决、两院协调与总统签署的完整链条。</p>
+</blockquote>
+<p><strong>作者：</strong> 元英<br>
+<strong>时间：</strong> 2026年8月7日<br>
+<strong>标签：</strong> #未来观察者 #CLARITY法案 #加密监管 #金融基础设施<br>
+<strong>阅读时间：</strong> 约4分钟</p>
+<hr>
+<h2 id="-今天看什么投票年内成法只剩-165">🎯 今天看什么投票？年内成法只剩 16.5%</h2>
+<p>Polymarket 事件 <strong>“Clarity Act (H.R.3633) signed into law in 2026?”</strong> 判断《2025 年数字资产市场清晰法案》能否在 2026 年 12 月 31 日 23:59（美国东部时间）前通过国会两院并由总统签署。其主要结算源是 Congress.gov 与美国政府官方信息。</p>
+<h3 id="-关键数据卡">📊 关键数据卡</h3>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<table><thead><tr><th>项目</th><th align="right">当前数据</th></tr></thead><tbody><tr><td><strong>Yes 概率</strong></td><td align="right"><strong>16.5%</strong></td></tr><tr><td>No 概率</td><td align="right">83.5%</td></tr><tr><td>买一 / 卖一</td><td align="right">16% / 17%</td></tr><tr><td>24 小时变化</td><td align="right">+1 个百分点</td></tr><tr><td><strong>一周变化</strong></td><td align="right"><strong>-10 个百分点</strong></td></tr><tr><td><strong>一个月变化</strong></td><td align="right"><strong>-30 个百分点</strong></td></tr><tr><td>累计交易量</td><td align="right">约 <strong>511.57 万美元</strong></td></tr><tr><td>24 小时交易量</td><td align="right">约 <strong>26.95 万美元</strong></td></tr><tr><td>一周交易量</td><td align="right">约 <strong>172.72 万美元</strong></td></tr><tr><td>流动性</td><td align="right">约 <strong>17.72 万美元</strong></td></tr><tr><td>数据获取时间</td><td align="right"><strong>2026-08-07 04:00（北京时间）</strong></td></tr><tr><td>所属领域</td><td align="right">加密监管 / 金融基础设施 / 平台资本</td></tr></tbody></table>
+<blockquote>
+<p>⚠️ <strong>读数提醒</strong>：16.5% 是预测市场价格，不是官方立法预测，也不是对法案内容的支持率。即使某一院取得程序进展，只要年末前没有完成两院通过和总统签署，合约仍结算为 No。</p>
+</blockquote>
+<h3 id="-为什么今天选它新增变量不是再谈一次监管">✅ 为什么今天选它？新增变量不是“再谈一次监管”</h3>
+<ol>
+<li><strong>未来结果明确</strong>：结算条件、截止日期和官方核验源都清晰。</li>
+<li><strong>现实驱动可解释</strong>：H.R.3633 已通过众议院，但仍需完成参议院及后续立法程序；时间本身已成为约束。</li>
+<li><strong>市场重定价显著</strong>：一个月下降 30 个百分点，一周成交约 172.72 万美元，不是薄成交下的轻微摆动。</li>
+<li><strong>去重合格</strong>：最近 7 天分别覆盖上市公司市值、利率、能源物流、Bitcoin 与 AI 私人估值，没有加密监管主线。</li>
+<li><strong>相对 7 月 23 日旧文的新增变量明确</strong>：当时 Yes 为 <strong>38.5%</strong>，重点是新版文本暴露监管分工与伦理条款的妥协难度；今天新增的是 <strong>概率再降至 16.5%、一个月跌幅扩大至 30 个百分点、累计成交突破 500 万美元</strong>。分析焦点从“条款如何妥协”转向“程序是否还来得及完成”。</li>
+</ol>
+<hr>
+<h2 id="️-为什么会出现这次投票法律内容之外还有程序时钟">🗓️ 为什么会出现这次投票？法律内容之外还有程序时钟</h2>
+<p>H.R.3633 的目标，是为数字资产市场划定更清晰的监管与交易框架。Congress.gov 与美国众议院金融服务委员会公开信息显示，该法案已经众议院以 <strong>294—134</strong> 的票数通过，后续仍需参议院行动；公开政策追踪显示，相关市场结构立法已经进入参议院日程体系。</p>
+<p>真正困难的是，预测市场的结算要求不是“取得进展”，而是 <strong>2026 年内完成全部步骤</strong>。这使法案同时面对两种风险：</p>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<table><thead><tr><th>信息层级</th><th>当前可以确认什么</th></tr></thead><tbody><tr><td><strong>事实</strong></td><td>众议院已经通过 H.R.3633；合约要求两院通过并由总统在年末前签署</td></tr><tr><td><strong>市场定价</strong></td><td>Yes 为 16.5%，交易者已把年内完成全流程视为低概率结果</td></tr><tr><td><strong>分析 / 推测</strong></td><td>一周和一个月的持续下跌，可能说明市场对剩余日程、文本协调及政治妥协更悲观；价格不能证明法案最终必然失败</td></tr></tbody></table>
+<p><strong>今天最重要的变化，是“支持监管清晰化”与“今年能完成立法”被市场拆成了两件事。</strong></p>
+<hr>
+<h2 id="-165-背后是三层结构变化">🧩 16.5% 背后，是三层结构变化</h2>
+<h3 id="️-技术层合规能力正在从文档工作变成系统能力">⚙️ 技术层：合规能力正在从文档工作变成系统能力</h3>
+<p>无论法案是否年内落地，平台都需要准备资产分类、客户身份、托管隔离、交易监控和监管报送。规则不确定并不意味着技术团队可以等待；相反，系统必须支持规则版本化、证据留存和多监管辖区配置。</p>
+<h3 id="-产业层延期本身会形成成本与竞争差">🏭 产业层：延期本身会形成成本与竞争差</h3>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<table><thead><tr><th>参与者</th><th>年内成法低概率意味着什么</th><th>应持续跟踪的指标</th></tr></thead><tbody><tr><td>交易与托管平台</td><td>继续承受联邦与州规则拼图</td><td>法务成本、牌照覆盖、客户资产隔离</td></tr><tr><td>银行与支付机构</td><td>接入数字资产业务仍需更高风险缓冲</td><td>合作范围、资本要求、服务上线周期</td></tr><tr><td>开发者与创业公司</td><td>产品边界难以一次性确定</td><td>合规固定成本、规则切换时间</td></tr><tr><td>合规基础设施商</td><td>多规则并存扩大工具需求</td><td>报送自动化、身份复用、审计可追溯性</td></tr></tbody></table>
+<p>短期受益者未必是资产发行方，而可能是把不确定规则转化为可配置工作流的“卖工具者”。</p>
+<h3 id="-社会与资本层监管清晰度开始被计入时间价值">💰 社会与资本层：监管清晰度开始被计入时间价值</h3>
+<p>7 月 23 日的 38.5%还意味着市场认为年内通过存在较大博弈空间；今天的 16.5%则表明，资本正在对等待时间、合规重复投入和机构资金延后进入计价。</p>
+<p>这不是简单的“利空加密”。规则延后可能让部分业务继续扩张，但也会提高融资折价、合作审查和跨州运营成本。<strong>没有明确规则同样是一种规则——它把优势给了更能承担长期不确定性的公司。</strong></p>
+<hr>
+<h2 id="-如果时间折价延续未来会怎样">⏳ 如果时间折价延续，未来会怎样？</h2>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<table><thead><tr><th>时间尺度</th><th>可能演化</th><th>需要验证的信号</th></tr></thead><tbody><tr><td><strong>短期：未来数周</strong></td><td>概率围绕参议院程序、正式文本与表决安排剧烈波动</td><td>Congress.gov 行动记录、盘口价差、成交量</td></tr><tr><td><strong>中期：至 2026 年末</strong></td><td>若无明确跨党派推进，企业会把“今年统一规则”从预算基准情景中移除</td><td>两院协调、修正案、总统签署路径</td></tr><tr><td><strong>长期：未来 1—3 年</strong></td><td>行业继续从监管套利转向可审计、可迁移的合规基础设施竞争</td><td>机构参与度、合规成本、州与联邦规则兼容性</td></tr></tbody></table>
+<p>上述中长期判断是条件性推测。16.5%仍不等于零；一项明确的程序推进或妥协文本，可能让低价合约快速重定价。</p>
+<hr>
+<h2 id="️-普通人从业者与创业者今天可以做什么">🛠️ 普通人、从业者与创业者今天可以做什么？</h2>
+<ol>
+<li><strong>普通观察者</strong>：不要把法案概率直接映射为 Bitcoin 涨跌；先区分“行业需求”“法案内容”和“年内程序完成度”。</li>
+<li><strong>产品与技术团队</strong>：把身份、资产分类、审计日志和报送规则做成配置层，不要硬编码单一法案版本。</li>
+<li><strong>加密创业者</strong>：预算中同时保留“联邦规则落地”和“继续多辖区合规”两套情景，并单列延迟带来的法务与上线成本。</li>
+<li><strong>金融机构</strong>：在正式规则出现前，用客户资产隔离、权限控制和可追溯性作为不可逆的最低建设标准。</li>
+<li><strong>投资观察者</strong>：每周同时记录概率、成交量与 Congress.gov 状态；若概率上升但没有官方程序变化，应先检查流动性与消息来源。</li>
+</ol>
+<hr>
+<h2 id="️-风险提示">⚠️ 风险提示</h2>
+<ul>
+<li>Polymarket 价格受仓位、流动性、参与者结构与买卖价差影响，不等于客观概率。</li>
+<li>一周与一个月价格变化只能证明市场重定价，不能证明某个具体条款或个人是唯一原因。</li>
+<li>众议院通过不等于法案已经成为法律；参议院文本、两院协调和最终签署仍可能改变结果。</li>
+<li>法案未在 2026 年签署，也不代表相关规则不会通过其他法案、监管行动或州级制度推进。</li>
+<li>本文用于趋势观察，不构成投资或法律建议。</li>
+</ul>
+<hr>
+<h2 id="-结语下一道门槛不是共识而是完成速度">🌌 结语：下一道门槛不是共识，而是完成速度</h2>
+<p>CLARITY 法案仍有推动数字资产进入统一监管框架的结构意义，但盘口已经把关注点从“是否需要规则”移到了“今年是否还有足够时间完成规则”。从 7 月 23 日的 38.5%到今天的 16.5%，下降的不只是乐观情绪，更是对完整立法链条按期闭环的信心。</p>
+<p><strong>今天的判断是：加密行业正在进入监管时间折价阶段。真正值得建设的能力，不是押中某一次表决，而是在规则延期、修改或分叉时，产品仍能合规迁移、数据仍可追溯、业务仍能运行。</strong></p>
+<hr>
+<h2 id="-参考资源">🔗 参考资源</h2>
+<ul>
+<li><a href="https://polymarket.com/event/clarity-act-signed-into-law-in-2026">Polymarket：Clarity Act (H.R.3633) signed into law in 2026?</a></li>
+<li><a href="https://www.congress.gov/bill/119th-congress/house-bill/3633">Congress.gov：H.R.3633 — Digital Asset Market Clarity Act of 2025</a></li>
+<li><a href="https://financialservices.house.gov/news/documentsingle.aspx?DocumentID=410816">美国众议院金融服务委员会：众议院以 294—134 通过 CLARITY Act</a></li>
+<li><a href="https://www.lw.com/en/us-crypto-policy-tracker/legislative-developments">Latham &#x26; Watkins：US Crypto Policy Tracker</a></li>
+<li>《CLARITY 法案概率骤降：加密市场开始为“监管边界”定价》（2026-07-23，作为前次概率与叙事对照）</li>
+</ul>
+<p><em>数据获取与交叉核验时间：2026-08-07 04:00（北京时间）。价格、交易量和流动性会持续变化，请以 Polymarket 原始事件页、合约规则及 Congress.gov 最新状态为准。</em></p>  </article> <aside class="toc"><p class="toc-title">目录</p><ul class="toc-list"><li class="depth-2"><a href="#-今天看什么投票年内成法只剩-165" data-toc-link="-今天看什么投票年内成法只剩-165">🎯 今天看什么投票？年内成法只剩 16.5%</a></li><li class="depth-3"><a href="#-关键数据卡" data-toc-link="-关键数据卡">📊 关键数据卡</a></li><li class="depth-3"><a href="#-为什么今天选它新增变量不是再谈一次监管" data-toc-link="-为什么今天选它新增变量不是再谈一次监管">✅ 为什么今天选它？新增变量不是“再谈一次监管”</a></li><li class="depth-2"><a href="#️-为什么会出现这次投票法律内容之外还有程序时钟" data-toc-link="️-为什么会出现这次投票法律内容之外还有程序时钟">🗓️ 为什么会出现这次投票？法律内容之外还有程序时钟</a></li><li class="depth-2"><a href="#-165-背后是三层结构变化" data-toc-link="-165-背后是三层结构变化">🧩 16.5% 背后，是三层结构变化</a></li><li class="depth-3"><a href="#️-技术层合规能力正在从文档工作变成系统能力" data-toc-link="️-技术层合规能力正在从文档工作变成系统能力">⚙️ 技术层：合规能力正在从文档工作变成系统能力</a></li><li class="depth-3"><a href="#-产业层延期本身会形成成本与竞争差" data-toc-link="-产业层延期本身会形成成本与竞争差">🏭 产业层：延期本身会形成成本与竞争差</a></li><li class="depth-3"><a href="#-社会与资本层监管清晰度开始被计入时间价值" data-toc-link="-社会与资本层监管清晰度开始被计入时间价值">💰 社会与资本层：监管清晰度开始被计入时间价值</a></li><li class="depth-2"><a href="#-如果时间折价延续未来会怎样" data-toc-link="-如果时间折价延续未来会怎样">⏳ 如果时间折价延续，未来会怎样？</a></li><li class="depth-2"><a href="#️-普通人从业者与创业者今天可以做什么" data-toc-link="️-普通人从业者与创业者今天可以做什么">🛠️ 普通人、从业者与创业者今天可以做什么？</a></li><li class="depth-2"><a href="#️-风险提示" data-toc-link="️-风险提示">⚠️ 风险提示</a></li><li class="depth-2"><a href="#-结语下一道门槛不是共识而是完成速度" data-toc-link="-结语下一道门槛不是共识而是完成速度">🌌 结语：下一道门槛不是共识，而是完成速度</a></li><li class="depth-2"><a href="#-参考资源" data-toc-link="-参考资源">🔗 参考资源</a></li></ul></aside><script type="module">const c=()=>{const r=Array.from(document.querySelectorAll(".toc a[data-toc-link]"));if(!r.length)return;const o=r.map(t=>{const e=t.getAttribute("data-toc-link");if(!e)return null;const n=document.getElementById(e);return n?{id:e,heading:n,link:t}:null}).filter(t=>t!==null);if(!o.length)return;const s=t=>{r.forEach(e=>{const n=e.getAttribute("data-toc-link")===t;e.classList.toggle("active",n),n&&e.scrollIntoView({block:"nearest",inline:"nearest"})})},i=()=>{const t=Math.round(window.innerHeight*.28);let e=o[0];for(const n of o)n.heading.getBoundingClientRect().top<=t&&(e=n);s(e.id)};i();const a=new IntersectionObserver(()=>i(),{rootMargin:"-18% 0px -70% 0px",threshold:[0,1]});o.forEach(t=>a.observe(t.heading)),window.addEventListener("scroll",i,{passive:!0})};document.addEventListener("DOMContentLoaded",c);document.addEventListener("astro:page-load",c);</script> </div>  </main> <footer class="site-footer"> <div class="shell footer-inner"> <p>© 2026 未来观察者</p> </div> </footer> </body></html>
