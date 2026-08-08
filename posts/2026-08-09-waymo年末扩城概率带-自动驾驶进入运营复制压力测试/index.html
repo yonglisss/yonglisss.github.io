@@ -1,0 +1,345 @@
+<!DOCTYPE html><html lang="zh-CN"> <head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1"><script>
+      (() => {
+        const storageKey = "future-observer-theme";
+        const root = document.documentElement;
+        const getStoredMode = () => {
+          try {
+            const value = localStorage.getItem(storageKey);
+            return value === "light" || value === "dark" || value === "system" ? value : "system";
+          } catch {
+            return "system";
+          }
+        };
+        const systemDark = () => window.matchMedia?.("(prefers-color-scheme: dark)").matches ?? false;
+        const apply = (mode) => {
+          const resolved = mode === "system" ? (systemDark() ? "dark" : "light") : mode;
+          root.dataset.themeMode = mode;
+          root.dataset.theme = resolved;
+          root.style.colorScheme = resolved;
+        };
+        apply(getStoredMode());
+        window.__setFutureObserverTheme = (mode) => {
+          const next = mode === "light" || mode === "dark" || mode === "system" ? mode : "system";
+          try { localStorage.setItem(storageKey, next); } catch {}
+          apply(next);
+          window.dispatchEvent(new CustomEvent("future-observer-theme-change", { detail: { mode: next } }));
+        };
+        window.matchMedia?.("(prefers-color-scheme: dark)").addEventListener?.("change", () => {
+          if (getStoredMode() === "system") apply("system");
+        });
+      })();
+    </script><title>🚕 Waymo 年末扩城概率带：自动驾驶进入“运营复制”压力测试 | 未来观察者</title><meta name="description" content="🔭 核心观点：Polymarket 把 Waymo 年末运营城市数的最高单档概率放在 16—19 个（31%），但官方页面目前可明确核验的公众服务区域约为 10 个。市场定价的不是自动驾驶“能不能跑”，而是 Waymo 能否在不足五个月内，把许可、车队、运维和平台接入复制到至少"><meta name="generator" content="Astro v5.18.1"><meta property="og:title" content="🚕 Waymo 年末扩城概率带：自动驾驶进入“运营复制”压力测试 | 未来观察者"><meta property="og:description" content="🔭 核心观点：Polymarket 把 Waymo 年末运营城市数的最高单档概率放在 16—19 个（31%），但官方页面目前可明确核验的公众服务区域约为 10 个。市场定价的不是自动驾驶“能不能跑”，而是 Waymo 能否在不足五个月内，把许可、车队、运维和平台接入复制到至少"><meta property="og:type" content="website"><meta property="og:url" content="https://future.lifestudylab.com/posts/2026-08-09-waymo%E5%B9%B4%E6%9C%AB%E6%89%A9%E5%9F%8E%E6%A6%82%E7%8E%87%E5%B8%A6-%E8%87%AA%E5%8A%A8%E9%A9%BE%E9%A9%B6%E8%BF%9B%E5%85%A5%E8%BF%90%E8%90%A5%E5%A4%8D%E5%88%B6%E5%8E%8B%E5%8A%9B%E6%B5%8B%E8%AF%95/"><link rel="icon" type="image/svg+xml" href="/favicon.svg"><link rel="alternate" type="application/rss+xml" title="未来观察者" href="/rss.xml"><link rel="stylesheet" href="/_astro/_channel_.BFW__1rx.css"></head> <body> <div class="page-bg"></div> <header class="site-header"> <div class="shell header-inner"> <div class="header-bar"> <a class="brand" href="/ai-tools/"> <img src="/brand-mark.svg" alt="" class="brand-mark" width="56" height="56"> <span class="brand-text" aria-label="未来观察者">思考未来</span> </a> </div> <nav class="top-menu" aria-label="顶部菜单"> <a href="/future-daily/" class="top-menu-link"> 每日信息 </a><a href="/docs/deer-flow/00-overview/" class="top-menu-link"> DeerFlow教程 </a><a href="/docs/hermes/00-overview/" class="top-menu-link"> Hermes教程 </a><a href="/docs/openclaw/00-overview/" class="top-menu-link"> OpenClaw教程 </a><a href="/about/" class="top-menu-link"> 关于我 </a> </nav> <div class="top-actions"> <a class="feedback-link" href="https://github.com/yonglisss/yonglisss.github.io/issues" target="_blank" rel="noopener noreferrer" aria-label="问题反馈"> <svg viewBox="0 0 24 24" aria-hidden="true" class="action-icon"> <path d="M4.75 5.75A2.75 2.75 0 0 1 7.5 3h9A2.75 2.75 0 0 1 19.25 5.75v6.5A2.75 2.75 0 0 1 16.5 15H9.3l-3.55 3.2V15.1a2.75 2.75 0 0 1-1-2.1V5.75Z"></path> <path d="M8 7.75h8M8 11.25h4"></path> </svg> <span>问题反馈</span> </a> <div class="theme-switcher" data-theme-switcher> <button class="theme-trigger" type="button" aria-haspopup="menu" aria-expanded="false" aria-label="切换明暗模式" data-theme-trigger> <svg viewBox="0 0 24 24" aria-hidden="true" class="action-icon theme-trigger-icon theme-trigger-icon--light"> <circle cx="12" cy="12" r="4"></circle> <path d="M12 2.75v2M12 19.25v2M4.75 4.75l1.4 1.4M17.85 17.85l1.4 1.4M2.75 12h2M19.25 12h2M4.75 19.25l1.4-1.4M17.85 6.15l1.4-1.4"></path> </svg> <svg viewBox="0 0 24 24" aria-hidden="true" class="action-icon theme-trigger-icon theme-trigger-icon--dark"> <path d="M20.25 14.2A8 8 0 0 1 9.8 3.75 8.5 8.5 0 1 0 20.25 14.2Z"></path> </svg> <svg viewBox="0 0 24 24" aria-hidden="true" class="action-icon theme-trigger-icon theme-trigger-icon--system"> <rect x="4" y="5" width="16" height="11" rx="1.8"></rect> <path d="M9 20h6M12 16v4"></path> </svg> </button> <div class="theme-menu" role="menu" data-theme-menu hidden> <button class="theme-option" type="button" role="menuitemradio" data-theme-option="light" aria-checked="false"> <svg viewBox="0 0 24 24" aria-hidden="true" class="action-icon"><circle cx="12" cy="12" r="4"></circle><path d="M12 2.75v2M12 19.25v2M4.75 4.75l1.4 1.4M17.85 17.85l1.4 1.4M2.75 12h2M19.25 12h2M4.75 19.25l1.4-1.4M17.85 6.15l1.4-1.4"></path></svg> <span>亮色</span> </button> <button class="theme-option" type="button" role="menuitemradio" data-theme-option="dark" aria-checked="false"> <svg viewBox="0 0 24 24" aria-hidden="true" class="action-icon"><path d="M20.25 14.2A8 8 0 0 1 9.8 3.75 8.5 8.5 0 1 0 20.25 14.2Z"></path></svg> <span>暗色</span> </button> <button class="theme-option" type="button" role="menuitemradio" data-theme-option="system" aria-checked="true"> <svg viewBox="0 0 24 24" aria-hidden="true" class="action-icon"><rect x="4" y="5" width="16" height="11" rx="1.8"></rect><path d="M9 20h6M12 16v4"></path></svg> <span>跟随系统</span> </button> </div> </div> </div> </div> </header> <script>
+  (() => {
+    const switcher = document.querySelector("[data-theme-switcher]");
+    if (!switcher) return;
+
+    const trigger = switcher.querySelector("[data-theme-trigger]");
+    const menu = switcher.querySelector("[data-theme-menu]");
+    const options = [...switcher.querySelectorAll("[data-theme-option]")];
+    const modes = ["light", "dark", "system"];
+
+    const getMode = () => {
+      const mode = document.documentElement.dataset.themeMode;
+      return modes.includes(mode) ? mode : "system";
+    };
+
+    const closeMenu = () => {
+      menu.hidden = true;
+      trigger.setAttribute("aria-expanded", "false");
+    };
+
+    const openMenu = () => {
+      menu.hidden = false;
+      trigger.setAttribute("aria-expanded", "true");
+    };
+
+    const sync = () => {
+      const mode = getMode();
+      trigger.dataset.themeMode = mode;
+      options.forEach((option) => {
+        option.setAttribute("aria-checked", String(option.dataset.themeOption === mode));
+      });
+    };
+
+    trigger.addEventListener("click", () => {
+      menu.hidden ? openMenu() : closeMenu();
+    });
+
+    options.forEach((option) => {
+      option.addEventListener("click", () => {
+        window.__setFutureObserverTheme?.(option.dataset.themeOption || "system");
+        sync();
+        closeMenu();
+      });
+    });
+
+    document.addEventListener("click", (event) => {
+      if (!switcher.contains(event.target)) closeMenu();
+    });
+
+    document.addEventListener("keydown", (event) => {
+      if (event.key === "Escape") closeMenu();
+    });
+
+    window.addEventListener("future-observer-theme-change", sync);
+    sync();
+  })();
+</script> <aside class="site-rail" aria-label="站点导航"> <div class="site-rail-inner"> <p class="site-rail-label">Channels</p> <nav aria-label="主导航"> <ul class="site-rail-nav"> <li> <a href="/ai-tools/" class="site-rail-link"> AI工具 </a> </li><li> <a href="/future-daily/" class="site-rail-link"> 未来观察者日报 </a> </li> </ul> </nav> </div> </aside> <main class="shell page-content">  <div class="post-hero"> <p class="eyebrow">2026年8月9日</p> <h1>🚕 Waymo 年末扩城概率带：自动驾驶进入“运营复制”压力测试</h1> <p class="post-summary">🔭 核心观点：Polymarket 把 Waymo 年末运营城市数的最高单档概率放在 16—19 个（31%），但官方页面目前可明确核验的公众服务区域约为 10 个。市场定价的不是自动驾驶“能不能跑”，而是 Waymo 能否在不足五个月内，把许可、车队、运维和平台接入复制到至少</p> <ul class="tag-list"> <li> <a href="/tags/%E6%9C%AA%E6%9D%A5%E8%A7%82%E5%AF%9F%E8%80%85%E6%97%A5%E6%8A%A5/" class="tag-link">
+#未来观察者日报 </a> </li><li> <a href="/tags/2026%E5%B9%B408%E6%9C%88/" class="tag-link">
+#2026年08月 </a> </li> </ul> </div> <div class="post-grid"> <article class="prose">  <blockquote>
+<p>🔭 <strong>核心观点</strong>：Polymarket 把 Waymo 年末运营城市数的最高单档概率放在 <strong>16—19 个（31%）</strong>，但官方页面目前可明确核验的公众服务区域约为 <strong>10 个</strong>。市场定价的不是自动驾驶“能不能跑”，而是 Waymo 能否在不足五个月内，把许可、车队、运维和平台接入复制到至少 6 个新增城市。</p>
+</blockquote>
+<p><strong>作者：</strong> 元英<br>
+<strong>时间：</strong> 2026年8月9日<br>
+<strong>标签：</strong> #未来观察者 #Waymo #Robotaxi #自动驾驶 #城市运营<br>
+<strong>阅读时间：</strong> 约4分钟</p>
+<hr>
+<h2 id="-今天看什么投票1619-城成为最高单档">🎯 今天看什么投票？16—19 城成为最高单档</h2>
+<p>Polymarket 事件 <strong>“How many cities will Waymo operate in by December 31?”</strong> 按 2026 年 12 月 31 日 23:59（美国东部时间）时，Waymo 面向公众、无需安全员主动驾驶的叫车服务覆盖城市数结算。Waymo One 与 Uber 等合作平台上的公开服务均可计入；员工测试、邀请制试点不计入。</p>
+<h3 id="-关键数据卡">📊 关键数据卡</h3>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<table><thead><tr><th>年末城市数</th><th align="right">当前概率</th><th align="right">一周变化</th><th align="right">当前买一 / 卖一</th></tr></thead><tbody><tr><td>少于 12 个</td><td align="right">4.35%</td><td align="right">-3.7 个百分点</td><td align="right">1.9% / 6.8%</td></tr><tr><td>12—15 个</td><td align="right">22.1%</td><td align="right"><strong>+10.7 个百分点</strong></td><td align="right">19.5% / 24.7%</td></tr><tr><td><strong>16—19 个</strong></td><td align="right"><strong>31.0%</strong></td><td align="right">+2.5 个百分点</td><td align="right">30% / 32%</td></tr><tr><td>20—23 个</td><td align="right">12.0%</td><td align="right">+0.5 个百分点</td><td align="right">11% / 13%</td></tr><tr><td>24—27 个</td><td align="right">10.5%</td><td align="right">+3.0 个百分点</td><td align="right">9% / 12%</td></tr><tr><td>28—31 个</td><td align="right">3.1%</td><td align="right">-7.35 个百分点</td><td align="right">2.6% / 3.6%</td></tr><tr><td>32 个以上</td><td align="right">6.5%</td><td align="right">暂无可比值</td><td align="right">5% / 8%</td></tr></tbody></table>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<table><thead><tr><th>市场指标</th><th align="right">数据</th></tr></thead><tbody><tr><td>事件累计交易量</td><td align="right">约 <strong>3.67 万美元</strong></td></tr><tr><td>24 小时交易量</td><td align="right">约 <strong>4107 美元</strong></td></tr><tr><td>一周交易量</td><td align="right">约 <strong>1.21 万美元</strong></td></tr><tr><td>流动性</td><td align="right">约 <strong>1.78 万美元</strong></td></tr><tr><td>24 小时成交最集中档位</td><td align="right">12—15 个，约 <strong>3347 美元</strong></td></tr><tr><td>数据获取时间</td><td align="right"><strong>2026-08-09 04:01（北京时间）</strong></td></tr><tr><td>所属领域</td><td align="right">自动驾驶 / 城市交通 / 平台运营</td></tr></tbody></table>
+<blockquote>
+<p>⚠️ <strong>读数提醒</strong>：各档位是独立合约，价格会受点差、手续费和流动性影响，不能机械视为精确、完全归一化的概率分布。</p>
+</blockquote>
+<h3 id="-为什么今天选它">✅ 为什么今天选它？</h3>
+<ol>
+<li><strong>现实结果清晰</strong>：结算标准是公开可叫车，而不是“宣布进入”“开始测试”。</li>
+<li><strong>新增重定价明显</strong>：12—15 城一周上升 10.7 个百分点，且吸收了约 82%的 24 小时事件成交量。</li>
+<li><strong>结构意义足够强</strong>：它把算法能力转换为许可、车辆、运维与平台协同的综合交付指标。</li>
+<li><strong>去重合格</strong>：最近 14 天文章覆盖能源、宏观利率、Bitcoin、AI 私人估值、加密监管与全球市值排序；最近 7 天没有自动驾驶或城市交通主线。</li>
+<li><strong>相对 6 月 17 日旧文的新增变量明确</strong>：当时讨论的是 6 月底“先开哪座城”和约 7—8 城的短期中枢；今天新增的是 <strong>年末城市数概率带、官方公开服务版图扩大，以及 12—15 城档位一周显著上升</strong>。观察尺度从单城启动切换为全年复制速度。</li>
+</ol>
+<hr>
+<h2 id="️-为什么会出现这个投票宣布扩张不等于公众可用">🗺️ 为什么会出现这个投票？“宣布扩张”不等于“公众可用”</h2>
+<p>Waymo 官方 Rides 页面在核验时把以下区域列入 <strong>Serving Riders In</strong>：</p>
+<ul>
+<li>San Francisco Bay Area、Los Angeles、Phoenix</li>
+<li>Austin、Dallas、Houston、San Antonio</li>
+<li>Atlanta、Miami、Orlando</li>
+</ul>
+<p>按市场对“区域”的结算口径，这相当于约 <strong>10 个可明确核验的公开服务区域</strong>。同一页面还展示 Denver、Las Vegas、San Diego 与 Tampa，但页面分组并未把它们列入上述“Serving Riders In”清单，因此本文不把它们提前算作已满足结算条件。</p>
+<p>这形成了一个可量化的执行缺口：</p>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<table><thead><tr><th>年末结果</th><th align="right">相对当前约 10 城还需新增</th><th>含义</th></tr></thead><tbody><tr><td>12—15 城</td><td align="right">2—5 个</td><td>已公布扩张大部分按期转为公众服务</td></tr><tr><td>16—19 城</td><td align="right">6—9 个</td><td>不仅要兑现候选城市，还要保持较快复制节奏</td></tr><tr><td>20 城以上</td><td align="right">至少 10 个</td><td>许可、车辆与运维必须同步加速</td></tr></tbody></table>
+<p><strong>事实</strong>是官方页面显示约 10 个公开服务区域；<strong>市场定价</strong>是 16—19 城为最高单档、12—15 城近期升温；<strong>本文推测</strong>是交易者正在同时权衡扩张兑现与时间不足。三者不能混为一谈。</p>
+<hr>
+<h2 id="-31-背后robotaxi-正在发生三层结构变化">🧩 31% 背后，Robotaxi 正在发生三层结构变化</h2>
+<h3 id="️-技术层长尾能力变成跨城市迁移能力">⚙️ 技术层：长尾能力变成跨城市迁移能力</h3>
+<p>单城运行解决的是已知道路和已覆盖场景；跨城复制则要处理不同天气、路权、施工习惯、驾驶文化和道路结构。技术优势不再只表现为一次测试分数，而是新城市从采集、验证到开放服务所需的时间能否持续缩短。</p>
+<p>真正值得跟踪的技术指标包括：</p>
+<ul>
+<li>新城市从道路测试到公众付费服务的周期</li>
+<li>每座新城需要重新采集和人工验证的数据量</li>
+<li>远程协助、异常处置和车队可用率</li>
+<li>服务区域从局部地理围栏向日常通勤网络扩大的速度</li>
+</ul>
+<h3 id="-产业层扩城是一套供应链与运营系统">🏭 产业层：扩城是一套供应链与运营系统</h3>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<table><thead><tr><th>复制环节</th><th>主要瓶颈</th><th>可验证信号</th></tr></thead><tbody><tr><td>城市准入</td><td>州与城市规则、责任边界</td><td>许可、监管公告、公开运营资格</td></tr><tr><td>车队供给</td><td>车辆生产、传感器集成、调拨</td><td>新增车辆与订单等待时间</td></tr><tr><td>本地运维</td><td>清洁、充电、维修、事故响应</td><td>运营站点和车队可用率</td></tr><tr><td>流量入口</td><td>自有 App 与合作平台覆盖</td><td>Waymo One / Uber 可叫车范围</td></tr></tbody></table>
+<p>因此，16—19 城并不是一个纯软件预测。它要求“自动驾驶栈”与“城市运营栈”同时交付，任何一环延期都会让已宣布城市停留在测试状态，无法被市场计数。</p>
+<h3 id="-社会与资本层估值叙事开始接受交付审计">💰 社会与资本层：估值叙事开始接受交付审计</h3>
+<p>扩城数量是少数外部可以持续核验的 Robotaxi 商业化指标。资本不必只听“计划进入多少城市”，而可以按公开可用城市、服务区域、订单规模和单位运营成本逐步审计兑现率。</p>
+<p>这也解释了为何 12—15 城档位突然获得更多成交：市场可能不是否定 Waymo 的长期领先，而是在给剩余时间、审批差异和落地摩擦重新定价。<strong>扩张计划越大，市场越会追问其中有多少能在截止日前变成普通用户真正可下单的服务。</strong></p>
+<hr>
+<h2 id="-如果复制继续未来会怎样">⏳ 如果复制继续，未来会怎样？</h2>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<table><thead><tr><th>时间尺度</th><th>条件性判断</th><th>核验信号</th></tr></thead><tbody><tr><td><strong>短期：未来 1—2 个月</strong></td><td>12—15 与 16—19 城将围绕候选城市转入公众服务而重定价</td><td>官方 Rides 页面分组、App 可用性、合作平台入口</td></tr><tr><td><strong>中期：至 2026 年末</strong></td><td>若每月稳定新增 1—2 个可用区域，16—19 城仍有实现路径；若多个城市长期停留在测试阶段，中枢会向 12—15 城下移</td><td>月度净新增城市、服务区域、车队部署</td></tr><tr><td><strong>长期：未来 1—3 年</strong></td><td>竞争焦点从“谁先无人驾驶”转为“谁能以更低边际成本复制城市网络”</td><td>单城上线周期、单位经济性、安全与监管记录</td></tr></tbody></table>
+<p>以上是条件性推测，不是对合约结果的保证。当前盘口流动性有限，一则官方开放公告也可能造成较大价格跳动。</p>
+<hr>
+<h2 id="️-普通人从业者与创业者可以做什么">🛠️ 普通人、从业者与创业者可以做什么？</h2>
+<ol>
+<li><strong>普通观察者</strong>：区分“测试中”“即将上线”和“公众已可叫车”，只把最后一种计入商业化进度。</li>
+<li><strong>自动驾驶从业者</strong>：把跨城迁移周期、异常处置闭环和车队可用率放到与感知指标同等重要的位置。</li>
+<li><strong>出行与城市服务创业者</strong>：关注充电、清洁、维修、远程协助、保险和合规数据接口，这些是扩城时重复出现的刚需。</li>
+<li><strong>城市管理者</strong>：提前建立许可、事故报告、数据共享和乘客申诉标准，减少“技术准备好、制度尚未准备好”的时间差。</li>
+<li><strong>投资观察者</strong>：每周记录三列数据——官方服务城市数、候选城市状态、Polymarket 概率；不要只追踪公司宣布的计划总数。</li>
+</ol>
+<hr>
+<h2 id="️-风险提示">⚠️ 风险提示</h2>
+<ul>
+<li>Polymarket 价格受仓位、点差、费用与参与者结构影响，不等于客观概率。</li>
+<li>该事件累计交易量约 3.67 万美元，明显小于大型宏观市场，单日变动可能被少量交易放大。</li>
+<li>官方网页的城市展示与市场最终结算解释可能存在口径差异，应以结算时的公开可叫车状态为准。</li>
+<li>城市数量不能完整代表商业质量；服务区域大小、订单量、安全记录和单位经济性同样重要。</li>
+<li>本文用于趋势观察，不构成投资建议。</li>
+</ul>
+<hr>
+<h2 id="-结语下一场比赛不是开一座城而是复制一套系统">🌌 结语：下一场比赛不是开一座城，而是复制一套系统</h2>
+<p>Waymo 已经越过“自动驾驶是否能提供公开服务”的早期门槛。现在更难的问题是：能否把一座城市积累的技术、许可与运营经验，快速迁移到下一座城市。</p>
+<p><strong>今天的判断是：16—19 城的最高单档概率代表市场仍认可 Waymo 的扩张能力；12—15 城一周升温，则提醒所有人，宣布版图与可用版图之间仍有交付折价。Robotaxi 的真正护城河，正在从单车智能变成可审计、可复用、可规模化的城市运营系统。</strong></p>
+<hr>
+<h2 id="-参考资源">🔗 参考资源</h2>
+<ul>
+<li><a href="https://polymarket.com/event/how-many-cities-will-waymo-operate-in-by-december-31-20260626203648850">Polymarket：How many cities will Waymo operate in by December 31?</a></li>
+<li><a href="https://waymo.com/rides/">Waymo：Ride with Waymo / Serving Riders In</a></li>
+<li>《Waymo扩城赔率升温：自动驾驶开始从技术验证转向城市运营复制》（2026-06-17，作为前次主题与数据口径对照）</li>
+</ul>
+<p><em>数据获取与交叉核验时间：2026-08-09 04:01（北京时间）。概率、交易量、流动性及官方服务范围会持续变化，请以 Polymarket 原始事件页、合约规则与 Waymo 官方页面最新状态为准。</em></p>  </article> <aside class="toc"><p class="toc-title">目录</p><ul class="toc-list"><li class="depth-2"><a href="#-今天看什么投票1619-城成为最高单档" data-toc-link="-今天看什么投票1619-城成为最高单档">🎯 今天看什么投票？16—19 城成为最高单档</a></li><li class="depth-3"><a href="#-关键数据卡" data-toc-link="-关键数据卡">📊 关键数据卡</a></li><li class="depth-3"><a href="#-为什么今天选它" data-toc-link="-为什么今天选它">✅ 为什么今天选它？</a></li><li class="depth-2"><a href="#️-为什么会出现这个投票宣布扩张不等于公众可用" data-toc-link="️-为什么会出现这个投票宣布扩张不等于公众可用">🗺️ 为什么会出现这个投票？“宣布扩张”不等于“公众可用”</a></li><li class="depth-2"><a href="#-31-背后robotaxi-正在发生三层结构变化" data-toc-link="-31-背后robotaxi-正在发生三层结构变化">🧩 31% 背后，Robotaxi 正在发生三层结构变化</a></li><li class="depth-3"><a href="#️-技术层长尾能力变成跨城市迁移能力" data-toc-link="️-技术层长尾能力变成跨城市迁移能力">⚙️ 技术层：长尾能力变成跨城市迁移能力</a></li><li class="depth-3"><a href="#-产业层扩城是一套供应链与运营系统" data-toc-link="-产业层扩城是一套供应链与运营系统">🏭 产业层：扩城是一套供应链与运营系统</a></li><li class="depth-3"><a href="#-社会与资本层估值叙事开始接受交付审计" data-toc-link="-社会与资本层估值叙事开始接受交付审计">💰 社会与资本层：估值叙事开始接受交付审计</a></li><li class="depth-2"><a href="#-如果复制继续未来会怎样" data-toc-link="-如果复制继续未来会怎样">⏳ 如果复制继续，未来会怎样？</a></li><li class="depth-2"><a href="#️-普通人从业者与创业者可以做什么" data-toc-link="️-普通人从业者与创业者可以做什么">🛠️ 普通人、从业者与创业者可以做什么？</a></li><li class="depth-2"><a href="#️-风险提示" data-toc-link="️-风险提示">⚠️ 风险提示</a></li><li class="depth-2"><a href="#-结语下一场比赛不是开一座城而是复制一套系统" data-toc-link="-结语下一场比赛不是开一座城而是复制一套系统">🌌 结语：下一场比赛不是开一座城，而是复制一套系统</a></li><li class="depth-2"><a href="#-参考资源" data-toc-link="-参考资源">🔗 参考资源</a></li></ul></aside><script type="module">const c=()=>{const r=Array.from(document.querySelectorAll(".toc a[data-toc-link]"));if(!r.length)return;const o=r.map(t=>{const e=t.getAttribute("data-toc-link");if(!e)return null;const n=document.getElementById(e);return n?{id:e,heading:n,link:t}:null}).filter(t=>t!==null);if(!o.length)return;const s=t=>{r.forEach(e=>{const n=e.getAttribute("data-toc-link")===t;e.classList.toggle("active",n),n&&e.scrollIntoView({block:"nearest",inline:"nearest"})})},i=()=>{const t=Math.round(window.innerHeight*.28);let e=o[0];for(const n of o)n.heading.getBoundingClientRect().top<=t&&(e=n);s(e.id)};i();const a=new IntersectionObserver(()=>i(),{rootMargin:"-18% 0px -70% 0px",threshold:[0,1]});o.forEach(t=>a.observe(t.heading)),window.addEventListener("scroll",i,{passive:!0})};document.addEventListener("DOMContentLoaded",c);document.addEventListener("astro:page-load",c);</script> </div>  </main> <footer class="site-footer"> <div class="shell footer-inner"> <p>© 2026 未来观察者</p> </div> </footer> </body></html>
