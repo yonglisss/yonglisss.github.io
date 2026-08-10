@@ -1,0 +1,113 @@
+<!DOCTYPE html><html lang="zh-CN"> <head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1"><script>
+      (() => {
+        const storageKey = "future-observer-theme";
+        const root = document.documentElement;
+        const getStoredMode = () => {
+          try {
+            const value = localStorage.getItem(storageKey);
+            return value === "light" || value === "dark" || value === "system" ? value : "system";
+          } catch {
+            return "system";
+          }
+        };
+        const systemDark = () => window.matchMedia?.("(prefers-color-scheme: dark)").matches ?? false;
+        const apply = (mode) => {
+          const resolved = mode === "system" ? (systemDark() ? "dark" : "light") : mode;
+          root.dataset.themeMode = mode;
+          root.dataset.theme = resolved;
+          root.style.colorScheme = resolved;
+        };
+        apply(getStoredMode());
+        window.__setFutureObserverTheme = (mode) => {
+          const next = mode === "light" || mode === "dark" || mode === "system" ? mode : "system";
+          try { localStorage.setItem(storageKey, next); } catch {}
+          apply(next);
+          window.dispatchEvent(new CustomEvent("future-observer-theme-change", { detail: { mode: next } }));
+        };
+        window.matchMedia?.("(prefers-color-scheme: dark)").addEventListener?.("change", () => {
+          if (getStoredMode() === "system") apply("system");
+        });
+      })();
+    </script><title>Semantica：给 AI Agent 补上一条可追溯的“决策链” | 未来观察者</title><meta name="description" content="RAG 能帮 Agent 找到相似资料，却不天然回答“这条结论来自哪里、为什么做出这个决定、后来影响了什么”。Semantica 是一个 MIT 开源的图原生基础设施：把实体、关系、事实、来源和 Agent 决策组织成可查询的上下文图，并提供确定性推理与审计记录。它更适合对可解释"><meta name="generator" content="Astro v5.18.1"><meta property="og:title" content="Semantica：给 AI Agent 补上一条可追溯的“决策链” | 未来观察者"><meta property="og:description" content="RAG 能帮 Agent 找到相似资料，却不天然回答“这条结论来自哪里、为什么做出这个决定、后来影响了什么”。Semantica 是一个 MIT 开源的图原生基础设施：把实体、关系、事实、来源和 Agent 决策组织成可查询的上下文图，并提供确定性推理与审计记录。它更适合对可解释"><meta property="og:type" content="website"><meta property="og:url" content="https://future.lifestudylab.com/posts/2026-08-11-semantica/"><link rel="icon" type="image/svg+xml" href="/favicon.svg"><link rel="alternate" type="application/rss+xml" title="未来观察者" href="/rss.xml"><link rel="stylesheet" href="/_astro/_channel_.BFW__1rx.css"></head> <body> <div class="page-bg"></div> <header class="site-header"> <div class="shell header-inner"> <div class="header-bar"> <a class="brand" href="/ai-tools/"> <img src="/brand-mark.svg" alt="" class="brand-mark" width="56" height="56"> <span class="brand-text" aria-label="未来观察者">思考未来</span> </a> </div> <nav class="top-menu" aria-label="顶部菜单"> <a href="/future-daily/" class="top-menu-link"> 每日信息 </a><a href="/docs/deer-flow/00-overview/" class="top-menu-link"> DeerFlow教程 </a><a href="/docs/hermes/00-overview/" class="top-menu-link"> Hermes教程 </a><a href="/docs/openclaw/00-overview/" class="top-menu-link"> OpenClaw教程 </a><a href="/about/" class="top-menu-link"> 关于我 </a> </nav> <div class="top-actions"> <a class="feedback-link" href="https://github.com/yonglisss/yonglisss.github.io/issues" target="_blank" rel="noopener noreferrer" aria-label="问题反馈"> <svg viewBox="0 0 24 24" aria-hidden="true" class="action-icon"> <path d="M4.75 5.75A2.75 2.75 0 0 1 7.5 3h9A2.75 2.75 0 0 1 19.25 5.75v6.5A2.75 2.75 0 0 1 16.5 15H9.3l-3.55 3.2V15.1a2.75 2.75 0 0 1-1-2.1V5.75Z"></path> <path d="M8 7.75h8M8 11.25h4"></path> </svg> <span>问题反馈</span> </a> <div class="theme-switcher" data-theme-switcher> <button class="theme-trigger" type="button" aria-haspopup="menu" aria-expanded="false" aria-label="切换明暗模式" data-theme-trigger> <svg viewBox="0 0 24 24" aria-hidden="true" class="action-icon theme-trigger-icon theme-trigger-icon--light"> <circle cx="12" cy="12" r="4"></circle> <path d="M12 2.75v2M12 19.25v2M4.75 4.75l1.4 1.4M17.85 17.85l1.4 1.4M2.75 12h2M19.25 12h2M4.75 19.25l1.4-1.4M17.85 6.15l1.4-1.4"></path> </svg> <svg viewBox="0 0 24 24" aria-hidden="true" class="action-icon theme-trigger-icon theme-trigger-icon--dark"> <path d="M20.25 14.2A8 8 0 0 1 9.8 3.75 8.5 8.5 0 1 0 20.25 14.2Z"></path> </svg> <svg viewBox="0 0 24 24" aria-hidden="true" class="action-icon theme-trigger-icon theme-trigger-icon--system"> <rect x="4" y="5" width="16" height="11" rx="1.8"></rect> <path d="M9 20h6M12 16v4"></path> </svg> </button> <div class="theme-menu" role="menu" data-theme-menu hidden> <button class="theme-option" type="button" role="menuitemradio" data-theme-option="light" aria-checked="false"> <svg viewBox="0 0 24 24" aria-hidden="true" class="action-icon"><circle cx="12" cy="12" r="4"></circle><path d="M12 2.75v2M12 19.25v2M4.75 4.75l1.4 1.4M17.85 17.85l1.4 1.4M2.75 12h2M19.25 12h2M4.75 19.25l1.4-1.4M17.85 6.15l1.4-1.4"></path></svg> <span>亮色</span> </button> <button class="theme-option" type="button" role="menuitemradio" data-theme-option="dark" aria-checked="false"> <svg viewBox="0 0 24 24" aria-hidden="true" class="action-icon"><path d="M20.25 14.2A8 8 0 0 1 9.8 3.75 8.5 8.5 0 1 0 20.25 14.2Z"></path></svg> <span>暗色</span> </button> <button class="theme-option" type="button" role="menuitemradio" data-theme-option="system" aria-checked="true"> <svg viewBox="0 0 24 24" aria-hidden="true" class="action-icon"><rect x="4" y="5" width="16" height="11" rx="1.8"></rect><path d="M9 20h6M12 16v4"></path></svg> <span>跟随系统</span> </button> </div> </div> </div> </div> </header> <script>
+  (() => {
+    const switcher = document.querySelector("[data-theme-switcher]");
+    if (!switcher) return;
+
+    const trigger = switcher.querySelector("[data-theme-trigger]");
+    const menu = switcher.querySelector("[data-theme-menu]");
+    const options = [...switcher.querySelectorAll("[data-theme-option]")];
+    const modes = ["light", "dark", "system"];
+
+    const getMode = () => {
+      const mode = document.documentElement.dataset.themeMode;
+      return modes.includes(mode) ? mode : "system";
+    };
+
+    const closeMenu = () => {
+      menu.hidden = true;
+      trigger.setAttribute("aria-expanded", "false");
+    };
+
+    const openMenu = () => {
+      menu.hidden = false;
+      trigger.setAttribute("aria-expanded", "true");
+    };
+
+    const sync = () => {
+      const mode = getMode();
+      trigger.dataset.themeMode = mode;
+      options.forEach((option) => {
+        option.setAttribute("aria-checked", String(option.dataset.themeOption === mode));
+      });
+    };
+
+    trigger.addEventListener("click", () => {
+      menu.hidden ? openMenu() : closeMenu();
+    });
+
+    options.forEach((option) => {
+      option.addEventListener("click", () => {
+        window.__setFutureObserverTheme?.(option.dataset.themeOption || "system");
+        sync();
+        closeMenu();
+      });
+    });
+
+    document.addEventListener("click", (event) => {
+      if (!switcher.contains(event.target)) closeMenu();
+    });
+
+    document.addEventListener("keydown", (event) => {
+      if (event.key === "Escape") closeMenu();
+    });
+
+    window.addEventListener("future-observer-theme-change", sync);
+    sync();
+  })();
+</script> <aside class="site-rail" aria-label="站点导航"> <div class="site-rail-inner"> <p class="site-rail-label">Channels</p> <nav aria-label="主导航"> <ul class="site-rail-nav"> <li> <a href="/ai-tools/" class="site-rail-link"> AI工具 </a> </li><li> <a href="/future-daily/" class="site-rail-link"> 未来观察者日报 </a> </li> </ul> </nav> </div> </aside> <main class="shell page-content">  <div class="post-hero"> <p class="eyebrow">2026年8月11日</p> <h1>Semantica：给 AI Agent 补上一条可追溯的“决策链”</h1> <p class="post-summary">RAG 能帮 Agent 找到相似资料，却不天然回答“这条结论来自哪里、为什么做出这个决定、后来影响了什么”。Semantica 是一个 MIT 开源的图原生基础设施：把实体、关系、事实、来源和 Agent 决策组织成可查询的上下文图，并提供确定性推理与审计记录。它更适合对可解释</p> <ul class="tag-list"> <li> <a href="/tags/AI%E5%B7%A5%E5%85%B7/" class="tag-link">
+#AI工具 </a> </li><li> <a href="/tags/2026%E5%B9%B408%E6%9C%88/" class="tag-link">
+#2026年08月 </a> </li> </ul> </div> <div class="post-grid"> <article class="prose">  <p>RAG 能帮 Agent 找到相似资料，却不天然回答“这条结论来自哪里、为什么做出这个决定、后来影响了什么”。Semantica 是一个 MIT 开源的图原生基础设施：把实体、关系、事实、来源和 Agent 决策组织成可查询的上下文图，并提供确定性推理与审计记录。它更适合对可解释性有要求的企业 AI 场景，而不是普通聊天机器人的又一层包装。</p>
+<h2 id="-这个项目是干什么的">📌 这个项目是干什么的</h2>
+<p>Semantica 位于 LLM、向量库和 Agent 框架之下，补充结构化上下文与治理能力。它可以从文件、数据库、消息流等来源摄取数据，经过实体与关系抽取、冲突检测和去重后构建知识图谱；每条事实还能关联来源与时间信息。</p>
+<p>更关键的是，项目把“决策”作为图中的一等对象。开发者可以记录决策场景、理由、结果和置信度，再连接上游原因与下游影响，之后查询完整决策链、相似先例或规则检查结果。图构建、规则推理和溯源层不强制依赖 LLM，因此关键判断可以与生成模型解耦。</p>
+<h2 id="-为什么值得关注">🔍 为什么值得关注</h2>
+<p>第一，它解决了向量检索不擅长的关系问题。相似度搜索适合找相关文本，图遍历则更适合回答“某个人、合同和一次审批经过几层关系如何连接”。两者不是替代关系，可以组合使用。</p>
+<p>第二，它把可审计性放进数据结构，而不是事后补日志。项目支持 W3C PROV-O 溯源、SHACL 约束，以及 Datalog、SPARQL、前向链式等确定性推理；需要复盘高风险决策时，依据、规则和结果更容易被查询和导出。</p>
+<p>第三，存储层保持可替换。官方列出了 Oxigraph、Jena、Neo4j、FalkorDB、Apache AGE 等 RDF 或属性图后端，并提供 REST API、CLI、MCP 与可视化入口。最新正式 Release v0.6.0 还补充了 Databricks 数据连接器和 SQLite 向量存储后端。</p>
+<h2 id="-谁适合试怎么开始">🧪 谁适合试，怎么开始</h2>
+<p>适合在金融、医疗、法务、政企等场景开发 Agent 的平台团队，也适合正在评估“向量库之外是否需要知识图谱”的数据与 AI 工程师。</p>
+<p>最短路径是准备 Python 3.8 及以上环境，在隔离环境中安装：</p>
+<pre class="astro-code astro-code-themes github-light github-dark" style="--shiki-light:#24292e;--shiki-dark:#e1e4e8;--shiki-light-bg:#fff;--shiki-dark-bg:#24292e; overflow-x: auto;" tabindex="0" data-language="bash"><code><span class="line"><span style="--shiki-light:#6F42C1;--shiki-dark:#B392F0">pip</span><span style="--shiki-light:#032F62;--shiki-dark:#9ECBFF"> install</span><span style="--shiki-light:#032F62;--shiki-dark:#9ECBFF"> semantica</span></span>
+<span class="line"><span style="--shiki-light:#6F42C1;--shiki-dark:#B392F0">semantica</span><span style="--shiki-light:#032F62;--shiki-dark:#9ECBFF"> doctor</span></span></code></pre>
+<p>先不要导入整套企业数据。建议照 README 的 <code>ContextGraph</code> 示例，记录一次测试决策，再依次尝试决策链追踪、影响分析和规则检查；确认数据模型确实能回答业务审计问题后，再评估数据库连接器与外部图存储。</p>
+<h2 id="️-使用提醒">⚠️ 使用提醒</h2>
+<p>Semantica 不是“安装后自动让 Agent 可信”的成品平台。实体模型、关系类型、决策字段、规则与数据权限仍需团队自行设计，错误的本体和来源数据同样会产生结构化错误。项目覆盖模块很多，正式接入前应针对目标后端验证性能、并发、备份和升级路径。</p>
+<p>另外，v0.6.0 的发布说明包含多项溯源与规则推理正确性修复，说明这些能力仍在快速迭代。高风险业务应锁定版本、建立回归测试，并让审计链服务于人工复核，而不是把“可追溯”等同于“结论正确”。</p>
+<h2 id="-参考资源">🔗 参考资源</h2>
+<ul>
+<li>GitHub：<a href="https://github.com/semantica-agi/semantica">https://github.com/semantica-agi/semantica</a></li>
+<li>官方文档：<a href="https://docs.getsemantica.ai/">https://docs.getsemantica.ai/</a></li>
+<li>官方示例：<a href="https://github.com/semantica-agi/semantica/tree/main/examples">https://github.com/semantica-agi/semantica/tree/main/examples</a></li>
+<li>v0.6.0 Release：<a href="https://github.com/semantica-agi/semantica/releases/tag/v0.6.0">https://github.com/semantica-agi/semantica/releases/tag/v0.6.0</a></li>
+<li>MIT 许可证：<a href="https://github.com/semantica-agi/semantica/blob/main/LICENSE">https://github.com/semantica-agi/semantica/blob/main/LICENSE</a></li>
+</ul>  </article> <aside class="toc"><p class="toc-title">目录</p><ul class="toc-list"><li class="depth-2"><a href="#-这个项目是干什么的" data-toc-link="-这个项目是干什么的">📌 这个项目是干什么的</a></li><li class="depth-2"><a href="#-为什么值得关注" data-toc-link="-为什么值得关注">🔍 为什么值得关注</a></li><li class="depth-2"><a href="#-谁适合试怎么开始" data-toc-link="-谁适合试怎么开始">🧪 谁适合试，怎么开始</a></li><li class="depth-2"><a href="#️-使用提醒" data-toc-link="️-使用提醒">⚠️ 使用提醒</a></li><li class="depth-2"><a href="#-参考资源" data-toc-link="-参考资源">🔗 参考资源</a></li></ul></aside><script type="module">const c=()=>{const r=Array.from(document.querySelectorAll(".toc a[data-toc-link]"));if(!r.length)return;const o=r.map(t=>{const e=t.getAttribute("data-toc-link");if(!e)return null;const n=document.getElementById(e);return n?{id:e,heading:n,link:t}:null}).filter(t=>t!==null);if(!o.length)return;const s=t=>{r.forEach(e=>{const n=e.getAttribute("data-toc-link")===t;e.classList.toggle("active",n),n&&e.scrollIntoView({block:"nearest",inline:"nearest"})})},i=()=>{const t=Math.round(window.innerHeight*.28);let e=o[0];for(const n of o)n.heading.getBoundingClientRect().top<=t&&(e=n);s(e.id)};i();const a=new IntersectionObserver(()=>i(),{rootMargin:"-18% 0px -70% 0px",threshold:[0,1]});o.forEach(t=>a.observe(t.heading)),window.addEventListener("scroll",i,{passive:!0})};document.addEventListener("DOMContentLoaded",c);document.addEventListener("astro:page-load",c);</script> </div>  </main> <footer class="site-footer"> <div class="shell footer-inner"> <p>© 2026 未来观察者</p> </div> </footer> </body></html>
