@@ -1,0 +1,111 @@
+<!DOCTYPE html><html lang="zh-CN"> <head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1"><script>
+      (() => {
+        const storageKey = "future-observer-theme";
+        const root = document.documentElement;
+        const getStoredMode = () => {
+          try {
+            const value = localStorage.getItem(storageKey);
+            return value === "light" || value === "dark" || value === "system" ? value : "system";
+          } catch {
+            return "system";
+          }
+        };
+        const systemDark = () => window.matchMedia?.("(prefers-color-scheme: dark)").matches ?? false;
+        const apply = (mode) => {
+          const resolved = mode === "system" ? (systemDark() ? "dark" : "light") : mode;
+          root.dataset.themeMode = mode;
+          root.dataset.theme = resolved;
+          root.style.colorScheme = resolved;
+        };
+        apply(getStoredMode());
+        window.__setFutureObserverTheme = (mode) => {
+          const next = mode === "light" || mode === "dark" || mode === "system" ? mode : "system";
+          try { localStorage.setItem(storageKey, next); } catch {}
+          apply(next);
+          window.dispatchEvent(new CustomEvent("future-observer-theme-change", { detail: { mode: next } }));
+        };
+        window.matchMedia?.("(prefers-color-scheme: dark)").addEventListener?.("change", () => {
+          if (getStoredMode() === "system") apply("system");
+        });
+      })();
+    </script><title>calldiff：别只看代码改了几行，还要看调用链怎么变了 | 未来观察者</title><meta name="description" content="AI 编码 Agent 一次能改很多文件，但传统 git diff 主要展示文本增删，很容易把真正重要的调用关系变化埋在线条里。calldiff 是一个面向 Agent 代码审查的 MIT 开源命令行工具：它比较两个 Git 状态中的函数调用树，让“谁开始调用谁、哪条路径被移走”"><meta name="generator" content="Astro v5.18.1"><meta property="og:title" content="calldiff：别只看代码改了几行，还要看调用链怎么变了 | 未来观察者"><meta property="og:description" content="AI 编码 Agent 一次能改很多文件，但传统 git diff 主要展示文本增删，很容易把真正重要的调用关系变化埋在线条里。calldiff 是一个面向 Agent 代码审查的 MIT 开源命令行工具：它比较两个 Git 状态中的函数调用树，让“谁开始调用谁、哪条路径被移走”"><meta property="og:type" content="website"><meta property="og:url" content="https://future.lifestudylab.com/posts/2026-08-13-calldiff/"><link rel="icon" type="image/svg+xml" href="/favicon.svg"><link rel="alternate" type="application/rss+xml" title="未来观察者" href="/rss.xml"><link rel="stylesheet" href="/_astro/_channel_.BFW__1rx.css"></head> <body> <div class="page-bg"></div> <header class="site-header"> <div class="shell header-inner"> <div class="header-bar"> <a class="brand" href="/ai-tools/"> <img src="/brand-mark.svg" alt="" class="brand-mark" width="56" height="56"> <span class="brand-text" aria-label="未来观察者">思考未来</span> </a> </div> <nav class="top-menu" aria-label="顶部菜单"> <a href="/future-daily/" class="top-menu-link"> 每日信息 </a><a href="/docs/deer-flow/00-overview/" class="top-menu-link"> DeerFlow教程 </a><a href="/docs/hermes/00-overview/" class="top-menu-link"> Hermes教程 </a><a href="/docs/openclaw/00-overview/" class="top-menu-link"> OpenClaw教程 </a><a href="/about/" class="top-menu-link"> 关于我 </a> </nav> <div class="top-actions"> <a class="feedback-link" href="https://github.com/yonglisss/yonglisss.github.io/issues" target="_blank" rel="noopener noreferrer" aria-label="问题反馈"> <svg viewBox="0 0 24 24" aria-hidden="true" class="action-icon"> <path d="M4.75 5.75A2.75 2.75 0 0 1 7.5 3h9A2.75 2.75 0 0 1 19.25 5.75v6.5A2.75 2.75 0 0 1 16.5 15H9.3l-3.55 3.2V15.1a2.75 2.75 0 0 1-1-2.1V5.75Z"></path> <path d="M8 7.75h8M8 11.25h4"></path> </svg> <span>问题反馈</span> </a> <div class="theme-switcher" data-theme-switcher> <button class="theme-trigger" type="button" aria-haspopup="menu" aria-expanded="false" aria-label="切换明暗模式" data-theme-trigger> <svg viewBox="0 0 24 24" aria-hidden="true" class="action-icon theme-trigger-icon theme-trigger-icon--light"> <circle cx="12" cy="12" r="4"></circle> <path d="M12 2.75v2M12 19.25v2M4.75 4.75l1.4 1.4M17.85 17.85l1.4 1.4M2.75 12h2M19.25 12h2M4.75 19.25l1.4-1.4M17.85 6.15l1.4-1.4"></path> </svg> <svg viewBox="0 0 24 24" aria-hidden="true" class="action-icon theme-trigger-icon theme-trigger-icon--dark"> <path d="M20.25 14.2A8 8 0 0 1 9.8 3.75 8.5 8.5 0 1 0 20.25 14.2Z"></path> </svg> <svg viewBox="0 0 24 24" aria-hidden="true" class="action-icon theme-trigger-icon theme-trigger-icon--system"> <rect x="4" y="5" width="16" height="11" rx="1.8"></rect> <path d="M9 20h6M12 16v4"></path> </svg> </button> <div class="theme-menu" role="menu" data-theme-menu hidden> <button class="theme-option" type="button" role="menuitemradio" data-theme-option="light" aria-checked="false"> <svg viewBox="0 0 24 24" aria-hidden="true" class="action-icon"><circle cx="12" cy="12" r="4"></circle><path d="M12 2.75v2M12 19.25v2M4.75 4.75l1.4 1.4M17.85 17.85l1.4 1.4M2.75 12h2M19.25 12h2M4.75 19.25l1.4-1.4M17.85 6.15l1.4-1.4"></path></svg> <span>亮色</span> </button> <button class="theme-option" type="button" role="menuitemradio" data-theme-option="dark" aria-checked="false"> <svg viewBox="0 0 24 24" aria-hidden="true" class="action-icon"><path d="M20.25 14.2A8 8 0 0 1 9.8 3.75 8.5 8.5 0 1 0 20.25 14.2Z"></path></svg> <span>暗色</span> </button> <button class="theme-option" type="button" role="menuitemradio" data-theme-option="system" aria-checked="true"> <svg viewBox="0 0 24 24" aria-hidden="true" class="action-icon"><rect x="4" y="5" width="16" height="11" rx="1.8"></rect><path d="M9 20h6M12 16v4"></path></svg> <span>跟随系统</span> </button> </div> </div> </div> </div> </header> <script>
+  (() => {
+    const switcher = document.querySelector("[data-theme-switcher]");
+    if (!switcher) return;
+
+    const trigger = switcher.querySelector("[data-theme-trigger]");
+    const menu = switcher.querySelector("[data-theme-menu]");
+    const options = [...switcher.querySelectorAll("[data-theme-option]")];
+    const modes = ["light", "dark", "system"];
+
+    const getMode = () => {
+      const mode = document.documentElement.dataset.themeMode;
+      return modes.includes(mode) ? mode : "system";
+    };
+
+    const closeMenu = () => {
+      menu.hidden = true;
+      trigger.setAttribute("aria-expanded", "false");
+    };
+
+    const openMenu = () => {
+      menu.hidden = false;
+      trigger.setAttribute("aria-expanded", "true");
+    };
+
+    const sync = () => {
+      const mode = getMode();
+      trigger.dataset.themeMode = mode;
+      options.forEach((option) => {
+        option.setAttribute("aria-checked", String(option.dataset.themeOption === mode));
+      });
+    };
+
+    trigger.addEventListener("click", () => {
+      menu.hidden ? openMenu() : closeMenu();
+    });
+
+    options.forEach((option) => {
+      option.addEventListener("click", () => {
+        window.__setFutureObserverTheme?.(option.dataset.themeOption || "system");
+        sync();
+        closeMenu();
+      });
+    });
+
+    document.addEventListener("click", (event) => {
+      if (!switcher.contains(event.target)) closeMenu();
+    });
+
+    document.addEventListener("keydown", (event) => {
+      if (event.key === "Escape") closeMenu();
+    });
+
+    window.addEventListener("future-observer-theme-change", sync);
+    sync();
+  })();
+</script> <aside class="site-rail" aria-label="站点导航"> <div class="site-rail-inner"> <p class="site-rail-label">Channels</p> <nav aria-label="主导航"> <ul class="site-rail-nav"> <li> <a href="/ai-tools/" class="site-rail-link"> AI工具 </a> </li><li> <a href="/future-daily/" class="site-rail-link"> 未来观察者日报 </a> </li> </ul> </nav> </div> </aside> <main class="shell page-content">  <div class="post-hero"> <p class="eyebrow">2026年8月13日</p> <h1>calldiff：别只看代码改了几行，还要看调用链怎么变了</h1> <p class="post-summary">AI 编码 Agent 一次能改很多文件，但传统 git diff 主要展示文本增删，很容易把真正重要的调用关系变化埋在线条里。calldiff 是一个面向 Agent 代码审查的 MIT 开源命令行工具：它比较两个 Git 状态中的函数调用树，让“谁开始调用谁、哪条路径被移走”</p> <ul class="tag-list"> <li> <a href="/tags/AI%E5%B7%A5%E5%85%B7/" class="tag-link">
+#AI工具 </a> </li><li> <a href="/tags/2026%E5%B9%B408%E6%9C%88/" class="tag-link">
+#2026年08月 </a> </li> </ul> </div> <div class="post-grid"> <article class="prose">  <p>AI 编码 Agent 一次能改很多文件，但传统 <code>git diff</code> 主要展示文本增删，很容易把真正重要的调用关系变化埋在线条里。calldiff 是一个面向 Agent 代码审查的 MIT 开源命令行工具：它比较两个 Git 状态中的函数调用树，让“谁开始调用谁、哪条路径被移走”直接可见。</p>
+<h2 id="-这个项目是干什么的">📌 这个项目是干什么的</h2>
+<p>calldiff 会读取提交、分支或工作区中的源码，按文件扩展名选择 Tree-sitter 语法，提取函数及其被调用对象，再生成调用树。它提供三种核心视角：<code>diff</code> 比较调用树变化，<code>tree</code> 查看指定入口的完整调用结构，<code>reach</code> 查找一个符号到另一个符号的所有调用路径。</p>
+<p>项目声明支持 TypeScript、Python、Go、Rust、Java、C/C++ 等 22 种语言；输出既可以是适合人读的 ASCII 树，也可以转成 JSON、YAML、Markdown 或 JSONL，交给 Agent 和自动化脚本继续处理。</p>
+<h2 id="-为什么值得关注">🔍 为什么值得关注</h2>
+<p>第一，它补上了 Agent 审查中的“结构差异”。代码行看似只是抽取函数，实际可能改变鉴权、日志或错误处理的执行顺序。按入口函数展开前后调用树，比逐文件追踪更快抓住这类变化。</p>
+<p>第二，它同时照顾人和机器。开发者可在终端阅读带增删标记的树；Agent 则能读取结构化结果，还可通过项目提供的 <code>skills add</code> 和 <code>mcp add</code> 接入工作流。这比把整份 diff 原样塞进上下文更聚焦。</p>
+<p>第三，它适合做定向验证。比如从支付入口追踪是否仍能到达 <code>sendEmail</code>，或只检查某个路由文件导出的入口，而不是笼统要求 Agent“再审一遍代码”。</p>
+<h2 id="-谁适合试怎么开始">🧪 谁适合试，怎么开始</h2>
+<p>适合正在使用 Claude Code、Codex 等编码 Agent，或需要审查跨文件重构的开发者。无需全局安装，可先在一个有明确入口函数的小仓库运行：</p>
+<pre class="astro-code astro-code-themes github-light github-dark" style="--shiki-light:#24292e;--shiki-dark:#e1e4e8;--shiki-light-bg:#fff;--shiki-dark-bg:#24292e; overflow-x: auto;" tabindex="0" data-language="bash"><code><span class="line"><span style="--shiki-light:#6F42C1;--shiki-dark:#B392F0">npx</span><span style="--shiki-light:#032F62;--shiki-dark:#9ECBFF"> calldiff@latest</span><span style="--shiki-light:#032F62;--shiki-dark:#9ECBFF"> diff</span><span style="--shiki-light:#032F62;--shiki-dark:#9ECBFF"> main</span><span style="--shiki-light:#032F62;--shiki-dark:#9ECBFF"> HEAD</span><span style="--shiki-light:#005CC5;--shiki-dark:#79B8FF"> --entry</span><span style="--shiki-light:#032F62;--shiki-dark:#9ECBFF"> createAgentSession</span></span></code></pre>
+<p>然后用 <code>tree -e 函数名 --locs</code> 查看调用位置，用 <code>reach -e 起点 --to 终点</code> 验证关键链路。接入 Agent 前，建议先人工对照一次源码，确认它在你的语言和代码风格下能正确识别。</p>
+<h2 id="️-使用提醒">⚠️ 使用提醒</h2>
+<p>calldiff 做的是基于 AST 的语法分析，不是完整类型检查器；动态调用、依赖注入、反射和运行时分派可能无法解析，因此不能替代测试、静态分析或安全审计。部分 Tree-sitter grammar 首次使用还会下载安装到本地缓存，离线或受限网络环境需提前准备。</p>
+<p>项目目前很早期，仓库尚无正式 GitHub Release。实测主分支 250 项测试中 241 项通过，Swift grammar 下载受网络错误影响，另有 Kotlin、OCaml 用例超时。团队试用时应固定版本，并先验证自己的主力语言。</p>
+<h2 id="-参考资源">🔗 参考资源</h2>
+<ul>
+<li>GitHub：<a href="https://github.com/tanishqkancharla/calldiff">https://github.com/tanishqkancharla/calldiff</a></li>
+<li>README 与命令示例：<a href="https://github.com/tanishqkancharla/calldiff/blob/main/README.md">https://github.com/tanishqkancharla/calldiff/blob/main/README.md</a></li>
+<li>示例代码：<a href="https://github.com/tanishqkancharla/calldiff/tree/main/examples">https://github.com/tanishqkancharla/calldiff/tree/main/examples</a></li>
+<li>npm 包：<a href="https://www.npmjs.com/package/calldiff">https://www.npmjs.com/package/calldiff</a></li>
+<li>MIT 许可证：<a href="https://github.com/tanishqkancharla/calldiff/blob/main/LICENSE">https://github.com/tanishqkancharla/calldiff/blob/main/LICENSE</a></li>
+</ul>  </article> <aside class="toc"><p class="toc-title">目录</p><ul class="toc-list"><li class="depth-2"><a href="#-这个项目是干什么的" data-toc-link="-这个项目是干什么的">📌 这个项目是干什么的</a></li><li class="depth-2"><a href="#-为什么值得关注" data-toc-link="-为什么值得关注">🔍 为什么值得关注</a></li><li class="depth-2"><a href="#-谁适合试怎么开始" data-toc-link="-谁适合试怎么开始">🧪 谁适合试，怎么开始</a></li><li class="depth-2"><a href="#️-使用提醒" data-toc-link="️-使用提醒">⚠️ 使用提醒</a></li><li class="depth-2"><a href="#-参考资源" data-toc-link="-参考资源">🔗 参考资源</a></li></ul></aside><script type="module">const c=()=>{const r=Array.from(document.querySelectorAll(".toc a[data-toc-link]"));if(!r.length)return;const o=r.map(t=>{const e=t.getAttribute("data-toc-link");if(!e)return null;const n=document.getElementById(e);return n?{id:e,heading:n,link:t}:null}).filter(t=>t!==null);if(!o.length)return;const s=t=>{r.forEach(e=>{const n=e.getAttribute("data-toc-link")===t;e.classList.toggle("active",n),n&&e.scrollIntoView({block:"nearest",inline:"nearest"})})},i=()=>{const t=Math.round(window.innerHeight*.28);let e=o[0];for(const n of o)n.heading.getBoundingClientRect().top<=t&&(e=n);s(e.id)};i();const a=new IntersectionObserver(()=>i(),{rootMargin:"-18% 0px -70% 0px",threshold:[0,1]});o.forEach(t=>a.observe(t.heading)),window.addEventListener("scroll",i,{passive:!0})};document.addEventListener("DOMContentLoaded",c);document.addEventListener("astro:page-load",c);</script> </div>  </main> <footer class="site-footer"> <div class="shell footer-inner"> <p>© 2026 未来观察者</p> </div> </footer> </body></html>
