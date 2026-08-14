@@ -1,0 +1,286 @@
+<!DOCTYPE html><html lang="zh-CN"> <head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1"><script>
+      (() => {
+        const storageKey = "future-observer-theme";
+        const root = document.documentElement;
+        const getStoredMode = () => {
+          try {
+            const value = localStorage.getItem(storageKey);
+            return value === "light" || value === "dark" || value === "system" ? value : "system";
+          } catch {
+            return "system";
+          }
+        };
+        const systemDark = () => window.matchMedia?.("(prefers-color-scheme: dark)").matches ?? false;
+        const apply = (mode) => {
+          const resolved = mode === "system" ? (systemDark() ? "dark" : "light") : mode;
+          root.dataset.themeMode = mode;
+          root.dataset.theme = resolved;
+          root.style.colorScheme = resolved;
+        };
+        apply(getStoredMode());
+        window.__setFutureObserverTheme = (mode) => {
+          const next = mode === "light" || mode === "dark" || mode === "system" ? mode : "system";
+          try { localStorage.setItem(storageKey, next); } catch {}
+          apply(next);
+          window.dispatchEvent(new CustomEvent("future-observer-theme-change", { detail: { mode: next } }));
+        };
+        window.matchMedia?.("(prefers-color-scheme: dark)").addEventListener?.("change", () => {
+          if (getStoredMode() === "system") apply("system");
+        });
+      })();
+    </script><title>🧪 Astra 首秀 1490 分概率仅 39.5%：模型竞争进入“公开评测 × 安全门槛”双重定价 | 未来观察者</title><meta name="description" content="🔭 核心观点：Polymarket 只给 OpenAI Astra 首次登上 Arena 时达到 1490 分 39.5% 的概率。市场并非简单看空模型能力，而是在同时折价公开评测的不确定性、安全审查带来的发布约束，以及“内部突破”转化为用户偏好的难度。"><meta name="generator" content="Astro v5.18.1"><meta property="og:title" content="🧪 Astra 首秀 1490 分概率仅 39.5%：模型竞争进入“公开评测 × 安全门槛”双重定价 | 未来观察者"><meta property="og:description" content="🔭 核心观点：Polymarket 只给 OpenAI Astra 首次登上 Arena 时达到 1490 分 39.5% 的概率。市场并非简单看空模型能力，而是在同时折价公开评测的不确定性、安全审查带来的发布约束，以及“内部突破”转化为用户偏好的难度。"><meta property="og:type" content="website"><meta property="og:url" content="https://future.lifestudylab.com/posts/2026-08-15-astra%E9%A6%96%E7%A7%801490%E5%88%86%E6%A6%82%E7%8E%87%E4%BB%85395-%E6%A8%A1%E5%9E%8B%E7%AB%9E%E4%BA%89%E8%BF%9B%E5%85%A5%E5%85%AC%E5%BC%80%E8%AF%84%E6%B5%8B%E4%B8%8E%E5%AE%89%E5%85%A8%E9%97%A8%E6%A7%9B%E5%8F%8C%E9%87%8D%E5%AE%9A%E4%BB%B7/"><link rel="icon" type="image/svg+xml" href="/favicon.svg"><link rel="alternate" type="application/rss+xml" title="未来观察者" href="/rss.xml"><link rel="stylesheet" href="/_astro/_channel_.BFW__1rx.css"></head> <body> <div class="page-bg"></div> <header class="site-header"> <div class="shell header-inner"> <div class="header-bar"> <a class="brand" href="/ai-tools/"> <img src="/brand-mark.svg" alt="" class="brand-mark" width="56" height="56"> <span class="brand-text" aria-label="未来观察者">思考未来</span> </a> </div> <nav class="top-menu" aria-label="顶部菜单"> <a href="/future-daily/" class="top-menu-link"> 每日信息 </a><a href="/docs/deer-flow/00-overview/" class="top-menu-link"> DeerFlow教程 </a><a href="/docs/hermes/00-overview/" class="top-menu-link"> Hermes教程 </a><a href="/docs/openclaw/00-overview/" class="top-menu-link"> OpenClaw教程 </a><a href="/about/" class="top-menu-link"> 关于我 </a> </nav> <div class="top-actions"> <a class="feedback-link" href="https://github.com/yonglisss/yonglisss.github.io/issues" target="_blank" rel="noopener noreferrer" aria-label="问题反馈"> <svg viewBox="0 0 24 24" aria-hidden="true" class="action-icon"> <path d="M4.75 5.75A2.75 2.75 0 0 1 7.5 3h9A2.75 2.75 0 0 1 19.25 5.75v6.5A2.75 2.75 0 0 1 16.5 15H9.3l-3.55 3.2V15.1a2.75 2.75 0 0 1-1-2.1V5.75Z"></path> <path d="M8 7.75h8M8 11.25h4"></path> </svg> <span>问题反馈</span> </a> <div class="theme-switcher" data-theme-switcher> <button class="theme-trigger" type="button" aria-haspopup="menu" aria-expanded="false" aria-label="切换明暗模式" data-theme-trigger> <svg viewBox="0 0 24 24" aria-hidden="true" class="action-icon theme-trigger-icon theme-trigger-icon--light"> <circle cx="12" cy="12" r="4"></circle> <path d="M12 2.75v2M12 19.25v2M4.75 4.75l1.4 1.4M17.85 17.85l1.4 1.4M2.75 12h2M19.25 12h2M4.75 19.25l1.4-1.4M17.85 6.15l1.4-1.4"></path> </svg> <svg viewBox="0 0 24 24" aria-hidden="true" class="action-icon theme-trigger-icon theme-trigger-icon--dark"> <path d="M20.25 14.2A8 8 0 0 1 9.8 3.75 8.5 8.5 0 1 0 20.25 14.2Z"></path> </svg> <svg viewBox="0 0 24 24" aria-hidden="true" class="action-icon theme-trigger-icon theme-trigger-icon--system"> <rect x="4" y="5" width="16" height="11" rx="1.8"></rect> <path d="M9 20h6M12 16v4"></path> </svg> </button> <div class="theme-menu" role="menu" data-theme-menu hidden> <button class="theme-option" type="button" role="menuitemradio" data-theme-option="light" aria-checked="false"> <svg viewBox="0 0 24 24" aria-hidden="true" class="action-icon"><circle cx="12" cy="12" r="4"></circle><path d="M12 2.75v2M12 19.25v2M4.75 4.75l1.4 1.4M17.85 17.85l1.4 1.4M2.75 12h2M19.25 12h2M4.75 19.25l1.4-1.4M17.85 6.15l1.4-1.4"></path></svg> <span>亮色</span> </button> <button class="theme-option" type="button" role="menuitemradio" data-theme-option="dark" aria-checked="false"> <svg viewBox="0 0 24 24" aria-hidden="true" class="action-icon"><path d="M20.25 14.2A8 8 0 0 1 9.8 3.75 8.5 8.5 0 1 0 20.25 14.2Z"></path></svg> <span>暗色</span> </button> <button class="theme-option" type="button" role="menuitemradio" data-theme-option="system" aria-checked="true"> <svg viewBox="0 0 24 24" aria-hidden="true" class="action-icon"><rect x="4" y="5" width="16" height="11" rx="1.8"></rect><path d="M9 20h6M12 16v4"></path></svg> <span>跟随系统</span> </button> </div> </div> </div> </div> </header> <script>
+  (() => {
+    const switcher = document.querySelector("[data-theme-switcher]");
+    if (!switcher) return;
+
+    const trigger = switcher.querySelector("[data-theme-trigger]");
+    const menu = switcher.querySelector("[data-theme-menu]");
+    const options = [...switcher.querySelectorAll("[data-theme-option]")];
+    const modes = ["light", "dark", "system"];
+
+    const getMode = () => {
+      const mode = document.documentElement.dataset.themeMode;
+      return modes.includes(mode) ? mode : "system";
+    };
+
+    const closeMenu = () => {
+      menu.hidden = true;
+      trigger.setAttribute("aria-expanded", "false");
+    };
+
+    const openMenu = () => {
+      menu.hidden = false;
+      trigger.setAttribute("aria-expanded", "true");
+    };
+
+    const sync = () => {
+      const mode = getMode();
+      trigger.dataset.themeMode = mode;
+      options.forEach((option) => {
+        option.setAttribute("aria-checked", String(option.dataset.themeOption === mode));
+      });
+    };
+
+    trigger.addEventListener("click", () => {
+      menu.hidden ? openMenu() : closeMenu();
+    });
+
+    options.forEach((option) => {
+      option.addEventListener("click", () => {
+        window.__setFutureObserverTheme?.(option.dataset.themeOption || "system");
+        sync();
+        closeMenu();
+      });
+    });
+
+    document.addEventListener("click", (event) => {
+      if (!switcher.contains(event.target)) closeMenu();
+    });
+
+    document.addEventListener("keydown", (event) => {
+      if (event.key === "Escape") closeMenu();
+    });
+
+    window.addEventListener("future-observer-theme-change", sync);
+    sync();
+  })();
+</script> <aside class="site-rail" aria-label="站点导航"> <div class="site-rail-inner"> <p class="site-rail-label">Channels</p> <nav aria-label="主导航"> <ul class="site-rail-nav"> <li> <a href="/ai-tools/" class="site-rail-link"> AI工具 </a> </li><li> <a href="/future-daily/" class="site-rail-link"> 未来观察者日报 </a> </li> </ul> </nav> </div> </aside> <main class="shell page-content">  <div class="post-hero"> <p class="eyebrow">2026年8月15日</p> <h1>🧪 Astra 首秀 1490 分概率仅 39.5%：模型竞争进入“公开评测 × 安全门槛”双重定价</h1> <p class="post-summary">🔭 核心观点：Polymarket 只给 OpenAI Astra 首次登上 Arena 时达到 1490 分 39.5% 的概率。市场并非简单看空模型能力，而是在同时折价公开评测的不确定性、安全审查带来的发布约束，以及“内部突破”转化为用户偏好的难度。</p> <ul class="tag-list"> <li> <a href="/tags/%E6%9C%AA%E6%9D%A5%E8%A7%82%E5%AF%9F%E8%80%85%E6%97%A5%E6%8A%A5/" class="tag-link">
+#未来观察者日报 </a> </li><li> <a href="/tags/2026%E5%B9%B408%E6%9C%88/" class="tag-link">
+#2026年08月 </a> </li> </ul> </div> <div class="post-grid"> <article class="prose">  <blockquote>
+<p>🔭 <strong>核心观点</strong>：Polymarket 只给 OpenAI Astra 首次登上 Arena 时达到 1490 分 <strong>39.5%</strong> 的概率。市场并非简单看空模型能力，而是在同时折价公开评测的不确定性、安全审查带来的发布约束，以及“内部突破”转化为用户偏好的难度。</p>
+</blockquote>
+<p><strong>作者：</strong> 拾水木<br>
+<strong>时间：</strong> 2026年8月15日<br>
+<strong>标签：</strong> #未来观察者 #OpenAI #Astra #AI模型 #模型评测<br>
+<strong>阅读时间：</strong> 约4分钟</p>
+<hr>
+<h2 id="-今天看什么投票astra-的分数概率带出现明显断层">🎯 今天看什么投票？Astra 的分数概率带出现明显断层</h2>
+<p>Polymarket 新事件 <strong>“OpenAI’s Astra Model: Text Arena Debut?”</strong> 押注 Astra 首次进入 Arena 文本总榜时的公开得分。合约以模型上榜次日美国东部时间中午 12 点、关闭 style control 的 <strong>Text Arena | Overall</strong> 分数为准；若 2026 年底前没有符合条件的模型上榜，相关合约判定为 No。</p>
+<h3 id="-关键数据卡">📊 关键数据卡</h3>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<table><thead><tr><th>首秀分数门槛</th><th align="right">达标概率</th><th align="right">子市场累计交易量</th></tr></thead><tbody><tr><td><strong>1480+</strong></td><td align="right"><strong>68.5%</strong></td><td align="right">约 <strong>1.09 万美元</strong></td></tr><tr><td><strong>1490+</strong></td><td align="right"><strong>39.5%</strong></td><td align="right">约 <strong>1.25 万美元</strong></td></tr><tr><td><strong>1500+</strong></td><td align="right"><strong>10.5%</strong></td><td align="right">约 <strong>0.69 万美元</strong></td></tr><tr><td><strong>1510+</strong></td><td align="right"><strong>9.0%</strong></td><td align="right">约 <strong>0.80 万美元</strong></td></tr><tr><td><strong>1520+</strong></td><td align="right"><strong>6.5%</strong></td><td align="right">约 <strong>0.03 万美元</strong></td></tr></tbody></table>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<table><thead><tr><th>事件指标</th><th align="right">数据</th></tr></thead><tbody><tr><td>整体累计交易量</td><td align="right">约 <strong>3.86 万美元</strong></td></tr><tr><td>24 小时交易量</td><td align="right">约 <strong>3.86 万美元</strong></td></tr><tr><td>整体流动性</td><td align="right">约 <strong>1.03 万美元</strong></td></tr><tr><td>1490+ 子市场流动性</td><td align="right">约 <strong>0.40 万美元</strong></td></tr><tr><td>1490+ 最佳买价 / 卖价</td><td align="right"><strong>39% / 40%</strong></td></tr><tr><td>数据获取时间</td><td align="right"><strong>2026-08-15 04:00（CST）</strong></td></tr></tbody></table>
+<blockquote>
+<p>⚠️ 这些是相互嵌套但分别交易的 Yes/No 合约，不应把各门槛概率相加。预测价格反映交易者判断，不是模型的实测成绩。</p>
+</blockquote>
+<h3 id="-为什么今天选它">🧭 为什么今天选它？</h3>
+<ol>
+<li><strong>时效性强</strong>：事件于 8 月 13 日启动，几乎全部 3.86 万美元交易量来自最近 24 小时。</li>
+<li><strong>现实驱动明确</strong>：Polymarket 的结算规则引用 OpenAI 8 月 1 日披露的 Astra，同时近期公开报道指向安全评估对开发与发布节奏的约束。</li>
+<li><strong>去重成立</strong>：最近 7 天文章覆盖自动驾驶、可穿戴、平台并购、利率与 SpaceX IPO，没有模型评测主线；与 8 月 6 日 Anthropic 私募估值文章相比，今天新增的是<strong>公开能力验证与安全门槛的联合定价</strong>。</li>
+</ol>
+<hr>
+<h2 id="-为什么会有这个投票内部能力必须接受公开偏好检验">🔍 为什么会有这个投票？内部能力必须接受公开偏好检验</h2>
+<p><strong>事实层面</strong>，Polymarket 合约说明称，OpenAI 在 8 月 1 日把 Astra 描述为“下一个主要模型”，并以 Arena.AI 公开排行榜作为唯一主要结算锚。标有 AutoEval 的成绩不算，必须等待真实公开榜单分数。</p>
+<p><strong>公开报道层面</strong>，TechCrunch、Axios 等媒体在 8 月 7 日报道，OpenAI 因 Astra 可能触及关键网络安全能力门槛而扩大安全测试、放慢部分工作。这里能确认的是“安全评估成为发布约束”；不能据此断言具体发布日期或最终分数。</p>
+<p><strong>市场定价层面</strong>，1480 分达标率有 68.5%，但门槛提高 10 分至 1490 后骤降到 39.5%，再到 1500 分只剩 10.5%。这条概率曲线说明交易者认可 Astra 大概率属于前沿梯队，却没有为“首秀即显著领先”给出高确定性。</p>
+<hr>
+<h2 id="-这真正反映什么结构变化模型发布多了两道闸门">🧱 这真正反映什么结构变化？模型发布多了两道闸门</h2>
+<h3 id="1-技术层单点突破不等于综合用户偏好">1. 技术层：单点突破不等于综合用户偏好</h3>
+<p>数学、代码或网络安全能力可以成为强信号，但 Arena 总榜来自用户对真实对话的成对选择。首秀成绩还会受到对话风格、稳定性、拒答策略和部署版本影响。模型实验室因此不能只优化单项 benchmark，还要优化可交付的综合体验。</p>
+<h3 id="2-产业层排行榜正在成为产品发布的价格发现机制">2. 产业层：排行榜正在成为产品发布的价格发现机制</h3>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<table><thead><tr><th>旧发布逻辑</th><th>新发布逻辑</th></tr></thead><tbody><tr><td>厂商公布内部 benchmark</td><td>第三方榜单持续校验</td></tr><tr><td>发布会当天形成叙事</td><td>上榜、积累投票后再定位置</td></tr><tr><td>只比较模型能力</td><td>同时比较能力、可用性与安全策略</td></tr></tbody></table>
+<p>第三方评测并不完美，但它把厂商声明压缩成可跟踪的公开指标。API 定价、开发者迁移和企业采购，越来越可能在榜单成绩之外，再叠加可靠性与安全审查成本。</p>
+<h3 id="3-社会与资本层最强能力未必能最快商业化">3. 社会与资本层：最强能力未必能最快商业化</h3>
+<p>当模型触及更高风险门槛，领先能力可能反过来拉长评估周期。资本市场过去奖励“更快发布”，未来可能更重视“可控地发布”：治理、红队测试、访问分级和事故响应会从合规成本变成产品能力的一部分。</p>
+<hr>
+<h2 id="-如果趋势继续未来会怎样">⏳ 如果趋势继续，未来会怎样？</h2>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<table><thead><tr><th>时间尺度</th><th>可能变化</th><th>重点观察指标</th></tr></thead><tbody><tr><td><strong>短期：未来数周</strong></td><td>Astra 上榜预期随安全与发布消息剧烈波动</td><td>官方发布说明、Arena 首次出现、投票量与置信区间</td></tr><tr><td><strong>中期：至 2026 年末</strong></td><td>模型竞争从单次榜首转向能力、成本、安全三维比较</td><td>API 价格、延迟、拒答率、企业可用性与安全报告</td></tr><tr><td><strong>长期：1—3 年</strong></td><td>第三方评测与安全分级共同成为模型准入基础设施</td><td>审计标准、分级访问、事故披露和企业采购条款</td></tr></tbody></table>
+<p>如果 Astra 最终超过 1490 分，重要的不只是 OpenAI 重回榜单高位，而是它证明高风险能力经过约束后仍能形成广泛用户价值。若低于门槛或迟迟不上榜，则说明内部能力、公开产品与安全放行之间存在更长的转化链。</p>
+<hr>
+<h2 id="-对谁最重要把概率带变成行动清单">🧰 对谁最重要？把概率带变成行动清单</h2>
+<h3 id="普通用户">普通用户</h3>
+<ul>
+<li>不把 39.5% 误读为“Astra 只有 39.5% 概率成功”；合约只问首次公开榜单能否达到特定分数。</li>
+<li>等待真实上榜后，同时看样本量和置信区间，不根据早期名次立刻迁移工作流。</li>
+</ul>
+<h3 id="ai-从业者与创业者">AI 从业者与创业者</h3>
+<ul>
+<li>建立自己的任务集，对候选模型测试正确率、延迟、成本和拒答率，而不是只看总榜。</li>
+<li>提前设计多模型路由，避免产品绑定尚未公开、发布时间不确定的单一模型。</li>
+<li>将权限控制、审计日志和高风险任务隔离纳入产品架构，安全限制可能直接影响模型可用范围。</li>
+</ul>
+<h3 id="投资与产业观察者">投资与产业观察者</h3>
+<ul>
+<li>跟踪 <strong>1480+ 68.5% → 1490+ 39.5% → 1500+ 10.5%</strong> 的概率斜率；它比单一赔率更能显示市场对能力上限的判断。</li>
+<li>区分三类催化：官方安全披露属于事实，Arena 成绩属于验证，预测市场价格属于预期。</li>
+<li>注意事件流动性仅约 1.03 万美元，现阶段更适合作为预警器，不适合作为估值锚。</li>
+</ul>
+<hr>
+<h2 id="️-风险提示">⚠️ 风险提示</h2>
+<ol>
+<li><strong>市场很新且流动性有限</strong>：事件启动不足两天，价格容易被少量资金推动。</li>
+<li><strong>排行榜存在统计噪声</strong>：模型分数会受样本、用户偏好及榜单方法变化影响。</li>
+<li><strong>结算口径特殊</strong>：只看首次符合条件模型上榜次日的指定分数，不代表长期最佳表现。</li>
+<li><strong>安全报道不等于取消发布</strong>：放慢部分工作不能被外推为确定延期或模型失败。</li>
+<li><strong>本文不构成投资建议</strong>：赔率不是官方承诺，也不是对公司价值的直接估计。</li>
+</ol>
+<hr>
+<h2 id="-结语下一代模型比拼的不只是分数">🌌 结语：下一代模型比拼的不只是分数</h2>
+<p>Astra 达到 1480 分仍被市场视为较大概率事件，但 1490 分以上的信心快速衰减。真正值得观察的，是 OpenAI 能否把内部前沿能力同时穿过两道闸门：<strong>公开用户评测</strong>与<strong>高风险安全审查</strong>。</p>
+<p>模型竞赛正在从“谁先宣布更强”，转向“谁能把更强能力稳定、可控地交到用户手里”。这会让发布节奏更难预测，却也让真正的产品能力更容易被检验。</p>
+<hr>
+<h2 id="-参考资源">🔗 参考资源</h2>
+<ul>
+<li><a href="https://polymarket.com/event/openais-astra-model-text-arena-debut">Polymarket：OpenAI’s Astra Model: Text Arena Debut?</a></li>
+<li><a href="https://polymarket.com/event/openais-astra-model-text-arena-debut/will-openais-astra-model-debut-on-the-arena-leaderboard-at-a-score-of-at-least-1490">Polymarket：Astra 首秀达到 1490+ 子市场</a></li>
+<li><a href="https://arena.ai/leaderboard/text/overall-no-style-control">Arena.AI：Text Arena Overall Leaderboard</a></li>
+<li><a href="https://openai.com/index/ten-advances-in-mathematics/">OpenAI：Ten advances in mathematics</a></li>
+<li><a href="https://techcrunch.com/2026/08/07/openai-says-it-slowed-astra-model-development-over-security-concerns/">TechCrunch：OpenAI slowed Astra development over security concerns</a></li>
+<li><a href="https://www.axios.com/2026/08/07/openai-astra-model-delay-cybersecurity-risks">Axios：OpenAI slows release of Astra model citing cyber capabilities</a></li>
+<li><a href="https://gamma-api.polymarket.com/">Polymarket Gamma API</a></li>
+</ul>
+<p><em>数据获取时间：2026-08-15 04:00（CST）。概率、交易量与流动性会随市场实时变化。</em></p>  </article> <aside class="toc"><p class="toc-title">目录</p><ul class="toc-list"><li class="depth-2"><a href="#-今天看什么投票astra-的分数概率带出现明显断层" data-toc-link="-今天看什么投票astra-的分数概率带出现明显断层">🎯 今天看什么投票？Astra 的分数概率带出现明显断层</a></li><li class="depth-3"><a href="#-关键数据卡" data-toc-link="-关键数据卡">📊 关键数据卡</a></li><li class="depth-3"><a href="#-为什么今天选它" data-toc-link="-为什么今天选它">🧭 为什么今天选它？</a></li><li class="depth-2"><a href="#-为什么会有这个投票内部能力必须接受公开偏好检验" data-toc-link="-为什么会有这个投票内部能力必须接受公开偏好检验">🔍 为什么会有这个投票？内部能力必须接受公开偏好检验</a></li><li class="depth-2"><a href="#-这真正反映什么结构变化模型发布多了两道闸门" data-toc-link="-这真正反映什么结构变化模型发布多了两道闸门">🧱 这真正反映什么结构变化？模型发布多了两道闸门</a></li><li class="depth-3"><a href="#1-技术层单点突破不等于综合用户偏好" data-toc-link="1-技术层单点突破不等于综合用户偏好">1. 技术层：单点突破不等于综合用户偏好</a></li><li class="depth-3"><a href="#2-产业层排行榜正在成为产品发布的价格发现机制" data-toc-link="2-产业层排行榜正在成为产品发布的价格发现机制">2. 产业层：排行榜正在成为产品发布的价格发现机制</a></li><li class="depth-3"><a href="#3-社会与资本层最强能力未必能最快商业化" data-toc-link="3-社会与资本层最强能力未必能最快商业化">3. 社会与资本层：最强能力未必能最快商业化</a></li><li class="depth-2"><a href="#-如果趋势继续未来会怎样" data-toc-link="-如果趋势继续未来会怎样">⏳ 如果趋势继续，未来会怎样？</a></li><li class="depth-2"><a href="#-对谁最重要把概率带变成行动清单" data-toc-link="-对谁最重要把概率带变成行动清单">🧰 对谁最重要？把概率带变成行动清单</a></li><li class="depth-3"><a href="#普通用户" data-toc-link="普通用户">普通用户</a></li><li class="depth-3"><a href="#ai-从业者与创业者" data-toc-link="ai-从业者与创业者">AI 从业者与创业者</a></li><li class="depth-3"><a href="#投资与产业观察者" data-toc-link="投资与产业观察者">投资与产业观察者</a></li><li class="depth-2"><a href="#️-风险提示" data-toc-link="️-风险提示">⚠️ 风险提示</a></li><li class="depth-2"><a href="#-结语下一代模型比拼的不只是分数" data-toc-link="-结语下一代模型比拼的不只是分数">🌌 结语：下一代模型比拼的不只是分数</a></li><li class="depth-2"><a href="#-参考资源" data-toc-link="-参考资源">🔗 参考资源</a></li></ul></aside><script type="module">const c=()=>{const r=Array.from(document.querySelectorAll(".toc a[data-toc-link]"));if(!r.length)return;const o=r.map(t=>{const e=t.getAttribute("data-toc-link");if(!e)return null;const n=document.getElementById(e);return n?{id:e,heading:n,link:t}:null}).filter(t=>t!==null);if(!o.length)return;const s=t=>{r.forEach(e=>{const n=e.getAttribute("data-toc-link")===t;e.classList.toggle("active",n),n&&e.scrollIntoView({block:"nearest",inline:"nearest"})})},i=()=>{const t=Math.round(window.innerHeight*.28);let e=o[0];for(const n of o)n.heading.getBoundingClientRect().top<=t&&(e=n);s(e.id)};i();const a=new IntersectionObserver(()=>i(),{rootMargin:"-18% 0px -70% 0px",threshold:[0,1]});o.forEach(t=>a.observe(t.heading)),window.addEventListener("scroll",i,{passive:!0})};document.addEventListener("DOMContentLoaded",c);document.addEventListener("astro:page-load",c);</script> </div>  </main> <footer class="site-footer"> <div class="shell footer-inner"> <p>© 2026 未来观察者</p> </div> </footer> </body></html>
