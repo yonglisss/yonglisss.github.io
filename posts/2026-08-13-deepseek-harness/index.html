@@ -1,0 +1,224 @@
+<!DOCTYPE html><html lang="zh-CN"> <head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1"><script>
+      (() => {
+        const storageKey = "future-observer-theme";
+        const root = document.documentElement;
+        const getStoredMode = () => {
+          try {
+            const value = localStorage.getItem(storageKey);
+            return value === "light" || value === "dark" || value === "system" ? value : "system";
+          } catch {
+            return "system";
+          }
+        };
+        const systemDark = () => window.matchMedia?.("(prefers-color-scheme: dark)").matches ?? false;
+        const apply = (mode) => {
+          const resolved = mode === "system" ? (systemDark() ? "dark" : "light") : mode;
+          root.dataset.themeMode = mode;
+          root.dataset.theme = resolved;
+          root.style.colorScheme = resolved;
+        };
+        apply(getStoredMode());
+        window.__setFutureObserverTheme = (mode) => {
+          const next = mode === "light" || mode === "dark" || mode === "system" ? mode : "system";
+          try { localStorage.setItem(storageKey, next); } catch {}
+          apply(next);
+          window.dispatchEvent(new CustomEvent("future-observer-theme-change", { detail: { mode: next } }));
+        };
+        window.matchMedia?.("(prefers-color-scheme: dark)").addEventListener?.("change", () => {
+          if (getStoredMode() === "system") apply("system");
+        });
+      })();
+    </script><title>DeepSeek Harness：DeepSeek 开源的不是又一个 Agent，而是一套 Agent 运行底座 | 未来观察者</title><meta name="description" content="作者： 拾水木 时间： 2026年8月13日 标签： DeepSeek Agent 开源项目 AI工具 阅读时间： 约5分钟"><meta name="generator" content="Astro v5.18.1"><meta property="og:title" content="DeepSeek Harness：DeepSeek 开源的不是又一个 Agent，而是一套 Agent 运行底座 | 未来观察者"><meta property="og:description" content="作者： 拾水木 时间： 2026年8月13日 标签： DeepSeek Agent 开源项目 AI工具 阅读时间： 约5分钟"><meta property="og:type" content="website"><meta property="og:url" content="https://future.lifestudylab.com/posts/2026-08-13-deepseek-harness/"><link rel="icon" type="image/svg+xml" href="/favicon.svg"><link rel="alternate" type="application/rss+xml" title="未来观察者" href="/rss.xml"><link rel="stylesheet" href="/_astro/_channel_.BFW__1rx.css"></head> <body> <div class="page-bg"></div> <header class="site-header"> <div class="shell header-inner"> <div class="header-bar"> <a class="brand" href="/ai-tools/"> <img src="/brand-mark.svg" alt="" class="brand-mark" width="56" height="56"> <span class="brand-text" aria-label="未来观察者">思考未来</span> </a> </div> <nav class="top-menu" aria-label="顶部菜单"> <a href="/future-daily/" class="top-menu-link"> 每日信息 </a><a href="/docs/deer-flow/00-overview/" class="top-menu-link"> DeerFlow教程 </a><a href="/docs/hermes/00-overview/" class="top-menu-link"> Hermes教程 </a><a href="/docs/openclaw/00-overview/" class="top-menu-link"> OpenClaw教程 </a><a href="/about/" class="top-menu-link"> 关于我 </a> </nav> <div class="top-actions"> <a class="feedback-link" href="https://github.com/yonglisss/yonglisss.github.io/issues" target="_blank" rel="noopener noreferrer" aria-label="问题反馈"> <svg viewBox="0 0 24 24" aria-hidden="true" class="action-icon"> <path d="M4.75 5.75A2.75 2.75 0 0 1 7.5 3h9A2.75 2.75 0 0 1 19.25 5.75v6.5A2.75 2.75 0 0 1 16.5 15H9.3l-3.55 3.2V15.1a2.75 2.75 0 0 1-1-2.1V5.75Z"></path> <path d="M8 7.75h8M8 11.25h4"></path> </svg> <span>问题反馈</span> </a> <div class="theme-switcher" data-theme-switcher> <button class="theme-trigger" type="button" aria-haspopup="menu" aria-expanded="false" aria-label="切换明暗模式" data-theme-trigger> <svg viewBox="0 0 24 24" aria-hidden="true" class="action-icon theme-trigger-icon theme-trigger-icon--light"> <circle cx="12" cy="12" r="4"></circle> <path d="M12 2.75v2M12 19.25v2M4.75 4.75l1.4 1.4M17.85 17.85l1.4 1.4M2.75 12h2M19.25 12h2M4.75 19.25l1.4-1.4M17.85 6.15l1.4-1.4"></path> </svg> <svg viewBox="0 0 24 24" aria-hidden="true" class="action-icon theme-trigger-icon theme-trigger-icon--dark"> <path d="M20.25 14.2A8 8 0 0 1 9.8 3.75 8.5 8.5 0 1 0 20.25 14.2Z"></path> </svg> <svg viewBox="0 0 24 24" aria-hidden="true" class="action-icon theme-trigger-icon theme-trigger-icon--system"> <rect x="4" y="5" width="16" height="11" rx="1.8"></rect> <path d="M9 20h6M12 16v4"></path> </svg> </button> <div class="theme-menu" role="menu" data-theme-menu hidden> <button class="theme-option" type="button" role="menuitemradio" data-theme-option="light" aria-checked="false"> <svg viewBox="0 0 24 24" aria-hidden="true" class="action-icon"><circle cx="12" cy="12" r="4"></circle><path d="M12 2.75v2M12 19.25v2M4.75 4.75l1.4 1.4M17.85 17.85l1.4 1.4M2.75 12h2M19.25 12h2M4.75 19.25l1.4-1.4M17.85 6.15l1.4-1.4"></path></svg> <span>亮色</span> </button> <button class="theme-option" type="button" role="menuitemradio" data-theme-option="dark" aria-checked="false"> <svg viewBox="0 0 24 24" aria-hidden="true" class="action-icon"><path d="M20.25 14.2A8 8 0 0 1 9.8 3.75 8.5 8.5 0 1 0 20.25 14.2Z"></path></svg> <span>暗色</span> </button> <button class="theme-option" type="button" role="menuitemradio" data-theme-option="system" aria-checked="true"> <svg viewBox="0 0 24 24" aria-hidden="true" class="action-icon"><rect x="4" y="5" width="16" height="11" rx="1.8"></rect><path d="M9 20h6M12 16v4"></path></svg> <span>跟随系统</span> </button> </div> </div> </div> </div> </header> <script>
+  (() => {
+    const switcher = document.querySelector("[data-theme-switcher]");
+    if (!switcher) return;
+
+    const trigger = switcher.querySelector("[data-theme-trigger]");
+    const menu = switcher.querySelector("[data-theme-menu]");
+    const options = [...switcher.querySelectorAll("[data-theme-option]")];
+    const modes = ["light", "dark", "system"];
+
+    const getMode = () => {
+      const mode = document.documentElement.dataset.themeMode;
+      return modes.includes(mode) ? mode : "system";
+    };
+
+    const closeMenu = () => {
+      menu.hidden = true;
+      trigger.setAttribute("aria-expanded", "false");
+    };
+
+    const openMenu = () => {
+      menu.hidden = false;
+      trigger.setAttribute("aria-expanded", "true");
+    };
+
+    const sync = () => {
+      const mode = getMode();
+      trigger.dataset.themeMode = mode;
+      options.forEach((option) => {
+        option.setAttribute("aria-checked", String(option.dataset.themeOption === mode));
+      });
+    };
+
+    trigger.addEventListener("click", () => {
+      menu.hidden ? openMenu() : closeMenu();
+    });
+
+    options.forEach((option) => {
+      option.addEventListener("click", () => {
+        window.__setFutureObserverTheme?.(option.dataset.themeOption || "system");
+        sync();
+        closeMenu();
+      });
+    });
+
+    document.addEventListener("click", (event) => {
+      if (!switcher.contains(event.target)) closeMenu();
+    });
+
+    document.addEventListener("keydown", (event) => {
+      if (event.key === "Escape") closeMenu();
+    });
+
+    window.addEventListener("future-observer-theme-change", sync);
+    sync();
+  })();
+</script> <aside class="site-rail" aria-label="站点导航"> <div class="site-rail-inner"> <p class="site-rail-label">Channels</p> <nav aria-label="主导航"> <ul class="site-rail-nav"> <li> <a href="/ai-tools/" class="site-rail-link"> AI工具 </a> </li><li> <a href="/future-daily/" class="site-rail-link"> 未来观察者日报 </a> </li> </ul> </nav> </div> </aside> <main class="shell page-content">  <div class="post-hero"> <p class="eyebrow">2026年8月13日</p> <h1>DeepSeek Harness：DeepSeek 开源的不是又一个 Agent，而是一套 Agent 运行底座</h1> <p class="post-summary">作者： 拾水木 时间： 2026年8月13日 标签： DeepSeek Agent 开源项目 AI工具 阅读时间： 约5分钟</p> <ul class="tag-list"> <li> <a href="/tags/AI%E5%B7%A5%E5%85%B7/" class="tag-link">
+#AI工具 </a> </li><li> <a href="/tags/2026%E5%B9%B408%E6%9C%88/" class="tag-link">
+#2026年08月 </a> </li> </ul> </div> <div class="post-grid"> <article class="prose">  <blockquote>
+<p><strong>作者：</strong> 拾水木<br>
+<strong>时间：</strong> 2026年8月13日<br>
+<strong>标签：</strong> #DeepSeek #Agent #开源项目 #AI工具<br>
+<strong>阅读时间：</strong> 约5分钟</p>
+</blockquote>
+<p>最近的 Agent 项目越来越多，但真正难的已经不是“让模型调用一次工具”。</p>
+<p>一个 Agent 要长期工作，还要处理会话、工具权限、上下文、文件系统、后台任务、子 Agent、模型切换和状态恢复。只写一个 while 循环，很快就会变成无法维护的工程。</p>
+<p>DeepSeek 刚开源的 <strong>DeepSeek Harness</strong>，处理的就是这一层问题。</p>
+<p>它不是新模型，也不是套壳聊天页面。更准确地说，它是一套用于组装、运行和扩展 Agent 的基础设施。</p>
+<p>项目地址：</p>
+<p><a href="https://github.com/deepseek-ai/deepseek-harness">https://github.com/deepseek-ai/deepseek-harness</a></p>
+<hr>
+<h2 id="一句话理解-deepseek-harness">一句话理解 DeepSeek Harness</h2>
+<p>如果把大模型比作“大脑”，那么 Harness 更像 Agent 的身体和工作环境。</p>
+<p>模型负责判断下一步做什么，Harness 负责把这件事真正运行起来：</p>
+<ul>
+<li>把系统提示词和工具定义交给模型</li>
+<li>执行 Bash、文件编辑等工具</li>
+<li>记录每一步会话事件</li>
+<li>控制权限、审批和沙箱</li>
+<li>管理后台任务和子 Agent</li>
+<li>保存状态，并在中断后继续</li>
+<li>接入不同模型和客户端</li>
+</ul>
+<p>所以，它和 DeepSeek 模型不是绑定关系。官方界面默认支持配置 DeepSeek，也能添加 Anthropic、OpenAI，以及自定义的 OpenAI 兼容端点。</p>
+<p>这也是我觉得这个项目值得关注的地方：DeepSeek 开源的不只是一个“能跑起来的 Agent Demo”，而是把 Agent 的运行层单独做成了产品。</p>
+<hr>
+<h2 id="先跑起来看看">先跑起来看看</h2>
+<p>官方给出的最短启动方式只有一条命令：</p>
+<pre class="astro-code astro-code-themes github-light github-dark" style="--shiki-light:#24292e;--shiki-dark:#e1e4e8;--shiki-light-bg:#fff;--shiki-dark-bg:#24292e; overflow-x: auto;" tabindex="0" data-language="bash"><code><span class="line"><span style="--shiki-light:#6F42C1;--shiki-dark:#B392F0">npx</span><span style="--shiki-light:#032F62;--shiki-dark:#9ECBFF"> @deepseek-ai/dsh</span><span style="--shiki-light:#032F62;--shiki-dark:#9ECBFF"> web</span></span></code></pre>
+<p>命令会启动 Web UI，默认地址是：</p>
+<pre class="astro-code astro-code-themes github-light github-dark" style="--shiki-light:#24292e;--shiki-dark:#e1e4e8;--shiki-light-bg:#fff;--shiki-dark-bg:#24292e; overflow-x: auto;" tabindex="0" data-language="text"><code><span class="line"><span>http://127.0.0.1:3080</span></span></code></pre>
+<p>打开页面后，进入“设置 → 模型”，填写 DeepSeek API Key。然后选择一个本地项目目录作为 workspace，就可以给 Agent 下任务，例如：</p>
+<pre class="astro-code astro-code-themes github-light github-dark" style="--shiki-light:#24292e;--shiki-dark:#e1e4e8;--shiki-light-bg:#fff;--shiki-dark-bg:#24292e; overflow-x: auto;" tabindex="0" data-language="text"><code><span class="line"><span>总结这个代码仓库，并说明主要模块之间的关系。</span></span></code></pre>
+<p>根据官方文档，Web 模式下的 Agent 可以读取和修改工作区文件、运行命令、维护计划和委派任务。涉及当前权限策略需要确认的操作时，界面会先发起审批。</p>
+<p>如果要从源码运行，官方步骤是：</p>
+<pre class="astro-code astro-code-themes github-light github-dark" style="--shiki-light:#24292e;--shiki-dark:#e1e4e8;--shiki-light-bg:#fff;--shiki-dark-bg:#24292e; overflow-x: auto;" tabindex="0" data-language="bash"><code><span class="line"><span style="--shiki-light:#6F42C1;--shiki-dark:#B392F0">git</span><span style="--shiki-light:#032F62;--shiki-dark:#9ECBFF"> clone</span><span style="--shiki-light:#032F62;--shiki-dark:#9ECBFF"> https://github.com/deepseek-ai/deepseek-harness.git</span></span>
+<span class="line"><span style="--shiki-light:#005CC5;--shiki-dark:#79B8FF">cd</span><span style="--shiki-light:#032F62;--shiki-dark:#9ECBFF"> deepseek-harness</span></span>
+<span class="line"><span style="--shiki-light:#6F42C1;--shiki-dark:#B392F0">pnpm</span><span style="--shiki-light:#032F62;--shiki-dark:#9ECBFF"> install</span></span>
+<span class="line"><span style="--shiki-light:#6F42C1;--shiki-dark:#B392F0">pnpm</span><span style="--shiki-light:#032F62;--shiki-dark:#9ECBFF"> run</span><span style="--shiki-light:#032F62;--shiki-dark:#9ECBFF"> build</span></span>
+<span class="line"><span style="--shiki-light:#6F42C1;--shiki-dark:#B392F0">pnpm</span><span style="--shiki-light:#032F62;--shiki-dark:#9ECBFF"> dsh</span><span style="--shiki-light:#032F62;--shiki-dark:#9ECBFF"> web</span></span></code></pre>
+<p>当前 npm 包仍是 <code>0.1.0-rc</code> 阶段。仓库也明确标注为 <strong>Developer Preview</strong>，后续会有破坏兼容性的变更。现在更适合体验、研究和二次开发，不适合未经验证就接入关键生产流程。</p>
+<hr>
+<h2 id="它和普通-agent-框架有什么不同">它和普通 Agent 框架有什么不同？</h2>
+<p>DeepSeek Harness 最鲜明的设计是：</p>
+<blockquote>
+<p><strong>一切皆插件。</strong></p>
+</blockquote>
+<p>它底层使用 Cordis。模型适配器、工具注册表、会话日志，甚至 Agent Loop 本身，都是可以组合和替换的插件。</p>
+<p>传统 Agent 框架通常有一个不可替换的核心循环。需要新增能力时，要么修改核心代码，要么在外围增加钩子。功能越来越多以后，核心会越来越重。</p>
+<p>DeepSeek Harness 的思路不同。运行中的 <code>dsh</code> 是一棵插件树，开发者通过 Profile、Bundle 和配置 Patch 组装出需要的 Agent。</p>
+<p>例如：</p>
+<ul>
+<li><code>web</code> Profile 提供浏览器界面</li>
+<li><code>headless</code> Profile 适合无人值守任务</li>
+<li>模型提供方可以替换</li>
+<li>文件系统和 Shell 后端可以替换</li>
+<li>子 Agent 的实现可以替换</li>
+<li>工具、权限策略和持久化方式也可以替换</li>
+</ul>
+<p>开发者不必为了接入一个新能力去修改所谓的“核心内核”，而是把新插件挂到已有插件旁边。</p>
+<p>这种架构前期理解成本更高，但适合长期演进的 Agent 系统。</p>
+<hr>
+<h2 id="会话不是聊天记录而是一条事件日志">会话不是聊天记录，而是一条事件日志</h2>
+<p>另一个值得注意的设计，是它对会话的处理。</p>
+<p>DeepSeek Harness 使用只追加的 Session Event Log。用户消息、模型回复、工具调用、工具结果、步骤开始和结束，都会成为持久化事件。</p>
+<p>模型下一次看到的上下文，也是从这条日志重新推导出来的。</p>
+<p>这样做有几个直接好处：</p>
+<ol>
+<li><strong>可以回放</strong>：Web UI 能重建当时发生了什么。</li>
+<li><strong>可以恢复</strong>：中断后能从持久状态继续。</li>
+<li><strong>可以分叉</strong>：从某个边界创建新的会话分支。</li>
+<li><strong>便于审计</strong>：工具执行和模型输入不只存在于临时内存。</li>
+</ol>
+<p>官方架构文档给出了一条很严格的原则：模型可见的内容必须已经被记录，并且能够从日志中重建。</p>
+<p>对于只做一次问答的 Bot，这套设计有些重。但当 Agent 要工作几十分钟、调用大量工具，甚至需要多个子 Agent 协作时，事件日志比普通 messages 数组可靠得多。</p>
+<hr>
+<h2 id="它已经包含哪些能力">它已经包含哪些能力？</h2>
+<p>从当前仓库的包和官方示例来看，DeepSeek Harness 已经覆盖了不少 Agent 基础能力：</p>
+<h3 id="1-web-和-headless-两种运行方式">1. Web 和 Headless 两种运行方式</h3>
+<p>既可以在浏览器里交互，也可以用 Headless Profile 执行一次任务，输出结果后退出。</p>
+<h3 id="2-多模型提供方">2. 多模型提供方</h3>
+<p>除 DeepSeek 外，可以配置 Anthropic、OpenAI和自定义 OpenAI 兼容接口。Bedrock、Vertex、Azure、Codex 等原生认证方式也有独立配置要求。</p>
+<h3 id="3-shell终端与后台任务">3. Shell、终端与后台任务</h3>
+<p>它不只支持一次性命令，也有持久 Bash、终端、后台 Job、状态查询和取消机制。</p>
+<h3 id="4-子-agent">4. 子 Agent</h3>
+<p>仓库中可以看到进程内子 Agent、ACP 子 Agent，以及连接 Claude Code、Codex 的实现。也就是说，“委派任务”本身被抽象成了可替换能力。</p>
+<h3 id="5-skills-与-mcp">5. Skills 与 MCP</h3>
+<p>项目包含 Skill 子系统，并提供通过通用 MCP 客户端接入第三方记忆服务器的示例。</p>
+<h3 id="6-python-sdk-和协议接口">6. Python SDK 和协议接口</h3>
+<p>除了 Node.js CLI，官方还提供 Python SDK、JSON-RPC 示例和 ACP 自动化服务器，方便其他程序把 Harness 当成运行时调用。</p>
+<p>这使它更接近一个 Agent Runtime，而不只是一个聊天应用。</p>
+<hr>
+<h2 id="安全边界不能忽略">安全边界不能忽略</h2>
+<p>Agent 能改文件、执行命令，也意味着它能造成真实破坏。</p>
+<p>DeepSeek Harness 提供工具审批、沙箱模式和可替换的文件系统/执行后端，但具体安全性取决于你使用的 Profile 和配置。</p>
+<p>官方 Python SDK 的最小示例就明确写着：该组合使用 <code>danger-full-access</code>，Bash 和编辑器可以修改运行进程有权访问的任何路径，只应在可丢弃的代码副本或容器里运行。</p>
+<p>第一次体验时，至少做到三点：</p>
+<ul>
+<li>不要直接选择包含重要私人文件的目录</li>
+<li>不要在拥有生产凭据的环境中测试</li>
+<li>优先使用临时仓库、容器或可随时丢弃的 workspace</li>
+</ul>
+<p>“有审批按钮”不等于天然安全。真正要用于团队或生产环境，还需要明确工具白名单、凭据隔离、沙箱后端和审计策略。</p>
+<hr>
+<h2 id="它适合谁">它适合谁？</h2>
+<p>如果只是想找一个开箱即用的 AI 助手，DeepSeek Harness 目前不一定比成熟产品省事。</p>
+<p>它更适合三类人：</p>
+<ul>
+<li>正在开发 Coding Agent 或通用 Agent 的工程师</li>
+<li>需要把不同模型、工具和执行环境组合起来的团队</li>
+<li>想研究长时运行 Agent 如何处理状态、权限和扩展性的开发者</li>
+</ul>
+<p>它目前最大的价值，不是“今天就替代 Claude Code 或 OpenClaw”，而是提供了一套完整、开放、可以拆解的 Agent 工程样本。</p>
+<hr>
+<h2 id="我的判断">我的判断</h2>
+<p>DeepSeek Harness 最值得看的，不是 Web UI，也不是它能调用多少工具，而是它对 Agent 工程化的判断：</p>
+<blockquote>
+<p>Agent 的差异，不会只来自模型。运行时、工具系统、状态管理、权限边界和扩展方式，也会成为产品能力的一部分。</p>
+</blockquote>
+<p>“一切皆插件”让它拥有很强的组合能力，也带来了明显的复杂度。Cordis、Profile、Bundle、Patch、事件域和 Capability Seam，都需要开发者花时间理解。</p>
+<p>再加上项目仍处于开发者预览阶段，没有稳定 Release，当前接口也可能快速变化。</p>
+<p>所以我不会把它描述成“已经成熟的新一代 Agent 框架”。更准确的说法是：</p>
+<blockquote>
+<p><strong>这是 DeepSeek 对 Agent Runtime 的一次完整开源表达。现在适合研究和试用，是否适合长期采用，还要看它接下来如何稳定接口、形成插件生态，并给出更有说服力的真实任务评测。</strong></p>
+</blockquote>
+<hr>
+<h2 id="参考资源">参考资源</h2>
+<ul>
+<li>GitHub：<a href="https://github.com/deepseek-ai/deepseek-harness">https://github.com/deepseek-ai/deepseek-harness</a></li>
+<li>官方中文 README：<a href="https://github.com/deepseek-ai/deepseek-harness/blob/master/README.zh.md">https://github.com/deepseek-ai/deepseek-harness/blob/master/README.zh.md</a></li>
+<li>架构文档：<a href="https://github.com/deepseek-ai/deepseek-harness/blob/master/docs/architecture.zh.md">https://github.com/deepseek-ai/deepseek-harness/blob/master/docs/architecture.zh.md</a></li>
+<li>Web UI 使用指南：<a href="https://github.com/deepseek-ai/deepseek-harness/blob/master/docs/user/guide/index.zh.md">https://github.com/deepseek-ai/deepseek-harness/blob/master/docs/user/guide/index.zh.md</a></li>
+<li>模型配置指南：<a href="https://github.com/deepseek-ai/deepseek-harness/blob/master/docs/user/guide/providers.zh.md">https://github.com/deepseek-ai/deepseek-harness/blob/master/docs/user/guide/providers.zh.md</a></li>
+</ul>  </article> <aside class="toc"><p class="toc-title">目录</p><ul class="toc-list"><li class="depth-2"><a href="#一句话理解-deepseek-harness" data-toc-link="一句话理解-deepseek-harness">一句话理解 DeepSeek Harness</a></li><li class="depth-2"><a href="#先跑起来看看" data-toc-link="先跑起来看看">先跑起来看看</a></li><li class="depth-2"><a href="#它和普通-agent-框架有什么不同" data-toc-link="它和普通-agent-框架有什么不同">它和普通 Agent 框架有什么不同？</a></li><li class="depth-2"><a href="#会话不是聊天记录而是一条事件日志" data-toc-link="会话不是聊天记录而是一条事件日志">会话不是聊天记录，而是一条事件日志</a></li><li class="depth-2"><a href="#它已经包含哪些能力" data-toc-link="它已经包含哪些能力">它已经包含哪些能力？</a></li><li class="depth-3"><a href="#1-web-和-headless-两种运行方式" data-toc-link="1-web-和-headless-两种运行方式">1. Web 和 Headless 两种运行方式</a></li><li class="depth-3"><a href="#2-多模型提供方" data-toc-link="2-多模型提供方">2. 多模型提供方</a></li><li class="depth-3"><a href="#3-shell终端与后台任务" data-toc-link="3-shell终端与后台任务">3. Shell、终端与后台任务</a></li><li class="depth-3"><a href="#4-子-agent" data-toc-link="4-子-agent">4. 子 Agent</a></li><li class="depth-3"><a href="#5-skills-与-mcp" data-toc-link="5-skills-与-mcp">5. Skills 与 MCP</a></li><li class="depth-3"><a href="#6-python-sdk-和协议接口" data-toc-link="6-python-sdk-和协议接口">6. Python SDK 和协议接口</a></li><li class="depth-2"><a href="#安全边界不能忽略" data-toc-link="安全边界不能忽略">安全边界不能忽略</a></li><li class="depth-2"><a href="#它适合谁" data-toc-link="它适合谁">它适合谁？</a></li><li class="depth-2"><a href="#我的判断" data-toc-link="我的判断">我的判断</a></li><li class="depth-2"><a href="#参考资源" data-toc-link="参考资源">参考资源</a></li></ul></aside><script type="module">const c=()=>{const r=Array.from(document.querySelectorAll(".toc a[data-toc-link]"));if(!r.length)return;const o=r.map(t=>{const e=t.getAttribute("data-toc-link");if(!e)return null;const n=document.getElementById(e);return n?{id:e,heading:n,link:t}:null}).filter(t=>t!==null);if(!o.length)return;const s=t=>{r.forEach(e=>{const n=e.getAttribute("data-toc-link")===t;e.classList.toggle("active",n),n&&e.scrollIntoView({block:"nearest",inline:"nearest"})})},i=()=>{const t=Math.round(window.innerHeight*.28);let e=o[0];for(const n of o)n.heading.getBoundingClientRect().top<=t&&(e=n);s(e.id)};i();const a=new IntersectionObserver(()=>i(),{rootMargin:"-18% 0px -70% 0px",threshold:[0,1]});o.forEach(t=>a.observe(t.heading)),window.addEventListener("scroll",i,{passive:!0})};document.addEventListener("DOMContentLoaded",c);document.addEventListener("astro:page-load",c);</script> </div>  </main> <footer class="site-footer"> <div class="shell footer-inner"> <p>© 2026 未来观察者</p> </div> </footer> </body></html>
