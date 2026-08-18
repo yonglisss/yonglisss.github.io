@@ -1,0 +1,113 @@
+<!DOCTYPE html><html lang="zh-CN"> <head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1"><script>
+      (() => {
+        const storageKey = "future-observer-theme";
+        const root = document.documentElement;
+        const getStoredMode = () => {
+          try {
+            const value = localStorage.getItem(storageKey);
+            return value === "light" || value === "dark" || value === "system" ? value : "system";
+          } catch {
+            return "system";
+          }
+        };
+        const systemDark = () => window.matchMedia?.("(prefers-color-scheme: dark)").matches ?? false;
+        const apply = (mode) => {
+          const resolved = mode === "system" ? (systemDark() ? "dark" : "light") : mode;
+          root.dataset.themeMode = mode;
+          root.dataset.theme = resolved;
+          root.style.colorScheme = resolved;
+        };
+        apply(getStoredMode());
+        window.__setFutureObserverTheme = (mode) => {
+          const next = mode === "light" || mode === "dark" || mode === "system" ? mode : "system";
+          try { localStorage.setItem(storageKey, next); } catch {}
+          apply(next);
+          window.dispatchEvent(new CustomEvent("future-observer-theme-change", { detail: { mode: next } }));
+        };
+        window.matchMedia?.("(prefers-color-scheme: dark)").addEventListener?.("change", () => {
+          if (getStoredMode() === "system") apply("system");
+        });
+      })();
+    </script><title>Munder Difflin：把多个编码 Agent 组织成一间本地“办公室” | 未来观察者</title><meta name="description" content="同时打开几个编码 Agent 不难，难的是分工、传递上下文和及时接管。近期登上 GitHub Trending 的 Munder Difflin，把现有终端 Agent 接进同一套本地桌面工作台，让它们像团队一样协作，而不是各自在窗口里孤立运行。"><meta name="generator" content="Astro v5.18.1"><meta property="og:title" content="Munder Difflin：把多个编码 Agent 组织成一间本地“办公室” | 未来观察者"><meta property="og:description" content="同时打开几个编码 Agent 不难，难的是分工、传递上下文和及时接管。近期登上 GitHub Trending 的 Munder Difflin，把现有终端 Agent 接进同一套本地桌面工作台，让它们像团队一样协作，而不是各自在窗口里孤立运行。"><meta property="og:type" content="website"><meta property="og:url" content="https://future.lifestudylab.com/posts/2026-08-19-munder-difflin/"><link rel="icon" type="image/svg+xml" href="/favicon.svg"><link rel="alternate" type="application/rss+xml" title="未来观察者" href="/rss.xml"><link rel="stylesheet" href="/_astro/_channel_.BFW__1rx.css"></head> <body> <div class="page-bg"></div> <header class="site-header"> <div class="shell header-inner"> <div class="header-bar"> <a class="brand" href="/ai-tools/"> <img src="/brand-mark.svg" alt="" class="brand-mark" width="56" height="56"> <span class="brand-text" aria-label="未来观察者">思考未来</span> </a> </div> <nav class="top-menu" aria-label="顶部菜单"> <a href="/future-daily/" class="top-menu-link"> 每日信息 </a><a href="/docs/deer-flow/00-overview/" class="top-menu-link"> DeerFlow教程 </a><a href="/docs/hermes/00-overview/" class="top-menu-link"> Hermes教程 </a><a href="/docs/openclaw/00-overview/" class="top-menu-link"> OpenClaw教程 </a><a href="/about/" class="top-menu-link"> 关于我 </a> </nav> <div class="top-actions"> <a class="feedback-link" href="https://github.com/yonglisss/yonglisss.github.io/issues" target="_blank" rel="noopener noreferrer" aria-label="问题反馈"> <svg viewBox="0 0 24 24" aria-hidden="true" class="action-icon"> <path d="M4.75 5.75A2.75 2.75 0 0 1 7.5 3h9A2.75 2.75 0 0 1 19.25 5.75v6.5A2.75 2.75 0 0 1 16.5 15H9.3l-3.55 3.2V15.1a2.75 2.75 0 0 1-1-2.1V5.75Z"></path> <path d="M8 7.75h8M8 11.25h4"></path> </svg> <span>问题反馈</span> </a> <div class="theme-switcher" data-theme-switcher> <button class="theme-trigger" type="button" aria-haspopup="menu" aria-expanded="false" aria-label="切换明暗模式" data-theme-trigger> <svg viewBox="0 0 24 24" aria-hidden="true" class="action-icon theme-trigger-icon theme-trigger-icon--light"> <circle cx="12" cy="12" r="4"></circle> <path d="M12 2.75v2M12 19.25v2M4.75 4.75l1.4 1.4M17.85 17.85l1.4 1.4M2.75 12h2M19.25 12h2M4.75 19.25l1.4-1.4M17.85 6.15l1.4-1.4"></path> </svg> <svg viewBox="0 0 24 24" aria-hidden="true" class="action-icon theme-trigger-icon theme-trigger-icon--dark"> <path d="M20.25 14.2A8 8 0 0 1 9.8 3.75 8.5 8.5 0 1 0 20.25 14.2Z"></path> </svg> <svg viewBox="0 0 24 24" aria-hidden="true" class="action-icon theme-trigger-icon theme-trigger-icon--system"> <rect x="4" y="5" width="16" height="11" rx="1.8"></rect> <path d="M9 20h6M12 16v4"></path> </svg> </button> <div class="theme-menu" role="menu" data-theme-menu hidden> <button class="theme-option" type="button" role="menuitemradio" data-theme-option="light" aria-checked="false"> <svg viewBox="0 0 24 24" aria-hidden="true" class="action-icon"><circle cx="12" cy="12" r="4"></circle><path d="M12 2.75v2M12 19.25v2M4.75 4.75l1.4 1.4M17.85 17.85l1.4 1.4M2.75 12h2M19.25 12h2M4.75 19.25l1.4-1.4M17.85 6.15l1.4-1.4"></path></svg> <span>亮色</span> </button> <button class="theme-option" type="button" role="menuitemradio" data-theme-option="dark" aria-checked="false"> <svg viewBox="0 0 24 24" aria-hidden="true" class="action-icon"><path d="M20.25 14.2A8 8 0 0 1 9.8 3.75 8.5 8.5 0 1 0 20.25 14.2Z"></path></svg> <span>暗色</span> </button> <button class="theme-option" type="button" role="menuitemradio" data-theme-option="system" aria-checked="true"> <svg viewBox="0 0 24 24" aria-hidden="true" class="action-icon"><rect x="4" y="5" width="16" height="11" rx="1.8"></rect><path d="M9 20h6M12 16v4"></path></svg> <span>跟随系统</span> </button> </div> </div> </div> </div> </header> <script>
+  (() => {
+    const switcher = document.querySelector("[data-theme-switcher]");
+    if (!switcher) return;
+
+    const trigger = switcher.querySelector("[data-theme-trigger]");
+    const menu = switcher.querySelector("[data-theme-menu]");
+    const options = [...switcher.querySelectorAll("[data-theme-option]")];
+    const modes = ["light", "dark", "system"];
+
+    const getMode = () => {
+      const mode = document.documentElement.dataset.themeMode;
+      return modes.includes(mode) ? mode : "system";
+    };
+
+    const closeMenu = () => {
+      menu.hidden = true;
+      trigger.setAttribute("aria-expanded", "false");
+    };
+
+    const openMenu = () => {
+      menu.hidden = false;
+      trigger.setAttribute("aria-expanded", "true");
+    };
+
+    const sync = () => {
+      const mode = getMode();
+      trigger.dataset.themeMode = mode;
+      options.forEach((option) => {
+        option.setAttribute("aria-checked", String(option.dataset.themeOption === mode));
+      });
+    };
+
+    trigger.addEventListener("click", () => {
+      menu.hidden ? openMenu() : closeMenu();
+    });
+
+    options.forEach((option) => {
+      option.addEventListener("click", () => {
+        window.__setFutureObserverTheme?.(option.dataset.themeOption || "system");
+        sync();
+        closeMenu();
+      });
+    });
+
+    document.addEventListener("click", (event) => {
+      if (!switcher.contains(event.target)) closeMenu();
+    });
+
+    document.addEventListener("keydown", (event) => {
+      if (event.key === "Escape") closeMenu();
+    });
+
+    window.addEventListener("future-observer-theme-change", sync);
+    sync();
+  })();
+</script> <aside class="site-rail" aria-label="站点导航"> <div class="site-rail-inner"> <p class="site-rail-label">Channels</p> <nav aria-label="主导航"> <ul class="site-rail-nav"> <li> <a href="/ai-tools/" class="site-rail-link"> AI工具 </a> </li><li> <a href="/future-daily/" class="site-rail-link"> 未来观察者日报 </a> </li> </ul> </nav> </div> </aside> <main class="shell page-content">  <div class="post-hero"> <p class="eyebrow">2026年8月19日</p> <h1>Munder Difflin：把多个编码 Agent 组织成一间本地“办公室”</h1> <p class="post-summary">同时打开几个编码 Agent 不难，难的是分工、传递上下文和及时接管。近期登上 GitHub Trending 的 Munder Difflin，把现有终端 Agent 接进同一套本地桌面工作台，让它们像团队一样协作，而不是各自在窗口里孤立运行。</p> <ul class="tag-list"> <li> <a href="/tags/AI%E5%B7%A5%E5%85%B7/" class="tag-link">
+#AI工具 </a> </li><li> <a href="/tags/2026%E5%B9%B408%E6%9C%88/" class="tag-link">
+#2026年08月 </a> </li> </ul> </div> <div class="post-grid"> <article class="prose">  <p>同时打开几个编码 Agent 不难，难的是分工、传递上下文和及时接管。近期登上 GitHub Trending 的 Munder Difflin，把现有终端 Agent 接进同一套本地桌面工作台，让它们像团队一样协作，而不是各自在窗口里孤立运行。</p>
+<h2 id="-这个项目是干什么的">📌 这个项目是干什么的</h2>
+<p>Munder Difflin 是一款基于 Electron 的多 Agent 桌面应用。它通过 <code>node-pty</code> 启动真实的终端 CLI，而非重新实现 Agent。目前 README 列出了 Claude Code、Codex、OpenCode、Kimi Code、Qwen、Copilot CLI 等接入项，也支持 Ollama、LM Studio 和 vLLM 等自带模型路径。</p>
+<p>每个 Agent 有独立终端、邮箱和持久记忆，由主管 Agent 负责分派、路由和升级任务。像素办公室只是可视化层，底层还有任务账本、生命周期钩子、成本记录与人工接管。</p>
+<h2 id="-为什么值得关注">🔍 为什么值得关注</h2>
+<p>第一，它保留现有 CLI 的原生能力。开发者可以继续使用已经配置好的工具、订阅和模型，在上层增加协作机制，减少单一框架锁定。</p>
+<p>第二，它把系统拆成两条通路：终端通路处理进程输入输出，事件通路处理钩子、消息、记忆和调度。这比“多开几个终端”更易排查任务究竟卡在执行、通信还是分工。</p>
+<p>第三，项目仍在快速修补可用性。8 月 18 日发布的 v0.4.4 修复了 Windows Agent 间消息和首次启动问题，并新增 Skills 浏览器。但官方仍将其标为 working prototype，应按实验工具看待。</p>
+<h2 id="-谁适合试怎么开始">🧪 谁适合试，怎么开始</h2>
+<p>它适合经常并行处理代码任务、已使用多种编码 CLI，或研究多 Agent 调度的开发者。建议先在非敏感测试仓库只接两个 Agent，验证“拆任务—传消息—合并结果—人工接管”这条最小链路。</p>
+<p>运行需要 Node.js 18+、npm、C/C++ 工具链，以及至少一个已加入 <code>PATH</code> 的受支持 CLI：</p>
+<pre class="astro-code astro-code-themes github-light github-dark" style="--shiki-light:#24292e;--shiki-dark:#e1e4e8;--shiki-light-bg:#fff;--shiki-dark-bg:#24292e; overflow-x: auto;" tabindex="0" data-language="bash"><code><span class="line"><span style="--shiki-light:#6F42C1;--shiki-dark:#B392F0">git</span><span style="--shiki-light:#032F62;--shiki-dark:#9ECBFF"> clone</span><span style="--shiki-light:#032F62;--shiki-dark:#9ECBFF"> https://github.com/chaitanyagiri/munder-difflin.git</span></span>
+<span class="line"><span style="--shiki-light:#005CC5;--shiki-dark:#79B8FF">cd</span><span style="--shiki-light:#032F62;--shiki-dark:#9ECBFF"> munder-difflin</span></span>
+<span class="line"><span style="--shiki-light:#6F42C1;--shiki-dark:#B392F0">npm</span><span style="--shiki-light:#032F62;--shiki-dark:#9ECBFF"> install</span></span>
+<span class="line"><span style="--shiki-light:#6F42C1;--shiki-dark:#B392F0">npm</span><span style="--shiki-light:#032F62;--shiki-dark:#9ECBFF"> run</span><span style="--shiki-light:#032F62;--shiki-dark:#9ECBFF"> dev</span></span></code></pre>
+<h2 id="️-使用提醒">⚠️ 使用提醒</h2>
+<p>多 Agent 不会自动提高效率，还可能重复改文件、增加模型消耗。请从可独立验收的小任务开始，并保留 Git 分支和人工审查。</p>
+<p>官方构建会发送有限的匿名事件，可在设置中关闭或设置 <code>DO_NOT_TRACK</code>；源码构建默认不发送。源代码采用 MIT 许可证，但内置像素美术资产仅限非商业使用，商业化前需替换素材或取得授权。</p>
+<h2 id="-参考资源">🔗 参考资源</h2>
+<ul>
+<li>GitHub：<a href="https://github.com/chaitanyagiri/munder-difflin">https://github.com/chaitanyagiri/munder-difflin</a></li>
+<li>官方网站：<a href="https://munderdiffl.in">https://munderdiffl.in</a></li>
+<li>v0.4.4 Release：<a href="https://github.com/chaitanyagiri/munder-difflin/releases/tag/v0.4.4">https://github.com/chaitanyagiri/munder-difflin/releases/tag/v0.4.4</a></li>
+<li>遥测说明：<a href="https://github.com/chaitanyagiri/munder-difflin/blob/main/TELEMETRY.md">https://github.com/chaitanyagiri/munder-difflin/blob/main/TELEMETRY.md</a></li>
+</ul>  </article> <aside class="toc"><p class="toc-title">目录</p><ul class="toc-list"><li class="depth-2"><a href="#-这个项目是干什么的" data-toc-link="-这个项目是干什么的">📌 这个项目是干什么的</a></li><li class="depth-2"><a href="#-为什么值得关注" data-toc-link="-为什么值得关注">🔍 为什么值得关注</a></li><li class="depth-2"><a href="#-谁适合试怎么开始" data-toc-link="-谁适合试怎么开始">🧪 谁适合试，怎么开始</a></li><li class="depth-2"><a href="#️-使用提醒" data-toc-link="️-使用提醒">⚠️ 使用提醒</a></li><li class="depth-2"><a href="#-参考资源" data-toc-link="-参考资源">🔗 参考资源</a></li></ul></aside><script type="module">const c=()=>{const r=Array.from(document.querySelectorAll(".toc a[data-toc-link]"));if(!r.length)return;const o=r.map(t=>{const e=t.getAttribute("data-toc-link");if(!e)return null;const n=document.getElementById(e);return n?{id:e,heading:n,link:t}:null}).filter(t=>t!==null);if(!o.length)return;const s=t=>{r.forEach(e=>{const n=e.getAttribute("data-toc-link")===t;e.classList.toggle("active",n),n&&e.scrollIntoView({block:"nearest",inline:"nearest"})})},i=()=>{const t=Math.round(window.innerHeight*.28);let e=o[0];for(const n of o)n.heading.getBoundingClientRect().top<=t&&(e=n);s(e.id)};i();const a=new IntersectionObserver(()=>i(),{rootMargin:"-18% 0px -70% 0px",threshold:[0,1]});o.forEach(t=>a.observe(t.heading)),window.addEventListener("scroll",i,{passive:!0})};document.addEventListener("DOMContentLoaded",c);document.addEventListener("astro:page-load",c);</script> </div>  </main> <footer class="site-footer"> <div class="shell footer-inner"> <p>© 2026 未来观察者</p> </div> </footer> </body></html>
