@@ -1,0 +1,109 @@
+<!DOCTYPE html><html lang="zh-CN"> <head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1"><script>
+      (() => {
+        const storageKey = "future-observer-theme";
+        const root = document.documentElement;
+        const getStoredMode = () => {
+          try {
+            const value = localStorage.getItem(storageKey);
+            return value === "light" || value === "dark" || value === "system" ? value : "system";
+          } catch {
+            return "system";
+          }
+        };
+        const systemDark = () => window.matchMedia?.("(prefers-color-scheme: dark)").matches ?? false;
+        const apply = (mode) => {
+          const resolved = mode === "system" ? (systemDark() ? "dark" : "light") : mode;
+          root.dataset.themeMode = mode;
+          root.dataset.theme = resolved;
+          root.style.colorScheme = resolved;
+        };
+        apply(getStoredMode());
+        window.__setFutureObserverTheme = (mode) => {
+          const next = mode === "light" || mode === "dark" || mode === "system" ? mode : "system";
+          try { localStorage.setItem(storageKey, next); } catch {}
+          apply(next);
+          window.dispatchEvent(new CustomEvent("future-observer-theme-change", { detail: { mode: next } }));
+        };
+        window.matchMedia?.("(prefers-color-scheme: dark)").addEventListener?.("change", () => {
+          if (getStoredMode() === "system") apply("system");
+        });
+      })();
+    </script><title>AI-Infra-Guard：给 Agent、MCP 和技能做一次安全体检 | 未来观察者</title><meta name="description" content="AI 应用接入的工具越来越多，风险也不再只来自模型提示词。今日 GitHub Trending 上的 AI-Infra-Guard，是腾讯朱雀实验室开源的 AI 红队平台：它把 Agent、MCP Server、Agent Skill、AI 基础设施漏洞和模型越狱评测放进同一套工"><meta name="generator" content="Astro v5.18.1"><meta property="og:title" content="AI-Infra-Guard：给 Agent、MCP 和技能做一次安全体检 | 未来观察者"><meta property="og:description" content="AI 应用接入的工具越来越多，风险也不再只来自模型提示词。今日 GitHub Trending 上的 AI-Infra-Guard，是腾讯朱雀实验室开源的 AI 红队平台：它把 Agent、MCP Server、Agent Skill、AI 基础设施漏洞和模型越狱评测放进同一套工"><meta property="og:type" content="website"><meta property="og:url" content="https://future.lifestudylab.com/posts/2026-08-22-ai-infra-guard/"><link rel="icon" type="image/svg+xml" href="/favicon.svg"><link rel="alternate" type="application/rss+xml" title="未来观察者" href="/rss.xml"><link rel="stylesheet" href="/_astro/_channel_.BFW__1rx.css"></head> <body> <div class="page-bg"></div> <header class="site-header"> <div class="shell header-inner"> <div class="header-bar"> <a class="brand" href="/ai-tools/"> <img src="/brand-mark.svg" alt="" class="brand-mark" width="56" height="56"> <span class="brand-text" aria-label="未来观察者">思考未来</span> </a> </div> <nav class="top-menu" aria-label="顶部菜单"> <a href="/future-daily/" class="top-menu-link"> 每日信息 </a><a href="/docs/deer-flow/00-overview/" class="top-menu-link"> DeerFlow教程 </a><a href="/docs/hermes/00-overview/" class="top-menu-link"> Hermes教程 </a><a href="/docs/openclaw/00-overview/" class="top-menu-link"> OpenClaw教程 </a><a href="/about/" class="top-menu-link"> 关于我 </a> </nav> <div class="top-actions"> <a class="feedback-link" href="https://github.com/yonglisss/yonglisss.github.io/issues" target="_blank" rel="noopener noreferrer" aria-label="问题反馈"> <svg viewBox="0 0 24 24" aria-hidden="true" class="action-icon"> <path d="M4.75 5.75A2.75 2.75 0 0 1 7.5 3h9A2.75 2.75 0 0 1 19.25 5.75v6.5A2.75 2.75 0 0 1 16.5 15H9.3l-3.55 3.2V15.1a2.75 2.75 0 0 1-1-2.1V5.75Z"></path> <path d="M8 7.75h8M8 11.25h4"></path> </svg> <span>问题反馈</span> </a> <div class="theme-switcher" data-theme-switcher> <button class="theme-trigger" type="button" aria-haspopup="menu" aria-expanded="false" aria-label="切换明暗模式" data-theme-trigger> <svg viewBox="0 0 24 24" aria-hidden="true" class="action-icon theme-trigger-icon theme-trigger-icon--light"> <circle cx="12" cy="12" r="4"></circle> <path d="M12 2.75v2M12 19.25v2M4.75 4.75l1.4 1.4M17.85 17.85l1.4 1.4M2.75 12h2M19.25 12h2M4.75 19.25l1.4-1.4M17.85 6.15l1.4-1.4"></path> </svg> <svg viewBox="0 0 24 24" aria-hidden="true" class="action-icon theme-trigger-icon theme-trigger-icon--dark"> <path d="M20.25 14.2A8 8 0 0 1 9.8 3.75 8.5 8.5 0 1 0 20.25 14.2Z"></path> </svg> <svg viewBox="0 0 24 24" aria-hidden="true" class="action-icon theme-trigger-icon theme-trigger-icon--system"> <rect x="4" y="5" width="16" height="11" rx="1.8"></rect> <path d="M9 20h6M12 16v4"></path> </svg> </button> <div class="theme-menu" role="menu" data-theme-menu hidden> <button class="theme-option" type="button" role="menuitemradio" data-theme-option="light" aria-checked="false"> <svg viewBox="0 0 24 24" aria-hidden="true" class="action-icon"><circle cx="12" cy="12" r="4"></circle><path d="M12 2.75v2M12 19.25v2M4.75 4.75l1.4 1.4M17.85 17.85l1.4 1.4M2.75 12h2M19.25 12h2M4.75 19.25l1.4-1.4M17.85 6.15l1.4-1.4"></path></svg> <span>亮色</span> </button> <button class="theme-option" type="button" role="menuitemradio" data-theme-option="dark" aria-checked="false"> <svg viewBox="0 0 24 24" aria-hidden="true" class="action-icon"><path d="M20.25 14.2A8 8 0 0 1 9.8 3.75 8.5 8.5 0 1 0 20.25 14.2Z"></path></svg> <span>暗色</span> </button> <button class="theme-option" type="button" role="menuitemradio" data-theme-option="system" aria-checked="true"> <svg viewBox="0 0 24 24" aria-hidden="true" class="action-icon"><rect x="4" y="5" width="16" height="11" rx="1.8"></rect><path d="M9 20h6M12 16v4"></path></svg> <span>跟随系统</span> </button> </div> </div> </div> </div> </header> <script>
+  (() => {
+    const switcher = document.querySelector("[data-theme-switcher]");
+    if (!switcher) return;
+
+    const trigger = switcher.querySelector("[data-theme-trigger]");
+    const menu = switcher.querySelector("[data-theme-menu]");
+    const options = [...switcher.querySelectorAll("[data-theme-option]")];
+    const modes = ["light", "dark", "system"];
+
+    const getMode = () => {
+      const mode = document.documentElement.dataset.themeMode;
+      return modes.includes(mode) ? mode : "system";
+    };
+
+    const closeMenu = () => {
+      menu.hidden = true;
+      trigger.setAttribute("aria-expanded", "false");
+    };
+
+    const openMenu = () => {
+      menu.hidden = false;
+      trigger.setAttribute("aria-expanded", "true");
+    };
+
+    const sync = () => {
+      const mode = getMode();
+      trigger.dataset.themeMode = mode;
+      options.forEach((option) => {
+        option.setAttribute("aria-checked", String(option.dataset.themeOption === mode));
+      });
+    };
+
+    trigger.addEventListener("click", () => {
+      menu.hidden ? openMenu() : closeMenu();
+    });
+
+    options.forEach((option) => {
+      option.addEventListener("click", () => {
+        window.__setFutureObserverTheme?.(option.dataset.themeOption || "system");
+        sync();
+        closeMenu();
+      });
+    });
+
+    document.addEventListener("click", (event) => {
+      if (!switcher.contains(event.target)) closeMenu();
+    });
+
+    document.addEventListener("keydown", (event) => {
+      if (event.key === "Escape") closeMenu();
+    });
+
+    window.addEventListener("future-observer-theme-change", sync);
+    sync();
+  })();
+</script> <aside class="site-rail" aria-label="站点导航"> <div class="site-rail-inner"> <p class="site-rail-label">Channels</p> <nav aria-label="主导航"> <ul class="site-rail-nav"> <li> <a href="/ai-tools/" class="site-rail-link"> AI工具 </a> </li><li> <a href="/future-daily/" class="site-rail-link"> 未来观察者日报 </a> </li> </ul> </nav> </div> </aside> <main class="shell page-content">  <div class="post-hero"> <p class="eyebrow">2026年8月22日</p> <h1>AI-Infra-Guard：给 Agent、MCP 和技能做一次安全体检</h1> <p class="post-summary">AI 应用接入的工具越来越多，风险也不再只来自模型提示词。今日 GitHub Trending 上的 AI-Infra-Guard，是腾讯朱雀实验室开源的 AI 红队平台：它把 Agent、MCP Server、Agent Skill、AI 基础设施漏洞和模型越狱评测放进同一套工</p> <ul class="tag-list"> <li> <a href="/tags/AI%E5%B7%A5%E5%85%B7/" class="tag-link">
+#AI工具 </a> </li><li> <a href="/tags/2026%E5%B9%B408%E6%9C%88/" class="tag-link">
+#2026年08月 </a> </li> </ul> </div> <div class="post-grid"> <article class="prose">  <p>AI 应用接入的工具越来越多，风险也不再只来自模型提示词。今日 GitHub Trending 上的 AI-Infra-Guard，是腾讯朱雀实验室开源的 AI 红队平台：它把 Agent、MCP Server、Agent Skill、AI 基础设施漏洞和模型越狱评测放进同一套工具里，适合在上线前补一轮系统化安全检查。</p>
+<h2 id="-这个项目是干什么的">📌 这个项目是干什么的</h2>
+<p>AI-Infra-Guard 面向企业和个人的 AI 系统安全自检。它可以扫描 Agent 工作流，检查 MCP Server 与 Skill 的源码或远程服务，也能识别 Ollama、ComfyUI、vLLM、n8n 等 AI 基础设施组件的已知漏洞。</p>
+<p>项目既提供 Web 界面，也把 Skill、MCP 和 Agent 扫描能力拆成独立 CLI，便于接入 CI/CD。最新正式版 v4.5.2 发布于 8 月 17 日，新增或修复了 Python 字节码绕过、字符集内容走私，以及动态 MCP 扫描中的远程代码执行风险等问题。</p>
+<h2 id="-为什么值得关注">🔍 为什么值得关注</h2>
+<p>第一，它关注的是完整攻击面，而不是只做“提示词是否越狱”。当 Agent 能调用工具、加载第三方 Skill、连接 MCP 服务后，恶意代码、工具投毒、凭据外传和不安全依赖都会成为真实风险。</p>
+<p>第二，它给出了可落地的分层检查路径。团队可以先用独立 CLI 扫一个 Skill 或 MCP 项目，再决定是否部署完整平台；这比一开始引入一整套安全基础设施更容易验证价值。</p>
+<p>第三，项目仍在持续处理扫描器自身的安全边界。v4.5.2 对动态扫描中的 RCE 风险加入工具白名单防护，也提醒使用者：安全扫描工具本身同样需要隔离、更新和最小权限。</p>
+<h2 id="-谁适合试怎么开始">🧪 谁适合试，怎么开始</h2>
+<p>它适合维护 Agent 平台、MCP 服务、企业内部 Skill 市场，或准备把 AI 工作流接入生产环境的研发与安全团队。个人开发者若经常安装第三方 Skill，也可以先尝试轻量扫描器。</p>
+<p>最短路径是从一个非敏感的本地 Skill 开始：准备 Python 环境，执行 <code>pip install aig-skill-scan</code>，配置兼容的模型 API Key，再用 <code>aig-skill-scan --repo /path/to/skill -o result.json</code> 生成报告。确认规则、误报和模型成本符合预期后，再考虑用 Docker Compose 部署完整 Web 平台。官方给出的最低部署条件为 Docker 20.10 以上、4GB 内存和 10GB 磁盘。</p>
+<h2 id="️-使用提醒">⚠️ 使用提醒</h2>
+<p>完整平台目前没有身份认证机制，README 明确要求不要直接部署到公网。扫描未知代码或远程 MCP 时，应放在隔离环境中，并限制网络、凭据和文件权限。</p>
+<p>扫描结果也不等于安全结论：基于模型的检测可能有误报和漏报，适合作为代码审查、依赖治理和人工红队测试的补充。项目采用 Apache-2.0 许可证，但接入外部模型与在线服务时，仍需单独评估代码和数据是否会离开本地环境。</p>
+<h2 id="-参考资源">🔗 参考资源</h2>
+<ul>
+<li>GitHub：<a href="https://github.com/Tencent/AI-Infra-Guard">https://github.com/Tencent/AI-Infra-Guard</a></li>
+<li>官方文档：<a href="https://tencent.github.io/AI-Infra-Guard/">https://tencent.github.io/AI-Infra-Guard/</a></li>
+<li>v4.5.2 Release：<a href="https://github.com/Tencent/AI-Infra-Guard/releases/tag/v4.5.2">https://github.com/Tencent/AI-Infra-Guard/releases/tag/v4.5.2</a></li>
+<li>Skill 扫描器：<a href="https://github.com/Tencent/AI-Infra-Guard/tree/main/skill-scan">https://github.com/Tencent/AI-Infra-Guard/tree/main/skill-scan</a></li>
+</ul>  </article> <aside class="toc"><p class="toc-title">目录</p><ul class="toc-list"><li class="depth-2"><a href="#-这个项目是干什么的" data-toc-link="-这个项目是干什么的">📌 这个项目是干什么的</a></li><li class="depth-2"><a href="#-为什么值得关注" data-toc-link="-为什么值得关注">🔍 为什么值得关注</a></li><li class="depth-2"><a href="#-谁适合试怎么开始" data-toc-link="-谁适合试怎么开始">🧪 谁适合试，怎么开始</a></li><li class="depth-2"><a href="#️-使用提醒" data-toc-link="️-使用提醒">⚠️ 使用提醒</a></li><li class="depth-2"><a href="#-参考资源" data-toc-link="-参考资源">🔗 参考资源</a></li></ul></aside><script type="module">const c=()=>{const r=Array.from(document.querySelectorAll(".toc a[data-toc-link]"));if(!r.length)return;const o=r.map(t=>{const e=t.getAttribute("data-toc-link");if(!e)return null;const n=document.getElementById(e);return n?{id:e,heading:n,link:t}:null}).filter(t=>t!==null);if(!o.length)return;const s=t=>{r.forEach(e=>{const n=e.getAttribute("data-toc-link")===t;e.classList.toggle("active",n),n&&e.scrollIntoView({block:"nearest",inline:"nearest"})})},i=()=>{const t=Math.round(window.innerHeight*.28);let e=o[0];for(const n of o)n.heading.getBoundingClientRect().top<=t&&(e=n);s(e.id)};i();const a=new IntersectionObserver(()=>i(),{rootMargin:"-18% 0px -70% 0px",threshold:[0,1]});o.forEach(t=>a.observe(t.heading)),window.addEventListener("scroll",i,{passive:!0})};document.addEventListener("DOMContentLoaded",c);document.addEventListener("astro:page-load",c);</script> </div>  </main> <footer class="site-footer"> <div class="shell footer-inner"> <p>© 2026 未来观察者</p> </div> </footer> </body></html>
