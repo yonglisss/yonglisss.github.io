@@ -1,0 +1,279 @@
+<!DOCTYPE html><html lang="zh-CN"> <head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1"><script>
+      (() => {
+        const storageKey = "future-observer-theme";
+        const root = document.documentElement;
+        const getStoredMode = () => {
+          try {
+            const value = localStorage.getItem(storageKey);
+            return value === "light" || value === "dark" || value === "system" ? value : "system";
+          } catch {
+            return "system";
+          }
+        };
+        const systemDark = () => window.matchMedia?.("(prefers-color-scheme: dark)").matches ?? false;
+        const apply = (mode) => {
+          const resolved = mode === "system" ? (systemDark() ? "dark" : "light") : mode;
+          root.dataset.themeMode = mode;
+          root.dataset.theme = resolved;
+          root.style.colorScheme = resolved;
+        };
+        apply(getStoredMode());
+        window.__setFutureObserverTheme = (mode) => {
+          const next = mode === "light" || mode === "dark" || mode === "system" ? mode : "system";
+          try { localStorage.setItem(storageKey, next); } catch {}
+          apply(next);
+          window.dispatchEvent(new CustomEvent("future-observer-theme-change", { detail: { mode: next } }));
+        };
+        window.matchMedia?.("(prefers-color-scheme: dark)").addEventListener?.("change", () => {
+          if (getStoredMode() === "system") apply("system");
+        });
+      })();
+    </script><title>🛰️ 台海风险出现“期限溢价”：2027 年概率 11.5%，供应链压力测试窗口正在后移 | 未来观察者</title><meta name="description" content="🔭 核心观点：Polymarket 对“2026 年底前发生符合规则的军事攻势”定价仅 3.75%，但把期限延长到 2027 年底后，概率升至 11.5%。今天新增的变量不是台海风险本身，而是清晰的 7.75 个百分点期限价差：市场认为近端仍是低概率情景，却不愿对更长窗口给出同"><meta name="generator" content="Astro v5.18.1"><meta property="og:title" content="🛰️ 台海风险出现“期限溢价”：2027 年概率 11.5%，供应链压力测试窗口正在后移 | 未来观察者"><meta property="og:description" content="🔭 核心观点：Polymarket 对“2026 年底前发生符合规则的军事攻势”定价仅 3.75%，但把期限延长到 2027 年底后，概率升至 11.5%。今天新增的变量不是台海风险本身，而是清晰的 7.75 个百分点期限价差：市场认为近端仍是低概率情景，却不愿对更长窗口给出同"><meta property="og:type" content="website"><meta property="og:url" content="https://future.lifestudylab.com/posts/2026-08-23-%E5%8F%B0%E6%B5%B7%E9%A3%8E%E9%99%A9%E6%9C%9F%E9%99%90%E7%BB%93%E6%9E%84-2027%E6%A6%82%E7%8E%87115%E6%8F%AD%E7%A4%BA%E4%BE%9B%E5%BA%94%E9%93%BE%E5%8E%8B%E5%8A%9B%E6%B5%8B%E8%AF%95%E7%AA%97%E5%8F%A3%E5%90%8E%E7%A7%BB/"><link rel="icon" type="image/svg+xml" href="/favicon.svg"><link rel="alternate" type="application/rss+xml" title="未来观察者" href="/rss.xml"><link rel="stylesheet" href="/_astro/_channel_.BFW__1rx.css"></head> <body> <div class="page-bg"></div> <header class="site-header"> <div class="shell header-inner"> <div class="header-bar"> <a class="brand" href="/ai-tools/"> <img src="/brand-mark.svg" alt="" class="brand-mark" width="56" height="56"> <span class="brand-text" aria-label="未来观察者">思考未来</span> </a> </div> <nav class="top-menu" aria-label="顶部菜单"> <a href="/future-daily/" class="top-menu-link"> 每日信息 </a><a href="/docs/deer-flow/00-overview/" class="top-menu-link"> DeerFlow教程 </a><a href="/docs/hermes/00-overview/" class="top-menu-link"> Hermes教程 </a><a href="/docs/openclaw/00-overview/" class="top-menu-link"> OpenClaw教程 </a><a href="/about/" class="top-menu-link"> 关于我 </a> </nav> <div class="top-actions"> <a class="feedback-link" href="https://github.com/yonglisss/yonglisss.github.io/issues" target="_blank" rel="noopener noreferrer" aria-label="问题反馈"> <svg viewBox="0 0 24 24" aria-hidden="true" class="action-icon"> <path d="M4.75 5.75A2.75 2.75 0 0 1 7.5 3h9A2.75 2.75 0 0 1 19.25 5.75v6.5A2.75 2.75 0 0 1 16.5 15H9.3l-3.55 3.2V15.1a2.75 2.75 0 0 1-1-2.1V5.75Z"></path> <path d="M8 7.75h8M8 11.25h4"></path> </svg> <span>问题反馈</span> </a> <div class="theme-switcher" data-theme-switcher> <button class="theme-trigger" type="button" aria-haspopup="menu" aria-expanded="false" aria-label="切换明暗模式" data-theme-trigger> <svg viewBox="0 0 24 24" aria-hidden="true" class="action-icon theme-trigger-icon theme-trigger-icon--light"> <circle cx="12" cy="12" r="4"></circle> <path d="M12 2.75v2M12 19.25v2M4.75 4.75l1.4 1.4M17.85 17.85l1.4 1.4M2.75 12h2M19.25 12h2M4.75 19.25l1.4-1.4M17.85 6.15l1.4-1.4"></path> </svg> <svg viewBox="0 0 24 24" aria-hidden="true" class="action-icon theme-trigger-icon theme-trigger-icon--dark"> <path d="M20.25 14.2A8 8 0 0 1 9.8 3.75 8.5 8.5 0 1 0 20.25 14.2Z"></path> </svg> <svg viewBox="0 0 24 24" aria-hidden="true" class="action-icon theme-trigger-icon theme-trigger-icon--system"> <rect x="4" y="5" width="16" height="11" rx="1.8"></rect> <path d="M9 20h6M12 16v4"></path> </svg> </button> <div class="theme-menu" role="menu" data-theme-menu hidden> <button class="theme-option" type="button" role="menuitemradio" data-theme-option="light" aria-checked="false"> <svg viewBox="0 0 24 24" aria-hidden="true" class="action-icon"><circle cx="12" cy="12" r="4"></circle><path d="M12 2.75v2M12 19.25v2M4.75 4.75l1.4 1.4M17.85 17.85l1.4 1.4M2.75 12h2M19.25 12h2M4.75 19.25l1.4-1.4M17.85 6.15l1.4-1.4"></path></svg> <span>亮色</span> </button> <button class="theme-option" type="button" role="menuitemradio" data-theme-option="dark" aria-checked="false"> <svg viewBox="0 0 24 24" aria-hidden="true" class="action-icon"><path d="M20.25 14.2A8 8 0 0 1 9.8 3.75 8.5 8.5 0 1 0 20.25 14.2Z"></path></svg> <span>暗色</span> </button> <button class="theme-option" type="button" role="menuitemradio" data-theme-option="system" aria-checked="true"> <svg viewBox="0 0 24 24" aria-hidden="true" class="action-icon"><rect x="4" y="5" width="16" height="11" rx="1.8"></rect><path d="M9 20h6M12 16v4"></path></svg> <span>跟随系统</span> </button> </div> </div> </div> </div> </header> <script>
+  (() => {
+    const switcher = document.querySelector("[data-theme-switcher]");
+    if (!switcher) return;
+
+    const trigger = switcher.querySelector("[data-theme-trigger]");
+    const menu = switcher.querySelector("[data-theme-menu]");
+    const options = [...switcher.querySelectorAll("[data-theme-option]")];
+    const modes = ["light", "dark", "system"];
+
+    const getMode = () => {
+      const mode = document.documentElement.dataset.themeMode;
+      return modes.includes(mode) ? mode : "system";
+    };
+
+    const closeMenu = () => {
+      menu.hidden = true;
+      trigger.setAttribute("aria-expanded", "false");
+    };
+
+    const openMenu = () => {
+      menu.hidden = false;
+      trigger.setAttribute("aria-expanded", "true");
+    };
+
+    const sync = () => {
+      const mode = getMode();
+      trigger.dataset.themeMode = mode;
+      options.forEach((option) => {
+        option.setAttribute("aria-checked", String(option.dataset.themeOption === mode));
+      });
+    };
+
+    trigger.addEventListener("click", () => {
+      menu.hidden ? openMenu() : closeMenu();
+    });
+
+    options.forEach((option) => {
+      option.addEventListener("click", () => {
+        window.__setFutureObserverTheme?.(option.dataset.themeOption || "system");
+        sync();
+        closeMenu();
+      });
+    });
+
+    document.addEventListener("click", (event) => {
+      if (!switcher.contains(event.target)) closeMenu();
+    });
+
+    document.addEventListener("keydown", (event) => {
+      if (event.key === "Escape") closeMenu();
+    });
+
+    window.addEventListener("future-observer-theme-change", sync);
+    sync();
+  })();
+</script> <aside class="site-rail" aria-label="站点导航"> <div class="site-rail-inner"> <p class="site-rail-label">Channels</p> <nav aria-label="主导航"> <ul class="site-rail-nav"> <li> <a href="/ai-tools/" class="site-rail-link"> AI工具 </a> </li><li> <a href="/future-daily/" class="site-rail-link"> 未来观察者日报 </a> </li> </ul> </nav> </div> </aside> <main class="shell page-content">  <div class="post-hero"> <p class="eyebrow">2026年8月23日</p> <h1>🛰️ 台海风险出现“期限溢价”：2027 年概率 11.5%，供应链压力测试窗口正在后移</h1> <p class="post-summary">🔭 核心观点：Polymarket 对“2026 年底前发生符合规则的军事攻势”定价仅 3.75%，但把期限延长到 2027 年底后，概率升至 11.5%。今天新增的变量不是台海风险本身，而是清晰的 7.75 个百分点期限价差：市场认为近端仍是低概率情景，却不愿对更长窗口给出同</p> <ul class="tag-list"> <li> <a href="/tags/%E6%9C%AA%E6%9D%A5%E8%A7%82%E5%AF%9F%E8%80%85%E6%97%A5%E6%8A%A5/" class="tag-link">
+#未来观察者日报 </a> </li><li> <a href="/tags/2026%E5%B9%B408%E6%9C%88/" class="tag-link">
+#2026年08月 </a> </li> </ul> </div> <div class="post-grid"> <article class="prose">  <blockquote>
+<p>🔭 <strong>核心观点</strong>：Polymarket 对“2026 年底前发生符合规则的军事攻势”定价仅 <strong>3.75%</strong>，但把期限延长到 2027 年底后，概率升至 <strong>11.5%</strong>。今天新增的变量不是台海风险本身，而是清晰的 <strong>7.75 个百分点期限价差</strong>：市场认为近端仍是低概率情景，却不愿对更长窗口给出同样低的风险折价。</p>
+</blockquote>
+<p><strong>作者：</strong> 拾水木<br>
+<strong>时间：</strong> 2026年8月23日<br>
+<strong>标签：</strong> #未来观察者 #台海风险 #半导体供应链 #制造韧性 #风险管理<br>
+<strong>阅读时间：</strong> 约4分钟</p>
+<hr>
+<h2 id="-今天看什么投票同一风险两条期限曲线">🎯 今天看什么投票？同一风险，两条期限曲线</h2>
+<p>今天观察的主投票是 Polymarket 的 <strong>“Will China invade Taiwan by December 31, 2027?”</strong>。为避免把单个概率孤立解读，本文同时使用同平台、相近结算定义的 2026 年底合约作为期限对照。</p>
+<h3 id="-关键数据卡">📊 关键数据卡</h3>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<table><thead><tr><th>指标</th><th align="right">2026 年底合约</th><th align="right">2027 年底合约</th></tr></thead><tbody><tr><td><strong>Yes 概率</strong></td><td align="right"><strong>3.75%</strong></td><td align="right"><strong>11.5%</strong></td></tr><tr><td>No 概率</td><td align="right">96.25%</td><td align="right">88.5%</td></tr><tr><td>Yes 买一 / 卖一</td><td align="right">3.7% / 3.8%</td><td align="right">11% / 12%</td></tr><tr><td>24 小时变化</td><td align="right">-0.1pp</td><td align="right">-1.0pp</td></tr><tr><td>一周变化</td><td align="right">-0.1pp</td><td align="right">-1.0pp</td></tr><tr><td>24 小时交易量</td><td align="right">约 <strong>6.34 万美元</strong></td><td align="right">约 <strong>11.39 万美元</strong></td></tr><tr><td>一周交易量</td><td align="right">约 <strong>20.93 万美元</strong></td><td align="right">约 <strong>26.80 万美元</strong></td></tr><tr><td>累计交易量</td><td align="right">约 <strong>3,995.11 万美元</strong></td><td align="right">约 <strong>296.95 万美元</strong></td></tr><tr><td>流动性</td><td align="right">约 <strong>58.36 万美元</strong></td><td align="right">约 <strong>23.79 万美元</strong></td></tr><tr><td>未平仓量</td><td align="right">约 <strong>557.59 万美元</strong></td><td align="right">约 <strong>83.24 万美元</strong></td></tr><tr><td>数据获取时间</td><td align="right">2026-08-23 04:01（北京时间）</td><td align="right">2026-08-23 04:01（北京时间）</td></tr><tr><td>所属领域</td><td align="right">地缘安全 / 芯片 / 制造</td><td align="right">地缘安全 / 芯片 / 制造</td></tr></tbody></table>
+<blockquote>
+<p>⚠️ 两个合约并非同一订单簿，参与者、流动性和剩余期限不同，不能把价差机械解释为某一年的精确条件概率。预测市场价格是交易者定价，不是官方情报结论。</p>
+</blockquote>
+<h3 id="-为什么今天选它">🧭 为什么今天选它？</h3>
+<ol>
+<li><strong>未来结果明确</strong>：主合约要求在 2027 年 12 月 31 日前发生“旨在控制台湾任何有人居住领土”的军事攻势，并规定官方确认或可信报道共识等结算来源。</li>
+<li><strong>期限信号可比较</strong>：2027 年合约比 2026 年合约高 <strong>7.75pp</strong>，形成比单一概率更有信息量的风险曲线。</li>
+<li><strong>交易关注正在偏向远期</strong>：2027 年合约 24 小时成交约为近端合约的 <strong>1.8 倍</strong>，尽管其累计成交仅相当于近端合约约 <strong>7.43%</strong>。</li>
+<li><strong>去重有新增变量</strong>：7 月 13 日文章讨论的是 2026 年低概率风险如何进入供应链资产负债表；这次新增的是 <strong>2026/2027 期限价差与交易活跃度倒挂</strong>，观察重点从“要不要做韧性”转向“压力测试窗口应覆盖多长”。最近 7 天已发布能源、加密、AI 资本等主题，没有台海或半导体供应链主线。</li>
+</ol>
+<hr>
+<h2 id="-为什么会有这个投票低概率事件也需要一条期限曲线">🔍 为什么会有这个投票？低概率事件也需要一条期限曲线</h2>
+<p><strong>事实层面</strong>，两个市场当前都把“No”作为主情景；2026 年底前的 Yes 概率为 3.75%，2027 年底前为 11.5%。两者过去一周均小幅下降，因此今天的信号不是风险突然上冲，而是远期风险持续高于近端。</p>
+<p><strong>市场定价层面</strong>，期限延长一年多，意味着更多潜在事件窗口被纳入：军事活动、外交摩擦、制裁与反制、政策变化都可能改变参与者判断。价格差反映交易者愿意为更长的不确定性支付更高成本，但不证明其中任何驱动已经发生。</p>
+<p><strong>推测层面</strong>，这条曲线可能说明市场认为风险不是“明天发生”的基准情景，而是一个会随时间累积、需要不断重估的尾部情景。更值得注意的是，远期合约 24 小时成交高于近端合约：注意力正在从即期新闻，转向跨年度风险预算。</p>
+<hr>
+<h2 id="-期限溢价反映什么结构变化安全风险开始进入规划周期">🧱 期限溢价反映什么结构变化？安全风险开始进入规划周期</h2>
+<h3 id="1-技术层芯片替代不是采购动作而是多年验证工程">1. 技术层：芯片替代不是采购动作，而是多年验证工程</h3>
+<p>先进芯片、封装、设备维护与关键材料的替代通常需要设计修改、可靠性测试和客户认证。若企业只按未来一个季度做压力测试，即使正确判断“近端概率低”，也可能低估真正的迁移时间。</p>
+<h3 id="2-产业层供应链从单点概率转向风险--恢复时间">2. 产业层：供应链从单点概率转向“风险 × 恢复时间”</h3>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<table><thead><tr><th>旧框架</th><th>新框架</th></tr></thead><tbody><tr><td>判断冲突会不会发生</td><td>同时评估发生概率与业务恢复时间</td></tr><tr><td>以年度采购价优化供应链</td><td>为多地生产、替代料与安全库存付费</td></tr><tr><td>风险部门写情景报告</td><td>采购、研发、财务共同维护连续性方案</td></tr><tr><td>关注新闻冲击</td><td>关注认证周期、库存覆盖与运输替代路径</td></tr></tbody></table>
+<p>期限价差提醒企业：真正的脆弱性不只是某个事件的概率，而是 <strong>替代方案落地所需时间可能长于风险窗口</strong>。</p>
+<h3 id="3-社会与资本层冗余正在成为可计量的长期成本">3. 社会与资本层：冗余正在成为可计量的长期成本</h3>
+<p>当远期风险显著高于近端风险，资本开支就不能只按最可能情景安排。新增工厂、多供应商认证、更高库存和保险安排会降低效率，却可能提高连续经营能力。消费者最终也可能通过产品价格、交付周期和公共补贴承担部分韧性成本。</p>
+<hr>
+<h2 id="-如果期限溢价持续未来会怎样">⏳ 如果期限溢价持续，未来会怎样？</h2>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<table><thead><tr><th>时间尺度</th><th>可能变化</th><th>重点验证信号</th></tr></thead><tbody><tr><td><strong>短期：未来1—3个月</strong></td><td>两个合约继续随新闻波动，但期限价差比单日涨跌更值得跟踪</td><td>2026/2027 概率差、成交量、买卖点差</td></tr><tr><td><strong>中期：未来6—18个月</strong></td><td>企业把替代供应商认证、库存覆盖和区域运输中断纳入年度预算</td><td>多供应商认证周期、关键料库存天数、保险条款</td></tr><tr><td><strong>长期：未来3—5年</strong></td><td>制造体系进一步区域化，效率与安全成为并列目标</td><td>海外产能爬坡、先进封装布局、客户供应来源披露</td></tr></tbody></table>
+<p>关键判断是：<strong>风险曲线后移，不等于风险消失。</strong> 它更像给企业争取了准备时间；如果准备周期被浪费，低近端概率反而可能造成延迟行动。</p>
+<hr>
+<h2 id="-对谁最重要把期限价差转成行动清单">🧰 对谁最重要？把期限价差转成行动清单</h2>
+<ol>
+<li><strong>普通观察者</strong>：同时记录 2026 与 2027 合约，不用单日涨跌推断现实事件；优先关注价差是否连续扩大并伴随成交上升。</li>
+<li><strong>硬件与制造从业者</strong>：列出验证周期超过 12 个月的单一来源部件，明确替代料、模具、固件与客户认证的负责人和完成时间。</li>
+<li><strong>创业者</strong>：围绕供应商风险监测、替代料数据库、库存模拟、出口合规与多地排产提供工具；价值主张应是缩短恢复时间，而不是预测冲突。</li>
+<li><strong>投资观察者</strong>：把“地理集中度—库存覆盖—替代认证—恢复时间”作为四项检查表，区分真正建设冗余的企业与只在报告中描述风险的企业。</li>
+</ol>
+<hr>
+<h2 id="️-风险提示">⚠️ 风险提示</h2>
+<ul>
+<li>Polymarket 的 11.5% 与 3.75% 受流动性、参与者结构和仓位影响，不是现实世界的精确概率。</li>
+<li>两个合约期限和交易深度不同，7.75pp 价差不能直接归因于某个具体年份或单一事件。</li>
+<li>合约结算定义聚焦军事攻势，不覆盖所有封锁、灰色地带行动、制裁或供应链扰动情景。</li>
+<li>台海议题高度敏感，本文只分析公开市场定价与产业风险管理，不表达政治立场。</li>
+<li>本文不构成预测市场、证券或其他金融产品的投资建议。</li>
+</ul>
+<hr>
+<h2 id="-结语近端低概率是准备窗口不是免责条款">🌌 结语：近端低概率，是准备窗口，不是免责条款</h2>
+<p>今天的两个价格同时成立：市场认为 2026 年底前发生符合结算规则的军事攻势仍是低概率情景，也认为把观察期延长到 2027 年底后，风险不应继续按 3.75% 定价。</p>
+<p>对供应链而言，最有价值的结论不是猜哪一个数字更准，而是让内部计划跨过单一财年：<strong>如果替代验证需要 18 个月，风险管理就不能只看未来 12 个月。</strong> 期限溢价真正标出的，是企业还有多少时间把不确定性转化为可恢复能力。</p>
+<hr>
+<h2 id="-参考资源">🔗 参考资源</h2>
+<ul>
+<li><a href="https://polymarket.com/event/will-china-invade-taiwan-by-december-31-2027">Polymarket：Will China invade Taiwan by December 31, 2027?</a></li>
+<li><a href="https://gamma-api.polymarket.com/events?slug=will-china-invade-taiwan-by-december-31-2027">Polymarket Gamma API：2027 年底事件数据</a></li>
+<li><a href="https://polymarket.com/event/will-china-invade-taiwan-before-2027">Polymarket：Will China invade Taiwan by end of 2026?</a></li>
+<li><a href="https://gamma-api.polymarket.com/events?slug=will-china-invade-taiwan-before-2027">Polymarket Gamma API：2026 年底事件数据</a></li>
+<li><a href="../../2026-07/2026-07-13-%E5%8F%B0%E6%B5%B7%E5%85%A5%E4%BE%B5%E4%BD%8E%E6%A6%82%E7%8E%87%E5%AE%9A%E4%BB%B7-%E7%A1%AC%E5%AE%89%E5%85%A8%E9%A3%8E%E9%99%A9%E6%AD%A3%E5%9C%A8%E6%88%90%E4%B8%BA%E4%BE%9B%E5%BA%94%E9%93%BE%E8%B5%84%E4%BA%A7%E8%B4%9F%E5%80%BA%E8%A1%A8.md">未来观察者 2026-07-13：台海入侵低概率定价</a></li>
+</ul>
+<p><em>数据截至 2026 年 8 月 23 日 04:01（北京时间）。文中已区分事实、市场定价与推测；概率、成交量和流动性会实时变化。</em></p>  </article> <aside class="toc"><p class="toc-title">目录</p><ul class="toc-list"><li class="depth-2"><a href="#-今天看什么投票同一风险两条期限曲线" data-toc-link="-今天看什么投票同一风险两条期限曲线">🎯 今天看什么投票？同一风险，两条期限曲线</a></li><li class="depth-3"><a href="#-关键数据卡" data-toc-link="-关键数据卡">📊 关键数据卡</a></li><li class="depth-3"><a href="#-为什么今天选它" data-toc-link="-为什么今天选它">🧭 为什么今天选它？</a></li><li class="depth-2"><a href="#-为什么会有这个投票低概率事件也需要一条期限曲线" data-toc-link="-为什么会有这个投票低概率事件也需要一条期限曲线">🔍 为什么会有这个投票？低概率事件也需要一条期限曲线</a></li><li class="depth-2"><a href="#-期限溢价反映什么结构变化安全风险开始进入规划周期" data-toc-link="-期限溢价反映什么结构变化安全风险开始进入规划周期">🧱 期限溢价反映什么结构变化？安全风险开始进入规划周期</a></li><li class="depth-3"><a href="#1-技术层芯片替代不是采购动作而是多年验证工程" data-toc-link="1-技术层芯片替代不是采购动作而是多年验证工程">1. 技术层：芯片替代不是采购动作，而是多年验证工程</a></li><li class="depth-3"><a href="#2-产业层供应链从单点概率转向风险--恢复时间" data-toc-link="2-产业层供应链从单点概率转向风险--恢复时间">2. 产业层：供应链从单点概率转向“风险 × 恢复时间”</a></li><li class="depth-3"><a href="#3-社会与资本层冗余正在成为可计量的长期成本" data-toc-link="3-社会与资本层冗余正在成为可计量的长期成本">3. 社会与资本层：冗余正在成为可计量的长期成本</a></li><li class="depth-2"><a href="#-如果期限溢价持续未来会怎样" data-toc-link="-如果期限溢价持续未来会怎样">⏳ 如果期限溢价持续，未来会怎样？</a></li><li class="depth-2"><a href="#-对谁最重要把期限价差转成行动清单" data-toc-link="-对谁最重要把期限价差转成行动清单">🧰 对谁最重要？把期限价差转成行动清单</a></li><li class="depth-2"><a href="#️-风险提示" data-toc-link="️-风险提示">⚠️ 风险提示</a></li><li class="depth-2"><a href="#-结语近端低概率是准备窗口不是免责条款" data-toc-link="-结语近端低概率是准备窗口不是免责条款">🌌 结语：近端低概率，是准备窗口，不是免责条款</a></li><li class="depth-2"><a href="#-参考资源" data-toc-link="-参考资源">🔗 参考资源</a></li></ul></aside><script type="module">const c=()=>{const r=Array.from(document.querySelectorAll(".toc a[data-toc-link]"));if(!r.length)return;const o=r.map(t=>{const e=t.getAttribute("data-toc-link");if(!e)return null;const n=document.getElementById(e);return n?{id:e,heading:n,link:t}:null}).filter(t=>t!==null);if(!o.length)return;const s=t=>{r.forEach(e=>{const n=e.getAttribute("data-toc-link")===t;e.classList.toggle("active",n),n&&e.scrollIntoView({block:"nearest",inline:"nearest"})})},i=()=>{const t=Math.round(window.innerHeight*.28);let e=o[0];for(const n of o)n.heading.getBoundingClientRect().top<=t&&(e=n);s(e.id)};i();const a=new IntersectionObserver(()=>i(),{rootMargin:"-18% 0px -70% 0px",threshold:[0,1]});o.forEach(t=>a.observe(t.heading)),window.addEventListener("scroll",i,{passive:!0})};document.addEventListener("DOMContentLoaded",c);document.addEventListener("astro:page-load",c);</script> </div>  </main> <footer class="site-footer"> <div class="shell footer-inner"> <p>© 2026 未来观察者</p> </div> </footer> </body></html>
