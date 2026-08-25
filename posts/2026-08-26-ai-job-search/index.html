@@ -1,0 +1,109 @@
+<!DOCTYPE html><html lang="zh-CN"> <head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1"><script>
+      (() => {
+        const storageKey = "future-observer-theme";
+        const root = document.documentElement;
+        const getStoredMode = () => {
+          try {
+            const value = localStorage.getItem(storageKey);
+            return value === "light" || value === "dark" || value === "system" ? value : "system";
+          } catch {
+            return "system";
+          }
+        };
+        const systemDark = () => window.matchMedia?.("(prefers-color-scheme: dark)").matches ?? false;
+        const apply = (mode) => {
+          const resolved = mode === "system" ? (systemDark() ? "dark" : "light") : mode;
+          root.dataset.themeMode = mode;
+          root.dataset.theme = resolved;
+          root.style.colorScheme = resolved;
+        };
+        apply(getStoredMode());
+        window.__setFutureObserverTheme = (mode) => {
+          const next = mode === "light" || mode === "dark" || mode === "system" ? mode : "system";
+          try { localStorage.setItem(storageKey, next); } catch {}
+          apply(next);
+          window.dispatchEvent(new CustomEvent("future-observer-theme-change", { detail: { mode: next } }));
+        };
+        window.matchMedia?.("(prefers-color-scheme: dark)").addEventListener?.("change", () => {
+          if (getStoredMode() === "system") apply("system");
+        });
+      })();
+    </script><title>AI Job Search：把求职材料定制做成一套可复查的本地工作流 | 未来观察者</title><meta name="description" content="求职辅助工具常停在“帮我改简历”这一步，结果是否真实、PDF 是否能被 ATS 正确解析、每次申请用了什么版本，都容易失控。今日进入 GitHub Trending 的 AI Job Search 更像一套可维护的求职工程：它基于 Claude Code，把职位搜索、匹配评估、简"><meta name="generator" content="Astro v5.18.1"><meta property="og:title" content="AI Job Search：把求职材料定制做成一套可复查的本地工作流 | 未来观察者"><meta property="og:description" content="求职辅助工具常停在“帮我改简历”这一步，结果是否真实、PDF 是否能被 ATS 正确解析、每次申请用了什么版本，都容易失控。今日进入 GitHub Trending 的 AI Job Search 更像一套可维护的求职工程：它基于 Claude Code，把职位搜索、匹配评估、简"><meta property="og:type" content="website"><meta property="og:url" content="https://future.lifestudylab.com/posts/2026-08-26-ai-job-search/"><link rel="icon" type="image/svg+xml" href="/favicon.svg"><link rel="alternate" type="application/rss+xml" title="未来观察者" href="/rss.xml"><link rel="stylesheet" href="/_astro/_channel_.BFW__1rx.css"></head> <body> <div class="page-bg"></div> <header class="site-header"> <div class="shell header-inner"> <div class="header-bar"> <a class="brand" href="/ai-tools/"> <img src="/brand-mark.svg" alt="" class="brand-mark" width="56" height="56"> <span class="brand-text" aria-label="未来观察者">思考未来</span> </a> </div> <nav class="top-menu" aria-label="顶部菜单"> <a href="/future-daily/" class="top-menu-link"> 每日信息 </a><a href="/docs/deer-flow/00-overview/" class="top-menu-link"> DeerFlow教程 </a><a href="/docs/hermes/00-overview/" class="top-menu-link"> Hermes教程 </a><a href="/docs/openclaw/00-overview/" class="top-menu-link"> OpenClaw教程 </a><a href="/about/" class="top-menu-link"> 关于我 </a> </nav> <div class="top-actions"> <a class="feedback-link" href="https://github.com/yonglisss/yonglisss.github.io/issues" target="_blank" rel="noopener noreferrer" aria-label="问题反馈"> <svg viewBox="0 0 24 24" aria-hidden="true" class="action-icon"> <path d="M4.75 5.75A2.75 2.75 0 0 1 7.5 3h9A2.75 2.75 0 0 1 19.25 5.75v6.5A2.75 2.75 0 0 1 16.5 15H9.3l-3.55 3.2V15.1a2.75 2.75 0 0 1-1-2.1V5.75Z"></path> <path d="M8 7.75h8M8 11.25h4"></path> </svg> <span>问题反馈</span> </a> <div class="theme-switcher" data-theme-switcher> <button class="theme-trigger" type="button" aria-haspopup="menu" aria-expanded="false" aria-label="切换明暗模式" data-theme-trigger> <svg viewBox="0 0 24 24" aria-hidden="true" class="action-icon theme-trigger-icon theme-trigger-icon--light"> <circle cx="12" cy="12" r="4"></circle> <path d="M12 2.75v2M12 19.25v2M4.75 4.75l1.4 1.4M17.85 17.85l1.4 1.4M2.75 12h2M19.25 12h2M4.75 19.25l1.4-1.4M17.85 6.15l1.4-1.4"></path> </svg> <svg viewBox="0 0 24 24" aria-hidden="true" class="action-icon theme-trigger-icon theme-trigger-icon--dark"> <path d="M20.25 14.2A8 8 0 0 1 9.8 3.75 8.5 8.5 0 1 0 20.25 14.2Z"></path> </svg> <svg viewBox="0 0 24 24" aria-hidden="true" class="action-icon theme-trigger-icon theme-trigger-icon--system"> <rect x="4" y="5" width="16" height="11" rx="1.8"></rect> <path d="M9 20h6M12 16v4"></path> </svg> </button> <div class="theme-menu" role="menu" data-theme-menu hidden> <button class="theme-option" type="button" role="menuitemradio" data-theme-option="light" aria-checked="false"> <svg viewBox="0 0 24 24" aria-hidden="true" class="action-icon"><circle cx="12" cy="12" r="4"></circle><path d="M12 2.75v2M12 19.25v2M4.75 4.75l1.4 1.4M17.85 17.85l1.4 1.4M2.75 12h2M19.25 12h2M4.75 19.25l1.4-1.4M17.85 6.15l1.4-1.4"></path></svg> <span>亮色</span> </button> <button class="theme-option" type="button" role="menuitemradio" data-theme-option="dark" aria-checked="false"> <svg viewBox="0 0 24 24" aria-hidden="true" class="action-icon"><path d="M20.25 14.2A8 8 0 0 1 9.8 3.75 8.5 8.5 0 1 0 20.25 14.2Z"></path></svg> <span>暗色</span> </button> <button class="theme-option" type="button" role="menuitemradio" data-theme-option="system" aria-checked="true"> <svg viewBox="0 0 24 24" aria-hidden="true" class="action-icon"><rect x="4" y="5" width="16" height="11" rx="1.8"></rect><path d="M9 20h6M12 16v4"></path></svg> <span>跟随系统</span> </button> </div> </div> </div> </div> </header> <script>
+  (() => {
+    const switcher = document.querySelector("[data-theme-switcher]");
+    if (!switcher) return;
+
+    const trigger = switcher.querySelector("[data-theme-trigger]");
+    const menu = switcher.querySelector("[data-theme-menu]");
+    const options = [...switcher.querySelectorAll("[data-theme-option]")];
+    const modes = ["light", "dark", "system"];
+
+    const getMode = () => {
+      const mode = document.documentElement.dataset.themeMode;
+      return modes.includes(mode) ? mode : "system";
+    };
+
+    const closeMenu = () => {
+      menu.hidden = true;
+      trigger.setAttribute("aria-expanded", "false");
+    };
+
+    const openMenu = () => {
+      menu.hidden = false;
+      trigger.setAttribute("aria-expanded", "true");
+    };
+
+    const sync = () => {
+      const mode = getMode();
+      trigger.dataset.themeMode = mode;
+      options.forEach((option) => {
+        option.setAttribute("aria-checked", String(option.dataset.themeOption === mode));
+      });
+    };
+
+    trigger.addEventListener("click", () => {
+      menu.hidden ? openMenu() : closeMenu();
+    });
+
+    options.forEach((option) => {
+      option.addEventListener("click", () => {
+        window.__setFutureObserverTheme?.(option.dataset.themeOption || "system");
+        sync();
+        closeMenu();
+      });
+    });
+
+    document.addEventListener("click", (event) => {
+      if (!switcher.contains(event.target)) closeMenu();
+    });
+
+    document.addEventListener("keydown", (event) => {
+      if (event.key === "Escape") closeMenu();
+    });
+
+    window.addEventListener("future-observer-theme-change", sync);
+    sync();
+  })();
+</script> <aside class="site-rail" aria-label="站点导航"> <div class="site-rail-inner"> <p class="site-rail-label">Channels</p> <nav aria-label="主导航"> <ul class="site-rail-nav"> <li> <a href="/ai-tools/" class="site-rail-link"> AI工具 </a> </li><li> <a href="/future-daily/" class="site-rail-link"> 未来观察者日报 </a> </li> </ul> </nav> </div> </aside> <main class="shell page-content">  <div class="post-hero"> <p class="eyebrow">2026年8月26日</p> <h1>AI Job Search：把求职材料定制做成一套可复查的本地工作流</h1> <p class="post-summary">求职辅助工具常停在“帮我改简历”这一步，结果是否真实、PDF 是否能被 ATS 正确解析、每次申请用了什么版本，都容易失控。今日进入 GitHub Trending 的 AI Job Search 更像一套可维护的求职工程：它基于 Claude Code，把职位搜索、匹配评估、简</p> <ul class="tag-list"> <li> <a href="/tags/AI%E5%B7%A5%E5%85%B7/" class="tag-link">
+#AI工具 </a> </li><li> <a href="/tags/2026%E5%B9%B408%E6%9C%88/" class="tag-link">
+#2026年08月 </a> </li> </ul> </div> <div class="post-grid"> <article class="prose">  <p>求职辅助工具常停在“帮我改简历”这一步，结果是否真实、PDF 是否能被 ATS 正确解析、每次申请用了什么版本，都容易失控。今日进入 GitHub Trending 的 AI Job Search 更像一套可维护的求职工程：它基于 Claude Code，把职位搜索、匹配评估、简历与求职信生成、复核、面试准备和结果跟踪串成可在本地运行的流程。</p>
+<h2 id="-这个项目是干什么的">📌 这个项目是干什么的</h2>
+<p>AI Job Search 不是招聘平台，也不会替你投递。用户先通过 <code>/setup</code> 建立个人资料，再用 <code>/scrape</code> 搜索职位、用 <code>/rank</code> 批量评估匹配度，最后通过 <code>/apply</code> 针对一个职位生成定制 CV 和求职信。</p>
+<p>它的核心特点是“有依据地改材料”：工作流要求简历中的能力和经历来自个人资料，不支持的关键词要保留为差距，而不是为了 ATS 硬塞进去。生成后还会编译 LaTeX、检查页数和版式；安装 <code>pdftotext</code> 后，可继续检查 PDF 文本层是否存在乱码、顺序异常或联系方式缺失。</p>
+<h2 id="-为什么值得关注">🔍 为什么值得关注</h2>
+<p>第一，<strong>它把求职拆成了可复用流程</strong>。从职位筛选到申请结果归档，每一步都有明确输入和产物，适合需要同时管理多个机会的人，而不只是临时润色一份简历。</p>
+<p>第二，<strong>生成与复核被刻意分开</strong>。<code>/apply</code> 使用起草者—审阅者流程，审阅 Agent 在独立上下文中检查岗位关键词、公司信息与表达问题，再由起草流程修订，减少“一次生成直接发送”的风险。</p>
+<p>第三，<strong>它关注最终交付物，而不只看源文件</strong>。PDF 能编译不代表 ATS 能读懂。项目把视觉检查、文本层提取和关键词覆盖检查放进流程，这种“验证最终产物”的思路也值得内容生成、报告自动化项目借鉴。</p>
+<h2 id="-谁适合试怎么开始">🧪 谁适合试，怎么开始</h2>
+<p>它适合熟悉命令行、正在批量求职，或想研究 Agent 工作流编排的开发者。核心流程不限定国家和语言，但仓库自带的多个职位门户工具主要面向丹麦市场，其他地区通常需要替换或新增数据源。</p>
+<p>准备 Claude Code、Python 3.10+、Bun 和带 <code>lualatex</code>、<code>xelatex</code> 的 LaTeX 环境后，建议不要直接创建公开 Fork。更稳妥的做法是把仓库导入自己的私有仓库，再运行 Claude Code，通过 <code>/setup</code> 导入一份脱敏 CV；先拿一个公开职位测试 <code>/apply</code>，重点核对事实、PDF 文本层和最终版式，再决定是否扩大使用。</p>
+<h2 id="️-使用提醒">⚠️ 使用提醒</h2>
+<p>这套工具会处理姓名、联系方式、履历和薪资期望等敏感信息。GitHub 的公开仓库 Fork 仍是公开的，而 <code>/setup</code> 会把个人资料写入受版本控制的文件；项目 v1.6.0 已增加提醒和可见性检查，但正确做法仍是使用私有仓库，并在提交前检查 Git 历史。</p>
+<p>此外，职位页面应视为不可信输入。项目通过工作流规则避免执行职位描述中的指令，但官方也明确说明这不是运行时沙箱。自动生成的材料必须人工核对，搜索结果也要遵守目标网站规则。项目采用 MIT 许可证，最新已核验版本为 v1.6.0。</p>
+<h2 id="-参考资源">🔗 参考资源</h2>
+<ul>
+<li>GitHub：<a href="https://github.com/MadsLorentzen/ai-job-search">https://github.com/MadsLorentzen/ai-job-search</a></li>
+<li>安装与配置：<a href="https://github.com/MadsLorentzen/ai-job-search/blob/master/SETUP.md">https://github.com/MadsLorentzen/ai-job-search/blob/master/SETUP.md</a></li>
+<li>安全说明：<a href="https://github.com/MadsLorentzen/ai-job-search/blob/master/SECURITY.md">https://github.com/MadsLorentzen/ai-job-search/blob/master/SECURITY.md</a></li>
+<li>v1.6.0 Release：<a href="https://github.com/MadsLorentzen/ai-job-search/releases/tag/v1.6.0">https://github.com/MadsLorentzen/ai-job-search/releases/tag/v1.6.0</a></li>
+</ul>  </article> <aside class="toc"><p class="toc-title">目录</p><ul class="toc-list"><li class="depth-2"><a href="#-这个项目是干什么的" data-toc-link="-这个项目是干什么的">📌 这个项目是干什么的</a></li><li class="depth-2"><a href="#-为什么值得关注" data-toc-link="-为什么值得关注">🔍 为什么值得关注</a></li><li class="depth-2"><a href="#-谁适合试怎么开始" data-toc-link="-谁适合试怎么开始">🧪 谁适合试，怎么开始</a></li><li class="depth-2"><a href="#️-使用提醒" data-toc-link="️-使用提醒">⚠️ 使用提醒</a></li><li class="depth-2"><a href="#-参考资源" data-toc-link="-参考资源">🔗 参考资源</a></li></ul></aside><script type="module">const c=()=>{const r=Array.from(document.querySelectorAll(".toc a[data-toc-link]"));if(!r.length)return;const o=r.map(t=>{const e=t.getAttribute("data-toc-link");if(!e)return null;const n=document.getElementById(e);return n?{id:e,heading:n,link:t}:null}).filter(t=>t!==null);if(!o.length)return;const s=t=>{r.forEach(e=>{const n=e.getAttribute("data-toc-link")===t;e.classList.toggle("active",n),n&&e.scrollIntoView({block:"nearest",inline:"nearest"})})},i=()=>{const t=Math.round(window.innerHeight*.28);let e=o[0];for(const n of o)n.heading.getBoundingClientRect().top<=t&&(e=n);s(e.id)};i();const a=new IntersectionObserver(()=>i(),{rootMargin:"-18% 0px -70% 0px",threshold:[0,1]});o.forEach(t=>a.observe(t.heading)),window.addEventListener("scroll",i,{passive:!0})};document.addEventListener("DOMContentLoaded",c);document.addEventListener("astro:page-load",c);</script> </div>  </main> <footer class="site-footer"> <div class="shell footer-inner"> <p>© 2026 未来观察者</p> </div> </footer> </body></html>
