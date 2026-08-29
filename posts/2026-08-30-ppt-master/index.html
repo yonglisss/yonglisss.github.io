@@ -1,0 +1,114 @@
+<!DOCTYPE html><html lang="zh-CN"> <head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1"><script>
+      (() => {
+        const storageKey = "future-observer-theme";
+        const root = document.documentElement;
+        const getStoredMode = () => {
+          try {
+            const value = localStorage.getItem(storageKey);
+            return value === "light" || value === "dark" || value === "system" ? value : "system";
+          } catch {
+            return "system";
+          }
+        };
+        const systemDark = () => window.matchMedia?.("(prefers-color-scheme: dark)").matches ?? false;
+        const apply = (mode) => {
+          const resolved = mode === "system" ? (systemDark() ? "dark" : "light") : mode;
+          root.dataset.themeMode = mode;
+          root.dataset.theme = resolved;
+          root.style.colorScheme = resolved;
+        };
+        apply(getStoredMode());
+        window.__setFutureObserverTheme = (mode) => {
+          const next = mode === "light" || mode === "dark" || mode === "system" ? mode : "system";
+          try { localStorage.setItem(storageKey, next); } catch {}
+          apply(next);
+          window.dispatchEvent(new CustomEvent("future-observer-theme-change", { detail: { mode: next } }));
+        };
+        window.matchMedia?.("(prefers-color-scheme: dark)").addEventListener?.("change", () => {
+          if (getStoredMode() === "system") apply("system");
+        });
+      })();
+    </script><title>PPT Master：把 AI 生成的演示稿，变成真正可编辑的 PowerPoint | 未来观察者</title><meta name="description" content="AI 做 PPT 的常见问题，不是“生成不了”，而是生成物只有图片和文本框：图表改不了数据，版式难以复用，交付前仍要重做。PPT Master 是一个开源 Agent Skill，可把 PDF、DOCX、网页或文字材料整理成原生 .pptx。它近期发布 v5.1.0，重点继续落在"><meta name="generator" content="Astro v5.18.1"><meta property="og:title" content="PPT Master：把 AI 生成的演示稿，变成真正可编辑的 PowerPoint | 未来观察者"><meta property="og:description" content="AI 做 PPT 的常见问题，不是“生成不了”，而是生成物只有图片和文本框：图表改不了数据，版式难以复用，交付前仍要重做。PPT Master 是一个开源 Agent Skill，可把 PDF、DOCX、网页或文字材料整理成原生 .pptx。它近期发布 v5.1.0，重点继续落在"><meta property="og:type" content="website"><meta property="og:url" content="https://future.lifestudylab.com/posts/2026-08-30-ppt-master/"><link rel="icon" type="image/svg+xml" href="/favicon.svg"><link rel="alternate" type="application/rss+xml" title="未来观察者" href="/rss.xml"><link rel="stylesheet" href="/_astro/_channel_.BFW__1rx.css"></head> <body> <div class="page-bg"></div> <header class="site-header"> <div class="shell header-inner"> <div class="header-bar"> <a class="brand" href="/ai-tools/"> <img src="/brand-mark.svg" alt="" class="brand-mark" width="56" height="56"> <span class="brand-text" aria-label="未来观察者">思考未来</span> </a> </div> <nav class="top-menu" aria-label="顶部菜单"> <a href="/future-daily/" class="top-menu-link"> 每日信息 </a><a href="/docs/deer-flow/00-overview/" class="top-menu-link"> DeerFlow教程 </a><a href="/docs/hermes/00-overview/" class="top-menu-link"> Hermes教程 </a><a href="/docs/openclaw/00-overview/" class="top-menu-link"> OpenClaw教程 </a><a href="/about/" class="top-menu-link"> 关于我 </a> </nav> <div class="top-actions"> <a class="feedback-link" href="https://github.com/yonglisss/yonglisss.github.io/issues" target="_blank" rel="noopener noreferrer" aria-label="问题反馈"> <svg viewBox="0 0 24 24" aria-hidden="true" class="action-icon"> <path d="M4.75 5.75A2.75 2.75 0 0 1 7.5 3h9A2.75 2.75 0 0 1 19.25 5.75v6.5A2.75 2.75 0 0 1 16.5 15H9.3l-3.55 3.2V15.1a2.75 2.75 0 0 1-1-2.1V5.75Z"></path> <path d="M8 7.75h8M8 11.25h4"></path> </svg> <span>问题反馈</span> </a> <div class="theme-switcher" data-theme-switcher> <button class="theme-trigger" type="button" aria-haspopup="menu" aria-expanded="false" aria-label="切换明暗模式" data-theme-trigger> <svg viewBox="0 0 24 24" aria-hidden="true" class="action-icon theme-trigger-icon theme-trigger-icon--light"> <circle cx="12" cy="12" r="4"></circle> <path d="M12 2.75v2M12 19.25v2M4.75 4.75l1.4 1.4M17.85 17.85l1.4 1.4M2.75 12h2M19.25 12h2M4.75 19.25l1.4-1.4M17.85 6.15l1.4-1.4"></path> </svg> <svg viewBox="0 0 24 24" aria-hidden="true" class="action-icon theme-trigger-icon theme-trigger-icon--dark"> <path d="M20.25 14.2A8 8 0 0 1 9.8 3.75 8.5 8.5 0 1 0 20.25 14.2Z"></path> </svg> <svg viewBox="0 0 24 24" aria-hidden="true" class="action-icon theme-trigger-icon theme-trigger-icon--system"> <rect x="4" y="5" width="16" height="11" rx="1.8"></rect> <path d="M9 20h6M12 16v4"></path> </svg> </button> <div class="theme-menu" role="menu" data-theme-menu hidden> <button class="theme-option" type="button" role="menuitemradio" data-theme-option="light" aria-checked="false"> <svg viewBox="0 0 24 24" aria-hidden="true" class="action-icon"><circle cx="12" cy="12" r="4"></circle><path d="M12 2.75v2M12 19.25v2M4.75 4.75l1.4 1.4M17.85 17.85l1.4 1.4M2.75 12h2M19.25 12h2M4.75 19.25l1.4-1.4M17.85 6.15l1.4-1.4"></path></svg> <span>亮色</span> </button> <button class="theme-option" type="button" role="menuitemradio" data-theme-option="dark" aria-checked="false"> <svg viewBox="0 0 24 24" aria-hidden="true" class="action-icon"><path d="M20.25 14.2A8 8 0 0 1 9.8 3.75 8.5 8.5 0 1 0 20.25 14.2Z"></path></svg> <span>暗色</span> </button> <button class="theme-option" type="button" role="menuitemradio" data-theme-option="system" aria-checked="true"> <svg viewBox="0 0 24 24" aria-hidden="true" class="action-icon"><rect x="4" y="5" width="16" height="11" rx="1.8"></rect><path d="M9 20h6M12 16v4"></path></svg> <span>跟随系统</span> </button> </div> </div> </div> </div> </header> <script>
+  (() => {
+    const switcher = document.querySelector("[data-theme-switcher]");
+    if (!switcher) return;
+
+    const trigger = switcher.querySelector("[data-theme-trigger]");
+    const menu = switcher.querySelector("[data-theme-menu]");
+    const options = [...switcher.querySelectorAll("[data-theme-option]")];
+    const modes = ["light", "dark", "system"];
+
+    const getMode = () => {
+      const mode = document.documentElement.dataset.themeMode;
+      return modes.includes(mode) ? mode : "system";
+    };
+
+    const closeMenu = () => {
+      menu.hidden = true;
+      trigger.setAttribute("aria-expanded", "false");
+    };
+
+    const openMenu = () => {
+      menu.hidden = false;
+      trigger.setAttribute("aria-expanded", "true");
+    };
+
+    const sync = () => {
+      const mode = getMode();
+      trigger.dataset.themeMode = mode;
+      options.forEach((option) => {
+        option.setAttribute("aria-checked", String(option.dataset.themeOption === mode));
+      });
+    };
+
+    trigger.addEventListener("click", () => {
+      menu.hidden ? openMenu() : closeMenu();
+    });
+
+    options.forEach((option) => {
+      option.addEventListener("click", () => {
+        window.__setFutureObserverTheme?.(option.dataset.themeOption || "system");
+        sync();
+        closeMenu();
+      });
+    });
+
+    document.addEventListener("click", (event) => {
+      if (!switcher.contains(event.target)) closeMenu();
+    });
+
+    document.addEventListener("keydown", (event) => {
+      if (event.key === "Escape") closeMenu();
+    });
+
+    window.addEventListener("future-observer-theme-change", sync);
+    sync();
+  })();
+</script> <aside class="site-rail" aria-label="站点导航"> <div class="site-rail-inner"> <p class="site-rail-label">Channels</p> <nav aria-label="主导航"> <ul class="site-rail-nav"> <li> <a href="/ai-tools/" class="site-rail-link"> AI工具 </a> </li><li> <a href="/future-daily/" class="site-rail-link"> 未来观察者日报 </a> </li> </ul> </nav> </div> </aside> <main class="shell page-content">  <div class="post-hero"> <p class="eyebrow">2026年8月30日</p> <h1>PPT Master：把 AI 生成的演示稿，变成真正可编辑的 PowerPoint</h1> <p class="post-summary">AI 做 PPT 的常见问题，不是“生成不了”，而是生成物只有图片和文本框：图表改不了数据，版式难以复用，交付前仍要重做。PPT Master 是一个开源 Agent Skill，可把 PDF、DOCX、网页或文字材料整理成原生 .pptx。它近期发布 v5.1.0，重点继续落在</p> <ul class="tag-list"> <li> <a href="/tags/AI%E5%B7%A5%E5%85%B7/" class="tag-link">
+#AI工具 </a> </li><li> <a href="/tags/2026%E5%B9%B408%E6%9C%88/" class="tag-link">
+#2026年08月 </a> </li> </ul> </div> <div class="post-grid"> <article class="prose">  <p>AI 做 PPT 的常见问题，不是“生成不了”，而是生成物只有图片和文本框：图表改不了数据，版式难以复用，交付前仍要重做。PPT Master 是一个开源 Agent Skill，可把 PDF、DOCX、网页或文字材料整理成原生 <code>.pptx</code>。它近期发布 v5.1.0，重点继续落在文字溢出检查、原生图表与预览一致性，以及已有 PPT 的往返编辑上。</p>
+<h2 id="-这个项目是干什么的">📌 这个项目是干什么的</h2>
+<ul>
+<li>在 Claude Code、Codex、Cursor 等具备读写文件和执行命令能力的 Agent 中运行。</li>
+<li>先分析材料与叙事结构，再生成 SVG，最后转换为可编辑的 PowerPoint DrawingML 对象。</li>
+<li>支持原生形状、连接线、表格、数据图表、演讲者备注、转场和可选动画，而不是把整页压成图片。</li>
+<li>既能从零生成，也能导入已有 <code>.pptx</code>，选择、重排或修改页面；未修改页面可保持原样传递。</li>
+</ul>
+<h2 id="-为什么值得关注">🔍 为什么值得关注</h2>
+<p>更值得关注的不是“又一个一键做 PPT”，而是它把交付后的修改成本当成核心问题。标题、形状和图表仍是 PowerPoint 对象，用户可以继续改文案、颜色与数据。对于要反复评审的汇报材料，这比一次生成的视觉效果更有价值。</p>
+<p>项目也提供了较完整的工程化质量控制：检查文字边界、对象越界和原生图表与 SVG 预览的差异；在线示例库同时提供浏览器预览与 <code>.pptx</code> 下载，方便先检查真实产物再决定是否安装。v5.1.0 还把“填充旧 PPT”和“增强旧 PPT”合并为 Edit Native PPTX 工作流，降低了路线选择成本。</p>
+<h2 id="-谁适合试怎么开始">🧪 谁适合试，怎么开始</h2>
+<p>它适合经常制作产品方案、咨询报告、研究汇报的开发者和内容团队，尤其适合已有 AI 编码工具工作流的人。最短尝试路径是安装 Skill：</p>
+<pre class="astro-code astro-code-themes github-light github-dark" style="--shiki-light:#24292e;--shiki-dark:#e1e4e8;--shiki-light-bg:#fff;--shiki-dark-bg:#24292e; overflow-x: auto;" tabindex="0" data-language="bash"><code><span class="line"><span style="--shiki-light:#6F42C1;--shiki-dark:#B392F0">npx</span><span style="--shiki-light:#032F62;--shiki-dark:#9ECBFF"> skills</span><span style="--shiki-light:#032F62;--shiki-dark:#9ECBFF"> add</span><span style="--shiki-light:#032F62;--shiki-dark:#9ECBFF"> hugohe3/ppt-master</span></span></code></pre>
+<p>项目要求 Python 3.10 以上；安装 Skill 后还需在对应目录执行 <code>pip install -r requirements.txt</code>。建议先下载官方示例中的 <code>.pptx</code>，确认原生编辑效果；再拿一份 5 页左右、事实已整理好的材料测试，而不是一开始就生成几十页正式汇报。</p>
+<h2 id="️-使用提醒">⚠️ 使用提醒</h2>
+<p>PPT Master 是工作流，不包含模型能力。生成质量、耗时和成本仍取决于所用模型、上下文长度及图片服务；项目也明确不承诺“一次生成即可交付”。材料会在本机处理，但调用外部模型或图片 API 时，相关内容仍会离开本机。团队使用前应先检查敏感数据策略，并人工复核数字、引用、图表数据和版权。项目采用 MIT 许可证，当前稳定版为 v5.1.0。</p>
+<h2 id="-参考资源">🔗 参考资源</h2>
+<ul>
+<li>GitHub：<a href="https://github.com/hugohe3/ppt-master">https://github.com/hugohe3/ppt-master</a></li>
+<li>中文 README：<a href="https://github.com/hugohe3/ppt-master/blob/main/README_CN.md">https://github.com/hugohe3/ppt-master/blob/main/README_CN.md</a></li>
+<li>入门文档：<a href="https://github.com/hugohe3/ppt-master/blob/main/docs/getting-started.md">https://github.com/hugohe3/ppt-master/blob/main/docs/getting-started.md</a></li>
+<li>在线示例：<a href="https://hugohe3.github.io/ppt-master-examples/">https://hugohe3.github.io/ppt-master-examples/</a></li>
+<li>v5.1.0 Release：<a href="https://github.com/hugohe3/ppt-master/releases/tag/v5.1.0">https://github.com/hugohe3/ppt-master/releases/tag/v5.1.0</a></li>
+<li>MIT 许可证：<a href="https://github.com/hugohe3/ppt-master/blob/main/LICENSE">https://github.com/hugohe3/ppt-master/blob/main/LICENSE</a></li>
+</ul>  </article> <aside class="toc"><p class="toc-title">目录</p><ul class="toc-list"><li class="depth-2"><a href="#-这个项目是干什么的" data-toc-link="-这个项目是干什么的">📌 这个项目是干什么的</a></li><li class="depth-2"><a href="#-为什么值得关注" data-toc-link="-为什么值得关注">🔍 为什么值得关注</a></li><li class="depth-2"><a href="#-谁适合试怎么开始" data-toc-link="-谁适合试怎么开始">🧪 谁适合试，怎么开始</a></li><li class="depth-2"><a href="#️-使用提醒" data-toc-link="️-使用提醒">⚠️ 使用提醒</a></li><li class="depth-2"><a href="#-参考资源" data-toc-link="-参考资源">🔗 参考资源</a></li></ul></aside><script type="module">const c=()=>{const r=Array.from(document.querySelectorAll(".toc a[data-toc-link]"));if(!r.length)return;const o=r.map(t=>{const e=t.getAttribute("data-toc-link");if(!e)return null;const n=document.getElementById(e);return n?{id:e,heading:n,link:t}:null}).filter(t=>t!==null);if(!o.length)return;const s=t=>{r.forEach(e=>{const n=e.getAttribute("data-toc-link")===t;e.classList.toggle("active",n),n&&e.scrollIntoView({block:"nearest",inline:"nearest"})})},i=()=>{const t=Math.round(window.innerHeight*.28);let e=o[0];for(const n of o)n.heading.getBoundingClientRect().top<=t&&(e=n);s(e.id)};i();const a=new IntersectionObserver(()=>i(),{rootMargin:"-18% 0px -70% 0px",threshold:[0,1]});o.forEach(t=>a.observe(t.heading)),window.addEventListener("scroll",i,{passive:!0})};document.addEventListener("DOMContentLoaded",c);document.addEventListener("astro:page-load",c);</script> </div>  </main> <footer class="site-footer"> <div class="shell footer-inner"> <p>© 2026 未来观察者</p> </div> </footer> </body></html>
