@@ -1,0 +1,109 @@
+<!DOCTYPE html><html lang="zh-CN"> <head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1"><script>
+      (() => {
+        const storageKey = "future-observer-theme";
+        const root = document.documentElement;
+        const getStoredMode = () => {
+          try {
+            const value = localStorage.getItem(storageKey);
+            return value === "light" || value === "dark" || value === "system" ? value : "system";
+          } catch {
+            return "system";
+          }
+        };
+        const systemDark = () => window.matchMedia?.("(prefers-color-scheme: dark)").matches ?? false;
+        const apply = (mode) => {
+          const resolved = mode === "system" ? (systemDark() ? "dark" : "light") : mode;
+          root.dataset.themeMode = mode;
+          root.dataset.theme = resolved;
+          root.style.colorScheme = resolved;
+        };
+        apply(getStoredMode());
+        window.__setFutureObserverTheme = (mode) => {
+          const next = mode === "light" || mode === "dark" || mode === "system" ? mode : "system";
+          try { localStorage.setItem(storageKey, next); } catch {}
+          apply(next);
+          window.dispatchEvent(new CustomEvent("future-observer-theme-change", { detail: { mode: next } }));
+        };
+        window.matchMedia?.("(prefers-color-scheme: dark)").addEventListener?.("change", () => {
+          if (getStoredMode() === "system") apply("system");
+        });
+      })();
+    </script><title>last30days：让 AI 先看完最近 30 天的真实讨论，再给结论 | 未来观察者</title><meta name="description" content="搜索一个新工具时，普通网页结果常被旧文章和 SEO 内容占满，真正有用的体验却散落在 Reddit 评论、Hacker News 讨论、YouTube 字幕和 GitHub Issue 里。last30days 是一个开源 Agent Skill：它并行检索近期社区信号，按相关性"><meta name="generator" content="Astro v5.18.1"><meta property="og:title" content="last30days：让 AI 先看完最近 30 天的真实讨论，再给结论 | 未来观察者"><meta property="og:description" content="搜索一个新工具时，普通网页结果常被旧文章和 SEO 内容占满，真正有用的体验却散落在 Reddit 评论、Hacker News 讨论、YouTube 字幕和 GitHub Issue 里。last30days 是一个开源 Agent Skill：它并行检索近期社区信号，按相关性"><meta property="og:type" content="website"><meta property="og:url" content="https://future.lifestudylab.com/posts/2026-08-31-last30days/"><link rel="icon" type="image/svg+xml" href="/favicon.svg"><link rel="alternate" type="application/rss+xml" title="未来观察者" href="/rss.xml"><link rel="stylesheet" href="/_astro/_channel_.BFW__1rx.css"></head> <body> <div class="page-bg"></div> <header class="site-header"> <div class="shell header-inner"> <div class="header-bar"> <a class="brand" href="/ai-tools/"> <img src="/brand-mark.svg" alt="" class="brand-mark" width="56" height="56"> <span class="brand-text" aria-label="未来观察者">思考未来</span> </a> </div> <nav class="top-menu" aria-label="顶部菜单"> <a href="/future-daily/" class="top-menu-link"> 每日信息 </a><a href="/docs/deer-flow/00-overview/" class="top-menu-link"> DeerFlow教程 </a><a href="/docs/hermes/00-overview/" class="top-menu-link"> Hermes教程 </a><a href="/docs/openclaw/00-overview/" class="top-menu-link"> OpenClaw教程 </a><a href="/about/" class="top-menu-link"> 关于我 </a> </nav> <div class="top-actions"> <a class="feedback-link" href="https://github.com/yonglisss/yonglisss.github.io/issues" target="_blank" rel="noopener noreferrer" aria-label="问题反馈"> <svg viewBox="0 0 24 24" aria-hidden="true" class="action-icon"> <path d="M4.75 5.75A2.75 2.75 0 0 1 7.5 3h9A2.75 2.75 0 0 1 19.25 5.75v6.5A2.75 2.75 0 0 1 16.5 15H9.3l-3.55 3.2V15.1a2.75 2.75 0 0 1-1-2.1V5.75Z"></path> <path d="M8 7.75h8M8 11.25h4"></path> </svg> <span>问题反馈</span> </a> <div class="theme-switcher" data-theme-switcher> <button class="theme-trigger" type="button" aria-haspopup="menu" aria-expanded="false" aria-label="切换明暗模式" data-theme-trigger> <svg viewBox="0 0 24 24" aria-hidden="true" class="action-icon theme-trigger-icon theme-trigger-icon--light"> <circle cx="12" cy="12" r="4"></circle> <path d="M12 2.75v2M12 19.25v2M4.75 4.75l1.4 1.4M17.85 17.85l1.4 1.4M2.75 12h2M19.25 12h2M4.75 19.25l1.4-1.4M17.85 6.15l1.4-1.4"></path> </svg> <svg viewBox="0 0 24 24" aria-hidden="true" class="action-icon theme-trigger-icon theme-trigger-icon--dark"> <path d="M20.25 14.2A8 8 0 0 1 9.8 3.75 8.5 8.5 0 1 0 20.25 14.2Z"></path> </svg> <svg viewBox="0 0 24 24" aria-hidden="true" class="action-icon theme-trigger-icon theme-trigger-icon--system"> <rect x="4" y="5" width="16" height="11" rx="1.8"></rect> <path d="M9 20h6M12 16v4"></path> </svg> </button> <div class="theme-menu" role="menu" data-theme-menu hidden> <button class="theme-option" type="button" role="menuitemradio" data-theme-option="light" aria-checked="false"> <svg viewBox="0 0 24 24" aria-hidden="true" class="action-icon"><circle cx="12" cy="12" r="4"></circle><path d="M12 2.75v2M12 19.25v2M4.75 4.75l1.4 1.4M17.85 17.85l1.4 1.4M2.75 12h2M19.25 12h2M4.75 19.25l1.4-1.4M17.85 6.15l1.4-1.4"></path></svg> <span>亮色</span> </button> <button class="theme-option" type="button" role="menuitemradio" data-theme-option="dark" aria-checked="false"> <svg viewBox="0 0 24 24" aria-hidden="true" class="action-icon"><path d="M20.25 14.2A8 8 0 0 1 9.8 3.75 8.5 8.5 0 1 0 20.25 14.2Z"></path></svg> <span>暗色</span> </button> <button class="theme-option" type="button" role="menuitemradio" data-theme-option="system" aria-checked="true"> <svg viewBox="0 0 24 24" aria-hidden="true" class="action-icon"><rect x="4" y="5" width="16" height="11" rx="1.8"></rect><path d="M9 20h6M12 16v4"></path></svg> <span>跟随系统</span> </button> </div> </div> </div> </div> </header> <script>
+  (() => {
+    const switcher = document.querySelector("[data-theme-switcher]");
+    if (!switcher) return;
+
+    const trigger = switcher.querySelector("[data-theme-trigger]");
+    const menu = switcher.querySelector("[data-theme-menu]");
+    const options = [...switcher.querySelectorAll("[data-theme-option]")];
+    const modes = ["light", "dark", "system"];
+
+    const getMode = () => {
+      const mode = document.documentElement.dataset.themeMode;
+      return modes.includes(mode) ? mode : "system";
+    };
+
+    const closeMenu = () => {
+      menu.hidden = true;
+      trigger.setAttribute("aria-expanded", "false");
+    };
+
+    const openMenu = () => {
+      menu.hidden = false;
+      trigger.setAttribute("aria-expanded", "true");
+    };
+
+    const sync = () => {
+      const mode = getMode();
+      trigger.dataset.themeMode = mode;
+      options.forEach((option) => {
+        option.setAttribute("aria-checked", String(option.dataset.themeOption === mode));
+      });
+    };
+
+    trigger.addEventListener("click", () => {
+      menu.hidden ? openMenu() : closeMenu();
+    });
+
+    options.forEach((option) => {
+      option.addEventListener("click", () => {
+        window.__setFutureObserverTheme?.(option.dataset.themeOption || "system");
+        sync();
+        closeMenu();
+      });
+    });
+
+    document.addEventListener("click", (event) => {
+      if (!switcher.contains(event.target)) closeMenu();
+    });
+
+    document.addEventListener("keydown", (event) => {
+      if (event.key === "Escape") closeMenu();
+    });
+
+    window.addEventListener("future-observer-theme-change", sync);
+    sync();
+  })();
+</script> <aside class="site-rail" aria-label="站点导航"> <div class="site-rail-inner"> <p class="site-rail-label">Channels</p> <nav aria-label="主导航"> <ul class="site-rail-nav"> <li> <a href="/ai-tools/" class="site-rail-link"> AI工具 </a> </li><li> <a href="/future-daily/" class="site-rail-link"> 未来观察者日报 </a> </li> </ul> </nav> </div> </aside> <main class="shell page-content">  <div class="post-hero"> <p class="eyebrow">2026年8月31日</p> <h1>last30days：让 AI 先看完最近 30 天的真实讨论，再给结论</h1> <p class="post-summary">搜索一个新工具时，普通网页结果常被旧文章和 SEO 内容占满，真正有用的体验却散落在 Reddit 评论、Hacker News 讨论、YouTube 字幕和 GitHub Issue 里。last30days 是一个开源 Agent Skill：它并行检索近期社区信号，按相关性</p> <ul class="tag-list"> <li> <a href="/tags/AI%E5%B7%A5%E5%85%B7/" class="tag-link">
+#AI工具 </a> </li><li> <a href="/tags/2026%E5%B9%B408%E6%9C%88/" class="tag-link">
+#2026年08月 </a> </li> </ul> </div> <div class="post-grid"> <article class="prose">  <p>搜索一个新工具时，普通网页结果常被旧文章和 SEO 内容占满，真正有用的体验却散落在 Reddit 评论、Hacker News 讨论、YouTube 字幕和 GitHub Issue 里。last30days 是一个开源 Agent Skill：它并行检索近期社区信号，按相关性、互动和新鲜度整理，再让 Agent 综合成带来源的研究简报。项目今日进入 GitHub Trending，单日新增约 271 Star。</p>
+<h2 id="-这个项目是干什么的">📌 这个项目是干什么的</h2>
+<p>last30days 不是新的搜索网站，而是一套可安装到 Claude Code、Codex、Cursor、Gemini CLI 等 Agent 宿主的研究工作流。输入人物、产品、公司或技术主题后，它会查询 Reddit、Hacker News、Polymarket、GitHub 与网页；配置密钥或本地工具后，还可扩展到 X、YouTube、TikTok、arXiv、Techmeme 等来源。</p>
+<p>它保留帖子、评论、字幕、互动数据和链接，并把同一事件的跨平台材料合并，适合做工具选型、用户需求研究、会前准备和热点追踪。</p>
+<h2 id="-为什么值得关注">🔍 为什么值得关注</h2>
+<p>更值得关注的是“来源覆盖可诊断”。不同平台经常遇到缺少密钥、Cookie 失效、限流或接口变化，项目提供 doctor 健康检查，并在结果中区分无结果与抓取失败，避免把“没搜到”误写成“没人讨论”。</p>
+<p>其次，它把近期社区内容当作补充证据，而不是替代事实。GitHub Release、网页资料与社交讨论可以交叉查看，读者既能看到官方变化，也能了解真实使用反馈。当前 v3.21.1 还将 Perplexity Sonar 接入迁移到 Agent API，项目仍在持续更新。</p>
+<h2 id="-谁适合试怎么开始">🧪 谁适合试，怎么开始</h2>
+<p>它适合需要高频追踪 AI 工具、竞品反馈或技术社区动态的开发者、产品经理和内容团队。最短路径是安装 Skill：</p>
+<pre class="astro-code astro-code-themes github-light github-dark" style="--shiki-light:#24292e;--shiki-dark:#e1e4e8;--shiki-light-bg:#fff;--shiki-dark-bg:#24292e; overflow-x: auto;" tabindex="0" data-language="bash"><code><span class="line"><span style="--shiki-light:#6F42C1;--shiki-dark:#B392F0">npx</span><span style="--shiki-light:#032F62;--shiki-dark:#9ECBFF"> skills</span><span style="--shiki-light:#032F62;--shiki-dark:#9ECBFF"> add</span><span style="--shiki-light:#032F62;--shiki-dark:#9ECBFF"> mvanhorn/last30days-skill</span><span style="--shiki-light:#005CC5;--shiki-dark:#79B8FF"> -g</span></span></code></pre>
+<p>Reddit、Hacker News、Polymarket 和 GitHub 可零配置起步。建议先研究一个自己熟悉的项目，用官方 Release 和已知事件核对结果；确认引用、时间范围和来源状态可靠后，再配置 X、YouTube 等需要 Cookie、CLI 或 API Key 的来源。</p>
+<h2 id="️-使用提醒">⚠️ 使用提醒</h2>
+<p>互动量不等于事实，也可能受热门账号、平台人群和抓取覆盖影响。涉及价格、安全、法律、医疗或公司决策时，仍要回到官方文档和原始材料复核。项目会处理浏览器会话与第三方 API 凭据，安装前应审查脚本和权限，优先使用隔离环境与最小权限密钥。项目采用 MIT 许可证，运行要求包含 Python 3.12+ 和 Node.js；部分来源可能产生 API 费用。</p>
+<h2 id="-参考资源">🔗 参考资源</h2>
+<ul>
+<li>GitHub：<a href="https://github.com/mvanhorn/last30days-skill">https://github.com/mvanhorn/last30days-skill</a></li>
+<li>中文 README：<a href="https://github.com/mvanhorn/last30days-skill/blob/main/README.zh-CN.md">https://github.com/mvanhorn/last30days-skill/blob/main/README.zh-CN.md</a></li>
+<li>运行时 Skill 规范：<a href="https://github.com/mvanhorn/last30days-skill/blob/main/skills/last30days/SKILL.md">https://github.com/mvanhorn/last30days-skill/blob/main/skills/last30days/SKILL.md</a></li>
+<li>v3.21.1 Release：<a href="https://github.com/mvanhorn/last30days-skill/releases/tag/v3.21.1">https://github.com/mvanhorn/last30days-skill/releases/tag/v3.21.1</a></li>
+<li>MIT 许可证：<a href="https://github.com/mvanhorn/last30days-skill/blob/main/LICENSE">https://github.com/mvanhorn/last30days-skill/blob/main/LICENSE</a></li>
+</ul>  </article> <aside class="toc"><p class="toc-title">目录</p><ul class="toc-list"><li class="depth-2"><a href="#-这个项目是干什么的" data-toc-link="-这个项目是干什么的">📌 这个项目是干什么的</a></li><li class="depth-2"><a href="#-为什么值得关注" data-toc-link="-为什么值得关注">🔍 为什么值得关注</a></li><li class="depth-2"><a href="#-谁适合试怎么开始" data-toc-link="-谁适合试怎么开始">🧪 谁适合试，怎么开始</a></li><li class="depth-2"><a href="#️-使用提醒" data-toc-link="️-使用提醒">⚠️ 使用提醒</a></li><li class="depth-2"><a href="#-参考资源" data-toc-link="-参考资源">🔗 参考资源</a></li></ul></aside><script type="module">const c=()=>{const r=Array.from(document.querySelectorAll(".toc a[data-toc-link]"));if(!r.length)return;const o=r.map(t=>{const e=t.getAttribute("data-toc-link");if(!e)return null;const n=document.getElementById(e);return n?{id:e,heading:n,link:t}:null}).filter(t=>t!==null);if(!o.length)return;const s=t=>{r.forEach(e=>{const n=e.getAttribute("data-toc-link")===t;e.classList.toggle("active",n),n&&e.scrollIntoView({block:"nearest",inline:"nearest"})})},i=()=>{const t=Math.round(window.innerHeight*.28);let e=o[0];for(const n of o)n.heading.getBoundingClientRect().top<=t&&(e=n);s(e.id)};i();const a=new IntersectionObserver(()=>i(),{rootMargin:"-18% 0px -70% 0px",threshold:[0,1]});o.forEach(t=>a.observe(t.heading)),window.addEventListener("scroll",i,{passive:!0})};document.addEventListener("DOMContentLoaded",c);document.addEventListener("astro:page-load",c);</script> </div>  </main> <footer class="site-footer"> <div class="shell footer-inner"> <p>© 2026 未来观察者</p> </div> </footer> </body></html>
