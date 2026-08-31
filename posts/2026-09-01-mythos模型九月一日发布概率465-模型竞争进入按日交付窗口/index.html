@@ -1,0 +1,307 @@
+<!DOCTYPE html><html lang="zh-CN"> <head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1"><script>
+      (() => {
+        const storageKey = "future-observer-theme";
+        const root = document.documentElement;
+        const getStoredMode = () => {
+          try {
+            const value = localStorage.getItem(storageKey);
+            return value === "light" || value === "dark" || value === "system" ? value : "system";
+          } catch {
+            return "system";
+          }
+        };
+        const systemDark = () => window.matchMedia?.("(prefers-color-scheme: dark)").matches ?? false;
+        const apply = (mode) => {
+          const resolved = mode === "system" ? (systemDark() ? "dark" : "light") : mode;
+          root.dataset.themeMode = mode;
+          root.dataset.theme = resolved;
+          root.style.colorScheme = resolved;
+        };
+        apply(getStoredMode());
+        window.__setFutureObserverTheme = (mode) => {
+          const next = mode === "light" || mode === "dark" || mode === "system" ? mode : "system";
+          try { localStorage.setItem(storageKey, next); } catch {}
+          apply(next);
+          window.dispatchEvent(new CustomEvent("future-observer-theme-change", { detail: { mode: next } }));
+        };
+        window.matchMedia?.("(prefers-color-scheme: dark)").addEventListener?.("change", () => {
+          if (getStoredMode() === "system") apply("system");
+        });
+      })();
+    </script><title>⏱️ Mythos 模型 9 月 1 日发布概率 46.5%：模型竞争进入“按日交付”窗口 | 未来观察者</title><meta name="description" content="🔭 核心观点：Polymarket 把 Anthropic 下一款 Mythos-class 模型在 9 月 1 日前公开发布的概率定价为 46.5%，9 月 2 日、9 月 4 日前则依次升至 59.5%、76.5%。这组期限结构真正反映的，不只是新品何时上线，而是前沿模型的"><meta name="generator" content="Astro v5.18.1"><meta property="og:title" content="⏱️ Mythos 模型 9 月 1 日发布概率 46.5%：模型竞争进入“按日交付”窗口 | 未来观察者"><meta property="og:description" content="🔭 核心观点：Polymarket 把 Anthropic 下一款 Mythos-class 模型在 9 月 1 日前公开发布的概率定价为 46.5%，9 月 2 日、9 月 4 日前则依次升至 59.5%、76.5%。这组期限结构真正反映的，不只是新品何时上线，而是前沿模型的"><meta property="og:type" content="website"><meta property="og:url" content="https://future.lifestudylab.com/posts/2026-09-01-mythos%E6%A8%A1%E5%9E%8B%E4%B9%9D%E6%9C%88%E4%B8%80%E6%97%A5%E5%8F%91%E5%B8%83%E6%A6%82%E7%8E%87465-%E6%A8%A1%E5%9E%8B%E7%AB%9E%E4%BA%89%E8%BF%9B%E5%85%A5%E6%8C%89%E6%97%A5%E4%BA%A4%E4%BB%98%E7%AA%97%E5%8F%A3/"><link rel="icon" type="image/svg+xml" href="/favicon.svg"><link rel="alternate" type="application/rss+xml" title="未来观察者" href="/rss.xml"><link rel="stylesheet" href="/_astro/_channel_.BFW__1rx.css"></head> <body> <div class="page-bg"></div> <header class="site-header"> <div class="shell header-inner"> <div class="header-bar"> <a class="brand" href="/ai-tools/"> <img src="/brand-mark.svg" alt="" class="brand-mark" width="56" height="56"> <span class="brand-text" aria-label="未来观察者">思考未来</span> </a> </div> <nav class="top-menu" aria-label="顶部菜单"> <a href="/future-daily/" class="top-menu-link"> 每日信息 </a><a href="/docs/deer-flow/00-overview/" class="top-menu-link"> DeerFlow教程 </a><a href="/docs/hermes/00-overview/" class="top-menu-link"> Hermes教程 </a><a href="/docs/openclaw/00-overview/" class="top-menu-link"> OpenClaw教程 </a><a href="/about/" class="top-menu-link"> 关于我 </a> </nav> <div class="top-actions"> <a class="feedback-link" href="https://github.com/yonglisss/yonglisss.github.io/issues" target="_blank" rel="noopener noreferrer" aria-label="问题反馈"> <svg viewBox="0 0 24 24" aria-hidden="true" class="action-icon"> <path d="M4.75 5.75A2.75 2.75 0 0 1 7.5 3h9A2.75 2.75 0 0 1 19.25 5.75v6.5A2.75 2.75 0 0 1 16.5 15H9.3l-3.55 3.2V15.1a2.75 2.75 0 0 1-1-2.1V5.75Z"></path> <path d="M8 7.75h8M8 11.25h4"></path> </svg> <span>问题反馈</span> </a> <div class="theme-switcher" data-theme-switcher> <button class="theme-trigger" type="button" aria-haspopup="menu" aria-expanded="false" aria-label="切换明暗模式" data-theme-trigger> <svg viewBox="0 0 24 24" aria-hidden="true" class="action-icon theme-trigger-icon theme-trigger-icon--light"> <circle cx="12" cy="12" r="4"></circle> <path d="M12 2.75v2M12 19.25v2M4.75 4.75l1.4 1.4M17.85 17.85l1.4 1.4M2.75 12h2M19.25 12h2M4.75 19.25l1.4-1.4M17.85 6.15l1.4-1.4"></path> </svg> <svg viewBox="0 0 24 24" aria-hidden="true" class="action-icon theme-trigger-icon theme-trigger-icon--dark"> <path d="M20.25 14.2A8 8 0 0 1 9.8 3.75 8.5 8.5 0 1 0 20.25 14.2Z"></path> </svg> <svg viewBox="0 0 24 24" aria-hidden="true" class="action-icon theme-trigger-icon theme-trigger-icon--system"> <rect x="4" y="5" width="16" height="11" rx="1.8"></rect> <path d="M9 20h6M12 16v4"></path> </svg> </button> <div class="theme-menu" role="menu" data-theme-menu hidden> <button class="theme-option" type="button" role="menuitemradio" data-theme-option="light" aria-checked="false"> <svg viewBox="0 0 24 24" aria-hidden="true" class="action-icon"><circle cx="12" cy="12" r="4"></circle><path d="M12 2.75v2M12 19.25v2M4.75 4.75l1.4 1.4M17.85 17.85l1.4 1.4M2.75 12h2M19.25 12h2M4.75 19.25l1.4-1.4M17.85 6.15l1.4-1.4"></path></svg> <span>亮色</span> </button> <button class="theme-option" type="button" role="menuitemradio" data-theme-option="dark" aria-checked="false"> <svg viewBox="0 0 24 24" aria-hidden="true" class="action-icon"><path d="M20.25 14.2A8 8 0 0 1 9.8 3.75 8.5 8.5 0 1 0 20.25 14.2Z"></path></svg> <span>暗色</span> </button> <button class="theme-option" type="button" role="menuitemradio" data-theme-option="system" aria-checked="true"> <svg viewBox="0 0 24 24" aria-hidden="true" class="action-icon"><rect x="4" y="5" width="16" height="11" rx="1.8"></rect><path d="M9 20h6M12 16v4"></path></svg> <span>跟随系统</span> </button> </div> </div> </div> </div> </header> <script>
+  (() => {
+    const switcher = document.querySelector("[data-theme-switcher]");
+    if (!switcher) return;
+
+    const trigger = switcher.querySelector("[data-theme-trigger]");
+    const menu = switcher.querySelector("[data-theme-menu]");
+    const options = [...switcher.querySelectorAll("[data-theme-option]")];
+    const modes = ["light", "dark", "system"];
+
+    const getMode = () => {
+      const mode = document.documentElement.dataset.themeMode;
+      return modes.includes(mode) ? mode : "system";
+    };
+
+    const closeMenu = () => {
+      menu.hidden = true;
+      trigger.setAttribute("aria-expanded", "false");
+    };
+
+    const openMenu = () => {
+      menu.hidden = false;
+      trigger.setAttribute("aria-expanded", "true");
+    };
+
+    const sync = () => {
+      const mode = getMode();
+      trigger.dataset.themeMode = mode;
+      options.forEach((option) => {
+        option.setAttribute("aria-checked", String(option.dataset.themeOption === mode));
+      });
+    };
+
+    trigger.addEventListener("click", () => {
+      menu.hidden ? openMenu() : closeMenu();
+    });
+
+    options.forEach((option) => {
+      option.addEventListener("click", () => {
+        window.__setFutureObserverTheme?.(option.dataset.themeOption || "system");
+        sync();
+        closeMenu();
+      });
+    });
+
+    document.addEventListener("click", (event) => {
+      if (!switcher.contains(event.target)) closeMenu();
+    });
+
+    document.addEventListener("keydown", (event) => {
+      if (event.key === "Escape") closeMenu();
+    });
+
+    window.addEventListener("future-observer-theme-change", sync);
+    sync();
+  })();
+</script> <aside class="site-rail" aria-label="站点导航"> <div class="site-rail-inner"> <p class="site-rail-label">Channels</p> <nav aria-label="主导航"> <ul class="site-rail-nav"> <li> <a href="/ai-tools/" class="site-rail-link"> AI工具 </a> </li><li> <a href="/future-daily/" class="site-rail-link"> 未来观察者日报 </a> </li> </ul> </nav> </div> </aside> <main class="shell page-content">  <div class="post-hero"> <p class="eyebrow">2026年9月1日</p> <h1>⏱️ Mythos 模型 9 月 1 日发布概率 46.5%：模型竞争进入“按日交付”窗口</h1> <p class="post-summary">🔭 核心观点：Polymarket 把 Anthropic 下一款 Mythos-class 模型在 9 月 1 日前公开发布的概率定价为 46.5%，9 月 2 日、9 月 4 日前则依次升至 59.5%、76.5%。这组期限结构真正反映的，不只是新品何时上线，而是前沿模型的</p> <ul class="tag-list"> <li> <a href="/tags/%E6%9C%AA%E6%9D%A5%E8%A7%82%E5%AF%9F%E8%80%85%E6%97%A5%E6%8A%A5/" class="tag-link">
+#未来观察者日报 </a> </li><li> <a href="/tags/2026%E5%B9%B409%E6%9C%88/" class="tag-link">
+#2026年09月 </a> </li> </ul> </div> <div class="post-grid"> <article class="prose">  <blockquote>
+<p>🔭 <strong>核心观点</strong>：Polymarket 把 Anthropic 下一款 Mythos-class 模型在 <strong>9 月 1 日前公开发布</strong>的概率定价为 <strong>46.5%</strong>，9 月 2 日、9 月 4 日前则依次升至 <strong>59.5%</strong>、<strong>76.5%</strong>。这组期限结构真正反映的，不只是新品何时上线，而是前沿模型的竞争单位正从季度路线图压缩到按日兑现的公开可用性。</p>
+</blockquote>
+<p><strong>作者：</strong> 拾水木<br>
+<strong>时间：</strong> 2026年9月1日<br>
+<strong>标签：</strong> #未来观察者 #Anthropic #Mythos #AI模型 #产品交付<br>
+<strong>阅读时间：</strong> 约4分钟</p>
+<hr>
+<h2 id="-今天看什么投票市场把发布窗口压在-9-月上旬">🎯 今天看什么投票？市场把发布窗口压在 9 月上旬</h2>
+<p>今天观察的是 Polymarket 事件 <strong>“Next Mythos-Class Model released by…?”</strong>。合约规定：只有 Anthropic 发布下一款官方名称含 “Mythos”、或被官方描述为 Mythos-class 的模型，并在对应截止日期前向公众开放，才结算为 Yes。开放测试或滚动公开候补可以计入，封闭测试和私人访问不计入。</p>
+<h3 id="-关键数据卡">📊 关键数据卡</h3>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<table><thead><tr><th>截止日期</th><th align="right">当前 Yes 概率</th><th align="right">24小时变化</th><th align="right">24小时成交量</th></tr></thead><tbody><tr><td><strong>9 月 1 日</strong></td><td align="right"><strong>46.5%</strong></td><td align="right"><strong>+5.0pp</strong></td><td align="right"><strong>约 4.14 万美元</strong></td></tr><tr><td><strong>9 月 2 日</strong></td><td align="right"><strong>59.5%</strong></td><td align="right"><strong>+4.5pp</strong></td><td align="right">约 2.05 万美元</td></tr><tr><td><strong>9 月 4 日</strong></td><td align="right"><strong>76.5%</strong></td><td align="right"><strong>+7.5pp</strong></td><td align="right">约 1.21 万美元</td></tr><tr><td><strong>9 月 7 日</strong></td><td align="right"><strong>79.5%</strong></td><td align="right"><strong>+5.5pp</strong></td><td align="right">约 0.69 万美元</td></tr><tr><td><strong>9 月 9 日</strong></td><td align="right"><strong>81.5%</strong></td><td align="right"><strong>+5.5pp</strong></td><td align="right">约 1.83 万美元</td></tr><tr><td><strong>9 月 15 日</strong></td><td align="right"><strong>88.0%</strong></td><td align="right"><strong>+9.0pp</strong></td><td align="right">约 1.46 万美元</td></tr><tr><td><strong>9 月 30 日</strong></td><td align="right"><strong>92.5%</strong></td><td align="right"><strong>+1.0pp</strong></td><td align="right">约 3.60 万美元</td></tr></tbody></table>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<table><thead><tr><th>事件级指标</th><th align="right">数据</th></tr></thead><tbody><tr><td><strong>24小时成交量</strong></td><td align="right"><strong>约 25.93 万美元</strong></td></tr><tr><td>一周成交量</td><td align="right">约 67.54 万美元</td></tr><tr><td>累计成交量</td><td align="right">约 89.68 万美元</td></tr><tr><td>流动性</td><td align="right">约 10.20 万美元</td></tr><tr><td>未平仓量</td><td align="right">约 31.66 万美元</td></tr><tr><td>数据获取时间</td><td align="right"><strong>2026-09-01 04:01（北京时间）</strong></td></tr><tr><td>投票链接</td><td align="right"><a href="https://polymarket.com/event/next-mythos-class-model-released-by">Polymarket 原始事件页</a></td></tr></tbody></table>
+<blockquote>
+<p>⚠️ <strong>读数提醒</strong>：不同日期是独立交易的二元合约，不能把各自概率相加。它们更适合被读取为一条“最晚何时公开”的期限曲线，而不是严格的发布日期概率分布。</p>
+</blockquote>
+<h3 id="-为什么今天选它新增变量是公开交付时钟">🧭 为什么今天选它？新增变量是“公开交付时钟”</h3>
+<ol>
+<li><strong>未来结果明确</strong>：合约定义了模型类别、公开可用标准、截止日期和主要结算来源。</li>
+<li><strong>资金参与明显</strong>：事件 24 小时成交约 25.93 万美元，占累计成交约 28.91%；一周成交约占累计成交 75.31%。</li>
+<li><strong>期限曲线出现集中窗口</strong>：9 月 1 日到 9 月 4 日的累计概率从 46.5%升至76.5%，市场把主要增量押注放在数日之内。</li>
+<li><strong>与近期 AI 主题存在明确新增变量</strong>：8 月 26 日文章讨论 Ox Alpha 的匿名灰度与模型归属，今天不再分析“匿名模型属于谁”，而是分析 <strong>Anthropic 是否把下一款旗舰级模型真正向公众开放，以及发布预期如何被按日定价</strong>。这是从分发链身份识别转向官方产品交付时钟。</li>
+</ol>
+<hr>
+<h2 id="-为什么会有这个投票发布会已经不等于产品可用">🔍 为什么会有这个投票？发布会已经不等于产品可用</h2>
+<p><strong>事实层面</strong>，Polymarket 的规则把“公开发布”写得很严格：模型必须实际向公众开放；网页占位、命名错误、封闭测试或私人访问都不足以结算。合约说明还记录，Anthropic 曾于 2026 年 6 月 9 日发布 Mythos-class 模型 Claude Fable 5，本次市场追踪的是下一款同级模型。</p>
+<p><strong>市场定价层面</strong>，9 月 1 日只有 46.5%，但 9 月 2 日升至59.5%，9 月 4 日达到76.5%。这说明交易者对“今天能否兑现”仍有明显分歧，却普遍认为拖延不会持续太久。近日期合约的买卖价差也不小，例如 9 月 1 日约为46%—47%，9 月 2 日约为58%—61%，应避免把单点报价当成精确统计结论。</p>
+<p><strong>推测层面</strong>，这种陡峭期限结构可能来自对产品准备度、发布节奏或官方信号的重新判断，也可能被大额仓位放大。由于本文没有核验到 Anthropic 对具体发布日期的正式公告，不能把盘口反推成“模型将在某天发布”的事实。</p>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<table><thead><tr><th>旧式发布判断</th><th>预测市场正在追踪的新门槛</th></tr></thead><tbody><tr><td>公司是否预告新品</td><td>模型是否在截止日前真实可用</td></tr><tr><td>发布会是否举行</td><td>普通用户能否获得公开访问</td></tr><tr><td>benchmark 是否领先</td><td>API、产品入口和服务容量能否同时交付</td></tr><tr><td>按季度比较路线图</td><td>按天比较兑现速度与延期成本</td></tr></tbody></table>
+<hr>
+<h2 id="-这条曲线反映什么结构变化模型能力正在被交付能力重新定价">🧩 这条曲线反映什么结构变化？模型能力正在被交付能力重新定价</h2>
+<h3 id="️-技术层最后一公里从训练完成转向稳定服务">⚙️ 技术层：最后一公里从训练完成转向稳定服务</h3>
+<p>训练出模型只是起点。公开交付还要求推理基础设施、容量调度、安全策略、工具接口、计费和故障降级同时就绪。日期概率按天变化，实质上是在给这条“训练完成—产品化—规模服务”链条的最后一公里定价。</p>
+<h3 id="-产业层发布节奏开始影响开发者迁移成本">🏭 产业层：发布节奏开始影响开发者迁移成本</h3>
+<p>模型厂商之间的竞争不只是谁在静态评测中领先，还包括谁能在明确窗口内开放 API、保持稳定容量并让开发者低成本迁移。若新品发布时间频繁提前或推迟，应用公司就会更重视多模型路由、可替换接口和自有评测，而不是把路线图押在单一供应商上。</p>
+<h3 id="-社会与资本层可验证兑现正在取代口头路线图">💰 社会与资本层：可验证兑现正在取代口头路线图</h3>
+<p>当一个模型的公开时间能形成近 90 万美元累计成交，产品路线图已经成为可交易事件。资本会进一步区分“技术叙事”与“公开供给”：前者决定想象空间，后者才影响开发者采用、收入确认和基础设施利用率。</p>
+<blockquote>
+<p><strong>真正的结构变化是：前沿模型公司的信用，不再只来自能力上限，也来自能否把承诺按时转成公众可调用的服务。</strong></p>
+</blockquote>
+<hr>
+<h2 id="-如果按日竞争继续未来会怎样">⏳ 如果按日竞争继续，未来会怎样？</h2>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<table><thead><tr><th>时间尺度</th><th>可能变化</th><th>需要验证的信号</th></tr></thead><tbody><tr><td><strong>短期：未来数日</strong></td><td>期限曲线随官方页面、产品入口和访问资格迅速收敛</td><td>Anthropic 官方公告、公开注册、API 可用性、买卖价差</td></tr><tr><td><strong>中期：未来6—18个月</strong></td><td>模型厂商缩短预告周期，更多采用灰度开放与分批扩容</td><td>发布后容量、错误率、价格、区域覆盖和开发者迁移</td></tr><tr><td><strong>长期：未来2—3年</strong></td><td>行业从“模型发布竞赛”转向“持续交付与兼容性竞赛”</td><td>服务等级、版本支持周期、多模型路由份额、单位推理成本</td></tr></tbody></table>
+<blockquote>
+<p>🔮 <strong>判断</strong>：即使 9 月 1 日合约最终结算为 No，只要随后数日模型公开，市场传递的长期信号仍成立——新品竞争已经进入极短交付窗口，延期的声誉与生态成本正在上升。</p>
+</blockquote>
+<hr>
+<h2 id="️-普通人开发者与创业者该怎么行动">🛠️ 普通人、开发者与创业者该怎么行动？</h2>
+<ol>
+<li><strong>普通用户</strong>：把“市场认为快发布”与“官方已经发布”分开；涉及付费或数据上传前，确认真实产品入口、隐私规则和服务主体。</li>
+<li><strong>开发者</strong>：为核心任务准备固定评测集，记录质量、延迟、错误率和单任务成本；新品开放后先在影子流量中比较，不直接替换生产模型。</li>
+<li><strong>技术负责人</strong>：统一模型接口，保留路由、回退、限流和版本锁定能力，避免发布日期变化直接打乱业务排期。</li>
+<li><strong>AI 创业者</strong>：把模型升级当作供应链事件管理；至少维护主模型、备用模型和降级方案三层配置。</li>
+<li><strong>投资观察者</strong>：同时跟踪发布日期、公开访问范围、服务稳定性和采用速度。概率上涨只能说明预期升温，真正兑现要看产品是否可用、用户是否迁移。</li>
+</ol>
+<hr>
+<h2 id="️-风险提示">⚠️ 风险提示</h2>
+<ul>
+<li>预测市场价格受参与者结构、仓位、流动性和买卖价差影响，不是 Anthropic 官方发布日期。</li>
+<li>各日期合约独立交易，概率曲线可能不完全单调，也不能直接推导精确的单日发布概率。</li>
+<li>9 月 1 日、9 月 2 日等近端合约对时区、公开访问定义和信息更新时间高度敏感，应以合约规则为准。</li>
+<li>市场事件累计成交约89.68万美元，具备观察价值，但不足以消除集中交易造成的价格偏差。</li>
+<li>本文区分了合约事实、市场定价与推测，不构成投资或预测市场交易建议。</li>
+</ul>
+<hr>
+<h2 id="-结语模型竞赛的下一张成绩单是按时可用">🌌 结语：模型竞赛的下一张成绩单是“按时可用”</h2>
+<p>46.5%、59.5%和76.5%分别对应9月1日、2日和4日前公开发布的市场定价。它们没有告诉我们模型一定在哪天出现，却清楚展示了交易者如何把期待压缩到数日窗口。</p>
+<p>未来观察者的结论是：<strong>当模型能力越来越接近，真正拉开差距的将是公开交付、稳定供给和开发者迁移三件事。发布日不只是营销节点，而是技术、基础设施与组织执行力同时接受验收的时刻。</strong></p>
+<hr>
+<h2 id="-参考资源">🔗 参考资源</h2>
+<ol>
+<li><a href="https://polymarket.com/event/next-mythos-class-model-released-by">Polymarket：Next Mythos-Class Model released by…?</a></li>
+<li><a href="https://gamma-api.polymarket.com/events?slug=next-mythos-class-model-released-by">Polymarket Gamma API：事件数据</a></li>
+<li><a href="https://www.anthropic.com/">Anthropic 官方网站</a></li>
+<li>近期去重对照：[[2026-08-26-Ox-Alpha归属智谱概率94.05-匿名模型测试正在改写AI发布链]]</li>
+</ol>
+<blockquote>
+<p>数据说明：概率、成交量、流动性、未平仓量、价格变化和合约规则获取并交叉核验于 2026-09-01 04:01（北京时间）。预测市场价格会实时变化，请以 Polymarket 原始事件页、合约规则及 Anthropic 官方信息为准。</p>
+</blockquote>  </article> <aside class="toc"><p class="toc-title">目录</p><ul class="toc-list"><li class="depth-2"><a href="#-今天看什么投票市场把发布窗口压在-9-月上旬" data-toc-link="-今天看什么投票市场把发布窗口压在-9-月上旬">🎯 今天看什么投票？市场把发布窗口压在 9 月上旬</a></li><li class="depth-3"><a href="#-关键数据卡" data-toc-link="-关键数据卡">📊 关键数据卡</a></li><li class="depth-3"><a href="#-为什么今天选它新增变量是公开交付时钟" data-toc-link="-为什么今天选它新增变量是公开交付时钟">🧭 为什么今天选它？新增变量是“公开交付时钟”</a></li><li class="depth-2"><a href="#-为什么会有这个投票发布会已经不等于产品可用" data-toc-link="-为什么会有这个投票发布会已经不等于产品可用">🔍 为什么会有这个投票？发布会已经不等于产品可用</a></li><li class="depth-2"><a href="#-这条曲线反映什么结构变化模型能力正在被交付能力重新定价" data-toc-link="-这条曲线反映什么结构变化模型能力正在被交付能力重新定价">🧩 这条曲线反映什么结构变化？模型能力正在被交付能力重新定价</a></li><li class="depth-3"><a href="#️-技术层最后一公里从训练完成转向稳定服务" data-toc-link="️-技术层最后一公里从训练完成转向稳定服务">⚙️ 技术层：最后一公里从训练完成转向稳定服务</a></li><li class="depth-3"><a href="#-产业层发布节奏开始影响开发者迁移成本" data-toc-link="-产业层发布节奏开始影响开发者迁移成本">🏭 产业层：发布节奏开始影响开发者迁移成本</a></li><li class="depth-3"><a href="#-社会与资本层可验证兑现正在取代口头路线图" data-toc-link="-社会与资本层可验证兑现正在取代口头路线图">💰 社会与资本层：可验证兑现正在取代口头路线图</a></li><li class="depth-2"><a href="#-如果按日竞争继续未来会怎样" data-toc-link="-如果按日竞争继续未来会怎样">⏳ 如果按日竞争继续，未来会怎样？</a></li><li class="depth-2"><a href="#️-普通人开发者与创业者该怎么行动" data-toc-link="️-普通人开发者与创业者该怎么行动">🛠️ 普通人、开发者与创业者该怎么行动？</a></li><li class="depth-2"><a href="#️-风险提示" data-toc-link="️-风险提示">⚠️ 风险提示</a></li><li class="depth-2"><a href="#-结语模型竞赛的下一张成绩单是按时可用" data-toc-link="-结语模型竞赛的下一张成绩单是按时可用">🌌 结语：模型竞赛的下一张成绩单是“按时可用”</a></li><li class="depth-2"><a href="#-参考资源" data-toc-link="-参考资源">🔗 参考资源</a></li></ul></aside><script type="module">const c=()=>{const r=Array.from(document.querySelectorAll(".toc a[data-toc-link]"));if(!r.length)return;const o=r.map(t=>{const e=t.getAttribute("data-toc-link");if(!e)return null;const n=document.getElementById(e);return n?{id:e,heading:n,link:t}:null}).filter(t=>t!==null);if(!o.length)return;const s=t=>{r.forEach(e=>{const n=e.getAttribute("data-toc-link")===t;e.classList.toggle("active",n),n&&e.scrollIntoView({block:"nearest",inline:"nearest"})})},i=()=>{const t=Math.round(window.innerHeight*.28);let e=o[0];for(const n of o)n.heading.getBoundingClientRect().top<=t&&(e=n);s(e.id)};i();const a=new IntersectionObserver(()=>i(),{rootMargin:"-18% 0px -70% 0px",threshold:[0,1]});o.forEach(t=>a.observe(t.heading)),window.addEventListener("scroll",i,{passive:!0})};document.addEventListener("DOMContentLoaded",c);document.addEventListener("astro:page-load",c);</script> </div>  </main> <footer class="site-footer"> <div class="shell footer-inner"> <p>© 2026 未来观察者</p> </div> </footer> </body></html>
