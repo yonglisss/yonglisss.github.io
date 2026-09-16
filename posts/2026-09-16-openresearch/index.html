@@ -1,0 +1,111 @@
+<!DOCTYPE html><html lang="zh-CN"> <head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1"><script>
+      (() => {
+        const storageKey = "future-observer-theme";
+        const root = document.documentElement;
+        const getStoredMode = () => {
+          try {
+            const value = localStorage.getItem(storageKey);
+            return value === "light" || value === "dark" || value === "system" ? value : "system";
+          } catch {
+            return "system";
+          }
+        };
+        const systemDark = () => window.matchMedia?.("(prefers-color-scheme: dark)").matches ?? false;
+        const apply = (mode) => {
+          const resolved = mode === "system" ? (systemDark() ? "dark" : "light") : mode;
+          root.dataset.themeMode = mode;
+          root.dataset.theme = resolved;
+          root.style.colorScheme = resolved;
+        };
+        apply(getStoredMode());
+        window.__setFutureObserverTheme = (mode) => {
+          const next = mode === "light" || mode === "dark" || mode === "system" ? mode : "system";
+          try { localStorage.setItem(storageKey, next); } catch {}
+          apply(next);
+          window.dispatchEvent(new CustomEvent("future-observer-theme-change", { detail: { mode: next } }));
+        };
+        window.matchMedia?.("(prefers-color-scheme: dark)").addEventListener?.("change", () => {
+          if (getStoredMode() === "system") apply("system");
+        });
+      })();
+    </script><title>OpenResearch：把编程 Agent 变成可追溯的研究工作台 | 未来观察者</title><meta name="description" content="让 AI 查论文、改代码并不难，难的是并行探索之后还能回答：哪个假设有效、结果对应哪版代码、过程能否复现。今天登上 GitHub 热门榜的 OpenResearch，瞄准的正是这段“研究过程管理”。它把 Claude Code、Codex、OpenCode、Cursor 等编程 "><meta name="generator" content="Astro v5.18.1"><meta property="og:title" content="OpenResearch：把编程 Agent 变成可追溯的研究工作台 | 未来观察者"><meta property="og:description" content="让 AI 查论文、改代码并不难，难的是并行探索之后还能回答：哪个假设有效、结果对应哪版代码、过程能否复现。今天登上 GitHub 热门榜的 OpenResearch，瞄准的正是这段“研究过程管理”。它把 Claude Code、Codex、OpenCode、Cursor 等编程 "><meta property="og:type" content="website"><meta property="og:url" content="https://future.lifestudylab.com/posts/2026-09-16-openresearch/"><link rel="icon" type="image/svg+xml" href="/favicon.svg"><link rel="alternate" type="application/rss+xml" title="未来观察者" href="/rss.xml"><link rel="stylesheet" href="/_astro/_channel_.BFW__1rx.css"></head> <body> <div class="page-bg"></div> <header class="site-header"> <div class="shell header-inner"> <div class="header-bar"> <a class="brand" href="/ai-tools/"> <img src="/brand-mark.svg" alt="" class="brand-mark" width="56" height="56"> <span class="brand-text" aria-label="未来观察者">思考未来</span> </a> </div> <nav class="top-menu" aria-label="顶部菜单"> <a href="/future-daily/" class="top-menu-link"> 每日信息 </a><a href="/docs/deer-flow/00-overview/" class="top-menu-link"> DeerFlow教程 </a><a href="/docs/hermes/00-overview/" class="top-menu-link"> Hermes教程 </a><a href="/docs/openclaw/00-overview/" class="top-menu-link"> OpenClaw教程 </a><a href="/about/" class="top-menu-link"> 关于我 </a> </nav> <div class="top-actions"> <a class="feedback-link" href="https://github.com/yonglisss/yonglisss.github.io/issues" target="_blank" rel="noopener noreferrer" aria-label="问题反馈"> <svg viewBox="0 0 24 24" aria-hidden="true" class="action-icon"> <path d="M4.75 5.75A2.75 2.75 0 0 1 7.5 3h9A2.75 2.75 0 0 1 19.25 5.75v6.5A2.75 2.75 0 0 1 16.5 15H9.3l-3.55 3.2V15.1a2.75 2.75 0 0 1-1-2.1V5.75Z"></path> <path d="M8 7.75h8M8 11.25h4"></path> </svg> <span>问题反馈</span> </a> <div class="theme-switcher" data-theme-switcher> <button class="theme-trigger" type="button" aria-haspopup="menu" aria-expanded="false" aria-label="切换明暗模式" data-theme-trigger> <svg viewBox="0 0 24 24" aria-hidden="true" class="action-icon theme-trigger-icon theme-trigger-icon--light"> <circle cx="12" cy="12" r="4"></circle> <path d="M12 2.75v2M12 19.25v2M4.75 4.75l1.4 1.4M17.85 17.85l1.4 1.4M2.75 12h2M19.25 12h2M4.75 19.25l1.4-1.4M17.85 6.15l1.4-1.4"></path> </svg> <svg viewBox="0 0 24 24" aria-hidden="true" class="action-icon theme-trigger-icon theme-trigger-icon--dark"> <path d="M20.25 14.2A8 8 0 0 1 9.8 3.75 8.5 8.5 0 1 0 20.25 14.2Z"></path> </svg> <svg viewBox="0 0 24 24" aria-hidden="true" class="action-icon theme-trigger-icon theme-trigger-icon--system"> <rect x="4" y="5" width="16" height="11" rx="1.8"></rect> <path d="M9 20h6M12 16v4"></path> </svg> </button> <div class="theme-menu" role="menu" data-theme-menu hidden> <button class="theme-option" type="button" role="menuitemradio" data-theme-option="light" aria-checked="false"> <svg viewBox="0 0 24 24" aria-hidden="true" class="action-icon"><circle cx="12" cy="12" r="4"></circle><path d="M12 2.75v2M12 19.25v2M4.75 4.75l1.4 1.4M17.85 17.85l1.4 1.4M2.75 12h2M19.25 12h2M4.75 19.25l1.4-1.4M17.85 6.15l1.4-1.4"></path></svg> <span>亮色</span> </button> <button class="theme-option" type="button" role="menuitemradio" data-theme-option="dark" aria-checked="false"> <svg viewBox="0 0 24 24" aria-hidden="true" class="action-icon"><path d="M20.25 14.2A8 8 0 0 1 9.8 3.75 8.5 8.5 0 1 0 20.25 14.2Z"></path></svg> <span>暗色</span> </button> <button class="theme-option" type="button" role="menuitemradio" data-theme-option="system" aria-checked="true"> <svg viewBox="0 0 24 24" aria-hidden="true" class="action-icon"><rect x="4" y="5" width="16" height="11" rx="1.8"></rect><path d="M9 20h6M12 16v4"></path></svg> <span>跟随系统</span> </button> </div> </div> </div> </div> </header> <script>
+  (() => {
+    const switcher = document.querySelector("[data-theme-switcher]");
+    if (!switcher) return;
+
+    const trigger = switcher.querySelector("[data-theme-trigger]");
+    const menu = switcher.querySelector("[data-theme-menu]");
+    const options = [...switcher.querySelectorAll("[data-theme-option]")];
+    const modes = ["light", "dark", "system"];
+
+    const getMode = () => {
+      const mode = document.documentElement.dataset.themeMode;
+      return modes.includes(mode) ? mode : "system";
+    };
+
+    const closeMenu = () => {
+      menu.hidden = true;
+      trigger.setAttribute("aria-expanded", "false");
+    };
+
+    const openMenu = () => {
+      menu.hidden = false;
+      trigger.setAttribute("aria-expanded", "true");
+    };
+
+    const sync = () => {
+      const mode = getMode();
+      trigger.dataset.themeMode = mode;
+      options.forEach((option) => {
+        option.setAttribute("aria-checked", String(option.dataset.themeOption === mode));
+      });
+    };
+
+    trigger.addEventListener("click", () => {
+      menu.hidden ? openMenu() : closeMenu();
+    });
+
+    options.forEach((option) => {
+      option.addEventListener("click", () => {
+        window.__setFutureObserverTheme?.(option.dataset.themeOption || "system");
+        sync();
+        closeMenu();
+      });
+    });
+
+    document.addEventListener("click", (event) => {
+      if (!switcher.contains(event.target)) closeMenu();
+    });
+
+    document.addEventListener("keydown", (event) => {
+      if (event.key === "Escape") closeMenu();
+    });
+
+    window.addEventListener("future-observer-theme-change", sync);
+    sync();
+  })();
+</script> <aside class="site-rail" aria-label="站点导航"> <div class="site-rail-inner"> <p class="site-rail-label">Channels</p> <nav aria-label="主导航"> <ul class="site-rail-nav"> <li> <a href="/ai-tools/" class="site-rail-link"> AI工具 </a> </li><li> <a href="/future-daily/" class="site-rail-link"> 未来观察者日报 </a> </li> </ul> </nav> </div> </aside> <main class="shell page-content">  <div class="post-hero"> <p class="eyebrow">2026年9月16日</p> <h1>OpenResearch：把编程 Agent 变成可追溯的研究工作台</h1> <p class="post-summary">让 AI 查论文、改代码并不难，难的是并行探索之后还能回答：哪个假设有效、结果对应哪版代码、过程能否复现。今天登上 GitHub 热门榜的 OpenResearch，瞄准的正是这段“研究过程管理”。它把 Claude Code、Codex、OpenCode、Cursor 等编程 </p> <ul class="tag-list"> <li> <a href="/tags/AI%E5%B7%A5%E5%85%B7/" class="tag-link">
+#AI工具 </a> </li><li> <a href="/tags/2026%E5%B9%B409%E6%9C%88/" class="tag-link">
+#2026年09月 </a> </li> </ul> </div> <div class="post-grid"> <article class="prose">  <p>让 AI 查论文、改代码并不难，难的是并行探索之后还能回答：哪个假设有效、结果对应哪版代码、过程能否复现。今天登上 GitHub 热门榜的 OpenResearch，瞄准的正是这段“研究过程管理”。它把 Claude Code、Codex、OpenCode、Cursor 等编程 Agent 放进本地优先的研究工作区，用 Git 记录实验，而不是只保留一段聊天。</p>
+<h2 id="-这个项目是干什么的">📌 这个项目是干什么的</h2>
+<p>OpenResearch 面向需要文献调研、提出假设、运行实验和整理产物的研究者与研发团队。每条探索方向可进入独立 Agent 会话和 Git worktree，避免多个任务互相覆盖；实验变体组织在 Git 原生的树中，每次运行关联固定提交、日志、差异、文件和结果。</p>
+<p>它不是新的基础模型，也不替你判断研究结论，而是给现有编程 Agent 增加并行执行、过程留痕和复现实验的工作层。项目采用 MIT 许可证，目前最新版本为 2026 年 9 月 16 日发布的 v0.2.3。</p>
+<h2 id="-为什么值得关注">🔍 为什么值得关注</h2>
+<p><strong>第一，解决的是 Agent 研究的可追溯性。</strong> 一次“跑成功”不等于可以复现。把提示、代码变更、实验结果与提交绑定，比把过程散落在聊天记录里更适合长期项目。</p>
+<p><strong>第二，并行探索有明确隔离边界。</strong> Git worktree 让不同假设各自在独立工作区推进，适合比较算法、参数或实现路线，也降低 Agent 同时改同一目录造成冲突的概率。</p>
+<p><strong>第三，本地模型路径较完整。</strong> 官方文档说明可通过 OpenCode 连接 LM Studio、oMLX、Ollama 或兼容 OpenAI API 的本地服务；模型连接信息保存在本地数据目录，不会改写已有 OpenCode 配置。</p>
+<h2 id="-谁适合试怎么开始">🧪 谁适合试，怎么开始</h2>
+<p>它更适合计算机科研、数据实验和需要保留证据链的工程探索；只想问答或偶尔查资料，不必额外引入这套工作流。</p>
+<p>macOS 或 Linux 可按官方方式安装并启动：</p>
+<pre class="astro-code astro-code-themes github-light github-dark" style="--shiki-light:#24292e;--shiki-dark:#e1e4e8;--shiki-light-bg:#fff;--shiki-dark-bg:#24292e; overflow-x: auto;" tabindex="0" data-language="bash"><code><span class="line"><span style="--shiki-light:#6F42C1;--shiki-dark:#B392F0">curl</span><span style="--shiki-light:#005CC5;--shiki-dark:#79B8FF"> -LsSf</span><span style="--shiki-light:#032F62;--shiki-dark:#9ECBFF"> https://openresearch.sh/install.sh</span><span style="--shiki-light:#D73A49;--shiki-dark:#F97583"> |</span><span style="--shiki-light:#6F42C1;--shiki-dark:#B392F0"> sh</span></span>
+<span class="line"><span style="--shiki-light:#6F42C1;--shiki-dark:#B392F0">orx</span><span style="--shiki-light:#032F62;--shiki-dark:#9ECBFF"> up</span></span></code></pre>
+<p>启动后访问本机 <code>127.0.0.1:4791</code>。第一次建议只建一个小实验：让两个独立会话验证同一问题的不同方案，再检查提交、日志和产物是否足以复现，不要直接迁移重要项目。Windows 目前为 Beta，需先安装 Git for Windows。</p>
+<h2 id="️-使用提醒">⚠️ 使用提醒</h2>
+<p>“本地优先”不等于完全离线：论文检索、GitHub 操作、下载和 Agent 命令仍可能联网。本地模型还需要支持工具调用，并匹配实际上下文长度。安装脚本执行前应先审阅内容；涉及未公开论文、数据集或密钥时，也要核对所选 Agent、模型服务和外部工具各自的数据边界。项目版本仍处于 0.x，关键研究流程应保留独立备份与人工复核。</p>
+<h2 id="-参考资源">🔗 参考资源</h2>
+<ul>
+<li>GitHub：<a href="https://github.com/alphaXiv/OpenResearch">https://github.com/alphaXiv/OpenResearch</a></li>
+<li>官方网站与文档：<a href="https://openresearch.sh/">https://openresearch.sh/</a> ｜ <a href="https://openresearch.sh/docs">https://openresearch.sh/docs</a></li>
+<li>本地模型说明：<a href="https://github.com/alphaXiv/OpenResearch/blob/main/docs/local-models.md">https://github.com/alphaXiv/OpenResearch/blob/main/docs/local-models.md</a></li>
+<li>v0.2.3 Release：<a href="https://github.com/alphaXiv/OpenResearch/releases/tag/v0.2.3">https://github.com/alphaXiv/OpenResearch/releases/tag/v0.2.3</a></li>
+</ul>  </article> <aside class="toc"><p class="toc-title">目录</p><ul class="toc-list"><li class="depth-2"><a href="#-这个项目是干什么的" data-toc-link="-这个项目是干什么的">📌 这个项目是干什么的</a></li><li class="depth-2"><a href="#-为什么值得关注" data-toc-link="-为什么值得关注">🔍 为什么值得关注</a></li><li class="depth-2"><a href="#-谁适合试怎么开始" data-toc-link="-谁适合试怎么开始">🧪 谁适合试，怎么开始</a></li><li class="depth-2"><a href="#️-使用提醒" data-toc-link="️-使用提醒">⚠️ 使用提醒</a></li><li class="depth-2"><a href="#-参考资源" data-toc-link="-参考资源">🔗 参考资源</a></li></ul></aside><script type="module">const c=()=>{const r=Array.from(document.querySelectorAll(".toc a[data-toc-link]"));if(!r.length)return;const o=r.map(t=>{const e=t.getAttribute("data-toc-link");if(!e)return null;const n=document.getElementById(e);return n?{id:e,heading:n,link:t}:null}).filter(t=>t!==null);if(!o.length)return;const s=t=>{r.forEach(e=>{const n=e.getAttribute("data-toc-link")===t;e.classList.toggle("active",n),n&&e.scrollIntoView({block:"nearest",inline:"nearest"})})},i=()=>{const t=Math.round(window.innerHeight*.28);let e=o[0];for(const n of o)n.heading.getBoundingClientRect().top<=t&&(e=n);s(e.id)};i();const a=new IntersectionObserver(()=>i(),{rootMargin:"-18% 0px -70% 0px",threshold:[0,1]});o.forEach(t=>a.observe(t.heading)),window.addEventListener("scroll",i,{passive:!0})};document.addEventListener("DOMContentLoaded",c);document.addEventListener("astro:page-load",c);</script> </div>  </main> <footer class="site-footer"> <div class="shell footer-inner"> <p>© 2026 未来观察者</p> </div> </footer> </body></html>
