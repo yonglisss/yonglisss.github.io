@@ -1,0 +1,112 @@
+<!DOCTYPE html><html lang="zh-CN"> <head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1"><script>
+      (() => {
+        const storageKey = "future-observer-theme";
+        const root = document.documentElement;
+        const getStoredMode = () => {
+          try {
+            const value = localStorage.getItem(storageKey);
+            return value === "light" || value === "dark" || value === "system" ? value : "system";
+          } catch {
+            return "system";
+          }
+        };
+        const systemDark = () => window.matchMedia?.("(prefers-color-scheme: dark)").matches ?? false;
+        const apply = (mode) => {
+          const resolved = mode === "system" ? (systemDark() ? "dark" : "light") : mode;
+          root.dataset.themeMode = mode;
+          root.dataset.theme = resolved;
+          root.style.colorScheme = resolved;
+        };
+        apply(getStoredMode());
+        window.__setFutureObserverTheme = (mode) => {
+          const next = mode === "light" || mode === "dark" || mode === "system" ? mode : "system";
+          try { localStorage.setItem(storageKey, next); } catch {}
+          apply(next);
+          window.dispatchEvent(new CustomEvent("future-observer-theme-change", { detail: { mode: next } }));
+        };
+        window.matchMedia?.("(prefers-color-scheme: dark)").addEventListener?.("change", () => {
+          if (getStoredMode() === "system") apply("system");
+        });
+      })();
+    </script><title>Security Audit Skill：让编码 Agent 的安全审计更像一套可复核流程 | 未来观察者</title><meta name="description" content="让编码 Agent “找漏洞”很容易，难的是避免把猜测写成结论，并证明审查真正覆盖了哪些攻击面。Cloudflare 开源的 Security Audit Skill 给出了一套更严谨的做法：把代码安全审计拆成侦察、覆盖驱动排查、候选验证、结构化输出、独立复核和报告六个阶段，让发"><meta name="generator" content="Astro v5.18.1"><meta property="og:title" content="Security Audit Skill：让编码 Agent 的安全审计更像一套可复核流程 | 未来观察者"><meta property="og:description" content="让编码 Agent “找漏洞”很容易，难的是避免把猜测写成结论，并证明审查真正覆盖了哪些攻击面。Cloudflare 开源的 Security Audit Skill 给出了一套更严谨的做法：把代码安全审计拆成侦察、覆盖驱动排查、候选验证、结构化输出、独立复核和报告六个阶段，让发"><meta property="og:type" content="website"><meta property="og:url" content="https://future.lifestudylab.com/posts/2026-09-17-security-audit-skill/"><link rel="icon" type="image/svg+xml" href="/favicon.svg"><link rel="alternate" type="application/rss+xml" title="未来观察者" href="/rss.xml"><link rel="stylesheet" href="/_astro/_channel_.BFW__1rx.css"></head> <body> <div class="page-bg"></div> <header class="site-header"> <div class="shell header-inner"> <div class="header-bar"> <a class="brand" href="/ai-tools/"> <img src="/brand-mark.svg" alt="" class="brand-mark" width="56" height="56"> <span class="brand-text" aria-label="未来观察者">思考未来</span> </a> </div> <nav class="top-menu" aria-label="顶部菜单"> <a href="/future-daily/" class="top-menu-link"> 每日信息 </a><a href="/docs/deer-flow/00-overview/" class="top-menu-link"> DeerFlow教程 </a><a href="/docs/hermes/00-overview/" class="top-menu-link"> Hermes教程 </a><a href="/docs/openclaw/00-overview/" class="top-menu-link"> OpenClaw教程 </a><a href="/about/" class="top-menu-link"> 关于我 </a> </nav> <div class="top-actions"> <a class="feedback-link" href="https://github.com/yonglisss/yonglisss.github.io/issues" target="_blank" rel="noopener noreferrer" aria-label="问题反馈"> <svg viewBox="0 0 24 24" aria-hidden="true" class="action-icon"> <path d="M4.75 5.75A2.75 2.75 0 0 1 7.5 3h9A2.75 2.75 0 0 1 19.25 5.75v6.5A2.75 2.75 0 0 1 16.5 15H9.3l-3.55 3.2V15.1a2.75 2.75 0 0 1-1-2.1V5.75Z"></path> <path d="M8 7.75h8M8 11.25h4"></path> </svg> <span>问题反馈</span> </a> <div class="theme-switcher" data-theme-switcher> <button class="theme-trigger" type="button" aria-haspopup="menu" aria-expanded="false" aria-label="切换明暗模式" data-theme-trigger> <svg viewBox="0 0 24 24" aria-hidden="true" class="action-icon theme-trigger-icon theme-trigger-icon--light"> <circle cx="12" cy="12" r="4"></circle> <path d="M12 2.75v2M12 19.25v2M4.75 4.75l1.4 1.4M17.85 17.85l1.4 1.4M2.75 12h2M19.25 12h2M4.75 19.25l1.4-1.4M17.85 6.15l1.4-1.4"></path> </svg> <svg viewBox="0 0 24 24" aria-hidden="true" class="action-icon theme-trigger-icon theme-trigger-icon--dark"> <path d="M20.25 14.2A8 8 0 0 1 9.8 3.75 8.5 8.5 0 1 0 20.25 14.2Z"></path> </svg> <svg viewBox="0 0 24 24" aria-hidden="true" class="action-icon theme-trigger-icon theme-trigger-icon--system"> <rect x="4" y="5" width="16" height="11" rx="1.8"></rect> <path d="M9 20h6M12 16v4"></path> </svg> </button> <div class="theme-menu" role="menu" data-theme-menu hidden> <button class="theme-option" type="button" role="menuitemradio" data-theme-option="light" aria-checked="false"> <svg viewBox="0 0 24 24" aria-hidden="true" class="action-icon"><circle cx="12" cy="12" r="4"></circle><path d="M12 2.75v2M12 19.25v2M4.75 4.75l1.4 1.4M17.85 17.85l1.4 1.4M2.75 12h2M19.25 12h2M4.75 19.25l1.4-1.4M17.85 6.15l1.4-1.4"></path></svg> <span>亮色</span> </button> <button class="theme-option" type="button" role="menuitemradio" data-theme-option="dark" aria-checked="false"> <svg viewBox="0 0 24 24" aria-hidden="true" class="action-icon"><path d="M20.25 14.2A8 8 0 0 1 9.8 3.75 8.5 8.5 0 1 0 20.25 14.2Z"></path></svg> <span>暗色</span> </button> <button class="theme-option" type="button" role="menuitemradio" data-theme-option="system" aria-checked="true"> <svg viewBox="0 0 24 24" aria-hidden="true" class="action-icon"><rect x="4" y="5" width="16" height="11" rx="1.8"></rect><path d="M9 20h6M12 16v4"></path></svg> <span>跟随系统</span> </button> </div> </div> </div> </div> </header> <script>
+  (() => {
+    const switcher = document.querySelector("[data-theme-switcher]");
+    if (!switcher) return;
+
+    const trigger = switcher.querySelector("[data-theme-trigger]");
+    const menu = switcher.querySelector("[data-theme-menu]");
+    const options = [...switcher.querySelectorAll("[data-theme-option]")];
+    const modes = ["light", "dark", "system"];
+
+    const getMode = () => {
+      const mode = document.documentElement.dataset.themeMode;
+      return modes.includes(mode) ? mode : "system";
+    };
+
+    const closeMenu = () => {
+      menu.hidden = true;
+      trigger.setAttribute("aria-expanded", "false");
+    };
+
+    const openMenu = () => {
+      menu.hidden = false;
+      trigger.setAttribute("aria-expanded", "true");
+    };
+
+    const sync = () => {
+      const mode = getMode();
+      trigger.dataset.themeMode = mode;
+      options.forEach((option) => {
+        option.setAttribute("aria-checked", String(option.dataset.themeOption === mode));
+      });
+    };
+
+    trigger.addEventListener("click", () => {
+      menu.hidden ? openMenu() : closeMenu();
+    });
+
+    options.forEach((option) => {
+      option.addEventListener("click", () => {
+        window.__setFutureObserverTheme?.(option.dataset.themeOption || "system");
+        sync();
+        closeMenu();
+      });
+    });
+
+    document.addEventListener("click", (event) => {
+      if (!switcher.contains(event.target)) closeMenu();
+    });
+
+    document.addEventListener("keydown", (event) => {
+      if (event.key === "Escape") closeMenu();
+    });
+
+    window.addEventListener("future-observer-theme-change", sync);
+    sync();
+  })();
+</script> <aside class="site-rail" aria-label="站点导航"> <div class="site-rail-inner"> <p class="site-rail-label">Channels</p> <nav aria-label="主导航"> <ul class="site-rail-nav"> <li> <a href="/ai-tools/" class="site-rail-link"> AI工具 </a> </li><li> <a href="/future-daily/" class="site-rail-link"> 未来观察者日报 </a> </li> </ul> </nav> </div> </aside> <main class="shell page-content">  <div class="post-hero"> <p class="eyebrow">2026年9月17日</p> <h1>Security Audit Skill：让编码 Agent 的安全审计更像一套可复核流程</h1> <p class="post-summary">让编码 Agent “找漏洞”很容易，难的是避免把猜测写成结论，并证明审查真正覆盖了哪些攻击面。Cloudflare 开源的 Security Audit Skill 给出了一套更严谨的做法：把代码安全审计拆成侦察、覆盖驱动排查、候选验证、结构化输出、独立复核和报告六个阶段，让发</p> <ul class="tag-list"> <li> <a href="/tags/AI%E5%B7%A5%E5%85%B7/" class="tag-link">
+#AI工具 </a> </li><li> <a href="/tags/2026%E5%B9%B409%E6%9C%88/" class="tag-link">
+#2026年09月 </a> </li> </ul> </div> <div class="post-grid"> <article class="prose">  <p>让编码 Agent “找漏洞”很容易，难的是避免把猜测写成结论，并证明审查真正覆盖了哪些攻击面。Cloudflare 开源的 Security Audit Skill 给出了一套更严谨的做法：把代码安全审计拆成侦察、覆盖驱动排查、候选验证、结构化输出、独立复核和报告六个阶段，让发现过程可以追踪、检查和重复执行。</p>
+<h2 id="-这个项目是干什么的">📌 这个项目是干什么的</h2>
+<p>它不是新的扫描器或漏洞数据库，而是一套供支持工具调用与并行子 Agent 的编码 Agent 使用的审计工作流。完整模式会先梳理架构、信任边界和输入面，再用 <code>coverage-ledger.json</code> 记录覆盖情况；每个候选问题交给新的验证 Agent 尝试证伪，最终写入 <code>findings.json</code>。</p>
+<p>结果被明确分成三类：证据完整的 <code>confirmed</code>、仍有关键事实待核实的 <code>needs_validation</code>，以及已被证伪的 <code>rejected</code>。仓库还提供零依赖的 Node.js 校验器和 JSON Schema，检查覆盖账本与发现记录。项目采用 MIT 许可证，当前没有正式 Release 标签。</p>
+<h2 id="-为什么值得关注">🔍 为什么值得关注</h2>
+<p><strong>第一，把“找问题”和“确认问题”分开。</strong> 发现候选的 Agent 不负责最终背书，独立验证者优先尝试推翻它，能减少模型顺着自己先前结论继续编证据的风险。</p>
+<p><strong>第二，覆盖范围不再只靠一句“已全面检查”。</strong> 工作流把攻击面拆成可记录单元，并保留已检查、延期、阻塞和超出范围等状态。多次运行还能沿用旧账本，优先补空白、复查变化过的源码。</p>
+<p><strong>第三，输出适合进入工程流程。</strong> 严重度只能建立在已证明的影响上；无法安全执行或缺少部署事实时，结果必须停留在待验证状态。机器可读记录经过校验后再生成报告，比直接复制一段聊天结论更便于复核。</p>
+<h2 id="-谁适合试怎么开始">🧪 谁适合试，怎么开始</h2>
+<p>它适合维护 API、服务端、CLI、基础设施或 AI 应用的安全工程师与研发团队，也适合正在搭建内部 Agent 审计流程的人。先在非生产的小型仓库试用：</p>
+<pre class="astro-code astro-code-themes github-light github-dark" style="--shiki-light:#24292e;--shiki-dark:#e1e4e8;--shiki-light-bg:#fff;--shiki-dark-bg:#24292e; overflow-x: auto;" tabindex="0" data-language="bash"><code><span class="line"><span style="--shiki-light:#6F42C1;--shiki-dark:#B392F0">npx</span><span style="--shiki-light:#032F62;--shiki-dark:#9ECBFF"> skills</span><span style="--shiki-light:#032F62;--shiki-dark:#9ECBFF"> add</span><span style="--shiki-light:#032F62;--shiki-dark:#9ECBFF"> https://github.com/cloudflare/security-audit-skill</span><span style="--shiki-light:#005CC5;--shiki-dark:#79B8FF"> \</span></span>
+<span class="line"><span style="--shiki-light:#005CC5;--shiki-dark:#79B8FF">  --skill</span><span style="--shiki-light:#032F62;--shiki-dark:#9ECBFF"> security-audit</span></span></code></pre>
+<p>随后让兼容的编码 Agent 对代码库执行安全审计。第一次不要追求“扫完整仓库”，可以限定一个熟悉的模块，重点检查覆盖账本、证据链和三类 verdict 是否经得起人工复核。</p>
+<h2 id="️-使用提醒">⚠️ 使用提醒</h2>
+<p>完整流程要求模型支持工具调用和并行子 Agent，并需要 Node.js。更关键的是，目标代码的构建、测试、模糊测试等执行必须放进禁外网、限制资源、隔离环境变量和写入路径的 OS 级沙箱；做不到时，不应执行不可信代码，只能把线索标为待验证。</p>
+<p>它提供的是审计方法，不是“自动发现全部漏洞”的保证。官方也强调单次运行无法穷尽目标；高风险项目仍需人工审查、静态分析、测试和授权范围内的专业安全验证。</p>
+<h2 id="-参考资源">🔗 参考资源</h2>
+<ul>
+<li>GitHub：<a href="https://github.com/cloudflare/security-audit-skill">https://github.com/cloudflare/security-audit-skill</a></li>
+<li>官方 README：<a href="https://github.com/cloudflare/security-audit-skill/blob/main/README.md">https://github.com/cloudflare/security-audit-skill/blob/main/README.md</a></li>
+<li>Skill 工作流：<a href="https://github.com/cloudflare/security-audit-skill/blob/main/skills/security-audit/SKILL.md">https://github.com/cloudflare/security-audit-skill/blob/main/skills/security-audit/SKILL.md</a></li>
+<li>Cloudflare 官方博客：<a href="https://blog.cloudflare.com/build-your-own-vulnerability-harness/">https://blog.cloudflare.com/build-your-own-vulnerability-harness/</a></li>
+<li>安装工具说明：<a href="https://skills.sh">https://skills.sh</a></li>
+</ul>  </article> <aside class="toc"><p class="toc-title">目录</p><ul class="toc-list"><li class="depth-2"><a href="#-这个项目是干什么的" data-toc-link="-这个项目是干什么的">📌 这个项目是干什么的</a></li><li class="depth-2"><a href="#-为什么值得关注" data-toc-link="-为什么值得关注">🔍 为什么值得关注</a></li><li class="depth-2"><a href="#-谁适合试怎么开始" data-toc-link="-谁适合试怎么开始">🧪 谁适合试，怎么开始</a></li><li class="depth-2"><a href="#️-使用提醒" data-toc-link="️-使用提醒">⚠️ 使用提醒</a></li><li class="depth-2"><a href="#-参考资源" data-toc-link="-参考资源">🔗 参考资源</a></li></ul></aside><script type="module">const c=()=>{const r=Array.from(document.querySelectorAll(".toc a[data-toc-link]"));if(!r.length)return;const o=r.map(t=>{const e=t.getAttribute("data-toc-link");if(!e)return null;const n=document.getElementById(e);return n?{id:e,heading:n,link:t}:null}).filter(t=>t!==null);if(!o.length)return;const s=t=>{r.forEach(e=>{const n=e.getAttribute("data-toc-link")===t;e.classList.toggle("active",n),n&&e.scrollIntoView({block:"nearest",inline:"nearest"})})},i=()=>{const t=Math.round(window.innerHeight*.28);let e=o[0];for(const n of o)n.heading.getBoundingClientRect().top<=t&&(e=n);s(e.id)};i();const a=new IntersectionObserver(()=>i(),{rootMargin:"-18% 0px -70% 0px",threshold:[0,1]});o.forEach(t=>a.observe(t.heading)),window.addEventListener("scroll",i,{passive:!0})};document.addEventListener("DOMContentLoaded",c);document.addEventListener("astro:page-load",c);</script> </div>  </main> <footer class="site-footer"> <div class="shell footer-inner"> <p>© 2026 未来观察者</p> </div> </footer> </body></html>
