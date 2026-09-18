@@ -1,0 +1,110 @@
+<!DOCTYPE html><html lang="zh-CN"> <head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1"><script>
+      (() => {
+        const storageKey = "future-observer-theme";
+        const root = document.documentElement;
+        const getStoredMode = () => {
+          try {
+            const value = localStorage.getItem(storageKey);
+            return value === "light" || value === "dark" || value === "system" ? value : "system";
+          } catch {
+            return "system";
+          }
+        };
+        const systemDark = () => window.matchMedia?.("(prefers-color-scheme: dark)").matches ?? false;
+        const apply = (mode) => {
+          const resolved = mode === "system" ? (systemDark() ? "dark" : "light") : mode;
+          root.dataset.themeMode = mode;
+          root.dataset.theme = resolved;
+          root.style.colorScheme = resolved;
+        };
+        apply(getStoredMode());
+        window.__setFutureObserverTheme = (mode) => {
+          const next = mode === "light" || mode === "dark" || mode === "system" ? mode : "system";
+          try { localStorage.setItem(storageKey, next); } catch {}
+          apply(next);
+          window.dispatchEvent(new CustomEvent("future-observer-theme-change", { detail: { mode: next } }));
+        };
+        window.matchMedia?.("(prefers-color-scheme: dark)").addEventListener?.("change", () => {
+          if (getStoredMode() === "system") apply("system");
+        });
+      })();
+    </script><title>Octop：把多用户、多 Agent 助手装进自己的服务器 | 未来观察者</title><meta name="description" content="个人 AI 助手并不少见，但一旦要给家庭或小团队共用，账号隔离、消息入口、定时任务和数据归属就会迅速变复杂。腾讯云开源的 Octop 选择把这些能力收进一个可自托管平台：同一套服务提供 Web 控制台、命令行、即时通信接入和 Agent 管理。项目刚发布 v1.0.0，适合想搭建"><meta name="generator" content="Astro v5.18.1"><meta property="og:title" content="Octop：把多用户、多 Agent 助手装进自己的服务器 | 未来观察者"><meta property="og:description" content="个人 AI 助手并不少见，但一旦要给家庭或小团队共用，账号隔离、消息入口、定时任务和数据归属就会迅速变复杂。腾讯云开源的 Octop 选择把这些能力收进一个可自托管平台：同一套服务提供 Web 控制台、命令行、即时通信接入和 Agent 管理。项目刚发布 v1.0.0，适合想搭建"><meta property="og:type" content="website"><meta property="og:url" content="https://future.lifestudylab.com/posts/2026-09-19-octop/"><link rel="icon" type="image/svg+xml" href="/favicon.svg"><link rel="alternate" type="application/rss+xml" title="未来观察者" href="/rss.xml"><link rel="stylesheet" href="/_astro/_channel_.BFW__1rx.css"></head> <body> <div class="page-bg"></div> <header class="site-header"> <div class="shell header-inner"> <div class="header-bar"> <a class="brand" href="/ai-tools/"> <img src="/brand-mark.svg" alt="" class="brand-mark" width="56" height="56"> <span class="brand-text" aria-label="未来观察者">思考未来</span> </a> </div> <nav class="top-menu" aria-label="顶部菜单"> <a href="/future-daily/" class="top-menu-link"> 每日信息 </a><a href="/docs/deer-flow/00-overview/" class="top-menu-link"> DeerFlow教程 </a><a href="/docs/hermes/00-overview/" class="top-menu-link"> Hermes教程 </a><a href="/docs/openclaw/00-overview/" class="top-menu-link"> OpenClaw教程 </a><a href="/about/" class="top-menu-link"> 关于我 </a> </nav> <div class="top-actions"> <a class="feedback-link" href="https://github.com/yonglisss/yonglisss.github.io/issues" target="_blank" rel="noopener noreferrer" aria-label="问题反馈"> <svg viewBox="0 0 24 24" aria-hidden="true" class="action-icon"> <path d="M4.75 5.75A2.75 2.75 0 0 1 7.5 3h9A2.75 2.75 0 0 1 19.25 5.75v6.5A2.75 2.75 0 0 1 16.5 15H9.3l-3.55 3.2V15.1a2.75 2.75 0 0 1-1-2.1V5.75Z"></path> <path d="M8 7.75h8M8 11.25h4"></path> </svg> <span>问题反馈</span> </a> <div class="theme-switcher" data-theme-switcher> <button class="theme-trigger" type="button" aria-haspopup="menu" aria-expanded="false" aria-label="切换明暗模式" data-theme-trigger> <svg viewBox="0 0 24 24" aria-hidden="true" class="action-icon theme-trigger-icon theme-trigger-icon--light"> <circle cx="12" cy="12" r="4"></circle> <path d="M12 2.75v2M12 19.25v2M4.75 4.75l1.4 1.4M17.85 17.85l1.4 1.4M2.75 12h2M19.25 12h2M4.75 19.25l1.4-1.4M17.85 6.15l1.4-1.4"></path> </svg> <svg viewBox="0 0 24 24" aria-hidden="true" class="action-icon theme-trigger-icon theme-trigger-icon--dark"> <path d="M20.25 14.2A8 8 0 0 1 9.8 3.75 8.5 8.5 0 1 0 20.25 14.2Z"></path> </svg> <svg viewBox="0 0 24 24" aria-hidden="true" class="action-icon theme-trigger-icon theme-trigger-icon--system"> <rect x="4" y="5" width="16" height="11" rx="1.8"></rect> <path d="M9 20h6M12 16v4"></path> </svg> </button> <div class="theme-menu" role="menu" data-theme-menu hidden> <button class="theme-option" type="button" role="menuitemradio" data-theme-option="light" aria-checked="false"> <svg viewBox="0 0 24 24" aria-hidden="true" class="action-icon"><circle cx="12" cy="12" r="4"></circle><path d="M12 2.75v2M12 19.25v2M4.75 4.75l1.4 1.4M17.85 17.85l1.4 1.4M2.75 12h2M19.25 12h2M4.75 19.25l1.4-1.4M17.85 6.15l1.4-1.4"></path></svg> <span>亮色</span> </button> <button class="theme-option" type="button" role="menuitemradio" data-theme-option="dark" aria-checked="false"> <svg viewBox="0 0 24 24" aria-hidden="true" class="action-icon"><path d="M20.25 14.2A8 8 0 0 1 9.8 3.75 8.5 8.5 0 1 0 20.25 14.2Z"></path></svg> <span>暗色</span> </button> <button class="theme-option" type="button" role="menuitemradio" data-theme-option="system" aria-checked="true"> <svg viewBox="0 0 24 24" aria-hidden="true" class="action-icon"><rect x="4" y="5" width="16" height="11" rx="1.8"></rect><path d="M9 20h6M12 16v4"></path></svg> <span>跟随系统</span> </button> </div> </div> </div> </div> </header> <script>
+  (() => {
+    const switcher = document.querySelector("[data-theme-switcher]");
+    if (!switcher) return;
+
+    const trigger = switcher.querySelector("[data-theme-trigger]");
+    const menu = switcher.querySelector("[data-theme-menu]");
+    const options = [...switcher.querySelectorAll("[data-theme-option]")];
+    const modes = ["light", "dark", "system"];
+
+    const getMode = () => {
+      const mode = document.documentElement.dataset.themeMode;
+      return modes.includes(mode) ? mode : "system";
+    };
+
+    const closeMenu = () => {
+      menu.hidden = true;
+      trigger.setAttribute("aria-expanded", "false");
+    };
+
+    const openMenu = () => {
+      menu.hidden = false;
+      trigger.setAttribute("aria-expanded", "true");
+    };
+
+    const sync = () => {
+      const mode = getMode();
+      trigger.dataset.themeMode = mode;
+      options.forEach((option) => {
+        option.setAttribute("aria-checked", String(option.dataset.themeOption === mode));
+      });
+    };
+
+    trigger.addEventListener("click", () => {
+      menu.hidden ? openMenu() : closeMenu();
+    });
+
+    options.forEach((option) => {
+      option.addEventListener("click", () => {
+        window.__setFutureObserverTheme?.(option.dataset.themeOption || "system");
+        sync();
+        closeMenu();
+      });
+    });
+
+    document.addEventListener("click", (event) => {
+      if (!switcher.contains(event.target)) closeMenu();
+    });
+
+    document.addEventListener("keydown", (event) => {
+      if (event.key === "Escape") closeMenu();
+    });
+
+    window.addEventListener("future-observer-theme-change", sync);
+    sync();
+  })();
+</script> <aside class="site-rail" aria-label="站点导航"> <div class="site-rail-inner"> <p class="site-rail-label">Channels</p> <nav aria-label="主导航"> <ul class="site-rail-nav"> <li> <a href="/ai-tools/" class="site-rail-link"> AI工具 </a> </li><li> <a href="/future-daily/" class="site-rail-link"> 未来观察者日报 </a> </li> </ul> </nav> </div> </aside> <main class="shell page-content">  <div class="post-hero"> <p class="eyebrow">2026年9月19日</p> <h1>Octop：把多用户、多 Agent 助手装进自己的服务器</h1> <p class="post-summary">个人 AI 助手并不少见，但一旦要给家庭或小团队共用，账号隔离、消息入口、定时任务和数据归属就会迅速变复杂。腾讯云开源的 Octop 选择把这些能力收进一个可自托管平台：同一套服务提供 Web 控制台、命令行、即时通信接入和 Agent 管理。项目刚发布 v1.0.0，适合想搭建</p> <ul class="tag-list"> <li> <a href="/tags/AI%E5%B7%A5%E5%85%B7/" class="tag-link">
+#AI工具 </a> </li><li> <a href="/tags/2026%E5%B9%B409%E6%9C%88/" class="tag-link">
+#2026年09月 </a> </li> </ul> </div> <div class="post-grid"> <article class="prose">  <p>个人 AI 助手并不少见，但一旦要给家庭或小团队共用，账号隔离、消息入口、定时任务和数据归属就会迅速变复杂。腾讯云开源的 Octop 选择把这些能力收进一个可自托管平台：同一套服务提供 Web 控制台、命令行、即时通信接入和 Agent 管理。项目刚发布 v1.0.0，适合想搭建内部 AI 助手、又不愿把工作流锁在单一云服务中的团队关注。</p>
+<h2 id="-这个项目是干什么的">📌 这个项目是干什么的</h2>
+<p>Octop 面向个人、家庭和小团队。管理员可以创建多个用户，每个用户再配置多个 Agent；不同 Agent 拥有各自的工作区、模型提供方、消息渠道和定时任务。用户可以从网页聊天，也能接入飞书、钉钉、企业微信、QQ、Discord，或通过 HTTP、SSE、WebSocket 调用。</p>
+<p>它的后端基于 Python、FastAPI 和一组 Harness 运行时，前端采用 React。Web、IM 与 cron 请求最终进入同一个进程内的处理器；状态默认写入 SQLite，也可切换 PostgreSQL。项目还提供文档知识库、插件、MCP 连接器、浏览器自动化，以及通过 ACP 接入或委派给 Claude Code、Codex、OpenCode 等编码 Agent 的能力。</p>
+<h2 id="-为什么值得关注">🔍 为什么值得关注</h2>
+<p><strong>第一，多用户不是后补的一层界面。</strong> 用户、Agent、工作区、渠道和凭据都进入统一控制面。相比大家共用一个机器人账号，这种结构更适合家庭共享或小团队内部部署，也更容易划分责任边界。</p>
+<p><strong>第二，部署形态相对收敛。</strong> <code>octop run</code> 可以同时启动 API、控制台、消息渠道与定时任务，不强制引入外部消息队列。对希望先做小规模验证的团队，这比拼装多个服务更容易维护；需要扩展时，再把数据库切换为 PostgreSQL。</p>
+<p><strong>第三，它更像助手平台，而非单个聊天壳。</strong> Agent 可以配置独立模型、技能和长期工作区，并从网页、IM、定时任务或 IDE 接收工作。真正值得借鉴的是“多个入口，共用一套 Agent 控制面”的架构思路。</p>
+<h2 id="-谁适合试怎么开始">🧪 谁适合试，怎么开始</h2>
+<p>适合有自托管能力、希望给内部成员提供统一 AI 入口的开发团队，也适合需要飞书或钉钉机器人、定时任务和知识库协同工作的个人。只想偶尔调用模型 API，没必要承担完整平台的运维成本。</p>
+<p>最短路径是先用测试机器安装，执行 <code>octop init</code> 创建数据库、JWT 密钥和管理员账号，再运行 <code>octop run</code>，从 <code>http://127.0.0.1:8088</code> 完成一个最小 Agent 配置。首次验证建议只接一个模型和一个低权限测试账号，依次检查网页对话、用户隔离、工具审批与备份恢复，不要直接连接生产群聊。</p>
+<h2 id="️-使用提醒">⚠️ 使用提醒</h2>
+<p>“自托管”不等于数据绝不离开机器。对话内容是否外发仍取决于所选模型、MCP 服务、消息平台和插件；上线前要逐项核对数据边界。项目虽已到 v1.0.0，但仓库创建时间较短，复杂场景仍应先压测并保留回滚方案。</p>
+<p>官方提供一键安装脚本，但在服务器执行远程脚本前应先审阅；生产部署更适合使用 Docker、最小权限账号和独立网络边界。外网开放控制台时，还应配置 TLS、强密码、备份与访问控制，不要仅依赖默认配置。</p>
+<h2 id="-参考资源">🔗 参考资源</h2>
+<ul>
+<li>GitHub：<a href="https://github.com/TencentCloud/Octop">https://github.com/TencentCloud/Octop</a></li>
+<li>官方网站：<a href="https://octop.cloud/">https://octop.cloud/</a></li>
+<li>架构文档：<a href="https://github.com/TencentCloud/Octop/blob/main/docs/architecture.md">https://github.com/TencentCloud/Octop/blob/main/docs/architecture.md</a></li>
+<li>配置文档：<a href="https://github.com/TencentCloud/Octop/blob/main/docs/configuration.md">https://github.com/TencentCloud/Octop/blob/main/docs/configuration.md</a></li>
+<li>v1.0.0 Release：<a href="https://github.com/TencentCloud/Octop/releases/tag/v1.0.0">https://github.com/TencentCloud/Octop/releases/tag/v1.0.0</a></li>
+</ul>  </article> <aside class="toc"><p class="toc-title">目录</p><ul class="toc-list"><li class="depth-2"><a href="#-这个项目是干什么的" data-toc-link="-这个项目是干什么的">📌 这个项目是干什么的</a></li><li class="depth-2"><a href="#-为什么值得关注" data-toc-link="-为什么值得关注">🔍 为什么值得关注</a></li><li class="depth-2"><a href="#-谁适合试怎么开始" data-toc-link="-谁适合试怎么开始">🧪 谁适合试，怎么开始</a></li><li class="depth-2"><a href="#️-使用提醒" data-toc-link="️-使用提醒">⚠️ 使用提醒</a></li><li class="depth-2"><a href="#-参考资源" data-toc-link="-参考资源">🔗 参考资源</a></li></ul></aside><script type="module">const c=()=>{const r=Array.from(document.querySelectorAll(".toc a[data-toc-link]"));if(!r.length)return;const o=r.map(t=>{const e=t.getAttribute("data-toc-link");if(!e)return null;const n=document.getElementById(e);return n?{id:e,heading:n,link:t}:null}).filter(t=>t!==null);if(!o.length)return;const s=t=>{r.forEach(e=>{const n=e.getAttribute("data-toc-link")===t;e.classList.toggle("active",n),n&&e.scrollIntoView({block:"nearest",inline:"nearest"})})},i=()=>{const t=Math.round(window.innerHeight*.28);let e=o[0];for(const n of o)n.heading.getBoundingClientRect().top<=t&&(e=n);s(e.id)};i();const a=new IntersectionObserver(()=>i(),{rootMargin:"-18% 0px -70% 0px",threshold:[0,1]});o.forEach(t=>a.observe(t.heading)),window.addEventListener("scroll",i,{passive:!0})};document.addEventListener("DOMContentLoaded",c);document.addEventListener("astro:page-load",c);</script> </div>  </main> <footer class="site-footer"> <div class="shell footer-inner"> <p>© 2026 未来观察者</p> </div> </footer> </body></html>
