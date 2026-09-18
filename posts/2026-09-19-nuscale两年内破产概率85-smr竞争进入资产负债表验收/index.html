@@ -1,0 +1,282 @@
+<!DOCTYPE html><html lang="zh-CN"> <head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1"><script>
+      (() => {
+        const storageKey = "future-observer-theme";
+        const root = document.documentElement;
+        const getStoredMode = () => {
+          try {
+            const value = localStorage.getItem(storageKey);
+            return value === "light" || value === "dark" || value === "system" ? value : "system";
+          } catch {
+            return "system";
+          }
+        };
+        const systemDark = () => window.matchMedia?.("(prefers-color-scheme: dark)").matches ?? false;
+        const apply = (mode) => {
+          const resolved = mode === "system" ? (systemDark() ? "dark" : "light") : mode;
+          root.dataset.themeMode = mode;
+          root.dataset.theme = resolved;
+          root.style.colorScheme = resolved;
+        };
+        apply(getStoredMode());
+        window.__setFutureObserverTheme = (mode) => {
+          const next = mode === "light" || mode === "dark" || mode === "system" ? mode : "system";
+          try { localStorage.setItem(storageKey, next); } catch {}
+          apply(next);
+          window.dispatchEvent(new CustomEvent("future-observer-theme-change", { detail: { mode: next } }));
+        };
+        window.matchMedia?.("(prefers-color-scheme: dark)").addEventListener?.("change", () => {
+          if (getStoredMode() === "system") apply("system");
+        });
+      })();
+    </script><title>⚛️ NuScale 两年内破产概率 8.5%：SMR 竞争进入“资产负债表验收” | 未来观察者</title><meta name="description" content="🔭 核心观点：Polymarket 新上线的期限结构把 NuScale 在 2027 年底前宣布破产的概率定价为 8.5%，到 2029 年底升至 23.5%。但公司最新 10-Q 同时披露逾 10 亿美元现金及短期投资、无债务。市场真正交易的不是“明天会不会倒闭”，而是小型模"><meta name="generator" content="Astro v5.18.1"><meta property="og:title" content="⚛️ NuScale 两年内破产概率 8.5%：SMR 竞争进入“资产负债表验收” | 未来观察者"><meta property="og:description" content="🔭 核心观点：Polymarket 新上线的期限结构把 NuScale 在 2027 年底前宣布破产的概率定价为 8.5%，到 2029 年底升至 23.5%。但公司最新 10-Q 同时披露逾 10 亿美元现金及短期投资、无债务。市场真正交易的不是“明天会不会倒闭”，而是小型模"><meta property="og:type" content="website"><meta property="og:url" content="https://future.lifestudylab.com/posts/2026-09-19-nuscale%E4%B8%A4%E5%B9%B4%E5%86%85%E7%A0%B4%E4%BA%A7%E6%A6%82%E7%8E%8785-smr%E7%AB%9E%E4%BA%89%E8%BF%9B%E5%85%A5%E8%B5%84%E4%BA%A7%E8%B4%9F%E5%80%BA%E8%A1%A8%E9%AA%8C%E6%94%B6/"><link rel="icon" type="image/svg+xml" href="/favicon.svg"><link rel="alternate" type="application/rss+xml" title="未来观察者" href="/rss.xml"><link rel="stylesheet" href="/_astro/_channel_.BFW__1rx.css"></head> <body> <div class="page-bg"></div> <header class="site-header"> <div class="shell header-inner"> <div class="header-bar"> <a class="brand" href="/ai-tools/"> <img src="/brand-mark.svg" alt="" class="brand-mark" width="56" height="56"> <span class="brand-text" aria-label="未来观察者">思考未来</span> </a> </div> <nav class="top-menu" aria-label="顶部菜单"> <a href="/future-daily/" class="top-menu-link"> 每日信息 </a><a href="/docs/deer-flow/00-overview/" class="top-menu-link"> DeerFlow教程 </a><a href="/docs/hermes/00-overview/" class="top-menu-link"> Hermes教程 </a><a href="/docs/openclaw/00-overview/" class="top-menu-link"> OpenClaw教程 </a><a href="/about/" class="top-menu-link"> 关于我 </a> </nav> <div class="top-actions"> <a class="feedback-link" href="https://github.com/yonglisss/yonglisss.github.io/issues" target="_blank" rel="noopener noreferrer" aria-label="问题反馈"> <svg viewBox="0 0 24 24" aria-hidden="true" class="action-icon"> <path d="M4.75 5.75A2.75 2.75 0 0 1 7.5 3h9A2.75 2.75 0 0 1 19.25 5.75v6.5A2.75 2.75 0 0 1 16.5 15H9.3l-3.55 3.2V15.1a2.75 2.75 0 0 1-1-2.1V5.75Z"></path> <path d="M8 7.75h8M8 11.25h4"></path> </svg> <span>问题反馈</span> </a> <div class="theme-switcher" data-theme-switcher> <button class="theme-trigger" type="button" aria-haspopup="menu" aria-expanded="false" aria-label="切换明暗模式" data-theme-trigger> <svg viewBox="0 0 24 24" aria-hidden="true" class="action-icon theme-trigger-icon theme-trigger-icon--light"> <circle cx="12" cy="12" r="4"></circle> <path d="M12 2.75v2M12 19.25v2M4.75 4.75l1.4 1.4M17.85 17.85l1.4 1.4M2.75 12h2M19.25 12h2M4.75 19.25l1.4-1.4M17.85 6.15l1.4-1.4"></path> </svg> <svg viewBox="0 0 24 24" aria-hidden="true" class="action-icon theme-trigger-icon theme-trigger-icon--dark"> <path d="M20.25 14.2A8 8 0 0 1 9.8 3.75 8.5 8.5 0 1 0 20.25 14.2Z"></path> </svg> <svg viewBox="0 0 24 24" aria-hidden="true" class="action-icon theme-trigger-icon theme-trigger-icon--system"> <rect x="4" y="5" width="16" height="11" rx="1.8"></rect> <path d="M9 20h6M12 16v4"></path> </svg> </button> <div class="theme-menu" role="menu" data-theme-menu hidden> <button class="theme-option" type="button" role="menuitemradio" data-theme-option="light" aria-checked="false"> <svg viewBox="0 0 24 24" aria-hidden="true" class="action-icon"><circle cx="12" cy="12" r="4"></circle><path d="M12 2.75v2M12 19.25v2M4.75 4.75l1.4 1.4M17.85 17.85l1.4 1.4M2.75 12h2M19.25 12h2M4.75 19.25l1.4-1.4M17.85 6.15l1.4-1.4"></path></svg> <span>亮色</span> </button> <button class="theme-option" type="button" role="menuitemradio" data-theme-option="dark" aria-checked="false"> <svg viewBox="0 0 24 24" aria-hidden="true" class="action-icon"><path d="M20.25 14.2A8 8 0 0 1 9.8 3.75 8.5 8.5 0 1 0 20.25 14.2Z"></path></svg> <span>暗色</span> </button> <button class="theme-option" type="button" role="menuitemradio" data-theme-option="system" aria-checked="true"> <svg viewBox="0 0 24 24" aria-hidden="true" class="action-icon"><rect x="4" y="5" width="16" height="11" rx="1.8"></rect><path d="M9 20h6M12 16v4"></path></svg> <span>跟随系统</span> </button> </div> </div> </div> </div> </header> <script>
+  (() => {
+    const switcher = document.querySelector("[data-theme-switcher]");
+    if (!switcher) return;
+
+    const trigger = switcher.querySelector("[data-theme-trigger]");
+    const menu = switcher.querySelector("[data-theme-menu]");
+    const options = [...switcher.querySelectorAll("[data-theme-option]")];
+    const modes = ["light", "dark", "system"];
+
+    const getMode = () => {
+      const mode = document.documentElement.dataset.themeMode;
+      return modes.includes(mode) ? mode : "system";
+    };
+
+    const closeMenu = () => {
+      menu.hidden = true;
+      trigger.setAttribute("aria-expanded", "false");
+    };
+
+    const openMenu = () => {
+      menu.hidden = false;
+      trigger.setAttribute("aria-expanded", "true");
+    };
+
+    const sync = () => {
+      const mode = getMode();
+      trigger.dataset.themeMode = mode;
+      options.forEach((option) => {
+        option.setAttribute("aria-checked", String(option.dataset.themeOption === mode));
+      });
+    };
+
+    trigger.addEventListener("click", () => {
+      menu.hidden ? openMenu() : closeMenu();
+    });
+
+    options.forEach((option) => {
+      option.addEventListener("click", () => {
+        window.__setFutureObserverTheme?.(option.dataset.themeOption || "system");
+        sync();
+        closeMenu();
+      });
+    });
+
+    document.addEventListener("click", (event) => {
+      if (!switcher.contains(event.target)) closeMenu();
+    });
+
+    document.addEventListener("keydown", (event) => {
+      if (event.key === "Escape") closeMenu();
+    });
+
+    window.addEventListener("future-observer-theme-change", sync);
+    sync();
+  })();
+</script> <aside class="site-rail" aria-label="站点导航"> <div class="site-rail-inner"> <p class="site-rail-label">Channels</p> <nav aria-label="主导航"> <ul class="site-rail-nav"> <li> <a href="/ai-tools/" class="site-rail-link"> AI工具 </a> </li><li> <a href="/future-daily/" class="site-rail-link"> 未来观察者日报 </a> </li> </ul> </nav> </div> </aside> <main class="shell page-content">  <div class="post-hero"> <p class="eyebrow">2026年9月19日</p> <h1>⚛️ NuScale 两年内破产概率 8.5%：SMR 竞争进入“资产负债表验收”</h1> <p class="post-summary">🔭 核心观点：Polymarket 新上线的期限结构把 NuScale 在 2027 年底前宣布破产的概率定价为 8.5%，到 2029 年底升至 23.5%。但公司最新 10-Q 同时披露逾 10 亿美元现金及短期投资、无债务。市场真正交易的不是“明天会不会倒闭”，而是小型模</p> <ul class="tag-list"> <li> <a href="/tags/%E6%9C%AA%E6%9D%A5%E8%A7%82%E5%AF%9F%E8%80%85%E6%97%A5%E6%8A%A5/" class="tag-link">
+#未来观察者日报 </a> </li><li> <a href="/tags/2026%E5%B9%B409%E6%9C%88/" class="tag-link">
+#2026年09月 </a> </li> </ul> </div> <div class="post-grid"> <article class="prose">  <blockquote>
+<p>🔭 <strong>核心观点</strong>：Polymarket 新上线的期限结构把 NuScale 在 <strong>2027 年底前宣布破产</strong>的概率定价为 <strong>8.5%</strong>，到 2029 年底升至 <strong>23.5%</strong>。但公司最新 10-Q 同时披露逾 10 亿美元现金及短期投资、无债务。市场真正交易的不是“明天会不会倒闭”，而是小型模块化反应堆（SMR）能否在持续研发、项目落地与股权融资之间跨过商业化深谷。</p>
+</blockquote>
+<p><strong>作者：</strong> 拾水木<br>
+<strong>时间：</strong> 2026年9月19日<br>
+<strong>标签：</strong> #未来观察者 #NuScale #SMR #核能 #产业融资<br>
+<strong>阅读时间：</strong> 约4分钟</p>
+<hr>
+<h2 id="-今天看什么投票破产风险随时间明显抬升">🎯 今天看什么投票？破产风险随时间明显抬升</h2>
+<p>今天观察的是 Polymarket 事件 <strong>“NuScale announces bankruptcy by…?”</strong>。事件在 9 月 17 日上线，分别询问 NuScale 是否会在 2027、2028、2029 年底前，通过官方渠道宣布申请或已经申请任何形式的破产。</p>
+<h3 id="-关键数据卡">📊 关键数据卡</h3>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<table><thead><tr><th>截止时间</th><th align="right">Yes 概率</th><th align="right">买一 / 卖一</th><th align="right">24 小时成交量</th><th align="right">流动性</th></tr></thead><tbody><tr><td><strong>2027 年 12 月 31 日</strong></td><td align="right"><strong>8.5%</strong></td><td align="right">8.0% / 9.0%</td><td align="right">约 8,847 美元</td><td align="right">约 16.59 万美元</td></tr><tr><td><strong>2028 年 12 月 31 日</strong></td><td align="right"><strong>18.5%</strong></td><td align="right">18.0% / 19.0%</td><td align="right">约 2.07 万美元</td><td align="right">约 17.19 万美元</td></tr><tr><td><strong>2029 年 12 月 31 日</strong></td><td align="right"><strong>23.5%</strong></td><td align="right">23.0% / 24.0%</td><td align="right">约 1.42 万美元</td><td align="right">约 19.60 万美元</td></tr></tbody></table>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<table><thead><tr><th>事件级指标</th><th align="right">数据</th></tr></thead><tbody><tr><td>累计成交量 / 24 小时成交量</td><td align="right">约 4.37 万美元 / 约 4.37 万美元</td></tr><tr><td>总流动性</td><td align="right">约 53.29 万美元</td></tr><tr><td>未平仓量</td><td align="right">约 7,401 美元</td></tr><tr><td>数据获取时间</td><td align="right"><strong>2026-09-19 04:00（北京时间）</strong></td></tr><tr><td>所属领域</td><td align="right">核能 / SMR / 制造 / 产业资本</td></tr><tr><td>投票链接</td><td align="right"><a href="https://polymarket.com/event/nuscale-announces-bankruptcy-by">Polymarket 原始事件页</a></td></tr></tbody></table>
+<blockquote>
+<p>⚠️ <strong>读数提醒</strong>：三个期限是独立二元合约，不是三种互斥结果；概率随期限延长而上升是正常的累计风险结构。事件刚上线约一天，虽然流动性较高，但价格发现仍处于早期。</p>
+</blockquote>
+<h3 id="-为什么今天选它核能热潮开始接受融资压力测试">🧭 为什么今天选它？核能热潮开始接受融资压力测试</h3>
+<ol>
+<li><strong>它讨论未来结果</strong>：问题不是短期股价，而是企业能否穿越 2—4 年商业化周期。</li>
+<li><strong>现实驱动可核验</strong>：NuScale 最新 10-Q 显示收入仍小、亏损与负现金流持续，同时公司依靠 ATM 增发补充资本。</li>
+<li><strong>期限结构有信息量</strong>：2027 年 8.5%、2028 年 18.5%、2029 年 23.5%，风险并未集中在眼前，而是随项目兑现窗口后移而累积。</li>
+<li><strong>与近期内容不重复</strong>：最近 7 天覆盖加密监管、石油冲击、自动驾驶、欧洲物流、商业航天、日本利率与 AI 芯片；本文虽同属能源大类，但新增变量是 <strong>核能硬科技公司的现金、稀释与商业订单转换</strong>，不是油价或运输供给冲击。</li>
+</ol>
+<hr>
+<h2 id="-为什么会有这个投票有技术与有项目现金流之间仍有距离">🔍 为什么会有这个投票？“有技术”与“有项目现金流”之间仍有距离</h2>
+<p><strong>事实层面</strong>，NuScale 截至 2026 年 6 月 30 日拥有 <strong>7.665 亿美元现金及现金等价物、3.057 亿美元短期投资、8.208 亿美元其他投资，且无债务</strong>。这组数据并不支持“短期资金即将耗尽”的简单叙事。</p>
+<p>但同一份 10-Q 也显示：公司上半年收入仅 <strong>64 万美元</strong>，净亏损约 <strong>9675 万美元</strong>；经营活动现金净流出约 <strong>3.729 亿美元</strong>，其中包括向 ENTRA1 支付约 2.599 亿美元。公司上半年通过 ATM 计划出售约 <strong>8973 万股</strong>，净募资约 <strong>9.845 亿美元</strong>。融资能力很强，但股东稀释同样真实。</p>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<table><thead><tr><th>可确认事实</th><th>市场定价</th><th>尚待验证</th></tr></thead><tbody><tr><td>现金及短期投资合计约 10.72 亿美元</td><td>2027 年前破产 8.5%</td><td>商业项目何时形成持续收入</td></tr><tr><td>无债务、但上半年持续亏损</td><td>2028 年前破产 18.5%</td><td>TVA/ENTRA1 合作能否转为约束性合同</td></tr><tr><td>ATM 增发净募资约 9.845 亿美元</td><td>2029 年前破产 23.5%</td><td>后续融资成本与股权稀释程度</td></tr></tbody></table>
+<p><strong>市场定价层面</strong>，这更像对“长期融资—交付风险”的报价，而不是对即期偿付能力的否定。</p>
+<p><strong>推测层面</strong>，事件上线前后，SMR 股价从 9 月 17 日收盘约 9.04 美元降至 9 月 18 日约 8.27 美元，单日约跌 8.5%；较 9 月 8 日约 11.18 美元的阶段高点低约 26%。价格波动可能提升了风险关注度，但目前没有证据证明某一条单独新闻直接触发了该投票。</p>
+<hr>
+<h2 id="-85235-真正反映什么结构变化">🧩 8.5%—23.5% 真正反映什么结构变化？</h2>
+<h3 id="️-技术层监管许可不是商业化终点">⚙️ 技术层：监管许可不是商业化终点</h3>
+<p>SMR 的价值主张是模块化制造、较小单体投资和灵活部署，但从设计许可走到标准化生产，还要跨过供应链认证、首堆工程、施工进度和实际成本验证。技术可行性解决“能不能造”，商业项目还要回答“按什么成本、何时交付”。</p>
+<h3 id="-产业层订单质量比合作规模更重要">🏭 产业层：订单质量比合作规模更重要</h3>
+<p>NuScale 披露，ENTRA1 与 TVA 的合作目标最高可达 6GW，但仍取决于后续购电协议等约束性安排。对核能设备商而言，谅解、合作与规划容量不能等同于确认收入。未来最重要的分水岭，是项目能否从意向进入融资关闭、采购和施工。</p>
+<h3 id="-社会与资本层核能复兴可能由股权市场先买单">💰 社会与资本层：核能复兴可能由股权市场先买单</h3>
+<p>公司无债务却仍出现破产合约，说明资本在关注另一类风险：研发与项目前置投入很大，而收入确认很慢。ATM 增发能延长跑道，也把产业风险转化为老股东稀释。核能复兴若要持续，政策支持之外还需要长期购电合同、项目融资与可复制交付共同接力。</p>
+<blockquote>
+<p>📌 <strong>判断</strong>：Polymarket 的期限结构并未否定 NuScale 当前的资产负债表，而是在给“现金最终能否转化为商业堆与可重复收入”定价。</p>
+</blockquote>
+<hr>
+<h2 id="-如果商业化验收继续未来会怎样">🔮 如果商业化验收继续，未来会怎样？</h2>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<table><thead><tr><th>时间尺度</th><th>更可能发生的变化</th><th>关键观察指标</th></tr></thead><tbody><tr><td><strong>短期：未来 6—12 个月</strong></td><td>市场围绕现金消耗、增发与约束性订单重新定价</td><td>季度经营现金流、股本变化、正式合同</td></tr><tr><td><strong>中期：2027—2029 年</strong></td><td>项目是否进入融资关闭和设备采购成为生存分水岭</td><td>购电协议、项目融资、首堆成本与进度</td></tr><tr><td><strong>长期：未来 5—10 年</strong></td><td>SMR 行业从设计竞争转向规模制造与运维经济性竞争</td><td>单位造价、工期、容量因子、模块复用率</td></tr></tbody></table>
+<hr>
+<h2 id="️-谁现在应该采取什么行动">🛠️ 谁现在应该采取什么行动？</h2>
+<ol>
+<li><strong>普通观察者</strong>：不要把 8.5% 解读为“91.5% 值得买入”；破产概率与股票回报不是同一个问题，持续稀释也可能在不破产时损害每股价值。</li>
+<li><strong>核能从业者</strong>：跟踪项目从非约束性合作到 PPA、融资关闭、采购的每一次状态变化，而不只统计规划中的 GW 数量。</li>
+<li><strong>制造与供应链企业</strong>：在签订长周期产能协议前，核验项目资金来源、取消条款和里程碑付款，避免把政策热度当作信用保障。</li>
+<li><strong>创业者</strong>：优先寻找核级认证、数字化工程、模块质量追溯和施工进度控制等跨项目可复用能力。</li>
+<li><strong>投资观察者</strong>：每季度同时计算“现金跑道、经营现金流、确认收入和完全摊薄股数”，把技术里程碑与每股经济性放在一张表里。</li>
+</ol>
+<hr>
+<h2 id="️-风险提示">⚠️ 风险提示</h2>
+<ul>
+<li>Polymarket 价格是实时交易价格，不是公司、监管机构或评级机构给出的官方概率。</li>
+<li>事件上线时间短，4.37 万美元成交量和约 7,401 美元未平仓量不足以证明广泛共识。</li>
+<li>破产合约采用特定公告与媒体共识规则，不等同于股价下跌、项目取消或经营亏损。</li>
+<li>10-Q 数据截至 2026 年 6 月 30 日，之后的投资价值、现金余额和合同状态可能变化。</li>
+<li>本文的技术、产业与资本判断属于情景分析，不构成预测市场交易或证券投资建议。</li>
+</ul>
+<hr>
+<h2 id="-结语核能复兴最终要由现金流而非口号证明">🌌 结语：核能复兴最终要由现金流而非口号证明</h2>
+<p>NuScale 的短期资产负债表并不脆弱：现金与短期投资超过 10 亿美元，且无债务。因此，8.5% 的两年期破产定价更值得被理解为一个远期压力测试，而非迫近的倒计时。</p>
+<p>未来观察者今天的结论是：<strong>SMR 已从“技术是否获得认可”进入“谁能把许可、合作与资本转成可交付项目”的阶段。资本可以购买时间，却不能替代商业化；真正决定行业赢家的，将是约束性订单、工程兑现与每股价值能否同时成立。</strong></p>
+<hr>
+<h2 id="-参考资源">🔗 参考资源</h2>
+<ol>
+<li><a href="https://polymarket.com/event/nuscale-announces-bankruptcy-by">Polymarket：NuScale announces bankruptcy by…?</a></li>
+<li><a href="https://gamma-api.polymarket.com/events?slug=nuscale-announces-bankruptcy-by">Polymarket Gamma API：事件数据</a></li>
+<li><a href="https://www.sec.gov/Archives/edgar/data/1822966/000182296626000085/smr-20260630.htm">NuScale 2026 年第二季度 Form 10-Q（SEC）</a></li>
+<li><a href="https://finance.yahoo.com/quote/SMR/history/">Yahoo Finance：SMR 历史行情</a></li>
+<li>知识库近 14 天文章标题，用于选题去重核验</li>
+</ol>
+<blockquote>
+<p>数据说明：Polymarket 概率、报价、成交量、流动性、未平仓量与结算规则获取于 <strong>2026-09-19 04:00（北京时间）</strong>；财务数据来自 NuScale 于 2026 年 8 月 5 日提交的 Form 10-Q；股价来自 Yahoo Finance 日线数据。本文明确区分事实、市场定价与推测。</p>
+</blockquote>  </article> <aside class="toc"><p class="toc-title">目录</p><ul class="toc-list"><li class="depth-2"><a href="#-今天看什么投票破产风险随时间明显抬升" data-toc-link="-今天看什么投票破产风险随时间明显抬升">🎯 今天看什么投票？破产风险随时间明显抬升</a></li><li class="depth-3"><a href="#-关键数据卡" data-toc-link="-关键数据卡">📊 关键数据卡</a></li><li class="depth-3"><a href="#-为什么今天选它核能热潮开始接受融资压力测试" data-toc-link="-为什么今天选它核能热潮开始接受融资压力测试">🧭 为什么今天选它？核能热潮开始接受融资压力测试</a></li><li class="depth-2"><a href="#-为什么会有这个投票有技术与有项目现金流之间仍有距离" data-toc-link="-为什么会有这个投票有技术与有项目现金流之间仍有距离">🔍 为什么会有这个投票？“有技术”与“有项目现金流”之间仍有距离</a></li><li class="depth-2"><a href="#-85235-真正反映什么结构变化" data-toc-link="-85235-真正反映什么结构变化">🧩 8.5%—23.5% 真正反映什么结构变化？</a></li><li class="depth-3"><a href="#️-技术层监管许可不是商业化终点" data-toc-link="️-技术层监管许可不是商业化终点">⚙️ 技术层：监管许可不是商业化终点</a></li><li class="depth-3"><a href="#-产业层订单质量比合作规模更重要" data-toc-link="-产业层订单质量比合作规模更重要">🏭 产业层：订单质量比合作规模更重要</a></li><li class="depth-3"><a href="#-社会与资本层核能复兴可能由股权市场先买单" data-toc-link="-社会与资本层核能复兴可能由股权市场先买单">💰 社会与资本层：核能复兴可能由股权市场先买单</a></li><li class="depth-2"><a href="#-如果商业化验收继续未来会怎样" data-toc-link="-如果商业化验收继续未来会怎样">🔮 如果商业化验收继续，未来会怎样？</a></li><li class="depth-2"><a href="#️-谁现在应该采取什么行动" data-toc-link="️-谁现在应该采取什么行动">🛠️ 谁现在应该采取什么行动？</a></li><li class="depth-2"><a href="#️-风险提示" data-toc-link="️-风险提示">⚠️ 风险提示</a></li><li class="depth-2"><a href="#-结语核能复兴最终要由现金流而非口号证明" data-toc-link="-结语核能复兴最终要由现金流而非口号证明">🌌 结语：核能复兴最终要由现金流而非口号证明</a></li><li class="depth-2"><a href="#-参考资源" data-toc-link="-参考资源">🔗 参考资源</a></li></ul></aside><script type="module">const c=()=>{const r=Array.from(document.querySelectorAll(".toc a[data-toc-link]"));if(!r.length)return;const o=r.map(t=>{const e=t.getAttribute("data-toc-link");if(!e)return null;const n=document.getElementById(e);return n?{id:e,heading:n,link:t}:null}).filter(t=>t!==null);if(!o.length)return;const s=t=>{r.forEach(e=>{const n=e.getAttribute("data-toc-link")===t;e.classList.toggle("active",n),n&&e.scrollIntoView({block:"nearest",inline:"nearest"})})},i=()=>{const t=Math.round(window.innerHeight*.28);let e=o[0];for(const n of o)n.heading.getBoundingClientRect().top<=t&&(e=n);s(e.id)};i();const a=new IntersectionObserver(()=>i(),{rootMargin:"-18% 0px -70% 0px",threshold:[0,1]});o.forEach(t=>a.observe(t.heading)),window.addEventListener("scroll",i,{passive:!0})};document.addEventListener("DOMContentLoaded",c);document.addEventListener("astro:page-load",c);</script> </div>  </main> <footer class="site-footer"> <div class="shell footer-inner"> <p>© 2026 未来观察者</p> </div> </footer> </body></html>
