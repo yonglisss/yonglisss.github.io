@@ -1,0 +1,110 @@
+<!DOCTYPE html><html lang="zh-CN"> <head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1"><script>
+      (() => {
+        const storageKey = "future-observer-theme";
+        const root = document.documentElement;
+        const getStoredMode = () => {
+          try {
+            const value = localStorage.getItem(storageKey);
+            return value === "light" || value === "dark" || value === "system" ? value : "system";
+          } catch {
+            return "system";
+          }
+        };
+        const systemDark = () => window.matchMedia?.("(prefers-color-scheme: dark)").matches ?? false;
+        const apply = (mode) => {
+          const resolved = mode === "system" ? (systemDark() ? "dark" : "light") : mode;
+          root.dataset.themeMode = mode;
+          root.dataset.theme = resolved;
+          root.style.colorScheme = resolved;
+        };
+        apply(getStoredMode());
+        window.__setFutureObserverTheme = (mode) => {
+          const next = mode === "light" || mode === "dark" || mode === "system" ? mode : "system";
+          try { localStorage.setItem(storageKey, next); } catch {}
+          apply(next);
+          window.dispatchEvent(new CustomEvent("future-observer-theme-change", { detail: { mode: next } }));
+        };
+        window.matchMedia?.("(prefers-color-scheme: dark)").addEventListener?.("change", () => {
+          if (getStoredMode() === "system") apply("system");
+        });
+      })();
+    </script><title>AX：把大规模 AI Agent 任务当成可治理的集群工作负载 | 未来观察者</title><meta name="description" content="单个 Agent 跑通演示并不难，难的是让大量任务安全、可观察、可暂停地运行。Google 开源的 AX 给出了一套偏基础设施的方案：用类似 Kubernetes 的声明式资源描述任务、工作区、网络出口和模型配置，再把任务放进隔离沙箱执行。项目今日位列 GitHub Trendi"><meta name="generator" content="Astro v5.18.1"><meta property="og:title" content="AX：把大规模 AI Agent 任务当成可治理的集群工作负载 | 未来观察者"><meta property="og:description" content="单个 Agent 跑通演示并不难，难的是让大量任务安全、可观察、可暂停地运行。Google 开源的 AX 给出了一套偏基础设施的方案：用类似 Kubernetes 的声明式资源描述任务、工作区、网络出口和模型配置，再把任务放进隔离沙箱执行。项目今日位列 GitHub Trendi"><meta property="og:type" content="website"><meta property="og:url" content="https://future.lifestudylab.com/posts/2026-09-24-ax/"><link rel="icon" type="image/svg+xml" href="/favicon.svg"><link rel="alternate" type="application/rss+xml" title="未来观察者" href="/rss.xml"><link rel="stylesheet" href="/_astro/_channel_.BFW__1rx.css"></head> <body> <div class="page-bg"></div> <header class="site-header"> <div class="shell header-inner"> <div class="header-bar"> <a class="brand" href="/ai-tools/"> <img src="/brand-mark.svg" alt="" class="brand-mark" width="56" height="56"> <span class="brand-text" aria-label="未来观察者">思考未来</span> </a> </div> <nav class="top-menu" aria-label="顶部菜单"> <a href="/future-daily/" class="top-menu-link"> 每日信息 </a><a href="/docs/deer-flow/00-overview/" class="top-menu-link"> DeerFlow教程 </a><a href="/docs/hermes/00-overview/" class="top-menu-link"> Hermes教程 </a><a href="/docs/openclaw/00-overview/" class="top-menu-link"> OpenClaw教程 </a><a href="/about/" class="top-menu-link"> 关于我 </a> </nav> <div class="top-actions"> <a class="feedback-link" href="https://github.com/yonglisss/yonglisss.github.io/issues" target="_blank" rel="noopener noreferrer" aria-label="问题反馈"> <svg viewBox="0 0 24 24" aria-hidden="true" class="action-icon"> <path d="M4.75 5.75A2.75 2.75 0 0 1 7.5 3h9A2.75 2.75 0 0 1 19.25 5.75v6.5A2.75 2.75 0 0 1 16.5 15H9.3l-3.55 3.2V15.1a2.75 2.75 0 0 1-1-2.1V5.75Z"></path> <path d="M8 7.75h8M8 11.25h4"></path> </svg> <span>问题反馈</span> </a> <div class="theme-switcher" data-theme-switcher> <button class="theme-trigger" type="button" aria-haspopup="menu" aria-expanded="false" aria-label="切换明暗模式" data-theme-trigger> <svg viewBox="0 0 24 24" aria-hidden="true" class="action-icon theme-trigger-icon theme-trigger-icon--light"> <circle cx="12" cy="12" r="4"></circle> <path d="M12 2.75v2M12 19.25v2M4.75 4.75l1.4 1.4M17.85 17.85l1.4 1.4M2.75 12h2M19.25 12h2M4.75 19.25l1.4-1.4M17.85 6.15l1.4-1.4"></path> </svg> <svg viewBox="0 0 24 24" aria-hidden="true" class="action-icon theme-trigger-icon theme-trigger-icon--dark"> <path d="M20.25 14.2A8 8 0 0 1 9.8 3.75 8.5 8.5 0 1 0 20.25 14.2Z"></path> </svg> <svg viewBox="0 0 24 24" aria-hidden="true" class="action-icon theme-trigger-icon theme-trigger-icon--system"> <rect x="4" y="5" width="16" height="11" rx="1.8"></rect> <path d="M9 20h6M12 16v4"></path> </svg> </button> <div class="theme-menu" role="menu" data-theme-menu hidden> <button class="theme-option" type="button" role="menuitemradio" data-theme-option="light" aria-checked="false"> <svg viewBox="0 0 24 24" aria-hidden="true" class="action-icon"><circle cx="12" cy="12" r="4"></circle><path d="M12 2.75v2M12 19.25v2M4.75 4.75l1.4 1.4M17.85 17.85l1.4 1.4M2.75 12h2M19.25 12h2M4.75 19.25l1.4-1.4M17.85 6.15l1.4-1.4"></path></svg> <span>亮色</span> </button> <button class="theme-option" type="button" role="menuitemradio" data-theme-option="dark" aria-checked="false"> <svg viewBox="0 0 24 24" aria-hidden="true" class="action-icon"><path d="M20.25 14.2A8 8 0 0 1 9.8 3.75 8.5 8.5 0 1 0 20.25 14.2Z"></path></svg> <span>暗色</span> </button> <button class="theme-option" type="button" role="menuitemradio" data-theme-option="system" aria-checked="true"> <svg viewBox="0 0 24 24" aria-hidden="true" class="action-icon"><rect x="4" y="5" width="16" height="11" rx="1.8"></rect><path d="M9 20h6M12 16v4"></path></svg> <span>跟随系统</span> </button> </div> </div> </div> </div> </header> <script>
+  (() => {
+    const switcher = document.querySelector("[data-theme-switcher]");
+    if (!switcher) return;
+
+    const trigger = switcher.querySelector("[data-theme-trigger]");
+    const menu = switcher.querySelector("[data-theme-menu]");
+    const options = [...switcher.querySelectorAll("[data-theme-option]")];
+    const modes = ["light", "dark", "system"];
+
+    const getMode = () => {
+      const mode = document.documentElement.dataset.themeMode;
+      return modes.includes(mode) ? mode : "system";
+    };
+
+    const closeMenu = () => {
+      menu.hidden = true;
+      trigger.setAttribute("aria-expanded", "false");
+    };
+
+    const openMenu = () => {
+      menu.hidden = false;
+      trigger.setAttribute("aria-expanded", "true");
+    };
+
+    const sync = () => {
+      const mode = getMode();
+      trigger.dataset.themeMode = mode;
+      options.forEach((option) => {
+        option.setAttribute("aria-checked", String(option.dataset.themeOption === mode));
+      });
+    };
+
+    trigger.addEventListener("click", () => {
+      menu.hidden ? openMenu() : closeMenu();
+    });
+
+    options.forEach((option) => {
+      option.addEventListener("click", () => {
+        window.__setFutureObserverTheme?.(option.dataset.themeOption || "system");
+        sync();
+        closeMenu();
+      });
+    });
+
+    document.addEventListener("click", (event) => {
+      if (!switcher.contains(event.target)) closeMenu();
+    });
+
+    document.addEventListener("keydown", (event) => {
+      if (event.key === "Escape") closeMenu();
+    });
+
+    window.addEventListener("future-observer-theme-change", sync);
+    sync();
+  })();
+</script> <aside class="site-rail" aria-label="站点导航"> <div class="site-rail-inner"> <p class="site-rail-label">Channels</p> <nav aria-label="主导航"> <ul class="site-rail-nav"> <li> <a href="/ai-tools/" class="site-rail-link"> AI工具 </a> </li><li> <a href="/future-daily/" class="site-rail-link"> 未来观察者日报 </a> </li> </ul> </nav> </div> </aside> <main class="shell page-content">  <div class="post-hero"> <p class="eyebrow">2026年9月24日</p> <h1>AX：把大规模 AI Agent 任务当成可治理的集群工作负载</h1> <p class="post-summary">单个 Agent 跑通演示并不难，难的是让大量任务安全、可观察、可暂停地运行。Google 开源的 AX 给出了一套偏基础设施的方案：用类似 Kubernetes 的声明式资源描述任务、工作区、网络出口和模型配置，再把任务放进隔离沙箱执行。项目今日位列 GitHub Trendi</p> <ul class="tag-list"> <li> <a href="/tags/AI%E5%B7%A5%E5%85%B7/" class="tag-link">
+#AI工具 </a> </li><li> <a href="/tags/2026%E5%B9%B409%E6%9C%88/" class="tag-link">
+#2026年09月 </a> </li> </ul> </div> <div class="post-grid"> <article class="prose">  <p>单个 Agent 跑通演示并不难，难的是让大量任务安全、可观察、可暂停地运行。Google 开源的 AX 给出了一套偏基础设施的方案：用类似 Kubernetes 的声明式资源描述任务、工作区、网络出口和模型配置，再把任务放进隔离沙箱执行。项目今日位列 GitHub Trending 前列，并于 9 月 20 日发布 v0.3.0，适合正在从“做 Agent”走向“运营 Agent 平台”的团队关注。</p>
+<h2 id="-这个项目是干什么的">📌 这个项目是干什么的</h2>
+<p>AX 是面向集群的 Agent 编排运行时。开发者通过 YAML 声明四类资源：<code>Task</code> 定义镜像、命令和算力限制；<code>Workspace</code> 准备 Git 仓库、MCP 服务与技能；<code>Gateway</code> 约束入站监听和出站主机；<code>Model</code> 集中管理模型供应商、参数与 Kubernetes Secret 引用。</p>
+<p>任务运行在 Agent Substrate 提供的沙箱上。AX 负责控制面、状态与调度，并提供 <code>apply</code>、<code>get</code>、<code>watch</code>、<code>describe</code>、<code>ssh</code> 等接近 <code>kubectl</code> 的操作，还能暂停任务并在之后恢复。</p>
+<h2 id="-为什么值得关注">🔍 为什么值得关注</h2>
+<p><strong>第一，它把 Agent 特有风险变成平台能力。</strong> Agent 会积累状态、调用外部模型和工具，也可能在循环中持续消耗费用。AX 将 CPU、内存、网络出口和模型凭据纳入声明式配置，比把这些约束散落在每个 Agent 脚本里更容易审计。</p>
+<p><strong>第二，工作环境可以复用。</strong> 代码仓库、MCP 服务和技能由 <code>Workspace</code> 统一描述，同一环境可绑定到多个任务。团队因此能把“Agent 开始工作前需要什么”沉淀成版本化清单，而不是重复写初始化逻辑。</p>
+<p><strong>第三，架构针对大量短生命周期任务。</strong> AX 没有把任务状态全部塞进 Kubernetes CRD，而是使用 Redis 保存状态、用 Redis Streams 分发事件，再横向扩展控制器。即使暂时不采用 AX，这种把 Agent 生命周期与底层容器编排解耦的思路也值得参考。</p>
+<h2 id="-谁适合试怎么开始">🧪 谁适合试，怎么开始</h2>
+<p>它更适合已有 Kubernetes、需要并发运行编码 Agent、评测任务或内部自动化流程的平台团队，不是个人桌面助手的轻量替代品。</p>
+<p>最短路径是先阅读 Concepts、Manifests 与示例 YAML，确认 <code>Task</code>、<code>Workspace</code>、<code>Gateway</code>、<code>Model</code> 是否能覆盖现有治理需求。再准备一个测试集群、容器镜像仓库、<code>ko</code> 和可访问的 Agent Substrate Control API，安装 CLI 后用官方 <code>examples/task.yaml</code> 跑通 <code>apply → watch → ssh → suspend → resume</code>，先验证生命周期与网络限制，不要直接接生产凭据。</p>
+<h2 id="️-使用提醒">⚠️ 使用提醒</h2>
+<p>AX 目前所有资源仍是 <code>v1alpha1</code>，README 明确提示稳定版前可能出现重大破坏性变更；v0.3.0 的 Release 也没有迁移说明。生产评估应锁定提交或版本，并自行建立升级测试。</p>
+<p>它不是开箱即用的 Agent 框架：部署还依赖 Kubernetes、Redis、镜像构建链和 Agent Substrate，运维门槛明显高于普通 SDK。示例 Gateway 允许任意主机的 443 端口，真实环境应改成模型服务、代码托管与必要工具的最小白名单；<code>debug: true</code> 会开放 SSH 调试能力，也不应默认用于生产任务。</p>
+<h2 id="-参考资源">🔗 参考资源</h2>
+<ul>
+<li>GitHub：<a href="https://github.com/google/ax">https://github.com/google/ax</a></li>
+<li>核心概念：<a href="https://github.com/google/ax/blob/main/docs/concepts.md">https://github.com/google/ax/blob/main/docs/concepts.md</a></li>
+<li>Manifest 指南：<a href="https://github.com/google/ax/blob/main/docs/manifests.md">https://github.com/google/ax/blob/main/docs/manifests.md</a></li>
+<li>架构设计：<a href="https://github.com/google/ax/blob/main/DESIGN.md">https://github.com/google/ax/blob/main/DESIGN.md</a></li>
+<li>v0.3.0 Release：<a href="https://github.com/google/ax/releases/tag/v0.3.0">https://github.com/google/ax/releases/tag/v0.3.0</a></li>
+</ul>  </article> <aside class="toc"><p class="toc-title">目录</p><ul class="toc-list"><li class="depth-2"><a href="#-这个项目是干什么的" data-toc-link="-这个项目是干什么的">📌 这个项目是干什么的</a></li><li class="depth-2"><a href="#-为什么值得关注" data-toc-link="-为什么值得关注">🔍 为什么值得关注</a></li><li class="depth-2"><a href="#-谁适合试怎么开始" data-toc-link="-谁适合试怎么开始">🧪 谁适合试，怎么开始</a></li><li class="depth-2"><a href="#️-使用提醒" data-toc-link="️-使用提醒">⚠️ 使用提醒</a></li><li class="depth-2"><a href="#-参考资源" data-toc-link="-参考资源">🔗 参考资源</a></li></ul></aside><script type="module">const c=()=>{const r=Array.from(document.querySelectorAll(".toc a[data-toc-link]"));if(!r.length)return;const o=r.map(t=>{const e=t.getAttribute("data-toc-link");if(!e)return null;const n=document.getElementById(e);return n?{id:e,heading:n,link:t}:null}).filter(t=>t!==null);if(!o.length)return;const s=t=>{r.forEach(e=>{const n=e.getAttribute("data-toc-link")===t;e.classList.toggle("active",n),n&&e.scrollIntoView({block:"nearest",inline:"nearest"})})},i=()=>{const t=Math.round(window.innerHeight*.28);let e=o[0];for(const n of o)n.heading.getBoundingClientRect().top<=t&&(e=n);s(e.id)};i();const a=new IntersectionObserver(()=>i(),{rootMargin:"-18% 0px -70% 0px",threshold:[0,1]});o.forEach(t=>a.observe(t.heading)),window.addEventListener("scroll",i,{passive:!0})};document.addEventListener("DOMContentLoaded",c);document.addEventListener("astro:page-load",c);</script> </div>  </main> <footer class="site-footer"> <div class="shell footer-inner"> <p>© 2026 未来观察者</p> </div> </footer> </body></html>
