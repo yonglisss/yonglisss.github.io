@@ -1,0 +1,109 @@
+<!DOCTYPE html><html lang="zh-CN"> <head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1"><script>
+      (() => {
+        const storageKey = "future-observer-theme";
+        const root = document.documentElement;
+        const getStoredMode = () => {
+          try {
+            const value = localStorage.getItem(storageKey);
+            return value === "light" || value === "dark" || value === "system" ? value : "system";
+          } catch {
+            return "system";
+          }
+        };
+        const systemDark = () => window.matchMedia?.("(prefers-color-scheme: dark)").matches ?? false;
+        const apply = (mode) => {
+          const resolved = mode === "system" ? (systemDark() ? "dark" : "light") : mode;
+          root.dataset.themeMode = mode;
+          root.dataset.theme = resolved;
+          root.style.colorScheme = resolved;
+        };
+        apply(getStoredMode());
+        window.__setFutureObserverTheme = (mode) => {
+          const next = mode === "light" || mode === "dark" || mode === "system" ? mode : "system";
+          try { localStorage.setItem(storageKey, next); } catch {}
+          apply(next);
+          window.dispatchEvent(new CustomEvent("future-observer-theme-change", { detail: { mode: next } }));
+        };
+        window.matchMedia?.("(prefers-color-scheme: dark)").addEventListener?.("change", () => {
+          if (getStoredMode() === "system") apply("system");
+        });
+      })();
+    </script><title>Paperclip：把一群 AI Agent 放进可治理的“公司”里 | 未来观察者</title><meta name="description" content="同时运行多个 Claude Code、Codex 或 OpenClaw Agent 后，真正麻烦的往往不再是模型能力，而是谁负责什么、任务做到哪一步、花了多少钱，以及出错后如何追溯。Paperclip 是一个开源、自托管的多 Agent 编排与管理系统，用任务、组织结构、预算和审"><meta name="generator" content="Astro v5.18.1"><meta property="og:title" content="Paperclip：把一群 AI Agent 放进可治理的“公司”里 | 未来观察者"><meta property="og:description" content="同时运行多个 Claude Code、Codex 或 OpenClaw Agent 后，真正麻烦的往往不再是模型能力，而是谁负责什么、任务做到哪一步、花了多少钱，以及出错后如何追溯。Paperclip 是一个开源、自托管的多 Agent 编排与管理系统，用任务、组织结构、预算和审"><meta property="og:type" content="website"><meta property="og:url" content="https://future.lifestudylab.com/posts/2026-09-26-paperclip/"><link rel="icon" type="image/svg+xml" href="/favicon.svg"><link rel="alternate" type="application/rss+xml" title="未来观察者" href="/rss.xml"><link rel="stylesheet" href="/_astro/_channel_.BFW__1rx.css"></head> <body> <div class="page-bg"></div> <header class="site-header"> <div class="shell header-inner"> <div class="header-bar"> <a class="brand" href="/ai-tools/"> <img src="/brand-mark.svg" alt="" class="brand-mark" width="56" height="56"> <span class="brand-text" aria-label="未来观察者">思考未来</span> </a> </div> <nav class="top-menu" aria-label="顶部菜单"> <a href="/future-daily/" class="top-menu-link"> 每日信息 </a><a href="/docs/deer-flow/00-overview/" class="top-menu-link"> DeerFlow教程 </a><a href="/docs/hermes/00-overview/" class="top-menu-link"> Hermes教程 </a><a href="/docs/openclaw/00-overview/" class="top-menu-link"> OpenClaw教程 </a><a href="/about/" class="top-menu-link"> 关于我 </a> </nav> <div class="top-actions"> <a class="feedback-link" href="https://github.com/yonglisss/yonglisss.github.io/issues" target="_blank" rel="noopener noreferrer" aria-label="问题反馈"> <svg viewBox="0 0 24 24" aria-hidden="true" class="action-icon"> <path d="M4.75 5.75A2.75 2.75 0 0 1 7.5 3h9A2.75 2.75 0 0 1 19.25 5.75v6.5A2.75 2.75 0 0 1 16.5 15H9.3l-3.55 3.2V15.1a2.75 2.75 0 0 1-1-2.1V5.75Z"></path> <path d="M8 7.75h8M8 11.25h4"></path> </svg> <span>问题反馈</span> </a> <div class="theme-switcher" data-theme-switcher> <button class="theme-trigger" type="button" aria-haspopup="menu" aria-expanded="false" aria-label="切换明暗模式" data-theme-trigger> <svg viewBox="0 0 24 24" aria-hidden="true" class="action-icon theme-trigger-icon theme-trigger-icon--light"> <circle cx="12" cy="12" r="4"></circle> <path d="M12 2.75v2M12 19.25v2M4.75 4.75l1.4 1.4M17.85 17.85l1.4 1.4M2.75 12h2M19.25 12h2M4.75 19.25l1.4-1.4M17.85 6.15l1.4-1.4"></path> </svg> <svg viewBox="0 0 24 24" aria-hidden="true" class="action-icon theme-trigger-icon theme-trigger-icon--dark"> <path d="M20.25 14.2A8 8 0 0 1 9.8 3.75 8.5 8.5 0 1 0 20.25 14.2Z"></path> </svg> <svg viewBox="0 0 24 24" aria-hidden="true" class="action-icon theme-trigger-icon theme-trigger-icon--system"> <rect x="4" y="5" width="16" height="11" rx="1.8"></rect> <path d="M9 20h6M12 16v4"></path> </svg> </button> <div class="theme-menu" role="menu" data-theme-menu hidden> <button class="theme-option" type="button" role="menuitemradio" data-theme-option="light" aria-checked="false"> <svg viewBox="0 0 24 24" aria-hidden="true" class="action-icon"><circle cx="12" cy="12" r="4"></circle><path d="M12 2.75v2M12 19.25v2M4.75 4.75l1.4 1.4M17.85 17.85l1.4 1.4M2.75 12h2M19.25 12h2M4.75 19.25l1.4-1.4M17.85 6.15l1.4-1.4"></path></svg> <span>亮色</span> </button> <button class="theme-option" type="button" role="menuitemradio" data-theme-option="dark" aria-checked="false"> <svg viewBox="0 0 24 24" aria-hidden="true" class="action-icon"><path d="M20.25 14.2A8 8 0 0 1 9.8 3.75 8.5 8.5 0 1 0 20.25 14.2Z"></path></svg> <span>暗色</span> </button> <button class="theme-option" type="button" role="menuitemradio" data-theme-option="system" aria-checked="true"> <svg viewBox="0 0 24 24" aria-hidden="true" class="action-icon"><rect x="4" y="5" width="16" height="11" rx="1.8"></rect><path d="M9 20h6M12 16v4"></path></svg> <span>跟随系统</span> </button> </div> </div> </div> </div> </header> <script>
+  (() => {
+    const switcher = document.querySelector("[data-theme-switcher]");
+    if (!switcher) return;
+
+    const trigger = switcher.querySelector("[data-theme-trigger]");
+    const menu = switcher.querySelector("[data-theme-menu]");
+    const options = [...switcher.querySelectorAll("[data-theme-option]")];
+    const modes = ["light", "dark", "system"];
+
+    const getMode = () => {
+      const mode = document.documentElement.dataset.themeMode;
+      return modes.includes(mode) ? mode : "system";
+    };
+
+    const closeMenu = () => {
+      menu.hidden = true;
+      trigger.setAttribute("aria-expanded", "false");
+    };
+
+    const openMenu = () => {
+      menu.hidden = false;
+      trigger.setAttribute("aria-expanded", "true");
+    };
+
+    const sync = () => {
+      const mode = getMode();
+      trigger.dataset.themeMode = mode;
+      options.forEach((option) => {
+        option.setAttribute("aria-checked", String(option.dataset.themeOption === mode));
+      });
+    };
+
+    trigger.addEventListener("click", () => {
+      menu.hidden ? openMenu() : closeMenu();
+    });
+
+    options.forEach((option) => {
+      option.addEventListener("click", () => {
+        window.__setFutureObserverTheme?.(option.dataset.themeOption || "system");
+        sync();
+        closeMenu();
+      });
+    });
+
+    document.addEventListener("click", (event) => {
+      if (!switcher.contains(event.target)) closeMenu();
+    });
+
+    document.addEventListener("keydown", (event) => {
+      if (event.key === "Escape") closeMenu();
+    });
+
+    window.addEventListener("future-observer-theme-change", sync);
+    sync();
+  })();
+</script> <aside class="site-rail" aria-label="站点导航"> <div class="site-rail-inner"> <p class="site-rail-label">Channels</p> <nav aria-label="主导航"> <ul class="site-rail-nav"> <li> <a href="/ai-tools/" class="site-rail-link"> AI工具 </a> </li><li> <a href="/future-daily/" class="site-rail-link"> 未来观察者日报 </a> </li> </ul> </nav> </div> </aside> <main class="shell page-content">  <div class="post-hero"> <p class="eyebrow">2026年9月26日</p> <h1>Paperclip：把一群 AI Agent 放进可治理的“公司”里</h1> <p class="post-summary">同时运行多个 Claude Code、Codex 或 OpenClaw Agent 后，真正麻烦的往往不再是模型能力，而是谁负责什么、任务做到哪一步、花了多少钱，以及出错后如何追溯。Paperclip 是一个开源、自托管的多 Agent 编排与管理系统，用任务、组织结构、预算和审</p> <ul class="tag-list"> <li> <a href="/tags/AI%E5%B7%A5%E5%85%B7/" class="tag-link">
+#AI工具 </a> </li><li> <a href="/tags/2026%E5%B9%B409%E6%9C%88/" class="tag-link">
+#2026年09月 </a> </li> </ul> </div> <div class="post-grid"> <article class="prose">  <p>同时运行多个 Claude Code、Codex 或 OpenClaw Agent 后，真正麻烦的往往不再是模型能力，而是谁负责什么、任务做到哪一步、花了多少钱，以及出错后如何追溯。Paperclip 是一个开源、自托管的多 Agent 编排与管理系统，用任务、组织结构、预算和审批机制，把分散的 Agent 纳入同一个控制台。它今天位列 GitHub Trending，适合已经从“单个助手”走向“Agent 团队”的开发者关注。</p>
+<h2 id="-这个项目是干什么的">📌 这个项目是干什么的</h2>
+<p>Paperclip 由 Node.js 服务端和 React 界面组成。你可以接入 OpenClaw、Claude Code、Codex、Cursor、命令行程序或 HTTP Bot，为它们设置角色、上下级关系、目标、任务和预算，再从一个看板查看执行状态与成本。</p>
+<p>它不是新的 Agent 框架，也不负责替你选择模型或编写提示词。它更像 Agent 团队的控制平面：Agent 按 heartbeat 定时领取工作，任务保留上下文与目标链路；审批、暂停、终止和审计日志则让人类保留控制权。项目采用 MIT 许可证，官方已发布 v2026.916.1。</p>
+<h2 id="-为什么值得关注">🔍 为什么值得关注</h2>
+<p><strong>第一，它解决的是多 Agent 的管理问题。</strong> 当团队只有一个 Agent 时，终端和任务列表已经够用；当多个 Agent 并行工作，任务重复、上下文丢失和职责不清会迅速放大。Paperclip 用原子任务领取、持久会话和组织关系，把“开很多终端”变成可追踪的协作流程。</p>
+<p><strong>第二，成本控制进入执行链路。</strong> 项目可以按组织、Agent、项目和任务记录成本，并设置预算与硬停止，而不只是事后查看账单。对于定时运行或无人值守的 Agent，这比单纯的用量报表更实用。</p>
+<p><strong>第三，它强调治理，而非完全放权。</strong> 招募 Agent、策略变更和关键执行可以设置审批；操作、评论、成本与运行状态会形成审计记录。这种思路值得团队借鉴：Agent 自主运行不等于取消权限边界和人工复核。</p>
+<h2 id="-谁适合试怎么开始">🧪 谁适合试，怎么开始</h2>
+<p>它最适合同时维护多个编码或运营 Agent、需要统一派工和控费的个人开发者与小团队。最短尝试路径是准备 Node.js 24.11 或更高版本，先使用官方提供的 <code>npx --registry https://registry.npmjs.org paperclipai onboard --yes</code> 完成本地引导。</p>
+<p>建议先建一个测试组织，只接入一个低权限 Agent，配置一个明确、可验收的小任务；确认任务领取、日志、预算停止和人工审批都符合预期后，再增加角色与定时任务。</p>
+<h2 id="️-使用提醒">⚠️ 使用提醒</h2>
+<p>Paperclip 不是模型沙箱，也不会自动保证 Agent 输出正确。接入真实代码库、密钥或外部系统前，仍需限制文件、网络、工具和账户权限，并为高风险操作保留审批。</p>
+<p>它面向多 Agent 场景，单 Agent 用户可能只会得到额外的部署与维护成本。官方一键安装脚本与校验文件来自同一站点；安全要求较高时，应先审查脚本，或固定到具体 Release、提交再部署。升级前也应查看 Release 说明并备份数据。</p>
+<h2 id="-参考资源">🔗 参考资源</h2>
+<ul>
+<li>GitHub：<a href="https://github.com/paperclipai/paperclip">https://github.com/paperclipai/paperclip</a></li>
+<li>官方网站：<a href="https://paperclip.ing/">https://paperclip.ing/</a></li>
+<li>官方文档：<a href="https://docs.paperclip.ing/">https://docs.paperclip.ing/</a></li>
+<li>v2026.916.1 Release：<a href="https://github.com/paperclipai/paperclip/releases/tag/v2026.916.1">https://github.com/paperclipai/paperclip/releases/tag/v2026.916.1</a></li>
+</ul>  </article> <aside class="toc"><p class="toc-title">目录</p><ul class="toc-list"><li class="depth-2"><a href="#-这个项目是干什么的" data-toc-link="-这个项目是干什么的">📌 这个项目是干什么的</a></li><li class="depth-2"><a href="#-为什么值得关注" data-toc-link="-为什么值得关注">🔍 为什么值得关注</a></li><li class="depth-2"><a href="#-谁适合试怎么开始" data-toc-link="-谁适合试怎么开始">🧪 谁适合试，怎么开始</a></li><li class="depth-2"><a href="#️-使用提醒" data-toc-link="️-使用提醒">⚠️ 使用提醒</a></li><li class="depth-2"><a href="#-参考资源" data-toc-link="-参考资源">🔗 参考资源</a></li></ul></aside><script type="module">const c=()=>{const r=Array.from(document.querySelectorAll(".toc a[data-toc-link]"));if(!r.length)return;const o=r.map(t=>{const e=t.getAttribute("data-toc-link");if(!e)return null;const n=document.getElementById(e);return n?{id:e,heading:n,link:t}:null}).filter(t=>t!==null);if(!o.length)return;const s=t=>{r.forEach(e=>{const n=e.getAttribute("data-toc-link")===t;e.classList.toggle("active",n),n&&e.scrollIntoView({block:"nearest",inline:"nearest"})})},i=()=>{const t=Math.round(window.innerHeight*.28);let e=o[0];for(const n of o)n.heading.getBoundingClientRect().top<=t&&(e=n);s(e.id)};i();const a=new IntersectionObserver(()=>i(),{rootMargin:"-18% 0px -70% 0px",threshold:[0,1]});o.forEach(t=>a.observe(t.heading)),window.addEventListener("scroll",i,{passive:!0})};document.addEventListener("DOMContentLoaded",c);document.addEventListener("astro:page-load",c);</script> </div>  </main> <footer class="site-footer"> <div class="shell footer-inner"> <p>© 2026 未来观察者</p> </div> </footer> </body></html>
