@@ -1,0 +1,121 @@
+<!DOCTYPE html><html lang="zh-CN"> <head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1"><script>
+      (() => {
+        const storageKey = "future-observer-theme";
+        const root = document.documentElement;
+        const getStoredMode = () => {
+          try {
+            const value = localStorage.getItem(storageKey);
+            return value === "light" || value === "dark" || value === "system" ? value : "system";
+          } catch {
+            return "system";
+          }
+        };
+        const systemDark = () => window.matchMedia?.("(prefers-color-scheme: dark)").matches ?? false;
+        const apply = (mode) => {
+          const resolved = mode === "system" ? (systemDark() ? "dark" : "light") : mode;
+          root.dataset.themeMode = mode;
+          root.dataset.theme = resolved;
+          root.style.colorScheme = resolved;
+        };
+        apply(getStoredMode());
+        window.__setFutureObserverTheme = (mode) => {
+          const next = mode === "light" || mode === "dark" || mode === "system" ? mode : "system";
+          try { localStorage.setItem(storageKey, next); } catch {}
+          apply(next);
+          window.dispatchEvent(new CustomEvent("future-observer-theme-change", { detail: { mode: next } }));
+        };
+        window.matchMedia?.("(prefers-color-scheme: dark)").addEventListener?.("change", () => {
+          if (getStoredMode() === "system") apply("system");
+        });
+      })();
+    </script><title>Superpowers：给 AI 编程代理装上一套可复用的开发流程 | 未来观察者</title><meta name="description" content="AI 编程工具能补代码，但从需求澄清、设计、拆任务到测试和审查，流程仍容易断在人的经验上。Superpowers 不是新模型或 IDE，而是一组可组合的技能与启动指引：让兼容的编码代理先理解需求，再按工程步骤推进。它近期的 GitHub 热度很高，9 月 25 日发布的 v6.4"><meta name="generator" content="Astro v5.18.1"><meta property="og:title" content="Superpowers：给 AI 编程代理装上一套可复用的开发流程 | 未来观察者"><meta property="og:description" content="AI 编程工具能补代码，但从需求澄清、设计、拆任务到测试和审查，流程仍容易断在人的经验上。Superpowers 不是新模型或 IDE，而是一组可组合的技能与启动指引：让兼容的编码代理先理解需求，再按工程步骤推进。它近期的 GitHub 热度很高，9 月 25 日发布的 v6.4"><meta property="og:type" content="website"><meta property="og:url" content="https://future.lifestudylab.com/posts/2026-09-30-superpowers/"><link rel="icon" type="image/svg+xml" href="/favicon.svg"><link rel="alternate" type="application/rss+xml" title="未来观察者" href="/rss.xml"><link rel="stylesheet" href="/_astro/_channel_.BFW__1rx.css"></head> <body> <div class="page-bg"></div> <header class="site-header"> <div class="shell header-inner"> <div class="header-bar"> <a class="brand" href="/ai-tools/"> <img src="/brand-mark.svg" alt="" class="brand-mark" width="56" height="56"> <span class="brand-text" aria-label="未来观察者">思考未来</span> </a> </div> <nav class="top-menu" aria-label="顶部菜单"> <a href="/future-daily/" class="top-menu-link"> 每日信息 </a><a href="/docs/deer-flow/00-overview/" class="top-menu-link"> DeerFlow教程 </a><a href="/docs/hermes/00-overview/" class="top-menu-link"> Hermes教程 </a><a href="/docs/openclaw/00-overview/" class="top-menu-link"> OpenClaw教程 </a><a href="/about/" class="top-menu-link"> 关于我 </a> </nav> <div class="top-actions"> <a class="feedback-link" href="https://github.com/yonglisss/yonglisss.github.io/issues" target="_blank" rel="noopener noreferrer" aria-label="问题反馈"> <svg viewBox="0 0 24 24" aria-hidden="true" class="action-icon"> <path d="M4.75 5.75A2.75 2.75 0 0 1 7.5 3h9A2.75 2.75 0 0 1 19.25 5.75v6.5A2.75 2.75 0 0 1 16.5 15H9.3l-3.55 3.2V15.1a2.75 2.75 0 0 1-1-2.1V5.75Z"></path> <path d="M8 7.75h8M8 11.25h4"></path> </svg> <span>问题反馈</span> </a> <div class="theme-switcher" data-theme-switcher> <button class="theme-trigger" type="button" aria-haspopup="menu" aria-expanded="false" aria-label="切换明暗模式" data-theme-trigger> <svg viewBox="0 0 24 24" aria-hidden="true" class="action-icon theme-trigger-icon theme-trigger-icon--light"> <circle cx="12" cy="12" r="4"></circle> <path d="M12 2.75v2M12 19.25v2M4.75 4.75l1.4 1.4M17.85 17.85l1.4 1.4M2.75 12h2M19.25 12h2M4.75 19.25l1.4-1.4M17.85 6.15l1.4-1.4"></path> </svg> <svg viewBox="0 0 24 24" aria-hidden="true" class="action-icon theme-trigger-icon theme-trigger-icon--dark"> <path d="M20.25 14.2A8 8 0 0 1 9.8 3.75 8.5 8.5 0 1 0 20.25 14.2Z"></path> </svg> <svg viewBox="0 0 24 24" aria-hidden="true" class="action-icon theme-trigger-icon theme-trigger-icon--system"> <rect x="4" y="5" width="16" height="11" rx="1.8"></rect> <path d="M9 20h6M12 16v4"></path> </svg> </button> <div class="theme-menu" role="menu" data-theme-menu hidden> <button class="theme-option" type="button" role="menuitemradio" data-theme-option="light" aria-checked="false"> <svg viewBox="0 0 24 24" aria-hidden="true" class="action-icon"><circle cx="12" cy="12" r="4"></circle><path d="M12 2.75v2M12 19.25v2M4.75 4.75l1.4 1.4M17.85 17.85l1.4 1.4M2.75 12h2M19.25 12h2M4.75 19.25l1.4-1.4M17.85 6.15l1.4-1.4"></path></svg> <span>亮色</span> </button> <button class="theme-option" type="button" role="menuitemradio" data-theme-option="dark" aria-checked="false"> <svg viewBox="0 0 24 24" aria-hidden="true" class="action-icon"><path d="M20.25 14.2A8 8 0 0 1 9.8 3.75 8.5 8.5 0 1 0 20.25 14.2Z"></path></svg> <span>暗色</span> </button> <button class="theme-option" type="button" role="menuitemradio" data-theme-option="system" aria-checked="true"> <svg viewBox="0 0 24 24" aria-hidden="true" class="action-icon"><rect x="4" y="5" width="16" height="11" rx="1.8"></rect><path d="M9 20h6M12 16v4"></path></svg> <span>跟随系统</span> </button> </div> </div> </div> </div> </header> <script>
+  (() => {
+    const switcher = document.querySelector("[data-theme-switcher]");
+    if (!switcher) return;
+
+    const trigger = switcher.querySelector("[data-theme-trigger]");
+    const menu = switcher.querySelector("[data-theme-menu]");
+    const options = [...switcher.querySelectorAll("[data-theme-option]")];
+    const modes = ["light", "dark", "system"];
+
+    const getMode = () => {
+      const mode = document.documentElement.dataset.themeMode;
+      return modes.includes(mode) ? mode : "system";
+    };
+
+    const closeMenu = () => {
+      menu.hidden = true;
+      trigger.setAttribute("aria-expanded", "false");
+    };
+
+    const openMenu = () => {
+      menu.hidden = false;
+      trigger.setAttribute("aria-expanded", "true");
+    };
+
+    const sync = () => {
+      const mode = getMode();
+      trigger.dataset.themeMode = mode;
+      options.forEach((option) => {
+        option.setAttribute("aria-checked", String(option.dataset.themeOption === mode));
+      });
+    };
+
+    trigger.addEventListener("click", () => {
+      menu.hidden ? openMenu() : closeMenu();
+    });
+
+    options.forEach((option) => {
+      option.addEventListener("click", () => {
+        window.__setFutureObserverTheme?.(option.dataset.themeOption || "system");
+        sync();
+        closeMenu();
+      });
+    });
+
+    document.addEventListener("click", (event) => {
+      if (!switcher.contains(event.target)) closeMenu();
+    });
+
+    document.addEventListener("keydown", (event) => {
+      if (event.key === "Escape") closeMenu();
+    });
+
+    window.addEventListener("future-observer-theme-change", sync);
+    sync();
+  })();
+</script> <aside class="site-rail" aria-label="站点导航"> <div class="site-rail-inner"> <p class="site-rail-label">Channels</p> <nav aria-label="主导航"> <ul class="site-rail-nav"> <li> <a href="/ai-tools/" class="site-rail-link"> AI工具 </a> </li><li> <a href="/future-daily/" class="site-rail-link"> 未来观察者日报 </a> </li> </ul> </nav> </div> </aside> <main class="shell page-content">  <div class="post-hero"> <p class="eyebrow">2026年9月30日</p> <h1>Superpowers：给 AI 编程代理装上一套可复用的开发流程</h1> <p class="post-summary">AI 编程工具能补代码，但从需求澄清、设计、拆任务到测试和审查，流程仍容易断在人的经验上。Superpowers 不是新模型或 IDE，而是一组可组合的技能与启动指引：让兼容的编码代理先理解需求，再按工程步骤推进。它近期的 GitHub 热度很高，9 月 25 日发布的 v6.4</p> <ul class="tag-list"> <li> <a href="/tags/AI%E5%B7%A5%E5%85%B7/" class="tag-link">
+#AI工具 </a> </li><li> <a href="/tags/2026%E5%B9%B409%E6%9C%88/" class="tag-link">
+#2026年09月 </a> </li> </ul> </div> <div class="post-grid"> <article class="prose">  <p>AI 编程工具能补代码，但从需求澄清、设计、拆任务到测试和审查，流程仍容易断在人的经验上。Superpowers 不是新模型或 IDE，而是一组可组合的技能与启动指引：让兼容的编码代理先理解需求，再按工程步骤推进。它近期的 GitHub 热度很高，9 月 25 日发布的 v6.4.2 也带来了一个值得关注的变化：实施计划更精简，重点记录实现决策，而不是把代码提前写进计划。</p>
+<h2 id="-这个项目是干什么的">📌 这个项目是干什么的</h2>
+<ul>
+<li>定位：面向 AI 编码代理的软件开发方法论与技能库，覆盖需求探索、计划、TDD、调试、代码审查等环节。</li>
+<li>适合谁：使用 Claude Code、Codex、Cursor、Gemini CLI、Pi、Hermes 等支持环境的开发者；具体安装方式随工具而异。</li>
+<li>解决什么问题：减少代理跳过需求分析、一次性铺开代码、缺少测试验证等常见流程风险。</li>
+<li>成熟度：仓库提供多种工具的安装说明与工作流文档，采用 MIT 许可证；技能效果仍取决于代理遵循指令的能力和项目测试质量。</li>
+</ul>
+<h2 id="-为什么值得关注">🔍 为什么值得关注</h2>
+<ol>
+<li>它优化的不是“模型会不会写代码”，而是代理在工程任务中的工作顺序。先澄清目标和设计，再拆实施步骤，适合降低需求理解偏差带来的返工。</li>
+<li>TDD、系统化调试、完成前验证、代码审查等技能把工程习惯写成可复用步骤。团队可以先挑一两个环节试用，再判断是否融入现有流程。</li>
+<li>v6.4.2 的 release 将计划调整为记录接口、测试断言和规格值等关键决策，避免计划长得像代码转录。项目发布说明称，在其测试场景中计划耗时约为原来的四分之一、token 约为三分之一；这是项目方报告，不应视为所有模型和任务都能达到的普遍结果。</li>
+</ol>
+<h2 id="-谁适合试怎么开始">🧪 谁适合试，怎么开始</h2>
+<ul>
+<li>最适合的试用人群：经常让编码代理处理跨文件功能、维护任务，且希望有稳定测试和审查步骤的开发者。</li>
+<li>最短尝试路径：确认自己的编码代理在支持列表中，按仓库对应章节安装；Hermes 可用 <code>hermes plugins install obra/superpowers --enable</code>，安装后重启活动会话。</li>
+<li>建议先看：README 的 Basic Workflow 和与你使用的工具对应的安装说明。先拿一个范围明确、测试可运行的小任务，观察它是否先澄清目标、产出计划并执行验证，再决定是否推广。</li>
+</ul>
+<h2 id="️-使用提醒">⚠️ 使用提醒</h2>
+<ul>
+<li>这是一套流程指引，不是代码正确性的保证。仍需核对生成结果、运行项目测试，并审查安全敏感改动。</li>
+<li>仓库支持多个代理环境，但安装、触发机制和具体效果并不完全相同；不要把一种工具中的体验直接外推到其他工具。</li>
+<li>计划变短不等于可以省略设计与测试；应看它是否保留了执行必需的接口、断言和验证方式。</li>
+</ul>
+<h2 id="-参考资源">🔗 参考资源</h2>
+<ul>
+<li>GitHub：<a href="https://github.com/obra/superpowers">https://github.com/obra/superpowers</a></li>
+<li>v6.4.2 Release：<a href="https://github.com/obra/superpowers/releases/tag/v6.4.2">https://github.com/obra/superpowers/releases/tag/v6.4.2</a></li>
+<li>MIT License：<a href="https://github.com/obra/superpowers/blob/main/LICENSE">https://github.com/obra/superpowers/blob/main/LICENSE</a></li>
+</ul>
+<p>作者：拾水木</p>  </article> <aside class="toc"><p class="toc-title">目录</p><ul class="toc-list"><li class="depth-2"><a href="#-这个项目是干什么的" data-toc-link="-这个项目是干什么的">📌 这个项目是干什么的</a></li><li class="depth-2"><a href="#-为什么值得关注" data-toc-link="-为什么值得关注">🔍 为什么值得关注</a></li><li class="depth-2"><a href="#-谁适合试怎么开始" data-toc-link="-谁适合试怎么开始">🧪 谁适合试，怎么开始</a></li><li class="depth-2"><a href="#️-使用提醒" data-toc-link="️-使用提醒">⚠️ 使用提醒</a></li><li class="depth-2"><a href="#-参考资源" data-toc-link="-参考资源">🔗 参考资源</a></li></ul></aside><script type="module">const c=()=>{const r=Array.from(document.querySelectorAll(".toc a[data-toc-link]"));if(!r.length)return;const o=r.map(t=>{const e=t.getAttribute("data-toc-link");if(!e)return null;const n=document.getElementById(e);return n?{id:e,heading:n,link:t}:null}).filter(t=>t!==null);if(!o.length)return;const s=t=>{r.forEach(e=>{const n=e.getAttribute("data-toc-link")===t;e.classList.toggle("active",n),n&&e.scrollIntoView({block:"nearest",inline:"nearest"})})},i=()=>{const t=Math.round(window.innerHeight*.28);let e=o[0];for(const n of o)n.heading.getBoundingClientRect().top<=t&&(e=n);s(e.id)};i();const a=new IntersectionObserver(()=>i(),{rootMargin:"-18% 0px -70% 0px",threshold:[0,1]});o.forEach(t=>a.observe(t.heading)),window.addEventListener("scroll",i,{passive:!0})};document.addEventListener("DOMContentLoaded",c);document.addEventListener("astro:page-load",c);</script> </div>  </main> <footer class="site-footer"> <div class="shell footer-inner"> <p>© 2026 未来观察者</p> </div> </footer> </body></html>
