@@ -1,0 +1,258 @@
+<!DOCTYPE html><html lang="zh-CN"> <head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1"><script>
+      (() => {
+        const storageKey = "future-observer-theme";
+        const root = document.documentElement;
+        const getStoredMode = () => {
+          try {
+            const value = localStorage.getItem(storageKey);
+            return value === "light" || value === "dark" || value === "system" ? value : "system";
+          } catch {
+            return "system";
+          }
+        };
+        const systemDark = () => window.matchMedia?.("(prefers-color-scheme: dark)").matches ?? false;
+        const apply = (mode) => {
+          const resolved = mode === "system" ? (systemDark() ? "dark" : "light") : mode;
+          root.dataset.themeMode = mode;
+          root.dataset.theme = resolved;
+          root.style.colorScheme = resolved;
+        };
+        apply(getStoredMode());
+        window.__setFutureObserverTheme = (mode) => {
+          const next = mode === "light" || mode === "dark" || mode === "system" ? mode : "system";
+          try { localStorage.setItem(storageKey, next); } catch {}
+          apply(next);
+          window.dispatchEvent(new CustomEvent("future-observer-theme-change", { detail: { mode: next } }));
+        };
+        window.matchMedia?.("(prefers-color-scheme: dark)").addEventListener?.("change", () => {
+          if (getStoredMode() === "system") apply("system");
+        });
+      })();
+    </script><title>🏗️ 俄亥俄州数据中心暂停令概率仅 10.5%：AI 算力开始接受州级立法压力测试 | 未来观察者</title><meta name="description" content="🔭 核心观点：Polymarket 对俄亥俄州在 2026 年底前通过全州数据中心暂停令的定价仅 10.5%，但该事件近 24 小时成交约 5.14 万美元，并非无人关注的边缘议题。市场低估的是短期“正式成法”的可能性，不代表数据中心的电力、并网和社区阻力已经消失；对 AI 基"><meta name="generator" content="Astro v5.18.1"><meta property="og:title" content="🏗️ 俄亥俄州数据中心暂停令概率仅 10.5%：AI 算力开始接受州级立法压力测试 | 未来观察者"><meta property="og:description" content="🔭 核心观点：Polymarket 对俄亥俄州在 2026 年底前通过全州数据中心暂停令的定价仅 10.5%，但该事件近 24 小时成交约 5.14 万美元，并非无人关注的边缘议题。市场低估的是短期“正式成法”的可能性，不代表数据中心的电力、并网和社区阻力已经消失；对 AI 基"><meta property="og:type" content="website"><meta property="og:url" content="https://future.lifestudylab.com/posts/2026-10-01-%E4%BF%84%E4%BA%A5%E4%BF%84%E5%B7%9E%E6%95%B0%E6%8D%AE%E4%B8%AD%E5%BF%83%E6%9A%82%E5%81%9C%E4%BB%A4/"><link rel="icon" type="image/svg+xml" href="/favicon.svg"><link rel="alternate" type="application/rss+xml" title="未来观察者" href="/rss.xml"><link rel="stylesheet" href="/_astro/_channel_.BFW__1rx.css"></head> <body> <div class="page-bg"></div> <header class="site-header"> <div class="shell header-inner"> <div class="header-bar"> <a class="brand" href="/ai-tools/"> <img src="/brand-mark.svg" alt="" class="brand-mark" width="56" height="56"> <span class="brand-text" aria-label="未来观察者">思考未来</span> </a> </div> <nav class="top-menu" aria-label="顶部菜单"> <a href="/future-daily/" class="top-menu-link"> 每日信息 </a><a href="/docs/deer-flow/00-overview/" class="top-menu-link"> DeerFlow教程 </a><a href="/docs/hermes/00-overview/" class="top-menu-link"> Hermes教程 </a><a href="/docs/openclaw/00-overview/" class="top-menu-link"> OpenClaw教程 </a><a href="/about/" class="top-menu-link"> 关于我 </a> </nav> <div class="top-actions"> <a class="feedback-link" href="https://github.com/yonglisss/yonglisss.github.io/issues" target="_blank" rel="noopener noreferrer" aria-label="问题反馈"> <svg viewBox="0 0 24 24" aria-hidden="true" class="action-icon"> <path d="M4.75 5.75A2.75 2.75 0 0 1 7.5 3h9A2.75 2.75 0 0 1 19.25 5.75v6.5A2.75 2.75 0 0 1 16.5 15H9.3l-3.55 3.2V15.1a2.75 2.75 0 0 1-1-2.1V5.75Z"></path> <path d="M8 7.75h8M8 11.25h4"></path> </svg> <span>问题反馈</span> </a> <div class="theme-switcher" data-theme-switcher> <button class="theme-trigger" type="button" aria-haspopup="menu" aria-expanded="false" aria-label="切换明暗模式" data-theme-trigger> <svg viewBox="0 0 24 24" aria-hidden="true" class="action-icon theme-trigger-icon theme-trigger-icon--light"> <circle cx="12" cy="12" r="4"></circle> <path d="M12 2.75v2M12 19.25v2M4.75 4.75l1.4 1.4M17.85 17.85l1.4 1.4M2.75 12h2M19.25 12h2M4.75 19.25l1.4-1.4M17.85 6.15l1.4-1.4"></path> </svg> <svg viewBox="0 0 24 24" aria-hidden="true" class="action-icon theme-trigger-icon theme-trigger-icon--dark"> <path d="M20.25 14.2A8 8 0 0 1 9.8 3.75 8.5 8.5 0 1 0 20.25 14.2Z"></path> </svg> <svg viewBox="0 0 24 24" aria-hidden="true" class="action-icon theme-trigger-icon theme-trigger-icon--system"> <rect x="4" y="5" width="16" height="11" rx="1.8"></rect> <path d="M9 20h6M12 16v4"></path> </svg> </button> <div class="theme-menu" role="menu" data-theme-menu hidden> <button class="theme-option" type="button" role="menuitemradio" data-theme-option="light" aria-checked="false"> <svg viewBox="0 0 24 24" aria-hidden="true" class="action-icon"><circle cx="12" cy="12" r="4"></circle><path d="M12 2.75v2M12 19.25v2M4.75 4.75l1.4 1.4M17.85 17.85l1.4 1.4M2.75 12h2M19.25 12h2M4.75 19.25l1.4-1.4M17.85 6.15l1.4-1.4"></path></svg> <span>亮色</span> </button> <button class="theme-option" type="button" role="menuitemradio" data-theme-option="dark" aria-checked="false"> <svg viewBox="0 0 24 24" aria-hidden="true" class="action-icon"><path d="M20.25 14.2A8 8 0 0 1 9.8 3.75 8.5 8.5 0 1 0 20.25 14.2Z"></path></svg> <span>暗色</span> </button> <button class="theme-option" type="button" role="menuitemradio" data-theme-option="system" aria-checked="true"> <svg viewBox="0 0 24 24" aria-hidden="true" class="action-icon"><rect x="4" y="5" width="16" height="11" rx="1.8"></rect><path d="M9 20h6M12 16v4"></path></svg> <span>跟随系统</span> </button> </div> </div> </div> </div> </header> <script>
+  (() => {
+    const switcher = document.querySelector("[data-theme-switcher]");
+    if (!switcher) return;
+
+    const trigger = switcher.querySelector("[data-theme-trigger]");
+    const menu = switcher.querySelector("[data-theme-menu]");
+    const options = [...switcher.querySelectorAll("[data-theme-option]")];
+    const modes = ["light", "dark", "system"];
+
+    const getMode = () => {
+      const mode = document.documentElement.dataset.themeMode;
+      return modes.includes(mode) ? mode : "system";
+    };
+
+    const closeMenu = () => {
+      menu.hidden = true;
+      trigger.setAttribute("aria-expanded", "false");
+    };
+
+    const openMenu = () => {
+      menu.hidden = false;
+      trigger.setAttribute("aria-expanded", "true");
+    };
+
+    const sync = () => {
+      const mode = getMode();
+      trigger.dataset.themeMode = mode;
+      options.forEach((option) => {
+        option.setAttribute("aria-checked", String(option.dataset.themeOption === mode));
+      });
+    };
+
+    trigger.addEventListener("click", () => {
+      menu.hidden ? openMenu() : closeMenu();
+    });
+
+    options.forEach((option) => {
+      option.addEventListener("click", () => {
+        window.__setFutureObserverTheme?.(option.dataset.themeOption || "system");
+        sync();
+        closeMenu();
+      });
+    });
+
+    document.addEventListener("click", (event) => {
+      if (!switcher.contains(event.target)) closeMenu();
+    });
+
+    document.addEventListener("keydown", (event) => {
+      if (event.key === "Escape") closeMenu();
+    });
+
+    window.addEventListener("future-observer-theme-change", sync);
+    sync();
+  })();
+</script> <aside class="site-rail" aria-label="站点导航"> <div class="site-rail-inner"> <p class="site-rail-label">Channels</p> <nav aria-label="主导航"> <ul class="site-rail-nav"> <li> <a href="/ai-tools/" class="site-rail-link"> AI工具 </a> </li><li> <a href="/future-daily/" class="site-rail-link"> 未来观察者日报 </a> </li> </ul> </nav> </div> </aside> <main class="shell page-content">  <div class="post-hero"> <p class="eyebrow">2026年10月1日</p> <h1>🏗️ 俄亥俄州数据中心暂停令概率仅 10.5%：AI 算力开始接受州级立法压力测试</h1> <p class="post-summary">🔭 核心观点：Polymarket 对俄亥俄州在 2026 年底前通过全州数据中心暂停令的定价仅 10.5%，但该事件近 24 小时成交约 5.14 万美元，并非无人关注的边缘议题。市场低估的是短期“正式成法”的可能性，不代表数据中心的电力、并网和社区阻力已经消失；对 AI 基</p> <ul class="tag-list"> <li> <a href="/tags/%E6%9C%AA%E6%9D%A5%E8%A7%82%E5%AF%9F%E8%80%85%E6%97%A5%E6%8A%A5/" class="tag-link">
+#未来观察者日报 </a> </li><li> <a href="/tags/2026%E5%B9%B410%E6%9C%88/" class="tag-link">
+#2026年10月 </a> </li> </ul> </div> <div class="post-grid"> <article class="prose">  <blockquote>
+<p>🔭 <strong>核心观点</strong>：Polymarket 对俄亥俄州在 2026 年底前通过全州数据中心暂停令的定价仅 <strong>10.5%</strong>，但该事件近 24 小时成交约 <strong>5.14 万美元</strong>，并非无人关注的边缘议题。市场低估的是短期“正式成法”的可能性，不代表数据中心的电力、并网和社区阻力已经消失；对 AI 基建而言，增长许可正在从工程问题扩展为政治与社会协商问题。</p>
+</blockquote>
+<p><strong>作者：</strong> 拾水木<br>
+<strong>时间：</strong> 2026年10月1日<br>
+<strong>标签：</strong> #未来观察者 #AI基础设施 #数据中心 #电力 #监管<br>
+<strong>阅读时间：</strong> 约4分钟</p>
+<hr>
+<h2 id="-今天看什么投票关注一州的立法结果而不是泛泛的反-ai-情绪">🎯 今天看什么投票？关注一州的立法结果，而不是泛泛的反 AI 情绪</h2>
+<p>今天观察 Polymarket 事件 <strong>“Ohio enacts data center moratorium by…?”</strong> 中的年底期限合约：俄亥俄州是否会在 2026 年 12 月 31 日前依法制定全州性新数据中心暂停令。</p>
+<h3 id="-关键数据卡">📊 关键数据卡</h3>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<table><thead><tr><th>项目</th><th align="right">数据</th></tr></thead><tbody><tr><td>年底前全州暂停令：Yes</td><td align="right"><strong>10.5%</strong></td></tr><tr><td>No</td><td align="right"><strong>89.5%</strong></td></tr><tr><td>Yes 买一 / 卖一</td><td align="right">10% / 11%</td></tr><tr><td>24 小时成交量</td><td align="right"><strong>约 51,394 美元</strong></td></tr><tr><td>事件总 24 小时成交量</td><td align="right">约 112,706 美元</td></tr><tr><td>事件流动性</td><td align="right">约 797,584 美元</td></tr><tr><td>较长期参考：2027 年底前 Yes</td><td align="right">31.5%</td></tr><tr><td>数据获取时间</td><td align="right"><strong>2026-10-01 04:00（北京时间）</strong></td></tr><tr><td>所属领域</td><td align="right">AI 算力 / 数据中心 / 电力基础设施 / 州级监管</td></tr><tr><td>投票链接</td><td align="right"><a href="https://polymarket.com/event/ohio-enacts-data-center-moratorium-by-20260928">Polymarket 原始事件页</a></td></tr></tbody></table>
+<blockquote>
+<p>⚠️ <strong>结算口径很窄</strong>：合约要求州级法律或宪法性措施，在全州范围内普遍禁止或暂停新数据中心审批、许可、建设、并网或运营；仅暂停税收优惠、地方政府暂停、一般性附加条件或行政表态均不算。两院通过但尚未依法成法也不算。</p>
+</blockquote>
+<h3 id="-为什么今天选它">🧭 为什么今天选它？</h3>
+<ol>
+<li>该事件处于 Polymarket 可见活跃候选的前列，且单一年底选项近 24 小时成交约 5.14 万美元，价格和交易深度可读。</li>
+<li>它不是在问“AI 是否重要”，而是在检验数据中心扩张会否触发足以改变全州项目许可的制度性反应。</li>
+<li>最近 7 天已写过数据中心监管、气候风险、自动驾驶、AI IPO 等主题。本文与 9 月 26 日文章属相近产业线，<strong>新增变量</strong>是聚焦俄亥俄州、期限延伸到 2027 年的单州立法概率曲线，以及严苛的法定暂停令结算定义；不是重复讨论全国性禁建舆论。</li>
+</ol>
+<hr>
+<h2 id="-为什么会有这个投票算力需求与本地资源成本发生碰撞">🔍 为什么会有这个投票？算力需求与本地资源成本发生碰撞</h2>
+<p><strong>事实</strong>：市场规则将“暂停令”定义为有法律效力、全州适用并默认禁止或暂停新数据中心相关关键活动的措施。投票不是对口头政策主张或选举表态打分，而是对具体法律结果定价。事件总流动性约 79.8 万美元，短期限 Yes/No 的报价为 10%/11%，盘口价差约 1 个百分点。</p>
+<p><strong>市场定价</strong>：年底前成法概率为 10.5%，到 2027 年底则为 31.5%。期限拉长后概率上升，反映的不是市场认定暂停令必然出现，而是立法窗口增加后，政策约束落地的可能性变大。短期 No 占优，尤其说明正式立法与地方反对、审批收紧并非一回事。</p>
+<p><strong>推测</strong>：数据中心建设规模扩大时，新增负荷、变电与输电扩容成本、用水与土地使用会进入居民和地方政府议程。立法者可能在“吸引投资”和“避免公共成本外溢”之间寻找平衡；但凭盘口本身无法确认俄亥俄州已有哪项法案进入关键程序，也不能把概率变化归因于某一新闻事件。</p>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<table><thead><tr><th>已核实事实</th><th>市场定价</th><th>不能据此断言</th></tr></thead><tbody><tr><td>合约要求州级、依法生效的全州暂停令</td><td>2026 年底前 Yes：10.5%</td><td>当地没有数据中心争议或监管行动</td></tr><tr><td>仅地方暂停或行政表态不满足规则</td><td>2027 年底前 Yes：31.5%</td><td>未来必然出台禁建法</td></tr><tr><td>24 小时成交量约 5.14 万美元</td><td>No：89.5%</td><td>市场已准确预测最终政策结果</td></tr></tbody></table>
+<hr>
+<h2 id="-105-真正反映什么结构变化">🧩 10.5% 真正反映什么结构变化？</h2>
+<h3 id="️-技术层算力扩容受制于接入能力不只芯片供给">⚙️ 技术层：算力扩容受制于接入能力，不只芯片供给</h3>
+<p>GPU 到货不等于算力上线。园区仍要取得并网容量、变电设施、冷却和可靠电源。若地方审批或州级规则延长建设周期，技术路线就需要考虑负载灵活性、能效、选址冗余与分期扩容，而不能把电力当成随时可得的通用资源。</p>
+<h3 id="-产业层区域许可和能源合同成为竞争壁垒">🏭 产业层：区域许可和能源合同成为竞争壁垒</h3>
+<p>云平台、数据中心开发商和能源供应方需要更早协同：确认并网排队、长期电力安排、基础设施出资及社区影响。拥有多州项目组合和成熟许可团队的企业，可能比只依赖低地价的单点开发商更能承受政策变化。即使没有正式暂停令，审查与谈判周期变长也会改变投资回报。</p>
+<h3 id="-社会与资本层投资收益与公共成本需要重新分摊">💰 社会与资本层：投资收益与公共成本需要重新分摊</h3>
+<p>数据中心可带来建设投入和税收，但电网扩容成本、峰值负荷与资源占用也可能传导给本地居民。州级暂停令概率低，不代表社会许可成本为零；更可能出现的是项目级条件、专属电价、企业承担部分电网升级费用或更严格的信息披露。资本评估因此要把延迟、合规和基础设施责任计入项目模型。</p>
+<blockquote>
+<p>📌 <strong>判断</strong>：市场给“年底正式禁建”低概率，不应被解读成数据中心监管风险解除。政策更可能先以审批、接网和成本分担的渐进方式出现；这些措施虽不一定符合合约结算定义，却足以影响项目工期和资本效率。</p>
+</blockquote>
+<hr>
+<h2 id="-如果社会许可成为扩张前置条件未来会怎样">🔮 如果社会许可成为扩张前置条件，未来会怎样？</h2>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<table><thead><tr><th>时间尺度</th><th>可能变化</th><th>值得跟踪的指标</th></tr></thead><tbody><tr><td><strong>短期：至 2026 年底</strong></td><td>正式全州立法概率仍低，但政策表态和项目审批争议可能放大</td><td>法案文本、委员会排期、州议会表决、州长签署</td></tr><tr><td><strong>中期：未来 1—2 年</strong></td><td>监管更可能转向并网条件、成本归属和项目规模门槛，而非一刀切禁建</td><td>并网排队、专属电价、项目延期、基础设施出资协议</td></tr><tr><td><strong>长期：未来 3—5 年</strong></td><td>数据中心布局向电源、输电和社区协调能力更强的地区集中</td><td>每兆瓦全成本、许可周期、可用电力、区域项目取消率</td></tr></tbody></table>
+<hr>
+<h2 id="️-谁现在应该采取什么行动">🛠️ 谁现在应该采取什么行动？</h2>
+<ol>
+<li><strong>数据中心与云服务团队</strong>：把州级法案、地方分区、并网容量和电价谈判分开跟踪；不要只监控“是否禁建”这一单一指标。</li>
+<li><strong>能源与基础设施从业者</strong>：评估可中断负荷、现场储能、长期购电合同和企业承担电网升级费用的方案，测算其对项目上线时间的影响。</li>
+<li><strong>创业者</strong>：寻找可量化降低审批与资源成本的工具，例如并网容量规划、负荷优化、能效监测和社区影响披露，而不是泛化地押注“AI 电力需求必然增长”。</li>
+<li><strong>投资观察者</strong>：比较项目现金流时纳入延期、并网和合规情景；将“法定暂停令概率”与真实项目取消率、接网等待时间区分开。</li>
+</ol>
+<hr>
+<h2 id="️-风险提示">⚠️ 风险提示</h2>
+<ul>
+<li>Polymarket 报价是交易者对合约结果的定价，不是官方预测或民意调查。</li>
+<li>该合约结算定义较窄；未触发合约不等于项目不受审批、能源成本或地方政策影响。</li>
+<li>活跃交易量不代表交易者掌握了完整的立法信息，事件价格可能快速变化。</li>
+<li>本文为趋势观察，不构成投资或交易建议。</li>
+</ul>
+<hr>
+<h2 id="-结语盯住许可与成本而不只盯住禁令">🌌 结语：盯住许可与成本，而不只盯住禁令</h2>
+<p>年底前暂停令只有 10.5%，意味着短期“正式成法”不是市场基准情景。但数据中心产业面对的关键问题早已不止能否拿到芯片与土地，还包括能否获得电力、并网、许可和社区接受。未来更可能先发生的不是整州一纸禁令，而是每个项目都必须证明：新增算力的收益，足以覆盖它对地方基础设施造成的成本。</p>
+<hr>
+<h2 id="-参考资源">🔗 参考资源</h2>
+<ol>
+<li><a href="https://polymarket.com/event/ohio-enacts-data-center-moratorium-by-20260928">Polymarket：Ohio enacts a data center moratorium by…?</a></li>
+<li><a href="https://gamma-api.polymarket.com/events/slug/ohio-enacts-data-center-moratorium-by-20260928">Polymarket Gamma API：Ohio 事件数据与市场规则</a></li>
+<li><a href="https://gamma-api.polymarket.com/events?active=true&#x26;closed=false&#x26;limit=100&#x26;order=volume24hr&#x26;ascending=false">Polymarket Gamma API：跨领域活跃事件与成交指标</a></li>
+<li>知识库 2026 年 9 月 18—28 日文章标题与近期主题去重核验</li>
+</ol>
+<blockquote>
+<p>数据说明：概率、盘口、成交量与流动性取自 Polymarket Gamma API，于 **2026-10-01 04:00（北京时间）**读取。事实描述依据该事件合约的结算规则；对产业和社会影响的内容属于情景分析。</p>
+</blockquote>  </article> <aside class="toc"><p class="toc-title">目录</p><ul class="toc-list"><li class="depth-2"><a href="#-今天看什么投票关注一州的立法结果而不是泛泛的反-ai-情绪" data-toc-link="-今天看什么投票关注一州的立法结果而不是泛泛的反-ai-情绪">🎯 今天看什么投票？关注一州的立法结果，而不是泛泛的反 AI 情绪</a></li><li class="depth-3"><a href="#-关键数据卡" data-toc-link="-关键数据卡">📊 关键数据卡</a></li><li class="depth-3"><a href="#-为什么今天选它" data-toc-link="-为什么今天选它">🧭 为什么今天选它？</a></li><li class="depth-2"><a href="#-为什么会有这个投票算力需求与本地资源成本发生碰撞" data-toc-link="-为什么会有这个投票算力需求与本地资源成本发生碰撞">🔍 为什么会有这个投票？算力需求与本地资源成本发生碰撞</a></li><li class="depth-2"><a href="#-105-真正反映什么结构变化" data-toc-link="-105-真正反映什么结构变化">🧩 10.5% 真正反映什么结构变化？</a></li><li class="depth-3"><a href="#️-技术层算力扩容受制于接入能力不只芯片供给" data-toc-link="️-技术层算力扩容受制于接入能力不只芯片供给">⚙️ 技术层：算力扩容受制于接入能力，不只芯片供给</a></li><li class="depth-3"><a href="#-产业层区域许可和能源合同成为竞争壁垒" data-toc-link="-产业层区域许可和能源合同成为竞争壁垒">🏭 产业层：区域许可和能源合同成为竞争壁垒</a></li><li class="depth-3"><a href="#-社会与资本层投资收益与公共成本需要重新分摊" data-toc-link="-社会与资本层投资收益与公共成本需要重新分摊">💰 社会与资本层：投资收益与公共成本需要重新分摊</a></li><li class="depth-2"><a href="#-如果社会许可成为扩张前置条件未来会怎样" data-toc-link="-如果社会许可成为扩张前置条件未来会怎样">🔮 如果社会许可成为扩张前置条件，未来会怎样？</a></li><li class="depth-2"><a href="#️-谁现在应该采取什么行动" data-toc-link="️-谁现在应该采取什么行动">🛠️ 谁现在应该采取什么行动？</a></li><li class="depth-2"><a href="#️-风险提示" data-toc-link="️-风险提示">⚠️ 风险提示</a></li><li class="depth-2"><a href="#-结语盯住许可与成本而不只盯住禁令" data-toc-link="-结语盯住许可与成本而不只盯住禁令">🌌 结语：盯住许可与成本，而不只盯住禁令</a></li><li class="depth-2"><a href="#-参考资源" data-toc-link="-参考资源">🔗 参考资源</a></li></ul></aside><script type="module">const c=()=>{const r=Array.from(document.querySelectorAll(".toc a[data-toc-link]"));if(!r.length)return;const o=r.map(t=>{const e=t.getAttribute("data-toc-link");if(!e)return null;const n=document.getElementById(e);return n?{id:e,heading:n,link:t}:null}).filter(t=>t!==null);if(!o.length)return;const s=t=>{r.forEach(e=>{const n=e.getAttribute("data-toc-link")===t;e.classList.toggle("active",n),n&&e.scrollIntoView({block:"nearest",inline:"nearest"})})},i=()=>{const t=Math.round(window.innerHeight*.28);let e=o[0];for(const n of o)n.heading.getBoundingClientRect().top<=t&&(e=n);s(e.id)};i();const a=new IntersectionObserver(()=>i(),{rootMargin:"-18% 0px -70% 0px",threshold:[0,1]});o.forEach(t=>a.observe(t.heading)),window.addEventListener("scroll",i,{passive:!0})};document.addEventListener("DOMContentLoaded",c);document.addEventListener("astro:page-load",c);</script> </div>  </main> <footer class="site-footer"> <div class="shell footer-inner"> <p>© 2026 未来观察者</p> </div> </footer> </body></html>
