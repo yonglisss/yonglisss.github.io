@@ -1,0 +1,120 @@
+<!DOCTYPE html><html lang="zh-CN"> <head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1"><script>
+      (() => {
+        const storageKey = "future-observer-theme";
+        const root = document.documentElement;
+        const getStoredMode = () => {
+          try {
+            const value = localStorage.getItem(storageKey);
+            return value === "light" || value === "dark" || value === "system" ? value : "system";
+          } catch {
+            return "system";
+          }
+        };
+        const systemDark = () => window.matchMedia?.("(prefers-color-scheme: dark)").matches ?? false;
+        const apply = (mode) => {
+          const resolved = mode === "system" ? (systemDark() ? "dark" : "light") : mode;
+          root.dataset.themeMode = mode;
+          root.dataset.theme = resolved;
+          root.style.colorScheme = resolved;
+        };
+        apply(getStoredMode());
+        window.__setFutureObserverTheme = (mode) => {
+          const next = mode === "light" || mode === "dark" || mode === "system" ? mode : "system";
+          try { localStorage.setItem(storageKey, next); } catch {}
+          apply(next);
+          window.dispatchEvent(new CustomEvent("future-observer-theme-change", { detail: { mode: next } }));
+        };
+        window.matchMedia?.("(prefers-color-scheme: dark)").addEventListener?.("change", () => {
+          if (getStoredMode() === "system") apply("system");
+        });
+      })();
+    </script><title>Moli：给 AI 智能体一台“结构优先”的无头浏览器 | 未来观察者</title><meta name="description" content="AI 智能体要读网页、跑自动化，通常需要一套完整浏览器；但很多任务只取 DOM 或文本，并不需要持续渲染屏幕。Moli 是面向智能体的开源无头浏览器，采用按需布局与绘制：默认从浏览器运行时读取结构，需要坐标、截图等视觉能力时再计算。近期项目仍在快速更新，适合做网页抓取、浏览器 A"><meta name="generator" content="Astro v5.18.1"><meta property="og:title" content="Moli：给 AI 智能体一台“结构优先”的无头浏览器 | 未来观察者"><meta property="og:description" content="AI 智能体要读网页、跑自动化，通常需要一套完整浏览器；但很多任务只取 DOM 或文本，并不需要持续渲染屏幕。Moli 是面向智能体的开源无头浏览器，采用按需布局与绘制：默认从浏览器运行时读取结构，需要坐标、截图等视觉能力时再计算。近期项目仍在快速更新，适合做网页抓取、浏览器 A"><meta property="og:type" content="website"><meta property="og:url" content="https://future.lifestudylab.com/posts/2026-10-08-moli/"><link rel="icon" type="image/svg+xml" href="/favicon.svg"><link rel="alternate" type="application/rss+xml" title="未来观察者" href="/rss.xml"><link rel="stylesheet" href="/_astro/_channel_.BFW__1rx.css"></head> <body> <div class="page-bg"></div> <header class="site-header"> <div class="shell header-inner"> <div class="header-bar"> <a class="brand" href="/ai-tools/"> <img src="/brand-mark.svg" alt="" class="brand-mark" width="56" height="56"> <span class="brand-text" aria-label="未来观察者">思考未来</span> </a> </div> <nav class="top-menu" aria-label="顶部菜单"> <a href="/future-daily/" class="top-menu-link"> 每日信息 </a><a href="/docs/deer-flow/00-overview/" class="top-menu-link"> DeerFlow教程 </a><a href="/docs/hermes/00-overview/" class="top-menu-link"> Hermes教程 </a><a href="/docs/openclaw/00-overview/" class="top-menu-link"> OpenClaw教程 </a><a href="/about/" class="top-menu-link"> 关于我 </a> </nav> <div class="top-actions"> <a class="feedback-link" href="https://github.com/yonglisss/yonglisss.github.io/issues" target="_blank" rel="noopener noreferrer" aria-label="问题反馈"> <svg viewBox="0 0 24 24" aria-hidden="true" class="action-icon"> <path d="M4.75 5.75A2.75 2.75 0 0 1 7.5 3h9A2.75 2.75 0 0 1 19.25 5.75v6.5A2.75 2.75 0 0 1 16.5 15H9.3l-3.55 3.2V15.1a2.75 2.75 0 0 1-1-2.1V5.75Z"></path> <path d="M8 7.75h8M8 11.25h4"></path> </svg> <span>问题反馈</span> </a> <div class="theme-switcher" data-theme-switcher> <button class="theme-trigger" type="button" aria-haspopup="menu" aria-expanded="false" aria-label="切换明暗模式" data-theme-trigger> <svg viewBox="0 0 24 24" aria-hidden="true" class="action-icon theme-trigger-icon theme-trigger-icon--light"> <circle cx="12" cy="12" r="4"></circle> <path d="M12 2.75v2M12 19.25v2M4.75 4.75l1.4 1.4M17.85 17.85l1.4 1.4M2.75 12h2M19.25 12h2M4.75 19.25l1.4-1.4M17.85 6.15l1.4-1.4"></path> </svg> <svg viewBox="0 0 24 24" aria-hidden="true" class="action-icon theme-trigger-icon theme-trigger-icon--dark"> <path d="M20.25 14.2A8 8 0 0 1 9.8 3.75 8.5 8.5 0 1 0 20.25 14.2Z"></path> </svg> <svg viewBox="0 0 24 24" aria-hidden="true" class="action-icon theme-trigger-icon theme-trigger-icon--system"> <rect x="4" y="5" width="16" height="11" rx="1.8"></rect> <path d="M9 20h6M12 16v4"></path> </svg> </button> <div class="theme-menu" role="menu" data-theme-menu hidden> <button class="theme-option" type="button" role="menuitemradio" data-theme-option="light" aria-checked="false"> <svg viewBox="0 0 24 24" aria-hidden="true" class="action-icon"><circle cx="12" cy="12" r="4"></circle><path d="M12 2.75v2M12 19.25v2M4.75 4.75l1.4 1.4M17.85 17.85l1.4 1.4M2.75 12h2M19.25 12h2M4.75 19.25l1.4-1.4M17.85 6.15l1.4-1.4"></path></svg> <span>亮色</span> </button> <button class="theme-option" type="button" role="menuitemradio" data-theme-option="dark" aria-checked="false"> <svg viewBox="0 0 24 24" aria-hidden="true" class="action-icon"><path d="M20.25 14.2A8 8 0 0 1 9.8 3.75 8.5 8.5 0 1 0 20.25 14.2Z"></path></svg> <span>暗色</span> </button> <button class="theme-option" type="button" role="menuitemradio" data-theme-option="system" aria-checked="true"> <svg viewBox="0 0 24 24" aria-hidden="true" class="action-icon"><rect x="4" y="5" width="16" height="11" rx="1.8"></rect><path d="M9 20h6M12 16v4"></path></svg> <span>跟随系统</span> </button> </div> </div> </div> </div> </header> <script>
+  (() => {
+    const switcher = document.querySelector("[data-theme-switcher]");
+    if (!switcher) return;
+
+    const trigger = switcher.querySelector("[data-theme-trigger]");
+    const menu = switcher.querySelector("[data-theme-menu]");
+    const options = [...switcher.querySelectorAll("[data-theme-option]")];
+    const modes = ["light", "dark", "system"];
+
+    const getMode = () => {
+      const mode = document.documentElement.dataset.themeMode;
+      return modes.includes(mode) ? mode : "system";
+    };
+
+    const closeMenu = () => {
+      menu.hidden = true;
+      trigger.setAttribute("aria-expanded", "false");
+    };
+
+    const openMenu = () => {
+      menu.hidden = false;
+      trigger.setAttribute("aria-expanded", "true");
+    };
+
+    const sync = () => {
+      const mode = getMode();
+      trigger.dataset.themeMode = mode;
+      options.forEach((option) => {
+        option.setAttribute("aria-checked", String(option.dataset.themeOption === mode));
+      });
+    };
+
+    trigger.addEventListener("click", () => {
+      menu.hidden ? openMenu() : closeMenu();
+    });
+
+    options.forEach((option) => {
+      option.addEventListener("click", () => {
+        window.__setFutureObserverTheme?.(option.dataset.themeOption || "system");
+        sync();
+        closeMenu();
+      });
+    });
+
+    document.addEventListener("click", (event) => {
+      if (!switcher.contains(event.target)) closeMenu();
+    });
+
+    document.addEventListener("keydown", (event) => {
+      if (event.key === "Escape") closeMenu();
+    });
+
+    window.addEventListener("future-observer-theme-change", sync);
+    sync();
+  })();
+</script> <aside class="site-rail" aria-label="站点导航"> <div class="site-rail-inner"> <p class="site-rail-label">Channels</p> <nav aria-label="主导航"> <ul class="site-rail-nav"> <li> <a href="/ai-tools/" class="site-rail-link"> AI工具 </a> </li><li> <a href="/future-daily/" class="site-rail-link"> 未来观察者日报 </a> </li> </ul> </nav> </div> </aside> <main class="shell page-content">  <div class="post-hero"> <p class="eyebrow">2026年10月8日</p> <h1>Moli：给 AI 智能体一台“结构优先”的无头浏览器</h1> <p class="post-summary">AI 智能体要读网页、跑自动化，通常需要一套完整浏览器；但很多任务只取 DOM 或文本，并不需要持续渲染屏幕。Moli 是面向智能体的开源无头浏览器，采用按需布局与绘制：默认从浏览器运行时读取结构，需要坐标、截图等视觉能力时再计算。近期项目仍在快速更新，适合做网页抓取、浏览器 A</p> <ul class="tag-list"> <li> <a href="/tags/AI%E5%B7%A5%E5%85%B7/" class="tag-link">
+#AI工具 </a> </li><li> <a href="/tags/2026%E5%B9%B410%E6%9C%88/" class="tag-link">
+#2026年10月 </a> </li> </ul> </div> <div class="post-grid"> <article class="prose">  <p>AI 智能体要读网页、跑自动化，通常需要一套完整浏览器；但很多任务只取 DOM 或文本，并不需要持续渲染屏幕。Moli 是面向智能体的开源无头浏览器，采用按需布局与绘制：默认从浏览器运行时读取结构，需要坐标、截图等视觉能力时再计算。近期项目仍在快速更新，适合做网页抓取、浏览器 Agent 或检索评测的开发者了解。</p>
+<h2 id="-这个项目是干什么的">📌 这个项目是干什么的</h2>
+<ul>
+<li>定位：提供真实 JavaScript、DOM、CSS、网络与存储能力的浏览器运行时，可用于页面提取和浏览器自动化。</li>
+<li>接入方式：命令行、Chrome DevTools Protocol（CDP）、WebDriver Classic、WebDriver BiDi；也可让 Playwright 通过 CDP 连接。</li>
+<li>运行平台：Linux、macOS、Windows；可独立使用，不依赖其关联的托管服务。</li>
+<li>许可证：可选 MIT 或 Apache 2.0（部分第三方组件另有许可）。截至 2026-10-08，最新 Release 为 v1.1.15，发布于 10 月 7 日。</li>
+</ul>
+<h2 id="-为什么值得关注">🔍 为什么值得关注</h2>
+<ol>
+<li><strong>把“读结构”和“看像素”分开。</strong> 默认提取 HTML/Markdown、查 DOM 或执行脚本时不触发布局和绘制；需要元素几何信息、坐标操作或截图时，再通过 <code>--layout</code> 开启真实布局。对大量以读取页面为主的 Agent 工作负载，这种设计值得借鉴：不要为并不需要的视觉结果付出持续计算。</li>
+<li><strong>不是只会抓静态 HTML。</strong> 项目内置 JavaScript、DOM、CSS、网络和存储等浏览器能力，并提供标准自动化协议。对于依赖脚本渲染的页面，可以直接用浏览器运行时处理，再按任务选择 Markdown、语义树或截图等输出。</li>
+<li><strong>可以嵌入现有工具链。</strong> 除 CLI 外，同一服务端点支持多种协议；已有 Playwright 流程可按官方示例尝试 CDP 连接，不必先重写整套自动化代码。</li>
+</ol>
+<h2 id="-谁适合试怎么开始">🧪 谁适合试，怎么开始</h2>
+<ul>
+<li>适合开发网页抓取、浏览器 Agent、检索流水线或自动化评测的工程师，尤其是希望对比浏览器资源开销的人。</li>
+<li>Linux/macOS 可先按官方安装器安装，再运行：<code>moli fetch --dump markdown --wait-until done https://example.com</code>。想看视觉结果可试 <code>moli fetch --layout --dump screenshot https://example.com > page.png</code>。</li>
+<li>若已有 Playwright 项目，可先按 README 的 CDP 示例连接 <code>http://127.0.0.1:9222</code>，用一个简单页面验证导航与文本提取。</li>
+</ul>
+<h2 id="️-使用提醒">⚠️ 使用提醒</h2>
+<ul>
+<li>Moli 不是带可视窗口的 Chrome 替代品：不提供 GUI、GPU 合成，也不追求与 Chrome 像素级一致；高保真 Canvas/WebGL 和媒体播放等场景并非目标。</li>
+<li><code>--layout</code> 下截图是软件渲染，Chrome 的全部截图和打印模式也未必支持。遇到不支持的协议操作应按其明确错误处理，不能把“兼容 CDP”理解成所有 Chrome 行为都可用。</li>
+<li>上游称其在文档定义的 Agent 浏览器场景中可用于生产，但项目仍在积极开发。先用自己的关键页面与协议测试做兼容性验证，再决定是否迁移。</li>
+</ul>
+<h2 id="-参考资源">🔗 参考资源</h2>
+<ul>
+<li>GitHub（含中文 README）：<a href="https://github.com/lexmount/moli">https://github.com/lexmount/moli</a></li>
+<li>中文说明：<a href="https://github.com/lexmount/moli/blob/main/docs/README.zh-CN.md">https://github.com/lexmount/moli/blob/main/docs/README.zh-CN.md</a></li>
+<li>v1.1.15 Release：<a href="https://github.com/lexmount/moli/releases/tag/v1.1.15">https://github.com/lexmount/moli/releases/tag/v1.1.15</a></li>
+</ul>  </article> <aside class="toc"><p class="toc-title">目录</p><ul class="toc-list"><li class="depth-2"><a href="#-这个项目是干什么的" data-toc-link="-这个项目是干什么的">📌 这个项目是干什么的</a></li><li class="depth-2"><a href="#-为什么值得关注" data-toc-link="-为什么值得关注">🔍 为什么值得关注</a></li><li class="depth-2"><a href="#-谁适合试怎么开始" data-toc-link="-谁适合试怎么开始">🧪 谁适合试，怎么开始</a></li><li class="depth-2"><a href="#️-使用提醒" data-toc-link="️-使用提醒">⚠️ 使用提醒</a></li><li class="depth-2"><a href="#-参考资源" data-toc-link="-参考资源">🔗 参考资源</a></li></ul></aside><script type="module">const c=()=>{const r=Array.from(document.querySelectorAll(".toc a[data-toc-link]"));if(!r.length)return;const o=r.map(t=>{const e=t.getAttribute("data-toc-link");if(!e)return null;const n=document.getElementById(e);return n?{id:e,heading:n,link:t}:null}).filter(t=>t!==null);if(!o.length)return;const s=t=>{r.forEach(e=>{const n=e.getAttribute("data-toc-link")===t;e.classList.toggle("active",n),n&&e.scrollIntoView({block:"nearest",inline:"nearest"})})},i=()=>{const t=Math.round(window.innerHeight*.28);let e=o[0];for(const n of o)n.heading.getBoundingClientRect().top<=t&&(e=n);s(e.id)};i();const a=new IntersectionObserver(()=>i(),{rootMargin:"-18% 0px -70% 0px",threshold:[0,1]});o.forEach(t=>a.observe(t.heading)),window.addEventListener("scroll",i,{passive:!0})};document.addEventListener("DOMContentLoaded",c);document.addEventListener("astro:page-load",c);</script> </div>  </main> <footer class="site-footer"> <div class="shell footer-inner"> <p>© 2026 未来观察者</p> </div> </footer> </body></html>
