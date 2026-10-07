@@ -1,0 +1,123 @@
+<!DOCTYPE html><html lang="zh-CN"> <head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1"><script>
+      (() => {
+        const storageKey = "future-observer-theme";
+        const root = document.documentElement;
+        const getStoredMode = () => {
+          try {
+            const value = localStorage.getItem(storageKey);
+            return value === "light" || value === "dark" || value === "system" ? value : "system";
+          } catch {
+            return "system";
+          }
+        };
+        const systemDark = () => window.matchMedia?.("(prefers-color-scheme: dark)").matches ?? false;
+        const apply = (mode) => {
+          const resolved = mode === "system" ? (systemDark() ? "dark" : "light") : mode;
+          root.dataset.themeMode = mode;
+          root.dataset.theme = resolved;
+          root.style.colorScheme = resolved;
+        };
+        apply(getStoredMode());
+        window.__setFutureObserverTheme = (mode) => {
+          const next = mode === "light" || mode === "dark" || mode === "system" ? mode : "system";
+          try { localStorage.setItem(storageKey, next); } catch {}
+          apply(next);
+          window.dispatchEvent(new CustomEvent("future-observer-theme-change", { detail: { mode: next } }));
+        };
+        window.matchMedia?.("(prefers-color-scheme: dark)").addEventListener?.("change", () => {
+          if (getStoredMode() === "system") apply("system");
+        });
+      })();
+    </script><title>cc-haha：把 Claude Code 的多会话与代码审阅放进一个桌面工作台 | 未来观察者</title><meta name="description" content="如果你同时维护几个代码任务，终端窗口、会话记录、改动审阅和模型配置很容易散落各处。cc-haha 是围绕 Claude Code 构建的跨平台桌面工作台，把这些环节集中到一个应用里。它近期持续更新，适合正在高频使用编码 Agent、想改善多任务管理的开发者关注；它不是新的基础模型"><meta name="generator" content="Astro v5.18.1"><meta property="og:title" content="cc-haha：把 Claude Code 的多会话与代码审阅放进一个桌面工作台 | 未来观察者"><meta property="og:description" content="如果你同时维护几个代码任务，终端窗口、会话记录、改动审阅和模型配置很容易散落各处。cc-haha 是围绕 Claude Code 构建的跨平台桌面工作台，把这些环节集中到一个应用里。它近期持续更新，适合正在高频使用编码 Agent、想改善多任务管理的开发者关注；它不是新的基础模型"><meta property="og:type" content="website"><meta property="og:url" content="https://future.lifestudylab.com/posts/2026-10-06-cc-haha/"><link rel="icon" type="image/svg+xml" href="/favicon.svg"><link rel="alternate" type="application/rss+xml" title="未来观察者" href="/rss.xml"><link rel="stylesheet" href="/_astro/_channel_.BFW__1rx.css"></head> <body> <div class="page-bg"></div> <header class="site-header"> <div class="shell header-inner"> <div class="header-bar"> <a class="brand" href="/ai-tools/"> <img src="/brand-mark.svg" alt="" class="brand-mark" width="56" height="56"> <span class="brand-text" aria-label="未来观察者">思考未来</span> </a> </div> <nav class="top-menu" aria-label="顶部菜单"> <a href="/future-daily/" class="top-menu-link"> 每日信息 </a><a href="/docs/deer-flow/00-overview/" class="top-menu-link"> DeerFlow教程 </a><a href="/docs/hermes/00-overview/" class="top-menu-link"> Hermes教程 </a><a href="/docs/openclaw/00-overview/" class="top-menu-link"> OpenClaw教程 </a><a href="/about/" class="top-menu-link"> 关于我 </a> </nav> <div class="top-actions"> <a class="feedback-link" href="https://github.com/yonglisss/yonglisss.github.io/issues" target="_blank" rel="noopener noreferrer" aria-label="问题反馈"> <svg viewBox="0 0 24 24" aria-hidden="true" class="action-icon"> <path d="M4.75 5.75A2.75 2.75 0 0 1 7.5 3h9A2.75 2.75 0 0 1 19.25 5.75v6.5A2.75 2.75 0 0 1 16.5 15H9.3l-3.55 3.2V15.1a2.75 2.75 0 0 1-1-2.1V5.75Z"></path> <path d="M8 7.75h8M8 11.25h4"></path> </svg> <span>问题反馈</span> </a> <div class="theme-switcher" data-theme-switcher> <button class="theme-trigger" type="button" aria-haspopup="menu" aria-expanded="false" aria-label="切换明暗模式" data-theme-trigger> <svg viewBox="0 0 24 24" aria-hidden="true" class="action-icon theme-trigger-icon theme-trigger-icon--light"> <circle cx="12" cy="12" r="4"></circle> <path d="M12 2.75v2M12 19.25v2M4.75 4.75l1.4 1.4M17.85 17.85l1.4 1.4M2.75 12h2M19.25 12h2M4.75 19.25l1.4-1.4M17.85 6.15l1.4-1.4"></path> </svg> <svg viewBox="0 0 24 24" aria-hidden="true" class="action-icon theme-trigger-icon theme-trigger-icon--dark"> <path d="M20.25 14.2A8 8 0 0 1 9.8 3.75 8.5 8.5 0 1 0 20.25 14.2Z"></path> </svg> <svg viewBox="0 0 24 24" aria-hidden="true" class="action-icon theme-trigger-icon theme-trigger-icon--system"> <rect x="4" y="5" width="16" height="11" rx="1.8"></rect> <path d="M9 20h6M12 16v4"></path> </svg> </button> <div class="theme-menu" role="menu" data-theme-menu hidden> <button class="theme-option" type="button" role="menuitemradio" data-theme-option="light" aria-checked="false"> <svg viewBox="0 0 24 24" aria-hidden="true" class="action-icon"><circle cx="12" cy="12" r="4"></circle><path d="M12 2.75v2M12 19.25v2M4.75 4.75l1.4 1.4M17.85 17.85l1.4 1.4M2.75 12h2M19.25 12h2M4.75 19.25l1.4-1.4M17.85 6.15l1.4-1.4"></path></svg> <span>亮色</span> </button> <button class="theme-option" type="button" role="menuitemradio" data-theme-option="dark" aria-checked="false"> <svg viewBox="0 0 24 24" aria-hidden="true" class="action-icon"><path d="M20.25 14.2A8 8 0 0 1 9.8 3.75 8.5 8.5 0 1 0 20.25 14.2Z"></path></svg> <span>暗色</span> </button> <button class="theme-option" type="button" role="menuitemradio" data-theme-option="system" aria-checked="true"> <svg viewBox="0 0 24 24" aria-hidden="true" class="action-icon"><rect x="4" y="5" width="16" height="11" rx="1.8"></rect><path d="M9 20h6M12 16v4"></path></svg> <span>跟随系统</span> </button> </div> </div> </div> </div> </header> <script>
+  (() => {
+    const switcher = document.querySelector("[data-theme-switcher]");
+    if (!switcher) return;
+
+    const trigger = switcher.querySelector("[data-theme-trigger]");
+    const menu = switcher.querySelector("[data-theme-menu]");
+    const options = [...switcher.querySelectorAll("[data-theme-option]")];
+    const modes = ["light", "dark", "system"];
+
+    const getMode = () => {
+      const mode = document.documentElement.dataset.themeMode;
+      return modes.includes(mode) ? mode : "system";
+    };
+
+    const closeMenu = () => {
+      menu.hidden = true;
+      trigger.setAttribute("aria-expanded", "false");
+    };
+
+    const openMenu = () => {
+      menu.hidden = false;
+      trigger.setAttribute("aria-expanded", "true");
+    };
+
+    const sync = () => {
+      const mode = getMode();
+      trigger.dataset.themeMode = mode;
+      options.forEach((option) => {
+        option.setAttribute("aria-checked", String(option.dataset.themeOption === mode));
+      });
+    };
+
+    trigger.addEventListener("click", () => {
+      menu.hidden ? openMenu() : closeMenu();
+    });
+
+    options.forEach((option) => {
+      option.addEventListener("click", () => {
+        window.__setFutureObserverTheme?.(option.dataset.themeOption || "system");
+        sync();
+        closeMenu();
+      });
+    });
+
+    document.addEventListener("click", (event) => {
+      if (!switcher.contains(event.target)) closeMenu();
+    });
+
+    document.addEventListener("keydown", (event) => {
+      if (event.key === "Escape") closeMenu();
+    });
+
+    window.addEventListener("future-observer-theme-change", sync);
+    sync();
+  })();
+</script> <aside class="site-rail" aria-label="站点导航"> <div class="site-rail-inner"> <p class="site-rail-label">Channels</p> <nav aria-label="主导航"> <ul class="site-rail-nav"> <li> <a href="/ai-tools/" class="site-rail-link"> AI工具 </a> </li><li> <a href="/future-daily/" class="site-rail-link"> 未来观察者日报 </a> </li> </ul> </nav> </div> </aside> <main class="shell page-content">  <div class="post-hero"> <p class="eyebrow">2026年10月6日</p> <h1>cc-haha：把 Claude Code 的多会话与代码审阅放进一个桌面工作台</h1> <p class="post-summary">如果你同时维护几个代码任务，终端窗口、会话记录、改动审阅和模型配置很容易散落各处。cc-haha 是围绕 Claude Code 构建的跨平台桌面工作台，把这些环节集中到一个应用里。它近期持续更新，适合正在高频使用编码 Agent、想改善多任务管理的开发者关注；它不是新的基础模型</p> <ul class="tag-list"> <li> <a href="/tags/AI%E5%B7%A5%E5%85%B7/" class="tag-link">
+#AI工具 </a> </li><li> <a href="/tags/2026%E5%B9%B410%E6%9C%88/" class="tag-link">
+#2026年10月 </a> </li> </ul> </div> <div class="post-grid"> <article class="prose">  <p>如果你同时维护几个代码任务，终端窗口、会话记录、改动审阅和模型配置很容易散落各处。cc-haha 是围绕 Claude Code 构建的跨平台桌面工作台，把这些环节集中到一个应用里。它近期持续更新，适合正在高频使用编码 Agent、想改善多任务管理的开发者关注；它不是新的基础模型，也不替代代码审查。</p>
+<h2 id="-这个项目是干什么的">📌 这个项目是干什么的</h2>
+<ul>
+<li>定位：开源桌面端 Claude Code 工作台，提供多会话、全局搜索、分支与 Git Worktree 启动、Diff 审阅、模型配置及 MCP 管理等功能。</li>
+<li>适合谁：并行处理多个仓库或任务、经常需要回看 Agent 修改的开发者。</li>
+<li>工作方式：以桌面 UI 管理会话和工作区，也提供 CLI；可配置 Claude 等官方账号、第三方 API 或本地模型端点。</li>
+<li>当前状态：仓库标注 MIT 许可证；最新 Release 为 v0.6.8，发布于 2026 年 10 月 1 日，提供 macOS、Windows、Linux 安装包。</li>
+</ul>
+<h2 id="-为什么值得关注">🔍 为什么值得关注</h2>
+<ol>
+<li><strong>隔离任务与检查改动连在一起。</strong> 新会话可选择分支和独立 Worktree，完成后能逐文件看 Diff；这让“让 Agent 并行做事”不必等于把工作目录弄乱。最终改动仍需开发者审阅。</li>
+<li><strong>把模型和工具配置变得可见。</strong> 项目把模型选择、MCP Server 管理、权限审批等放进图形界面。对不想频繁手动改配置文件的人，降低了切换和排查成本。</li>
+<li><strong>有清晰的试用路径。</strong> 官方文档从安装、连接模型到跑通第一条会话逐步引导，也提供 Computer Use、远程访问等独立指南。可以先评估核心会话与 Diff 流程，不必一开始启用所有功能。</li>
+</ol>
+<h2 id="-谁适合试怎么开始">🧪 谁适合试，怎么开始</h2>
+<ul>
+<li>最适合的试用人群：已在用 Claude Code，且常有多项目、多会话并行需求的开发者。</li>
+<li>最短路径：从 GitHub Releases 下载对应系统安装包，启动后配置模型提供商、API Key 和默认模型，再按官方“第一条会话”指南运行一个小任务。</li>
+<li>建议先验证两件事：Worktree 是否适合自己的 Git 工作流；Diff 审阅与权限设置能否帮助控制 Agent 改动范围。</li>
+</ul>
+<h2 id="️-使用提醒">⚠️ 使用提醒</h2>
+<ul>
+<li>这是桌面工作台，不会自动保证 Agent 输出正确；代码与命令仍须检查，尤其是启用跳过权限等高自主配置时。</li>
+<li>多模型接入不等于模型服务免费。使用第三方 API 或本地模型时，分别确认计费、隐私与兼容性。</li>
+<li>项目功能较多，建议先从多会话、Worktree 和 Diff 审阅开始；远程访问、IM 接入及 Computer Use 涉及额外配置和权限，应按需开启。</li>
+<li>首次安装可能受平台签名策略影响，具体以对应系统的安装指南为准。</li>
+</ul>
+<h2 id="-参考资源">🔗 参考资源</h2>
+<ul>
+<li>GitHub：<a href="https://github.com/NanmiCoder/cc-haha">https://github.com/NanmiCoder/cc-haha</a></li>
+<li>官方文档：<a href="https://cchaha.ai">https://cchaha.ai</a></li>
+<li>安装指南：<a href="https://github.com/NanmiCoder/cc-haha/blob/main/docs/start/install.md">https://github.com/NanmiCoder/cc-haha/blob/main/docs/start/install.md</a></li>
+<li>第一条会话：<a href="https://github.com/NanmiCoder/cc-haha/blob/main/docs/start/first-session.md">https://github.com/NanmiCoder/cc-haha/blob/main/docs/start/first-session.md</a></li>
+<li>最新 Release：<a href="https://github.com/NanmiCoder/cc-haha/releases/tag/v0.6.8">https://github.com/NanmiCoder/cc-haha/releases/tag/v0.6.8</a></li>
+</ul>  </article> <aside class="toc"><p class="toc-title">目录</p><ul class="toc-list"><li class="depth-2"><a href="#-这个项目是干什么的" data-toc-link="-这个项目是干什么的">📌 这个项目是干什么的</a></li><li class="depth-2"><a href="#-为什么值得关注" data-toc-link="-为什么值得关注">🔍 为什么值得关注</a></li><li class="depth-2"><a href="#-谁适合试怎么开始" data-toc-link="-谁适合试怎么开始">🧪 谁适合试，怎么开始</a></li><li class="depth-2"><a href="#️-使用提醒" data-toc-link="️-使用提醒">⚠️ 使用提醒</a></li><li class="depth-2"><a href="#-参考资源" data-toc-link="-参考资源">🔗 参考资源</a></li></ul></aside><script type="module">const c=()=>{const r=Array.from(document.querySelectorAll(".toc a[data-toc-link]"));if(!r.length)return;const o=r.map(t=>{const e=t.getAttribute("data-toc-link");if(!e)return null;const n=document.getElementById(e);return n?{id:e,heading:n,link:t}:null}).filter(t=>t!==null);if(!o.length)return;const s=t=>{r.forEach(e=>{const n=e.getAttribute("data-toc-link")===t;e.classList.toggle("active",n),n&&e.scrollIntoView({block:"nearest",inline:"nearest"})})},i=()=>{const t=Math.round(window.innerHeight*.28);let e=o[0];for(const n of o)n.heading.getBoundingClientRect().top<=t&&(e=n);s(e.id)};i();const a=new IntersectionObserver(()=>i(),{rootMargin:"-18% 0px -70% 0px",threshold:[0,1]});o.forEach(t=>a.observe(t.heading)),window.addEventListener("scroll",i,{passive:!0})};document.addEventListener("DOMContentLoaded",c);document.addEventListener("astro:page-load",c);</script> </div>  </main> <footer class="site-footer"> <div class="shell footer-inner"> <p>© 2026 未来观察者</p> </div> </footer> </body></html>
