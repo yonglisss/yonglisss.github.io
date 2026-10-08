@@ -1,0 +1,122 @@
+<!DOCTYPE html><html lang="zh-CN"> <head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1"><script>
+      (() => {
+        const storageKey = "future-observer-theme";
+        const root = document.documentElement;
+        const getStoredMode = () => {
+          try {
+            const value = localStorage.getItem(storageKey);
+            return value === "light" || value === "dark" || value === "system" ? value : "system";
+          } catch {
+            return "system";
+          }
+        };
+        const systemDark = () => window.matchMedia?.("(prefers-color-scheme: dark)").matches ?? false;
+        const apply = (mode) => {
+          const resolved = mode === "system" ? (systemDark() ? "dark" : "light") : mode;
+          root.dataset.themeMode = mode;
+          root.dataset.theme = resolved;
+          root.style.colorScheme = resolved;
+        };
+        apply(getStoredMode());
+        window.__setFutureObserverTheme = (mode) => {
+          const next = mode === "light" || mode === "dark" || mode === "system" ? mode : "system";
+          try { localStorage.setItem(storageKey, next); } catch {}
+          apply(next);
+          window.dispatchEvent(new CustomEvent("future-observer-theme-change", { detail: { mode: next } }));
+        };
+        window.matchMedia?.("(prefers-color-scheme: dark)").addEventListener?.("change", () => {
+          if (getStoredMode() === "system") apply("system");
+        });
+      })();
+    </script><title>Minutes：把会议记录变成 AI 助手可检索的本地记忆 | 未来观察者</title><meta name="description" content="会议结束后，录音、纪要和待办常散落在不同工具里。Minutes 是一款开源对话记忆工具：在设备本地录制和转写会议、通话或语音备忘，并把记录保存为自己拥有的 Markdown 文件，再通过 MCP 交给 Claude Code、Codex、Cursor 等客户端检索。它近期发布了 "><meta name="generator" content="Astro v5.18.1"><meta property="og:title" content="Minutes：把会议记录变成 AI 助手可检索的本地记忆 | 未来观察者"><meta property="og:description" content="会议结束后，录音、纪要和待办常散落在不同工具里。Minutes 是一款开源对话记忆工具：在设备本地录制和转写会议、通话或语音备忘，并把记录保存为自己拥有的 Markdown 文件，再通过 MCP 交给 Claude Code、Codex、Cursor 等客户端检索。它近期发布了 "><meta property="og:type" content="website"><meta property="og:url" content="https://future.lifestudylab.com/posts/2026-10-09-minutes/"><link rel="icon" type="image/svg+xml" href="/favicon.svg"><link rel="alternate" type="application/rss+xml" title="未来观察者" href="/rss.xml"><link rel="stylesheet" href="/_astro/_channel_.BFW__1rx.css"></head> <body> <div class="page-bg"></div> <header class="site-header"> <div class="shell header-inner"> <div class="header-bar"> <a class="brand" href="/ai-tools/"> <img src="/brand-mark.svg" alt="" class="brand-mark" width="56" height="56"> <span class="brand-text" aria-label="未来观察者">思考未来</span> </a> </div> <nav class="top-menu" aria-label="顶部菜单"> <a href="/future-daily/" class="top-menu-link"> 每日信息 </a><a href="/docs/deer-flow/00-overview/" class="top-menu-link"> DeerFlow教程 </a><a href="/docs/hermes/00-overview/" class="top-menu-link"> Hermes教程 </a><a href="/docs/openclaw/00-overview/" class="top-menu-link"> OpenClaw教程 </a><a href="/about/" class="top-menu-link"> 关于我 </a> </nav> <div class="top-actions"> <a class="feedback-link" href="https://github.com/yonglisss/yonglisss.github.io/issues" target="_blank" rel="noopener noreferrer" aria-label="问题反馈"> <svg viewBox="0 0 24 24" aria-hidden="true" class="action-icon"> <path d="M4.75 5.75A2.75 2.75 0 0 1 7.5 3h9A2.75 2.75 0 0 1 19.25 5.75v6.5A2.75 2.75 0 0 1 16.5 15H9.3l-3.55 3.2V15.1a2.75 2.75 0 0 1-1-2.1V5.75Z"></path> <path d="M8 7.75h8M8 11.25h4"></path> </svg> <span>问题反馈</span> </a> <div class="theme-switcher" data-theme-switcher> <button class="theme-trigger" type="button" aria-haspopup="menu" aria-expanded="false" aria-label="切换明暗模式" data-theme-trigger> <svg viewBox="0 0 24 24" aria-hidden="true" class="action-icon theme-trigger-icon theme-trigger-icon--light"> <circle cx="12" cy="12" r="4"></circle> <path d="M12 2.75v2M12 19.25v2M4.75 4.75l1.4 1.4M17.85 17.85l1.4 1.4M2.75 12h2M19.25 12h2M4.75 19.25l1.4-1.4M17.85 6.15l1.4-1.4"></path> </svg> <svg viewBox="0 0 24 24" aria-hidden="true" class="action-icon theme-trigger-icon theme-trigger-icon--dark"> <path d="M20.25 14.2A8 8 0 0 1 9.8 3.75 8.5 8.5 0 1 0 20.25 14.2Z"></path> </svg> <svg viewBox="0 0 24 24" aria-hidden="true" class="action-icon theme-trigger-icon theme-trigger-icon--system"> <rect x="4" y="5" width="16" height="11" rx="1.8"></rect> <path d="M9 20h6M12 16v4"></path> </svg> </button> <div class="theme-menu" role="menu" data-theme-menu hidden> <button class="theme-option" type="button" role="menuitemradio" data-theme-option="light" aria-checked="false"> <svg viewBox="0 0 24 24" aria-hidden="true" class="action-icon"><circle cx="12" cy="12" r="4"></circle><path d="M12 2.75v2M12 19.25v2M4.75 4.75l1.4 1.4M17.85 17.85l1.4 1.4M2.75 12h2M19.25 12h2M4.75 19.25l1.4-1.4M17.85 6.15l1.4-1.4"></path></svg> <span>亮色</span> </button> <button class="theme-option" type="button" role="menuitemradio" data-theme-option="dark" aria-checked="false"> <svg viewBox="0 0 24 24" aria-hidden="true" class="action-icon"><path d="M20.25 14.2A8 8 0 0 1 9.8 3.75 8.5 8.5 0 1 0 20.25 14.2Z"></path></svg> <span>暗色</span> </button> <button class="theme-option" type="button" role="menuitemradio" data-theme-option="system" aria-checked="true"> <svg viewBox="0 0 24 24" aria-hidden="true" class="action-icon"><rect x="4" y="5" width="16" height="11" rx="1.8"></rect><path d="M9 20h6M12 16v4"></path></svg> <span>跟随系统</span> </button> </div> </div> </div> </div> </header> <script>
+  (() => {
+    const switcher = document.querySelector("[data-theme-switcher]");
+    if (!switcher) return;
+
+    const trigger = switcher.querySelector("[data-theme-trigger]");
+    const menu = switcher.querySelector("[data-theme-menu]");
+    const options = [...switcher.querySelectorAll("[data-theme-option]")];
+    const modes = ["light", "dark", "system"];
+
+    const getMode = () => {
+      const mode = document.documentElement.dataset.themeMode;
+      return modes.includes(mode) ? mode : "system";
+    };
+
+    const closeMenu = () => {
+      menu.hidden = true;
+      trigger.setAttribute("aria-expanded", "false");
+    };
+
+    const openMenu = () => {
+      menu.hidden = false;
+      trigger.setAttribute("aria-expanded", "true");
+    };
+
+    const sync = () => {
+      const mode = getMode();
+      trigger.dataset.themeMode = mode;
+      options.forEach((option) => {
+        option.setAttribute("aria-checked", String(option.dataset.themeOption === mode));
+      });
+    };
+
+    trigger.addEventListener("click", () => {
+      menu.hidden ? openMenu() : closeMenu();
+    });
+
+    options.forEach((option) => {
+      option.addEventListener("click", () => {
+        window.__setFutureObserverTheme?.(option.dataset.themeOption || "system");
+        sync();
+        closeMenu();
+      });
+    });
+
+    document.addEventListener("click", (event) => {
+      if (!switcher.contains(event.target)) closeMenu();
+    });
+
+    document.addEventListener("keydown", (event) => {
+      if (event.key === "Escape") closeMenu();
+    });
+
+    window.addEventListener("future-observer-theme-change", sync);
+    sync();
+  })();
+</script> <aside class="site-rail" aria-label="站点导航"> <div class="site-rail-inner"> <p class="site-rail-label">Channels</p> <nav aria-label="主导航"> <ul class="site-rail-nav"> <li> <a href="/ai-tools/" class="site-rail-link"> AI工具 </a> </li><li> <a href="/future-daily/" class="site-rail-link"> 未来观察者日报 </a> </li> </ul> </nav> </div> </aside> <main class="shell page-content">  <div class="post-hero"> <p class="eyebrow">2026年10月9日</p> <h1>Minutes：把会议记录变成 AI 助手可检索的本地记忆</h1> <p class="post-summary">会议结束后，录音、纪要和待办常散落在不同工具里。Minutes 是一款开源对话记忆工具：在设备本地录制和转写会议、通话或语音备忘，并把记录保存为自己拥有的 Markdown 文件，再通过 MCP 交给 Claude Code、Codex、Cursor 等客户端检索。它近期发布了 </p> <ul class="tag-list"> <li> <a href="/tags/AI%E5%B7%A5%E5%85%B7/" class="tag-link">
+#AI工具 </a> </li><li> <a href="/tags/2026%E5%B9%B410%E6%9C%88/" class="tag-link">
+#2026年10月 </a> </li> </ul> </div> <div class="post-grid"> <article class="prose">  <p>会议结束后，录音、纪要和待办常散落在不同工具里。Minutes 是一款开源对话记忆工具：在设备本地录制和转写会议、通话或语音备忘，并把记录保存为自己拥有的 Markdown 文件，再通过 MCP 交给 Claude Code、Codex、Cursor 等客户端检索。它近期发布了 v0.28.2，值得关注的不是又一个会议总结器，而是把“本地资料”接进日常 AI 工作流的方式。</p>
+<h2 id="-这个项目是干什么的">📌 这个项目是干什么的</h2>
+<ul>
+<li>定位：本地优先的录音、转写和会议记忆应用，支持桌面端、命令行及 MCP 服务。</li>
+<li>适合谁：常开会议、需要回查决策或行动项，并希望让编码助手读取自己会议记录的个人与团队。</li>
+<li>数据组织：转写内容保存为 <code>~/meetings/</code> 下的 Markdown 文件；MCP 客户端可搜索用户选择开放的历史记录。</li>
+<li>项目状态：MIT 许可证；GitHub 最新 Release 为 v0.28.2（2026 年 10 月 8 日）。</li>
+</ul>
+<h2 id="-为什么值得关注">🔍 为什么值得关注</h2>
+<ol>
+<li><strong>记录与模型调用分开。</strong> 采集、转写和存储在本机进行，文件格式可读、可迁移。你可以把它理解为给 AI 助手准备一份可搜索的个人会议档案，而不是把记忆锁在某个 SaaS 里。</li>
+<li><strong>用 MCP 连接现有客户端。</strong> Minutes 提供标准 MCP 服务，客户端可搜索会议、读取具体记录。比如回问“上个月关于计费的决定后来改了吗”，比只看单场会议摘要更接近真实工作中的追溯需求。</li>
+<li><strong>上手路径很短。</strong> README 提供样例会议数据，不必先开麦或安排真实会议，就能接入 MCP 并验证跨会议检索是否适合自己的工作流。</li>
+</ol>
+<h2 id="-谁适合试怎么开始">🧪 谁适合试，怎么开始</h2>
+<ul>
+<li>如果你已经在用 Claude Code、Codex、Cursor 或其他 MCP 客户端，且会议记录常需要回查，可以先从样例开始。</li>
+<li>macOS 可按官方说明通过 Homebrew 安装桌面端：<code>brew install --cask silverstein/tap/minutes</code>。再安装 MCP 服务并加载样例：<code>claude mcp add minutes -- npx -y minutes-mcp</code>、<code>minutes demo --full</code>。随后向客户端提一个需要跨会议核对的问题。</li>
+<li>桌面端包含命令行；也可按官方安装文档选择 CLI。Windows 用户需使用 Release 提供的 zip 包，Linux 支持情况和所需能力应先核对安装文档，不要直接套用 macOS 命令。</li>
+</ul>
+<h2 id="️-使用提醒">⚠️ 使用提醒</h2>
+<ul>
+<li>“本地优先”不等于任何信息都不会外发：若让云端 AI 助手或摘要服务处理会议内容，被授权的上下文会发送给对应服务商。配置前先确认客户端的模型与数据策略。</li>
+<li>会议录音涉及参会者知情与同意。项目提供披露提醒辅助，但不替代法律判断；实际使用前应遵守所在地区和组织要求。</li>
+<li>先用样例验证检索效果，再决定是否用于重要会议。识别质量、设备兼容性和不同平台安装细节，应以自己的环境实测为准。</li>
+</ul>
+<h2 id="-参考资源">🔗 参考资源</h2>
+<ul>
+<li>GitHub / README：<a href="https://github.com/silverstein/minutes">https://github.com/silverstein/minutes</a></li>
+<li>官方网站与文档：<a href="https://useminutes.app/docs">https://useminutes.app/docs</a></li>
+<li>安装说明：<a href="https://github.com/silverstein/minutes/blob/main/docs/install.md">https://github.com/silverstein/minutes/blob/main/docs/install.md</a></li>
+<li>MCP 客户端接入：<a href="https://github.com/silverstein/minutes/blob/main/docs/integration/clients.md">https://github.com/silverstein/minutes/blob/main/docs/integration/clients.md</a></li>
+<li>v0.28.2 Release：<a href="https://github.com/silverstein/minutes/releases/tag/v0.28.2">https://github.com/silverstein/minutes/releases/tag/v0.28.2</a></li>
+</ul>  </article> <aside class="toc"><p class="toc-title">目录</p><ul class="toc-list"><li class="depth-2"><a href="#-这个项目是干什么的" data-toc-link="-这个项目是干什么的">📌 这个项目是干什么的</a></li><li class="depth-2"><a href="#-为什么值得关注" data-toc-link="-为什么值得关注">🔍 为什么值得关注</a></li><li class="depth-2"><a href="#-谁适合试怎么开始" data-toc-link="-谁适合试怎么开始">🧪 谁适合试，怎么开始</a></li><li class="depth-2"><a href="#️-使用提醒" data-toc-link="️-使用提醒">⚠️ 使用提醒</a></li><li class="depth-2"><a href="#-参考资源" data-toc-link="-参考资源">🔗 参考资源</a></li></ul></aside><script type="module">const c=()=>{const r=Array.from(document.querySelectorAll(".toc a[data-toc-link]"));if(!r.length)return;const o=r.map(t=>{const e=t.getAttribute("data-toc-link");if(!e)return null;const n=document.getElementById(e);return n?{id:e,heading:n,link:t}:null}).filter(t=>t!==null);if(!o.length)return;const s=t=>{r.forEach(e=>{const n=e.getAttribute("data-toc-link")===t;e.classList.toggle("active",n),n&&e.scrollIntoView({block:"nearest",inline:"nearest"})})},i=()=>{const t=Math.round(window.innerHeight*.28);let e=o[0];for(const n of o)n.heading.getBoundingClientRect().top<=t&&(e=n);s(e.id)};i();const a=new IntersectionObserver(()=>i(),{rootMargin:"-18% 0px -70% 0px",threshold:[0,1]});o.forEach(t=>a.observe(t.heading)),window.addEventListener("scroll",i,{passive:!0})};document.addEventListener("DOMContentLoaded",c);document.addEventListener("astro:page-load",c);</script> </div>  </main> <footer class="site-footer"> <div class="shell footer-inner"> <p>© 2026 未来观察者</p> </div> </footer> </body></html>
