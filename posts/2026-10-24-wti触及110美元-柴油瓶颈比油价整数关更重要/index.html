@@ -1,0 +1,198 @@
+<!DOCTYPE html><html lang="zh-CN"> <head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1"><script>
+      (() => {
+        const storageKey = "future-observer-theme";
+        const root = document.documentElement;
+        const getStoredMode = () => {
+          try {
+            const value = localStorage.getItem(storageKey);
+            return value === "light" || value === "dark" || value === "system" ? value : "system";
+          } catch {
+            return "system";
+          }
+        };
+        const systemDark = () => window.matchMedia?.("(prefers-color-scheme: dark)").matches ?? false;
+        const apply = (mode) => {
+          const resolved = mode === "system" ? (systemDark() ? "dark" : "light") : mode;
+          root.dataset.themeMode = mode;
+          root.dataset.theme = resolved;
+          root.style.colorScheme = resolved;
+        };
+        apply(getStoredMode());
+        window.__setFutureObserverTheme = (mode) => {
+          const next = mode === "light" || mode === "dark" || mode === "system" ? mode : "system";
+          try { localStorage.setItem(storageKey, next); } catch {}
+          apply(next);
+          window.dispatchEvent(new CustomEvent("future-observer-theme-change", { detail: { mode: next } }));
+        };
+        window.matchMedia?.("(prefers-color-scheme: dark)").addEventListener?.("change", () => {
+          if (getStoredMode() === "system") apply("system");
+        });
+      })();
+    </script><title>🛢️ WTI十月触及110美元概率37.5%：比整数关更重要的是柴油瓶颈 | 未来观察者</title><meta name="description" content="🔭 核心观点：市场没有把110美元视为必达终点；但企业更该关心的是，原油运输逐步恢复时，柴油供应与库存仍可能拖住成本回落。油价回落，不等于运费和生产成本同步恢复。"><meta name="generator" content="Astro v5.18.1"><meta property="og:title" content="🛢️ WTI十月触及110美元概率37.5%：比整数关更重要的是柴油瓶颈 | 未来观察者"><meta property="og:description" content="🔭 核心观点：市场没有把110美元视为必达终点；但企业更该关心的是，原油运输逐步恢复时，柴油供应与库存仍可能拖住成本回落。油价回落，不等于运费和生产成本同步恢复。"><meta property="og:type" content="website"><meta property="og:url" content="https://future.lifestudylab.com/posts/2026-10-24-wti%E8%A7%A6%E5%8F%8A110%E7%BE%8E%E5%85%83-%E6%9F%B4%E6%B2%B9%E7%93%B6%E9%A2%88%E6%AF%94%E6%B2%B9%E4%BB%B7%E6%95%B4%E6%95%B0%E5%85%B3%E6%9B%B4%E9%87%8D%E8%A6%81/"><link rel="icon" type="image/svg+xml" href="/favicon.svg"><link rel="alternate" type="application/rss+xml" title="未来观察者" href="/rss.xml"><link rel="stylesheet" href="/_astro/_channel_.DIiDVfDs.css">
+<style>.wechat-copy[data-astro-cid-cbgqzyjp]{position:relative;flex:0 0 auto;margin-left:auto}button[data-astro-cid-cbgqzyjp]{display:inline-flex;align-items:center;justify-content:center;gap:.4rem;min-height:40px;font:inherit;font-size:.875rem;font-weight:600;white-space:nowrap;color:var(--accent-dark);background:var(--surface-strong);border:1px solid var(--accent);border-radius:.5rem;padding:.45rem .75rem;box-shadow:0 2px 4px #0000000f;cursor:pointer}button[data-astro-cid-cbgqzyjp]:hover{background:var(--bg-strong);box-shadow:0 3px 8px #0000001a}button[data-astro-cid-cbgqzyjp]:focus-visible{outline:2px solid var(--accent);outline-offset:3px}button[data-astro-cid-cbgqzyjp]:disabled{opacity:.65;cursor:wait}#wechat-copy-status[data-astro-cid-cbgqzyjp]{position:absolute;z-index:5;top:calc(100% + .5rem);right:0;width:max-content;max-width:min(19rem,65vw);font-size:.8rem;line-height:1.6;color:var(--text)}#wechat-copy-status[data-astro-cid-cbgqzyjp]:not(:empty){padding:.65rem .8rem;background:var(--surface-strong);border:1px solid var(--line);border-radius:.5rem;box-shadow:var(--shadow)}.post-meta-row[data-astro-cid-gjtny2mx]{display:flex;align-items:center;justify-content:space-between;gap:.75rem;margin-bottom:1rem}.post-meta-row[data-astro-cid-gjtny2mx] .eyebrow[data-astro-cid-gjtny2mx]{margin:0}
+</style></head> <body> <div class="page-bg"></div> <header class="site-header"> <div class="shell header-inner"> <div class="header-bar"> <a class="brand" href="/ai-tools/"> <img src="/brand-mark.svg" alt="" class="brand-mark" width="56" height="56"> <span class="brand-text" aria-label="未来观察者">思考未来</span> </a> </div> <nav class="top-menu" aria-label="顶部菜单"> <a href="/future-daily/" class="top-menu-link"> 每日信息 </a><a href="/docs/deer-flow/00-overview/" class="top-menu-link"> DeerFlow教程 </a><a href="/docs/hermes/00-overview/" class="top-menu-link"> Hermes教程 </a><a href="/docs/openclaw/00-overview/" class="top-menu-link"> OpenClaw教程 </a><a href="/about/" class="top-menu-link"> 关于我 </a> </nav> <div class="top-actions"> <a class="feedback-link" href="https://github.com/yonglisss/yonglisss.github.io/issues" target="_blank" rel="noopener noreferrer" aria-label="问题反馈"> <svg viewBox="0 0 24 24" aria-hidden="true" class="action-icon"> <path d="M4.75 5.75A2.75 2.75 0 0 1 7.5 3h9A2.75 2.75 0 0 1 19.25 5.75v6.5A2.75 2.75 0 0 1 16.5 15H9.3l-3.55 3.2V15.1a2.75 2.75 0 0 1-1-2.1V5.75Z"></path> <path d="M8 7.75h8M8 11.25h4"></path> </svg> <span>问题反馈</span> </a> <div class="theme-switcher" data-theme-switcher> <button class="theme-trigger" type="button" aria-haspopup="menu" aria-expanded="false" aria-label="切换明暗模式" data-theme-trigger> <svg viewBox="0 0 24 24" aria-hidden="true" class="action-icon theme-trigger-icon theme-trigger-icon--light"> <circle cx="12" cy="12" r="4"></circle> <path d="M12 2.75v2M12 19.25v2M4.75 4.75l1.4 1.4M17.85 17.85l1.4 1.4M2.75 12h2M19.25 12h2M4.75 19.25l1.4-1.4M17.85 6.15l1.4-1.4"></path> </svg> <svg viewBox="0 0 24 24" aria-hidden="true" class="action-icon theme-trigger-icon theme-trigger-icon--dark"> <path d="M20.25 14.2A8 8 0 0 1 9.8 3.75 8.5 8.5 0 1 0 20.25 14.2Z"></path> </svg> <svg viewBox="0 0 24 24" aria-hidden="true" class="action-icon theme-trigger-icon theme-trigger-icon--system"> <rect x="4" y="5" width="16" height="11" rx="1.8"></rect> <path d="M9 20h6M12 16v4"></path> </svg> </button> <div class="theme-menu" role="menu" data-theme-menu hidden> <button class="theme-option" type="button" role="menuitemradio" data-theme-option="light" aria-checked="false"> <svg viewBox="0 0 24 24" aria-hidden="true" class="action-icon"><circle cx="12" cy="12" r="4"></circle><path d="M12 2.75v2M12 19.25v2M4.75 4.75l1.4 1.4M17.85 17.85l1.4 1.4M2.75 12h2M19.25 12h2M4.75 19.25l1.4-1.4M17.85 6.15l1.4-1.4"></path></svg> <span>亮色</span> </button> <button class="theme-option" type="button" role="menuitemradio" data-theme-option="dark" aria-checked="false"> <svg viewBox="0 0 24 24" aria-hidden="true" class="action-icon"><path d="M20.25 14.2A8 8 0 0 1 9.8 3.75 8.5 8.5 0 1 0 20.25 14.2Z"></path></svg> <span>暗色</span> </button> <button class="theme-option" type="button" role="menuitemradio" data-theme-option="system" aria-checked="true"> <svg viewBox="0 0 24 24" aria-hidden="true" class="action-icon"><rect x="4" y="5" width="16" height="11" rx="1.8"></rect><path d="M9 20h6M12 16v4"></path></svg> <span>跟随系统</span> </button> </div> </div> </div> </div> </header> <script>
+  (() => {
+    const switcher = document.querySelector("[data-theme-switcher]");
+    if (!switcher) return;
+
+    const trigger = switcher.querySelector("[data-theme-trigger]");
+    const menu = switcher.querySelector("[data-theme-menu]");
+    const options = [...switcher.querySelectorAll("[data-theme-option]")];
+    const modes = ["light", "dark", "system"];
+
+    const getMode = () => {
+      const mode = document.documentElement.dataset.themeMode;
+      return modes.includes(mode) ? mode : "system";
+    };
+
+    const closeMenu = () => {
+      menu.hidden = true;
+      trigger.setAttribute("aria-expanded", "false");
+    };
+
+    const openMenu = () => {
+      menu.hidden = false;
+      trigger.setAttribute("aria-expanded", "true");
+    };
+
+    const sync = () => {
+      const mode = getMode();
+      trigger.dataset.themeMode = mode;
+      options.forEach((option) => {
+        option.setAttribute("aria-checked", String(option.dataset.themeOption === mode));
+      });
+    };
+
+    trigger.addEventListener("click", () => {
+      menu.hidden ? openMenu() : closeMenu();
+    });
+
+    options.forEach((option) => {
+      option.addEventListener("click", () => {
+        window.__setFutureObserverTheme?.(option.dataset.themeOption || "system");
+        sync();
+        closeMenu();
+      });
+    });
+
+    document.addEventListener("click", (event) => {
+      if (!switcher.contains(event.target)) closeMenu();
+    });
+
+    document.addEventListener("keydown", (event) => {
+      if (event.key === "Escape") closeMenu();
+    });
+
+    window.addEventListener("future-observer-theme-change", sync);
+    sync();
+  })();
+</script> <aside class="site-rail" aria-label="站点导航"> <div class="site-rail-inner"> <p class="site-rail-label">Channels</p> <nav aria-label="主导航"> <ul class="site-rail-nav"> <li> <a href="/ai-tools/" class="site-rail-link"> AI工具 </a> </li><li> <a href="/future-daily/" class="site-rail-link"> 未来观察者日报 </a> </li> </ul> </nav> </div> </aside> <main class="shell page-content">  <div class="post-hero" data-astro-cid-gjtny2mx> <div class="post-meta-row" data-astro-cid-gjtny2mx> <p class="eyebrow" data-astro-cid-gjtny2mx>2026年10月24日</p> <div class="wechat-copy" data-astro-cid-cbgqzyjp> <button type="button" id="wechat-copy-button" aria-describedby="wechat-copy-status" title="复制正文排版，可粘贴到微信公众号后台" data-astro-cid-cbgqzyjp> <svg aria-hidden="true" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" data-astro-cid-cbgqzyjp><rect x="8" y="8" width="12" height="13" rx="2" data-astro-cid-cbgqzyjp></rect><path d="M16 8V5a2 2 0 0 0-2-2H5a2 2 0 0 0-2 2v9a2 2 0 0 0 2 2h3" data-astro-cid-cbgqzyjp></path></svg>
+复制正文
+</button> <span id="wechat-copy-status" role="status" aria-live="polite" aria-atomic="true" data-astro-cid-cbgqzyjp></span> </div> <script type="application/json" id="wechat-copy-payload">{"html":"\u003csection style=\"font-family:-apple-system,BlinkMacSystemFont,'Helvetica Neue','PingFang SC','Hiragino Sans GB','Microsoft YaHei',Arial,sans-serif;color:#1f2329;font-size:15px;line-height:1.62;word-break:break-word;\">\u003cblockquote style=\"margin:0 0 12px;padding:8px 14px;border-left:4px solid #d1d5db;background:#f5f7fa;color:#4b5563;\">\u003cp style=\"margin:0 0 10px;line-height:1.62;font-size:15px;color:#1f2329;\">🔭 \u003cstrong>核心观点\u003c/strong>：市场没有把110美元视为必达终点；但企业更该关心的是，原油运输逐步恢复时，柴油供应与库存仍可能拖住成本回落。油价回落，不等于运费和生产成本同步恢复。\u003c/p>\u003c/blockquote>\n\u003cp style=\"margin:0 0 10px;line-height:1.62;font-size:15px;color:#1f2329;\">\u003cstrong>作者：\u003c/strong> 拾水木\u003cbr>\u003cstrong>时间：\u003c/strong> 2026年10月24日\u003cbr>\u003cstrong>标签：\u003c/strong> #未来观察者 #能源 #柴油 #供应链\u003cbr>\u003cstrong>阅读时间：\u003c/strong> 约3分钟\u003c/p>\n\u003chr style=\"border:0;border-top:1px solid #d0d7de;margin:24px 0;\">\n\u003ch2 style=\"margin:32px 0 18px;font-size:24px;line-height:1.4;font-weight:700;color:#111827;\">📊 今天看什么：触价概率，不是月底价格预测\u003c/h2>\n\u003cp style=\"margin:0 0 10px;line-height:1.62;font-size:15px;color:#1f2329;\">Polymarket 的问题是：\u003cstrong>WTI原油是否在十月触及110美元？\u003c/strong> 规则使用Pyth的ICE欧洲WTI活跃月合约一分钟K线，达到门槛即可；不是月底收盘价，也不是整月均价。\u003c/p>\n\u003ctable style=\"width:100%;border-collapse:collapse;margin:0 0 16px;font-size:14px;color:#1f2329;\">\u003cthead>\u003ctr>\u003cth style=\"border:1px solid #d0d7de;padding:8px;text-align:left;background:#f6f8fa;font-weight:700;\">指标\u003c/th>\u003cth style=\"border:1px solid #d0d7de;padding:8px;text-align:left;background:#f6f8fa;font-weight:700;\">核验值\u003c/th>\u003c/tr>\u003c/thead>\u003ctbody>\u003ctr>\u003ctd style=\"border:1px solid #d0d7de;padding:8px;text-align:left;\">触及110美元：Yes / No\u003c/td>\u003ctd style=\"border:1px solid #d0d7de;padding:8px;text-align:left;\">37.5% / 62.5%\u003c/td>\u003c/tr>\u003ctr>\u003ctd style=\"border:1px solid #d0d7de;padding:8px;text-align:left;\">该110美元子市场24小时成交额\u003c/td>\u003ctd style=\"border:1px solid #d0d7de;padding:8px;text-align:left;\">23,542.44美元\u003c/td>\u003c/tr>\u003ctr>\u003ctd style=\"border:1px solid #d0d7de;padding:8px;text-align:left;\">该子市场流动性\u003c/td>\u003ctd style=\"border:1px solid #d0d7de;padding:8px;text-align:left;\">36,697.40美元\u003c/td>\u003c/tr>\u003ctr>\u003ctd style=\"border:1px solid #d0d7de;padding:8px;text-align:left;\">整个十月WTI事件24小时成交额\u003c/td>\u003ctd style=\"border:1px solid #d0d7de;padding:8px;text-align:left;\">207,953.75美元\u003c/td>\u003c/tr>\u003ctr>\u003ctd style=\"border:1px solid #d0d7de;padding:8px;text-align:left;\">数据采集\u003c/td>\u003ctd style=\"border:1px solid #d0d7de;padding:8px;text-align:left;\">2026-10-24 04:01左右，Asia/Shanghai（UTC+8）\u003c/td>\u003c/tr>\u003c/tbody>\u003c/table>\n\u003cp style=\"margin:0 0 10px;line-height:1.62;font-size:15px;color:#1f2329;\">这是盘口报价换算的隐含概率，不是统计模型的保证。子市场与整组事件的成交额不能混用。\u003c/p>\n\u003cp style=\"margin:0 0 10px;line-height:1.62;font-size:15px;color:#1f2329;\">\u003cimg src=\"https://future.lifestudylab.com/images/posts/2026-10-24-wti-diesel/probability.svg\" alt=\"Polymarket十月WTI触及110美元的Yes与No当前概率\" style=\"display:block;max-width:100%;height:auto;margin:16px auto;\">\u003c/p>\n\u003cp style=\"margin:0 0 10px;line-height:1.62;font-size:15px;color:#1f2329;\">图：Yes与No属于同一子市场的互斥结果；数据来自\u003ca href=\"https://polymarket.com/event/what-price-will-wti-hit-in-october-2026\" style=\"color:#2563eb;text-decoration:underline;\">Polymarket原始事件页\u003c/a>，采集于2026-10-24 04:01左右（UTC+8），非历史趋势图。\u003c/p>\n\u003chr style=\"border:0;border-top:1px solid #d0d7de;margin:24px 0;\">\n\u003ch2 style=\"margin:32px 0 18px;font-size:24px;line-height:1.4;font-weight:700;color:#111827;\">🔎 为什么值得看：运输恢复与成品油紧张可以同时发生\u003c/h2>\n\u003cp style=\"margin:0 0 10px;line-height:1.62;font-size:15px;color:#1f2329;\">\u003cstrong>已核实事实\u003c/strong>：美国能源信息署（EIA）10月6日发布的短期能源展望，把四季度布伦特现货均价预测上调至105美元/桶，比上月预测高14美元。报告认为，中东原油生产与出口将逐步增加，但柴油市场极度紧张，会增加炼厂对原油的需求。\u003c/p>\n\u003cp style=\"margin:0 0 10px;line-height:1.62;font-size:15px;color:#1f2329;\">注意：\u003cstrong>布伦特季度均价预测不能直接验证WTI短期触价概率\u003c/strong>。两者品种、期限、计量方式都不同，这里仅用EIA解释现实供需背景。\u003c/p>\n\u003ctable style=\"width:100%;border-collapse:collapse;margin:0 0 16px;font-size:14px;color:#1f2329;\">\u003cthead>\u003ctr>\u003cth style=\"border:1px solid #d0d7de;padding:8px;text-align:left;background:#f6f8fa;font-weight:700;\">EIA披露或预测\u003c/th>\u003cth style=\"border:1px solid #d0d7de;padding:8px;text-align:left;background:#f6f8fa;font-weight:700;\">信息性质\u003c/th>\u003c/tr>\u003c/thead>\u003ctbody>\u003ctr>\u003ctd style=\"border:1px solid #d0d7de;padding:8px;text-align:left;\">9月美国东海岸馏分油库存低于五年同期均值32%\u003c/td>\u003ctd style=\"border:1px solid #d0d7de;padding:8px;text-align:left;\">EIA报告估计\u003c/td>\u003c/tr>\u003ctr>\u003ctd style=\"border:1px solid #d0d7de;padding:8px;text-align:left;\">今冬库存仍约低于2021—2025年均值20%\u003c/td>\u003ctd style=\"border:1px solid #d0d7de;padding:8px;text-align:left;\">EIA预测\u003c/td>\u003c/tr>\u003ctr>\u003ctd style=\"border:1px solid #d0d7de;padding:8px;text-align:left;\">9月美国零售柴油均价6.29美元/加仑\u003c/td>\u003ctd style=\"border:1px solid #d0d7de;padding:8px;text-align:left;\">EIA报告历史数据\u003c/td>\u003c/tr>\u003c/tbody>\u003c/table>\n\u003cp style=\"margin:0 0 10px;line-height:1.62;font-size:15px;color:#1f2329;\">这次不是复述10月8日的霍尔木兹海峡航运恢复主题。\u003cstrong>新增观察变量是炼油产品与库存\u003c/strong>：通道改善之后，原油能不能及时转化为所需柴油，才决定成本传导有多快。\u003c/p>\n\u003chr style=\"border:0;border-top:1px solid #d0d7de;margin:24px 0;\">\n\u003ch2 style=\"margin:32px 0 18px;font-size:24px;line-height:1.4;font-weight:700;color:#111827;\">🏭 真正的结构变化：能源供应不只是一条运输线\u003c/h2>\n\u003cp style=\"margin:0 0 10px;line-height:1.62;font-size:15px;color:#1f2329;\">以下为作者分析，并非市场结算事实。\u003c/p>\n\u003col style=\"margin:0 0 10px;padding-left:22px;color:#1f2329;line-height:1.62;\">\u003cli style=\"margin:0 0 4px;\">\u003cp style=\"margin:0 0 10px;line-height:1.62;font-size:15px;color:#1f2329;\">\u003cstrong>技术层面：原油与成品油不是同一种供给。\u003c/strong> 炼厂需要按装置条件、原料和产品需求安排生产；增加原油到港，不代表柴油立即足量到货。\u003c/p>\u003c/li>\u003cli style=\"margin:0 0 4px;\">\u003cp style=\"margin:0 0 10px;line-height:1.62;font-size:15px;color:#1f2329;\">\u003cstrong>产业层面：企业承受的是到手成本。\u003c/strong> 公路物流、工程机械等用油环节，更直接面对柴油采购与交付条件，而不是WTI屏幕报价。\u003c/p>\u003c/li>\u003cli style=\"margin:0 0 4px;\">\u003cp style=\"margin:0 0 10px;line-height:1.62;font-size:15px;color:#1f2329;\">\u003cstrong>社会与资本层面：成本回落存在时差。\u003c/strong> 若燃料、运输合同和库存补充调整不同步，原油跌价可能先反映在金融资产上，晚些才进入企业账单和终端价格。\u003c/p>\u003c/li>\u003c/ol>\n\u003cp style=\"margin:0 0 10px;line-height:1.62;font-size:15px;color:#1f2329;\">这不是“油价必涨”的论证，而是提醒：\u003cstrong>一个原油价格指标，不足以描述能源系统是否恢复正常。\u003c/strong>\u003c/p>\n\u003chr style=\"border:0;border-top:1px solid #d0d7de;margin:24px 0;\">\n\u003ch2 style=\"margin:32px 0 18px;font-size:24px;line-height:1.4;font-weight:700;color:#111827;\">🧭 如果这种错位持续：分三个时间尺度观察\u003c/h2>\n\u003cul style=\"margin:0 0 10px;padding-left:22px;color:#1f2329;line-height:1.62;\">\u003cli style=\"margin:0 0 4px;\">\u003cp style=\"margin:0 0 10px;line-height:1.62;font-size:15px;color:#1f2329;\">\u003cstrong>短期，十月底前\u003c/strong>：盘口检验110美元是否被触及。监控价格时必须匹配活跃合约、交易时段和数据源，不能拿其他报价直接判断结算。\u003c/p>\u003c/li>\u003cli style=\"margin:0 0 4px;\">\u003cp style=\"margin:0 0 10px;line-height:1.62;font-size:15px;color:#1f2329;\">\u003cstrong>中期，未来一至两个季度\u003c/strong>：关注柴油价格、馏分油库存与运输报价是否一起回落。若只有原油回落，企业不宜提前把成本节约计入利润。\u003c/p>\u003c/li>\u003cli style=\"margin:0 0 4px;\">\u003cp style=\"margin:0 0 10px;line-height:1.62;font-size:15px;color:#1f2329;\">\u003cstrong>长期，一至三年\u003c/strong>：若燃料波动反复出现，节能、运输路线优化和适合场景的电动化可能更有价值；但需要算全生命周期成本，不能从一次盘口推出全面替代结论。\u003c/p>\u003c/li>\u003c/ul>\n\u003chr style=\"border:0;border-top:1px solid #d0d7de;margin:24px 0;\">\n\u003ch2 style=\"margin:32px 0 18px;font-size:24px;line-height:1.4;font-weight:700;color:#111827;\">🛠️ 可以做什么：把宏观波动变成三项账本检查\u003c/h2>\n\u003cul style=\"margin:0 0 10px;padding-left:22px;color:#1f2329;line-height:1.62;\">\u003cli style=\"margin:0 0 4px;\">\u003cp style=\"margin:0 0 10px;line-height:1.62;font-size:15px;color:#1f2329;\">\u003cstrong>普通读者\u003c/strong>：不因整数关押注追涨；有用车需求时，按实际月度油费检查预算，不按新闻价格想象支出。\u003c/p>\u003c/li>\u003cli style=\"margin:0 0 4px;\">\u003cp style=\"margin:0 0 10px;line-height:1.62;font-size:15px;color:#1f2329;\">\u003cstrong>物流、制造从业者\u003c/strong>：拉出最近三个月燃料费和运费，核对合同是否含燃油附加费、调价周期及上限，区分现货波动与合同锁定成本。\u003c/p>\u003c/li>\u003cli style=\"margin:0 0 4px;\">\u003cp style=\"margin:0 0 10px;line-height:1.62;font-size:15px;color:#1f2329;\">\u003cstrong>创业者与投资观察者\u003c/strong>：观察相关企业时，同时列出原料成本、成品油价差、库存和议价能力。不要把“油价上涨”简单等同于所有能源企业利润上涨。\u003c/p>\u003c/li>\u003c/ul>\n\u003chr style=\"border:0;border-top:1px solid #d0d7de;margin:24px 0;\">\n\u003ch2 style=\"margin:32px 0 18px;font-size:24px;line-height:1.4;font-weight:700;color:#111827;\">⚠️ 风险与结论：有价格信号，不等于有确定答案\u003c/h2>\n\u003cp style=\"margin:0 0 10px;line-height:1.62;font-size:15px;color:#1f2329;\">EIA这份报告的模型输入截止10月1日，未纳入10月2日G7宣布措施的后续影响，不能视作截至今天的实时供需全景。盘口也会受到流动性、突发事件和合约切换影响；文中未核实当前WTI现货价，不据此判断距110美元还有多远。\u003c/p>\n\u003cp style=\"margin:0 0 10px;line-height:1.62;font-size:15px;color:#1f2329;\">\u003cstrong>总结判断\u003c/strong>：37.5%回答的是一条窄合约能否触价。对现实经营更有价值的问题是：原油、柴油、库存和运费，究竟哪一环还没有恢复。看清这个时差，比猜中一次整数关更有用。\u003c/p>\n\u003chr style=\"border:0;border-top:1px solid #d0d7de;margin:24px 0;\">\n\u003ch2 style=\"margin:32px 0 18px;font-size:24px;line-height:1.4;font-weight:700;color:#111827;\">📚 参考资源\u003c/h2>\n\u003cul style=\"margin:0 0 10px;padding-left:22px;color:#1f2329;line-height:1.62;\">\u003cli style=\"margin:0 0 4px;\">\u003cp style=\"margin:0 0 10px;line-height:1.62;font-size:15px;color:#1f2329;\">\u003ca href=\"https://polymarket.com/event/what-price-will-wti-hit-in-october-2026\" style=\"color:#2563eb;text-decoration:underline;\">Polymarket：十月WTI触价事件与各子市场规则\u003c/a>\u003c/p>\u003c/li>\u003cli style=\"margin:0 0 4px;\">\u003cp style=\"margin:0 0 10px;line-height:1.62;font-size:15px;color:#1f2329;\">\u003ca href=\"https://gamma-api.polymarket.com/events?slug=what-price-will-wti-hit-in-october-2026\" style=\"color:#2563eb;text-decoration:underline;\">Polymarket Gamma API：事件与盘口数据\u003c/a>\u003c/p>\u003c/li>\u003cli style=\"margin:0 0 4px;\">\u003cp style=\"margin:0 0 10px;line-height:1.62;font-size:15px;color:#1f2329;\">\u003ca href=\"https://www.eia.gov/outlooks/steo/\" style=\"color:#2563eb;text-decoration:underline;\">EIA：2026年10月短期能源展望，10月6日发布\u003c/a>\u003c/p>\u003c/li>\u003cli style=\"margin:0 0 4px;\">\u003cp style=\"margin:0 0 10px;line-height:1.62;font-size:15px;color:#1f2329;\">\u003ca href=\"https://www.ice.com/products/213/WTI-Crude-Futures\" style=\"color:#2563eb;text-decoration:underline;\">ICE：WTI期货合约规格与交易时间\u003c/a>\u003c/p>\u003c/li>\u003c/ul>\n\u003cp style=\"margin:0 0 10px;line-height:1.62;font-size:15px;color:#1f2329;\">本文为趋势观察，不构成投资建议。\u003c/p>\u003c/section>","text":"🔭 核心观点：市场没有把110美元视为必达终点；但企业更该关心的是，原油运输逐步恢复时，柴油供应与库存仍可能拖住成本回落。油价回落，不等于运费和生产成本同步恢复。\n\n作者： 拾水木\n时间： 2026年10月24日\n标签： #未来观察者 #能源 #柴油 #供应链\n阅读时间： 约3分钟\n\n📊 今天看什么：触价概率，不是月底价格预测\nPolymarket 的问题是：WTI原油是否在十月触及110美元？ 规则使用Pyth的ICE欧洲WTI活跃月合约一分钟K线，达到门槛即可；不是月底收盘价，也不是整月均价。\n指标 | 核验值\n触及110美元：Yes / No | 37.5% / 62.5%\n该110美元子市场24小时成交额 | 23,542.44美元\n该子市场流动性 | 36,697.40美元\n整个十月WTI事件24小时成交额 | 207,953.75美元\n数据采集 | 2026-10-24 04:01左右，Asia/Shanghai（UTC+8）\n\n这是盘口报价换算的隐含概率，不是统计模型的保证。子市场与整组事件的成交额不能混用。\n[图片：Polymarket十月WTI触及110美元的Yes与No当前概率]\n图：Yes与No属于同一子市场的互斥结果；数据来自Polymarket原始事件页，采集于2026-10-24 04:01左右（UTC+8），非历史趋势图。\n\n🔎 为什么值得看：运输恢复与成品油紧张可以同时发生\n已核实事实：美国能源信息署（EIA）10月6日发布的短期能源展望，把四季度布伦特现货均价预测上调至105美元/桶，比上月预测高14美元。报告认为，中东原油生产与出口将逐步增加，但柴油市场极度紧张，会增加炼厂对原油的需求。\n注意：布伦特季度均价预测不能直接验证WTI短期触价概率。两者品种、期限、计量方式都不同，这里仅用EIA解释现实供需背景。\nEIA披露或预测 | 信息性质\n9月美国东海岸馏分油库存低于五年同期均值32% | EIA报告估计\n今冬库存仍约低于2021—2025年均值20% | EIA预测\n9月美国零售柴油均价6.29美元/加仑 | EIA报告历史数据\n\n这次不是复述10月8日的霍尔木兹海峡航运恢复主题。新增观察变量是炼油产品与库存：通道改善之后，原油能不能及时转化为所需柴油，才决定成本传导有多快。\n\n🏭 真正的结构变化：能源供应不只是一条运输线\n以下为作者分析，并非市场结算事实。\n技术层面：原油与成品油不是同一种供给。 炼厂需要按装置条件、原料和产品需求安排生产；增加原油到港，不代表柴油立即足量到货。\n产业层面：企业承受的是到手成本。 公路物流、工程机械等用油环节，更直接面对柴油采购与交付条件，而不是WTI屏幕报价。\n社会与资本层面：成本回落存在时差。 若燃料、运输合同和库存补充调整不同步，原油跌价可能先反映在金融资产上，晚些才进入企业账单和终端价格。\n\n这不是“油价必涨”的论证，而是提醒：一个原油价格指标，不足以描述能源系统是否恢复正常。\n\n🧭 如果这种错位持续：分三个时间尺度观察\n短期，十月底前：盘口检验110美元是否被触及。监控价格时必须匹配活跃合约、交易时段和数据源，不能拿其他报价直接判断结算。\n中期，未来一至两个季度：关注柴油价格、馏分油库存与运输报价是否一起回落。若只有原油回落，企业不宜提前把成本节约计入利润。\n长期，一至三年：若燃料波动反复出现，节能、运输路线优化和适合场景的电动化可能更有价值；但需要算全生命周期成本，不能从一次盘口推出全面替代结论。\n\n🛠️ 可以做什么：把宏观波动变成三项账本检查\n普通读者：不因整数关押注追涨；有用车需求时，按实际月度油费检查预算，不按新闻价格想象支出。\n物流、制造从业者：拉出最近三个月燃料费和运费，核对合同是否含燃油附加费、调价周期及上限，区分现货波动与合同锁定成本。\n创业者与投资观察者：观察相关企业时，同时列出原料成本、成品油价差、库存和议价能力。不要把“油价上涨”简单等同于所有能源企业利润上涨。\n\n⚠️ 风险与结论：有价格信号，不等于有确定答案\nEIA这份报告的模型输入截止10月1日，未纳入10月2日G7宣布措施的后续影响，不能视作截至今天的实时供需全景。盘口也会受到流动性、突发事件和合约切换影响；文中未核实当前WTI现货价，不据此判断距110美元还有多远。\n总结判断：37.5%回答的是一条窄合约能否触价。对现实经营更有价值的问题是：原油、柴油、库存和运费，究竟哪一环还没有恢复。看清这个时差，比猜中一次整数关更有用。\n\n📚 参考资源\nPolymarket：十月WTI触价事件与各子市场规则\nPolymarket Gamma API：事件与盘口数据\nEIA：2026年10月短期能源展望，10月6日发布\nICE：WTI期货合约规格与交易时间\n\n本文为趋势观察，不构成投资建议。"}</script> <script type="module">async function c(t){if(navigator.clipboard?.write&&typeof ClipboardItem<"u")try{return await navigator.clipboard.write([new ClipboardItem({"text/html":new Blob([t.html],{type:"text/html"}),"text/plain":new Blob([t.text],{type:"text/plain"})})]),"rich"}catch{}let a=!1;const n=r=>{r.clipboardData&&(r.clipboardData.setData("text/html",t.html),r.clipboardData.setData("text/plain",t.text),r.preventDefault(),a=!0)};document.addEventListener("copy",n);try{if(document.execCommand("copy")&&a)return"rich"}catch{}finally{document.removeEventListener("copy",n)}if(navigator.clipboard?.writeText)return await navigator.clipboard.writeText(t.text),"plain";throw new Error("Clipboard unavailable")}const e=document.querySelector("#wechat-copy-button"),o=document.querySelector("#wechat-copy-status"),i=document.querySelector("#wechat-copy-payload");e?.addEventListener("click",async()=>{if(o){e.disabled=!0,e.setAttribute("aria-busy","true"),o.textContent="正在复制…";try{if(!i?.textContent)throw new Error("Payload missing");const t=JSON.parse(i.textContent),a=await c(t);o.textContent=a==="rich"?"已复制，可粘贴到公众号后台（图片需在后台重新上传）":"已复制纯文本，当前浏览器不支持富文本复制，排版不会保留"}catch{o.textContent="复制失败，请允许剪贴板权限后重试"}finally{e.disabled=!1,e.removeAttribute("aria-busy")}}});</script>  </div> <h1 data-astro-cid-gjtny2mx>🛢️ WTI十月触及110美元概率37.5%：比整数关更重要的是柴油瓶颈</h1> <p class="post-summary" data-astro-cid-gjtny2mx>🔭 核心观点：市场没有把110美元视为必达终点；但企业更该关心的是，原油运输逐步恢复时，柴油供应与库存仍可能拖住成本回落。油价回落，不等于运费和生产成本同步恢复。</p> <ul class="tag-list" data-astro-cid-gjtny2mx> <li data-astro-cid-gjtny2mx> <a href="/tags/%E6%9C%AA%E6%9D%A5%E8%A7%82%E5%AF%9F%E8%80%85%E6%97%A5%E6%8A%A5/" class="tag-link" data-astro-cid-gjtny2mx>
+#未来观察者日报 </a> </li><li data-astro-cid-gjtny2mx> <a href="/tags/2026%E5%B9%B410%E6%9C%88/" class="tag-link" data-astro-cid-gjtny2mx>
+#2026年10月 </a> </li> </ul> </div> <div class="post-grid" data-astro-cid-gjtny2mx> <article class="prose" data-wechat-article data-astro-cid-gjtny2mx>  <blockquote>
+<p>🔭 <strong>核心观点</strong>：市场没有把110美元视为必达终点；但企业更该关心的是，原油运输逐步恢复时，柴油供应与库存仍可能拖住成本回落。油价回落，不等于运费和生产成本同步恢复。</p>
+</blockquote>
+<p><strong>作者：</strong> 拾水木<br>
+<strong>时间：</strong> 2026年10月24日<br>
+<strong>标签：</strong> #未来观察者 #能源 #柴油 #供应链<br>
+<strong>阅读时间：</strong> 约3分钟</p>
+<hr>
+<h2 id="-今天看什么触价概率不是月底价格预测">📊 今天看什么：触价概率，不是月底价格预测</h2>
+<p>Polymarket 的问题是：<strong>WTI原油是否在十月触及110美元？</strong> 规则使用Pyth的ICE欧洲WTI活跃月合约一分钟K线，达到门槛即可；不是月底收盘价，也不是整月均价。</p>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<table><thead><tr><th>指标</th><th>核验值</th></tr></thead><tbody><tr><td>触及110美元：Yes / No</td><td>37.5% / 62.5%</td></tr><tr><td>该110美元子市场24小时成交额</td><td>23,542.44美元</td></tr><tr><td>该子市场流动性</td><td>36,697.40美元</td></tr><tr><td>整个十月WTI事件24小时成交额</td><td>207,953.75美元</td></tr><tr><td>数据采集</td><td>2026-10-24 04:01左右，Asia/Shanghai（UTC+8）</td></tr></tbody></table>
+<p>这是盘口报价换算的隐含概率，不是统计模型的保证。子市场与整组事件的成交额不能混用。</p>
+<p><img src="/images/posts/2026-10-24-wti-diesel/probability.svg" alt="Polymarket十月WTI触及110美元的Yes与No当前概率"></p>
+<p>图：Yes与No属于同一子市场的互斥结果；数据来自<a href="https://polymarket.com/event/what-price-will-wti-hit-in-october-2026">Polymarket原始事件页</a>，采集于2026-10-24 04:01左右（UTC+8），非历史趋势图。</p>
+<hr>
+<h2 id="-为什么值得看运输恢复与成品油紧张可以同时发生">🔎 为什么值得看：运输恢复与成品油紧张可以同时发生</h2>
+<p><strong>已核实事实</strong>：美国能源信息署（EIA）10月6日发布的短期能源展望，把四季度布伦特现货均价预测上调至105美元/桶，比上月预测高14美元。报告认为，中东原油生产与出口将逐步增加，但柴油市场极度紧张，会增加炼厂对原油的需求。</p>
+<p>注意：<strong>布伦特季度均价预测不能直接验证WTI短期触价概率</strong>。两者品种、期限、计量方式都不同，这里仅用EIA解释现实供需背景。</p>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<table><thead><tr><th>EIA披露或预测</th><th>信息性质</th></tr></thead><tbody><tr><td>9月美国东海岸馏分油库存低于五年同期均值32%</td><td>EIA报告估计</td></tr><tr><td>今冬库存仍约低于2021—2025年均值20%</td><td>EIA预测</td></tr><tr><td>9月美国零售柴油均价6.29美元/加仑</td><td>EIA报告历史数据</td></tr></tbody></table>
+<p>这次不是复述10月8日的霍尔木兹海峡航运恢复主题。<strong>新增观察变量是炼油产品与库存</strong>：通道改善之后，原油能不能及时转化为所需柴油，才决定成本传导有多快。</p>
+<hr>
+<h2 id="-真正的结构变化能源供应不只是一条运输线">🏭 真正的结构变化：能源供应不只是一条运输线</h2>
+<p>以下为作者分析，并非市场结算事实。</p>
+<ol>
+<li><strong>技术层面：原油与成品油不是同一种供给。</strong> 炼厂需要按装置条件、原料和产品需求安排生产；增加原油到港，不代表柴油立即足量到货。</li>
+<li><strong>产业层面：企业承受的是到手成本。</strong> 公路物流、工程机械等用油环节，更直接面对柴油采购与交付条件，而不是WTI屏幕报价。</li>
+<li><strong>社会与资本层面：成本回落存在时差。</strong> 若燃料、运输合同和库存补充调整不同步，原油跌价可能先反映在金融资产上，晚些才进入企业账单和终端价格。</li>
+</ol>
+<p>这不是“油价必涨”的论证，而是提醒：<strong>一个原油价格指标，不足以描述能源系统是否恢复正常。</strong></p>
+<hr>
+<h2 id="-如果这种错位持续分三个时间尺度观察">🧭 如果这种错位持续：分三个时间尺度观察</h2>
+<ul>
+<li><strong>短期，十月底前</strong>：盘口检验110美元是否被触及。监控价格时必须匹配活跃合约、交易时段和数据源，不能拿其他报价直接判断结算。</li>
+<li><strong>中期，未来一至两个季度</strong>：关注柴油价格、馏分油库存与运输报价是否一起回落。若只有原油回落，企业不宜提前把成本节约计入利润。</li>
+<li><strong>长期，一至三年</strong>：若燃料波动反复出现，节能、运输路线优化和适合场景的电动化可能更有价值；但需要算全生命周期成本，不能从一次盘口推出全面替代结论。</li>
+</ul>
+<hr>
+<h2 id="️-可以做什么把宏观波动变成三项账本检查">🛠️ 可以做什么：把宏观波动变成三项账本检查</h2>
+<ul>
+<li><strong>普通读者</strong>：不因整数关押注追涨；有用车需求时，按实际月度油费检查预算，不按新闻价格想象支出。</li>
+<li><strong>物流、制造从业者</strong>：拉出最近三个月燃料费和运费，核对合同是否含燃油附加费、调价周期及上限，区分现货波动与合同锁定成本。</li>
+<li><strong>创业者与投资观察者</strong>：观察相关企业时，同时列出原料成本、成品油价差、库存和议价能力。不要把“油价上涨”简单等同于所有能源企业利润上涨。</li>
+</ul>
+<hr>
+<h2 id="️-风险与结论有价格信号不等于有确定答案">⚠️ 风险与结论：有价格信号，不等于有确定答案</h2>
+<p>EIA这份报告的模型输入截止10月1日，未纳入10月2日G7宣布措施的后续影响，不能视作截至今天的实时供需全景。盘口也会受到流动性、突发事件和合约切换影响；文中未核实当前WTI现货价，不据此判断距110美元还有多远。</p>
+<p><strong>总结判断</strong>：37.5%回答的是一条窄合约能否触价。对现实经营更有价值的问题是：原油、柴油、库存和运费，究竟哪一环还没有恢复。看清这个时差，比猜中一次整数关更有用。</p>
+<hr>
+<h2 id="-参考资源">📚 参考资源</h2>
+<ul>
+<li><a href="https://polymarket.com/event/what-price-will-wti-hit-in-october-2026">Polymarket：十月WTI触价事件与各子市场规则</a></li>
+<li><a href="https://gamma-api.polymarket.com/events?slug=what-price-will-wti-hit-in-october-2026">Polymarket Gamma API：事件与盘口数据</a></li>
+<li><a href="https://www.eia.gov/outlooks/steo/">EIA：2026年10月短期能源展望，10月6日发布</a></li>
+<li><a href="https://www.ice.com/products/213/WTI-Crude-Futures">ICE：WTI期货合约规格与交易时间</a></li>
+</ul>
+<p>本文为趋势观察，不构成投资建议。</p>  </article> <aside class="toc"><p class="toc-title">目录</p><ul class="toc-list"><li class="depth-2"><a href="#-今天看什么触价概率不是月底价格预测" data-toc-link="-今天看什么触价概率不是月底价格预测">📊 今天看什么：触价概率，不是月底价格预测</a></li><li class="depth-2"><a href="#-为什么值得看运输恢复与成品油紧张可以同时发生" data-toc-link="-为什么值得看运输恢复与成品油紧张可以同时发生">🔎 为什么值得看：运输恢复与成品油紧张可以同时发生</a></li><li class="depth-2"><a href="#-真正的结构变化能源供应不只是一条运输线" data-toc-link="-真正的结构变化能源供应不只是一条运输线">🏭 真正的结构变化：能源供应不只是一条运输线</a></li><li class="depth-2"><a href="#-如果这种错位持续分三个时间尺度观察" data-toc-link="-如果这种错位持续分三个时间尺度观察">🧭 如果这种错位持续：分三个时间尺度观察</a></li><li class="depth-2"><a href="#️-可以做什么把宏观波动变成三项账本检查" data-toc-link="️-可以做什么把宏观波动变成三项账本检查">🛠️ 可以做什么：把宏观波动变成三项账本检查</a></li><li class="depth-2"><a href="#️-风险与结论有价格信号不等于有确定答案" data-toc-link="️-风险与结论有价格信号不等于有确定答案">⚠️ 风险与结论：有价格信号，不等于有确定答案</a></li><li class="depth-2"><a href="#-参考资源" data-toc-link="-参考资源">📚 参考资源</a></li></ul></aside><script type="module">const u=()=>{const n=document.querySelector(".toc");if(!n||n.dataset.spyReady)return;const l=window.matchMedia("(min-width: 961px)"),a=Array.from(n.querySelectorAll("a[data-toc-link]"));if(!a.length)return;n.dataset.spyReady="true";let d="";const i=a.map(t=>{const e=t.getAttribute("data-toc-link");if(!e)return null;const o=document.getElementById(e);return o?{id:e,heading:o,link:t}:null}).filter(t=>t!==null);if(!i.length)return;const g=t=>{t!==d&&(d=t,a.forEach(e=>{const o=e.getAttribute("data-toc-link")===t;if(e.classList.toggle("active",o),o){const c=n.getBoundingClientRect(),s=e.getBoundingClientRect();s.top<c.top?n.scrollTop+=s.top-c.top:s.bottom>c.bottom&&(n.scrollTop+=s.bottom-c.bottom)}}))},r=()=>{if(!l.matches)return;const t=Math.round(window.innerHeight*.28);let e=i[0];for(const o of i)o.heading.getBoundingClientRect().top<=t&&(e=o);g(e.id)};r();const p=new IntersectionObserver(()=>r(),{rootMargin:"-18% 0px -70% 0px",threshold:[0,1]});i.forEach(t=>p.observe(t.heading)),window.addEventListener("scroll",r,{passive:!0}),l.addEventListener("change",()=>{d="",r()})};document.addEventListener("DOMContentLoaded",u);document.addEventListener("astro:page-load",u);</script> </div>  </main> <footer class="site-footer"> <div class="shell footer-inner"> <p>© 2026 未来观察者</p> </div> </footer> </body></html> 
