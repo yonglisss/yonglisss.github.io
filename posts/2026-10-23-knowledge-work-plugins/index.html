@@ -1,0 +1,122 @@
+<!DOCTYPE html><html lang="zh-CN"> <head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1"><script>
+      (() => {
+        const storageKey = "future-observer-theme";
+        const root = document.documentElement;
+        const getStoredMode = () => {
+          try {
+            const value = localStorage.getItem(storageKey);
+            return value === "light" || value === "dark" || value === "system" ? value : "system";
+          } catch {
+            return "system";
+          }
+        };
+        const systemDark = () => window.matchMedia?.("(prefers-color-scheme: dark)").matches ?? false;
+        const apply = (mode) => {
+          const resolved = mode === "system" ? (systemDark() ? "dark" : "light") : mode;
+          root.dataset.themeMode = mode;
+          root.dataset.theme = resolved;
+          root.style.colorScheme = resolved;
+        };
+        apply(getStoredMode());
+        window.__setFutureObserverTheme = (mode) => {
+          const next = mode === "light" || mode === "dark" || mode === "system" ? mode : "system";
+          try { localStorage.setItem(storageKey, next); } catch {}
+          apply(next);
+          window.dispatchEvent(new CustomEvent("future-observer-theme-change", { detail: { mode: next } }));
+        };
+        window.matchMedia?.("(prefers-color-scheme: dark)").addEventListener?.("change", () => {
+          if (getStoredMode() === "system") apply("system");
+        });
+      })();
+    </script><title>Knowledge Work Plugins：把团队做事方法，装进 Claude 插件 | 未来观察者</title><meta name="description" content="让 AI 帮忙写方案，最费劲的常常不是生成文字，而是反复解释背景、流程和验收标准。今天出现在 GitHub 日榜的 Knowledge Work Plugins，是 Anthropic 开源的岗位插件集合：把这些规则做成文件，而不是每次从头提示。"><meta name="generator" content="Astro v5.18.1"><meta property="og:title" content="Knowledge Work Plugins：把团队做事方法，装进 Claude 插件 | 未来观察者"><meta property="og:description" content="让 AI 帮忙写方案，最费劲的常常不是生成文字，而是反复解释背景、流程和验收标准。今天出现在 GitHub 日榜的 Knowledge Work Plugins，是 Anthropic 开源的岗位插件集合：把这些规则做成文件，而不是每次从头提示。"><meta property="og:type" content="website"><meta property="og:url" content="https://future.lifestudylab.com/posts/2026-10-23-knowledge-work-plugins/"><link rel="icon" type="image/svg+xml" href="/favicon.svg"><link rel="alternate" type="application/rss+xml" title="未来观察者" href="/rss.xml"><link rel="stylesheet" href="/_astro/_channel_.DIiDVfDs.css">
+<style>.wechat-copy[data-astro-cid-cbgqzyjp]{position:relative;flex:0 0 auto;margin-left:auto}button[data-astro-cid-cbgqzyjp]{display:inline-flex;align-items:center;justify-content:center;gap:.4rem;min-height:40px;font:inherit;font-size:.875rem;font-weight:600;white-space:nowrap;color:var(--accent-dark);background:var(--surface-strong);border:1px solid var(--accent);border-radius:.5rem;padding:.45rem .75rem;box-shadow:0 2px 4px #0000000f;cursor:pointer}button[data-astro-cid-cbgqzyjp]:hover{background:var(--bg-strong);box-shadow:0 3px 8px #0000001a}button[data-astro-cid-cbgqzyjp]:focus-visible{outline:2px solid var(--accent);outline-offset:3px}button[data-astro-cid-cbgqzyjp]:disabled{opacity:.65;cursor:wait}#wechat-copy-status[data-astro-cid-cbgqzyjp]{position:absolute;z-index:5;top:calc(100% + .5rem);right:0;width:max-content;max-width:min(19rem,65vw);font-size:.8rem;line-height:1.6;color:var(--text)}#wechat-copy-status[data-astro-cid-cbgqzyjp]:not(:empty){padding:.65rem .8rem;background:var(--surface-strong);border:1px solid var(--line);border-radius:.5rem;box-shadow:var(--shadow)}.post-meta-row[data-astro-cid-gjtny2mx]{display:flex;align-items:center;justify-content:space-between;gap:.75rem;margin-bottom:1rem}.post-meta-row[data-astro-cid-gjtny2mx] .eyebrow[data-astro-cid-gjtny2mx]{margin:0}
+</style></head> <body> <div class="page-bg"></div> <header class="site-header"> <div class="shell header-inner"> <div class="header-bar"> <a class="brand" href="/ai-tools/"> <img src="/brand-mark.svg" alt="" class="brand-mark" width="56" height="56"> <span class="brand-text" aria-label="未来观察者">思考未来</span> </a> </div> <nav class="top-menu" aria-label="顶部菜单"> <a href="/future-daily/" class="top-menu-link"> 每日信息 </a><a href="/docs/deer-flow/00-overview/" class="top-menu-link"> DeerFlow教程 </a><a href="/docs/hermes/00-overview/" class="top-menu-link"> Hermes教程 </a><a href="/docs/openclaw/00-overview/" class="top-menu-link"> OpenClaw教程 </a><a href="/about/" class="top-menu-link"> 关于我 </a> </nav> <div class="top-actions"> <a class="feedback-link" href="https://github.com/yonglisss/yonglisss.github.io/issues" target="_blank" rel="noopener noreferrer" aria-label="问题反馈"> <svg viewBox="0 0 24 24" aria-hidden="true" class="action-icon"> <path d="M4.75 5.75A2.75 2.75 0 0 1 7.5 3h9A2.75 2.75 0 0 1 19.25 5.75v6.5A2.75 2.75 0 0 1 16.5 15H9.3l-3.55 3.2V15.1a2.75 2.75 0 0 1-1-2.1V5.75Z"></path> <path d="M8 7.75h8M8 11.25h4"></path> </svg> <span>问题反馈</span> </a> <div class="theme-switcher" data-theme-switcher> <button class="theme-trigger" type="button" aria-haspopup="menu" aria-expanded="false" aria-label="切换明暗模式" data-theme-trigger> <svg viewBox="0 0 24 24" aria-hidden="true" class="action-icon theme-trigger-icon theme-trigger-icon--light"> <circle cx="12" cy="12" r="4"></circle> <path d="M12 2.75v2M12 19.25v2M4.75 4.75l1.4 1.4M17.85 17.85l1.4 1.4M2.75 12h2M19.25 12h2M4.75 19.25l1.4-1.4M17.85 6.15l1.4-1.4"></path> </svg> <svg viewBox="0 0 24 24" aria-hidden="true" class="action-icon theme-trigger-icon theme-trigger-icon--dark"> <path d="M20.25 14.2A8 8 0 0 1 9.8 3.75 8.5 8.5 0 1 0 20.25 14.2Z"></path> </svg> <svg viewBox="0 0 24 24" aria-hidden="true" class="action-icon theme-trigger-icon theme-trigger-icon--system"> <rect x="4" y="5" width="16" height="11" rx="1.8"></rect> <path d="M9 20h6M12 16v4"></path> </svg> </button> <div class="theme-menu" role="menu" data-theme-menu hidden> <button class="theme-option" type="button" role="menuitemradio" data-theme-option="light" aria-checked="false"> <svg viewBox="0 0 24 24" aria-hidden="true" class="action-icon"><circle cx="12" cy="12" r="4"></circle><path d="M12 2.75v2M12 19.25v2M4.75 4.75l1.4 1.4M17.85 17.85l1.4 1.4M2.75 12h2M19.25 12h2M4.75 19.25l1.4-1.4M17.85 6.15l1.4-1.4"></path></svg> <span>亮色</span> </button> <button class="theme-option" type="button" role="menuitemradio" data-theme-option="dark" aria-checked="false"> <svg viewBox="0 0 24 24" aria-hidden="true" class="action-icon"><path d="M20.25 14.2A8 8 0 0 1 9.8 3.75 8.5 8.5 0 1 0 20.25 14.2Z"></path></svg> <span>暗色</span> </button> <button class="theme-option" type="button" role="menuitemradio" data-theme-option="system" aria-checked="true"> <svg viewBox="0 0 24 24" aria-hidden="true" class="action-icon"><rect x="4" y="5" width="16" height="11" rx="1.8"></rect><path d="M9 20h6M12 16v4"></path></svg> <span>跟随系统</span> </button> </div> </div> </div> </div> </header> <script>
+  (() => {
+    const switcher = document.querySelector("[data-theme-switcher]");
+    if (!switcher) return;
+
+    const trigger = switcher.querySelector("[data-theme-trigger]");
+    const menu = switcher.querySelector("[data-theme-menu]");
+    const options = [...switcher.querySelectorAll("[data-theme-option]")];
+    const modes = ["light", "dark", "system"];
+
+    const getMode = () => {
+      const mode = document.documentElement.dataset.themeMode;
+      return modes.includes(mode) ? mode : "system";
+    };
+
+    const closeMenu = () => {
+      menu.hidden = true;
+      trigger.setAttribute("aria-expanded", "false");
+    };
+
+    const openMenu = () => {
+      menu.hidden = false;
+      trigger.setAttribute("aria-expanded", "true");
+    };
+
+    const sync = () => {
+      const mode = getMode();
+      trigger.dataset.themeMode = mode;
+      options.forEach((option) => {
+        option.setAttribute("aria-checked", String(option.dataset.themeOption === mode));
+      });
+    };
+
+    trigger.addEventListener("click", () => {
+      menu.hidden ? openMenu() : closeMenu();
+    });
+
+    options.forEach((option) => {
+      option.addEventListener("click", () => {
+        window.__setFutureObserverTheme?.(option.dataset.themeOption || "system");
+        sync();
+        closeMenu();
+      });
+    });
+
+    document.addEventListener("click", (event) => {
+      if (!switcher.contains(event.target)) closeMenu();
+    });
+
+    document.addEventListener("keydown", (event) => {
+      if (event.key === "Escape") closeMenu();
+    });
+
+    window.addEventListener("future-observer-theme-change", sync);
+    sync();
+  })();
+</script> <aside class="site-rail" aria-label="站点导航"> <div class="site-rail-inner"> <p class="site-rail-label">Channels</p> <nav aria-label="主导航"> <ul class="site-rail-nav"> <li> <a href="/ai-tools/" class="site-rail-link"> AI工具 </a> </li><li> <a href="/future-daily/" class="site-rail-link"> 未来观察者日报 </a> </li> </ul> </nav> </div> </aside> <main class="shell page-content">  <div class="post-hero" data-astro-cid-gjtny2mx> <div class="post-meta-row" data-astro-cid-gjtny2mx> <p class="eyebrow" data-astro-cid-gjtny2mx>2026年10月23日</p> <div class="wechat-copy" data-astro-cid-cbgqzyjp> <button type="button" id="wechat-copy-button" aria-describedby="wechat-copy-status" title="复制正文排版，可粘贴到微信公众号后台" data-astro-cid-cbgqzyjp> <svg aria-hidden="true" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" data-astro-cid-cbgqzyjp><rect x="8" y="8" width="12" height="13" rx="2" data-astro-cid-cbgqzyjp></rect><path d="M16 8V5a2 2 0 0 0-2-2H5a2 2 0 0 0-2 2v9a2 2 0 0 0 2 2h3" data-astro-cid-cbgqzyjp></path></svg>
+复制正文
+</button> <span id="wechat-copy-status" role="status" aria-live="polite" aria-atomic="true" data-astro-cid-cbgqzyjp></span> </div> <script type="application/json" id="wechat-copy-payload">{"html":"\u003csection style=\"font-family:-apple-system,BlinkMacSystemFont,'Helvetica Neue','PingFang SC','Hiragino Sans GB','Microsoft YaHei',Arial,sans-serif;color:#1f2329;font-size:15px;line-height:1.62;word-break:break-word;\">\u003cp style=\"margin:0 0 10px;line-height:1.62;font-size:15px;color:#1f2329;\">让 AI 帮忙写方案，最费劲的常常不是生成文字，而是反复解释背景、流程和验收标准。今天出现在 GitHub 日榜的 Knowledge Work Plugins，是 Anthropic 开源的岗位插件集合：把这些规则做成文件，而不是每次从头提示。\u003c/p>\n\u003ch2 style=\"margin:32px 0 18px;font-size:24px;line-height:1.4;font-weight:700;color:#111827;\">📌 这个项目是干什么的\u003c/h2>\n\u003cul style=\"margin:0 0 10px;padding-left:22px;color:#1f2329;line-height:1.62;\">\u003cli style=\"margin:0 0 4px;\">\u003cp style=\"margin:0 0 10px;line-height:1.62;font-size:15px;color:#1f2329;\">主要面向 Claude Cowork，也兼容 Claude Code，不是独立模型。\u003c/p>\u003c/li>\u003cli style=\"margin:0 0 4px;\">\u003cp style=\"margin:0 0 10px;line-height:1.62;font-size:15px;color:#1f2329;\">按产品、销售、营销、数据等岗位组织工作方法。\u003c/p>\u003c/li>\u003cli style=\"margin:0 0 4px;\">\u003cp style=\"margin:0 0 10px;line-height:1.62;font-size:15px;color:#1f2329;\">用技能保存领域知识，用命令触发具体任务，用 MCP 连接外部工具。\u003c/p>\u003c/li>\u003c/ul>\n\u003cp style=\"margin:0 0 10px;line-height:1.62;font-size:15px;color:#1f2329;\">适合已经在用 Claude、又想把团队流程沉淀下来的开发者和产品人。\u003c/p>\n\u003ch2 style=\"margin:32px 0 18px;font-size:24px;line-height:1.4;font-weight:700;color:#111827;\">🔍 为什么值得关注\u003c/h2>\n\u003cp style=\"margin:0 0 10px;line-height:1.62;font-size:15px;color:#1f2329;\">第一，流程可以审阅。插件主体是 Markdown 和 JSON，能直接看见它要求模型做什么，也方便按团队术语修改。\u003c/p>\n\u003cp style=\"margin:0 0 10px;line-height:1.62;font-size:15px;color:#1f2329;\">第二，连接数据不是唯一入口。产品插件的头脑风暴命令明确允许只使用用户提供的背景；先验证讨论质量，再考虑接业务系统，试用成本更可控。\u003c/p>\n\u003cp style=\"margin:0 0 10px;line-height:1.62;font-size:15px;color:#1f2329;\">第三，值得借鉴的是讨论顺序。官方命令先澄清问题，再发散方案、挑战假设，最后收敛到下一步，不是直接丢出一长串点子。\u003c/p>\n\u003cp style=\"margin:0 0 10px;line-height:1.62;font-size:15px;color:#1f2329;\">\u003cimg src=\"https://future.lifestudylab.com/images/posts/2026-10-23-knowledge-work-plugins/flow.svg\" alt=\"从问题背景到验证动作的产品讨论流程\" style=\"display:block;max-width:100%;height:auto;margin:16px auto;\">\u003c/p>\n\u003cp style=\"margin:0 0 10px;line-height:1.62;font-size:15px;color:#1f2329;\">配图：依据\u003ca href=\"https://github.com/anthropics/knowledge-work-plugins/blob/main/product-management/commands/brainstorm.md\" style=\"color:#2563eb;text-decoration:underline;\">官方命令文档\u003c/a>原创整理，非产品界面。\u003c/p>\n\u003ch2 style=\"margin:32px 0 18px;font-size:24px;line-height:1.4;font-weight:700;color:#111827;\">🧪 谁适合试，怎么开始\u003c/h2>\n\u003cp style=\"margin:0 0 10px;line-height:1.62;font-size:15px;color:#1f2329;\">在已配置的 Claude Code 环境，按官方说明添加市场并安装产品插件：\u003c/p>\n\u003cpre style=\"margin:0 0 12px;padding:14px 16px;border:1px solid #d0d7de;border-radius:10px;background:#f6f8fa;color:#24292f;white-space:pre-wrap;word-break:break-all;\">\u003ccode style=\"font-size:13px;line-height:1.6;font-family:ui-monospace,SFMono-Regular,Menlo,Monaco,Consolas,'Liberation Mono','Courier New',monospace;\">claude plugin marketplace add anthropics/knowledge-work-plugins\nclaude plugin install product-management@knowledge-work-plugins\u003c/code>\u003c/pre>\n\u003cp style=\"margin:0 0 10px;line-height:1.62;font-size:15px;color:#1f2329;\">输入 \u003ccode style=\"font-size:13px;line-height:1.6;font-family:ui-monospace,SFMono-Regular,Menlo,Monaco,Consolas,'Liberation Mono','Courier New',monospace;\">/\u003c/code> 确认插件命令已加载，再选头脑风暴入口。给它一个具体问题，例如“新用户注册后不创建任务”，附上脱敏反馈、现有流程和限制。\u003c/p>\n\u003cp style=\"margin:0 0 10px;line-height:1.62;font-size:15px;color:#1f2329;\">先只看三件事：有没有区分事实与假设、有没有提出不同方案、有没有留下一个可执行的验证动作。比一次装齐全部插件更有价值。\u003c/p>\n\u003ch2 style=\"margin:32px 0 18px;font-size:24px;line-height:1.4;font-weight:700;color:#111827;\">⚠️ 使用提醒\u003c/h2>\n\u003cp style=\"margin:0 0 10px;line-height:1.62;font-size:15px;color:#1f2329;\">本次核验了源码和文档，未安装实测。产品 README 列出的命令与当前命令目录并非完全一致，不应把说明中的每个入口都当成可用承诺。\u003c/p>\n\u003cp style=\"margin:0 0 10px;line-height:1.62;font-size:15px;color:#1f2329;\">仓库采用 Apache-2.0；开源的是插件，不代表 Claude 服务免费。接入公司数据前审查 MCP 权限，先用脱敏材料；模型给出的产品判断仍需用户证据验证。\u003c/p>\n\u003ch2 style=\"margin:32px 0 18px;font-size:24px;line-height:1.4;font-weight:700;color:#111827;\">🔗 参考资源\u003c/h2>\n\u003cul style=\"margin:0 0 10px;padding-left:22px;color:#1f2329;line-height:1.62;\">\u003cli style=\"margin:0 0 4px;\">\u003cp style=\"margin:0 0 10px;line-height:1.62;font-size:15px;color:#1f2329;\">\u003ca href=\"https://github.com/anthropics/knowledge-work-plugins\" style=\"color:#2563eb;text-decoration:underline;\">官方仓库与安装说明\u003c/a>\u003c/p>\u003c/li>\u003cli style=\"margin:0 0 4px;\">\u003cp style=\"margin:0 0 10px;line-height:1.62;font-size:15px;color:#1f2329;\">\u003ca href=\"https://github.com/anthropics/knowledge-work-plugins/tree/main/product-management\" style=\"color:#2563eb;text-decoration:underline;\">产品插件说明\u003c/a>\u003c/p>\u003c/li>\u003cli style=\"margin:0 0 4px;\">\u003cp style=\"margin:0 0 10px;line-height:1.62;font-size:15px;color:#1f2329;\">\u003ca href=\"https://code.claude.com/docs/en/discover-plugins\" style=\"color:#2563eb;text-decoration:underline;\">Claude Code 插件管理文档\u003c/a>\u003c/p>\u003c/li>\u003cli style=\"margin:0 0 4px;\">\u003cp style=\"margin:0 0 10px;line-height:1.62;font-size:15px;color:#1f2329;\">\u003ca href=\"https://github.com/anthropics/knowledge-work-plugins/blob/main/LICENSE\" style=\"color:#2563eb;text-decoration:underline;\">许可证\u003c/a>\u003c/p>\u003c/li>\u003c/ul>\u003c/section>","text":"让 AI 帮忙写方案，最费劲的常常不是生成文字，而是反复解释背景、流程和验收标准。今天出现在 GitHub 日榜的 Knowledge Work Plugins，是 Anthropic 开源的岗位插件集合：把这些规则做成文件，而不是每次从头提示。\n📌 这个项目是干什么的\n主要面向 Claude Cowork，也兼容 Claude Code，不是独立模型。\n按产品、销售、营销、数据等岗位组织工作方法。\n用技能保存领域知识，用命令触发具体任务，用 MCP 连接外部工具。\n\n适合已经在用 Claude、又想把团队流程沉淀下来的开发者和产品人。\n🔍 为什么值得关注\n第一，流程可以审阅。插件主体是 Markdown 和 JSON，能直接看见它要求模型做什么，也方便按团队术语修改。\n第二，连接数据不是唯一入口。产品插件的头脑风暴命令明确允许只使用用户提供的背景；先验证讨论质量，再考虑接业务系统，试用成本更可控。\n第三，值得借鉴的是讨论顺序。官方命令先澄清问题，再发散方案、挑战假设，最后收敛到下一步，不是直接丢出一长串点子。\n[图片：从问题背景到验证动作的产品讨论流程]\n配图：依据官方命令文档原创整理，非产品界面。\n🧪 谁适合试，怎么开始\n在已配置的 Claude Code 环境，按官方说明添加市场并安装产品插件：\n\n输入 / 确认插件命令已加载，再选头脑风暴入口。给它一个具体问题，例如“新用户注册后不创建任务”，附上脱敏反馈、现有流程和限制。\n先只看三件事：有没有区分事实与假设、有没有提出不同方案、有没有留下一个可执行的验证动作。比一次装齐全部插件更有价值。\n⚠️ 使用提醒\n本次核验了源码和文档，未安装实测。产品 README 列出的命令与当前命令目录并非完全一致，不应把说明中的每个入口都当成可用承诺。\n仓库采用 Apache-2.0；开源的是插件，不代表 Claude 服务免费。接入公司数据前审查 MCP 权限，先用脱敏材料；模型给出的产品判断仍需用户证据验证。\n🔗 参考资源\n官方仓库与安装说明\n产品插件说明\nClaude Code 插件管理文档\n许可证"}</script> <script type="module">async function c(t){if(navigator.clipboard?.write&&typeof ClipboardItem<"u")try{return await navigator.clipboard.write([new ClipboardItem({"text/html":new Blob([t.html],{type:"text/html"}),"text/plain":new Blob([t.text],{type:"text/plain"})})]),"rich"}catch{}let a=!1;const n=r=>{r.clipboardData&&(r.clipboardData.setData("text/html",t.html),r.clipboardData.setData("text/plain",t.text),r.preventDefault(),a=!0)};document.addEventListener("copy",n);try{if(document.execCommand("copy")&&a)return"rich"}catch{}finally{document.removeEventListener("copy",n)}if(navigator.clipboard?.writeText)return await navigator.clipboard.writeText(t.text),"plain";throw new Error("Clipboard unavailable")}const e=document.querySelector("#wechat-copy-button"),o=document.querySelector("#wechat-copy-status"),i=document.querySelector("#wechat-copy-payload");e?.addEventListener("click",async()=>{if(o){e.disabled=!0,e.setAttribute("aria-busy","true"),o.textContent="正在复制…";try{if(!i?.textContent)throw new Error("Payload missing");const t=JSON.parse(i.textContent),a=await c(t);o.textContent=a==="rich"?"已复制，可粘贴到公众号后台（图片需在后台重新上传）":"已复制纯文本，当前浏览器不支持富文本复制，排版不会保留"}catch{o.textContent="复制失败，请允许剪贴板权限后重试"}finally{e.disabled=!1,e.removeAttribute("aria-busy")}}});</script>  </div> <h1 data-astro-cid-gjtny2mx>Knowledge Work Plugins：把团队做事方法，装进 Claude 插件</h1> <p class="post-summary" data-astro-cid-gjtny2mx>让 AI 帮忙写方案，最费劲的常常不是生成文字，而是反复解释背景、流程和验收标准。今天出现在 GitHub 日榜的 Knowledge Work Plugins，是 Anthropic 开源的岗位插件集合：把这些规则做成文件，而不是每次从头提示。</p> <ul class="tag-list" data-astro-cid-gjtny2mx> <li data-astro-cid-gjtny2mx> <a href="/tags/AI%E5%B7%A5%E5%85%B7/" class="tag-link" data-astro-cid-gjtny2mx>
+#AI工具 </a> </li><li data-astro-cid-gjtny2mx> <a href="/tags/2026%E5%B9%B410%E6%9C%88/" class="tag-link" data-astro-cid-gjtny2mx>
+#2026年10月 </a> </li> </ul> </div> <div class="post-grid" data-astro-cid-gjtny2mx> <article class="prose" data-wechat-article data-astro-cid-gjtny2mx>  <p>让 AI 帮忙写方案，最费劲的常常不是生成文字，而是反复解释背景、流程和验收标准。今天出现在 GitHub 日榜的 Knowledge Work Plugins，是 Anthropic 开源的岗位插件集合：把这些规则做成文件，而不是每次从头提示。</p>
+<h2 id="-这个项目是干什么的">📌 这个项目是干什么的</h2>
+<ul>
+<li>主要面向 Claude Cowork，也兼容 Claude Code，不是独立模型。</li>
+<li>按产品、销售、营销、数据等岗位组织工作方法。</li>
+<li>用技能保存领域知识，用命令触发具体任务，用 MCP 连接外部工具。</li>
+</ul>
+<p>适合已经在用 Claude、又想把团队流程沉淀下来的开发者和产品人。</p>
+<h2 id="-为什么值得关注">🔍 为什么值得关注</h2>
+<p>第一，流程可以审阅。插件主体是 Markdown 和 JSON，能直接看见它要求模型做什么，也方便按团队术语修改。</p>
+<p>第二，连接数据不是唯一入口。产品插件的头脑风暴命令明确允许只使用用户提供的背景；先验证讨论质量，再考虑接业务系统，试用成本更可控。</p>
+<p>第三，值得借鉴的是讨论顺序。官方命令先澄清问题，再发散方案、挑战假设，最后收敛到下一步，不是直接丢出一长串点子。</p>
+<p><img src="/images/posts/2026-10-23-knowledge-work-plugins/flow.svg" alt="从问题背景到验证动作的产品讨论流程"></p>
+<p>配图：依据<a href="https://github.com/anthropics/knowledge-work-plugins/blob/main/product-management/commands/brainstorm.md">官方命令文档</a>原创整理，非产品界面。</p>
+<h2 id="-谁适合试怎么开始">🧪 谁适合试，怎么开始</h2>
+<p>在已配置的 Claude Code 环境，按官方说明添加市场并安装产品插件：</p>
+<pre class="astro-code astro-code-themes github-light github-dark" style="--shiki-light:#24292e;--shiki-dark:#e1e4e8;--shiki-light-bg:#fff;--shiki-dark-bg:#24292e; overflow-x: auto;" tabindex="0" data-language="bash"><code><span class="line"><span style="--shiki-light:#6F42C1;--shiki-dark:#B392F0">claude</span><span style="--shiki-light:#032F62;--shiki-dark:#9ECBFF"> plugin</span><span style="--shiki-light:#032F62;--shiki-dark:#9ECBFF"> marketplace</span><span style="--shiki-light:#032F62;--shiki-dark:#9ECBFF"> add</span><span style="--shiki-light:#032F62;--shiki-dark:#9ECBFF"> anthropics/knowledge-work-plugins</span></span>
+<span class="line"><span style="--shiki-light:#6F42C1;--shiki-dark:#B392F0">claude</span><span style="--shiki-light:#032F62;--shiki-dark:#9ECBFF"> plugin</span><span style="--shiki-light:#032F62;--shiki-dark:#9ECBFF"> install</span><span style="--shiki-light:#032F62;--shiki-dark:#9ECBFF"> product-management@knowledge-work-plugins</span></span></code></pre>
+<p>输入 <code>/</code> 确认插件命令已加载，再选头脑风暴入口。给它一个具体问题，例如“新用户注册后不创建任务”，附上脱敏反馈、现有流程和限制。</p>
+<p>先只看三件事：有没有区分事实与假设、有没有提出不同方案、有没有留下一个可执行的验证动作。比一次装齐全部插件更有价值。</p>
+<h2 id="️-使用提醒">⚠️ 使用提醒</h2>
+<p>本次核验了源码和文档，未安装实测。产品 README 列出的命令与当前命令目录并非完全一致，不应把说明中的每个入口都当成可用承诺。</p>
+<p>仓库采用 Apache-2.0；开源的是插件，不代表 Claude 服务免费。接入公司数据前审查 MCP 权限，先用脱敏材料；模型给出的产品判断仍需用户证据验证。</p>
+<h2 id="-参考资源">🔗 参考资源</h2>
+<ul>
+<li><a href="https://github.com/anthropics/knowledge-work-plugins">官方仓库与安装说明</a></li>
+<li><a href="https://github.com/anthropics/knowledge-work-plugins/tree/main/product-management">产品插件说明</a></li>
+<li><a href="https://code.claude.com/docs/en/discover-plugins">Claude Code 插件管理文档</a></li>
+<li><a href="https://github.com/anthropics/knowledge-work-plugins/blob/main/LICENSE">许可证</a></li>
+</ul>  </article> <aside class="toc"><p class="toc-title">目录</p><ul class="toc-list"><li class="depth-2"><a href="#-这个项目是干什么的" data-toc-link="-这个项目是干什么的">📌 这个项目是干什么的</a></li><li class="depth-2"><a href="#-为什么值得关注" data-toc-link="-为什么值得关注">🔍 为什么值得关注</a></li><li class="depth-2"><a href="#-谁适合试怎么开始" data-toc-link="-谁适合试怎么开始">🧪 谁适合试，怎么开始</a></li><li class="depth-2"><a href="#️-使用提醒" data-toc-link="️-使用提醒">⚠️ 使用提醒</a></li><li class="depth-2"><a href="#-参考资源" data-toc-link="-参考资源">🔗 参考资源</a></li></ul></aside><script type="module">const u=()=>{const n=document.querySelector(".toc");if(!n||n.dataset.spyReady)return;const l=window.matchMedia("(min-width: 961px)"),a=Array.from(n.querySelectorAll("a[data-toc-link]"));if(!a.length)return;n.dataset.spyReady="true";let d="";const i=a.map(t=>{const e=t.getAttribute("data-toc-link");if(!e)return null;const o=document.getElementById(e);return o?{id:e,heading:o,link:t}:null}).filter(t=>t!==null);if(!i.length)return;const g=t=>{t!==d&&(d=t,a.forEach(e=>{const o=e.getAttribute("data-toc-link")===t;if(e.classList.toggle("active",o),o){const c=n.getBoundingClientRect(),s=e.getBoundingClientRect();s.top<c.top?n.scrollTop+=s.top-c.top:s.bottom>c.bottom&&(n.scrollTop+=s.bottom-c.bottom)}}))},r=()=>{if(!l.matches)return;const t=Math.round(window.innerHeight*.28);let e=i[0];for(const o of i)o.heading.getBoundingClientRect().top<=t&&(e=o);g(e.id)};r();const p=new IntersectionObserver(()=>r(),{rootMargin:"-18% 0px -70% 0px",threshold:[0,1]});i.forEach(t=>p.observe(t.heading)),window.addEventListener("scroll",r,{passive:!0}),l.addEventListener("change",()=>{d="",r()})};document.addEventListener("DOMContentLoaded",u);document.addEventListener("astro:page-load",u);</script> </div>  </main> <footer class="site-footer"> <div class="shell footer-inner"> <p>© 2026 未来观察者</p> </div> </footer> </body></html> 
