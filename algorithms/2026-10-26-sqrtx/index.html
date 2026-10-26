@@ -1,0 +1,155 @@
+<!DOCTYPE html><html lang="zh-CN"> <head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1"><script>
+      (() => {
+        const storageKey = "future-observer-theme";
+        const root = document.documentElement;
+        const getStoredMode = () => {
+          try {
+            const value = localStorage.getItem(storageKey);
+            return value === "light" || value === "dark" || value === "system" ? value : "system";
+          } catch {
+            return "system";
+          }
+        };
+        const systemDark = () => window.matchMedia?.("(prefers-color-scheme: dark)").matches ?? false;
+        const apply = (mode) => {
+          const resolved = mode === "system" ? (systemDark() ? "dark" : "light") : mode;
+          root.dataset.themeMode = mode;
+          root.dataset.theme = resolved;
+          root.style.colorScheme = resolved;
+        };
+        apply(getStoredMode());
+        window.__setFutureObserverTheme = (mode) => {
+          const next = mode === "light" || mode === "dark" || mode === "system" ? mode : "system";
+          try { localStorage.setItem(storageKey, next); } catch {}
+          apply(next);
+          window.dispatchEvent(new CustomEvent("future-observer-theme-change", { detail: { mode: next } }));
+        };
+        window.matchMedia?.("(prefers-color-scheme: dark)").addEventListener?.("change", () => {
+          if (getStoredMode() === "system") apply("system");
+        });
+      })();
+    </script><title>x 的平方根：二分不是找相等，而是找最后一个可行值 | 动画算法</title><meta name="description" content="把整数平方根改写成边界查找，讲清可行区间、先转 long 的原因，以及面试时如何恢复思路。"><meta name="generator" content="Astro v5.18.1"><meta property="og:title" content="x 的平方根：二分不是找相等，而是找最后一个可行值 | 动画算法"><meta property="og:description" content="把整数平方根改写成边界查找，讲清可行区间、先转 long 的原因，以及面试时如何恢复思路。"><meta property="og:type" content="website"><meta property="og:url" content="https://future.lifestudylab.com/algorithms/2026-10-26-sqrtx/"><link rel="icon" type="image/svg+xml" href="/favicon.svg"><link rel="alternate" type="application/rss+xml" title="未来观察者" href="/rss.xml"><link rel="stylesheet" href="/_astro/_channel_.DIiDVfDs.css"></head> <body> <div class="page-bg"></div> <header class="site-header"> <div class="shell header-inner"> <div class="header-bar"> <a class="brand" href="/ai-tools/"> <img src="/brand-mark.svg" alt="" class="brand-mark" width="56" height="56"> <span class="brand-text" aria-label="未来观察者">思考未来</span> </a> </div> <nav class="top-menu" aria-label="顶部菜单"> <a href="/future-daily/" class="top-menu-link"> 每日信息 </a><a href="/docs/deer-flow/00-overview/" class="top-menu-link"> DeerFlow教程 </a><a href="/docs/hermes/00-overview/" class="top-menu-link"> Hermes教程 </a><a href="/docs/openclaw/00-overview/" class="top-menu-link"> OpenClaw教程 </a><a href="/algorithms/" class="top-menu-link active"> 动画算法 </a><a href="/about/" class="top-menu-link"> 关于我 </a> </nav> <div class="top-actions"> <a class="feedback-link" href="https://github.com/yonglisss/yonglisss.github.io/issues" target="_blank" rel="noopener noreferrer" aria-label="问题反馈"> <svg viewBox="0 0 24 24" aria-hidden="true" class="action-icon"> <path d="M4.75 5.75A2.75 2.75 0 0 1 7.5 3h9A2.75 2.75 0 0 1 19.25 5.75v6.5A2.75 2.75 0 0 1 16.5 15H9.3l-3.55 3.2V15.1a2.75 2.75 0 0 1-1-2.1V5.75Z"></path> <path d="M8 7.75h8M8 11.25h4"></path> </svg> <span>问题反馈</span> </a> <div class="theme-switcher" data-theme-switcher> <button class="theme-trigger" type="button" aria-haspopup="menu" aria-expanded="false" aria-label="切换明暗模式" data-theme-trigger> <svg viewBox="0 0 24 24" aria-hidden="true" class="action-icon theme-trigger-icon theme-trigger-icon--light"> <circle cx="12" cy="12" r="4"></circle> <path d="M12 2.75v2M12 19.25v2M4.75 4.75l1.4 1.4M17.85 17.85l1.4 1.4M2.75 12h2M19.25 12h2M4.75 19.25l1.4-1.4M17.85 6.15l1.4-1.4"></path> </svg> <svg viewBox="0 0 24 24" aria-hidden="true" class="action-icon theme-trigger-icon theme-trigger-icon--dark"> <path d="M20.25 14.2A8 8 0 0 1 9.8 3.75 8.5 8.5 0 1 0 20.25 14.2Z"></path> </svg> <svg viewBox="0 0 24 24" aria-hidden="true" class="action-icon theme-trigger-icon theme-trigger-icon--system"> <rect x="4" y="5" width="16" height="11" rx="1.8"></rect> <path d="M9 20h6M12 16v4"></path> </svg> </button> <div class="theme-menu" role="menu" data-theme-menu hidden> <button class="theme-option" type="button" role="menuitemradio" data-theme-option="light" aria-checked="false"> <svg viewBox="0 0 24 24" aria-hidden="true" class="action-icon"><circle cx="12" cy="12" r="4"></circle><path d="M12 2.75v2M12 19.25v2M4.75 4.75l1.4 1.4M17.85 17.85l1.4 1.4M2.75 12h2M19.25 12h2M4.75 19.25l1.4-1.4M17.85 6.15l1.4-1.4"></path></svg> <span>亮色</span> </button> <button class="theme-option" type="button" role="menuitemradio" data-theme-option="dark" aria-checked="false"> <svg viewBox="0 0 24 24" aria-hidden="true" class="action-icon"><path d="M20.25 14.2A8 8 0 0 1 9.8 3.75 8.5 8.5 0 1 0 20.25 14.2Z"></path></svg> <span>暗色</span> </button> <button class="theme-option" type="button" role="menuitemradio" data-theme-option="system" aria-checked="true"> <svg viewBox="0 0 24 24" aria-hidden="true" class="action-icon"><rect x="4" y="5" width="16" height="11" rx="1.8"></rect><path d="M9 20h6M12 16v4"></path></svg> <span>跟随系统</span> </button> </div> </div> </div> </div> </header> <script>
+  (() => {
+    const switcher = document.querySelector("[data-theme-switcher]");
+    if (!switcher) return;
+
+    const trigger = switcher.querySelector("[data-theme-trigger]");
+    const menu = switcher.querySelector("[data-theme-menu]");
+    const options = [...switcher.querySelectorAll("[data-theme-option]")];
+    const modes = ["light", "dark", "system"];
+
+    const getMode = () => {
+      const mode = document.documentElement.dataset.themeMode;
+      return modes.includes(mode) ? mode : "system";
+    };
+
+    const closeMenu = () => {
+      menu.hidden = true;
+      trigger.setAttribute("aria-expanded", "false");
+    };
+
+    const openMenu = () => {
+      menu.hidden = false;
+      trigger.setAttribute("aria-expanded", "true");
+    };
+
+    const sync = () => {
+      const mode = getMode();
+      trigger.dataset.themeMode = mode;
+      options.forEach((option) => {
+        option.setAttribute("aria-checked", String(option.dataset.themeOption === mode));
+      });
+    };
+
+    trigger.addEventListener("click", () => {
+      menu.hidden ? openMenu() : closeMenu();
+    });
+
+    options.forEach((option) => {
+      option.addEventListener("click", () => {
+        window.__setFutureObserverTheme?.(option.dataset.themeOption || "system");
+        sync();
+        closeMenu();
+      });
+    });
+
+    document.addEventListener("click", (event) => {
+      if (!switcher.contains(event.target)) closeMenu();
+    });
+
+    document.addEventListener("keydown", (event) => {
+      if (event.key === "Escape") closeMenu();
+    });
+
+    window.addEventListener("future-observer-theme-change", sync);
+    sync();
+  })();
+</script>  <main class="shell page-content page-content--full">  <article class="prose prose-narrow"> <p><a href="/algorithms/">← 动画算法</a></p> <p class="kicker">2026年10月26日 · 二分答案 · 边界查找 · Java</p> <h1>x 的平方根：二分不是找相等，而是找最后一个可行值</h1> <h2 id="题意不需要算出小数">题意：不需要算出小数</h2>
+<p>给定非负整数 <code>x</code>，返回平方根向下取整的结果，不借助内置开方或幂函数完成计算。</p>
+<p>例如 <code>x = 8</code>，答案是 <code>2</code>。这里不是四舍五入：虽然真实平方根更接近 <code>3</code>，但 <code>3 × 3</code> 已经超过了 <code>8</code>。</p>
+<p>换成便于判断的条件：寻找最大的整数 <code>k</code>，使 <code>k² ≤ x</code>。这句话比“求平方根”更容易转成程序。</p>
+<h2 id="考查重点">考查重点</h2>
+<ul>
+<li>能否把计算问题转成单调边界查找。</li>
+<li>能否解释可行时为什么还要向右搜索。</li>
+<li>能否写出收缩区间的规则，避免死循环。</li>
+<li>能否在乘法之前扩展类型，避免整数溢出。</li>
+</ul>
+<h2 id="java-实现">Java 实现</h2>
+<p>下面使用闭区间 <code>[left, right]</code>，并单独记录已经找到的可行答案。</p>
+<pre class="astro-code astro-code-themes github-light github-dark" style="--shiki-light:#24292e;--shiki-dark:#e1e4e8;--shiki-light-bg:#fff;--shiki-dark-bg:#24292e; overflow-x: auto;" tabindex="0" data-language="java"><code><span class="line"><span style="--shiki-light:#D73A49;--shiki-dark:#F97583">class</span><span style="--shiki-light:#6F42C1;--shiki-dark:#B392F0"> Solution</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8"> {</span></span>
+<span class="line"><span style="--shiki-light:#D73A49;--shiki-dark:#F97583">    public</span><span style="--shiki-light:#D73A49;--shiki-dark:#F97583"> int</span><span style="--shiki-light:#6F42C1;--shiki-dark:#B392F0"> mySqrt</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8">(</span><span style="--shiki-light:#D73A49;--shiki-dark:#F97583">int</span><span style="--shiki-light:#E36209;--shiki-dark:#FFAB70"> x</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8">) {</span></span>
+<span class="line"><span style="--shiki-light:#D73A49;--shiki-dark:#F97583">        if</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8"> (x </span><span style="--shiki-light:#D73A49;--shiki-dark:#F97583">&#x3C;</span><span style="--shiki-light:#005CC5;--shiki-dark:#79B8FF"> 2</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8">) {</span></span>
+<span class="line"><span style="--shiki-light:#D73A49;--shiki-dark:#F97583">            return</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8"> x;</span></span>
+<span class="line"><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8">        }</span></span>
+<span class="line"><span style="--shiki-light:#D73A49;--shiki-dark:#F97583">        int</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8"> left </span><span style="--shiki-light:#D73A49;--shiki-dark:#F97583">=</span><span style="--shiki-light:#005CC5;--shiki-dark:#79B8FF"> 1</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8">;</span></span>
+<span class="line"><span style="--shiki-light:#D73A49;--shiki-dark:#F97583">        int</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8"> right </span><span style="--shiki-light:#D73A49;--shiki-dark:#F97583">=</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8"> x </span><span style="--shiki-light:#D73A49;--shiki-dark:#F97583">/</span><span style="--shiki-light:#005CC5;--shiki-dark:#79B8FF"> 2</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8">;</span></span>
+<span class="line"><span style="--shiki-light:#D73A49;--shiki-dark:#F97583">        int</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8"> answer </span><span style="--shiki-light:#D73A49;--shiki-dark:#F97583">=</span><span style="--shiki-light:#005CC5;--shiki-dark:#79B8FF"> 0</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8">;</span></span>
+<span class="line"><span style="--shiki-light:#D73A49;--shiki-dark:#F97583">        while</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8"> (left </span><span style="--shiki-light:#D73A49;--shiki-dark:#F97583">&#x3C;=</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8"> right) {</span></span>
+<span class="line"><span style="--shiki-light:#D73A49;--shiki-dark:#F97583">            int</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8"> mid </span><span style="--shiki-light:#D73A49;--shiki-dark:#F97583">=</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8"> left </span><span style="--shiki-light:#D73A49;--shiki-dark:#F97583">+</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8"> (right </span><span style="--shiki-light:#D73A49;--shiki-dark:#F97583">-</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8"> left) </span><span style="--shiki-light:#D73A49;--shiki-dark:#F97583">/</span><span style="--shiki-light:#005CC5;--shiki-dark:#79B8FF"> 2</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8">;</span></span>
+<span class="line"><span style="--shiki-light:#D73A49;--shiki-dark:#F97583">            long</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8"> square </span><span style="--shiki-light:#D73A49;--shiki-dark:#F97583">=</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8"> (</span><span style="--shiki-light:#D73A49;--shiki-dark:#F97583">long</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8">) mid </span><span style="--shiki-light:#D73A49;--shiki-dark:#F97583">*</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8"> mid;</span></span>
+<span class="line"><span style="--shiki-light:#D73A49;--shiki-dark:#F97583">            if</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8"> (square </span><span style="--shiki-light:#D73A49;--shiki-dark:#F97583">&#x3C;=</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8"> x) {</span></span>
+<span class="line"><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8">                answer </span><span style="--shiki-light:#D73A49;--shiki-dark:#F97583">=</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8"> mid;</span></span>
+<span class="line"><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8">                left </span><span style="--shiki-light:#D73A49;--shiki-dark:#F97583">=</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8"> mid </span><span style="--shiki-light:#D73A49;--shiki-dark:#F97583">+</span><span style="--shiki-light:#005CC5;--shiki-dark:#79B8FF"> 1</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8">;</span></span>
+<span class="line"><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8">            } </span><span style="--shiki-light:#D73A49;--shiki-dark:#F97583">else</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8"> {</span></span>
+<span class="line"><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8">                right </span><span style="--shiki-light:#D73A49;--shiki-dark:#F97583">=</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8"> mid </span><span style="--shiki-light:#D73A49;--shiki-dark:#F97583">-</span><span style="--shiki-light:#005CC5;--shiki-dark:#79B8FF"> 1</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8">;</span></span>
+<span class="line"><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8">            }</span></span>
+<span class="line"><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8">        }</span></span>
+<span class="line"><span style="--shiki-light:#D73A49;--shiki-dark:#F97583">        return</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8"> answer;</span></span>
+<span class="line"><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8">    }</span></span>
+<span class="line"><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8">}</span></span></code></pre>
+<h2 id="核心思路可行答案在左边越界答案在右边">核心思路：可行答案在左边，越界答案在右边</h2>
+<h3 id="为什么二分的是答案">为什么二分的是答案</h3>
+<p>候选整数从小到大排列时，平方也随之增大。条件 <code>k² ≤ x</code> 的结果只能先成立、后不成立，不会在失败之后又变回成功。</p>
+<p>所以我们不必枚举每一个整数，只需要找到这段“成立区间”的右端点。</p>
+<p>对于 <code>x ≥ 2</code>，答案落在 <code>[1, x / 2]</code> 中。<code>x = 2</code> 和 <code>3</code> 的答案都是 <code>1</code>；更大的整数也满足这个上界。提前处理 <code>0</code> 和 <code>1</code>，可以让后面的边界保持简单。</p>
+<h3 id="满足条件为什么还不能结束">满足条件，为什么还不能结束</h3>
+<p>当 <code>mid² ≤ x</code> 时，<code>mid</code> 只是一个可行答案，不一定是最大的可行答案。</p>
+<p>因此先把它保存到 <code>answer</code>，再令 <code>left = mid + 1</code>，尝试更大的值。反过来，如果 <code>mid² > x</code>，那么所有不小于 <code>mid</code> 的整数都不可能成为答案，令 <code>right = mid - 1</code> 即可。</p>
+<p>每次都排除已经检查的中点，所以区间会持续缩小。</p>
+<h3 id="用-8-走一遍">用 8 走一遍</h3>
+<p>初始范围是 <code>[1, 4]</code>。</p>
+<ol>
+<li>中点为 <code>2</code>，平方是 <code>4</code>，可行。保存答案 <code>2</code>，继续搜索 <code>[3, 4]</code>。</li>
+<li>中点为 <code>3</code>，平方是 <code>9</code>，超出目标。右边界缩到 <code>2</code>。</li>
+<li>此时左边界是 <code>3</code>、右边界是 <code>2</code>，区间为空。返回保存的答案 <code>2</code>。</li>
+</ol>
+<h3 id="为什么不会漏掉正确答案">为什么不会漏掉正确答案</h3>
+<p>一次比较后，丢弃的一侧要么已经不可能可行，要么已经被当前保存的可行值覆盖。<code>answer</code> 始终对应一个不超过目标平方值的整数。</p>
+<p>区间耗尽时，不再有比 <code>answer</code> 更大的可行候选，所以它就是向下取整后的平方根。</p>
+<h2 id="乘法之前转-long而不是之后">乘法之前转 long，而不是之后</h2>
+<p>Java 中两个 <code>int</code> 相乘，先按 <code>int</code> 运算，再赋值给 <code>long</code> 并不能挽回已经发生的溢出。</p>
+<p>因此需要写成 <code>(long) mid * mid</code>，让乘法本身按 <code>long</code> 进行。中点用 <code>left + (right - left) / 2</code> 计算，也避免直接相加带来的风险。</p>
+<h2 id="复杂度与边界案例">复杂度与边界案例</h2>
+<p>对 <code>x ≥ 2</code>，时间复杂度为 <code>O(log x)</code>，额外空间为 <code>O(1)</code>。<code>0</code> 和 <code>1</code> 直接返回。</p>
+<p>适合核对的输入包括：<code>0 → 0</code>、<code>1 → 1</code>、<code>2 → 1</code>、<code>4 → 2</code>、<code>8 → 2</code>、<code>9 → 3</code>，以及 <code>2147483647 → 46340</code>。</p>
+<p>本次发布在 Python 中执行了相同边界更新规则，并与标准库整数平方根核对；这验证的是算法逻辑，不等同于 Java 编译运行。</p>
+<h2 id="面试时忘记怎么办">面试时忘记怎么办</h2>
+<p>先不要背二分模板，先把目标说清楚：</p>
+<blockquote>
+<p>我要找最大的 <code>k</code>，使 <code>k² ≤ x</code>。这个条件有单调性，可以二分答案。</p>
+</blockquote>
+<p>接着解释两种动作：可行就保存并向右，不可行就向左。最后补充终止条件、乘法类型和复杂度。</p>
+<p>如果担心边界写错，现场拿 <code>x = 2</code> 和 <code>x = 8</code> 走一遍，比笼统地说“应该没有问题”更有说服力。</p>
+<h2 id="最值得记住的一句话">最值得记住的一句话</h2>
+<p><strong>二分并不总是在寻找相等的值，也可以寻找最后一个仍然满足条件的值。</strong></p> <p><a href="https://leetcode.com/problems/sqrtx/" target="_blank" rel="noopener noreferrer">原题链接</a></p> </article>  </main> <footer class="site-footer"> <div class="shell footer-inner"> <p>© 2026 未来观察者</p> </div> </footer> </body></html>
