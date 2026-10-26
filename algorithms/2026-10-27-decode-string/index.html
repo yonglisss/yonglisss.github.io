@@ -1,0 +1,178 @@
+<!DOCTYPE html><html lang="zh-CN"> <head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1"><script>
+      (() => {
+        const storageKey = "future-observer-theme";
+        const root = document.documentElement;
+        const getStoredMode = () => {
+          try {
+            const value = localStorage.getItem(storageKey);
+            return value === "light" || value === "dark" || value === "system" ? value : "system";
+          } catch {
+            return "system";
+          }
+        };
+        const systemDark = () => window.matchMedia?.("(prefers-color-scheme: dark)").matches ?? false;
+        const apply = (mode) => {
+          const resolved = mode === "system" ? (systemDark() ? "dark" : "light") : mode;
+          root.dataset.themeMode = mode;
+          root.dataset.theme = resolved;
+          root.style.colorScheme = resolved;
+        };
+        apply(getStoredMode());
+        window.__setFutureObserverTheme = (mode) => {
+          const next = mode === "light" || mode === "dark" || mode === "system" ? mode : "system";
+          try { localStorage.setItem(storageKey, next); } catch {}
+          apply(next);
+          window.dispatchEvent(new CustomEvent("future-observer-theme-change", { detail: { mode: next } }));
+        };
+        window.matchMedia?.("(prefers-color-scheme: dark)").addEventListener?.("change", () => {
+          if (getStoredMode() === "system") apply("system");
+        });
+      })();
+    </script><title>字符串解码：用栈保存尚未完成的上一层 | 动画算法</title><meta name="description" content="从嵌套括号的状态恢复推导字符串解码，使用 Java 双栈实现，并讲清多位次数、正确性和字符串复制成本。"><meta name="generator" content="Astro v5.18.1"><meta property="og:title" content="字符串解码：用栈保存尚未完成的上一层 | 动画算法"><meta property="og:description" content="从嵌套括号的状态恢复推导字符串解码，使用 Java 双栈实现，并讲清多位次数、正确性和字符串复制成本。"><meta property="og:type" content="website"><meta property="og:url" content="https://future.lifestudylab.com/algorithms/2026-10-27-decode-string/"><link rel="icon" type="image/svg+xml" href="/favicon.svg"><link rel="alternate" type="application/rss+xml" title="未来观察者" href="/rss.xml"><link rel="stylesheet" href="/_astro/_channel_.DIiDVfDs.css"></head> <body> <div class="page-bg"></div> <header class="site-header"> <div class="shell header-inner"> <div class="header-bar"> <a class="brand" href="/ai-tools/"> <img src="/brand-mark.svg" alt="" class="brand-mark" width="56" height="56"> <span class="brand-text" aria-label="未来观察者">思考未来</span> </a> </div> <nav class="top-menu" aria-label="顶部菜单"> <a href="/future-daily/" class="top-menu-link"> 每日信息 </a><a href="/docs/deer-flow/00-overview/" class="top-menu-link"> DeerFlow教程 </a><a href="/docs/hermes/00-overview/" class="top-menu-link"> Hermes教程 </a><a href="/docs/openclaw/00-overview/" class="top-menu-link"> OpenClaw教程 </a><a href="/algorithms/" class="top-menu-link active"> 动画算法 </a><a href="/about/" class="top-menu-link"> 关于我 </a> </nav> <div class="top-actions"> <a class="feedback-link" href="https://github.com/yonglisss/yonglisss.github.io/issues" target="_blank" rel="noopener noreferrer" aria-label="问题反馈"> <svg viewBox="0 0 24 24" aria-hidden="true" class="action-icon"> <path d="M4.75 5.75A2.75 2.75 0 0 1 7.5 3h9A2.75 2.75 0 0 1 19.25 5.75v6.5A2.75 2.75 0 0 1 16.5 15H9.3l-3.55 3.2V15.1a2.75 2.75 0 0 1-1-2.1V5.75Z"></path> <path d="M8 7.75h8M8 11.25h4"></path> </svg> <span>问题反馈</span> </a> <div class="theme-switcher" data-theme-switcher> <button class="theme-trigger" type="button" aria-haspopup="menu" aria-expanded="false" aria-label="切换明暗模式" data-theme-trigger> <svg viewBox="0 0 24 24" aria-hidden="true" class="action-icon theme-trigger-icon theme-trigger-icon--light"> <circle cx="12" cy="12" r="4"></circle> <path d="M12 2.75v2M12 19.25v2M4.75 4.75l1.4 1.4M17.85 17.85l1.4 1.4M2.75 12h2M19.25 12h2M4.75 19.25l1.4-1.4M17.85 6.15l1.4-1.4"></path> </svg> <svg viewBox="0 0 24 24" aria-hidden="true" class="action-icon theme-trigger-icon theme-trigger-icon--dark"> <path d="M20.25 14.2A8 8 0 0 1 9.8 3.75 8.5 8.5 0 1 0 20.25 14.2Z"></path> </svg> <svg viewBox="0 0 24 24" aria-hidden="true" class="action-icon theme-trigger-icon theme-trigger-icon--system"> <rect x="4" y="5" width="16" height="11" rx="1.8"></rect> <path d="M9 20h6M12 16v4"></path> </svg> </button> <div class="theme-menu" role="menu" data-theme-menu hidden> <button class="theme-option" type="button" role="menuitemradio" data-theme-option="light" aria-checked="false"> <svg viewBox="0 0 24 24" aria-hidden="true" class="action-icon"><circle cx="12" cy="12" r="4"></circle><path d="M12 2.75v2M12 19.25v2M4.75 4.75l1.4 1.4M17.85 17.85l1.4 1.4M2.75 12h2M19.25 12h2M4.75 19.25l1.4-1.4M17.85 6.15l1.4-1.4"></path></svg> <span>亮色</span> </button> <button class="theme-option" type="button" role="menuitemradio" data-theme-option="dark" aria-checked="false"> <svg viewBox="0 0 24 24" aria-hidden="true" class="action-icon"><path d="M20.25 14.2A8 8 0 0 1 9.8 3.75 8.5 8.5 0 1 0 20.25 14.2Z"></path></svg> <span>暗色</span> </button> <button class="theme-option" type="button" role="menuitemradio" data-theme-option="system" aria-checked="true"> <svg viewBox="0 0 24 24" aria-hidden="true" class="action-icon"><rect x="4" y="5" width="16" height="11" rx="1.8"></rect><path d="M9 20h6M12 16v4"></path></svg> <span>跟随系统</span> </button> </div> </div> </div> </div> </header> <script>
+  (() => {
+    const switcher = document.querySelector("[data-theme-switcher]");
+    if (!switcher) return;
+
+    const trigger = switcher.querySelector("[data-theme-trigger]");
+    const menu = switcher.querySelector("[data-theme-menu]");
+    const options = [...switcher.querySelectorAll("[data-theme-option]")];
+    const modes = ["light", "dark", "system"];
+
+    const getMode = () => {
+      const mode = document.documentElement.dataset.themeMode;
+      return modes.includes(mode) ? mode : "system";
+    };
+
+    const closeMenu = () => {
+      menu.hidden = true;
+      trigger.setAttribute("aria-expanded", "false");
+    };
+
+    const openMenu = () => {
+      menu.hidden = false;
+      trigger.setAttribute("aria-expanded", "true");
+    };
+
+    const sync = () => {
+      const mode = getMode();
+      trigger.dataset.themeMode = mode;
+      options.forEach((option) => {
+        option.setAttribute("aria-checked", String(option.dataset.themeOption === mode));
+      });
+    };
+
+    trigger.addEventListener("click", () => {
+      menu.hidden ? openMenu() : closeMenu();
+    });
+
+    options.forEach((option) => {
+      option.addEventListener("click", () => {
+        window.__setFutureObserverTheme?.(option.dataset.themeOption || "system");
+        sync();
+        closeMenu();
+      });
+    });
+
+    document.addEventListener("click", (event) => {
+      if (!switcher.contains(event.target)) closeMenu();
+    });
+
+    document.addEventListener("keydown", (event) => {
+      if (event.key === "Escape") closeMenu();
+    });
+
+    window.addEventListener("future-observer-theme-change", sync);
+    sync();
+  })();
+</script>  <main class="shell page-content page-content--full">  <article class="prose prose-narrow"> <p><a href="/algorithms/">← 动画算法</a></p> <p class="kicker">2026年10月27日 · 栈 · 字符串 · Java · 面试</p> <h1>字符串解码：用栈保存尚未完成的上一层</h1> <h2 id="题意和示例">题意和示例</h2>
+<p>输入一段压缩后的字符串，<code>k[内容]</code> 表示把内容重复 k 次。括号可以嵌套，括号外的普通字母直接保留，要求返回完整展开结果。</p>
+<ul>
+<li><code>3[a]2[bc]</code> → <code>aaabcbc</code>，两个重复块依次拼接。</li>
+<li><code>3[a2[c]]</code> → <code>accaccacc</code>，必须先解开里面的 <code>2[c]</code>。</li>
+<li><code>2[abc]3[cd]ef</code> → <code>abcabccdcdcdef</code>，末尾的 <code>ef</code> 不参与重复。</li>
+</ul>
+<p>原题保证输入合法：长度为 1～30，只含小写英文字母、数字和方括号；次数为 1～300，数字只表示次数；展开结果长度不超过 100000。因此这里不额外处理括号缺失、负数次数或非法字符。</p>
+<p><a href="https://leetcode.com/problems/decode-string/">原题链接</a></p>
+<h2 id="考查点">考查点</h2>
+<p>这题不是把数字后的几个字符复制一下，而是要区分每层括号的工作范围。</p>
+<ul>
+<li>遇到内层括号时，外层已经读到的前缀不能丢。</li>
+<li>每个左括号对应自己的重复次数，不能被内层数字覆盖。</li>
+<li>次数要按十进制累积，<code>12[a]</code> 不能当作重复两次。</li>
+<li>字符串构造有真实复制成本，不能只凭一次扫描就说时间是 O(n)。</li>
+</ul>
+<h2 id="java-代码">Java 代码</h2>
+<p>用两个 <code>Deque</code> 分别保存次数和上一层前缀。它们总是同时入栈、同时出栈。</p>
+<pre class="astro-code astro-code-themes github-light github-dark" style="--shiki-light:#24292e;--shiki-dark:#e1e4e8;--shiki-light-bg:#fff;--shiki-dark-bg:#24292e; overflow-x: auto;" tabindex="0" data-language="java"><code><span class="line"><span style="--shiki-light:#D73A49;--shiki-dark:#F97583">import</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8"> java.util.ArrayDeque;</span></span>
+<span class="line"><span style="--shiki-light:#D73A49;--shiki-dark:#F97583">import</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8"> java.util.Deque;</span></span>
+<span class="line"></span>
+<span class="line"><span style="--shiki-light:#D73A49;--shiki-dark:#F97583">class</span><span style="--shiki-light:#6F42C1;--shiki-dark:#B392F0"> Solution</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8"> {</span></span>
+<span class="line"><span style="--shiki-light:#D73A49;--shiki-dark:#F97583">    public</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8"> String </span><span style="--shiki-light:#6F42C1;--shiki-dark:#B392F0">decodeString</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8">(String </span><span style="--shiki-light:#E36209;--shiki-dark:#FFAB70">s</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8">) {</span></span>
+<span class="line"><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8">        Deque&#x3C;</span><span style="--shiki-light:#D73A49;--shiki-dark:#F97583">Integer</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8">> counts </span><span style="--shiki-light:#D73A49;--shiki-dark:#F97583">=</span><span style="--shiki-light:#D73A49;--shiki-dark:#F97583"> new</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8"> ArrayDeque&#x3C;>();</span></span>
+<span class="line"><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8">        Deque&#x3C;</span><span style="--shiki-light:#D73A49;--shiki-dark:#F97583">StringBuilder</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8">> prefixes </span><span style="--shiki-light:#D73A49;--shiki-dark:#F97583">=</span><span style="--shiki-light:#D73A49;--shiki-dark:#F97583"> new</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8"> ArrayDeque&#x3C;>();</span></span>
+<span class="line"><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8">        StringBuilder current </span><span style="--shiki-light:#D73A49;--shiki-dark:#F97583">=</span><span style="--shiki-light:#D73A49;--shiki-dark:#F97583"> new</span><span style="--shiki-light:#6F42C1;--shiki-dark:#B392F0"> StringBuilder</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8">();</span></span>
+<span class="line"><span style="--shiki-light:#D73A49;--shiki-dark:#F97583">        int</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8"> number </span><span style="--shiki-light:#D73A49;--shiki-dark:#F97583">=</span><span style="--shiki-light:#005CC5;--shiki-dark:#79B8FF"> 0</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8">;</span></span>
+<span class="line"></span>
+<span class="line"><span style="--shiki-light:#D73A49;--shiki-dark:#F97583">        for</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8"> (</span><span style="--shiki-light:#D73A49;--shiki-dark:#F97583">int</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8"> i </span><span style="--shiki-light:#D73A49;--shiki-dark:#F97583">=</span><span style="--shiki-light:#005CC5;--shiki-dark:#79B8FF"> 0</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8">; i </span><span style="--shiki-light:#D73A49;--shiki-dark:#F97583">&#x3C;</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8"> s.</span><span style="--shiki-light:#6F42C1;--shiki-dark:#B392F0">length</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8">(); i</span><span style="--shiki-light:#D73A49;--shiki-dark:#F97583">++</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8">) {</span></span>
+<span class="line"><span style="--shiki-light:#D73A49;--shiki-dark:#F97583">            char</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8"> ch </span><span style="--shiki-light:#D73A49;--shiki-dark:#F97583">=</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8"> s.</span><span style="--shiki-light:#6F42C1;--shiki-dark:#B392F0">charAt</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8">(i);</span></span>
+<span class="line"><span style="--shiki-light:#D73A49;--shiki-dark:#F97583">            if</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8"> (ch </span><span style="--shiki-light:#D73A49;--shiki-dark:#F97583">>=</span><span style="--shiki-light:#032F62;--shiki-dark:#9ECBFF"> '0'</span><span style="--shiki-light:#D73A49;--shiki-dark:#F97583"> &#x26;&#x26;</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8"> ch </span><span style="--shiki-light:#D73A49;--shiki-dark:#F97583">&#x3C;=</span><span style="--shiki-light:#032F62;--shiki-dark:#9ECBFF"> '9'</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8">) {</span></span>
+<span class="line"><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8">                number </span><span style="--shiki-light:#D73A49;--shiki-dark:#F97583">=</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8"> number </span><span style="--shiki-light:#D73A49;--shiki-dark:#F97583">*</span><span style="--shiki-light:#005CC5;--shiki-dark:#79B8FF"> 10</span><span style="--shiki-light:#D73A49;--shiki-dark:#F97583"> +</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8"> (ch </span><span style="--shiki-light:#D73A49;--shiki-dark:#F97583">-</span><span style="--shiki-light:#032F62;--shiki-dark:#9ECBFF"> '0'</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8">);</span></span>
+<span class="line"><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8">            } </span><span style="--shiki-light:#D73A49;--shiki-dark:#F97583">else</span><span style="--shiki-light:#D73A49;--shiki-dark:#F97583"> if</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8"> (ch </span><span style="--shiki-light:#D73A49;--shiki-dark:#F97583">==</span><span style="--shiki-light:#032F62;--shiki-dark:#9ECBFF"> '['</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8">) {</span></span>
+<span class="line"><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8">                counts.</span><span style="--shiki-light:#6F42C1;--shiki-dark:#B392F0">push</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8">(number);</span></span>
+<span class="line"><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8">                prefixes.</span><span style="--shiki-light:#6F42C1;--shiki-dark:#B392F0">push</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8">(current);</span></span>
+<span class="line"><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8">                current </span><span style="--shiki-light:#D73A49;--shiki-dark:#F97583">=</span><span style="--shiki-light:#D73A49;--shiki-dark:#F97583"> new</span><span style="--shiki-light:#6F42C1;--shiki-dark:#B392F0"> StringBuilder</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8">();</span></span>
+<span class="line"><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8">                number </span><span style="--shiki-light:#D73A49;--shiki-dark:#F97583">=</span><span style="--shiki-light:#005CC5;--shiki-dark:#79B8FF"> 0</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8">;</span></span>
+<span class="line"><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8">            } </span><span style="--shiki-light:#D73A49;--shiki-dark:#F97583">else</span><span style="--shiki-light:#D73A49;--shiki-dark:#F97583"> if</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8"> (ch </span><span style="--shiki-light:#D73A49;--shiki-dark:#F97583">==</span><span style="--shiki-light:#032F62;--shiki-dark:#9ECBFF"> ']'</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8">) {</span></span>
+<span class="line"><span style="--shiki-light:#D73A49;--shiki-dark:#F97583">                int</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8"> repeat </span><span style="--shiki-light:#D73A49;--shiki-dark:#F97583">=</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8"> counts.</span><span style="--shiki-light:#6F42C1;--shiki-dark:#B392F0">pop</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8">();</span></span>
+<span class="line"><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8">                StringBuilder parent </span><span style="--shiki-light:#D73A49;--shiki-dark:#F97583">=</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8"> prefixes.</span><span style="--shiki-light:#6F42C1;--shiki-dark:#B392F0">pop</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8">();</span></span>
+<span class="line"><span style="--shiki-light:#D73A49;--shiki-dark:#F97583">                for</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8"> (</span><span style="--shiki-light:#D73A49;--shiki-dark:#F97583">int</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8"> j </span><span style="--shiki-light:#D73A49;--shiki-dark:#F97583">=</span><span style="--shiki-light:#005CC5;--shiki-dark:#79B8FF"> 0</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8">; j </span><span style="--shiki-light:#D73A49;--shiki-dark:#F97583">&#x3C;</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8"> repeat; j</span><span style="--shiki-light:#D73A49;--shiki-dark:#F97583">++</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8">) {</span></span>
+<span class="line"><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8">                    parent.</span><span style="--shiki-light:#6F42C1;--shiki-dark:#B392F0">append</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8">(current);</span></span>
+<span class="line"><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8">                }</span></span>
+<span class="line"><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8">                current </span><span style="--shiki-light:#D73A49;--shiki-dark:#F97583">=</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8"> parent;</span></span>
+<span class="line"><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8">            } </span><span style="--shiki-light:#D73A49;--shiki-dark:#F97583">else</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8"> {</span></span>
+<span class="line"><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8">                current.</span><span style="--shiki-light:#6F42C1;--shiki-dark:#B392F0">append</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8">(ch);</span></span>
+<span class="line"><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8">            }</span></span>
+<span class="line"><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8">        }</span></span>
+<span class="line"><span style="--shiki-light:#D73A49;--shiki-dark:#F97583">        return</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8"> current.</span><span style="--shiki-light:#6F42C1;--shiki-dark:#B392F0">toString</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8">();</span></span>
+<span class="line"><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8">    }</span></span>
+<span class="line"><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8">}</span></span></code></pre>
+<h2 id="文字推导与正确性">文字推导与正确性</h2>
+<h3 id="为什么要把前缀也压栈">为什么要把前缀也压栈？</h3>
+<p>假设读到 <code>x2[a3[b]]</code> 的第二个左括号。此时 <code>a</code> 是外层片段的前缀，<code>x</code> 又属于更外面的一层。只记次数，等内部的 <code>bbb</code> 算完，就不知道该接到哪里。</p>
+<p>所以每次进入括号，都保存一份“回来以后继续做什么”：前缀对象和重复次数。随后用一个全新的 <code>StringBuilder</code> 处理括号内部，不能清空原对象，否则栈中保存的前缀也会被清掉。</p>
+<h3 id="四类字符对应四个动作">四类字符对应四个动作</h3>
+<p>数字累积到 <code>number</code>；左括号保存状态并清零；普通字母追加到当前片段；右括号将当前片段重复后，接回上一层。</p>
+<p>以 <code>3[a2[c]]</code> 为例：</p>
+<ol>
+<li>第一个左括号保存空前缀和次数 3，开始新的片段。</li>
+<li>读完 <code>a2</code>，第二个左括号保存前缀 <code>a</code> 和次数 2。</li>
+<li>内层右括号把 <code>c</code> 重复两次接到 <code>a</code> 后，当前片段变为 <code>acc</code>。</li>
+<li>外层右括号把 <code>acc</code> 重复三次接到空前缀后，得到答案。</li>
+</ol>
+<p>注意：括号右边还有内容时，扫描会继续，因此不应在第一次遇到右括号时直接返回。</p>
+<h3 id="为什么每次出栈都是对的">为什么每次出栈都是对的？</h3>
+<p>维持一个不变量：当前片段保存本层已经完成解码的内容；栈顶保存最近一层尚未恢复的外层状态。</p>
+<p>读字母只扩展本层。进入左括号时，本层状态被完整保存，新层从空串开始，不变量仍成立。遇到右括号时，内部嵌套已经先处理完，当前片段正是该括号内的解码结果；弹出对应次数和前缀，拼接得到上一层的正确结果。</p>
+<p>合法输入保证括号配对。扫描结束后，所有层都已恢复，当前片段就是整个字符串的解码结果。</p>
+<h2 id="复杂度和边界">复杂度和边界</h2>
+<p>设输入长度为 n，最终输出长度为 L，最大嵌套深度为 d。更精确地，令 C 为所有右括号展开时实际追加的字符总量。</p>
+<ul>
+<li>时间复杂度是 O(n + L + C)，包含扫描、逐层追加和最终 <code>toString()</code> 的复制。保守上界为 O(n + (d + 1)L)。</li>
+<li>空间复杂度是 O(n + L)，包含栈与字符串缓冲；不能只写 O(n)，因为展开结果可能远长于输入。</li>
+</ul>
+<p>为什么不直接写 O(n + L)？<code>1[1[abc]]</code> 即使每层只重复一次，<code>abc</code> 仍会被逐层复制；把较长片段放进更多这样的括号，复制成本会随深度增加。这里给出的是本实现的保守界，不是声称每个输入都会达到它。</p>
+<p>需要核对的边界：</p>
+<ul>
+<li><code>abc</code>：没有括号，直接返回原串。</li>
+<li><code>12[a]</code>：多位次数正确累积。</li>
+<li><code>a2[b]c</code>：前后普通字母都不能丢。</li>
+<li><code>2[a]3[b]</code>：进入下一块前，计数器已在左括号处清零。</li>
+<li><code>1[1[z]]</code>：重复一次也必须正确恢复层级。</li>
+<li><code>300[a]</code>：次数上界可用 <code>int</code> 保存；原题输出上界也避免了结果长度的整数溢出。若取消这些限制，需要另做长度与内存检查。</li>
+</ul>
+<h2 id="面试时忘记怎么办">面试时忘记怎么办？</h2>
+<p>先别背代码，拿 <code>x2[a3[b]]</code> 问自己：进入内部后，回来还需要哪些信息？答案只有两个：原来已经写好的前缀、当前括号的次数。</p>
+<p>接着写出四种字符的处理表：数字累积，左括号保存，字母追加，右括号恢复。最后用 <code>12[a]</code> 检查数字累积，用 <code>3[a2[c]]</code> 检查嵌套恢复。</p>
+<p>解释复杂度时补一句：“扫描是线性的，但片段会逐层复制，我会把展开长度和嵌套深度也计入成本。”这比只说“用了栈，所以 O(n)”准确。</p>
+<h2 id="一句话总结">一句话总结</h2>
+<p>进入括号先保存前缀和次数，离开括号再把内部结果接回去；栈保存的不是字符，而是尚未完成的上下文。</p> <p><a href="https://leetcode.com/problems/decode-string/" target="_blank" rel="noopener noreferrer">原题链接</a></p> </article>  </main> <footer class="site-footer"> <div class="shell footer-inner"> <p>© 2026 未来观察者</p> </div> </footer> </body></html>
