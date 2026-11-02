@@ -1,0 +1,20 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1100" height="470" viewBox="0 0 1100 470" role="img" aria-labelledby="title desc">
+<title id="title">Waymo年末运营12—15城：当前市场概率</title>
+<desc id="desc">Polymarket同一二元子市场，Yes 55.75%，No 44.25%。数据采集于2026年11月3日04:01 UTC+8。</desc>
+<rect width="1100" height="470" rx="20" fill="#101c30"/>
+<g font-family="sans-serif" fill="#f3f6ff">
+<text x="48" y="66" font-size="30" font-weight="bold">Waymo年末运营12—15城？</text>
+<text x="48" y="108" font-size="20" fill="#bccce2">截至2026-12-31公众可预约；仅邀请与内部测试不计</text>
+<text x="48" y="180" font-size="23">Yes</text>
+<rect x="145" y="151" width="650" height="44" rx="7" fill="#263953"/>
+<rect x="145" y="151" width="362.375" height="44" rx="7" fill="#3dd5ba"/>
+<text x="835" y="182" font-size="28">55.75%</text>
+<text x="48" y="260" font-size="23">No</text>
+<rect x="145" y="231" width="650" height="44" rx="7" fill="#263953"/>
+<rect x="145" y="231" width="287.625" height="44" rx="7" fill="#7aabff"/>
+<text x="835" y="262" font-size="28">44.25%</text>
+<text x="48" y="324" font-size="20">当前报价 ≠ 公司预测 ≠ 盈利概率</text>
+<text x="48" y="367" font-size="18" fill="#bccce2">采集：2026-11-03 04:01 Asia/Shanghai (UTC+8)</text>
+<a href="https://polymarket.com/event/how-many-cities-will-waymo-operate-in-by-december-31-20260626203648850"><text x="48" y="407" font-size="18" fill="#9bc6ff">来源：Polymarket · How many cities will Waymo operate in by December 31?</text></a>
+<text x="48" y="442" font-size="16" fill="#bccce2">作者：拾水木 · 原创数据图 · 同一子市场Yes / No，无历史趋势推断</text>
+</g></svg>
