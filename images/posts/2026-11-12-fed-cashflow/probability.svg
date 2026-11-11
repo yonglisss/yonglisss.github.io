@@ -1,0 +1,22 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1000" height="510" viewBox="0 0 1000 510">
+<rect width="1000" height="510" fill="#101827"/>
+<g font-family="sans-serif" fill="#f1f5f9">
+<text x="36" y="50" font-size="26">美联储12月决策：市场在定价什么？</text>
+<text x="36" y="122" font-size="22">降息≥50基点</text>
+<rect x="230" y="100" width="1.5" height="32" rx="5" fill="#38bdf8"/>
+<text x="246.5" y="123" font-size="22">0.25%</text>
+<text x="36" y="187" font-size="22">降息25基点</text>
+<rect x="230" y="165" width="2.1" height="32" rx="5" fill="#38bdf8"/>
+<text x="247.1" y="188" font-size="22">0.35%</text>
+<text x="36" y="252" font-size="22">不变</text>
+<rect x="230" y="230" width="17.7" height="32" rx="5" fill="#38bdf8"/>
+<text x="262.7" y="253" font-size="22">2.95%</text>
+<text x="36" y="317" font-size="22">加息25基点</text>
+<rect x="230" y="295" width="513.0" height="32" rx="5" fill="#38bdf8"/>
+<text x="758.0" y="318" font-size="22">85.50%</text>
+<text x="36" y="382" font-size="22">加息≥50基点</text>
+<rect x="230" y="360" width="63.900000000000006" height="32" rx="5" fill="#38bdf8"/>
+<text x="308.9" y="383" font-size="22">10.65%</text>
+<text x="36" y="449" font-size="18">采集：2026-11-12 04:01 UTC+8 · 各结果Yes价格，未归一化</text>
+<a href="https://polymarket.com/event/fed-decision-in-december-20260729232808632"><text x="36" y="482" font-size="16">来源：Polymarket / fed-decision-in-december-20260729232808632</text></a>
+</g></svg>
