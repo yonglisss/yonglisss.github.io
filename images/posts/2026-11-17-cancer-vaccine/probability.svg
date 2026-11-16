@@ -1,0 +1,9 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1100" height="380" viewBox="0 0 1100 380" role="img" aria-labelledby="title desc">
+<title id="title">个体化癌症疫苗：申报时间的市场定价</title><desc id="desc">截至2026年11月17日04时01分，中国标准时间。2027年6月30日前提交BLA的Yes概率83.5%，No概率16.5%。这是申报事件概率，不是获批或疗效概率。</desc>
+<rect width="1100" height="380" fill="#101b2d"/>
+<g font-family="sans-serif" fill="#f1f5f9"><text x="45" y="58" font-size="29">癌症疫苗：市场押注的是申报，不是获批</text><text x="45" y="101" font-size="20">intismeran autogene · 2027-06-30 前提交 BLA</text>
+<text x="45" y="166" font-size="23">Yes</text><rect x="135" y="137" width="751.5" height="42" rx="6" fill="#22c6a5"/><text x="909" y="166" font-size="26">83.5%</text>
+<text x="45" y="231" font-size="23">No</text><rect x="135" y="202" width="148.5" height="42" rx="6" fill="#7896c8"/><text x="308" y="231" font-size="26">16.5%</text>
+<text x="45" y="286" font-size="18">数据：Polymarket Gamma API · 2026-11-17 04:01 CST (UTC+08:00)</text>
+<text x="45" y="318" font-size="18">申报 ≠ 受理 ≠ 获批 ≠ 对个体有效</text>
+<a href="https://polymarket.com/event/skin-cancer-vaccine-bla-submitted-by-june-30-2027"><text x="45" y="352" font-size="14" fill="#9dbbe9">来源：https://polymarket.com/event/skin-cancer-vaccine-bla-submitted-by-june-30-2027</text></a></g></svg>
